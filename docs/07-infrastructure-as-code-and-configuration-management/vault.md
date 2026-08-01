@@ -23,6 +23,9 @@ logical secret intent, owner a consumer inventory
 
 ## 2. Exact secret subject
 
+Táto podsekcia definuje presný Ansible run, host alebo item subject. Názov alebo locator nestačí: subject musí niesť generation, authority a target identity potrebné na koreláciu reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome. Až complete per-host coverage, pravdivý result a runtime/business read-back ukáže, že ďalší command alebo YAML patrí správnemu objektu.
+
+
 ```yaml
 secretSubject:
   logicalId: payments-db/runtime-password
@@ -65,17 +68,13 @@ plaintext
 
 Oficiálna dokumentácia popisuje Vault ako mechanizmus na encryption variables/files, aby citlivý obsah nebol uložený ako plaintext. citeturn329472search23turn329472search26
 
-Nechráni automaticky:
 
-- controller memory;
-- temporary files;
-- rendered target files;
-- module arguments a registered results;
-- validator stderr;
-- callback/debug logs;
-- malicious collection/plugin s decryption accessom;
-- credential, ktorý unikol pred encryption;
-- starý target credential bez revocation.
+Execution contract zahŕňa controller memory, temporary files, rendered target files, module arguments a registered results, validator stderr a callback/debug logs.
+
+Ďalej sleduje malicious collection/plugin s decryption accessom, credential, ktorý unikol pred encryption a starý target credential bez revocation.
+
+Každý prvok sa viaže na exact run, host alebo item a následne na loaded runtime, nie iba na aggregate recap.
+
 
 ```text
 repository confidentiality
@@ -128,14 +127,11 @@ $ANSIBLE_VAULT;1.2;AES256;prod-database
 
 Vault ID je routing label pre password source. Nie je samostatná authorization policy ani secret identity.
 
-Vault domains sa navrhujú podľa:
 
-- environmentu;
-- ownera;
-- consumer scope-u;
-- rotation lifecycle-u;
-- blast radiusu;
-- decryption authorization.
+Execution contract zahŕňa environmentu, ownera, consumer scope-u, rotation lifecycle-u, blast radiusu a decryption authorization.
+
+Každý prvok sa viaže na exact run, host alebo item a následne na loaded runtime, nie iba na aggregate recap.
+
 
 Jeden password pre dev aj prod rozširuje production compromise boundary.
 
@@ -173,6 +169,9 @@ protected reviewed source revision
 `no_log` nezastaví malicious code, ktoré posiela secret cez network.
 
 ## 8. Plaintext path
+
+Secret lifecycle pokračuje po decryption aj po update source súboru. Plaintext môže existovať v controller memory, temporary files, module arguments, target files a active sessions; rekey preto nie je target credential rotation. Closure vyžaduje loaded consumer generation, provider-side revocation a forbidden test starého credentialu.
+
 
 ```text
 decryption source
@@ -223,7 +222,13 @@ Destination checksum preukazuje bytes, nie správnosť secretu ani loaded proces
 
 ## 10. Target credential rotation verzus Vault rekey
 
+Secret lifecycle pokračuje po decryption aj po update source súboru. Plaintext môže existovať v controller memory, temporary files, module arguments, target files a active sessions; rekey preto nie je target credential rotation. Closure vyžaduje loaded consumer generation, provider-side revocation a forbidden test starého credentialu.
+
+
 ### Vault rekey
+
+Secret lifecycle pokračuje po decryption aj po update source súboru. Plaintext môže existovať v controller memory, temporary files, module arguments, target files a active sessions; rekey preto nie je target credential rotation. Closure vyžaduje loaded consumer generation, provider-side revocation a forbidden test starého credentialu.
+
 
 ```bash
 ansible-vault rekey \
@@ -235,6 +240,9 @@ ansible-vault rekey \
 Mení encryption wrapper/password chrániaci ciphertext.
 
 ### Target credential rotation
+
+Secret lifecycle pokračuje po decryption aj po update source súboru. Plaintext môže existovať v controller memory, temporary files, module arguments, target files a active sessions; rekey preto nie je target credential rotation. Closure vyžaduje loaded consumer generation, provider-side revocation a forbidden test starého credentialu.
+
 
 ```text
 vytvor nový DB password epoch 02
@@ -248,6 +256,9 @@ Rekey kompromitovaný database password nezneplatní.
 
 ## 11. Worked incident: rekey namiesto rotation
 
+Incident sa rekonštruuje ako causal chain nad jedným Ansible run, host alebo item subject. Observations určujú prvý divergentný bod v reťazci resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 CI log obsahoval plaintext DB password. Tím zmenil iba Vault password.
 
 ```text
@@ -257,18 +268,18 @@ plaintext credential leaked
 → attacker stále autentizovaný
 ```
 
-Recovery:
 
-1. obmedziť access k logom;
-2. auditovať použitie leaked credentialu;
-3. vytvoriť nový target credential;
-4. aktualizovať consumers;
-5. overiť new auth;
-6. revoke-nuť old credential;
-7. otestovať old credential rejection;
-8. rekey Vault iba ak unikol aj Vault password.
+Recovery postupuje cez obmedziť access k logom, auditovať použitie leaked credentialu, vytvoriť nový target credential, aktualizovať consumers, overiť new auth a revoke-nuť old credential.
+
+Ďalej sleduje otestovať old credential rejection a rekey Vault iba ak unikol aj Vault password.
+
+Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
+
 
 ## 12. Consumer rollout
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```text
 create epoch 02
@@ -286,6 +297,9 @@ Niektoré systems povoľujú overlap dvoch credentials, iné potrebujú koordino
 
 ## 13. Runtime verification
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 ```yaml
 - name: Query loaded credential epoch
   ansible.builtin.uri:
@@ -300,6 +314,9 @@ Niektoré systems povoľujú overlap dvoch credentials, iné potrebujú koordino
 Runtime endpoint nesmie publikovať secret. Preukazuje process-reported epoch. DB authentication probe potvrdí functional use; old credential rejection potvrdí revocation.
 
 ## 14. Old credential revocation
+
+Secret lifecycle pokračuje po decryption aj po update source súboru. Plaintext môže existovať v controller memory, temporary files, module arguments, target files a active sessions; rekey preto nie je target credential rotation. Closure vyžaduje loaded consumer generation, provider-side revocation a forbidden test starého credentialu.
+
 
 Rotation verdict classes:
 
@@ -342,16 +359,16 @@ Validator pre secret-bearing artifact musí mať redacted failure contract. Pri 
 
 ## 17. Temporary files a cleanup
 
-Plaintext môže prežiť v:
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
-- controller temp;
-- remote temp;
-- backup file;
-- workspace;
-- diff artifact;
-- registered result;
-- fact cache;
-- crash dump.
+
+
+Execution contract zahŕňa controller temp, remote temp, backup file, workspace, diff artifact a registered result.
+
+Ďalej sleduje fact cache a crash dump.
+
+Každý prvok sa viaže na exact run, host alebo item a následne na loaded runtime, nie iba na aggregate recap.
+
 
 Cleanup verdict:
 
@@ -382,6 +399,9 @@ Custom lookup plugin je supply-chain dependency a potrebuje audit, version pinni
 
 ## 19. Competing hypotheses pri partial fleet rotation
 
+Hypotézy sú navzájom konkurenčné vysvetlenia rovnakého symptómu. Každá musí predpovedať konkrétny observation result a zároveň výsledok, ktorý ju oslabí; inak nejde o discriminating test. Dôkazy sa viažu na rovnaký Ansible run, host alebo item subject a finálny verdict potvrdí complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 ```text
 H1: hosts chýbali v target inventory
 H2: použili iný vault ID/password source
@@ -393,16 +413,16 @@ H7: second writer obnovil old file
 H8: verifier kontroluje file, nie process
 ```
 
-Dôkazy:
 
-- expected/resolved hosts H1;
-- Vault run metadata H2;
-- effective epoch manifest H3;
-- checksum/handler/process start H4/H5/H8;
-- database audit H6;
-- filesystem timeline H7.
+Discriminating evidence porovnáva expected/resolved hosts H1, Vault run metadata H2, effective epoch manifest H3, checksum/handler/process start H4/H5/H8, database audit H6 a filesystem timeline H7.
+
+Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
+
 
 ## 20. Evidence-preserving containment a recovery
+
+Containment zastaví ďalšie writers alebo batches a zachová volatile evidence; ešte nemení autoritatívny intent. Recovery opraví prvý chybný transition v reťazci resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome a každý krok read-backne pred ďalšou mutation. Closure nastane až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```text
 pause rollout/revocation
@@ -419,6 +439,9 @@ pause rollout/revocation
 Ak plaintext unikol, incident response a credential rotation sú povinné; masking po udalosti nestačí.
 
 ## 21. Acceptance a forbidden paths
+
+Acceptance uzatvára celý Ansible run, host alebo item subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```text
 logical secret ID/epoch/owner sú explicitné
@@ -438,21 +461,36 @@ logical secret ID/epoch/owner sú explicitné
 
 ### „Vault vyriešil secrets management“
 
+Secret lifecycle pokračuje po decryption aj po update source súboru. Plaintext môže existovať v controller memory, temporary files, module arguments, target files a active sessions; rekey preto nie je target credential rotation. Closure vyžaduje loaded consumer generation, provider-side revocation a forbidden test starého credentialu.
+
+
 Rieši storage encryption, nie celý lifecycle.
 
 ### „Rekey je rotation“
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 Mení wrapper key, nie target credential.
 
 ### „`no_log` zabráni všetkým leakom“
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 Nechráni malicious plugin, destination, validator ani memory.
 
 ### „Nový secret funguje, môžeme skončiť“
 
+Secret lifecycle pokračuje po decryption aj po update source súboru. Plaintext môže existovať v controller memory, temporary files, module arguments, target files a active sessions; rekey preto nie je target credential rotation. Closure vyžaduje loaded consumer generation, provider-side revocation a forbidden test starého credentialu.
+
+
 Old credential musí byť revoked a forbidden testom odmietnutý.
 
 ### „Vault password môže byť v image“
+
+Secret lifecycle pokračuje po decryption aj po update source súboru. Plaintext môže existovať v controller memory, temporary files, module arguments, target files a active sessions; rekey preto nie je target credential rotation. Closure vyžaduje loaded consumer generation, provider-side revocation a forbidden test starého credentialu.
+
 
 Iba presúva static secret do širšieho artifactu.
 

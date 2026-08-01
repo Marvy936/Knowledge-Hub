@@ -6,6 +6,9 @@ Kapitola uzatvára incident `IAC-PAY-75`. Atlas pipeline načíta prázdny alter
 
 ## 1. Dominantný address-to-outcome lifecycle
 
+Nasledujúci model opisuje prechody jedného Terraform configuration, state a remote-resource subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inputs a graph cez provider API mutation až po state binding a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 ```text
 configuration resource instance address
 → prior state binding a provider association
@@ -106,15 +109,13 @@ configuration C71
 → saved plan P209
 ```
 
-Ak plan navrhuje create, môže to znamenať:
 
-- objekt skutočne neexistuje;
-- state binding chýba;
-- načítal sa nesprávny backend/workspace;
-- address/key sa zmenila;
-- objekt vytvoril iný owner;
-- provider read objekt nevidí pre account/region/permission mismatch;
-- predchádzajúci remote create uspel, ale state write zlyhal.
+Terraform transition sleduje objekt skutočne neexistuje, state binding chýba, načítal sa nesprávny backend/workspace, address/key sa zmenila, objekt vytvoril iný owner a provider read objekt nevidí pre account/region/permission mismatch.
+
+Ďalej sleduje predchádzajúci remote create uspel, ale state write zlyhal.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Jeden plan symbol `+` nerozlišuje tieto mechanizmy.
 
@@ -160,14 +161,11 @@ state remote ID
 → refreshed state model
 ```
 
-Refresh môže odhaliť:
 
-- manuálne zmenený firewall rule;
-- objekt odstránený mimo Terraformu;
-- cloudom normalizovanú hodnotu;
-- attribute spravovaný iným controllerom;
-- eventual-consistency stav;
-- wrong-account alebo permission-induced „not found“.
+Terraform transition sleduje manuálne zmenený firewall rule, objekt odstránený mimo Terraformu, cloudom normalizovanú hodnotu, attribute spravovaný iným controllerom, eventual-consistency stav a wrong-account alebo permission-induced „not found“.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Refresh nevytvára nový desired intent. Plan až následne rozhoduje, či sa rozdiel vráti, prijme configuration change-om, deleguje ownershipom, importuje alebo rieši recovery.
 
@@ -252,20 +250,20 @@ Správna reakcia je freeze writers a remote reconciliation.
 
 Pri rozdiele medzi state a remote objektmi sa zastavia writers skôr, než ďalší refresh alebo apply prepíše volatile evidence. Zachová sa state snapshot, backend version ID, plan, provider request IDs a remote audit; až potom sa rozhoduje medzi restore, importom, moved transitionom alebo compensation.
 
-Pri unknown alebo state-write failure:
 
-1. zastav všetky pipelines nad daným backend subjectom;
-2. zachovaj saved plan, plan JSON, provider logs, request IDs a lokálny recovery snapshot;
-3. read-only načítaj latest backend state;
-4. over lineage a serial;
-5. read-only queryuj remote platformu v správnom account/region context-e;
-6. identifikuj actual objects a ich creation identities;
-7. rozhodni, či treba import, restore, compensation alebo cleanup;
-8. až potom vytvor nový plan.
+Recovery postupuje cez zastav všetky pipelines nad daným backend subjectom, zachovaj saved plan, plan JSON, provider logs, request IDs a lokálny recovery snapshot, read-only načítaj latest backend state, over lineage a serial, read-only queryuj remote platformu v správnom account/region context-e a identifikuj actual objects a ich creation identities.
+
+Ďalej sleduje rozhodni, či treba import, restore, compensation alebo cleanup a až potom vytvor nový plan.
+
+Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
+
 
 Containment nesmie začať destroyom objektu, kým nie je známe, či na ňom už závisí produkčný traffic alebo data.
 
 ## 10. State inspection commands
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 ```bash
 terraform state list
@@ -274,10 +272,11 @@ terraform output -json
 terraform show
 ```
 
-- `state list` preukazuje addresses v aktuálnom state subjecte.
-- `state show` preukazuje known binding a attributes jednej instance.
-- `output -json` preukazuje root outputs v snapshot-e.
-- `show` zobrazuje state alebo plan podľa argumentu.
+
+Terraform transition sleduje `state list` preukazuje addresses v aktuálnom state subjecte, `state show` preukazuje known binding a attributes jednej instance, `output -json` preukazuje root outputs v snapshot-e a `show` zobrazuje state alebo plan podľa argumentu.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Žiadny z týchto výstupov sám nepreukazuje live runtime health.
 
@@ -293,6 +292,9 @@ Preukazuje remote object visible danému callerovi v danom region context-e. Nep
 
 ## 11. State mutation commands menia management model
 
+Nasledujúci model opisuje prechody jedného Terraform configuration, state a remote-resource subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inputs a graph cez provider API mutation až po state binding a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 ```bash
 terraform state mv
 terraform state rm
@@ -305,6 +307,9 @@ Tieto príkazy nemusia meniť remote objekt. Práve preto sú nebezpečné: mô�
 
 ### `state mv`
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 ```bash
 terraform state mv \
   'aws_subnet.private[0]' \
@@ -314,6 +319,9 @@ terraform state mv \
 Presúva binding medzi addresses. Pre versionovaný refactor preferuj `moved` block, aby migration contract platil pre všetkých consumers.
 
 ### `state rm`
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 ```bash
 terraform state rm aws_s3_bucket.legacy
@@ -326,6 +334,9 @@ Odstráni binding, remote object zostane. Ak configuration block zostane, ďalš
 Manuálne prepíše backend state. Je to recovery nástroj poslednej možnosti. Vyžaduje backup, exclusive writer control, lineage/serial verifikáciu, peer review a následný refresh/plan.
 
 ## 12. State surgery protocol
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 ```text
 freeze writers
@@ -378,15 +389,16 @@ Detection vyžaduje inventory naprieč states a provider asset IDs, nie iba lok�
 
 ## 15. State boundaries a blast radius
 
-Jeden state zdieľa:
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
-- lock;
-- writer identity;
-- plan/apply lifecycle;
-- dependency graph;
-- recovery unit;
-- permission scope;
-- failure blast radius.
+
+
+Terraform transition sleduje lock, writer identity, plan/apply lifecycle, dependency graph, recovery unit a permission scope.
+
+Ďalej sleduje failure blast radius.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Boundary sa navrhuje podľa ownershipu, environmentu, security domainu, cadence, failure domainu a recovery nezávislosti.
 
@@ -435,14 +447,14 @@ Workspace output preukazuje selection v aktuálnom working directory. Nepreukazu
 
 ## 17. State obsahuje citlivé údaje
 
-State môže obsahovať:
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
-- passwords a tokens;
-- private keys;
-- connection strings;
-- provider-returned sensitive attributes;
-- internal endpoints;
-- resource IDs a topology.
+
+
+Terraform transition sleduje passwords a tokens, private keys, connection strings, provider-returned sensitive attributes, internal endpoints a resource IDs a topology.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 `sensitive = true` obmedzuje presentation, nie storage. Backend a recovery copies potrebujú encryption, narrow access, audit, versioning, retention a deletion lifecycle.
 
@@ -505,6 +517,9 @@ Backend/key audit testuje H1, version history H2, address diff H3, cloud request
 
 ## 21. Authoritative recovery incidentu `IAC-PAY-75`
 
+Incident sa rekonštruuje ako causal chain nad jedným Terraform configuration, state a remote-resource subject. Observations určujú prvý divergentný bod v reťazci resolved inputs a graph cez provider API mutation až po state binding; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 Atlas zistil, že orphaned VPC vznikla v `eu-west-1` a autoritatívna VPC zostala v `eu-central-1`.
 
 Recovery:
@@ -538,9 +553,15 @@ jeden intended VPC object
 
 ### „State je cache, môžeme ho zmazať a znovu objaviť“
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 State obsahuje ownership bindings, ktoré remote discovery nemusí jednoznačne obnoviť.
 
 ### „Failed apply nič nezmenil“
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 Remote mutation a state commit sú oddelené failure boundaries.
 

@@ -47,6 +47,9 @@ pozoruje relevantný current state
 
 ## 3. Task ako per-host invocation
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 ```yaml
 - name: Render Atlas configuration
   ansible.builtin.template:
@@ -156,19 +159,20 @@ Review subject obsahuje resolved host manifest aj effective play policy. Rovnak�
     - atlas.payments.runtime
 ```
 
-Play určuje:
 
-- host pattern;
-- fact gathering;
-- connection/privilege;
-- strategy a batch;
-- variables a roles;
-- pre/tasks/post/handlers;
-- failure thresholds.
+Execution contract zahŕňa host pattern, fact gathering, connection/privilege, strategy a batch, variables a roles a pre/tasks/post/handlers.
+
+Ďalej sleduje failure thresholds.
+
+Každý prvok sa viaže na exact run, host alebo item a následne na loaded runtime, nie iba na aggregate recap.
+
 
 `serial: 2` obmedzí batch, ale nevytvorí automaticky health gate. Post-task alebo orchestration logic musí potvrdiť, že batch je safe pred pokračovaním.
 
 ## 7. Playbook ako orchestration medzi capabilities
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```yaml
 - name: Validate database compatibility
@@ -186,6 +190,9 @@ Play určuje:
 Playbook má vyjadrovať orchestration. Reusable detailed implementation patrí do roles/collections. Monolitický playbook s hundreds tasks skrýva ownership, dependencies a support boundaries.
 
 ## 8. Kompletný rolling example
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```yaml
 - name: Roll out Atlas Payments configuration
@@ -266,6 +273,9 @@ Production evidence má vedieť, ktorý dynamic path sa pre každý host skutoč
 
 ## 10. Blocks, rescue a always
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 ```yaml
 - name: Update one host safely
   block:
@@ -300,6 +310,9 @@ Production evidence má vedieť, ktorý dynamic path sa pre každý host skutoč
 
 ## 11. Tags ako selection, nie dependency graph
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 ```bash
 ansible-playbook site.yml --tags config
 ```
@@ -316,6 +329,9 @@ tag subset
 Podporované tag paths potrebujú vlastné tests. Tags nesmú byť ad-hoc alternatívou k complete workflowu.
 
 ## 12. `run_once` nie je distributed lock
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```yaml
 - name: Run shared schema migration
@@ -346,13 +362,11 @@ External controller je vhodný, keď shared object potrebuje vlastný reconcilia
 
 Dvanásť inventory hosts vytvorí dvanásť delegated task instances. Ak všetky menia jeden load-balancer listener, môžu konfliktovať.
 
-Riešenia:
 
-- host-specific idempotent member operation;
-- aggregation do jednej reviewed manifest mutation;
-- `throttle` alebo serializácia;
-- samostatný orchestration play;
-- external controller.
+Execution contract zahŕňa host-specific idempotent member operation, aggregation do jednej reviewed manifest mutation, `throttle` alebo serializácia, samostatný orchestration play a external controller.
+
+Každý prvok sa viaže na exact run, host alebo item a následne na loaded runtime, nie iba na aggregate recap.
+
 
 ## 14. Handler semantics a explicitný flush
 
@@ -414,13 +428,11 @@ H7: service číta iný config path
 H8: hosts neboli v target inventory
 ```
 
-Dôkazy:
 
-- per-host events a task path H1/H2/H5;
-- file checksum, result a notification H3/H4;
-- process start time a runtime endpoint H4/H7;
-- exact host verifier manifest H6;
-- expected/resolved inventory H8.
+Discriminating evidence porovnáva per-host events a task path H1/H2/H5, file checksum, result a notification H3/H4, process start time a runtime endpoint H4/H7, exact host verifier manifest H6 a expected/resolved inventory H8.
+
+Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
+
 
 ## 18. Evidence-preserving containment a recovery
 
@@ -430,15 +442,13 @@ Recovery je najmenšia operation, ktorá uzavrie konkrétny host transition: dok
 
 Full-fleet business journey a second complete converge run dokazujú, že targeted recovery nevytvorila alternate workflow a že všetky expected hosts dosiahli rovnaký successor subject.
 
-1. pozastaviť ďalšie batches;
-2. zachovať run events, target manifest, vars fingerprints a file checksums;
-3. odstrániť unverified hosts z trafficu;
-4. klasifikovať skipped, false-changed, handler-failed a partial-rescue hosts;
-5. vykonať najmenší reviewed recovery per host;
-6. overiť loaded config/version a local health;
-7. vrátiť host do trafficu až po LB health;
-8. vykonať fleet-level business journey;
-9. spustiť complete second converge run.
+
+Recovery postupuje cez pozastaviť ďalšie batches, zachovať run events, target manifest, vars fingerprints a file checksums, odstrániť unverified hosts z trafficu, klasifikovať skipped, false-changed, handler-failed a partial-rescue hosts, vykonať najmenší reviewed recovery per host a overiť loaded config/version a local health.
+
+Ďalej sleduje vrátiť host do trafficu až po LB health, vykonať fleet-level business journey a spustiť complete second converge run.
+
+Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
+
 
 ## 19. Acceptance a forbidden paths
 
@@ -463,14 +473,11 @@ module/collection identity je pinned
 + second full run converguje bez mutation
 ```
 
-Forbidden tests:
 
-- `--tags config` bez prerequisite;
-- false `changed_when` pri mutation;
-- delegated staging identity;
-- handler failure po file change;
-- rescue branch interpretovaný ako pass;
-- `run_once` migration v batched flow bez locku.
+Acceptance matrix pokrýva `--tags config` bez prerequisite, false `changed_when` pri mutation, delegated staging identity, handler failure po file change, rescue branch interpretovaný ako pass a `run_once` migration v batched flow bez locku.
+
+Paths sa vyhodnocujú oddelene, aby positive success nezakryl porušenú security, ownership alebo recovery hranicu.
+
 
 ## 20. Kontrolné otázky
 

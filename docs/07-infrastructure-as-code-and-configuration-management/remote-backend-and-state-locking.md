@@ -22,12 +22,11 @@ writer identity a intended state subject
 → versioning, restore a recovery closure
 ```
 
-Backend musí odpovedať na štyri otázky:
 
-1. **Ktorý state subject čítame a zapisujeme?**
-2. **Kto je aktuálny writer a má exkluzívne oprávnenie?**
-3. **Ktorý snapshot je authoritative predecessor?**
-4. **Bol successor snapshot určite commitnutý, určite necommitnutý alebo je outcome neznámy?**
+Terraform transition sleduje Ktorý state subject čítame a zapisujeme?, Kto je aktuálny writer a má exkluzívne oprávnenie?, Ktorý snapshot je authoritative predecessor? a Bol successor snapshot určite commitnutý, určite necommitnutý alebo je outcome neznámy?.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 ## 2. Backend verzus provider
 
@@ -108,6 +107,9 @@ backendInitialization:
 
 ## 5. Lock ako writer lease
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 Terraform pri podporovanom backende automaticky lockuje operácie, ktoré môžu zapisovať state. Lock logicky chráni critical section:
 
 ```text
@@ -118,14 +120,11 @@ acquire
 → release
 ```
 
-Lock metadata má umožniť identifikovať:
 
-- backend/state subject;
-- ownera alebo run ID;
-- operation type;
-- acquisition time;
-- lock ID alebo lease token;
-- miesto executionu.
+Terraform transition sleduje backend/state subject, ownera alebo run ID, operation type, acquisition time, lock ID alebo lease token a miesto executionu.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Lock nepreukazuje, že writer vybral správny backend. Nechráni ani remote object pred iným state-om, ručným cloud zásahom alebo externým controllerom.
 
@@ -143,6 +142,9 @@ one environment/state subject
 Bez queue sa veľa jobs preteká o lock, approvals starnú a operátori sú motivovaní lock vypínať. `-lock=false` nie je performance tuning. Odstraňuje ochranu pred concurrent state writers a vyžaduje nezávisle preukázaný exclusive access.
 
 ## 7. Multi-writer race nad jedným state-om
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 ```text
 writer A číta serial 208
@@ -179,15 +181,16 @@ oba mutujú rovnaký cloud account/resources
 
 Každý writer má platný lock, pretože locks sú nad odlišnými subjects. Locking systém funguje správne a napriek tomu nedokáže zabrániť ownership konfliktu.
 
-Detection vyžaduje:
 
-- canonical backend registry;
-- pipeline search pre staré keys/endpoints;
-- cloud audit correlation podľa writer identity;
-- inventory remote IDs naprieč states;
-- explicitné zneplatnenie source backend write pathu po migrácii.
+Terraform transition sleduje canonical backend registry, pipeline search pre staré keys/endpoints, cloud audit correlation podľa writer identity, inventory remote IDs naprieč states a explicitné zneplatnenie source backend write pathu po migrácii.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 ## 9. Force unlock neukončuje writera
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 ```bash
 terraform force-unlock LOCK_ID
@@ -260,6 +263,9 @@ nepridávať druhého writera
 Slepý retry môže prepísať novší state alebo zopakovať remote side effect.
 
 ## 12. Praktický backend identity gate
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 ```bash
 set -euo pipefail
@@ -403,17 +409,18 @@ H6: requesting job inicializoval nesprávny key
 H7: lock read je stale alebo throttled
 ```
 
-Diskriminačné evidence:
 
-- process/run inventory pre H1/H2;
-- lock owner, ID a timestamp pre H1–H3;
-- authorization audit pre H4;
-- backend telemetry pre H5/H7;
-- backend manifest, lineage a key pre H6.
+Discriminating evidence porovnáva process/run inventory pre H1/H2, lock owner, ID a timestamp pre H1–H3, authorization audit pre H4, backend telemetry pre H5/H7 a backend manifest, lineage a key pre H6.
+
+Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
+
 
 Force unlock sa použije až po potvrdení H3 a vylúčení aktívneho writera.
 
 ## 21. Acceptance a forbidden paths
+
+Acceptance uzatvára celý Terraform configuration, state a remote-resource subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 Backend blok je prijatý, keď:
 
@@ -434,6 +441,9 @@ canonical backend endpoint/key/workspace sú explicitné
 
 ### „Remote state automaticky znamená locking“
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 Locking support závisí od backendu a configuration.
 
 ### „Mám lock, takže som jediný owner“
@@ -442,13 +452,22 @@ Lock chráni iba jeden state subject. Iný backend/state môže meniť rovnaký 
 
 ### „Force unlock je bezpečný, keď job zmizol z UI“
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 Wrapper job a Terraform/provider process môžu mať rozdielny lifecycle.
 
 ### „Migrácia skončila po úspešnom copy“
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 Musí sa zavrieť starý write path a overiť bindings, plan a remote ownership.
 
 ### „Versioning v rovnakom bucket-e je kompletný backup“
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 Nechráni pred všetkými compromise, deletion a key-loss scenármi.
 

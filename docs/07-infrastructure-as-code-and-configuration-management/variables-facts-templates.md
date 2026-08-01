@@ -6,6 +6,9 @@ Kapitola pokračuje incidentom `IAC-PAY-78`. Atlas Payments renderuje `/etc/atla
 
 ## 1. Dominantný intent-to-loaded-artifact lifecycle
 
+Nasledujúci model opisuje prechody jedného Ansible run, host alebo item subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 ```text
 declared variable contracts a allowed sources
 → precedence a per-host flattening
@@ -23,6 +26,9 @@ declared variable contracts a allowed sources
 Ansible variable precedence určí, ktorá definition vyhrá. Neurčí, či zdroj je architektonicky správny. Oficiálna dokumentácia odporúča definovať value na jednom zrozumiteľnom mieste namiesto spoliehania sa na komplikovanú precedence. citeturn329472search2turn329472search6
 
 ## 2. Exact host configuration subject
+
+Táto podsekcia definuje presný Ansible run, host alebo item subject. Názov alebo locator nestačí: subject musí niesť generation, authority a target identity potrebné na koreláciu reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome. Až complete per-host coverage, pravdivý result a runtime/business read-back ukáže, že ďalší command alebo YAML patrí správnemu objektu.
+
 
 ```yaml
 hostConfigurationSubject:
@@ -52,6 +58,9 @@ hostConfigurationSubject:
 Manifest nesmie obsahovať secret values. Má obsahovať identity, source classes, allowed non-secret values alebo fingerprints, aby sa artifact dal reprodukovať a auditovať.
 
 ## 3. Variable contract
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 Pre každú významnú variable definuj:
 
@@ -99,6 +108,9 @@ one critical value
 
 ## 5. Preflight validation pred side effects
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 ```yaml
 - name: Validate Atlas configuration contract
   ansible.builtin.assert:
@@ -116,6 +128,9 @@ one critical value
 `assert` preukazuje, že current effective values spĺňajú expressions v tomto task context-e. Nepreukazuje, že endpoint existuje, je správna database identity alebo že secret/access policy funguje.
 
 ## 6. Redacted effective-value manifest
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```yaml
 - name: Build non-secret effective-value manifest
@@ -156,6 +171,9 @@ Fact nie je desired state ani immutable asset identity. Má observation time, co
 
 ## 8. Fact cache a freshness contract
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 ```yaml
 factCacheSubject:
   backend: redis-ansible-facts
@@ -193,6 +211,9 @@ Recovery invaliduje cache, gather-ne fresh facts, overí package/file partial st
 
 ## 10. Registered values
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 ```yaml
 - name: Read current runtime metadata
   ansible.builtin.command:
@@ -209,6 +230,9 @@ Recovery invaliduje cache, gather-ne fresh facts, overí package/file partial st
 Registered result schema sa líši pri success, skip a failure. Condition nesmie slepo čítať nested field bez testu `is defined`.
 
 ## 11. `set_fact` a derived values
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```yaml
 - name: Derive bounded worker count
@@ -239,6 +263,9 @@ alebo controlled service-discovery lookup s identity, version a failure semantic
 
 ## 13. Deterministic template rendering
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
+
 ```jinja2
 # managed by Ansible
 release: {{ atlas_release_version | to_json }}
@@ -260,6 +287,9 @@ Render závisí od template source, Jinja/filters, values, facts a lookups. Coll
 Nedeterministické values ako `now()`, random alebo unordered serialization spôsobujú perpetual `changed` a handler churn.
 
 ## 14. Template task a validation
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```yaml
 - name: Render validated Atlas configuration
@@ -288,6 +318,9 @@ render temporary file
 Validation preukazuje parser/domain checks implementované command-om. Nepreukazuje loaded process state ani downstream connectivity.
 
 ## 15. Rendered artifact checksum
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```yaml
 - name: Read rendered configuration checksum
@@ -328,16 +361,16 @@ inventory production endpoint
 → process sa pripojí do staging database
 ```
 
-Parser validation neoverila environment identity. Recovery:
 
-1. odobrať hosts z trafficu;
-2. zachovať job extra-var metadata a rendered files;
-3. auditovať cross-environment data access;
-4. odstrániť stale override;
-5. pridať production endpoint assertion a allowed source policy;
-6. re-render/restart/verify.
+Recovery postupuje cez odobrať hosts z trafficu, zachovať job extra-var metadata a rendered files, auditovať cross-environment data access, odstrániť stale override, pridať production endpoint assertion a allowed source policy a re-render/restart/verify.
+
+Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
+
 
 ## 17. Worked failure: timestamp spôsobí restart loop
+
+Incident sa rekonštruuje ako causal chain nad jedným Ansible run, host alebo item subject. Observations určujú prvý divergentný bod v reťazci resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```jinja2
 generated_at: {{ now(utc=true).isoformat() }}
@@ -370,6 +403,9 @@ Timestamp patrí do evidence manifestu alebo commentu, ktorý nie je súčasť f
 Secret lifecycle potrebuje short-lived acquisition, minimum scope, file permissions, diff suppression, process reload, revocation a audit. Exposed credential sa rotuje u authority; pridanie `no_log` spätne exposure neodstráni.
 
 ## 19. Loaded artifact verification
+
+Uložený artifact a loaded runtime sú dve odlišné generations. Notification iba zaradí handler; až handler result, process start/version a endpoint dokazujú, že nová konfigurácia bola načítaná. Host sa považuje za converged až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 
 ```yaml
 - name: Query loaded runtime configuration
@@ -406,14 +442,11 @@ H7: process číta iný destination
 H8: second writer zmenil file po run-e
 ```
 
-Dôkazy:
 
-- inventory host/group output H1/H3;
-- controller job metadata H2;
-- fact timestamps H4;
-- lookup audit H5/H6;
-- file checksum/process command line/runtime endpoint H7;
-- filesystem audit timeline H8.
+Discriminating evidence porovnáva inventory host/group output H1/H3, controller job metadata H2, fact timestamps H4, lookup audit H5/H6, file checksum/process command line/runtime endpoint H7 a filesystem audit timeline H8.
+
+Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
+
 
 ## 21. Recovery a acceptance
 

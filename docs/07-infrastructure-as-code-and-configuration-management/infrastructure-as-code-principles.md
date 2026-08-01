@@ -254,14 +254,11 @@ Module boundary je odlišná: organizuje reusable code a interface, ale jeho res
 
 Atlas oddeľuje network, shared data platform a application runtime vtedy, keď majú rozdielne ownership, security domain, cadence alebo recovery objective. Príliš veľký state vyžaduje široké permissions, predlžuje lock a zväčšuje recovery unit. Príliš malé states vytvárajú implicitné cross-state dependencies a stale outputs. Boundary je teda architecture decision nad couplingom a failure domainom, nie stylistické rozdelenie adresárov.
 
-Jeden Terraform state zdieľa:
 
-- lock a writer queue;
-- apply identity a permissions;
-- plan/recovery lifecycle;
-- dependency graph;
-- incident blast radius;
-- backup a restore unit.
+Contract eviduje lock a writer queue, apply identity a permissions, plan/recovery lifecycle, dependency graph, incident blast radius a backup a restore unit.
+
+Všetky prvky patria jednej generation a authority boundary; chýbajúci prvok robí verdict neúplným.
+
 
 Samostatný module nie je automaticky samostatný state. Module je code/interface boundary. State boundary vzniká samostatným root module, backend subjectom a execution lifecycle-om.
 
@@ -312,13 +309,11 @@ správny source revision
 → job skončí failed bez bindingu
 ```
 
-Všetky lokálne signály mohli zavádzať:
 
-- HCL bolo validné;
-- credentials boli platné;
-- plan neobsahoval destroy;
-- cloud create uspel;
-- pipeline skončila failed, takže operátor predpokladal, že sa nič nevytvorilo.
+Recovery postupuje cez HCL bolo validné, credentials boli platné, plan neobsahoval destroy, cloud create uspel a pipeline skončila failed, takže operátor predpokladal, že sa nič nevytvorilo.
+
+Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
+
 
 Skutočný root cause bol nesprávny IaC subject a neuzavretý state transition.
 
@@ -359,17 +354,13 @@ Ak remote objekt vznikol a intended configuration ho má vlastniť, vytvorí sa 
 
 Po oprave sa vytvorí nový plan nad autoritatívnym backendom a exact provider targetom. Acceptance vyžaduje očakávaný remote object, správny state binding, runtime capability, forbidden duplicate/wrong-region path a druhý no-op plan. Recovery je uzavretá až vtedy, keď nová operation prežije nový state serial bez ad-hoc patchu.
 
-Atlas recovery postupuje bez okamžitého destroy:
 
-1. zastaví všetky applies nad oboma candidate backend keys;
-2. zachová plan, state snapshots, provider logs a cloud audit request IDs;
-3. identifikuje správnu produkčnú VPC podľa accountu, regionu, CIDR, routes a runtime trafficu;
-4. identifikuje orphaned VPC vytvorenú chybným runom;
-5. obnoví správny backend configuration a state lineage;
-6. podľa remote reality vykoná import alebo kontrolovaný cleanup orphanu;
-7. vytvorí nový saved plan nad správnym subjectom;
-8. overí network path a kritickú payment journey;
-9. spustí druhý plan a zakázaný alternate-backend test.
+Recovery postupuje cez zastaví všetky applies nad oboma candidate backend keys, zachová plan, state snapshots, provider logs a cloud audit request IDs, identifikuje správnu produkčnú VPC podľa accountu, regionu, CIDR, routes a runtime trafficu, identifikuje orphaned VPC vytvorenú chybným runom, obnoví správny backend configuration a state lineage a podľa remote reality vykoná import alebo kontrolovaný cleanup orphanu.
+
+Ďalej sleduje vytvorí nový saved plan nad správnym subjectom, overí network path a kritickú payment journey a spustí druhý plan a zakázaný alternate-backend test.
+
+Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
+
 
 Acceptance nie je iba `terraform plan = no changes`. Zahŕňa:
 

@@ -6,6 +6,9 @@ Kapitola pokračuje incidentom `IAC-PAY-75`. Atlas Payments volá module `servic
 
 ## 1. Dominantný caller-to-consumer lifecycle
 
+Nasledujúci model opisuje prechody jedného Terraform configuration, state a remote-resource subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inputs a graph cez provider API mutation až po state binding a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 ```text
 caller intent
 → variable declaration a type contract
@@ -19,11 +22,9 @@ caller intent
 → versioning, deprecation a migration
 ```
 
-Tri konštrukcie majú odlišnú autoritu:
 
-- **Input variable** je explicitné API modulu.
-- **Local value** je interná implementácia, ktorú caller nemôže override-nuť.
-- **Output value** je publikované API smerom von.
+Input variable je explicitné API modulu. Local value je interná implementácia, ktorú caller nemôže override-nuť. Output value je publikované API smerom von.
+
 
 Dôveryhodnosť nevzniká iba z typu. Potrebujeme poznať aj source hodnoty, precedence, semantic meaning, effect na identity a risk a spôsob, akým sa hodnota dostane do downstream systému.
 
@@ -139,13 +140,11 @@ variable "replicas" {
 
 Shared module nemá používať development convenience ako production default. Ak `replicas` vyjadruje capacity a availability intent, chýbajúca hodnota má zlyhať pri plan-e.
 
-Default je bezpečný vtedy, keď:
 
-- má rovnaký význam pre všetkých supported callers;
-- neoslabuje security, availability ani compliance;
-- nemení resource identity neočakávaným spôsobom;
-- je pokrytý contract testami;
-- jeho zmena má explicitnú compatibility policy.
+Terraform transition sleduje má rovnaký význam pre všetkých supported callers, neoslabuje security, availability ani compliance, nemení resource identity neočakávaným spôsobom, je pokrytý contract testami a jeho zmena má explicitnú compatibility policy.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 ## 5. Optional attributes a state-space risk
 
@@ -203,6 +202,9 @@ null
 Prázdna mapa, prázdny list a `null` majú odlišný graph effect. Prázdna mapa pri `for_each` znamená nula instances; `null` môže byť pre `for_each` neplatný.
 
 ## 7. Validation chráni domain invariant
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 ```hcl
 variable "image_digest" {
@@ -324,12 +326,11 @@ variable "bootstrap_token" {
 
 `sensitive = true` obmedzuje bežné CLI zobrazenie pri propagácii hodnoty. Neznamená:
 
-- že hodnota nebude v state alebo plan-e;
-- že provider ju nezaloguje;
-- že job memory/filesystem je bezpečný;
-- že `terraform output -raw` ju nevydá oprávnenému callerovi;
-- že credential je krátkodobý;
-- že exposure vyvolá provider-side revocation.
+
+Terraform transition sleduje že hodnota nebude v state alebo plan-e, že provider ju nezaloguje, že job memory/filesystem je bezpečný, že `terraform output -raw` ju nevydá oprávnenému callerovi, že credential je krátkodobý a že exposure vyvolá provider-side revocation.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Preferovaný model je posielať referenciu:
 
@@ -386,13 +387,11 @@ locals {
 }
 ```
 
-Locals sú vhodné pre:
 
-- canonical naming;
-- opakované expressions;
-- normalizáciu collections;
-- derived tags;
-- compatibility adapter medzi starým a novým input shape-om.
+Terraform transition sleduje canonical naming, opakované expressions, normalizáciu collections, derived tags a compatibility adapter medzi starým a novým input shape-om.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Local nemá skrývať business decision tree, ktorý reviewer nevie vysvetliť. Ak local obsahuje veľa nested conditionals a mení počet/identity resources, potrebuje samostatný contract test alebo menší module boundary.
 
@@ -494,22 +493,19 @@ Premenovanie inputu/outputu, zmena type constraintu, default alebo `null` semant
 
 Version label je iba deklarácia autora. Dôkaz compatibility poskytuje consumer upgrade plan nad reprezentatívnym existing state-om, forbidden fixtures a druhý no-op plan. Support contract musí povedať, z ktorých verzií je upgrade podporovaný a aká migration je potrebná.
 
-Backward-compatible zmeny typicky zahŕňajú:
 
-- nový optional input s bezpečným defaultom;
-- nový output;
-- nový optional object field;
-- internú local transformáciu bez zmeny external semantics.
+Compatibility review sleduje nový optional input s bezpečným defaultom, nový output, nový optional object field a internú local transformáciu bez zmeny external semantics.
 
-Breaking alebo risky zmeny zahŕňajú:
+Každá zmena sa posudzuje nad existujúcim consumer state-om, pretože syntakticky platný upgrade môže meniť identity alebo behavior.
 
-- premenovanie inputu/outputu;
-- zmenu type constraint;
-- zmenu default alebo `null` semantics;
-- zmenu collection keys;
-- zmenu sensitive behavioru;
-- odstránenie outputu;
-- zmenu z immutable digestu na mutable tag.
+
+
+Compatibility review sleduje premenovanie inputu/outputu, zmenu type constraint, zmenu default alebo `null` semantics, zmenu collection keys, zmenu sensitive behavioru a odstránenie outputu.
+
+Ďalej sleduje zmenu z immutable digestu na mutable tag.
+
+Každá zmena sa posudzuje nad existujúcim consumer state-om, pretože syntakticky platný upgrade môže meniť identity alebo behavior.
+
 
 Module release potrebuje upgrade test nad existujúcim state-om, nie iba clean apply novej verzie.
 

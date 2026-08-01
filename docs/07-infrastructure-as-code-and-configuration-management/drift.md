@@ -38,12 +38,11 @@ authoritative configuration a ownership contract
 
 Drift detector vytvára evidence. Nevytvára automaticky remediation verdict. Pred rozhodnutím musí byť jasné:
 
-- ktorý environment, backend, lineage a serial sa porovnávali;
-- ktorý resource address a remote ID tvoria subject;
-- ktorý writer zmenu vykonal;
-- či zmena bola autorizovaná a časovo obmedzená;
-- ktorá vrstva je authoritative pre konkrétny atribút;
-- či remediation môže meniť data, availability alebo incident containment.
+
+Terraform transition sleduje ktorý environment, backend, lineage a serial sa porovnávali, ktorý resource address a remote ID tvoria subject, ktorý writer zmenu vykonal, či zmena bola autorizovaná a časovo obmedzená, ktorá vrstva je authoritative pre konkrétny atribút a či remediation môže meniť data, availability alebo incident containment.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 ## 2. Exact drift detection subject
 
@@ -74,6 +73,9 @@ driftDetectionSubject:
 Bez subjectu môže `0 changes` znamenať iba to, že job úspešne preskenoval stage workspace alebo prázdny alternate backend. Expected critical-address inventory je dôležitý, pretože plan nad nesprávnym state-om môže byť technicky úspešný a zároveň úplne nerelevantný.
 
 ## 3. Desired, known a actual state
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 ```text
 desired
@@ -149,9 +151,15 @@ State address, provider association alebo remote ID nezodpovedajú current owner
 
 ### Provider interpretation drift
 
+Rovnaký diff môže reprezentovať unauthorized drift, expiring incident override, delegated ownership, provider normalization alebo lost binding. Najprv sa určí writer, authority, attribute owner a exact state/remote subject; až potom možno bezpečne zvoliť revert, adoption alebo recovery.
+
+
 Nová provider verzia alebo API normalization interpretuje rovnaký remote object odlišne a vytvára perpetual diff alebo replacement.
 
 ### Dependency drift
+
+Rovnaký diff môže reprezentovať unauthorized drift, expiring incident override, delegated ownership, provider normalization alebo lost binding. Najprv sa určí writer, authority, attribute owner a exact state/remote subject; až potom možno bezpečne zvoliť revert, adoption alebo recovery.
+
 
 Mutable data source, image tag, policy package alebo external catalog zmení resolved input bez source diffu.
 
@@ -214,6 +222,9 @@ Plan JSON poskytuje machine-readable before/after/actions pre exact saved plan. 
 
 ## 8. Worked incident: automatic revert odstránil containment
 
+Incident sa rekonštruuje ako causal chain nad jedným Terraform configuration, state a remote-resource subject. Observations určujú prvý divergentný bod v reťazci resolved inputs a graph cez provider API mutation až po state binding; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 Incidentný workflow:
 
 ```text
@@ -266,6 +277,9 @@ emergencyOverride:
 Metadata v tagoch môže pomôcť, ale nie je jedinou authority. Útočník alebo neautorizovaný writer môže tags sfalšovať. Audit identity a incident authorization sú rozhodujúce.
 
 ## 10. Shared ownership a `ignore_changes`
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 ```hcl
 resource "aws_autoscaling_group" "api" {
@@ -328,15 +342,13 @@ Noise nie je iba ergonomický problém. Keď reviewer rutinne ignoruje stovky zn
 
 Signal integrity sa overí tak, že rovnaký successor state vytvorí druhý no-op plan a zároveň external writer test stále vyvolá alert. Cieľom nie je nulový počet riadkov za každú cenu, ale vysoká diskriminačná hodnota každého zostávajúceho diffu.
 
-Perpetual diff môže vzniknúť z:
 
-- server-side defaults;
-- unordered fields modelovaných ako list;
-- transient timestamps;
-- eventual consistency;
-- provider normalization;
-- mutable external data;
-- unstable generated values.
+Nondeterminism alebo noise môže pochádzať z server-side defaults, unordered fields modelovaných ako list, transient timestamps, eventual consistency, provider normalization a mutable external data.
+
+Ďalej sleduje unstable generated values.
+
+Canonical inputs, stable serialization a druhý no-op run musia odlíšiť presentation rozdiel od skutočnej mutation.
+
 
 Noise znižuje detekčnú schopnosť. Ak reviewer denne ignoruje 200 známych diffs, môže prehliadnuť novú IAM privilege expansion.
 
@@ -354,6 +366,9 @@ explicit ownership handoff
 ```
 
 ## 13. Reconciliation decision matrix
+
+Rovnaký diff môže reprezentovať unauthorized drift, expiring incident override, delegated ownership, provider normalization alebo lost binding. Najprv sa určí writer, authority, attribute owner a exact state/remote subject; až potom možno bezpečne zvoliť revert, adoption alebo recovery.
+
 
 ### Revert
 
@@ -377,6 +392,9 @@ Rozdiel vznikol stratou bindingu, restore alebo wrong backendom. Najprv sa obnov
 
 ### Compensate alebo restore
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 Pri data-bearing alebo external-side-effect zmene nemusí obyčajný Terraform revert obnoviť business state.
 
 ## 14. Harmful auto-remediation gate
@@ -396,6 +414,9 @@ Unknown writer, unknown outcome, replacement, privilege expansion, data change a
 
 ## 15. Causal troubleshooting: rovnaký diff po každom apply
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 Symptom: listener port sa po každom úspešnom apply objaví opäť v plane.
 
 Hypotézy:
@@ -409,33 +430,30 @@ H5: mutable data source mení input
 H6: eventual consistency vracia stale read
 ```
 
-Diskriminačné evidence:
 
-- plan JSON before/after a replace paths;
-- provider debug/request IDs bez secrets;
-- cloud audit writer identity a timestamp;
-- state serial pred/po apply;
-- remote value bezprostredne a po propagation intervale;
-- resolved data-source ID/digest;
-- account/region v oboch jobs.
+Terraform transition sleduje plan JSON before/after a replace paths, provider debug/request IDs bez secrets, cloud audit writer identity a timestamp, state serial pred/po apply, remote value bezprostredne a po propagation intervale a resolved data-source ID/digest.
+
+Ďalej sleduje account/region v oboch jobs.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Containment zastaví auto-apply. `ignore_changes` sa nepridá, kým nie je známy owner a security dopad.
 
 ## 16. Authoritative recovery incidentu `IAC-PAY-77`
 
+Incident sa rekonštruuje ako causal chain nad jedným Terraform configuration, state a remote-resource subject. Observations určujú prvý divergentný bod v reťazci resolved inputs a graph cez provider API mutation až po state binding; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 Recovery musí najprv obnoviť incidentnú authority a až potom normálnu Terraform reconciliation. Scheduled auto-apply zostáva pozastavený, kým sa neuzavrie, či dočasná WAF rule bude adoptovaná alebo reviewed revertovaná; inak by rovnaký mechanismus znova odstránil containment.
 
-Atlas recovery:
 
-1. pozastaví scheduled auto-apply pre affected state;
-2. zachová drift plan, state snapshot, WAF audit events a incident metadata;
-3. znovu nasadí deny rule cez incident-authorized path;
-4. overí traffic containment a diagnostiku;
-5. rozhodne, či rule patrí do permanent configuration alebo sa po incidente odstráni;
-6. aktualizuje repository alebo vykoná reviewed revert;
-7. uzavrie exception a revokuje break-glass session;
-8. spustí fresh plan a druhý no-op plan;
-9. otestuje, že neznámy manual change nie je automaticky adoptovaný ani revertovaný bez klasifikácie.
+Recovery postupuje cez pozastaví scheduled auto-apply pre affected state, zachová drift plan, state snapshot, WAF audit events a incident metadata, znovu nasadí deny rule cez incident-authorized path, overí traffic containment a diagnostiku, rozhodne, či rule patrí do permanent configuration alebo sa po incidente odstráni a aktualizuje repository alebo vykoná reviewed revert.
+
+Ďalej sleduje uzavrie exception a revokuje break-glass session, spustí fresh plan a druhý no-op plan a otestuje, že neznámy manual change nie je automaticky adoptovaný ani revertovaný bez klasifikácie.
+
+Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla partial alebo unknown outcome.
+
 
 ## 17. Acceptance a forbidden paths
 
@@ -456,12 +474,11 @@ detection subject obsahuje backend/lineage/target
 + runtime/business journey prejde
 ```
 
-Forbidden fixtures:
 
-- wrong workspace s `0 changes` musí zlyhať subject gate;
-- policy engine alebo provider read error nesmie byť clean;
-- unknown manual IAM expansion nesmie byť auto-adoptovaná;
-- active incident rule nesmie byť auto-revertovaná.
+Acceptance matrix pokrýva wrong workspace s `0 changes` musí zlyhať subject gate, policy engine alebo provider read error nesmie byť clean, unknown manual IAM expansion nesmie byť auto-adoptovaná a active incident rule nesmie byť auto-revertovaná.
+
+Paths sa vyhodnocujú oddelene, aby positive success nezakryl porušenú security, ownership alebo recovery hranicu.
+
 
 ## 18. Anti-patterny
 
@@ -471,17 +488,29 @@ Najprv treba poznať writer intent a ownership. Incidentná mutation môže byť
 
 ### „Refresh-only odstránil drift“
 
+Rovnaký diff môže reprezentovať unauthorized drift, expiring incident override, delegated ownership, provider normalization alebo lost binding. Najprv sa určí writer, authority, attribute owner a exact state/remote subject; až potom možno bezpečne zvoliť revert, adoption alebo recovery.
+
+
 Aktualizoval known state; desired configuration ostala rovnaká.
 
 ### „Exit code 0 znamená čistú produkciu“
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 Iba ak subject, refresh a inventory boli validné.
 
 ### „`ignore_changes` vyrieši noise“
 
+Rovnaký diff môže reprezentovať unauthorized drift, expiring incident override, delegated ownership, provider normalization alebo lost binding. Najprv sa určí writer, authority, attribute owner a exact state/remote subject; až potom možno bezpečne zvoliť revert, adoption alebo recovery.
+
+
 Môže skryť security-significant ownership konflikt.
 
 ### „Unmanaged object je Terraform drift“
+
+Rovnaký diff môže reprezentovať unauthorized drift, expiring incident override, delegated ownership, provider normalization alebo lost binding. Najprv sa určí writer, authority, attribute owner a exact state/remote subject; až potom možno bezpečne zvoliť revert, adoption alebo recovery.
+
 
 Bez bindingu patrí do asset-discovery/adoption procesu.
 

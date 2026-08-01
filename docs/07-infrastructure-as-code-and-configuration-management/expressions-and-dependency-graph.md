@@ -6,6 +6,9 @@ Kapitola pokračuje incidentom `IAC-PAY-75`. Atlas Payments vytvára VPC, subnet
 
 ## 1. Dominantný value-to-operation lifecycle
 
+Nasledujúci model opisuje prechody jedného Terraform configuration, state a remote-resource subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inputs a graph cez provider API mutation až po state binding a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 ```text
 configuration inputs a collection keys
 → expressions vytvoria values
@@ -142,11 +145,11 @@ Počas planu môže byť `aws_lb.api.dns_name` unknown. Terraform však pozná t
 
 Niektoré values musia byť známe pred apply, pretože určujú graph shape:
 
-- `count`;
-- `for_each` keys;
-- module instance keys;
-- provider configuration selection;
-- resource addresses.
+
+Terraform transition sleduje `count`, `for_each` keys, module instance keys, provider configuration selection a resource addresses.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Toto je problematické:
 
@@ -160,6 +163,9 @@ resource "example_monitor" "instance" {
 Ak names vzniknú až po create, Terraform nevie pred apply určiť inventory ani addresses monitorov. Riešením je použiť desired keys z configuration alebo monitorovať dynamické instances cez service discovery/controller, nie hardcoded placeholderom predstierať známy graph.
 
 ## 6. `for_each` ako identity contract
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 
 ```hcl
 variable "subnets" {
@@ -308,6 +314,9 @@ Ak každá rule potrebuje samostatný ownership, audit alebo lifecycle, samostat
 
 ## 12. Implicitný dependency edge
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
+
 ```hcl
 resource "aws_ecs_service" "payments" {
   network_configuration {
@@ -368,14 +377,11 @@ module "application" {
 }
 ```
 
-Taký edge môže:
 
-- čakať na celý upstream module;
-- znížiť paralelizáciu;
-- odložiť data-source reads;
-- vytvoriť viac unknown values;
-- rozšíriť plan blast radius;
-- skryť konkrétny contract.
+Terraform transition sleduje čakať na celý upstream module, znížiť paralelizáciu, odložiť data-source reads, vytvoriť viac unknown values, rozšíriť plan blast radius a skryť konkrétny contract.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Preferuj konkrétny output:
 
@@ -440,12 +446,11 @@ Cycle:
 A → B → C → A
 ```
 
-vzniká napríklad, keď:
 
-- provider configuration závisí od resource spravovaného tým istým providerom;
-- dve security objects potrebujú vzájomne computed IDs;
-- module output sa vracia ako input do vlastného lifecycle;
-- locals sa kruhovo referencujú.
+Terraform transition sleduje provider configuration závisí od resource spravovaného tým istým providerom, dve security objects potrebujú vzájomne computed IDs, module output sa vracia ako input do vlastného lifecycle a locals sa kruhovo referencujú.
+
+Každý prvok sa viaže na rovnakú configuration, state a provider generation, aby sa vylúčil wrong-target alebo lost-binding outcome.
+
 
 Riešením je oddeliť identity creation od attachments, rozdeliť lifecycle fázy alebo zmeniť ownership boundary. Ďalší `depends_on` cycle neodstráni.
 

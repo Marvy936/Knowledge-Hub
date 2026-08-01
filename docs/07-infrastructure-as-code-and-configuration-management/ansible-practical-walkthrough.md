@@ -1034,14 +1034,11 @@ H7: host je healthy lokálne, ale LB stále routuje starý member
 H8: verifier alebo LB telemetry je stale
 ```
 
-Discriminating evidence:
 
-- expected/resolved/attempted manifests testujú H1–H3;
-- `ansible-inventory --host`, rendered checksum a backup files testujú H4;
-- callback/handler result a systemd start time testujú H5;
-- process command line, loaded generation a open file path testujú H6;
-- LB member inventory a backend identity testujú H7;
-- direct per-host request a timestamps testujú H8.
+Execution contract zahŕňa expected/resolved/attempted manifests testujú H1–H3, `ansible-inventory --host`, rendered checksum a backup files testujú H4, callback/handler result a systemd start time testujú H5, process command line, loaded generation a open file path testujú H6, LB member inventory a backend identity testujú H7 a direct per-host request a timestamps testujú H8.
+
+Každý prvok sa viaže na exact run, host alebo item a následne na loaded runtime, nie iba na aggregate recap.
+
 
 ## 29. Evidence-preserving containment a recovery
 
