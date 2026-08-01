@@ -2047,7 +2047,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "title": "Docker Compose",
-      "words": 2092,
+      "words": 2091,
       "headings": 25,
       "sections": 25,
       "findings": 11,
@@ -2075,7 +2075,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "title": "Praktický Docker projekt od prázdneho adresára po overený Compose runtime",
-      "words": 3536,
+      "words": 3535,
       "headings": 26,
       "sections": 26,
       "findings": 18,
@@ -78112,7 +78112,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "7. One-shot services",
-      "line": 257,
+      "line": 254,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -78121,7 +78121,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "7. One-shot services",
-      "line": 257,
+      "line": 254,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -78130,7 +78130,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "12. Multiple files a override",
-      "line": 387,
+      "line": 384,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -78139,7 +78139,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "18. Scale",
-      "line": 513,
+      "line": 510,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -78148,7 +78148,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "21. Incident: override odstránil security hardening",
-      "line": 565,
+      "line": 562,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -78157,7 +78157,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 621,
+      "line": 618,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -78166,7 +78166,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 621,
+      "line": 618,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -78391,7 +78391,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "19. Spustenie Compose application",
-      "line": 943,
+      "line": 940,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -78400,7 +78400,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "22. Zámerne chybný volume ownership",
-      "line": 1094,
+      "line": 1091,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -78409,7 +78409,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "25. Čo tento projekt preukázal",
-      "line": 1203,
+      "line": 1200,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

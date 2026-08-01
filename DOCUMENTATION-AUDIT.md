@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **316**
 - Audited conceptual sections: **8394**
-- Total words: **650,795**
+- Total words: **650,793**
 - Findings: **12625** (critical 2855, high 3634, medium 1372, low 4764)
 - File grades: A 80, B 64, C 19, D 153
 
@@ -184,7 +184,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 65 | 1 | 5 | 0 | 10 | 3779 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md` |
 | C | 64 | 0 | 7 | 0 | 5 | 1277 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | C | 64 | 0 | 7 | 0 | 7 | 1333 | `docs/06-gitlab/protected-branches-and-environments.md` |
-| C | 62 | 0 | 6 | 0 | 12 | 3536 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
+| C | 62 | 0 | 6 | 0 | 12 | 3535 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
 | C | 61 | 0 | 7 | 0 | 4 | 1410 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | C | 60 | 0 | 6 | 0 | 9 | 1459 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | C | 57 | 0 | 5 | 0 | 14 | 1746 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
@@ -219,7 +219,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 14 | 1452 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1894 | `docs/11-cloud-and-aws/iam.md` |
 | B | 20 | 0 | 0 | 0 | 16 | 1538 | `docs/13-security-and-identity/zero-trust.md` |
-| B | 19 | 0 | 1 | 0 | 10 | 2092 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
+| B | 19 | 0 | 1 | 0 | 10 | 2091 | `docs/08-container-fundamentals-and-docker/docker-compose.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1622 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
 | B | 19 | 0 | 0 | 0 | 16 | 2103 | `docs/11-cloud-and-aws/cost-management-finops.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1732 | `docs/14-sre-and-operations/on-call-and-escalation.md` |
@@ -7344,7 +7344,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 729, `list-first-introduction` — **13. Business zápis do volume-u**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 750, `list-first-introduction` — **14. Graceful stop**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 795, `single-sentence-concept` — **16. Compose environment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 943, `list-first-introduction` — **19. Spustenie Compose application**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 940, `list-first-introduction` — **19. Spustenie Compose application**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
 ### `docs/08-container-fundamentals-and-docker/dockerfile.md`
 

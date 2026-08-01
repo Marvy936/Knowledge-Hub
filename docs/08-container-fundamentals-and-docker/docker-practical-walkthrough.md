@@ -867,7 +867,7 @@ services:
           - payments-api
     ports:
       - target: 8080
-        published: ${HOST_PORT:-18080}
+        published: "${HOST_PORT:-18080}"
         host_ip: 127.0.0.1
         protocol: tcp
     healthcheck:
@@ -885,11 +885,8 @@ services:
     depends_on:
       api:
         condition: service_healthy
-    command:
-      - sh
-      - -ec
-      - |
-        curl -fsS http://payments-api:8080/version
+    entrypoint: ["curl"]
+    command: ["-fsS", "http://payments-api:8080/version"]
     networks:
       - backend
     restart: "no"
