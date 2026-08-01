@@ -316,6 +316,8 @@ git push origin main
 
 ## 8. Annotated release tag
 
+Release tag vytvára stabilné meno pre presný schválený commit, ale annotated tag nie je iba ďalší branch-like ref. Git vytvorí samostatný tag object s target object ID, type, taggerom, časom a message a `refs/tags/v4.2.1` ukáže na tento tag object. `git show` preto musí potvrdiť tag metadata aj dereferenced commit; push následne publikuje object a tag ref bez presúvania branchu alebo working tree.
+
 ```bash
 git tag -a v4.2.1 -m 'Atlas Orders 4.2.1'
 git show v4.2.1

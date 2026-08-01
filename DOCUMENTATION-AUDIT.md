@@ -6,8 +6,8 @@
 
 - Audited authoritative articles: **327**
 - Audited conceptual sections: **6774**
-- Total words: **614,297**
-- Findings: **6861** (critical 850, high 1392, medium 535, low 4084)
+- Total words: **614,359**
+- Findings: **6862** (critical 850, high 1391, medium 535, low 4086)
 - File grades: A 117, B 94, C 28, D 88
 
 ## Interpretation
@@ -146,7 +146,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 29 | 0 | 0 | 0 | 22 | 2019 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
-| B | 26 | 0 | 1 | 0 | 16 | 3523 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
 | B | 26 | 0 | 2 | 0 | 6 | 1305 | `docs/09-kubernetes/hpa-autoscaling.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 24 | 0 | 0 | 0 | 20 | 2129 | `docs/08-container-fundamentals-and-docker/container-security.md` |
@@ -172,6 +171,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 21 | 0 | 0 | 0 | 17 | 1424 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 3225 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1220 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
+| B | 20 | 0 | 0 | 0 | 18 | 3585 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1844 | `docs/09-kubernetes/etcd-backup-restore.md` |
 | B | 20 | 0 | 1 | 0 | 8 | 1592 | `docs/09-kubernetes/upgrades.md` |
 | B | 20 | 0 | 0 | 0 | 12 | 1304 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
@@ -2657,10 +2657,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **HIGH** line 33, `list-first-introduction` — **3. Základný model toku**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
-### `docs/03-git-and-automation/git-automation-practical-walkthrough.md`
-
-- **HIGH** line 317, `list-first-introduction` — **8. Annotated release tag**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
 ### `docs/05-ci-cd-and-release/a-b-testing.md`
 
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný hypothesis-to-decision model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
@@ -2993,14 +2989,14 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 1892 | 1892 |
+| `example-not-explicit` | 0 | 0 | 0 | 1893 | 1893 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1162 | 1162 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1030 | 1030 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1031 | 1031 |
 | `single-sentence-concept` | 0 | 566 | 0 | 0 | 566 |
 | `term-before-explanation` | 0 | 70 | 363 | 0 | 433 |
 | `outline-instead-of-explanation` | 393 | 0 | 0 | 0 | 393 |
 | `bare-bullet-items` | 325 | 41 | 0 | 0 | 366 |
-| `list-first-introduction` | 0 | 323 | 0 | 0 | 323 |
+| `list-first-introduction` | 0 | 322 | 0 | 0 | 322 |
 | `thin-concept-section` | 0 | 311 | 0 | 0 | 311 |
 | `short-concept-section` | 0 | 0 | 172 | 0 | 172 |
 | `list-heavy-section` | 0 | 81 | 0 | 0 | 81 |

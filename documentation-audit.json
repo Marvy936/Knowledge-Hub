@@ -857,15 +857,15 @@
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "title": "Praktický Git a automation projekt od prázdneho adresára po overený apply",
-      "words": 3523,
+      "words": 3585,
       "headings": 20,
       "sections": 20,
-      "findings": 17,
+      "findings": 18,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 16,
-      "score": 26,
+      "low": 18,
+      "score": 20,
       "grade": "B"
     },
     {
@@ -22575,15 +22575,24 @@
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "8. Annotated release tag",
       "line": 317,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
+      "section": "8. Annotated release tag",
+      "line": 317,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "10. Automation tool",
-      "line": 367,
+      "line": 369,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22592,7 +22601,7 @@
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "14. Commit automation change",
-      "line": 896,
+      "line": 898,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -22601,7 +22610,7 @@
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "14. Commit automation change",
-      "line": 896,
+      "line": 898,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22610,7 +22619,7 @@
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "16. Druhý no-op run",
-      "line": 942,
+      "line": 944,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -22619,7 +22628,7 @@
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "16. Druhý no-op run",
-      "line": 942,
+      "line": 944,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -22628,7 +22637,7 @@
     {
       "path": "docs/03-git-and-automation/git-automation-practical-walkthrough.md",
       "section": "17. Stale-plan failure",
-      "line": 953,
+      "line": 955,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
