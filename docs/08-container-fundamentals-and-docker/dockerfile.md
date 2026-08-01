@@ -336,6 +336,10 @@ typicky spustí shell ako PID 1. Signal forwarding a argument semantics sú mene
 
 ## 15. `STOPSIGNAL`
 
+`STOPSIGNAL` zapisuje do image configu defaultný signal, ktorý runtime použije pri stop lifecycle, ak caller neurčí iný. Signal musí doraziť k skutočnému application PID 1; shell-form entrypoint alebo wrapper bez `exec` ho môže zachytiť alebo neforwardovať. Image metadata preto treba čítať spolu s runtime process tree.
+
+Graceful shutdown vzniká až v aplikácii: prestane prijímať novú prácu, dokončí alebo bezpečne preruší in-flight operácie, flushne state a skončí pred timeoutom. `docker stop` plus exit code a business read-back testuje celý transition; samotná Dockerfile inštrukcia iba nastavuje default transport.
+
 ```dockerfile
 STOPSIGNAL SIGTERM
 ```
@@ -353,6 +357,10 @@ docker inspect payments-api \
 Aplikačný acceptance test má navyše overiť, že in-flight operácia nezostala v nekonzistentnom stave.
 
 ## 16. Kompletný multi-stage Dockerfile
+
+Kompletný Dockerfile je jeden build graph s oddelenými source, test, build a runtime subjects. Pinned base digests, presný build context a automatic platform args určujú inputs každého node-u; cache reuse je platný iba pri rovnakých effective inputs a dôveryhodnom producerovi. Test stage musí skončiť pred publication a runtime stage kopíruje iba explicitný artifact a potrebný runtime content.
+
+Výsledný image config definuje non-root user, exec-form process contract a stop signal, zatiaľ čo layers nesmú niesť compiler, source alebo credentials. Build acceptance preto číta stage logs, final history a config, binary platform a runtime smoke test. Syntakticky úspešný multi-stage build ešte nepreukazuje správny target architecture, TLS trust store ani business behavior.
 
 ```dockerfile
 # syntax=docker/dockerfile:1

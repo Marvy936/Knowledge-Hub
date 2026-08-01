@@ -373,6 +373,10 @@ Containment zablokoval publication a cache write credentials. Cache namespaces s
 
 ## 19. Od build requestu po overený digest
 
+Referenčný flow musí udržať jednu build identity od source commit-u cez Dockerfile a context checksums, builder a BuildKit frontend generation až po platform manifests a publikovaný OCI index digest. Test target, runtime target a multi-platform publication nesmú byť tri nesúvisiace jobs, ktoré iba používajú rovnaký tag; evidence sa viaže na rovnaké immutable inputs a dôveryhodný builder a cache domain.
+
+Každý command nižšie vytvára alebo číta inú vrstvu dôkazu. `buildx inspect` identifikuje builder a workers, input checksums fixujú source subject, test build uzatvára test stage, registry exporter publikuje content-addressed graph a registry read-back potvrdí platform descriptors a digests. Úspešný push ešte nepreukazuje správny binary pre každú platformu ani funkčný runtime business path; to uzatvára platform-specific smoke alebo integration evidence naviazaná na manifest digest.
+
 Referenčný tok:
 
 ```bash

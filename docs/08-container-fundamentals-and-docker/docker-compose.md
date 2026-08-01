@@ -133,6 +133,10 @@ docker compose up --build --detach
 
 ## 5. Celý `payments-api` model
 
+Compose model skladá viac runtime subjects do jedného application graphu. `init-data` vlastní jednorazovú prípravu volume permissions a `api` vlastní application process a health contract. Networks, volumes, environment interpolation, image references a dependency conditions sa resolve-nú pred Engine mutation, preto sa musí najprv čítať výsledok `docker compose config`, nie iba source YAML.
+
+Nasledujúci model oddeľuje privileged initializer od non-root aplikácie, persistent data od read-only root filesystemu a host publication od internal service DNS. `depends_on` určuje startup ordering, nie business readiness celej application. Acceptance preto pokračuje cez container identities, runtime image digests, health, service-to-service request, host-published request a volume persistence po replacement-e.
+
 ```yaml
 name: atlas-payments
 

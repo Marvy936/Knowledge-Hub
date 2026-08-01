@@ -2047,15 +2047,15 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/buildkit-buildx.md",
       "title": "BuildKit a Buildx",
-      "words": 2086,
+      "words": 2208,
       "headings": 21,
       "sections": 21,
-      "findings": 23,
+      "findings": 24,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 22,
-      "score": 33,
+      "low": 24,
+      "score": 27,
       "grade": "B"
     },
     {
@@ -2131,16 +2131,16 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "title": "Docker Compose",
-      "words": 2091,
+      "words": 2192,
       "headings": 25,
       "sections": 25,
-      "findings": 11,
+      "findings": 12,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 10,
-      "score": 19,
-      "grade": "B"
+      "low": 12,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md",
@@ -2159,16 +2159,16 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "title": "Praktický Docker projekt od prázdneho adresára po overený Compose runtime",
-      "words": 3535,
+      "words": 4079,
       "headings": 26,
       "sections": 26,
-      "findings": 18,
+      "findings": 21,
       "critical": 0,
-      "high": 6,
+      "high": 0,
       "medium": 0,
-      "low": 12,
-      "score": 62,
-      "grade": "C"
+      "low": 21,
+      "score": 24,
+      "grade": "B"
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-troubleshooting.md",
@@ -2187,16 +2187,16 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "title": "Dockerfile",
-      "words": 2411,
+      "words": 2606,
       "headings": 22,
       "sections": 22,
       "findings": 13,
       "critical": 0,
-      "high": 3,
+      "high": 0,
       "medium": 0,
-      "low": 10,
-      "score": 39,
-      "grade": "C"
+      "low": 13,
+      "score": 18,
+      "grade": "B"
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/environment-variables-health-checks.md",
@@ -2229,15 +2229,15 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/multi-stage-builds.md",
       "title": "Multi-stage builds",
-      "words": 1612,
+      "words": 1721,
       "headings": 18,
       "sections": 18,
       "findings": 13,
       "critical": 0,
-      "high": 2,
+      "high": 0,
       "medium": 0,
-      "low": 11,
-      "score": 31,
+      "low": 13,
+      "score": 17,
       "grade": "B"
     },
     {
@@ -45237,15 +45237,24 @@
       "path": "docs/08-container-fundamentals-and-docker/buildkit-buildx.md",
       "section": "19. Od build requestu po overený digest",
       "line": 374,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/buildkit-buildx.md",
+      "section": "19. Od build requestu po overený digest",
+      "line": 374,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/buildkit-buildx.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 416,
+      "line": 420,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -45254,7 +45263,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/buildkit-buildx.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 416,
+      "line": 420,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -46110,15 +46119,24 @@
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "5. Celý payments-api model",
       "line": 134,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
+      "section": "5. Celý payments-api model",
+      "line": 134,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "7. One-shot services",
-      "line": 254,
+      "line": 258,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -46127,7 +46145,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "7. One-shot services",
-      "line": 254,
+      "line": 258,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -46136,7 +46154,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "12. Multiple files a override",
-      "line": 384,
+      "line": 388,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -46145,7 +46163,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "18. Scale",
-      "line": 510,
+      "line": 514,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -46154,7 +46172,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "21. Incident: override odstránil security hardening",
-      "line": 562,
+      "line": 566,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -46163,7 +46181,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 618,
+      "line": 622,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -46172,7 +46190,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-compose.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 618,
+      "line": 622,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -46333,17 +46351,8 @@
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
-      "section": "10. Container najprv vytvor, až potom spusti",
-      "line": 627,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "11. Start, health a PID 1",
-      "line": 672,
+      "line": 676,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -46352,34 +46361,61 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "12. Host-published path a loaded configuration",
-      "line": 711,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 715,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "12. Host-published path a loaded configuration",
+      "line": 715,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "12. Host-published path a loaded configuration",
+      "line": 715,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "13. Business zápis do volume-u",
-      "line": 729,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 737,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "14. Graceful stop",
-      "line": 750,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 762,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "14. Graceful stop",
+      "line": 762,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "15. Persistence cez container replacement",
-      "line": 767,
+      "line": 783,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -46388,25 +46424,34 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "16. Compose environment",
-      "line": 795,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 811,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
+      "section": "16. Compose environment",
+      "line": 811,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "19. Spustenie Compose application",
-      "line": 940,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 960,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "22. Zámerne chybný volume ownership",
-      "line": 1091,
+      "line": 1115,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -46415,7 +46460,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md",
       "section": "25. Čo tento projekt preukázal",
-      "line": 1200,
+      "line": 1224,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -46641,33 +46686,33 @@
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "15. STOPSIGNAL",
       "line": 337,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "16. Kompletný multi-stage Dockerfile",
-      "line": 355,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 359,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "16. Kompletný multi-stage Dockerfile",
-      "line": 355,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 359,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "18. Incident: test stage existoval, ale nikdy nebežal",
-      "line": 466,
+      "line": 474,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -46676,7 +46721,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 490,
+      "line": 498,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -46685,7 +46730,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/dockerfile.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 490,
+      "line": 498,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -47037,24 +47082,24 @@
       "path": "docs/08-container-fundamentals-and-docker/multi-stage-builds.md",
       "section": "16. Praktický graph pre payments-api",
       "line": 311,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/multi-stage-builds.md",
       "section": "16. Praktický graph pre payments-api",
       "line": 311,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/08-container-fundamentals-and-docker/multi-stage-builds.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 351,
+      "line": 355,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -47063,7 +47108,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/multi-stage-builds.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 351,
+      "line": 355,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -47072,7 +47117,7 @@
     {
       "path": "docs/08-container-fundamentals-and-docker/multi-stage-builds.md",
       "section": "Čo si z kapitoly odniesť",
-      "line": 351,
+      "line": 355,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
