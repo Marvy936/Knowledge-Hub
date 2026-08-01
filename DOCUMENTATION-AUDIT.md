@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **327**
+- Audited authoritative articles: **328**
 - Audited conceptual sections: **6774**
-- Total words: **640,403**
+- Total words: **640,444**
 - Findings: **6532** (critical 654, high 872, medium 469, low 4537)
-- File grades: A 135, B 105, C 28, D 59
+- File grades: A 136, B 105, C 28, D 59
 
 ## Interpretation
 
@@ -350,6 +350,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 3 | 0 | 0 | 0 | 3 | 1928 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
 | A | 2 | 0 | 0 | 0 | 2 | 871 | `docs/02-networking-and-web/firewalls.md` |
 | A | 2 | 0 | 0 | 0 | 2 | 1860 | `docs/11-cloud-and-aws/well-architected-framework.md` |
+| A | 0 | 0 | 0 | 0 | 0 | 41 | `docs/SECTION-10-CLOSEOUT-TRIGGER.md` |
 
 ## Critical and high findings
 
