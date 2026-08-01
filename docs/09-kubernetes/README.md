@@ -1,20 +1,14 @@
 # Kubernetes
 
-Táto sekcia vysvetľuje Kubernetes od cluster architektúry, API object modelu a reconciliation loops cez workloads, networking, storage, scheduling, security a autoscaling až po cluster lifecycle, upgrades, observability a troubleshooting. Cieľom nie je memorovať `kubectl` príkazy alebo YAML fields, ale rozumieť tomu, ktorý component vlastní konkrétny stav, ako sa desired state mení na running workload a kde hľadať failure evidence.
+Táto sekcia vysvetľuje Kubernetes ako jeden súvislý systém od API requestu až po používateľský výsledok. Začína tým, čo sa stane po `kubectl apply`: API server request autentizuje, autorizuje, prijme cez admission a uloží do etcd. Controllers z uloženého intentu vytvoria dependent objects, scheduler vyberie Node a kubelet s CRI, CNI a CSI pripraví skutočný Pod runtime. Service, DNS a Gateway potom vedú request ku konkrétnemu application procesu a jeho dependencies.
 
-Kubernetes nadväzuje na Linux namespaces/cgroups, container runtime a OCI model, networking, storage, security, CI/CD, Infrastructure as Code a observability. Docker je užitočný základ pre images a local container lifecycle, ale Kubernetes používa vlastný API, scheduler, controllers, CRI/CNI/CSI integrations a multi-node failure model.
+Cieľom nie je memorovať desiatky YAML fields alebo `kubectl` príkazov. Čitateľ má vedieť určiť, ktorý component vlastní ďalší transition, čo konkrétny status alebo condition dokazuje a kde jeho dôkazová hranica končí. `kubectl apply` nepreukazuje vytvorený Pod, `Pod Running` nepreukazuje readiness, `EndpointSlice ready=true` nepreukazuje funkčný external route a `Deployment availableReplicas=6` nepreukazuje správny payment outcome.
 
-## Predpoklady
+Celou sekciou prechádza jeden cluster a jedna hlavná služba. Cluster `atlas-prod-eu1` prevádzkuje `payments-api` v namespace `production`. Release `4.2.0` používa immutable image digest, configuration generation `C52`, secret epoch `SE08`, šesť replík a Service `payments-api`. Rovnaké identity sa používajú pri API modeloch, rollout-e, probes, NetworkPolicy, HPA, upgrade-e aj troubleshooting-u. Stateful kapitola pridáva `settlement-ledger` a batch kapitola `settlement-export`, aby sa vysvetlili stabilné identity, storage a completion semantics bez miešania s webovým Deploymentom.
 
-Odporúča sa najprv dokončiť:
+Sekcia nadväzuje na [Linux and Systems](../01-linux-and-systems/README.md), [Networking and Web Fundamentals](../02-networking-and-web/README.md), [CI/CD and Release Engineering](../05-ci-cd-and-release/README.md), [Infrastructure as Code and Configuration Management](../07-infrastructure-as-code-and-configuration-management/README.md) a najmä [Container Fundamentals and Docker](../08-container-fundamentals-and-docker/README.md). Docker sekcia pripravila image, process, network, volume a runtime model. Kubernetes k nemu pridáva versionované API, control loops, scheduling, multi-node dataplane, policy a cluster lifecycle.
 
-- [Linux and Systems](../01-linux-and-systems/README.md),
-- [Networking and Web Fundamentals](../02-networking-and-web/README.md),
-- [CI/CD and Release Engineering](../05-ci-cd-and-release/README.md),
-- [Infrastructure as Code and Configuration Management](../07-infrastructure-as-code-and-configuration-management/README.md),
-- [Container Fundamentals and Docker](../08-container-fundamentals-and-docker/README.md).
-
-## Odporúčané poradie
+## Authoritative poradie kapitol
 
 1. [Kubernetes architecture](kubernetes-architecture.md)
 2. [API a object model](api-object-model.md)
@@ -46,81 +40,98 @@ Odporúča sa najprv dokončiť:
 28. [etcd backup a restore](etcd-backup-restore.md)
 29. [Upgrades](upgrades.md)
 30. [Logging, metrics a events](logging-metrics-events.md)
-31. [Kubernetes troubleshooting](kubernetes-troubleshooting.md)
+31. [Praktický Kubernetes projekt od manifestov po overený rollout](kubernetes-practical-walkthrough.md)
+32. [Kubernetes troubleshooting](kubernetes-troubleshooting.md)
 
-Kubernetes sekcia je obsahovo dokončená. Lineárna roadmapa ďalej pokračuje sekciou [Helm and CKA](../10-helm-and-cka/README.md).
+Poradie je zámerné. Prvých päť kapitol vysvetlí control path od API po Node runtime. Nasledujúce kapitoly rozdelia workload controllers podľa ich identity a replacement modelu. Config, workload identity, Service, edge, DNS a CNI potom vytvoria celý request path. Storage, scheduling, resources, probes, topology a autoscaling ukážu, prečo sa Pod môže vytvoriť, ale nebyť schedulovateľný, pripravený alebo výkonný. Bezpečnostný a cluster-lifecycle blok spojí RBAC, process confinement, namespace governance, bootstrap, disaster recovery a upgrades. Observability, praktický walkthrough a troubleshooting nakoniec používajú všetky predchádzajúce vrstvy naraz.
 
-## Cieľ zvládnutia
+Po tejto sekcii nasleduje [Helm and CKA](../10-helm-and-cka/README.md). Helm preberá Kubernetes manifesty ako renderovaný release subject a CKA kapitoly používajú rovnaké object, controller, Node, network a troubleshooting boundaries v časovo obmedzených úlohách.
 
-Po dokončení sekcie má byť možné:
+## Výkladový štandard sekcie
 
-- vysvetliť Kubernetes ako API-driven control system pre deklaratívne riadenie resources,
-- popísať request a reconciliation flow od API requestu cez admission, controllers, scheduler a kubelet až po container process,
-- rozlíšiť responsibilities API servera, etcd, scheduleru, controller-managera, kubeletu, runtime-u, CNI a CSI,
-- pracovať s GVK/GVR, namespaced a cluster-scoped resources, `spec`, `status`, conditions, generations a field ownershipom,
-- vysvetliť list/watch, informer cache, work queue, idempotentný reconcile, eventual consistency, ownerReferences a finalizers,
-- diagnostikovať API server, etcd, scheduler, controller-manager, kubelet, runtime a Node conditions podľa správnej vrstvy,
-- vysvetliť Pod ako lifecycle, network a scheduling envelope a rozlíšiť container restart od Pod replacementu,
-- navrhnúť a diagnostikovať ReplicaSet, Deployment, StatefulSet, DaemonSet, Job a CronJob podľa ich identity a completion modelu,
-- rozlíšiť ConfigMap a Secret, ich projection/update semantics, immutable configuration a credential rotation,
-- používať ServiceAccounts, bound tokens, audience, RBAC a workload identity podľa least privilege,
-- vysvetliť Service, EndpointSlice, ClusterIP, headless Service, NodePort a LoadBalancer dataplane,
-- diagnostikovať Ingress alebo Gateway API chain od DNS a load balancera cez Route, Service a EndpointSlice až po Pod,
-- vysvetliť cluster DNS, CoreDNS, FQDN, search domains, `ndots`, caching a UDP/TCP fallback,
-- rozlíšiť CNI connectivity, IPAM, routing a NetworkPolicy L3/L4 enforcement,
-- navrhnúť PV/PVC/StorageClass/CSI lifecycle vrátane topology, reclaim, snapshot, backup a restore hraníc,
-- vysvetliť scheduler filter/score/bind flow, requests, taints, affinity, topology spread, priority a preemption,
-- rozlíšiť requests, limits, CPU throttling, OOM, ephemeral storage a QoS classes,
-- navrhnúť startup, liveness a readiness probes bez restart stormu alebo rollout deadlocku,
-- používať taints/tolerations, node affinity, Pod affinity/anti-affinity a topology spread podľa placement účelu,
-- vysvetliť HPA desired replica calculation, metrics APIs, stabilization a interakcie s VPA, quota a Node autoscalingom,
-- navrhnúť Role, ClusterRole, RoleBinding a ClusterRoleBinding bez wildcard privilege escalation,
-- používať SecurityContext, non-root runtime, capabilities, seccomp, SELinux/AppArmor a Pod Security Standards,
-- rozlíšiť ResourceQuota a LimitRange a diagnostikovať admission, autoscaling a storage quota konflikty,
-- navrhnúť managed alebo self-managed cluster lifecycle vrátane HA topology, PKI, control-plane endpointu, node replacementu a decommissioningu,
-- vysvetliť kubeadm bootstrap hranice, static Pods, bootstrap tokens, CNI/add-on sequencing a certificate lifecycle,
-- vytvoriť a overiť etcd snapshot, navrhnúť recovery set a vykonať testovaný restore bez zmiešania starého a obnoveného member state-u,
-- koordinovať etcd restore s encryption keys, PKI, API server configuration, external resources a application data recovery,
-- pripraviť patch alebo minor upgrade cez version skew, deprecation audit, health gate, canary, backup a add-on compatibility,
-- vykonať sekvenčný control-plane a Node upgrade alebo immutable node-pool replacement s post-upgrade validation,
-- rozlíšiť logs, resource/component/object-state metrics, Events, audit logs a traces,
-- navrhnúť cluster-level logging, metrics scraping, cardinality, retention, security a SLO-oriented alerting,
-- viesť Kubernetes incident cez presný symptóm, evidence preservation, failure-domain narrowing, controlled reproduction a overenú remediation,
-- systematicky diagnostikovať Pod, controller, scheduler, Node, API/admission, DNS/Service, CNI, CSI, resources, probes, HPA a control-plane failures,
-- rozpoznať, kedy je potrebný bežný roll-forward, Node replacement alebo skutočný etcd disaster recovery.
+Všetkých tridsaťdva kapitol je písaných v rovnakom plynulom štýle ako sekcie CI/CD, Docker a Keycloak. Kapitola najprv stanoví konkrétny problém alebo request, potom vysvetlí mechanizmus na spoločnom Atlas scenári a vloží YAML, CLI alebo JSON priamo k miestu, kde je potrebný. Bezprostredne po príklade vysvetlí, čo command alebo objekt mení, aký output očakávame a čo zelený výsledok ešte nedokazuje.
 
-## Stav
+Odrážky zostávajú iba pri krátkom inventári, identity manifest-e alebo acceptance kontrole. Nenahrádzajú hlavný výklad. Incidenty nie sú izolované „tipy“; vždy sledujú presný cluster, object generation, Pod UID, Node generation, data identity alebo request flow a vedú od competing hypotheses cez diskriminačné observation points po containment, autoritatívnu opravu a overenie pôvodného aj zakázaného outcome-u.
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| Kubernetes architecture | Learning | L2 |
-| API a object model | Learning | L2 |
-| Desired state a reconciliation loops | Learning | L2 |
-| Control plane components | Learning | L2 |
-| Worker node components | Learning | L2 |
-| Pod | Learning | L2 |
-| ReplicaSet | Learning | L2 |
-| Deployment | Learning | L2 |
-| StatefulSet | Learning | L2 |
-| DaemonSet | Learning | L2 |
-| Job a CronJob | Learning | L2 |
-| ConfigMap a Secret | Learning | L2 |
-| ServiceAccount | Learning | L2 |
-| Service a EndpointSlice | Learning | L2 |
-| Ingress a Gateway API | Learning | L2 |
-| Cluster DNS | Learning | L2 |
-| CNI a NetworkPolicy | Learning | L2 |
-| Volumes, PV, PVC a StorageClass | Learning | L2 |
-| Scheduling | Learning | L2 |
-| Requests, limits a QoS | Learning | L2 |
-| Probes | Learning | L2 |
-| Taints, tolerations, affinity a topology | Learning | L2 |
-| HPA a autoscaling | Learning | L2 |
-| RBAC | Learning | L2 |
-| SecurityContext a Pod Security | Learning | L2 |
-| ResourceQuota a LimitRange | Learning | L2 |
-| Cluster installation a lifecycle | Learning | L2 |
-| etcd backup a restore | Learning | L2 |
-| Upgrades | Learning | L2 |
-| Logging, metrics a events | Learning | L2 |
-| Kubernetes troubleshooting | Learning | L2 |
+Sekcia dôsledne rozlišuje päť vrstiev:
+
+```text
+source intent
+→ API admitted a persisted object
+→ controller-resolved object graph
+→ effective Node/runtime/dataplane state
+→ application a business outcome
+```
+
+Source Deployment môže mať správny image digest, ale mutating admission môže doplniť sidecar. Admitted Pod môže byť správny, ale scheduler ho nevie umiestniť. Scheduled Pod môže zlyhať na CNI alebo volume mount-e. Ready Pod môže byť mimo Service selectoru. Service request môže fungovať, ale payment commit môže mať unknown outcome. Každá vrstva potrebuje vlastný read-back.
+
+## Praktický walkthrough
+
+Kapitola [Praktický Kubernetes projekt od manifestov po overený rollout](kubernetes-practical-walkthrough.md) vytvorí celý malý projekt:
+
+```text
+Namespace a Pod Security labels
+→ ServiceAccount bez implicitného API tokenu
+→ ConfigMap a external Secret contract
+→ hardenovaný Deployment
+→ Service a EndpointSlice
+→ PodDisruptionBudget
+→ default-deny a explicitné NetworkPolicies
+→ voliteľný HPA ownership hand-off
+→ Kustomize render
+→ server-side dry-run a diff
+→ apply a rollout
+→ runtime image/config read-back
+→ Service request
+→ no-op druhý apply
+→ configuration-driven replacement
+→ Pod replacement
+→ broken Service selector
+→ Running-but-NotReady revision
+→ forbidden privileged Pod
+→ evidence a cleanup
+```
+
+Projekt používa immutable image placeholders, ktoré treba nahradiť schválenými digestmi. Secret value sa do repozitára neukladá; vytvára ho samostatný secret-management flow. Deployment používa non-root UID, RuntimeDefault seccomp, capability drop, read-only root filesystem, explicitné writable volumes, requests/limits, startup/readiness/liveness probes, topology spread a preferred anti-affinity.
+
+Verification script nekontroluje iba `kubectl rollout status`. Číta Deployment generation a observedGeneration, ReplicaSets, Pod UIDs, Node assignment, source image a runtime imageID, configuration annotation, ready EndpointSlice a request cez Service z verifier Podu s presnou NetworkPolicy identitou. Forbidden dry-run zároveň overí, že Restricted Pod Security odmieta privileged workload.
+
+Dve failure overlays ukážu rozdiel medzi application a routing state-om. Broken Service selector ponechá Pods Ready, ale odstráni endpoints. Broken readiness vytvorí novú revision, ktorej process beží a liveness prechádza, no Pod nie je Ready a rollout nerobí progress. Recovery vždy znovu aplikuje authoritative base a overí controller, endpoint aj request outcome.
+
+Practical walkthrough je dokumentačne a syntakticky auditovaný. Repository workflow ho nespúšťa proti skutočnému Kubernetes clusteru, registry, CNI, metrics pipeline ani cloud providerovi. Reálne `Verified` vyžaduje cieľový cluster, skutočné image digests, dostupný Secret, podporovanú NetworkPolicy implementáciu a vykonanie positive aj forbidden paths.
+
+## Čo má čitateľ po sekcii vedieť
+
+Po úvodnom bloku má vedieť sledovať request od kubeconfig contextu cez API server, etcd, controllers, scheduler a kubelet. Má rozlišovať GVK a GVR, name a UID, generation a resourceVersion, `spec` a `status`, field ownership, ownerReferences, finalizers a admission. Pri reconcile má vedieť určiť authoritative writera a vysvetliť, prečo idempotentný controller musí po unknown outcome znovu pozorovať state.
+
+Pri workloads má vedieť vysvetliť Pod ako jednu runtime repliku, ReplicaSet ako count controller, Deployment ako výmenu template revízií, StatefulSet ako ordinal/storage identity, DaemonSet ako Node capability coverage a Job/CronJob ako completion a retry systém bez exactly-once business garancie. Má vedieť rozlíšiť container restart od Pod replacementu a rolling overlap od jednoduchého scale-u.
+
+Pri configuration a traffic má vedieť odlíšiť ConfigMap/Secret source od hodnoty materializovanej kubeletom a načítanej procesom. Má rozumieť ServiceAccount tokenu, RBAC a external workload identity ako samostatným rovinám. Request má vedieť sledovať cez DNS, Gateway/Ingress, Service, EndpointSlice, per-Node dataplane, NetworkPolicy, Pod interface a application socket a overiť allowed aj forbidden flows.
+
+Pri storage a placement má vedieť prepojiť PVC UID, PV, CSI volumeHandle, topology a data generation. Má rozumieť requests ako scheduler a HPA inputu, limits ako runtime boundary a QoS ako pressure modelu. Má vedieť vysvetliť taints, affinity a topology ako skladajúce sa constraints a odhaliť neschedulovateľný rollout, ktorý nemožno opraviť pridaním nesprávnej Node kapacity.
+
+Pri security má vedieť navrhnúť minimum RBAC, workload ServiceAccount bez nepotrebného tokenu, Restricted-compatible SecurityContext a úzke writable paths. Má chápať, že `pods/exec`, workload creation, impersonation, bind/escalate a cloud federation môžu vytvoriť nepriamu privilege path. ResourceQuota a LimitRange má interpretovať ako admission boundaries, ktoré môžu zastaviť rollout skôr, než vznikne Pod.
+
+Pri cluster lifecycle má vedieť odlíšiť API/Node readiness od úplnej platform capability. Má vedieť navrhnúť immutable Node replacement, bootstrap taint a capability canary. Etcd snapshot má chápať ako Kubernetes API backup, nie application-data backup. Upgrade má vedieť rozdeliť na control plane, CRDs/webhooks, add-ons, Nodes a workloads s osobitnými compatibility a rollback hranicami.
+
+Pri observability a incidente má vedieť vybrať log, metric, Event, audit alebo trace podľa otázky, kontrolovať telemetry coverage a nezamieňať absenciu dát so zdravím. Troubleshooting má začať exact subjectom, preserve-first evidence a prvým chýbajúcim transitionom. Oprava má meniť autoritatívnu vrstvu a uzavrieť sa business aj forbidden-outcome overením.
+
+## Revalidation completion gate
+
+Sekcia je `Ready for user review`, keď všetkých tridsaťjeden pôvodných kapitol a nový praktický walkthrough tvoria jeden plynulý learning path; každá kapitola obsahuje konkrétny mechanizmus, praktické observation points a najmenej jeden kauzálny failure model tam, kde je to relevantné; README ordering a navigation obsahujú 32 kapitol; praktický projekt má kompletné manifests, overlays a verification script; API, controller, runtime, dataplane a business evidence sa nezlievajú; a full glossary/navigation/learning-depth audit prejde bez dočasných closeout súborov v merge diff-e.
+
+Tento gate neoznačuje príklady za reálne vykonané. Kubernetes, CNI, CSI, HPA, Gateway, etcd a upgrade outcomes sú závislé od konkrétnej cluster verzie a implementácie. Pri použití sa najprv overí API discovery, version-skew policy a platform-specific controller contract.
+
+## Stav revalidácie
+
+| Blok | Kapitoly | Stav |
+|---|---:|---|
+| API, reconciliation, control plane a worker Nodes | 5/5 | Complete |
+| Pod a workload controllers | 6/6 | Complete |
+| Configuration, identity, Service, edge, DNS a CNI | 6/6 | Complete |
+| Storage, scheduling, resources, probes, topology a HPA | 6/6 | Complete |
+| RBAC, workload security, quota a cluster lifecycle | 4/4 | Complete |
+| etcd recovery, upgrades a observability | 3/3 | Complete |
+| Practical walkthrough a troubleshooting | 2/2 | Complete |
+
+Celkový authoritative stav je **32/32 · Ready for user review**. Znamená to dokončený full-section prose, practical, navigation a learning-depth pass. Neznamená automaticky používateľské `Accepted`, reálne cluster `Verified` ani produkčné `Stable`.
