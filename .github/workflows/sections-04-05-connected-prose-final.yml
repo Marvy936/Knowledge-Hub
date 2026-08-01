@@ -1,0 +1,35 @@
+name: Sections 04 and 05 explicit connected prose
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/section_04_connected_prose_blocks.py"
+      - "scripts/section_05_connected_prose_blocks.py"
+      - "scripts/close_sections_04_05_connected_prose.py"
+      - ".github/workflows/sections-04-05-connected-prose-final.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  rewrite:
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rewrite explicit prose blocks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/close_sections_04_05_connected_prose.py
