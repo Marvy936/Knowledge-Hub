@@ -67,6 +67,13 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
+      - name: Expand Section 02 concept-first explanations
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$PYTHON_BIN" scripts/expand_section_02_concepts.py
+
       - name: Synchronize and commit generated documentation
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash
