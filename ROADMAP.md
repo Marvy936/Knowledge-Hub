@@ -58,7 +58,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md)
 - [x] [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md)
 - [x] [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md)
-- [x] [Ports a sockets](docs/02-networking-and-web/ports-and-sockets.md)
+- [ ] Ports a sockets
 - [x] [DNS](docs/02-networking-and-web/dns.md)
 - [x] [DHCP](docs/02-networking-and-web/dhcp.md)
 - [x] [NAT](docs/02-networking-and-web/nat.md)
@@ -66,8 +66,8 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md)
 - [x] [Load balancing](docs/02-networking-and-web/load-balancing.md)
 - [x] [HTTP](docs/02-networking-and-web/http.md)
-- [x] [HTTPS, TLS, certificates a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md)
-- [x] [REST APIs a WebSockets](docs/02-networking-and-web/rest-apis-and-websockets.md)
+- [ ] HTTPS, TLS, certificates a PKI
+- [ ] REST APIs a WebSockets
 - [x] [Network troubleshooting](docs/02-networking-and-web/network-troubleshooting.md)
 
 ### Git and Automation Basics
