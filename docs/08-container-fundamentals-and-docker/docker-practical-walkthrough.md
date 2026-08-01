@@ -1,38 +1,21 @@
 # Praktický Docker projekt od prázdneho adresára po overený Compose runtime
 
-Táto kapitola materializuje pojmy z predchádzajúcich Docker kapitol do jedného malého, ale reálneho projektu. Cieľom nie je iba skopírovať Dockerfile alebo spustiť niekoľko `docker` príkazov. Pri každom súbore a príkaze si vysvetlíme, aký vstup vytvára, čo Docker alebo BuildKit z tohto vstupu zostaví, čo sa neskôr zmení pri vytvorení containeru a čo daný zelený výsledok ešte nedokazuje.
+Predchádzajúce kapitoly rozdelili Docker na samostatné mechanizmy: build context, Dockerfile graph, image layers, registry digest, container create configuration, namespaces, volumes, networks, environment a health. V tejto kapitole ich spojíme do jedného projektu a budeme sledovať, ako sa obyčajný source tree postupne mení na testovaný image a napokon na overenú Compose application.
 
-Budeme kontajnerizovať jednoduchú HTTP službu `payments-api`. Aplikácia poskytne health, readiness a version endpoint, prijme malý payment záznam a uloží ho do súboru. Práve zápis do súboru nám umožní prakticky ukázať rozdiel medzi image filesystemom, zapisovateľnou vrstvou containeru a named volume-om.
+Cieľom nie je vytvoriť produkčný payment systém. Potrebujeme malú aplikáciu s dostatočne bohatým runtime contractom, aby sme mohli pozorovať všetky podstatné Docker hranice. `payments-api` preto poskytne health, readiness a version endpoint, prijme jednoduchý payment záznam a uloží ho do súboru. Súbor nám umožní overiť volume persistence. Version endpoint ukáže, ktorý build a configuration generation process skutočne načítal. Readiness skontroluje, či je data path zapisovateľný.
 
-Výsledný tok bude:
+Na konci nebudeme mať iba zelený `docker compose up`. Budeme vedieť preukázať, ktorý source a Dockerfile vytvorili image, či sa test stage skutočne vykonal, aký user a command sú v image-i, akú effective konfiguráciu dostal container, či funguje local health, service DNS aj host port, či business údaj prežije recreate a ako sa diagnostikuje zámerne vložená network a volume chyba.
 
-```text
-application source a test
-→ build context a .dockerignore
-→ multi-stage Dockerfile
-→ samostatný test target
-→ runtime image
-→ image metadata a filesystem inspection
-→ container create a effective runtime configuration
-→ process, health, port a volume verification
-→ Compose resolved model
-→ recreate a persistence test
-→ zámerne chybný network bind
-→ diagnostika a oprava
-→ multi-platform publication a digest read-back
-→ cleanup
-```
+## 1. Pracovný adresár
 
-## 1. Vytvorenie adresárovej štruktúry
-
-Najprv vytvor pracovný adresár:
+Vytvor nový projekt:
 
 ```bash
 mkdir -p atlas-payments-docker/cmd/payments-api
 cd atlas-payments-docker
 ```
 
-Výsledná štruktúra bude:
+Budeme postupne vytvárať túto štruktúru:
 
 ```text
 atlas-payments-docker/
@@ -48,9 +31,9 @@ atlas-payments-docker/
         └── main_test.go
 ```
 
-Tento adresár ešte nie je image ani container. Je to iba source tree. Výsledný image bude závisieť od obsahu build contextu, Dockerfile-u, base images, build arguments, buildera, platformy a cache. Container následne pridá ďalšie runtime vstupy, napríklad environment variables, mounts, network, port publishing, resource limits a security options.
+V tejto chvíli neexistuje image ani container. Existuje iba source tree. Image vznikne až z konkrétneho build contextu, Dockerfile-u, base images, build arguments, buildera a platformy. Container neskôr pridá ďalšiu vrstvu vstupov: environment, mounts, network, ports, limits a security options.
 
-## 2. `go.mod`: identita aplikácie
+## 2. Minimálna aplikácia
 
 Vytvor `go.mod`:
 
@@ -60,11 +43,9 @@ module example.com/atlas/payments-api
 go 1.25
 ```
 
-Module path identifikuje Go modul. Riadok `go 1.25` určuje language a module semantics, ktoré projekt očakáva. Neprikazuje Dockeru konkrétny compiler image; ten neskôr určíme samostatne v Dockerfile-i.
+Module file je build input. Go verzia vyjadruje očakávané language a module semantics, ale konkrétny compiler image určí až Dockerfile.
 
-## 3. `main.go`: minimálny runtime contract
-
-Vytvor `cmd/payments-api/main.go`:
+Teraz vytvor `cmd/payments-api/main.go`:
 
 ```go
 package main
@@ -111,25 +92,22 @@ func environment(name, fallback string) string {
 
 func (app application) ensureWritableDataPath() error {
     directory := filepath.Dir(app.dataPath)
-
     if err := os.MkdirAll(directory, 0o750); err != nil {
         return fmt.Errorf("create data directory: %w", err)
     }
 
-    file, err := os.OpenFile(
-        app.dataPath,
-        os.O_CREATE|os.O_APPEND|os.O_WRONLY,
-        0o640,
-    )
+    file, err := os.OpenFile(app.dataPath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o640)
     if err != nil {
         return fmt.Errorf("open data file: %w", err)
     }
-
     return file.Close()
 }
 
 func (app application) appendPayment(value payment) error {
-    if strings.TrimSpace(value.ID) == "" {
+    value.ID = strings.TrimSpace(value.ID)
+    value.Currency = strings.ToUpper(strings.TrimSpace(value.Currency))
+
+    if value.ID == "" {
         return errors.New("payment id is required")
     }
     if value.Amount <= 0 {
@@ -139,11 +117,7 @@ func (app application) appendPayment(value payment) error {
         return errors.New("currency must use a three-letter code")
     }
 
-    file, err := os.OpenFile(
-        app.dataPath,
-        os.O_CREATE|os.O_APPEND|os.O_WRONLY,
-        0o640,
-    )
+    file, err := os.OpenFile(app.dataPath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o640)
     if err != nil {
         return fmt.Errorf("open data file: %w", err)
     }
@@ -152,11 +126,9 @@ func (app application) appendPayment(value payment) error {
     if err := json.NewEncoder(file).Encode(value); err != nil {
         return fmt.Errorf("append payment: %w", err)
     }
-
     if err := file.Sync(); err != nil {
         return fmt.Errorf("sync payment data: %w", err)
     }
-
     return nil
 }
 
@@ -180,35 +152,38 @@ func (app application) findPayment(id string) (payment, bool, error) {
             return value, true, nil
         }
     }
-
     if err := scanner.Err(); err != nil {
         return payment{}, false, fmt.Errorf("scan data file: %w", err)
     }
-
     return payment{}, false, nil
+}
+
+func writeJSON(writer http.ResponseWriter, status int, value any) {
+    writer.Header().Set("Content-Type", "application/json")
+    writer.WriteHeader(status)
+    _ = json.NewEncoder(writer).Encode(value)
 }
 
 func (app application) routes() http.Handler {
     mux := http.NewServeMux()
 
     mux.HandleFunc("GET /healthz", func(writer http.ResponseWriter, _ *http.Request) {
-        writer.Header().Set("Content-Type", "application/json")
-        _, _ = writer.Write([]byte(`{"status":"alive"}`))
+        writeJSON(writer, http.StatusOK, map[string]string{"status": "alive"})
     })
 
     mux.HandleFunc("GET /readyz", func(writer http.ResponseWriter, _ *http.Request) {
         if err := app.ensureWritableDataPath(); err != nil {
-            http.Error(writer, err.Error(), http.StatusServiceUnavailable)
+            writeJSON(writer, http.StatusServiceUnavailable, map[string]string{
+                "status": "not-ready",
+                "error":  err.Error(),
+            })
             return
         }
-
-        writer.Header().Set("Content-Type", "application/json")
-        _, _ = writer.Write([]byte(`{"status":"ready"}`))
+        writeJSON(writer, http.StatusOK, map[string]string{"status": "ready"})
     })
 
     mux.HandleFunc("GET /version", func(writer http.ResponseWriter, _ *http.Request) {
-        writer.Header().Set("Content-Type", "application/json")
-        _ = json.NewEncoder(writer).Encode(map[string]string{
+        writeJSON(writer, http.StatusOK, map[string]string{
             "service":           "payments-api",
             "version":           version,
             "commit":            commit,
@@ -220,126 +195,91 @@ func (app application) routes() http.Handler {
         defer request.Body.Close()
 
         var value payment
-        decoder := json.NewDecoder(
-            http.MaxBytesReader(writer, request.Body, 64*1024),
-        )
+        decoder := json.NewDecoder(http.MaxBytesReader(writer, request.Body, 1<<20))
         decoder.DisallowUnknownFields()
-
         if err := decoder.Decode(&value); err != nil {
-            http.Error(writer, "invalid payment payload", http.StatusBadRequest)
+            writeJSON(writer, http.StatusBadRequest, map[string]string{"error": err.Error()})
             return
         }
-
         if err := app.appendPayment(value); err != nil {
-            http.Error(writer, err.Error(), http.StatusUnprocessableEntity)
+            writeJSON(writer, http.StatusBadRequest, map[string]string{"error": err.Error()})
             return
         }
-
-        writer.Header().Set("Content-Type", "application/json")
-        writer.WriteHeader(http.StatusCreated)
-        _ = json.NewEncoder(writer).Encode(value)
+        writeJSON(writer, http.StatusCreated, value)
     })
 
     mux.HandleFunc("GET /payments/{id}", func(writer http.ResponseWriter, request *http.Request) {
         value, found, err := app.findPayment(request.PathValue("id"))
         if err != nil {
-            http.Error(writer, err.Error(), http.StatusInternalServerError)
+            writeJSON(writer, http.StatusInternalServerError, map[string]string{"error": err.Error()})
             return
         }
         if !found {
-            http.NotFound(writer, request)
+            writeJSON(writer, http.StatusNotFound, map[string]string{"error": "payment not found"})
             return
         }
-
-        writer.Header().Set("Content-Type", "application/json")
-        _ = json.NewEncoder(writer).Encode(value)
+        writeJSON(writer, http.StatusOK, value)
     })
 
     return mux
 }
 
-func runServer() error {
-    listenAddress := environment("LISTEN_ADDRESS", ":8080")
-    dataPath := environment(
-        "DATA_PATH",
-        "/var/lib/atlas-payments/payments.jsonl",
-    )
-    configGeneration := environment("CONFIG_GENERATION", "local")
+func healthcheck() error {
+    url := environment("HEALTHCHECK_URL", "http://127.0.0.1:8080/readyz")
+    client := http.Client{Timeout: 2 * time.Second}
 
-    app := application{
-        dataPath:         dataPath,
-        configGeneration: configGeneration,
-    }
-
-    if err := app.ensureWritableDataPath(); err != nil {
-        return err
-    }
-
-    server := &http.Server{
-        Addr:              listenAddress,
-        Handler:           app.routes(),
-        ReadHeaderTimeout: 5 * time.Second,
-    }
-
-    signalContext, stop := signal.NotifyContext(
-        context.Background(),
-        syscall.SIGTERM,
-        syscall.SIGINT,
-    )
-    defer stop()
-
-    serverErrors := make(chan error, 1)
-
-    go func() {
-        log.Printf(
-            "starting payments-api version=%s commit=%s address=%s data=%s config=%s",
-            version,
-            commit,
-            listenAddress,
-            dataPath,
-            configGeneration,
-        )
-
-        err := server.ListenAndServe()
-        if err != nil && !errors.Is(err, http.ErrServerClosed) {
-            serverErrors <- err
-            return
-        }
-        serverErrors <- nil
-    }()
-
-    select {
-    case err := <-serverErrors:
-        return err
-    case <-signalContext.Done():
-        shutdownContext, cancel := context.WithTimeout(
-            context.Background(),
-            10*time.Second,
-        )
-        defer cancel()
-
-        return server.Shutdown(shutdownContext)
-    }
-}
-
-func runHealthcheck() error {
-    url := environment(
-        "HEALTHCHECK_URL",
-        "http://127.0.0.1:8080/readyz",
-    )
-
-    client := &http.Client{Timeout: 2 * time.Second}
     response, err := client.Get(url)
     if err != nil {
-        return err
+        return fmt.Errorf("health request: %w", err)
     }
     defer response.Body.Close()
 
     if response.StatusCode != http.StatusOK {
-        return fmt.Errorf("health endpoint returned %s", response.Status)
+        return fmt.Errorf("health status: %s", response.Status)
+    }
+    return nil
+}
+
+func serve() error {
+    app := application{
+        dataPath:         environment("DATA_PATH", "/var/lib/atlas-payments/payments.jsonl"),
+        configGeneration: environment("CONFIG_GENERATION", "local-default"),
     }
 
-    return nil
+    server := &http.Server{
+        Addr:              environment("LISTEN_ADDRESS", ":8080"),
+        Handler:           app.routes(),
+        ReadHeaderTimeout: 5 * time.Second,
+        ReadTimeout:       10 * time.Second,
+        WriteTimeout:      10 * time.Second,
+        IdleTimeout:       60 * time.Second,
+    }
+
+    signals := make(chan os.Signal, 1)
+    signal.Notify(signals, syscall.SIGINT, syscall.SIGTERM)
+
+    go func() {
+        <-signals
+        context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+        defer cancel()
+        if err := server.Shutdown(context); err != nil {
+            log.Printf("graceful shutdown failed: %v", err)
+        }
+    }()
+
+    log.Printf(
+        "starting service=payments-api version=%s commit=%s config_generation=%s address=%s",
+        version,
+        commit,
+        app.configGeneration,
+        server.Addr,
+    )
+
+    err := server.ListenAndServe()
+    if errors.Is(err, http.ErrServerClosed) {
+        return nil
+    }
+    return err
 }
 
 func main() {
@@ -349,18 +289,13 @@ func main() {
     }
 
     var err error
-
     switch command {
     case "serve":
-        err = runServer()
+        err = serve()
     case "healthcheck":
-        err = runHealthcheck()
+        err = healthcheck()
     case "version":
-        err = json.NewEncoder(os.Stdout).Encode(map[string]string{
-            "service": "payments-api",
-            "version": version,
-            "commit":  commit,
-        })
+        fmt.Printf("service=payments-api version=%s commit=%s\n", version, commit)
     default:
         err = fmt.Errorf("unknown command %q", command)
     }
@@ -371,17 +306,9 @@ func main() {
 }
 ```
 
-Aplikácia je zámerne malá, ale ukazuje niekoľko dôležitých runtime vlastností.
+Aplikácia vedome obsahuje viac runtime vlastností. Hlavný process zostáva v foregrounde a priamo spracuje `SIGTERM`, takže je vhodný ako PID 1. Healthcheck používa rovnaký binary; final image nepotrebuje shell ani `curl`. Readiness skutočne otvorí data file, takže odhalí volume permission problém, ktorý obyčajný process health nevidí. `file.Sync()` dáva lepšiu durability hranicu než samotný buffered encode, hoci konečný outcome stále závisí od filesystemu a storage backendu.
 
-`LISTEN_ADDRESS` určuje, na ktorom interface a porte proces počúva. Hodnota `:8080` znamená port `8080` na všetkých dostupných adresách v network namespace-e procesu. Neskôr zámerne nastavíme `127.0.0.1:8080` a ukážeme, prečo môže byť container healthy, ale host port nedostupný.
-
-`DATA_PATH` určuje persistentný súbor. Readiness endpoint sa nepýta iba na to, či process žije. Pokúsi sa otvoriť data path na zápis. Ak volume nemá správne permissions alebo chýba writable mount, `/readyz` vráti HTTP `503`.
-
-`CONFIG_GENERATION` nám umožní overiť, ktorú runtime konfiguráciu proces skutočne načítal. Samotná environment hodnota v `docker inspect` ešte nepreukazuje, že ju aplikácia použila. `/version` preto vracia application-loaded hodnotu.
-
-Signal handling je súčasťou container lifecycle-u. Keď Docker pošle `SIGTERM`, aplikácia použije bounded graceful shutdown namiesto okamžitého ukončenia procesu.
-
-## 4. `main_test.go`: overenie aplikačného contractu
+## 3. Test pred containerizáciou
 
 Vytvor `cmd/payments-api/main_test.go`:
 
@@ -389,155 +316,72 @@ Vytvor `cmd/payments-api/main_test.go`:
 package main
 
 import (
-    "net/http"
-    "net/http/httptest"
     "path/filepath"
-    "strings"
     "testing"
 )
 
-func TestPaymentWriteAndRead(t *testing.T) {
-    t.Parallel()
-
+func TestPaymentRoundTrip(t *testing.T) {
     app := application{
         dataPath:         filepath.Join(t.TempDir(), "payments.jsonl"),
-        configGeneration: "test-1",
+        configGeneration: "test",
     }
 
-    server := httptest.NewServer(app.routes())
-    t.Cleanup(server.Close)
+    expected := payment{
+        ID:       "pay-100",
+        Amount:   1250,
+        Currency: "eur",
+    }
 
-    requestBody := `{"id":"pay-100","amount":1250,"currency":"EUR"}`
+    if err := app.appendPayment(expected); err != nil {
+        t.Fatalf("append payment: %v", err)
+    }
 
-    response, err := http.Post(
-        server.URL+"/payments",
-        "application/json",
-        strings.NewReader(requestBody),
-    )
+    actual, found, err := app.findPayment("pay-100")
     if err != nil {
-        t.Fatalf("create payment: %v", err)
+        t.Fatalf("find payment: %v", err)
     }
-    defer response.Body.Close()
-
-    if response.StatusCode != http.StatusCreated {
-        t.Fatalf(
-            "unexpected create status: got %d want %d",
-            response.StatusCode,
-            http.StatusCreated,
-        )
+    if !found {
+        t.Fatal("payment was not found")
     }
-
-    getResponse, err := http.Get(server.URL + "/payments/pay-100")
-    if err != nil {
-        t.Fatalf("read payment: %v", err)
-    }
-    defer getResponse.Body.Close()
-
-    if getResponse.StatusCode != http.StatusOK {
-        t.Fatalf(
-            "unexpected read status: got %d want %d",
-            getResponse.StatusCode,
-            http.StatusOK,
-        )
+    if actual.ID != "pay-100" || actual.Amount != 1250 || actual.Currency != "EUR" {
+        t.Fatalf("unexpected payment: %#v", actual)
     }
 }
 
-func TestRejectsInvalidAmount(t *testing.T) {
-    t.Parallel()
-
+func TestRejectsNonPositiveAmount(t *testing.T) {
     app := application{
-        dataPath:         filepath.Join(t.TempDir(), "payments.jsonl"),
-        configGeneration: "test-1",
+        dataPath: filepath.Join(t.TempDir(), "payments.jsonl"),
     }
 
-    server := httptest.NewServer(app.routes())
-    t.Cleanup(server.Close)
-
-    requestBody := `{"id":"pay-invalid","amount":0,"currency":"EUR"}`
-
-    response, err := http.Post(
-        server.URL+"/payments",
-        "application/json",
-        strings.NewReader(requestBody),
-    )
-    if err != nil {
-        t.Fatalf("create invalid payment: %v", err)
-    }
-    defer response.Body.Close()
-
-    if response.StatusCode != http.StatusUnprocessableEntity {
-        t.Fatalf(
-            "unexpected status: got %d want %d",
-            response.StatusCode,
-            http.StatusUnprocessableEntity,
-        )
+    err := app.appendPayment(payment{
+        ID:       "pay-invalid",
+        Amount:   0,
+        Currency: "EUR",
+    })
+    if err == nil {
+        t.Fatal("expected non-positive amount to be rejected")
     }
 }
 ```
 
-Prvý test overuje základný write/read contract. Druhý test je forbidden path: nulová suma nesmie byť prijatá.
+Prvý test overuje persistovaný round trip, nie iba jednu helper funkciu. Druhý je forbidden-path test: neplatná suma nesmie byť zapísaná.
 
-Spusť testy lokálne, ak máš Go toolchain:
+Ak máš lokálne Go 1.25, spusti:
 
 ```bash
+gofmt -w cmd/payments-api/main.go cmd/payments-api/main_test.go
 go test ./...
 ```
 
 Očakávaný výsledok:
 
 ```text
-ok  example.com/atlas/payments-api/cmd/payments-api  ...
+ok  example.com/atlas/payments-api/cmd/payments-api
 ```
 
-Tento výsledok dokazuje, že testované Go funkcie prešli v lokálnom toolchaine a prostredí. Nedokazuje, že rovnaké testy neskôr vykoná Docker build, že final image obsahuje správny binary alebo že volume a network runtime budú fungovať.
+Tento test preukazuje aplikačnú logiku na hostiteľskom Go toolchaine. Neoveruje Docker build, final image, non-root permissions ani network path. Práve preto test neskôr zopakujeme v BuildKit stage-i.
 
-## 5. Lokálne spustenie pred kontajnerizáciou
-
-Vytvor lokálny data adresár:
-
-```bash
-mkdir -p .local/data
-```
-
-Spusť aplikáciu:
-
-```bash
-LISTEN_ADDRESS=127.0.0.1:8080 \
-DATA_PATH="$PWD/.local/data/payments.jsonl" \
-CONFIG_GENERATION=local-1 \
-go run ./cmd/payments-api
-```
-
-V druhom termináli:
-
-```bash
-curl --fail --silent http://127.0.0.1:8080/healthz
-curl --fail --silent http://127.0.0.1:8080/readyz
-curl --fail --silent http://127.0.0.1:8080/version | jq .
-```
-
-Očakávané odpovede:
-
-```json
-{"status":"alive"}
-```
-
-```json
-{"status":"ready"}
-```
-
-```json
-{
-  "commit": "unknown",
-  "config_generation": "local-1",
-  "service": "payments-api",
-  "version": "dev"
-}
-```
-
-Lokálne spustenie potvrdzuje aplikačný contract bez Docker vrstvy. Keď neskôr rovnaká aplikácia zlyhá iba v containere, získame prvý diskriminačný bod: problém môže byť v image build-e alebo runtime konfigurácii, nie nevyhnutne v samotnom handleri.
-
-## 6. `.dockerignore`: kontrola build contextu
+## 4. Build context a `.dockerignore`
 
 Vytvor `.dockerignore`:
 
@@ -546,9 +390,11 @@ Vytvor `.dockerignore`:
 .gitignore
 .env
 .env.*
-.local/
+!.env.example
 coverage/
 dist/
+evidence/
+backups/
 tmp/
 *.log
 *.pem
@@ -556,63 +402,35 @@ tmp/
 compose.override.yaml
 ```
 
-Keď spustíš:
+Build context má obsahovať source potrebný pre build, nie celý pracovný adresár. `.git`, runtime environment, evidence, backups a private keys do primary contextu nepatria. Ignore file znižuje transfer aj accidental cache invalidation.
 
-```bash
-docker buildx build .
-```
+Stále nejde o bezpečnostnú sandbox hranicu. Dockerfile môže používať sieť alebo secret mounts a build program môže vytvoriť citlivý output. `.dockerignore` rieši iba inventory primary context files.
 
-bodka označuje build context. Docker klient alebo BuildKit odošle builderu súbory patriace do contextu, po aplikovaní `.dockerignore`.
-
-Bez ignore súboru by sa do contextu mohli dostať Git history, lokálne dáta, test reports, logy, privátne keys alebo `.env` súbor. Context by bol väčší, zmeny nepodstatných súborov by mohli invalidovať cache a `COPY . .` by mohol nechtiac vložiť lokálne dáta do image layeru.
-
-Skontroluj veľkosť contextu počas plain-progress buildu:
-
-```bash
-docker buildx build \
-  --progress=plain \
-  --target test \
-  --output=type=cacheonly \
-  .
-```
-
-V logu hľadaj krok podobný:
-
-```text
-transferring context: ...
-```
-
-Prenesená veľkosť sama nepreukazuje správny inventory. `.dockerignore` nie je bezpečnostná hranica proti škodlivému Dockerfile-u ani proti build commandu, ktorý si secret stiahne zo siete.
-
-## 7. `Dockerfile`: celý build graph
+## 5. Multi-stage Dockerfile
 
 Vytvor `Dockerfile`:
 
 ```dockerfile
 # syntax=docker/dockerfile:1
 
-ARG GO_IMAGE=golang:1.25-alpine@sha256:<verified-go-image-digest>
-ARG RUNTIME_IMAGE=gcr.io/distroless/static-debian12:nonroot@sha256:<verified-runtime-image-digest>
+ARG GO_IMAGE=golang:1.25-alpine@sha256:<verified-build-base-digest>
+ARG RUNTIME_IMAGE=gcr.io/distroless/static-debian12:nonroot@sha256:<verified-runtime-base-digest>
 
 FROM ${GO_IMAGE} AS source
-
 WORKDIR /src
 
 COPY go.mod ./
-
 RUN --mount=type=cache,target=/go/pkg/mod,sharing=locked \
     go mod download
 
 COPY cmd ./cmd
 
 FROM source AS test
-
 RUN --mount=type=cache,target=/go/pkg/mod,sharing=locked \
     --mount=type=cache,target=/root/.cache/go-build,sharing=locked \
     go test ./...
 
 FROM source AS build
-
 ARG TARGETOS
 ARG TARGETARCH
 ARG VERSION
@@ -621,37 +439,33 @@ ARG VCS_REF
 RUN --mount=type=cache,target=/go/pkg/mod,sharing=locked \
     --mount=type=cache,target=/root/.cache/go-build,sharing=locked \
     CGO_ENABLED=0 \
-    GOOS=${TARGETOS} \
-    GOARCH=${TARGETARCH} \
+    GOOS="$TARGETOS" \
+    GOARCH="$TARGETARCH" \
     go build \
       -trimpath \
-      -ldflags="-s -w -X main.version=${VERSION} -X main.commit=${VCS_REF}" \
+      -ldflags="-s -w -X main.version=$VERSION -X main.commit=$VCS_REF" \
       -o /out/payments-api \
       ./cmd/payments-api
 
 FROM ${RUNTIME_IMAGE} AS runtime
-
 ARG VERSION
 ARG VCS_REF
 
 LABEL org.opencontainers.image.title="Atlas Payments API" \
-      org.opencontainers.image.version="${VERSION}" \
-      org.opencontainers.image.revision="${VCS_REF}"
+      org.opencontainers.image.version="$VERSION" \
+      org.opencontainers.image.revision="$VCS_REF"
 
 WORKDIR /home/nonroot
-
 COPY --from=build --chown=65532:65532 \
-    /out/payments-api \
-    /usr/local/bin/payments-api
+  /out/payments-api \
+  /usr/local/bin/payments-api
 
 USER 65532:65532
-
 ENV LISTEN_ADDRESS=:8080 \
     DATA_PATH=/var/lib/atlas-payments/payments.jsonl \
     HEALTHCHECK_URL=http://127.0.0.1:8080/readyz
 
 EXPOSE 8080
-
 STOPSIGNAL SIGTERM
 
 HEALTHCHECK \
@@ -665,72 +479,15 @@ ENTRYPOINT ["/usr/local/bin/payments-api"]
 CMD ["serve"]
 ```
 
-Dockerfile treba čítať po stages a po závislostiach, nie ako jeden vždy lineárny shell script:
+Stage `source` pripraví dependencies a source. `test` a `build` sú dve samostatné vetvy. `runtime` závisí iba od `build`, takže final build nemusí vykonať test stage. Toto je dôvod, prečo sa test target spustí explicitne.
 
-```text
-source
-├── test
-└── build
-    └── runtime
-```
+Final stage obsahuje iba binary a runtime metadata. Build toolchain a source v ňom nie sú. `USER` nastaví non-root default. Exec-form `ENTRYPOINT` zabezpečí, že aplikácia bude PID 1 bez implicitného shellu. `EXPOSE` iba dokumentuje port; host publication vytvoríme až pri runtime.
 
-Final target `runtime` závisí od `build`, ale nie od sibling stage-u `test`. To znamená, že úspešný build runtime image-u automaticky nedokazuje vykonanie testov. Test stage preto spustíme samostatne.
+Placeholder digesty musia byť nahradené reálnymi schválenými digestmi. Bez toho príklad nie je vykonateľný proti registry.
 
-### `# syntax=docker/dockerfile:1`
+## 6. Builder a test graph
 
-Parser directive určuje Dockerfile frontend. Umožňuje používať moderné funkcie, napríklad `RUN --mount=type=cache`. Musí byť na začiatku súboru.
-
-### Global `ARG` a `FROM`
-
-Global arguments sú dostupné pre `FROM`, preto môžeme riadiť base images bez prepísania Dockerfile-u. Base reference obsahuje čitateľný tag aj digest. Tag vysvetľuje zámer človeku, digest určuje konkrétny manifest.
-
-Placeholder `<verified-...-digest>` musíš pri reálnom použití nahradiť digestom schváleného image-u.
-
-Global `ARG` nie je automaticky dostupný v ďalších instructions stage-u. Preto `VERSION` a `VCS_REF` deklarujeme znova v `build` aj `runtime` stage-i.
-
-### Oddelené kopírovanie dependencies a source
-
-```dockerfile
-COPY go.mod ./
-RUN ... go mod download
-COPY cmd ./cmd
-```
-
-Dependency metadata sa kopíruje pred source kódom. Zmena `main.go` preto nemusí invalidovať dependency-download layer. Keby sme použili `COPY . .` hneď na začiatku, takmer každá source zmena by zneplatnila viac cache krokov.
-
-### Cache mounts
-
-Cache mount zrýchľuje opakované buildy. Jeho obsah sa nestane automaticky final image layerom a build musí vedieť fungovať aj po vymazaní cache. `sharing=locked` koordinuje paralelných writers, ale samo osebe nerobí cache dôveryhodnou.
-
-### `CGO_ENABLED=0`
-
-Statický Go binary znižuje závislosť od libc a dynamic loadera vo final image-i. Stále musí zodpovedať cieľovej OS a CPU architecture.
-
-### `COPY --from=build`
-
-Final stage nekopíruje compiler, source ani test toolchain. Preberá iba výsledný binary.
-
-### `USER 65532:65532`
-
-Aplikácia beží ako non-root user. Každý writable mount preto musí byť kompatibilný s UID/GID `65532`. Samotné `USER` v image-i nevyrieši permissions existujúceho volume-u.
-
-### Exec-form `ENTRYPOINT` a `CMD`
-
-Výsledný default command je:
-
-```text
-/usr/local/bin/payments-api serve
-```
-
-Exec form nevkladá medzi Docker a aplikáciu implicitný shell. Aplikačný binary sa stane PID 1 a priamo prijíma signals.
-
-### `EXPOSE`
-
-`EXPOSE 8080` dokumentuje container port. Nevytvára host listener. Port sa publikuje až cez runtime configuration.
-
-## 8. Samostatné vykonanie test stage-u
-
-Najprv vytvor alebo vyber Buildx builder:
+Vytvor pomenovaný builder:
 
 ```bash
 docker buildx create \
@@ -738,12 +495,18 @@ docker buildx create \
   --driver docker-container \
   --use
 
-docker buildx inspect --bootstrap
+docker buildx inspect atlas-builder --bootstrap
 ```
 
-Builder name nie je iba kozmetický. Určuje BuildKit daemon, jeho cache, driver, nodes, platforms a trust boundary.
+Zachovaj jeho identity:
 
-Spusť test target:
+```bash
+mkdir -p evidence
+docker buildx inspect atlas-builder --bootstrap \
+  > evidence/builder.txt
+```
+
+Spusti test target:
 
 ```bash
 docker buildx build \
@@ -752,26 +515,35 @@ docker buildx build \
   --platform linux/amd64 \
   --progress=plain \
   --output=type=cacheonly \
+  . 2>&1 | tee evidence/test-build.log
+```
+
+Exit code `0` znamená, že graph potrebný pre target `test` dokončil svoje commands. Neznamená, že runtime image existuje. Log zároveň ukáže, či boli nodes vykonané alebo cached.
+
+Pre clean kontrolu:
+
+```bash
+docker buildx build \
+  --builder atlas-builder \
+  --no-cache \
+  --target test \
+  --platform linux/amd64 \
+  --progress=plain \
+  --output=type=cacheonly \
   .
 ```
 
-Očakávaj úspešný krok `go test ./...`. Tento výsledok dokazuje, že BuildKit vykonal graph potrebný pre target `test` a že test command skončil exit code `0`. Nedokazuje final runtime image, druhú platformu ani produkčný volume/network contract.
+No-cache run odhaľuje hidden dependency na instruction cache. Stále môže používať network dependencies a cache mounts podľa build modelu; úplne izolovaný clean-room test môže vyžadovať nový builder a oddelené cache namespaces.
 
-Zámerne spusti test po dočasnej zmene očakávaného statusu v `main_test.go`. Build musí skončiť non-zero. Potom test vráť. Takto overíš, že test failure nie je interpretovaný ako zelený výsledok.
+## 7. Lokálny runtime image
 
-## 9. Zostavenie lokálneho runtime image-u
-
-Nastav build metadata:
+Vytvor single-platform image a načítaj ho do local Engine-u:
 
 ```bash
 VERSION=1.0.0
-VCS_REF="$(git rev-parse --short=12 HEAD 2>/dev/null || printf 'local')"
+VCS_REF="$(git rev-parse --short=12 HEAD)"
 IMAGE="atlas/payments-api:${VERSION}-local"
-```
 
-Zostav runtime target pre lokálnu platformu:
-
-```bash
 docker buildx build \
   --builder atlas-builder \
   --target runtime \
@@ -783,207 +555,123 @@ docker buildx build \
   .
 ```
 
-`--load` vloží single-platform výsledok do image store-u aktuálneho Docker Engine-u. Nie je určený na uloženie multi-platform indexu.
+`--load` je vhodný pre local single-platform test. Nie je to production registry publication.
 
-Over, že image existuje:
-
-```bash
-docker image ls "$IMAGE"
-```
-
-Výstup s repository, tagom a image ID dokazuje lokálnu prítomnosť image-u. Tag je mutable pointer. Image ID je lokálna content identity image configu, nie automaticky registry digest.
-
-## 10. Image metadata a build history
-
-Ulož inspect výstup:
+Image metadata:
 
 ```bash
-mkdir -p evidence
+docker image inspect "$IMAGE" > evidence/image-inspect.json
 
-docker image inspect "$IMAGE" \
-  > evidence/image-inspect.json
-```
-
-Vyber relevantné fields:
-
-```bash
-jq '.[0] | {
-  Id,
-  RepoTags,
-  RepoDigests,
-  Architecture,
-  Os,
-  Config: {
-    User: .Config.User,
-    Entrypoint: .Config.Entrypoint,
-    Cmd: .Config.Cmd,
-    Env: .Config.Env,
-    WorkingDir: .Config.WorkingDir,
-    ExposedPorts: .Config.ExposedPorts,
-    Healthcheck: .Config.Healthcheck,
-    Labels: .Config.Labels
-  }
+jq '.[0].Config | {
+  User,
+  Entrypoint,
+  Cmd,
+  Env,
+  WorkingDir,
+  ExposedPorts,
+  Healthcheck,
+  Labels
 }' evidence/image-inspect.json
 ```
 
-Očakávaj najmä non-root user, exec-form entrypoint, default command, working directory a `linux/amd64` platformu.
+Očakávame non-root usera, binary entrypoint, command `serve`, port `8080`, healthcheck a build labels. Inspect dokazuje image config, nie effective container overrides.
 
-`docker image inspect` dokazuje image metadata uloženú v tomto Engine store-i. Container runtime môže `User`, `Entrypoint`, `Cmd` alebo environment prepísať.
-
-Pozri image history:
+Spusti version command bez servera:
 
 ```bash
-docker image history \
-  --no-trunc \
-  "$IMAGE"
+docker run --rm "$IMAGE" version
 ```
 
-History pomáha odhaliť zbytočné package installation, secrets vložené cez command text alebo nečakané veľké layers. History sama nepreukazuje contents všetkých layerov.
+Očakávaný výstup obsahuje `version=1.0.0` a aktuálny commit. Tým overíme, že build arguments vstúpili do binary. Stále sme netestovali server, volume ani port.
 
-## 11. Overenie final filesystemu bez spustenia servera
+## 8. Image filesystem
 
-Vytvor dočasný container object:
-
-```bash
-image_check_container="$(docker create "$IMAGE")"
-```
-
-Exportuj root filesystem:
+Vytvor dočasný container bez štartu:
 
 ```bash
-docker export "$image_check_container" \
-  | tar -tf - \
+image_container="$(docker create "$IMAGE")"
+docker export "$image_container" | tar -tf - \
   > evidence/rootfs-files.txt
+docker rm "$image_container"
 ```
 
-Over prítomnosť binary:
+Over binary path:
 
 ```bash
-grep -Fx 'usr/local/bin/payments-api' \
-  evidence/rootfs-files.txt
+grep -Fx 'usr/local/bin/payments-api' evidence/rootfs-files.txt
 ```
 
-Odstráň dočasný object:
+Tento read-back dokazuje, že path je vo výslednom image filesysteme. Neoveruje executable architecture, dynamic loader, mount obscuring ani process permissions.
 
-```bash
-docker rm "$image_check_container"
-```
+## 9. Network a volume pred containerom
 
-Tento test preukazuje prítomnosť pathu vo výslednom root filesysteme. Neoveruje executable permissions, CPU architecture, runtime mounts ani schopnosť procesu štartovať.
-
-Binary contract over bez spustenia servera:
-
-```bash
-docker run --rm "$IMAGE" version | jq .
-```
-
-Command používa image `ENTRYPOINT` a nahrádza default `CMD ["serve"]` argumentom `version`.
-
-## 12. Vytvorenie networku a named volume-u
-
-Vytvor user-defined bridge network:
+Vytvor runtime resources:
 
 ```bash
 docker network create atlas-payments-net
-```
-
-Vytvor named volume:
-
-```bash
 docker volume create atlas-payments-data
 ```
 
-Inspect:
-
-```bash
-docker network inspect atlas-payments-net | jq '.[0] | {
-  Name,
-  Driver,
-  Internal,
-  IPAM
-}'
-
-docker volume inspect atlas-payments-data | jq '.[0] | {
-  Name,
-  Driver,
-  Mountpoint,
-  Scope
-}'
-```
-
-Network a volume sú samostatné Docker objects s vlastným lifecycle-om. Odstránenie containeru ich automaticky nemusí odstrániť.
-
-Volume je nový a jeho root directory môže vlastniť root. Aplikácia bude bežať ako UID `65532`, preto volume pripravíme bounded initializerom:
+Priprav volume ownership pre UID `65532`:
 
 ```bash
 docker run --rm \
   --user 0:0 \
   --mount type=volume,source=atlas-payments-data,target=/data \
   busybox:1.36.1@sha256:<verified-busybox-digest> \
-  sh -ec 'mkdir -p /data && chown 65532:65532 /data'
+  sh -ec 'mkdir -p /data && chown 65532:65532 /data && chmod 0750 /data'
 ```
 
-Initializer beží ako root iba kvôli ownership transition. Produkčná implementácia musí presne vedieť, ktorý component vlastní initialization a migration.
+Initializer je samostatná privileged operation. Application image zostáva non-root. V produkčnom modeli má initializer kontrolovať schema a ownership idempotentne, nie slepo vykonávať recursive chown nad neznámym datasetom.
 
-## 13. `docker create`: runtime konfigurácia pred štartom
-
-Vytvor container bez spustenia procesu:
+## 10. Container najprv vytvor, až potom spusti
 
 ```bash
 docker create \
   --name atlas-payments-api \
   --network atlas-payments-net \
+  --user 65532:65532 \
   --read-only \
   --tmpfs /tmp:rw,noexec,nosuid,size=16m \
   --cap-drop ALL \
   --security-opt no-new-privileges=true \
-  --memory 128m \
+  --memory 256m \
   --cpus 0.50 \
-  --pids-limit 100 \
+  --pids-limit 128 \
   --mount type=volume,source=atlas-payments-data,target=/var/lib/atlas-payments \
   --publish 127.0.0.1:18080:8080 \
   --env CONFIG_GENERATION=manual-1 \
   "$IMAGE"
 ```
 
-Týmto vznikol container object, ale aplikácia ešte nebeží.
-
-Ulož effective configuration:
+Container je v stave `created`. Pred process mutation skontroluj effective config:
 
 ```bash
 docker inspect atlas-payments-api \
   > evidence/container-before-start.json
-```
 
-Skontroluj ju:
-
-```bash
 jq '.[0] | {
   Image,
-  Config: {
-    User: .Config.User,
-    Entrypoint: .Config.Entrypoint,
-    Cmd: .Config.Cmd,
-    Env: .Config.Env
-  },
-  HostConfig: {
-    ReadonlyRootfs: .HostConfig.ReadonlyRootfs,
-    CapDrop: .HostConfig.CapDrop,
-    SecurityOpt: .HostConfig.SecurityOpt,
-    Memory: .HostConfig.Memory,
-    NanoCpus: .HostConfig.NanoCpus,
-    PidsLimit: .HostConfig.PidsLimit
-  },
+  User: .Config.User,
+  Entrypoint: .Config.Entrypoint,
+  Cmd: .Config.Cmd,
+  Env: .Config.Env,
+  ReadonlyRootfs: .HostConfig.ReadonlyRootfs,
+  CapDrop: .HostConfig.CapDrop,
+  SecurityOpt: .HostConfig.SecurityOpt,
+  Memory: .HostConfig.Memory,
+  NanoCpus: .HostConfig.NanoCpus,
+  PidsLimit: .HostConfig.PidsLimit,
   Mounts,
   Ports: .NetworkSettings.Ports
 }' evidence/container-before-start.json
 ```
 
-Tu už nepozeráme iba image defaults. Vidíme effective container configuration po aplikovaní runtime options.
+Takto oddelíme chybu v create configuration od chyby pri process štarte.
 
-## 14. Spustenie containeru a PID 1
+## 11. Start, health a PID 1
 
-Spusť container:
+Spusti container:
 
 ```bash
 docker start atlas-payments-api
@@ -992,81 +680,56 @@ docker start atlas-payments-api
 Pozri process a logs:
 
 ```bash
-docker ps --all \
-  --filter name=atlas-payments-api
-
+docker ps --all --filter name=atlas-payments-api
 docker logs --timestamps atlas-payments-api
-
-docker top atlas-payments-api \
-  -eo pid,ppid,user,args
+docker top atlas-payments-api -eo pid,ppid,user,args
 ```
 
-Očakávaj process `/usr/local/bin/payments-api serve`. Aplikačný binary má byť hlavný PID 1 v containere. Exec-form `ENTRYPOINT` nevytvoril shell wrapper.
+Aplikácia má byť hlavný PID 1 v namespace-e a bežať ako UID `65532`.
 
-`docker start` success preukazuje, že Engine prijal start request. Process môže krátko nato exitnúť. Preto vždy čítaj aj `.State`, logs a health.
-
-## 15. Process state a Docker health
-
-Sleduj health:
+Počkaj na health:
 
 ```bash
 for attempt in $(seq 1 30); do
-  state="$(
-    docker inspect atlas-payments-api \
-      --format '{{.State.Status}}'
-  )"
-  health="$(
-    docker inspect atlas-payments-api \
-      --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}'
-  )"
-
-  printf 'attempt=%s state=%s health=%s\n' \
-    "$attempt" \
-    "$state" \
-    "$health"
-
-  [ "$health" = "healthy" ] && break
+  state="$(docker inspect atlas-payments-api --format '{{.State.Status}}')"
+  health="$(docker inspect atlas-payments-api --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}')"
+  printf 'attempt=%s state=%s health=%s\n' "$attempt" "$state" "$health"
+  [ "$health" = healthy ] && break
   sleep 1
 done
 ```
 
-Pozri health history:
+Health history:
 
 ```bash
 docker inspect atlas-payments-api \
-  --format '{{json .State.Health.Log}}' \
-  | jq 'map({
-      Start,
-      End,
-      ExitCode,
-      Output
-    })'
+  --format '{{json .State.Health.Log}}' | jq .
 ```
 
-Healthcheck spúšťa application binary, ktorý volá `http://127.0.0.1:8080/readyz`. Readiness zároveň overuje write access k data pathu.
+Healthcheck volá local readiness endpoint. Preukazuje process, local network namespace a writable data path. Ešte nepreukazuje host publication ani service DNS.
 
-`healthy` preto dokazuje local container network path a writable application data path. Neoveruje host port, service discovery ani konkrétny business POST/GET.
-
-## 16. Host port a loaded configuration
-
-Over host path:
+## 12. Host-published path a loaded configuration
 
 ```bash
-curl --fail --silent --show-error \
-  http://127.0.0.1:18080/version \
-  | jq .
+curl -fsS http://127.0.0.1:18080/version | jq .
 ```
 
-Očakávaj `service=payments-api`, `version=1.0.0` a `config_generation=manual-1`.
+Očakávané relevantné polia:
 
-Request prešiel cez host loopback, Docker port publishing, container network namespace a application listener. Hodnota `manual-1` je process-loaded konfigurácia, nie iba hodnota z inspect metadata.
+```json
+{
+  "service": "payments-api",
+  "version": "1.0.0",
+  "config_generation": "manual-1"
+}
+```
 
-## 17. Business write/read a named-volume persistence
+Tento request prešiel host loopbackom, Docker port publishing dataplane-om, container interface-om a application listenerom. `/version` navyše potvrdil loaded generation.
 
-Vytvor payment:
+## 13. Business zápis do volume-u
 
 ```bash
-curl --fail --silent --show-error \
+curl -fsS \
   --request POST \
   --header 'Content-Type: application/json' \
   --data '{"id":"pay-100","amount":1250,"currency":"EUR"}' \
@@ -1074,19 +737,36 @@ curl --fail --silent --show-error \
   | jq .
 ```
 
-Prečítaj ho:
+Prečítaj údaj:
 
 ```bash
-curl --fail --silent --show-error \
+curl -fsS \
   http://127.0.0.1:18080/payments/pay-100 \
-  | jq -e '
-      .id == "pay-100"
-      and .amount == 1250
-      and .currency == "EUR"
-    '
+  | jq -e '.id == "pay-100" and .amount == 1250 and .currency == "EUR"'
 ```
 
-Odstráň iba container:
+Tým sme prešli application validation, file write, sync a read. Neoverili sme backup, host loss ani concurrent-writer semantics.
+
+## 14. Graceful stop
+
+```bash
+docker stop --time 15 atlas-payments-api
+
+docker inspect atlas-payments-api \
+  --format 'status={{.State.Status}} exit={{.State.ExitCode}} finished={{.State.FinishedAt}}'
+```
+
+Aplikácia má skončiť exit code `0`. Znovu ju spusti:
+
+```bash
+docker start atlas-payments-api
+```
+
+Stop testuje signal a process lifecycle. Pri reálnych payment operáciách by bolo potrebné overiť aj in-flight request behavior a idempotency.
+
+## 15. Persistence cez container replacement
+
+Odstráň container, nie volume:
 
 ```bash
 docker rm --force atlas-payments-api
@@ -1098,54 +778,40 @@ Volume stále existuje:
 docker volume inspect atlas-payments-data
 ```
 
-Vytvor novú container generation s rovnakým volume-om a `CONFIG_GENERATION=manual-2`, spusti ju a znovu načítaj `pay-100`.
+Vytvor rovnaký container znovu s generation `manual-2`, rovnakou network a rovnakým volume. Môžeš zopakovať predchádzajúci `docker create` príkaz so zmenenou environment hodnotou, potom `docker start`.
 
-Týmto preukážeš persistence cez container replacement na rovnakom Docker hoste a v rovnakom named volume subjecte. Nepreukazuje to backup, restore, stratu hosta, corruption recovery ani concurrent-writer fencing.
-
-## 18. Graceful stop a jeho hranice
-
-Zastav aplikáciu:
+Po healthy stave:
 
 ```bash
-docker stop \
-  --time 15 \
-  atlas-payments-api
+curl -fsS http://127.0.0.1:18080/version \
+  | jq -e '.config_generation == "manual-2"'
+
+curl -fsS http://127.0.0.1:18080/payments/pay-100 \
+  | jq -e '.id == "pay-100"'
 ```
 
-Over exit:
+Nový container ID a nová config generation používajú rovnaký data subject. To je presný dôkaz, že payment prežil container replacement na tom istom hoste.
 
-```bash
-docker inspect atlas-payments-api \
-  --format 'status={{.State.Status}} exit={{.State.ExitCode}} finished={{.State.FinishedAt}}'
-```
-
-Docker poslal `SIGTERM` podľa `STOPSIGNAL`. Aplikácia vykonala bounded HTTP shutdown. Exit code `0` však automaticky nedokazuje, že každý in-flight business side effect bol dokončený alebo kompenzovaný.
-
-Znovu spusti container pre ďalšie kroky:
-
-```bash
-docker start atlas-payments-api
-```
-
-## 19. `env.example`: Compose inputs
+## 16. Compose environment
 
 Vytvor `env.example`:
 
 ```dotenv
 PAYMENTS_IMAGE=atlas/payments-api:1.0.0-local
 CONFIG_GENERATION=compose-1
+LOG_LEVEL=info
 HOST_PORT=18080
 ```
 
-Skopíruj ho do lokálneho `.env`:
+Pre local run:
 
 ```bash
 cp env.example .env
 ```
 
-`.env` nepatrí do image ani do Git repository, ak obsahuje lokálne alebo citlivé hodnoty. Compose ho používa na interpolation source modelu. Citlivé credentials potrebujú samostatný secret lifecycle.
+`.env` je zámerne v `.dockerignore` a nemá obsahovať production secrets.
 
-## 20. `compose.yaml`: celý lokálny application model
+## 17. Compose model
 
 Vytvor `compose.yaml`:
 
@@ -1156,13 +822,12 @@ services:
   init-data:
     image: busybox:1.36.1@sha256:<verified-busybox-digest>
     user: "0:0"
-    entrypoint:
-      - /bin/sh
-      - -ec
+    entrypoint: ["/bin/sh", "-ec"]
     command:
       - |
         mkdir -p /data
         chown 65532:65532 /data
+        chmod 0750 /data
     volumes:
       - type: volume
         source: payments-data
@@ -1174,9 +839,11 @@ services:
     depends_on:
       init-data:
         condition: service_completed_successfully
+    user: "65532:65532"
     environment:
-      CONFIG_GENERATION: ${CONFIG_GENERATION:?CONFIG_GENERATION is required}
       LISTEN_ADDRESS: :8080
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      CONFIG_GENERATION: ${CONFIG_GENERATION:?CONFIG_GENERATION is required}
       DATA_PATH: /var/lib/atlas-payments/payments.jsonl
       HEALTHCHECK_URL: http://127.0.0.1:8080/readyz
     read_only: true
@@ -1186,8 +853,8 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    pids_limit: 100
-    mem_limit: 128m
+    pids_limit: 128
+    mem_limit: 256m
     cpus: 0.50
     stop_grace_period: 15s
     volumes:
@@ -1204,10 +871,7 @@ services:
         host_ip: 127.0.0.1
         protocol: tcp
     healthcheck:
-      test:
-        - CMD
-        - /usr/local/bin/payments-api
-        - healthcheck
+      test: ["CMD", "/usr/local/bin/payments-api", "healthcheck"]
       interval: 10s
       timeout: 3s
       start_period: 5s
@@ -1215,7 +879,7 @@ services:
     restart: unless-stopped
 
   verifier:
-    image: busybox:1.36.1@sha256:<verified-busybox-digest>
+    image: curlimages/curl:8.10.1@sha256:<verified-curl-digest>
     profiles:
       - verify
     depends_on:
@@ -1225,12 +889,7 @@ services:
       - sh
       - -ec
       - |
-        payload="$$(wget -qO- http://payments-api:8080/version)"
-        printf '%s\n' "$$payload"
-        printf '%s\n' "$$payload" \
-          | grep -F '"service":"payments-api"'
-        printf '%s\n' "$$payload" \
-          | grep -F '"config_generation":"${CONFIG_GENERATION}"'
+        curl -fsS http://payments-api:8080/version
     networks:
       - backend
     restart: "no"
@@ -1244,46 +903,30 @@ volumes:
     name: atlas-payments-data
 ```
 
-`init-data` pripraví ownership volume-u a skončí. `service_completed_successfully` je ordering contract, nie nepretržitý control loop.
+Compose prevezme už existujúci named volume, pretože top-level volume má explicitné Engine meno. `init-data` sa postará o ownership a skončí. API sa spustí po jeho úspechu. Verifier je voliteľný profile a čaká na healthy API.
 
-`api.image` používa required interpolation. Chýbajúca alebo prázdna hodnota má spôsobiť chybu namiesto tichého použitia nečakaného image-u.
+## 18. Resolved model pred mutation
 
-Root filesystem je read-only. Zapisovateľné sú iba `/tmp` ako tmpfs a `/var/lib/atlas-payments` ako named volume.
-
-`backend` je user-defined internal network. Services na ňom používajú Compose DNS. `internal: true` nie je kompletná host firewall ani supply-chain politika.
-
-Dvojité `$$payload` spôsobí, že Compose odovzdá literal `$payload` shellu vo verifier containere namiesto vlastnej interpolation.
-
-## 21. Resolved Compose model pred mutáciou
-
-Najprv skontroluj environment použitý na interpolation:
+Najprv odstráň ručne vytvorený container, aby nekolidoval na host porte:
 
 ```bash
-docker compose \
-  --env-file .env \
-  config \
-  --environment
+docker rm --force atlas-payments-api 2>/dev/null || true
 ```
 
-Vyrenderuj celý model:
+Zobraz interpolation environment:
 
 ```bash
-docker compose \
-  --env-file .env \
-  config \
+docker compose --env-file .env config --environment
+```
+
+Vytvor resolved model:
+
+```bash
+docker compose --env-file .env config \
   > evidence/compose-resolved.yaml
 ```
 
-Pozri služby, images, networks a volumes:
-
-```bash
-docker compose --env-file .env config --services
-docker compose --env-file .env config --images
-docker compose --env-file .env config --networks
-docker compose --env-file .env config --volumes
-```
-
-Over invariants cez `yq`:
+Over podstatné invariants:
 
 ```bash
 yq -e '
@@ -1295,177 +938,98 @@ yq -e '
 ' evidence/compose-resolved.yaml
 ```
 
-`docker compose config` dokazuje resolved model po interpolation a normalizácii. Nevytvára containers, network ani volume.
+`config` nevolá Docker Engine mutation. Dokazuje iba resolved Compose model pre zadané files, environment a Compose verziu.
 
-## 22. Prechod z ručného lifecycle-u na Compose
-
-Pred Compose runom odstráň ručne vytvorený container, aby nekolidoval na host porte alebo mene:
+## 19. Spustenie Compose application
 
 ```bash
-docker rm --force atlas-payments-api
-```
-
-Named volume ponecháme. Compose deklaruje volume s explicitným menom `atlas-payments-data`, preto prevezme rovnaký data subject.
-
-## 23. Spustenie Compose stacku
-
-Spusť služby:
-
-```bash
-docker compose \
-  --env-file .env \
-  up \
+docker compose --env-file .env up \
   --detach \
   --wait \
   --wait-timeout 120 \
   --remove-orphans
 ```
 
-`--detach` nechá services bežať na pozadí. `--wait` čaká, kým services dosiahnu running alebo healthy stav podľa modelu. `--wait-timeout` ohraničuje čakanie.
-
-Pozri výsledný stav:
+Po úspechu:
 
 ```bash
 docker compose --env-file .env ps --all
 docker compose --env-file .env images
 docker compose --env-file .env top
-docker compose --env-file .env logs --timestamps --no-color
+docker compose --env-file .env logs --timestamps --no-color \
+  > evidence/compose.log
 ```
 
-Úspešný `compose up --wait` dokazuje bounded Compose startup verdict. Ešte nepreukazuje host request, DNS path verifiera ani persistence po recreate.
+`up --wait` je infrastructure verdict. Teraz overíme tri samostatné request paths.
 
-## 24. Overenie troch network paths
-
-Docker health path používa container-local loopback. Compose DNS path overíš verifier profile-om:
+Local Docker health už sleduje Engine. Service DNS cesta:
 
 ```bash
-docker compose \
-  --env-file .env \
+docker compose --env-file .env \
   --profile verify \
-  run \
-  --rm \
-  --no-deps \
-  verifier
+  run --rm --no-deps verifier
 ```
 
-Host-published path:
+Host publication:
 
 ```bash
-curl --fail --silent --show-error \
-  http://127.0.0.1:18080/version \
-  | jq .
+curl -fsS http://127.0.0.1:18080/version | jq .
 ```
 
-Tri paths sú:
-
-```text
-Docker healthcheck
-→ local container loopback
-
-verifier
-→ Compose DNS a backend network
-
-host curl
-→ host port publishing
-```
-
-Jeden zelený path nenahrádza ostatné.
-
-## 25. Compose business test a persistence
-
-Vytvor ďalší payment:
+Business path:
 
 ```bash
-curl --fail --silent --show-error \
+curl -fsS \
   --request POST \
   --header 'Content-Type: application/json' \
   --data '{"id":"pay-compose-1","amount":900,"currency":"EUR"}' \
-  http://127.0.0.1:18080/payments \
-  | jq .
+  http://127.0.0.1:18080/payments | jq .
 ```
 
-Over ho:
+## 20. No-op reconciliation a recreate
 
-```bash
-curl --fail --silent --show-error \
-  http://127.0.0.1:18080/payments/pay-compose-1 \
-  | jq -e '.id == "pay-compose-1"'
-```
-
-Získaj current container ID, vykonaj `--force-recreate` API služby a over, že nový ID je odlišný, ale payment zostal čitateľný.
-
-Týmto sa oddeľuje service/container generation od volume generation.
-
-## 26. Druhý nezmenený Compose run
-
-Spusti rovnaký desired model ešte raz a porovnaj ID pred a po:
+Zachovaj container ID:
 
 ```bash
 before_id="$(docker compose --env-file .env ps -q api)"
 
-docker compose \
-  --env-file .env \
-  up \
+docker compose --env-file .env up \
   --detach \
   --wait \
   --wait-timeout 120
 
 after_id="$(docker compose --env-file .env ps -q api)"
-
 test "$before_id" = "$after_id"
 ```
 
-Rovnaký ID znamená, že Compose pri tomto konkrétnom druhom rune nerozhodol o recreate služby. Nie je to dôkaz nepretržitého reconciliation.
+Rovnaký ID znamená, že Compose pri tomto nezmenenom modeli API nerecreatlo. Neznamená to, že Compose bude nepretržite opravovať neskorší drift.
 
-## 27. Configuration change a controlled recreate
-
-Zmeň `.env`:
+Teraz zmeň `.env`:
 
 ```dotenv
-PAYMENTS_IMAGE=atlas/payments-api:1.0.0-local
 CONFIG_GENERATION=compose-2
-HOST_PORT=18080
 ```
 
-Vyrenderuj nový model a porovnaj ho s pôvodným:
+Aplikuj model:
 
 ```bash
-docker compose --env-file .env config \
-  > evidence/compose-resolved-2.yaml
-
-diff -u \
-  evidence/compose-resolved.yaml \
-  evidence/compose-resolved-2.yaml
-```
-
-Aplikuj zmenu a over nový container ID:
-
-```bash
-old_id="$(docker compose --env-file .env ps -q api)"
-
-docker compose \
-  --env-file .env \
-  up \
+docker compose --env-file .env up \
   --detach \
   --wait \
   --wait-timeout 120
-
-new_id="$(docker compose --env-file .env ps -q api)"
-
-test "$old_id" != "$new_id"
 ```
 
-Over loaded generation a persistentný payment:
+Nový container ID je očakávaný. Over loaded generation aj starý payment:
 
 ```bash
-curl --fail --silent http://127.0.0.1:18080/version \
+curl -fsS http://127.0.0.1:18080/version \
   | jq -e '.config_generation == "compose-2"'
 
-curl --fail --silent http://127.0.0.1:18080/payments/pay-compose-1 \
+curl -fsS http://127.0.0.1:18080/payments/pay-compose-1 \
   | jq -e '.id == "pay-compose-1"'
 ```
 
-## 28. Zámerne chybný bind address
+## 21. Zámerne chybný bind
 
 Vytvor `compose.broken-bind.yaml`:
 
@@ -1476,175 +1040,103 @@ services:
       LISTEN_ADDRESS: 127.0.0.1:8080
 ```
 
-Aplikuj base file spolu s override:
+Aplikuj combined model:
 
 ```bash
 docker compose \
   --env-file .env \
   -f compose.yaml \
   -f compose.broken-bind.yaml \
-  up \
-  --detach \
-  --wait \
-  --wait-timeout 120
+  up --detach --wait --wait-timeout 120
 ```
 
-Healthcheck môže zostať zelený, pretože beží v rovnakom container network namespace-e a volá `127.0.0.1:8080`.
+Výsledok je poučný. Local healthcheck používa `127.0.0.1`, takže môže zostať zelený. Verifier cez service DNS a host curl však zlyhajú, pretože process nepočúva na container `eth0` address.
 
-Host request však zlyhá:
+Zachovaj evidence:
 
 ```bash
-curl --fail --silent --show-error \
-  http://127.0.0.1:18080/version
-```
-
-Verifier cez service DNS tiež zlyhá.
-
-Failure chain:
-
-```text
-process počúva na container loopbacku
-→ local Docker healthcheck prejde
-→ network alias smeruje na container interface IP
-→ process na tejto IP nepočúva
-→ Compose DNS path zlyhá
-→ host-published path zlyhá
-```
-
-Toto nie je nevyhnutne Docker NAT chyba. Port publishing môže správne smerovať na container IP a port, ale na cieľovej adrese nie je listener.
-
-## 29. Diagnostika chybného bindu
-
-Najprv zachovaj evidence:
-
-```bash
-docker compose \
+broken_id="$(docker compose \
   --env-file .env \
   -f compose.yaml \
   -f compose.broken-bind.yaml \
-  ps --all
+  ps -q api)"
+
+docker inspect "$broken_id" \
+  > evidence/broken-bind-container.json
 
 docker compose \
   --env-file .env \
   -f compose.yaml \
   -f compose.broken-bind.yaml \
   logs --timestamps --no-color api \
-  > evidence/broken-bind-api.log
-
-broken_id="$(
-  docker compose \
-    --env-file .env \
-    -f compose.yaml \
-    -f compose.broken-bind.yaml \
-    ps -q api
-)"
-
-docker inspect "$broken_id" \
-  > evidence/broken-bind-container.json
+  > evidence/broken-bind.log
 ```
 
-Over environment:
+Over effective environment a health:
 
 ```bash
-jq -r '
-  .[0].Config.Env[]
-  | select(startswith("LISTEN_ADDRESS="))
-' evidence/broken-bind-container.json
-```
-
-Over health a port mapping:
-
-```bash
-docker inspect "$broken_id" \
-  --format '{{json .State.Health}}' \
-  | jq .
+jq -r '.[0].Config.Env[] | select(startswith("LISTEN_ADDRESS="))' \
+  evidence/broken-bind-container.json
 
 docker inspect "$broken_id" \
-  --format '{{json .NetworkSettings.Ports}}' \
-  | jq .
+  --format '{{json .State.Health}}' | jq .
 ```
 
-Port mapping môže byť správny a health zelený. Rozhodujúca informácia je bind address procesu.
-
-Keďže distroless image nemá shell ani `ss`, nepokúšaj sa do bežiaceho production containeru inštalovať debug tools. Použi logs, effective environment, application telemetry alebo controlled debug workload.
-
-## 30. Oprava bindu a overenie recovery
-
-Odstráň broken override z invocation a aplikuj iba authoritative Compose model:
+Oprava nie je ďalší port. Odstráň override a aplikuj authoritative model:
 
 ```bash
-docker compose \
-  --env-file .env \
-  -f compose.yaml \
-  up \
-  --detach \
-  --wait \
-  --wait-timeout 120
+docker compose --env-file .env -f compose.yaml \
+  up --detach --wait --wait-timeout 120
 ```
 
-Over health, verifier, host path a pôvodný payment. Recovery nie je uzavretá iba tým, že container je znovu healthy. Musí prejsť aj path, ktorý pôvodne zlyhával, a persistentný business údaj.
+Potom zopakuj verifier, host request a payment read.
 
-## 31. Druhý failure path: volume permissions
+## 22. Zámerne chybný volume ownership
 
-Zastav stack bez odstránenia volume-u:
+Zastav application bez odstránenia volume-u:
 
 ```bash
 docker compose --env-file .env down
 ```
 
-Zámerne zmeň ownera volume-u na root:
+Zmeň root directory na root-only:
 
 ```bash
 docker run --rm \
   --user 0:0 \
   --mount type=volume,source=atlas-payments-data,target=/data \
   busybox:1.36.1@sha256:<verified-busybox-digest> \
-  sh -ec 'chown 0:0 /data && chmod 700 /data'
+  sh -ec 'chown 0:0 /data && chmod 0700 /data'
 ```
 
-Spusť API bez initializeru:
+Spusti one-off API bez initializeru:
 
 ```bash
-broken_volume_id="$(
-  docker compose \
-    --env-file .env \
-    run \
-    --detach \
-    --no-deps \
-    api
-)"
+broken_volume_id="$(docker compose --env-file .env \
+  run --detach --no-deps api)"
 ```
 
 Pozri stav a logs:
 
 ```bash
 docker inspect "$broken_volume_id" \
-  --format '{{json .State}}' \
-  | jq .
-
+  --format '{{json .State}}' | jq .
 docker logs "$broken_volume_id"
 ```
 
-Očakávaj permission-related chybu pri otvorení data pathu.
-
-Odstráň one-off container a oprav authoritative flow spustením celého modelu vrátane `init-data`:
+Readiness alebo startup má ukázať permission failure. Odstráň one-off container a spusti celý Compose model vrátane initializeru:
 
 ```bash
 docker rm --force "$broken_volume_id"
-
-docker compose \
-  --env-file .env \
-  up \
-  --detach \
-  --wait \
-  --wait-timeout 120
+docker compose --env-file .env up \
+  --detach --wait --wait-timeout 120
 ```
 
-Potom znovu over POST/GET. Failure path ukazuje, že non-root image a named volume musia zdieľať explicitný UID/GID contract.
+Recovery sa uzavrie až po POST/GET a persistence kontrole.
 
-## 32. Multi-platform build a registry publication
+## 23. Multi-platform publication
 
-Lokálny `--load` build obsahoval iba jednu platformu. Release pre `linux/amd64` a `linux/arm64` publikuj do registry:
+Produkčný image nepublikuj cez local `--load`:
 
 ```bash
 IMAGE_REF="registry.example.com/atlas/payments-api:1.0.0"
@@ -1655,129 +1147,42 @@ docker buildx build \
   --platform linux/amd64,linux/arm64 \
   --build-arg VERSION=1.0.0 \
   --build-arg VCS_REF="$VCS_REF" \
-  --tag "$IMAGE_REF" \
   --provenance=mode=max \
   --sbom=true \
+  --metadata-file evidence/build-metadata.json \
+  --tag "$IMAGE_REF" \
   --push \
   .
 ```
-
-`--push` publikuje výsledok do registry. Pri multi-platform build-e vznikne image index, ktorý odkazuje na platform-specific manifests.
 
 Read-back:
 
 ```bash
 docker buildx imagetools inspect "$IMAGE_REF"
-
-docker buildx imagetools inspect \
-  "$IMAGE_REF" \
-  --raw \
+docker buildx imagetools inspect "$IMAGE_REF" --raw \
   > evidence/image-index.json
 ```
 
-Zobraz platform inventory:
+Platform inventory:
 
 ```bash
-jq -r '
-  .manifests[]
-  | [
-      .platform.os,
-      .platform.architecture,
-      .digest
-    ]
-  | @tsv
-' evidence/image-index.json
+jq -r '.manifests[] | [.platform.os,.platform.architecture,.digest] | @tsv' \
+  evidence/image-index.json
 ```
 
-Očakávaj `linux/amd64` a `linux/arm64` manifests. Tag `1.0.0` je stále pointer. Release manifest má zachovať index digest a runtime má používať digest reference:
-
-```text
-registry.example.com/atlas/payments-api@sha256:<index-digest>
-```
-
-Index digest identifikuje platform selection graph. Konkrétny runtime neskôr vyberie platform-specific manifest.
-
-## 33. Digest-pinned Compose consumption
-
-Po publication-e nastav v `.env`:
+Očakávame amd64 aj arm64. Tag zostáva pointer. Produkčné `.env` alebo release manifest má používať:
 
 ```dotenv
 PAYMENTS_IMAGE=registry.example.com/atlas/payments-api@sha256:<index-digest>
-CONFIG_GENERATION=compose-3
-HOST_PORT=18080
 ```
 
-Znovu vyrenderuj Compose model a over immutable reference:
+## 24. Cleanup bez straty dát
+
+Zastav Compose resources, ale ponechaj named volume:
 
 ```bash
-docker compose --env-file .env config \
-  > evidence/compose-digest-pinned.yaml
-
-yq -e '
-  .services.api.image
-  == "registry.example.com/atlas/payments-api@sha256:<index-digest>"
-' evidence/compose-digest-pinned.yaml
+docker compose --env-file .env down --remove-orphans
 ```
-
-`docker compose pull` a `docker compose up` potom pracujú s immutable index reference. Stále treba overiť, ktorý platform manifest zvolil konkrétny host.
-
-## 34. Troubleshooting flow podľa vrstiev
-
-Pri Docker incidente nezačni automaticky `docker restart` alebo `docker system prune`.
-
-Postupuj:
-
-```text
-docker client a context
-→ daemon/API
-→ image reference a platform resolution
-→ container create configuration
-→ OCI runtime a process start
-→ PID 1, exit a health
-→ mounts a filesystem permissions
-→ listener, network a port publishing
-→ cgroups, seccomp a LSM
-→ application a business outcome
-```
-
-Základný evidence pack:
-
-```bash
-docker context show
-docker version
-docker info
-
-docker image inspect "$IMAGE" \
-  > evidence/incident-image.json
-
-docker compose --env-file .env ps --all
-docker compose --env-file .env logs --timestamps --no-color \
-  > evidence/incident-compose.log
-
-docker inspect "$(docker compose --env-file .env ps -q api)" \
-  > evidence/incident-container.json
-
-docker volume inspect atlas-payments-data \
-  > evidence/incident-volume.json
-
-docker system df -v \
-  > evidence/incident-system-df.txt
-```
-
-Každý deštruktívny krok môže odstrániť evidence. Restart zmení process state, recreate zmení container ID, `rm` odstráni inspect object a `prune` môže odstrániť images, cache, networks alebo volumes.
-
-## 35. Cleanup bez náhodnej straty dát
-
-Najprv odstráň Compose containers a network:
-
-```bash
-docker compose \
-  --env-file .env \
-  down \
-  --remove-orphans
-```
-
-Named volume zostane, pokiaľ nepoužiješ `--volumes` alebo ho neodstrániš samostatne.
 
 Over:
 
@@ -1785,65 +1190,35 @@ Over:
 docker volume inspect atlas-payments-data
 ```
 
-Keď už dáta nepotrebuješ a máš potvrdený cleanup scope:
+Až keď už data nepotrebuješ a máš správny backup alebo ide o čisto cvičné dáta:
 
 ```bash
 docker volume rm atlas-payments-data
-```
-
-Odstráň lokálny image:
-
-```bash
-docker image rm "$IMAGE"
-```
-
-Odstráň builder iba vtedy, keď nechceš zachovať jeho cache a state:
-
-```bash
+docker network rm atlas-payments-net 2>/dev/null || true
 docker buildx rm atlas-builder
 ```
 
-Odstránenie buildera nie je to isté ako odstránenie images z Docker Engine-u alebo registry artifacts.
+`docker system prune` ani `docker compose down --volumes` nepoužívaj ako mechanický záver bez inventory. Môžu odstrániť data alebo incident evidence, ktoré majú dlhší lifecycle než aktuálny project.
 
-## 36. Čo má čitateľ po cvičení vedieť vysvetliť
+## 25. Čo tento projekt preukázal
 
-Po prejdení kapitoly má byť zrejmé, prečo Dockerfile, BuildKit graph, image config, image manifest, image index, local image ID, registry digest, container object, process, volume a Compose project nie sú jedna identita.
+Začali sme source tree-om a unit testom. BuildKit explicitne vykonal test target a samostatne vytvoril runtime image. Image inspect potvrdil metadata a export rootfs potvrdil binary path. Pred process startom sme skontrolovali container create configuration. Potom sme oddelene overili local health, host publication, service DNS a business write/read.
 
-Čitateľ má vedieť vysvetliť, čo konkrétne dokazujú:
+Named volume prežil ručný container replacement aj Compose recreate. Druhý nezmenený `up` zachoval container ID, zatiaľ čo configuration change vytvorila novú generation. Broken bind ukázal, že local health môže byť zelený pri nefunkčnej external network ceste. Volume incident ukázal, že non-root user a persistentný filesystem potrebujú spoločný UID/GID contract.
 
-```text
-go test
-docker buildx build --target test
-docker buildx build --load
-docker image inspect
-docker export
-docker create
-docker inspect
-docker start
-Docker HEALTHCHECK
-host curl
-Compose verifier
-POST/GET po recreate
-docker compose config
-docker compose up --wait
-imagetools inspect
-```
+Multi-platform publication napokon vytvorila registry image index a platform manifests, ktoré sa musia read-backnúť a spotrebovať digestom. Žiadny jednotlivý zelený príkaz by sám nepreukázal celý tento chain.
 
-Zároveň má vedieť diagnostikovať rozdiel medzi build-context problémom, test stage-om, ktorý sa nevykonal, chybným final image-om, architecture alebo loader problémom, process crashom, healthy processom s chybným network bindom, volume permission problémom, host port collision, Compose interpolation chybou, mutable tag driftom a persistentným business failure-om.
-
-## Oficiálna dokumentácia
+## Primárne zdroje
 
 - [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
 - [BuildKit](https://docs.docker.com/build/buildkit/)
-- [Multi-stage builds](https://docs.docker.com/build/building/multi-stage/)
 - [`docker buildx build`](https://docs.docker.com/reference/cli/docker/buildx/build/)
 - [Running containers](https://docs.docker.com/engine/containers/run/)
-- [Docker storage volumes](https://docs.docker.com/engine/storage/volumes/)
-- [Docker networking](https://docs.docker.com/engine/network/)
-- [Compose services](https://docs.docker.com/reference/compose-file/services/)
+- [Volumes](https://docs.docker.com/engine/storage/volumes/)
+- [Port publishing](https://docs.docker.com/engine/network/port-publishing/)
+- [Compose Specification](https://docs.docker.com/reference/compose-file/)
 - [`docker compose config`](https://docs.docker.com/reference/cli/docker/compose/config/)
 - [`docker compose up`](https://docs.docker.com/reference/cli/docker/compose/up/)
-- [`docker compose down`](https://docs.docker.com/reference/cli/docker/compose/down/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
