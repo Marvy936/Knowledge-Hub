@@ -1,0 +1,80 @@
+name: Section 00 prose pass
+
+on:
+  push:
+    branches:
+      - agent/section-00-prose-explanation-depth
+    paths:
+      - scripts/section_00_prose_pass.py
+      - .github/workflows/section-00-prose-pass.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: section-00-prose-pass-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  rewrite:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/section-00-prose-explanation-depth
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply chapter-by-chapter prose pass
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/section_00_prose_pass.py
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/audit_learning_depth.py --all-docs
+
+      - name: Validate retired scaffold and inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if grep -R -n -E '^## Metadata$|Status: Learning|Úroveň: L2' docs/00-foundations; then
+            echo '::error::Legacy Learning/L2 scaffold remains in Section 00.'
+            exit 1
+          fi
+
+          test "$(find docs/00-foundations -maxdepth 1 -type f -name '*.md' ! -name README.md | wc -l)" -eq 20
+          grep -q '^## Spôsob spracovania sekcie$' docs/00-foundations/README.md
+          grep -q '20/20 integrated prose and explanation-depth revalidation' DOCUMENTATION-REVIEW-STATUS.md
+
+      - name: Remove temporary closeout files
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm scripts/section_00_prose_pass.py
+          rm .github/workflows/section-00-prose-pass.yml
+
+      - name: Commit generated documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo '::error::The prose pass produced no changes.'
+            exit 1
+          fi
+
+          git commit -m 'docs: rewrite Section 00 in integrated prose'
+          git push origin HEAD:agent/section-00-prose-explanation-depth
