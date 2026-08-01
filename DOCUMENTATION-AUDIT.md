@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **328**
-- Audited conceptual sections: **6796**
-- Total words: **636,733**
-- Findings: **6776** (critical 809, high 1219, medium 502, low 4246)
-- File grades: A 122, B 102, C 26, D 78
+- Audited authoritative articles: **327**
+- Audited conceptual sections: **6774**
+- Total words: **626,261**
+- Findings: **6609** (critical 769, high 1154, medium 501, low 4185)
+- File grades: A 122, B 102, C 26, D 77
 
 ## Interpretation
 
@@ -24,7 +24,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | Grade | Score | Critical | High | Medium | Low | Words | File |
 |---|---:|---:|---:|---:|---:|---:|---|
 | D | 1056 | 50 | 46 | 19 | 21 | 2975 | `docs/04-testing-and-quality/contract-and-api-tests.md` |
-| D | 1043 | 40 | 65 | 1 | 61 | 10472 | `docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md` |
 | D | 926 | 45 | 39 | 18 | 14 | 2977 | `docs/04-testing-and-quality/flaky-tests-and-test-data.md` |
 | D | 915 | 40 | 36 | 31 | 24 | 3956 | `docs/01-linux-and-systems/performance-and-troubleshooting.md` |
 | D | 834 | 38 | 35 | 20 | 24 | 3208 | `docs/04-testing-and-quality/unit-integration-component-tests.md` |
@@ -1936,114 +1935,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 259, `single-sentence-concept` — **Roll-forward cez live patch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 263, `single-sentence-concept` — **Health green ako recovery closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md`
-
-- **CRITICAL** line 5, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 5, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md**: 105 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 113, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 113, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 128, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 128, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md**: 33 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 164, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/drift.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 164, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/drift.md**: 18 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 185, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 185, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 195, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 195, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md**: 20 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 218, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 224, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/inventory.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 224, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/inventory.md**: 17 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 244, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 244, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md**: 31 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 278, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 278, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md**: 12 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 293, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/modules.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 293, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/modules.md**: 23 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 319, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 319, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md**: 13 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 335, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 335, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md**: 26 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 364, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 368, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 374, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 374, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md**: 20 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 397, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 397, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md**: 32 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 432, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 432, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md**: 26 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 461, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 461, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md**: 16 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 480, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 480, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md**: 7 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 490, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/vault.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **CRITICAL** line 490, `outline-instead-of-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/vault.md**: 34 odrážok je podopretých iba 0 slovami súvislého vysvetlenia.
-- **CRITICAL** line 527, `no-prose-concept` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md**: Konceptuálna sekcia obsahuje iba zoznam alebo kód bez súvislého výkladu.
-- **HIGH** line 5, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 113, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 128, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 164, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/drift.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 185, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 195, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 218, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 224, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/inventory.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 244, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 278, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 293, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/modules.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 319, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 335, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 364, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 368, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 374, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 397, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 432, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 461, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 480, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 490, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/vault.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 527, `list-first-introduction` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 5, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `SECTION-07-`, `FINDINGS-TEMP`, `HIGH`, `H1`, `H3`, `H4`, `H5`
-- **HIGH** line 5, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/SECTION-07-FINDINGS-TEMP.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 113, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `H1`, `H3`, `H4`, `H5`, `LB`, `H6`, `HIGH`
-- **HIGH** line 113, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 128, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `ID`, `H1`, `H4`, `H5`, `H6`, `H7`, `H8`
-- **HIGH** line 128, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 164, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/drift.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `ID`, `JSON`, `HIGH`, `IAC-PAY-77`, `IAM`, `resource`, `identity`
-- **HIGH** line 164, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/drift.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 185, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 195, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `POST`, `API`, `H1`, `H3`, `H4`, `H5`, `H6`
-- **HIGH** line 195, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 218, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `IAC-PAY-75`, `HCL`, `HIGH`, `VPC`, `identity`
-- **HIGH** line 218, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 224, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/inventory.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `IP`, `SSH`, `ID`, `API`, `H1`, `H2`, `H3`
-- **HIGH** line 224, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/inventory.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 244, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `ID`, `IP`, `DNS`, `CLI`, `HIGH`, `identity`, `availability`
-- **HIGH** line 244, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 278, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `API`, `H1`, `H2`, `H5`, `H3`, `H4`, `H7`
-- **HIGH** line 278, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 293, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/modules.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `HIGH`, `policy`, `identity`, `resource`
-- **HIGH** line 293, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/modules.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 319, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `ID`, `H1`, `H2`, `H3`, `H4`, `H5`, `H7`
-- **HIGH** line 319, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 335, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `H1`, `SBOM`, `H2`, `FQCN`, `H3`, `H4`, `HIGH`
-- **HIGH** line 335, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 364, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `H1`, `H2`, `H3`, `H7`, `H4`, `H5`, `H6`
-- **HIGH** line 364, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 368, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `HIGH`, `ID`, `Resource`, `identity`
-- **HIGH** line 368, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 374, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `HIGH`, `IAC-PAY-75`, `blast radius`, `identity`
-- **HIGH** line 374, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 397, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `API`, `TTL`, `H1`, `H3`, `H6`, `H4`, `H5`
-- **HIGH** line 397, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 432, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `SSH`, `CA`, `VM`, `H1`, `H2`, `H8`, `H3`
-- **HIGH** line 432, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 461, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `DB`, `H1`, `H3`, `H2`, `H4`, `H5`, `H6`
-- **HIGH** line 461, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 480, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `HIGH`, `API`, `availability`, `resource`, `identity`
-- **HIGH** line 480, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 490, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/vault.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CRITICAL`, `ID`, `H1`, `H2`, `H3`, `H4`, `H5`, `H8`
-- **HIGH** line 490, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/vault.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-- **HIGH** line 527, `term-before-explanation` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `HIGH`, `H1`, `H3`, `H5`, `LB`, `H7`, `H8`, `identity`
-- **HIGH** line 527, `thin-concept-section` — **docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
-
 ### `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md`
 
 - **CRITICAL** line 73, `bare-bullet-items` — **3. Control node ako privilegovaná boundary**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable execution environment digest;`, `pinned collections;`, `read-only source checkout;`, `short-lived credentials;`.
@@ -2744,19 +2635,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 1976 | 1976 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1190 | 1190 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1080 | 1080 |
+| `example-not-explicit` | 0 | 0 | 0 | 1956 | 1956 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1169 | 1169 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1060 | 1060 |
 | `single-sentence-concept` | 0 | 463 | 0 | 0 | 463 |
-| `term-before-explanation` | 0 | 78 | 337 | 0 | 415 |
+| `term-before-explanation` | 0 | 57 | 336 | 0 | 393 |
 | `bare-bullet-items` | 320 | 41 | 0 | 0 | 361 |
-| `outline-instead-of-explanation` | 349 | 0 | 0 | 0 | 349 |
-| `list-first-introduction` | 0 | 284 | 0 | 0 | 284 |
-| `thin-concept-section` | 0 | 275 | 0 | 0 | 275 |
+| `outline-instead-of-explanation` | 331 | 0 | 0 | 0 | 331 |
+| `list-first-introduction` | 0 | 262 | 0 | 0 | 262 |
+| `thin-concept-section` | 0 | 253 | 0 | 0 | 253 |
 | `short-concept-section` | 0 | 0 | 165 | 0 | 165 |
 | `list-heavy-section` | 0 | 78 | 0 | 0 | 78 |
-| `no-prose-concept` | 78 | 0 | 0 | 0 | 78 |
 | `empty-section` | 62 | 0 | 0 | 0 | 62 |
+| `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 
 ## Required remediation pattern
 
