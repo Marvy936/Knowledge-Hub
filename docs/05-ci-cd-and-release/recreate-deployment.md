@@ -171,26 +171,17 @@ post-destructive migration
 
 Old artifact retention bez compatible data state nie je rollback readiness.
 
-## Doplnenie výkladu: recreate ako explicitná downtime state machine
+## Ako funguje recreate deployment state machine
 
-Recreate deployment najprv ukončí starú generation a až potom spustí novú. Výhodou je, že sa nemiešajú dve aplikačné verzie. Nevýhodou je obdobie bez dostupnej capacity.
+Recreate deployment najprv ukončí starú generation a až potom spustí novú. Jeho hlavnou vlastnosťou je explicitný interval bez aplikačnej kapacity. Táto stratégia môže byť vhodná pri single-writer workload-e, nekompatibilnom local state alebo systéme, kde mixed-version prevádzka nie je možná, ale downtime musí byť súčasťou schváleného contractu.
 
-```text
-old serving
-→ stop/drain old
-→ zero serving capacity
-→ start new
-→ readiness
-→ traffic resumes
-```
+Pred zastavením starej generation sa overí, že nový artifact a configuration sú dostupné, migrácie majú známu eligibility a existuje recovery cesta. Drain musí uzavrieť alebo presmerovať nové requests, dokončiť či bezpečne uložiť in-flight prácu a zachovať operation identities. Process stop bez business drainu môže zanechať unknown side effects.
 
-Downtime nie je iba process startup time. Zahŕňa termination grace, volume detach/attach, scheduling, image pull, initialization, migration a readiness. Ak DNS alebo proxy cacheuje staré endpointy, user-visible failure môže trvať dlhšie.
+Po vypnutí sa read-backom potvrdí, že staré procesy, endpoints a writers naozaj zmizli. Až potom sa vykoná migration alebo spustí nová generation. Startup success a readiness nie sú final verdict; služba musí prejsť reálnou route, loaded configuration a business synthetic.
 
-Recreate je vhodný pre singleton workload, development prostredie alebo systém, kde mixed versions nie sú možné a downtime je prijateľný. Nie je automaticky bezpečný pre stateful service; nový process môže očakávať nekompatibilnú schema.
+Ak nový release zlyhá, rollback je možný iba vtedy, keď stará application zostala kompatibilná s aktuálnymi dátami a external effects. Ak migration už contractla schema alebo nový writer emitoval neznámy event, recovery môže vyžadovať roll-forward, restore alebo compensation.
 
-Precondition zahŕňa backup/recovery, capacity a exact target. Po stopnutí starej generation rollback už nemusí byť okamžitý, pretože staré Pods/processes boli zničené.
-
-Readiness musí overovať schopnosť prijímať reálnu prácu. Process running alebo open port nepreukazuje načítanú config a dependency readiness. Acceptance pridáva business smoke a druhú operáciu.
+Recreate je jednoduchý v počte cohort, ale náročný na správne modelovanie downtime a state-u. Jeho bezpečnosť nevzniká z príkazu „stop all, start all“, ale z preconditions, drainu, explicitnej outage komunikácie a overeného recovery postupu.
 
 ## 10. Connected incident `REL-PAY-69`
 

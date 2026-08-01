@@ -246,40 +246,17 @@ Acceptance kombinuje:
 - second operation a adjacent cohort;
 - old-generation retirement.
 
-## Doplnenie výkladu: automatický release ako uzavretý feedback loop
+## Ako funguje automatický production feedback loop
 
-Continuous Deployment automaticky posúva každú zmenu, ktorá splní policy, až do production exposure. Nejde iba o odstránenie approval tlačidla. Automatizácia musí vytvoriť uzavretý control loop:
+Continuous Deployment automaticky posúva candidate do production, keď prejde definovanými gates. Automatizácia neodstraňuje rozhodovanie; premieňa ho na versionovanú policy nad presným subjectom a evidence. Ak policy nevie odlíšiť chýbajúci report od zeleného výsledku, automatický deployment iba zrýchli false-green transition.
 
-```text
-candidate
-→ evidence verdict
-→ deployment mutation
-→ controller convergence
-→ runtime verification
-→ business outcome
-→ promote, stop alebo recover
-```
+Production release je viac než úspešné API volanie na deployment controller. Pipeline najprv publikuje alebo vyberie immutable artifact, potom zmení desired state, čaká na controller convergence, overí loaded runtime identity a až následne vyhodnotí traffic a business outcome. Každý krok môže skončiť successom, failure alebo unknown outcome-om.
 
-Ak pipeline vykoná `kubectl apply` a označí job za successful, automatizovala iba mutation request. Continuous Deployment potrebuje aj read-back desired/live generation, rollout completion a outcome oracle.
+Automatický feedback loop potrebuje bounded exposure a abort policy. Pri canary alebo progressive rollout-e sa traffic zvyšuje iba po splnení technických a business oraclov. No-data, telemetry error alebo nedostatočný sample nesmie byť interpretovaný ako pass. Pri zlyhaní sa zastaví nová expozícia a zvolí recovery podľa application, configuration, data a external side-effect state-u.
 
-Automatická policy musí rozlíšiť tri stavy:
+Rollback nie je univerzálna odpoveď. Stará application môže byť po schema alebo event zmene nekompatibilná a timeout počas route transition môže mať neznámy výsledok. Automation preto najprv observe-ne effective state a až potom rozhodne o rollbacku, roll-forwarde, flag disable, compensation alebo restore.
 
-```text
-PASS
-→ evidence potvrdzuje požadovaný subject
-
-FAIL
-→ test alebo policy našli porušenie
-
-ERROR/MISSING
-→ evidence sa nevytvorila alebo nedá vyhodnotiť
-```
-
-Fail-open preloží chýbajúci scanner report alebo nefunkčný analysis service na PASS. Pri required controls je bezpečnejší fail-closed alebo explicitný degraded decision s ownerom a časovým limitom.
-
-Continuous Deployment zvyšuje požiadavky na batch size, observability, idempotenciu a recovery. Malá zmena sa ľahšie lokalizuje a roll-forwardne. Veľký batch s databázovou, aplikačnou a config zmenou vytvára viac recovery combinations.
-
-Automatický rollback nie je univerzálna poistka. Ak nová verzia zapísala nekompatibilné dáta, publikovala eventy alebo vykonala external side effects, návrat image-u môže zhoršiť stav. Deployment policy preto pred exposure hodnotí per-layer rollback eligibility a môže namiesto rollbacku zvoliť feature disable, roll-forward alebo compensation.
+Continuous Deployment je dôveryhodný iba vtedy, keď uzatvára celý reťazec od immutable candidate-u po verifikovaný production outcome a druhú operáciu. Zelená pipeline bez runtime a business read-backu je iba úspešná orchestrácia, nie potvrdený release.
 
 ## 11. Connected incident `REL-PAY-66`
 

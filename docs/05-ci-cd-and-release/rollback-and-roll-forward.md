@@ -179,30 +179,17 @@ recovery does not reintroduce defect
 
 Second operation odhaľuje stale cache, session alebo idempotency state, ktoré first canary po recovery nemusí zachytiť.
 
-## Doplnenie výkladu: recovery sa rozhoduje po vrstvách
+## Ako vybrať rollback, roll-forward, compensation alebo restore
 
-Rollback znamená návrat určitej vrstvy na staršiu generation. Roll-forward znamená nasadenie novej opravy. Ani jeden pojem sám nehovorí, čo sa stalo s dátami, eventmi alebo external side effects.
+Recovery rozhodnutie sa robí po vrstvách. Application bytes možno vrátiť na starý digest, configuration na starú generation a traffic na stable route. Databázové rows, eventy a external provider side effects však nemusia byť reverzibilné rovnakým príkazom. „Rollback release“ preto nie je jedna univerzálna operácia.
 
-Recovery matrix:
+Rollback je vhodný, keď stará generation zostala kompatibilná s aktuálnym shared state-om a návrat neporuší in-flight work. Roll-forward používa nový artifact alebo config, ktorý defect opraví bez návratu na nekompatibilný contract. Feature disable obmedzí behavior, compensation vytvorí domain operation rušiacu predchádzajúci side effect a restore obnoví data z recovery pointu s explicitnou stratou a reconciliáciou.
 
-```text
-application bytes
-configuration
-schema/data
-events/messages
-traffic/flags
-external operations
-```
+Timeout alebo stratená odpoveď vytvára unknown outcome. Blind retry môže vykonať druhú mutation. Najprv sa číta controller, route, database journal alebo provider operation status podľa stabilnej identity. Až observation určí, či treba pokračovať, kompenzovať alebo iba uzavrieť evidence.
 
-Application rollback je vhodný iba ak stará verzia dokáže pracovať s aktuálnym shared state-om. Po destructive migration alebo novom event formáte môže byť nebezpečný.
+Recovery eligibility sa má vyhodnotiť pred release-om. Manifest uvádza schema/event compatibility, last-known-good artifacts, restore assumptions a operations, ktoré nemožno automaticky vrátiť. Runbook potom nie je improvizovaný počas incidentu.
 
-Roll-forward býva lepší, keď je root cause známy a oprava malá, no vyžaduje čas na build/test/deploy. Feature disable môže rýchlo zastaviť nový path bez zmeny bytes. Compensation vytvorí business inverse operation, napríklad refund; nie je to technické zmazanie histórie.
-
-Restore obnovuje dáta z recovery generation a môže stratiť novšie legitímne writes. Potrebuje reconciliation s external systems a RPO/RTO decision.
-
-Unknown outcome sa nerieši blind retryom. Najprv sa query-ne operation ID, live route, deployment generation alebo provider ledger.
-
-Recovery prejde až po overení original operation, forbidden duplicate path, adjacent cohorts a druhej novej operácie.
+Verdikt sa uzatvára technickým, functional a business read-backom. Overí sa pôvodný failure, forbidden duplicate/loss outcome, backlog a druhá operácia. Návrat deployment statusu na green bez business reconciliation nie je dokončená recovery.
 
 ## 12. Connected incident `REL-PAY-71`
 

@@ -331,48 +331,23 @@ Odstránenie faultu nie je koniec experimentu. Atlas sleduje:
 
 Systém môže po fault-e vyzerať healthy, ale backlog drain môže znovu saturovať DB alebo provider. Recovery phase potrebuje vlastný oracle a abort criteria.
 
-## Doplnenie výkladu: hypothesis, steady state a fault injection
+## Ako zostaviť riadený chaos experiment
 
-Chaos testing je riadený experiment nad odolnosťou systému. Nejde o náhodné vypínanie komponentov. Experiment začína **hypotézou**: konkrétnym tvrdením o observable business alebo service outcome-e počas definovaného zlyhania.
+Chaos testing je riadený experiment nad odolnosťou systému, nie náhodné vypínanie komponentov. Začína hypotézou o pozorovateľnom outcome-e. Napríklad: ak zanikne jedna z troch API replík, úspešnosť idempotentných objednávok zostane nad 99,9 percenta a p95 final completion latency pod 800 ms. Takáto hypotéza pomenúva fault aj používateľský oracle.
 
-Príklad:
+Pred experimentom sa overí **steady state**, teda merateľný normálny stav. Nestačí veta „služba je zdravá“. Baseline môže obsahovať success rate, queue depth, reconciliation lag a business invariant. Ak baseline neplatí už pred faultom, experiment nevie oddeliť existujúci problém od vyvolaného efektu.
 
-```text
-Hypotéza:
-Ak jedna z troch API replík zanikne,
-úspešnosť idempotentných objednávok zostane >= 99.9 %
-a p95 completion latency zostane < 800 ms.
-```
-
-**Steady state** je merateľný normálny stav pred experimentom. Môže obsahovať success rate, queue depth, reconciliation lag alebo business invariant. Nie je to všeobecná veta „systém je zdravý“. Pred fault injection sa overí, že steady-state podmienky platia; inak experiment nevie odlíšiť existujúci problém od vyvolaného efektu.
-
-**Fault injection** je kontrolovaná mutation, napríklad ukončenie procesu, latency, packet loss, dependency error alebo resource pressure. Fault musí mať exact target identity a trvanie. `kill random pod` bez zaznamenania Pod UID, Node, generation a ownera vytvára slabý experiment.
-
-Experiment flow:
-
-```text
-hypotéza a risk
-→ exact target a blast radius
-→ steady-state baseline
-→ observability a abort oracle
-→ fault injection
-→ system response a user/business outcome
-→ fault removal
-→ recovery a backlog reconciliation
-→ lessons a permanent control
-```
-
-Abort condition chráni systém. Napríklad experiment sa zastaví pri error rate > 2 %, queue > 10 000 alebo strate redundantnej druhej AZ. Automation musí mať nezávislú cestu na zastavenie faultu; nemá závisieť iba od systému, ktorý práve poškodzuje.
-
-Príkaz ako:
+Fault injection musí mať exact target, trvanie a blast radius. Príkaz:
 
 ```bash
 kubectl delete pod payments-api-abc123 -n payments
 ```
 
-preukazuje prijatie delete requestu pre konkrétny object. Nepreukazuje, že Pod naozaj zanikol, že controller vytvoril náhradu alebo že traffic zostal úspešný. Read-back potrebuje Deployment/ReplicaSet/Pod convergence, EndpointSlice a business synthetic result.
+preukazuje prijatie delete requestu na konkrétny objekt. Nepreukazuje, že Pod zanikol, že controller vytvoril náhradu, EndpointSlice odstránil starý endpoint alebo že traffic zostal úspešný. Read-back preto sleduje workload convergence, dataplane a syntetickú business operáciu.
 
-Chaos experiment prejde iba vtedy, keď sa potvrdí hypotéza a systém sa po odstránení faultu vráti do akceptovaného stavu. Ak používateľské requests uspeli, ale backlog zostal nekonečne rásť, experiment odhalil latentný failure. Recovery a druhá operácia sú rovnako dôležité ako správanie počas faultu.
+Abort criteria chránia systém pri neočakávanom rozšírení dopadu. Fault automation musí mať nezávislú stop cestu a nesmie závisieť iba od služby, ktorú poškodzuje. Experiment sa zastaví napríklad pri strate druhej AZ, prekročení queue limitu alebo zlyhaní observability.
+
+Odstránenie faultu nie je koniec. Recovery fáza overí backlog drain, ukončenie retry stormu, resource release, reconciliáciu unknown outcomes a návrat business invariantov. Ak requests počas faultu uspeli, ale backlog po obnove nekontrolovane rastie, experiment odhalil latentný recovery failure a nemôže byť označený za úspešný.
 
 ## 15. Worked failure: brownout vytvoril retry amplification a duplicity
 

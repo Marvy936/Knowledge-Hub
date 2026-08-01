@@ -217,33 +217,17 @@ choose permanent variant
 
 Zmazanie flagu pred code cleanup môže poslať application na default, ktorý nemusí byť chosen variant. Cleanup ordering je súčasť lifecycle-u.
 
-## Doplnenie výkladu: flag evaluation je samostatný runtime control plane
+## Ako feature flag vytvára samostatný runtime control plane
 
-Feature flag oddeľuje deployment bytes od behavior exposure. Aplikácia pri rozhodovacom bode vyhodnotí key, targeting context a flag generation.
+Feature flag oddeľuje deployment kódu od aktivácie správania. Aplikácia načíta flag configuration a podľa evaluation contextu vyberie old alebo new path. Tento control plane má vlastnú generation, distribúciu, cache a failure semantics; nie je automaticky synchronizovaný s image rolloutom.
 
-```text
-source default
-+ remote flag state
-+ targeting rules
-+ SDK cache
-+ user/tenant attributes
-→ effective variant
-```
+Evaluation context môže obsahovať user, account, tenant, region alebo operation attributes. Pravidlá musia byť deterministické a stabilné pre celý workflow. Ak sa flag vyhodnocuje náhodne pri každom requeste, multi-step journey môže prepínať behavior. Loaded flag generation sa preto zaznamenáva v telemetry a business operation state-e.
 
-Configured value v dashboarde nemusí byť loaded value v process-e. SDK polling, streaming outage alebo cache TTL môže udržať starú generation. Runtime telemetry má publikovať flag key/variant/generation bez citlivých attributes.
+Fail-open a fail-closed voľba závisí od rizika. Pri security alebo payment control-e môže outage flag služby nesmie povoliť neoverený path. Lokálna cache a default musia byť explicitné a testované. Control-plane success nepreukazuje, že všetky processes načítali rovnakú hodnotu; runtime read-back alebo cohort metrics overia effective state.
 
-Typy flags:
+Flag disable môže byť rýchly containment, ale nevráti data, events ani external side effects. Recovery musí posúdiť, čo už new path vykonal. Dlhodobo otvorené flags zvyšujú kombinatorický test space a cognitive load, preto každý flag potrebuje ownera, purpose, created/expiry date a cleanup plan.
 
-- release flag dočasne skrýva novú funkcionalitu;
-- experiment flag prideľuje variants;
-- operational kill switch vypína rizikový path;
-- permission/entitlement flag riadi produktový access, no nemá nahrádzať security authorization.
-
-Fail-open alebo fail-closed behavior pri nedostupnom flag service je business a safety rozhodnutie. Kill switch pre nebezpečný write path môže failnúť closed; read-only cosmetic feature možno defaultovať inak.
-
-Flags vytvárajú kombinatorický stav. Testovať všetky combinations nie je možné, preto sa obmedzuje počet súčasných flags a definujú forbidden combinations.
-
-Flag má ownera a retirement date. Po plnom rolloute sa stará branch a config odstránia. Long-lived stale flags komplikujú reasoning a môžu náhodne znovu aktivovať nepodporovaný code path.
+Feature flag nie je náhradou versioning alebo deployment safety. Kód oboch paths musí byť kompatibilný s aktuálnym shared state-om a release manifest má uviesť podporovanú flag generation.
 
 ## 13. Connected incident `REL-PAY-70`
 

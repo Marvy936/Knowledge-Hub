@@ -385,42 +385,17 @@ client odoslal request
 
 Double, ktorý každý timeout modeluje ako nulový side effect, učí aplikáciu nebezpečnú semantics. Správny simulator potrebuje query-by-idempotency-key alebo následnú reconciliation path.
 
-## Doplnenie výkladu: rozdiel medzi stubom, fake-om, mockom a spy
+## Ako vybrať test double bez skreslenia testu
 
-Test double je náhradná implementácia dependency používaná v teste. Jednotlivé názvy opisujú odlišný účel:
+Test double nahrádza dependency, ktorú daný test nechce alebo nemôže použiť priamo. **Stub** vracia vopred pripravené odpovede a pomáha dostať subject do zvoleného scenára. **Fake** implementuje zjednodušenú, ale funkčnú verziu rozhrania, napríklad in-memory repository. **Mock** overuje očakávanú interakciu, teda či bolo volanie vykonané s konkrétnymi argumentmi a poradím. **Spy** zaznamenáva skutočné volania a umožňuje ich neskoršie assertions. Dummy hodnota iba vypĺňa parameter, ktorý scenár nepoužíva.
 
-- **stub** vracia pripravené odpovede; test sa pýta na výsledok subjectu;
-- **fake** má zjednodušenú, ale funkčnú implementáciu, napríklad in-memory repository;
-- **mock** obsahuje očakávania na interakcie a test verifikuje, že boli splnené;
-- **spy** zaznamenáva volania reálnej alebo náhradnej implementácie na neskoršie assertions;
-- **dummy** iba vypĺňa parameter a test ho nepoužíva.
+Voľba double-u musí zodpovedať otázke testu. Ak testujeme výsledný state workflowu, príliš presný mock call order môže zviazať test s implementačným detailom a rozbiť sa pri bezpečnom refaktoringu. Ak je však contractom presne jedno odoslanie payment requestu s rovnakým idempotency key, interaction assertion je súčasťou business correctness.
 
-Stub príklad:
+Fake musí modelovať tie semantics, na ktorých rozhodnutie závisí. In-memory map nedokáže zastúpiť SQL isolation, unique constraint alebo transaction rollback. Ak test prejde iba preto, že fake toleruje správanie, ktoré produkčná dependency odmietne, vzniká false confidence. Preto sa doubles dopĺňajú contract a integration testami proti reálnej technológii.
 
-```python
-class ExchangeRateStub:
-    def get_rate(self, currency: str) -> float:
-        return 1.10
-```
+Programovateľný fake je užitočný pre timeouty a retries, pretože vie simulovať success, transient error, unknown outcome aj oneskorenú odpoveď. Test potom overí nielen počet calls, ale final state, použitú operation identity a reconciliation. Double nemá iba „vrátiť error“; má reprezentovať failure boundary, ktorú produkčný systém musí zvládnuť.
 
-Test s ním overí pricing behavior pre fixnú sadzbu. Neoverí HTTP client, timeout ani parser skutočného provider response.
-
-Mock príklad:
-
-```python
-mailer.send.assert_called_once_with(
-    recipient="user@example.com",
-    template="order-confirmed",
-)
-```
-
-Assertion kontroluje interaction contract. Je vhodný, ak samotné volanie je dôležitý side effect. Ak test mockuje každý interný call, začne kopírovať implementáciu a zlyhá pri refactore bez zmeny behavioru.
-
-Fake repository môže zrýchliť component tests, ale musí priznať rozdiel oproti reálnej databáze. Python dictionary nemá SQL constraints, isolation ani collation. Ak fake dovolí stav, ktorý produkčná databáza odmietne, zelený test je false confidence. Contract suite môže byť spustená proti fake-u aj reálnej implementácii a overiť spoločné behavior pravidlá.
-
-Dôležité je, kto double vlastní. Consumer-defined stub môže postupne driftovať od providera. Generated client alebo provider contract verification znižuje túto medzeru. Pri externom API sa fake server má viazať na versionovaný contract a podporovať aj chybové odpovede, latency a retry-relevant behavior.
-
-Test double nesmie z testu odstrániť presne tú hranicu, ktorej riziko chceme overiť. Ak rizikom je transaction isolation, in-memory fake nie je vhodný. Ak rizikom je čisto rozhodovacia logika po prijatí provider statusu, stub môže byť najnižší a najlepší scope.
+Čím viac správania fake obsahuje, tým väčšie je riziko driftu. Interface verzia, shared contract tests a pravidelné integration runs chránia pred tým, aby testovacia náhrada opisovala iný systém než produkčná dependency.
 
 ## 22. Worked failure: payment fake zaručoval nemožný timeout
 

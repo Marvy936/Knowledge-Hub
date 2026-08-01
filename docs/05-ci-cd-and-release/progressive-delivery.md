@@ -185,26 +185,17 @@ full desired/effective exposure
 + evidence and decision record retained
 ```
 
-## Doplnenie výkladu: viac control planes a postupný verdict
+## Ako progressive delivery spája rollout a evidence
 
-Progressive delivery automatizuje alebo riadi postupné exposure podľa evidence. Môže kombinovať deployment cohorts, traffic weights, rings a feature flags. Každá os má vlastnú generation.
+Progressive delivery automatizuje postupnú expozíciu release-u a rozhoduje o ďalšom kroku podľa evidence. Nejde o synonymum canary toolu. Release môže meniť application generation, traffic weights, feature flags a database schema, pričom každý control plane má vlastný observed state a recovery eligibility.
 
-```text
-application generation
-traffic route generation
-feature-flag generation
-configuration/schema generation
-```
+Rollout contract definuje kroky expozície, cohort identity, minimálny sample, metrics, business oracle, no-data behavior a abort criteria. Controller mutation je iba začiatok kroku. Read-back musí potvrdiť actual replicas alebo route, loaded configuration a to, že relevantné operations naozaj patria do analyzovanej cohorty.
 
-Verdict musí vedieť, ktorá kombinácia bola pozorovaná. „Canary 10 %“ je neúplné, ak polovica canary cohorty mala flag off.
+Analysis kombinuje technical a business evidence. Error rate a p95 môžu byť green, kým async completion alebo data correctness zlyháva. Delayed outcomes preto vyžadujú dostatočné observation window a authoritative denominator. Telemetry outage vedie k zastaveniu alebo inconclusive stavu, nie automatickej promotion.
 
-Controller vykonáva state machine: nastaví exposure, čaká na convergence, zbiera metrics, vyhodnotí analysis a rozhodne promote/hold/abort. Timeout alebo lost response môže zanechať unknown route state; pred ďalšou mutation sa vykoná read-back.
+Pri failure sa freeze-ne ďalšia expozícia a zachová sa evidence. Recovery môže znamenať route reversal, flag disable, roll-forward alebo compensation. Controller nemá naslepo vrátiť image, ak schema alebo events už zmenili shared state. In-flight operations sa inventarizujú a reconciliujú podľa operation identity.
 
-Analysis template je code/policy. Query musí mať správne labels, denominator a no-data semantics. Green dashboard screenshot nie je reprodukovateľný verdict.
-
-Step duration musí pokryť warm-up a delayed outcomes. Príliš rýchle promotion môže prejsť skôr, než sa objavia queue, memory leak alebo business reconciliation failures.
-
-Progressive delivery znižuje blast radius, nie pravdepodobnosť všetkých defectov. Shared database migration môže ovplyvniť 100 % users aj pri 1 % traffic canary.
+Progressive delivery je uzavretá až po full exposure, stabilnom observation windowe, odstránení temporary controls a overení druhej business operácie. Automatizácia zrýchľuje bezpečné rozhodovanie iba vtedy, keď modeluje všetky relevantné generations a outcomes.
 
 ## 11. Connected incident `REL-PAY-71`
 

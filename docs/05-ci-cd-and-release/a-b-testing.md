@@ -143,21 +143,17 @@ SEGMENTED_ROLLOUT
 
 Po ship-e sa treatment stane novým defaultom cez versionovaný flag/release transition. Experiment artifacts a stale branches sa odstránia; inak permanentná experiment complexity zvyšuje risk.
 
-## Doplnenie výkladu: experiment, randomizácia a kauzálny výsledok
+## Ako A/B test oddeľuje release safety od causal inference
 
-A/B test je experiment určený na odhad kauzálneho vplyvu variantu na outcome. Nie je to iba rollout na dve verzie.
+A/B test je experiment, ktorý odhaduje kauzálny vplyv variantu na používateľský alebo business outcome. Canary sa primárne pýta, či je release bezpečný; A/B test sa pýta, či zmena spôsobila rozdiel. Tieto otázky môžu používať podobnú traffic infraštruktúru, ale potrebujú odlišný assignment a analysis contract.
 
-Najprv sa definuje hypotéza, primary metric, guardrails a **unit of assignment**. Unit môže byť user, tenant alebo session. Musí zodpovedať tomu, kde vzniká interference a opakované správanie.
+Experiment unit musí byť stabilná, napríklad user alebo account. Randomizácia raz priradí unit do control alebo treatment a assignment generation sa zachová počas celej journey. Per-request randomization mieša skúsenosť a porušuje nezávislosť observations. Sample-ratio mismatch môže odhaliť chybu v routingu, eligibility alebo telemetry ešte pred interpretáciou výsledkov.
 
-Randomizácia vytvára porovnateľné skupiny v priemere. Assignment sa má uložiť stabilne; per-request randomization mieša experience a porušuje assumptions.
+Primary metric sa vyberá pred experimentom a opisuje hypothesized outcome. Guardrails sledujú bezpečnosť, napríklad errors, fraud alebo support contacts. Veľké množstvo post-hoc metrík zvyšuje riziko náhodného „víťazstva“. Analysis potrebuje sample size, observation window a pravidlá pre delayed outcomes.
 
-**Sample Ratio Mismatch** znamená, že observed počet participants v A/B sa významne líši od očakávaného pomeru. Môže signalizovať chybu assignmentu, filtering alebo telemetry loss a diskvalifikuje causal interpretation.
+Štatistická významnosť nie je automaticky business význam. Malý merateľný rozdiel môže byť prevádzkovo bezcenný, zatiaľ čo široký confidence interval môže znamenať, že experiment nemá dostatok dát. Segmenty a exclusions musia byť deklarované vopred, aby tím nevyberal iba cohortu s priaznivým výsledkom.
 
-Primary metric sa vyberá pred experimentom. Hľadanie ľubovoľnej zlepšenej metriky po výsledkoch zvyšuje false discoveries. Guardrails chránia napríklad error rate, latency, fraud alebo support contacts.
-
-Statistical significance neznamená praktickú významnosť. Malý efekt pri obrovskom sample môže byť štatisticky presný, ale business bezvýznamný. Report uvádza effect size a interval neistoty.
-
-A/B test neslúži ako jediný safety gate. Variant musí prejsť technickými controls pred experimentom. Experiment rozhoduje o value, nie o základnej correctness alebo security.
+A/B test nesmie obchádzať release safety. Treatment artifact a runtime musia najprv prejsť technickými gates a mať abort mechanizmus. Po rozhodnutí sa experiment config, assignment a temporary instrumentation odstránia alebo prevedú na dlhodobý product control.
 
 ## 11. Connected incident `REL-PAY-70`
 

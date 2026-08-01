@@ -248,31 +248,17 @@ what was exposed
 
 Tag delete alebo UI status `failed` nevráti external side effects a neodstráni already issued events.
 
-## Doplnenie výkladu: release candidate, release record a lifecycle
+## Ako sa candidate zmení na podporovaný release
 
-Release management koordinuje technickú release identity, komunikáciu, support a recovery. **Release candidate** je konkrétna potenciálna release jednotka určená na finálne overenie; nie je to pohyblivá branch alebo priečinok `latest`.
+Release management riadi lifecycle od candidate-u po podporovaný, komunikovaný a neskôr vyradený release. Candidate je presná kombinácia source, artifacts, configuration contractu a evidence, ktorá ešte nemusí byť schválená na všeobecnú expozíciu. Publication vytvorí immutable release manifest a sprístupní artifacts; deployment a traffic activation sú ďalšie samostatné transitions.
 
-Release record typicky obsahuje:
+Release manifest je authority pre to, čo version obsahuje. Viaže API, worker, migrations, chart, schema a evidence digests. Release notes sú ľudská komunikácia, nie náhrada manifestu. Podpora potrebuje vedieť, ktoré versions sú active, deprecated, revoked a dostupné pre recovery.
 
-```text
-release ID a logical version
-source/candidate identity
-artifact digests
-configuration a schema contracts
-evidence inventory
-known risks a compatibility
-owner, approval a timestamps
-```
+Go/no-go rozhodnutie vychádza z risku, compatibility, operability a recovery eligibility. Calendar alebo deadline môže ovplyvniť priority, ale nemá meniť chýbajúce evidence na pass. Exception musí mať bounded scope, explicitný residual risk, ownera a follow-up.
 
-Changelog opisuje používateľsky alebo operatívne významné zmeny. Nie je automaticky generovaný zoznam commit messages. Release notes majú uviesť breaking changes, migration, feature flags, rollback limits a support dopady.
+Release nekončí production deploymentom. Tím sleduje adoption, incidents, support signals a business outcomes. Last-known-good artifacts, configuration a database compatibility sa udržiavajú počas deklarovaného recovery window. Revocation musí blokovať ďalšiu promotion a podľa rizika aj runtime admission; delete tagu samotný bežiace digests nezastaví.
 
-Release freeze obmedzuje transitions počas citlivého obdobia, ale nemá nahradiť readiness. Emergency exception potrebuje explicitný owner, scope, expiry a post-release review.
-
-Publication, deployment a exposure sú odlišné udalosti. Artifact môže byť publikovaný, ale nikde nenasadený. Deployment môže existovať bez trafficu. Feature môže byť nasadená, ale disabled flagom.
-
-Retirement zahŕňa koniec supportu, odstránenie artifactov podľa retention policy, revocation credentials a cleanup flags/config paths. Zmazanie tagu bez inventory running digests môže poškodiť recovery.
-
-Release management sa uzatvára až vtedy, keď je známy outcome a evidence je archivovaná. Successful release job samostatne nepreukazuje user impact ani absenciu delayed side effects.
+Retirement uzatvára dependency a support lifecycle. Pred odstránením starej version sa overia consumeri, rollback claims, data formats a backlog. Release management tak spája technickú identity s komunikáciou, supportom a bezpečným ukončením používania.
 
 ## 13. Connected incident `REL-PAY-68`
 

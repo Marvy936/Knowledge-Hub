@@ -683,46 +683,17 @@ Nie. Proces môže počúvať, ale ešte nemať migrácie, leadera alebo použit
 
 Nie. Rerun iba vytvoril nový attempt a môže odstrániť pôvodný dôkaz.
 
-## Doplnenie výkladu: subject, process boundary a reálna dependency
+## Ako určiť hranicu unit, integration a component testu
 
-Rozdiel medzi unit, integration a component testom sa nedá spoľahlivo určiť podľa názvu frameworku. Rozhoduje **system under test**, teda presný subject, ktorý test vykonáva, a hranice, ktoré sú reálne alebo nahradené.
+Názov testu neurčuje framework, ale hranica subjectu a reálnych závislostí. **Unit test** vykonáva malú logickú jednotku v jednom procese a nahrádza externé hranice kontrolovanými vstupmi. Jeho cieľom je rýchlo a presne overiť pravidlo, nie simulovať celý runtime. Ak test spúšťa Spring, reálnu databázu a broker, nie je unit testom iba preto, že testuje jednu metódu.
 
-**Unit test** drží subject úzky a kontroluje jeho dependencies. Unit nemusí znamenať jednu metódu; môže to byť malá coherent business jednotka. Dôležité je, že failure sa dá lokalizovať bez štartu databázy, siete alebo ďalšieho procesu.
+**Integration test** overuje konkrétne spojenie medzi komponentom a reálnou technologickou hranicou. Môže ísť o SQL schema a transakciu, HTTP klienta proti sandbox serveru, serializáciu do skutočného brokera alebo načítanie configuration parserom, ktorý používa produkcia. Jeho hodnota je práve v tom, že nebezpečnú hranicu nenahrádza pohodlným fake-om. Zároveň má zostať úzky, aby bolo pri zlyhaní jasné, ktorý adapter alebo contract je podozrivý.
 
-```python
-def test_discount_is_not_applied_below_threshold():
-    policy = DiscountPolicy(threshold=1000, percent=10)
-    assert policy.apply(900) == 900
-```
+**Component test** spúšťa väčšiu časť služby ako celok, typicky cez jej verejné API, ale okolité služby nahrádza riadenými simulátormi. Takýto test dokáže overiť routing v procese, dependency injection, persistence adaptery, background worker a business workflow bez nestability celého distribuovaného prostredia. Component scope je vhodný, keď defect vzniká spoluprácou viacerých modulov jednej služby, ale nie je potrebné nasadiť celý produkt.
 
-Test vytvorí objekt s explicitnými vstupmi a overí jedno business pravidlo. Neoveruje serializáciu, databázu ani konfiguráciu aplikácie. Jeho hodnota je rýchla a presná diagnóza logiky.
+Setup, action a assertion musia rešpektovať túto hranicu. Test najprv vytvorí známy state, potom vykoná operáciu cez rovnaký vstupný bod ako produkcia a napokon overí výsledok aj forbidden side effects. Pri databázovom teste nestačí skontrolovať návratovú hodnotu repository; read-back má potvrdiť commitnuté rows, constraints a stav po opakovaní operácie. Pri component teste nestačí HTTP `202`; treba overiť, či workflow skončil v správnom terminal state a či simulator zaznamenal očakávaný počet volaní.
 
-**Integration test** ponechá aspoň jednu významnú reálnu hranicu. Pri databáze nejde iba o to, že query „nejako prejde“. Test overuje driver, schema, constraints, transaction isolation, encoding a mapping medzi aplikačným a databázovým modelom.
-
-```text
-application repository code
-→ database driver
-→ reálna database engine
-→ migration generation
-→ read-back a invariant
-```
-
-Ak test používa SQLite namiesto produkčnej PostgreSQL, ide stále o dynamický test, ale fidelity voči SQL dialektu, locking-u a typom je obmedzená. Toto obmedzenie musí byť viditeľné vo verdicte.
-
-**Component test** spustí väčší komponent cez jeho verejnú hranicu, často ako samostatný process alebo container, no externé dependencies nahradí kontrolovanými implementáciami. Napríklad Orders API môže bežať s reálnym HTTP serverom a databázou, ale provider platieb je fake server.
-
-Rozlišuj tiež **in-process** a **out-of-process** boundary. Priame volanie controller function neoveruje HTTP routing, middleware a serialization. Request cez socket na reálny server ich už zahŕňa, aj keď oba testy používajú rovnaký jazyk.
-
-Setup a cleanup sú súčasťou dôkazu. Transaction rollback po každom teste znižuje kontamináciu, ale môže skryť behavior, ktorý nastáva až pri commit-e. Container vytvorený pre suite môže zrýchliť testy, no shared state môže spôsobiť order dependency. Preto má test explicitne uviesť:
-
-```text
-čo sa vytvára pre každý test
-čo sa zdieľa v suite
-ako sa generuje jedinečná identita dát
-ako sa overí cleanup
-```
-
-Ak test prejde s fake dependency, preukazuje správanie voči contractu fake-u. Nepreukazuje, že fake presne reprezentuje reálnu dependency. Túto medzeru uzatvára contract test alebo samostatný integration test s reálnym systémom.
+Test doubles sa používajú iba za hranicou, ktorú daný test nechce dokazovať. Ak je predmetom testu SQL transakcia, databáza nemôže byť mock. Ak je predmetom retry state machine, dependency môže byť programovateľný fake, ktorý vie v presnom poradí vrátiť timeout, success a duplicate response. Hranica testu tak priamo určuje, ktoré dôkazy výsledok poskytuje a ktoré musia dodať ďalšie vrstvy portfólia.
 
 ## 27. Zhrnutie
 

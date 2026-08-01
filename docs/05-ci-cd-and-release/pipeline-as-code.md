@@ -277,33 +277,17 @@ trigger subject
 
 Cloud audit log môže potvrdiť, ktorá federated role vykonala deployment. Nepreukazuje, že role získala správny workflow subject, ak trust policy neobsahuje relevantné claims alebo logs ich nezachovávajú.
 
-## Doplnenie výkladu: source YAML nie je resolved pipeline
+## Ako sa source pipeline zmení na resolved execution graph
 
-Pipeline as Code ukladá workflow definition do versionovaného source-u, ale execution systém najprv vykoná ďalšie kroky: načíta includes/templates, aplikuje inheritance/defaults, vyhodnotí rules a vytvorí resolved graph.
+Pipeline as Code ukladá orchestration contract do versionovaného source-u, ale runner nevykonáva iba jeden YAML file. Systém spracuje includes, templates, reusable workflows, variables, conditions a matrix expansion a vytvorí resolved execution graph. Tento resolved graph je skutočný plán jobov, dependencies, images, permissions a rules pre konkrétny run.
 
-```text
-root pipeline file
-+ included templates a versions
-+ variables a event context
-+ rules/conditions
-→ resolved jobs, dependencies a permissions
-```
+Mutable include alebo action ref môže zmeniť graph bez zmeny aplikačného commit-u. Preto sa externé templates a actions pinujú na immutable revision a ich identity patria do release evidence. Review lokálneho YAML nepreukazuje, čo platforma po expanzii vykoná; pipeline compiler alebo platform API má vedieť zobraziť resolved formu.
 
-Review jedného YAML file-u preto nemusí ukázať effective pipeline. Mutable include na `main` môže medzi dvoma runs zmeniť graph bez zmeny aplikačného commitu.
+Validation prebieha na viacerých vrstvách. Syntax check potvrdí, že YAML sa dá parse-nuť. Schema alebo platform lint overí podporované keys. Policy kontroluje permissions, untrusted triggers a secret exposure. Dry-run alebo graph inspection overí dependencies a conditions. Až reálny run potvrdí runner, network a tool behavior.
 
-Syntax validation preukazuje iba parse a schema:
+Pipeline code je súčasťou trusted build inputs. Pull request, ktorý mení workflow, môže meniť spôsob testovania aj publication. Untrusted change nemá dostať release credentials skôr, než trusted revision workflowu znovu overí candidate. Oddelenie source change a privileged execution je kľúčová supply-chain hranica.
 
-```bash
-yamllint .gitlab-ci.yml
-```
-
-Linter nevie, ktoré jobs vzniknú pre tag, fork alebo schedule. Platformový compiled/config view alebo dry-run graph je silnejší read-back.
-
-Pipeline source je executable authority. Zmena workflow môže získať secrets, meniť artifacts alebo deployovať. Untrusted pull request nemá používať vlastnú zmenenú workflow definition s production credentials. Trusted workflow source a untrusted application source sa niekedy oddeľujú.
-
-Reproducibility vyžaduje pinned actions/images/templates a zaznamenaný resolved graph. Tag `v4` môže byť convenience locator, ale commit digest je presnejšia dependency identity.
-
-Pipeline as Code neodstraňuje platform runtime state: runner config, protected variables, environment policy a scheduler behavior zostávajú mimo repository a musia sa read-backnúť.
+Pri troubleshootingu sa porovná source pipeline revision, resolved graph, runtime job metadata a artifacts. Zelený run podľa inej template generation nemôže byť automaticky použitý ako evidence pre nový graph.
 
 ## 12. Connected incident `REL-PAY-67`
 

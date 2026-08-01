@@ -199,44 +199,27 @@ Ak dva buildy publikujú rovnaký logical version s odlišným digestom, vzniká
 
 Reproducible build môže vytvoriť rovnaké bytes, ale nie každý artifact format je deterministický bez explicitných timestamp, ordering a compression controls. Non-identical rebuild neznamená automaticky compromise; znamená, že digest identity je jediná presná authority a reproducibility assumptions treba overiť.
 
-## Doplnenie výkladu: checksum, hash, digest, signature a provenance
+## Ako checksum, digest, podpis a provenance chránia artifact
 
-**Hash function** vezme ľubovoľné bytes a deterministicky z nich vypočíta hodnotu pevnej dĺžky. SHA-256 vytvára 256-bitový výsledok, ktorý sa zvyčajne zapisuje ako 64 hexadecimálnych znakov. Malá zmena vstupu vytvorí odlišný hash.
+Hash function číta bytes a deterministicky z nich vypočíta hodnotu pevnej dĺžky. SHA-256 vytvára 256-bitový výsledok, ktorý sa bežne zapisuje ako 64 hexadecimálnych znakov. Aj malá zmena vstupu vedie k inému hashu. Keď sa táto hodnota používa na identifikáciu obsahu, hovoríme často o **digest-e**; názov **checksum** sa používa najmä pri kontrole, či sa file počas prenosu alebo uloženia nezmenil.
 
-Pojmy **checksum** a **digest** sa v praxi prekrývajú. Checksum sa často používa pre hodnotu uloženú vedľa file-u na kontrolu poškodenia pri prenose. Digest zdôrazňuje content identity v registry alebo release manifeste. Kryptografický SHA-256 digest je vhodný na integrity kontrolu; jednoduché checksums ako CRC sú určené skôr na náhodné chyby, nie na odolnosť voči úmyselnej manipulácii.
-
-Príkaz:
+Pre migration archive možno vytvoriť checksum file:
 
 ```bash
 sha256sum dist/payments-migrations-10.0.0-rc.4.tar.gz \
   > dist/payments-migrations-10.0.0-rc.4.tar.gz.sha256
-```
 
-`sha256sum` otvorí archive, číta jeho bytes a vypočíta SHA-256. Shell redirection vytvorí checksum file obsahujúci hex digest a filename. Ak archive neexistuje alebo sa nedá čítať, command vráti non-zero; prázdny alebo partial output sa nemá publikovať ako validný checksum.
-
-```bash
 sha256sum --check \
   dist/payments-migrations-10.0.0-rc.4.tar.gz.sha256
 ```
 
-`--check` načíta očakávaný digest a filename z checksum file-u, znovu vypočíta hash aktuálnych bytes a porovná hodnoty. `OK` preukazuje, že local archive zodpovedá tomuto checksum file-u.
+Prvý command otvorí archive, vypočíta SHA-256 a shell uloží digest spolu s filename-om. Druhý command načíta očakávanú hodnotu, znovu vypočíta hash aktuálnych bytes a porovná ich. Výsledok `OK` preukazuje zhodu archive-u s daným checksum file-om. Nepreukazuje však, kto checksum vytvoril. Útočník, ktorý nahradí archive aj `.sha256`, môže dosiahnuť rovnaký success.
 
-Nevyriešená je otázka: kto vytvoril checksum file? Útočník, ktorý nahradí archive aj `.sha256`, dosiahne successful check. Preto sa trusted release manifest alebo checksum file podpisuje, prípadne sa digest viaže do cryptographic provenance.
+**Signature** pridáva kryptografické tvrdenie, že konkrétny subject podpísal držiteľ private key alebo identity akceptovanej verifier policy. **Provenance** opisuje source revision, build definition, buildera a vstupy, z ktorých artifact vznikol. Podpis môže viazať provenance k digestu, ale verifier stále musí skontrolovať obsah claims a dôveryhodnosť identity.
 
-Rozdiel:
+Ani platný digest a podpis nepreukazujú, že archive je bezpečný na extraction alebo funkčne správny. Tar môže obsahovať `../` path traversal, symlink mimo targetu, nečakané permissions alebo executable files. Content policy, sandbox extraction a testy dopĺňajú integrity a authenticity.
 
-```text
-checksum/digest
-→ identita a integrity bytes
-
-signature
-→ private key podpísal subject; verifier overí key/policy
-
-provenance
-→ tvrdenie o source, builderi a build inputs viazané na subject
-```
-
-Ani validný podpis nepreukazuje, že archive je bezpečný. Pred extraction treba kontrolovať allowed file paths, symlinks, ownership, permissions a content policy; tar archive môže obsahovať `../` path traversal alebo nečakané executable files.
+Logical version pomáha ľuďom hovoriť o kompatibilite, no exact bytes identifikuje digest. Release manifest preto viaže version, artifacts, platform manifests, configuration contract, SBOM, signature a provenance do jednej immutable release unit.
 
 ## 12. Connected incident `REL-PAY-68`
 

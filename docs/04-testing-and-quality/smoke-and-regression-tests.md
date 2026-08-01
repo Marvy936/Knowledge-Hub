@@ -209,47 +209,17 @@ Automatický rollback je bezpečný iba vtedy, keď:
 - rollback nezväčší incident;
 - rozhodnutie je auditované.
 
-## Doplnenie výkladu: smoke je výber rizík, regression je účel
+## Ako rozdeliť smoke a regression kontrolu
 
-**Smoke test** je malá sada rýchlych kontrol, ktorá zisťuje, či má zmysel pokračovať v hlbšom testovaní alebo exposure. Názov pochádza z hardvérového „zapni a over, či sa z toho nedymí“; v softvéri však smoke nemá byť iba process-alive check.
+Smoke test je malá, rýchla kontrola, či je nová generation vôbec spôsobilá na ďalšie testovanie alebo expozíciu. Neoveruje celý produkt. Vyberá niekoľko kritických schopností, napríklad načítanie konfigurácie, spojenie s databázou, autentizovaný request a jednu bezpečnú business operáciu. Jeho úlohou je rýchlo zastaviť očividne chybný deployment skôr, než sa spustí drahšia suite alebo zvýši traffic.
 
-Dobrá smoke sada vyberá niekoľko kritických capabilities:
+Dobré smoke kritérium je viazané na konkrétny environment a release subject. Process `Running` alebo health endpoint `200` nestačí, ak používateľský request prechádza cez inú route, identity policy alebo dependency. Smoke preto kombinuje technický read-back s úzkym business synthetikom. Výsledok hovorí, že vybrané kritické cesty fungovali v danom okamihu; nehovorí, že všetky funkcie a okrajové prípady sú bez defectu.
 
-```text
-artifact sa spustil
-+ správna version/config generation je načítaná
-+ request prejde reálnou cestou
-+ kritická dependency je použiteľná
-+ jedna bezpečná business operácia skončí správne
-```
+Regression testing chráni už podporované správanie pred neúmyselnou zmenou. Portfólio nevzniká tak, že pri každom incidente pridáme iba ďalší pomalý end-to-end test. Najprv sa identifikuje uniknutý failure mode a najnižšia vrstva, kde ho možno spoľahlivo zachytiť. Incident s chybným roundingom potrebuje unit alebo property test, zmena SQL constraintu integration test a chýbajúca production route vyšší smoke alebo synthetic test.
 
-Príkaz:
+Regression suite sa vyberá podľa affected graphu a rizika, ale required controls nesmú byť preskočené iba preto, že diff vyzerá malý. Zmena dependency, schema, build image alebo konfigurácie môže ovplyvniť nezmenené moduly. Selection logic preto musí byť versionovaná a jej rozhodnutie patrí do evidence.
 
-```bash
-curl --fail --silent --show-error \
-  http://payments.staging.example/ready
-```
-
-preukazuje iba to, že HTTP request dostal 2xx/3xx podľa `curl --fail` contractu a transport nezlyhal. Nepreukazuje správny image digest, database write ani business outcome. Preto sa k nemu často pridá version endpoint a idempotentný synthetic request.
-
-**Regression test** nie je samostatná technická vrstva. Je to test, ktorého účelom je zabrániť návratu už známeho defectu alebo porušenia contractu. Regression test môže byť unit, integration, contract alebo E2E. Po incidente sa má vytvoriť na najnižšej vrstve, ktorá defect spoľahlivo reprodukuje, a podľa rizika aj na vyššej hranici.
-
-Príklad životného cyklu:
-
-```text
-incident: duplicate payment pri timeout retry
-→ minimal reproducible test
-→ server-side idempotency fix
-→ unit test deduplication logiky
-→ integration test transaction/constraint
-→ E2E forbidden test s timeout-after-commit
-```
-
-Prvý test lokalizuje logiku, posledný overuje celú nebezpečnú cestu. „Pridali sme regression test“ bez pomenovania reprodukovaného failure mode-u je slabý closure.
-
-Smoke sada musí byť stabilná a malá, ale nie nemenná. Keď sa zmení architektúra alebo kritická business cesta, smoke inventory sa upraví. Zároveň sa nemá zväčšiť na kompletnú regression suite, inak stratí rýchly rozhodovací význam.
-
-Pri failure smoke testu pipeline alebo rollout zvyčajne zastaví ďalší krok. To je gate policy, nie vlastnosť samotného testu. Výsledok potrebuje artifact, environment, configuration, timestamp a correlation evidence; inak nie je jasné, čo vlastne zlyhalo.
+Smoke a regression sa môžu prekrývať v konkrétnom scenári, no majú odlišný účel. Smoke rozhoduje, či má candidate pokračovať do ďalšej fázy. Regression rozhoduje, či zmena zachovala podporované správanie. Zelený smoke preto nesmie byť prezentovaný ako úplný regresný verdikt.
 
 ## 10. Worked failure: readiness bola zelená
 

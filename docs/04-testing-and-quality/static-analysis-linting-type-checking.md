@@ -359,38 +359,17 @@ Finding má obsahovať:
 
 Reviewer najprv overí, či model obsahuje reálny execution path. Potom posúdi, či path porušuje contract. Finding bez build contextu a evidence pathu je slabý vstup do blocking rozhodnutia.
 
-## Doplnenie výkladu: parser, pravidlo a statický verdict
+## Ako interpretovať statický nález
 
-Statická analýza pracuje bez vykonania cieľového programu. Nástroj najprv načíta source alebo bytecode, vytvorí tokeny, syntax tree, type graph alebo control/data-flow model a potom vyhodnotí pravidlá. Rozdiel medzi formatterom, linterom, type checkerom a analyzátorom je najmä v hĺbke modelu.
+Statická analýza skúma source alebo odvodený model bez vykonania cieľového systému. Parser najprv vytvorí syntax tree, symbol table alebo intermediate representation. Nad týmto modelom linter, type checker alebo security analyzer aplikuje pravidlá. Nález teda nie je priamym pozorovaním runtime chyby; je výsledkom modelu a rule generation, ktoré treba poznať pri interpretácii.
 
-- **formatter** mení alebo kontroluje prezentáciu source podľa deterministických pravidiel;
-- **linter** hľadá syntaktické, štýlové a vybrané correctness patterny;
-- **type checker** overuje kompatibilitu typov a kontraktov;
-- **SAST/data-flow analyzátor** sleduje možné cesty dát alebo control flow, napríklad source-to-sink tok.
+Formatter rieši deterministickú reprezentáciu textu. Linter hľadá syntax, style a vybrané correctness patterns. Type checker overuje, či operácie zodpovedajú deklarovanému alebo inferovanému type modelu. SAST sa pokúša sledovať data flow, taint alebo nebezpečné API. Tieto nástroje sa môžu prekrývať, ale každý poskytuje inú hranicu dôkazu.
 
-Príkazy:
+Nález má exact location, rule ID, tool version a severity. `PASS` znamená, že daná konfigurácia nástroja nenašla podporovaný pattern v analyzovanom scope. Neznamená to, že kód je bez runtime defectov alebo zraniteľností. Naopak finding nemusí byť exploitable; môže byť false positive, neaktívna path alebo bezpečne obalené API. Triage musí vyhodnotiť reálny data/control flow.
 
-```bash
-ruff check .
-mypy src/
-```
+Suppressions sú súčasťou source contractu. Inline ignore bez vysvetlenia môže zneviditeľniť budúcu zmenu. Bezpečná suppression je čo najužšia, odkazuje na dôvod, má ownera a podľa rizika expiry. Pri upgrade toolu sa baseline znovu vyhodnotí, pretože pravidlá a parser semantics sa môžu zmeniť bez zmeny aplikačného kódu.
 
-Exit code `0` typicky znamená, že zapnuté rules pre analyzované files nevytvorili blocking finding. Neznamená to, že program je bez defectov. Výsledok závisí od configu, excluded paths, rule versions, type stubs a suppressions.
-
-Type hint:
-
-```python
-def total(amounts: list[int]) -> int:
-    return sum(amounts)
-```
-
-pomáha checkeru odhaliť caller, ktorý odovzdá `list[str]`. Runtime Python však annotations sám nevynucuje. Ak data prichádzajú z JSON, treba ich parse-nuť a validovať; zelený type checker nepreukazuje runtime typ external inputu.
-
-Suppression ako `# noqa`, `//nolint` alebo `# type: ignore` je zmena policy. Má byť úzka, viazaná na konkrétny rule a odôvodnenie. Globálne vypnutie pravidla môže vytvoriť false-green. Audit preto sleduje nielen počet findings, ale aj config generation, exclusions a trend suppressions.
-
-Statický finding môže byť false positive, pretože analyzátor nemá celý runtime kontext. Oprava však nemá automaticky znamenať suppression. Najprv sa potvrdí path, input controllability a sink semantics. False negative vznikne, ak pravidlo daný pattern nemodeluje, file sa neanalyzuje alebo dynamické správanie uniká statickému modelu.
-
-Static checks sú vhodné skoro v feedback chain-e, pretože sú rýchle a reprodukovateľné. Dynamic testy ich dopĺňajú tam, kde rozhoduje runtime configuration, concurrency, dependency alebo business outcome.
+Statické kontroly dávajú rýchly feedback a patria skoro do workflowu, ale musia byť doplnené dynamickými testami. Type-safe HTTP client stále môže volať nesprávny endpoint; validný manifest stále môže byť v runtime odmietnutý admission policy alebo načítať chybnú configuration generation.
 
 ## 19. Worked failure: analyzer nevidel produkčný export path
 

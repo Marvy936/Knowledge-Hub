@@ -208,42 +208,17 @@ incident reason a approver
 
 „Neskôr to prepíšeme do Git-u“ bez reconciliation deadline-u vytvára druhý source of truth.
 
-## Doplnenie výkladu: environment identity a build-once promotion
+## Ako funguje immutable promotion medzi prostrediami
 
-Environment nie je iba názov `dev`, `staging` alebo `prod`. Je to konkrétny target subject:
+Environment nie je iba názov `staging` alebo `production`. Je to konkrétny account, region, cluster, namespace, configuration generation, identity a dependency set. Promotion rozhoduje, že už overený artifact môže byť použitý v ďalšom environment subjecte. Nemá vytvárať nový build ani meniť artifact pod rovnakou version.
 
-```text
-cloud account/subscription
-+ region/cluster/namespace
-+ configuration generation
-+ data dependencies
-+ credentials a policy
-```
+Build-once-promote-many zachováva content digest naprieč prostrediami. Staging evidence potom patrí tým istým bytes, ktoré neskôr dostane production. Environment-specific configuration zostáva samostatným inputom; release manifest viaže artifact digest s configuration schema a target identity. Ak staging používa inú feature alebo dependency contract než production, tento rozdiel musí byť explicitný v acceptance.
 
-Dva clustre s rovnakým labelom `production` sú odlišné environments. Deployment evidence musí uviesť immutable target identity, nie iba human name.
+Promotion record obsahuje source environment alebo evidence bundle, target environment, artifact, config generation, policy a approval identity. Manual copy alebo tag rewrite bez tohto subjectu ničí audit. Ak registry replication prekopíruje image, destination digest sa musí porovnať so source a podľa platformy treba overiť celý manifest graph.
 
-**Promotion** znamená schválenie a presun tej istej release identity do ďalšieho exposure contextu. Pri build-once-promote-many sa artifact nerebuildí. Mení sa deployment record a environment configuration, nie aplikačné bytes.
+Successful deployment response ešte nepreukazuje promotion outcome. Read-back overí controller revision, runtime image ID, loaded configuration, route alebo traffic state a business synthetic. Pri unknown outcome-e sa mutation neopakuje naslepo; najprv sa prečíta target environment a release ledger.
 
-```text
-artifact digest A
-→ staging deployment A
-→ staging acceptance evidence pre A
-→ production deployment A
-```
-
-Ak production job znovu buildne source, vznikne digest B. Aj pri rovnakom commite môžu timestamps, dependencies alebo builder vytvoriť odlišné bytes. Staging evidence pre A sa automaticky nevzťahuje na B.
-
-Promotion record má viazať:
-
-```text
-release manifest digest
-source environment evidence
-cieľový environment identity/config generation
-approval/policy generation
-deployment operation ID
-```
-
-Environment protection riadi, kto alebo čo smie transition vykonať. Neoveruje automaticky, že live runtime načítal správny digest alebo config. Po promotion nasleduje target read-back a acceptance.
+Promotion sa uzatvára až po evidence closure a retention. Last-known-good artifact a jeho configuration musia zostať dostupné počas recovery window. Environment label bez presnej identity nestačí na podporu ani rollback.
 
 ## 11. Connected incident `REL-PAY-67`
 

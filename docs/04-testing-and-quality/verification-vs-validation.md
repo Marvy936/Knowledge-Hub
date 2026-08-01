@@ -434,45 +434,17 @@ Testy poskytujú dôkaz v konkrétnom scope a prostredí. Reziduálne riziko, ne
 11. Čo znamená provenance testovacieho dôkazu?
 12. Ako rozlíšiš chybný produkt od chybného testu alebo kontraktu?
 
-## Doplnenie výkladu: oracle, verdict a hranica dôkazu
+## Ako sa z pozorovania stane testovací verdikt
 
-Pojem **test oracle** je dôležitý preto, že samotné vykonanie testu ešte nevytvára rozhodnutie. Test runner vie spustiť kód, zachytiť návratovú hodnotu alebo odmerať čas, ale až oracle určí, ktoré pozorovanie sa považuje za správne. Oracle môže byť jednoduchý assertion, schéma, invariant, referenčný model, business pravidlo alebo prevádzkový limit.
+Test nevytvára verdikt iba tým, že spustí kód. Najprv potrebuje presne pomenovaný subject, vstupné podmienky a pozorovanie, ktoré sa bude porovnávať s očakávaním. Pravidlo, podľa ktorého sa z pozorovania stane `PASS` alebo `FAIL`, sa nazýva **test oracle**. Oraclom môže byť konkrétna hodnota, invariant, schema, referenčný model alebo business pravidlo. Dôležité je, aby bolo jasné, prečo práve toto pravidlo predstavuje správnosť pre daný test scope.
 
-Pri jednoduchom deterministickom teste je oracle priamo viditeľný:
+Assertion je technický zápis oraclu. Keď test overí `actual_total == expected_total`, runner iba vykoná porovnanie; dôveryhodnosť výsledku závisí od toho, či `expected_total` vznikol z nezávislého a správneho pravidla. Ak test odvodí očakávanú hodnotu rovnakým chybným algoritmom ako produkčný kód, môže byť zelený aj pri defekte. Preto sa pri významných invariantov používa jednoduchší referenčný model, explicitný príklad alebo business pravidlo, ktoré nie je iba kópiou implementácie.
 
-```python
-result = calculate_total([100, 250], tax_rate=0.20)
-assert result == 420
-```
+Slabý oracle vytvára dva typy omylov. **False positive** znamená, že kontrola hlási problém, hoci požadované správanie je správne. **False negative** znamená, že kontrola prejde, hoci subject porušuje dôležitý kontrakt. HTTP test, ktorý kontroluje iba status `200`, môže mať false negative pri nesprávnej cene, chýbajúcom audit evente alebo duplicitnom side effecte. Silnejší verdikt preto spája transportný výsledok s business hodnotou, počtom side effectov a následným read-backom state-u.
 
-Prvý riadok vytvorí **observed result**. Druhý riadok porovná pozorovanie s očakávanou hodnotou `420`. Ak assertion prejde, dôkaz platí iba pre túto implementáciu, tento vstup, túto konfiguráciu a tento výpočet. Nepreukazuje správnosť všetkých vstupov ani to, že sadzba `0.20` zodpovedá reálnemu business pravidlu. Prvá otázka patrí verification; druhá môže vyžadovať validation s vlastníkom domény.
+Verification a validation používajú rovnakú logiku dôkazu, ale porovnávajú výsledok s inou autoritou. Verification sa pýta, či subject spĺňa deklarovaný kontrakt. Validation sa pýta, či tento kontrakt a výsledok riešia skutočnú používateľskú alebo prevádzkovú potrebu. Zelená verification preto ešte neznamená, že systém prináša správnu hodnotu; a pozitívna používateľská skúsenosť neospravedlňuje porušenie bezpečnostného alebo dátového kontraktu.
 
-Oracle môže byť chybný dvoma základnými spôsobmi. **False positive** v testovacom kontexte znamená, že kontrola nahlási problém, hoci požadované správanie je správne. **False negative** znamená, že test prejde, hoci defect existuje. Napríklad assertion iba na HTTP `200` je slabý oracle: endpoint môže vrátiť `200`, ale uložiť nesprávnu sumu, vynechať audit event alebo vykonať side effect dvakrát.
-
-Silnejší oracle preto rozkladá výsledok:
-
-```text
-transport outcome
-+ response schema
-+ business values
-+ persisted state
-+ počet side effects
-+ authorization boundary
-+ audit evidence
-```
-
-Nie každý test musí kontrolovať všetky vrstvy. Musí však jasne povedať, ktorú z nich kontroluje. Verification verdict `PASS` teda znamená „pozorovanie sa zhodovalo s týmto konkrétnym oraclom“, nie „systém je všeobecne správny“.
-
-Validation pridáva otázku reprezentatívnosti. Aj dokonale implementovaný test môže používať nereálny workflow, používateľskú skupinu alebo workload. Preto sa pri validation vždy pýtaj:
-
-```text
-Kto systém používa?
-Aký cieľ sa snaží dosiahnuť?
-V akom prostredí a pod akými obmedzeniami?
-Aká metrika opisuje úspešný výsledok pre používateľa alebo business?
-```
-
-Dôkaz má na konci uvádzať subject a scope. Veta „testy prešli“ je neúplná. Presnejší verdict je napríklad: „Contract testy pre commit `abc123`, schema generation 7 a mockovaného providera prešli; reálny provider, produkčná konfigurácia a business completion neboli týmto testom overené.“
+Traceability uzatvára reťazec `riziko → požiadavka → kontrola → oracle → evidence → rozhodnutie`. Pri každom výsledku musí byť možné povedať, pre ktorý artifact, konfiguráciu, prostredie a čas platí. Bez tejto väzby je zelený test iba izolovaná udalosť, nie použiteľný release dôkaz.
 
 ## 25. Zhrnutie
 

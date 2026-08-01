@@ -375,47 +375,17 @@ Manifest a runtime evidence sa porovnávajú pre:
 
 `runAsNonRoot: true` nie je dôkaz, ak workload v skutočnosti neštartuje alebo admission policy nie je enforced.
 
-## Doplnenie výkladu: threat, control a tri úrovne evidence
+## Ako spojiť threat, control a security evidence
 
-Security test má začínať **threatom alebo abuse case-om**, nie iba zoznamom scannerov. Threat opisuje, kto alebo čo môže vykonať nežiaducu akciu, cez akú hranicu a s akým dopadom. Control je mechanizmus, ktorý má akciu zabrániť, obmedziť alebo zaznamenať.
+Security test začína hrozbou a chráneným assetom. Bez threat modelu sa suite ľahko zmení na zoznam scannerov, ktorých nálezy nemajú jasný vzťah k reálnemu riziku. Tím najprv pomenuje, kto môže útočiť, akú identity alebo network pozíciu má, čo sa snaží získať a ktorý design control má útoku zabrániť alebo ho odhaliť.
 
-Príklad:
+Kontrola potom overuje konkrétny control. Authorization test napríklad nevykoná iba povolený request; skúsi aj cross-tenant identity, chýbajúci scope a priamy prístup na nižšiu route. Pozitívny scenár dokazuje, že legitímna cesta funguje. Negatívny alebo forbidden scenár dokazuje, že ochranná hranica odmieta nežiaduce správanie. Obe časti sú potrebné, pretože policy, ktorá všetko blokuje, je bezpečnostne nepoužiteľná, a policy, ktorá pustí všetko, môže mať zelený happy-path test.
 
-```text
-Threat: neautentizovaný caller číta cudziu objednávku.
-Control: authentication + tenant-scoped authorization query.
-Positive test: owner objednávku prečíta.
-Forbidden test: iný tenant dostane 403/404 a žiadne dáta.
-Audit test: pokus vytvorí správny security event bez secretov.
-```
+Infrastructure testy musia rozlišovať deklaráciu, plán, apply a runtime. Policy nad Terraform planom môže potvrdiť, že plánovaný security group neobsahuje `0.0.0.0/0`, ale nepreukazuje, že apply prebehol, že iný writer pravidlo nezmenil alebo že packet path neobchádza kontrolu. Runtime probe a cloud read-back preto dopĺňajú source-level evidence.
 
-Pri infraštruktúre rozlišuj tri evidence vrstvy:
+Scanner result je signál, nie automatický verdikt. SAST, dependency scan, image scan alebo IaC policy majú vlastný model, databázu pravidiel a limity. Finding potrebuje exact artifact, rule generation, severity policy a triage. Suppression musí mať dôvod, ownera a expiry, inak sa z nej stane trvalá diera v dôkaznom reťazci.
 
-```text
-source/static
-→ čo deklaruje HCL/YAML a policy
-
-plan/resolved
-→ čo nástroj po variables, modules a defaults navrhuje vytvoriť
-
-runtime/effective
-→ čo cloud, cluster, kernel alebo sieť skutočne presadzuje
-```
-
-Policy test nad Terraform source môže prehliadnuť hodnotu pridanú module defaultom. Policy nad plan JSON vidí resolved resource graph, ale nepreukazuje, že apply prebehne v správnom account-e ani že runtime policy nebude zmenená iným writerom.
-
-Príklad plan kontroly:
-
-```bash
-terraform show -json tfplan > tfplan.json
-conftest test tfplan.json --policy policy/
-```
-
-Prvý príkaz serializuje saved plan do JSON. Druhý vyhodnotí policy rules nad týmto konkrétnym dokumentom. PASS znamená, že pravidlá nenašli porušenie v analyzovanom plane. Nepreukazuje úplnosť policy, bezpečnosť provider implementation ani effective stav po apply.
-
-Security test musí obsahovať aj **negative/forbidden path**. Pozitívny test „admin dokáže deployovať“ nepreukazuje least privilege. Forbidden test „read-only principal nedokáže meniť production“ overuje enforcement hranicu. Pri takom teste sa používa izolovaný test principal a bezpečný target, aby experiment nevytvoril reálny incident.
-
-Scanner finding je hypotéza alebo evidence item, nie automaticky exploitable defect. Severity, reachability, runtime exposure, compensating controls a asset criticality ovplyvňujú rozhodnutie. Naopak nulový report môže znamenať chýbajúci scanner job alebo neparsovaný report. Gate preto overuje aj completeness: očakávaný tool, target, ruleset, timestamp a successful report ingestion.
+Bezpečnostný test musí byť bezpečný aj prevádzkovo. Aktívne DAST alebo permission testy používajú sandbox identity, bounded rate, allowlisted target a cleanup. Výsledok sa uzatvára nielen nálezom, ale authoritative opravou, opakovaným forbidden testom a potvrdením, že legitímny flow zostal funkčný.
 
 ## 16. Worked failure: policy existovala iba v audit režime
 

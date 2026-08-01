@@ -193,31 +193,17 @@ workflow-generated commit
 
 Broad rule „ignore bot commits“ môže skryť legitímnu supply-chain mutation. Lepšie je rozlišovať operation type, changed paths a expected automation identity.
 
-## Doplnenie výkladu: trigger, artifact a cache sú tri odlišné kontrakty
+## Ako odlíšiť trigger, artifact a cache
 
-**Trigger** určuje, prečo a s akým security contextom pipeline vznikla. Push, pull request, tag, schedule, API call a upstream pipeline môžu mať odlišné permissions a vstupy. Rovnaký YAML preto nemusí vytvoriť rovnaký graph.
+Trigger je udalosť, ktorá vytvorí pipeline run. Push, pull request, tag, schedule alebo manual dispatch majú odlišný trust a data contract. Fork pull request nemá automaticky dostať production credentials iba preto, že používa rovnaký workflow file. Pipeline musí explicitne rozhodnúť, ktorý source revision a workflow generation sa pri danom evente vykonajú.
 
-**Artifact** je output určený na ďalšie použitie ako evidence alebo release input. Má producer job, identity, retention a integrity contract. **Cache** je performance optimalizácia; jej obsah môže chýbať, byť starý alebo byť znovu vytvorený bez zmeny correctness.
+Artifact je výstup, ktorý má byť predmetom ďalšieho overovania, promotion alebo deploymentu. Musí mať immutable identity, producer metadata a integrity check. Cache je iba optimalizácia pre drahé, znovu použiteľné vstupy, napríklad dependency download alebo compiler cache. Cache hit nepreukazuje správnosť a cache miss nesmie meniť semantic výsledok buildu.
 
-```text
-artifact:
-required output, napríklad binary alebo test report
+Cache key určuje, kedy sa obsah môže zdieľať. Príliš široký key umožní nekompatibilným branches alebo nedôveryhodnému triggeru obnoviť poisoned output. Key preto zahŕňa relevantný lockfile, toolchain a trust namespace. Generated release artifact sa nemá publikovať iba tým, že bol nájdený v cache; musí prejsť trusted build alebo explicitnú provenance kontrolu.
 
-cache:
-reusable acceleration, napríklad package download directory
-```
+Artifacts a caches majú odlišnú retention a failure semantics. Chýbajúci artifact blokuje downstream transition, pretože evidence alebo bytes nie sú kompletné. Chýbajúca cache iba spomalí job a vedie k čistému recompute. Ak pipeline tieto stavy zlieva, môže pri cache restore pokračovať s neovereným outputom.
 
-Cache key určuje namespace obsahu. Key iba podľa branch name môže zdieľať nekompatibilné dependencies po zmene lockfile-u. Bezpečnejší key zahŕňa toolchain a dependency fingerprint.
-
-```yaml
-cacheKey: npm-${os}-${nodeVersion}-${lockfileSha}
-```
-
-Restore cache nepreukazuje provenance jednotlivých files. Untrusted fork nesmie zapisovať do cache namespace-u, ktorý trusted release job automaticky používa ako executable input.
-
-Artifact hand-off potrebuje checksum/digest a producer identity. Ak downstream job iba stiahne `build.zip`, nevie, či pochádza z očakávaného candidate-u. Manifest môže viazať artifact digest na source a build job.
-
-Trigger trust sa vyhodnocuje pred poskytnutím secrets alebo privileged runnera. Pull request z fork-u môže bezpečne spustiť read-only checks, ale nemá automaticky dostať production credentials. Event name samostatne nestačí; dôležitý je actor, repository/ref protection a resolved workflow source.
+Pri incident-e sa preto sleduje trigger identity, resolved workflow, cache key a writer, artifact manifest a downstream digest. Rovnaký filename alebo tag nie je dôkaz, že ide o rovnaké bytes alebo trusted producer.
 
 ## 11. Connected incident `REL-PAY-67`
 
