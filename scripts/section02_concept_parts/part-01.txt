@@ -1,0 +1,105 @@
+@@ osi-and-tcp-ip-model.md
+## Čo sú OSI a TCP/IP model
+
+OSI a TCP/IP modely sú analytické rámce, ktoré rozdeľujú sieťovú komunikáciu na vrstvy s odlišnými zodpovednosťami. Neopisujú presnú implementáciu každého operačného systému ani zariadenia. Ich účelom je oddeliť typy identít, protokolov a failure boundaries, aby bolo jasné, čo konkrétny dôkaz potvrdzuje.
+
+OSI model tradične rozlišuje sedem vrstiev: physical, data link, network, transport, session, presentation a application. TCP/IP model ich zoskupuje praktickejšie na linkovú, internetovú, transportnú a aplikačnú vrstvu. Moderné protokoly sa nemusia dokonale zmestiť do jednej priehradky. TLS napríklad pracuje nad transportom a pod HTTP, zatiaľ čo QUIC spája transportné a cryptographic funkcie nad UDP.
+
+Encapsulation znamená, že vyššia vrstva odovzdá svoj payload nižšej vrstve, ktorá pridá vlastnú hlavičku alebo obálku:
+
+```text
+aplikačná message
+→ transportný segment alebo datagram
+→ IP packet
+→ linkový frame
+→ fyzický signál
+```
+
+Na prijímacej strane sa obálky spracujú opačným smerom. Hranice messages sa pritom nemusia zhodovať: jeden aplikačný request môže byť rozdelený do viacerých TCP segmentov a jeden TCP segment môže obsahovať časti viacerých aplikačných zápisov.
+
+Model je najpraktickejší pri troubleshootingu. Úspešný link nepreukazuje route, úspešný TCP handshake nepreukazuje TLS identity a HTTP response nepreukazuje správny business side effect. Každá vrstva má vlastné observation points a vlastný subject.
+
+Neutrálny príklad:
+
+```text
+browser vytvorí HTTP GET
+→ TLS ho zašifruje
+→ TCP prenesie byte stream
+→ IP vyberie routovaný destination
+→ Ethernet doručí packet k lokálnemu next hopu
+```
+
+Router typicky odstráni pôvodný Ethernet frame a vytvorí nový pre ďalší link, zatiaľ čo IP destination zostáva rovnaká, ak ju nemení NAT. Proxy môže ukončiť jedno TCP/TLS spojenie a vytvoriť druhé, takže „end-to-end“ treba vždy presne definovať.
+
+@@ ethernet-mac-arp.md
+## Čo sú Ethernet, MAC adresa a ARP
+
+Ethernet je linkový protokol používaný na prenos frames v jednej lokálnej broadcast doméne alebo VLAN. Neurčuje end-to-end cestu cez internet. Jeho scope končí na jednom linku; router prijatý frame odstráni a pre ďalší link vytvorí nový.
+
+Ethernet frame obsahuje source a destination MAC adresu, EtherType a payload, ktorým býva IPv4, IPv6 alebo iný linkový protokol. MAC adresa identifikuje linkový interface alebo logický endpoint v danej doméne. Destination MAC pri routovanom packete patrí next hopu, nie vzdialenému serveru.
+
+Switch sa učí source MAC adresy z prijatých frames a vytvára forwarding table `MAC → port + VLAN`. Known unicast pošle na konkrétny port, broadcast a unknown unicast typicky flooduje iba v rámci príslušnej VLAN. VLAN tak oddeľuje broadcast domains aj na spoločnej fyzickej infraštruktúre.
+
+ARP rieši IPv4 neighbor resolution: mapuje on-link IPv4 adresu na MAC adresu. Host vyšle broadcast otázku „kto má túto IP“ a vlastník odpovie svojou MAC. Výsledok sa uloží do neighbor cache s časovo meniacim sa stavom. ARP neoveruje identitu cryptograficky, preto je vystavený spoofingu.
+
+Neutrálny príklad:
+
+```text
+host:    192.0.2.10/24
+gateway: 192.0.2.1
+server:  198.51.100.20
+```
+
+Server nie je on-link. Host preto nevykonáva ARP pre `198.51.100.20`; vykoná ARP pre gateway `192.0.2.1` a IP packet vloží do frame-u adresovaného MAC gatewaya.
+
+IPv6 nepoužíva ARP. Neighbor Discovery Protocol prenáša neighbor a router discovery cez ICMPv6. Blokovanie ICMPv6 preto môže rozbiť základnú konektivitu, nie iba diagnostický `ping`.
+
+Zdravý ARP alebo NDP mapping dokazuje iba lokálnu schopnosť doručiť frame next hopu. Nepotvrdzuje, že next hop má funkčnú route, firewall policy alebo vzdialenú aplikáciu.
+
+@@ ipv4-ipv6-subnetting.md
+## Čo sú IP adresy, prefixy a subnetting
+
+IP vrstva poskytuje routované adresovanie medzi sieťami. IP adresa sama nestačí; prefix length určuje, ktorá časť adresy identifikuje network a ktoré destinations host považuje za on-link. Subnetting je návrh týchto prefixových hraníc.
+
+Pri IPv4 zápis `192.0.2.10/24` znamená 32-bitovú adresu s prvými 24 bitmi network prefixu. Prefix `192.0.2.0/24` pokrýva rozsah 256 adries. Kernel podľa prefixu rozhoduje, či destination pošle priamo cez neighbor resolution alebo cez router. Textová podobnosť adries nemá význam bez masky.
+
+IPv6 používa 128-bitové adresy a pre host networks sa bežne používa `/64`. Nemá broadcast; používa multicast, Neighbor Discovery a Router Advertisements. Host môže získať adresu cez SLAAC, DHCPv6 alebo statickú konfiguráciu. Link-local adresy `fe80::/10` existujú na každom IPv6 linku a potrebujú interface scope.
+
+Subnetting neznamená iba výpočet počtu hostov. Prefix určuje routing aggregation, broadcast alebo failure domain, DHCP scope, security policy a budúci rast. Agregovaná route znižuje počet entries, ale môže vytvoriť black hole, ak neplatí pre celý sumarizovaný rozsah.
+
+Neutrálny príklad:
+
+```text
+host: 10.10.1.20/24
+destination A: 10.10.1.50
+destination B: 10.10.2.50
+```
+
+A je on-link a host preň rieši MAC. B je mimo `/24` a potrebuje route cez gateway. Ak by mal host omylom `/16`, pokúšal by sa B nájsť lokálnym ARP a packet by gatewayu nikdy neposlal.
+
+Dual-stack znamená dva samostatné dataplanes. DNS môže vrátiť A aj AAAA, klient môže preferovať IPv6 a pri chybe fallbacknúť na IPv4. Zdravý bežný request preto nemusí dokazovať funkčnosť oboch address families. Diagnostika musí explicitne testovať source address, prefix a family.
+
+@@ routing-and-default-gateway.md
+## Čo je routing a default gateway
+
+Routing je rozhodovanie, ktorým egress interface-om a cez aký next hop sa odošle IP packet. Host aj router používajú routing table a vyberajú najšpecifickejšiu zodpovedajúcu route, teda longest-prefix match. Default route `0.0.0.0/0` alebo `::/0` je iba najmenej špecifický fallback.
+
+Route môže byť connected, statická, naučená dynamickým protokolom alebo vložená platformovým control plane-om. Výsledné forwarding rozhodnutie zahŕňa destination prefix, next hop, interface, metric a často source-address selection. Policy routing môže navyše vyberať inú table podľa source, fwmark alebo ďalších fields.
+
+Neutrálny príklad:
+
+```text
+203.0.113.0/24 via 192.0.2.1
+203.0.113.40/32 via 192.0.2.2
+default via 192.0.2.254
+```
+
+Packet na `203.0.113.40` použije `/32`, nie default a ani `/24`, pretože `/32` je najšpecifickejšia. Metric rozhoduje až medzi porovnateľnými candidates; neprebije dlhší prefix.
+
+Default gateway musí byť sama dosiahnuteľná na lokálnom linku alebo cez explicitný recursive next-hop mechanizmus. Existencia route nepreukazuje neighbor resolution ani to, že ďalší router pozná pokračovanie cesty.
+
+End-to-end komunikácia potrebuje forward aj return path. Asymetria nemusí byť automaticky chybná, ale stateful firewall alebo NAT môže vyžadovať, aby oba directions prešli rovnakým state ownerom.
+
+TTL pri IPv4 a hop limit pri IPv6 sa znižuje na každom routeri. Traceroute využíva expiráciu tejto hodnoty, no jeho výstup nie je úplná topologická pravda: zariadenia môžu ICMP rate-limitovať, tunely skrývať hops a load balancing meniť pozorovanú cestu.
+
+Routing control plane a forwarding data plane sú odlišné states. Prijatá BGP route alebo zelená routing session nepreukazuje, že konkrétny packet je skutočne forwardovaný požadovanou cestou. Najpresnejší lokálny read-back je route lookup pre konkrétny destination a source.
