@@ -80,6 +80,12 @@ Dva commits môžu obsahovať rovnaký file content, ale mať odlišných parent
 
 Prvých desať kapitol vysvetľuje Git ako databázu immutable objektov a systém pohyblivých refs. Ďalšie štyri kapitoly zostavia rovnaký automatizačný contract v Bash, PowerShelli a Pythone a vysvetlia hranice structured data a regexov. Záverečný walkthrough vytvorí bare remote, dve clones, divergence, konflikt, recovery, annotated release tag a executable plan/apply/verify nástroj.
 
+## Rozšírené vysvetľovanie príkazov a kódu
+
+Všetkých 14 koncepčných kapitol obsahuje mechanický rozbor kľúčových ukážok. Pri Git commands sa vždy pomenúva source snapshot alebo ref, destination vrstva, mutation a následný read-back. Pri Bash, PowerShell a Python ukážkach sa vysvetľuje evaluation order, argument a stream boundaries, exit/error model, cleanup, locking, atomic write, serialization a unknown-outcome recovery. YAML, JSON a regex príklady oddeľujú parsing, schema/domain validation, canonicalization a runtime verification.
+
+Cieľom nie je komentovať každý syntaktický znak, ale odstrániť skok medzi ukážkou a záverom. Čitateľ má po príklade vedieť predpovedať zmenu stavu, interpretovať output a vysvetliť failure path.
+
 ## Výkladový štandard
 
 Každá kapitola začína priamo výkladom Git alebo automation mechanizmu. Najprv vysvetlí objektový alebo execution model, mutable a immutable state, dôsledok operácie a hranicu dôkazu. Change `ORD-8421` sa objavuje priebežne ako konkrétna aplikácia a diagnostický subject; nie je oddelený umelým nadpisom ani learning metadata blokom.

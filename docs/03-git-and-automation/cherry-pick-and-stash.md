@@ -130,6 +130,75 @@ sa Git pokúsi obnoviť aj index. Bez `--index` sa môže pôvodná staging hran
 
 Pre kritické history transforms je explicitný WIP commit alebo branch čitateľnejší.
 
+## Mechanický walkthrough: čo sa replayuje a čo zostáva lokálne
+
+Pred cherry-pickom over patch aj parent context:
+
+```bash
+source_commit=<sha>
+git show --no-patch --format='commit=%H parent=%P tree=%T subject=%s' "$source_commit"
+git diff "$source_commit^" "$source_commit"
+```
+
+Cherry-pick nereuse-ne commit object. Zoberie diff parent→source commit a skúsi ho aplikovať na current index/working tree. Preto commit s viacerými parents potrebuje mainline voľbu podobne ako revert merge-u.
+
+```bash
+git switch release/4.1
+git branch safety/release-4.1-before-backport
+git cherry-pick -x "$source_commit"
+```
+
+`-x` pridá traceability text do message iba pri clean command-line cherry-picku; cryptograficky nespája commits. Po úspechu porovnaj patch equivalence a testy:
+
+```bash
+new_commit=$(git rev-parse HEAD)
+git patch-id --stable < <(git show "$source_commit")
+git patch-id --stable < <(git show "$new_commit")
+```
+
+`patch-id` normalizuje diff a môže podporiť tvrdenie, že patches sú podobné. Neberie do úvahy parent runtime context, takže nie je compatibility oracle.
+
+Pri range syntaxe:
+
+```bash
+git cherry-pick A^..C
+```
+
+shell odovzdá jednu revision expression a Git vyberie reachable set podľa revision walkeru; výsledné poradie nemusí byť zrejmé z názvov. Pred mutation zobraz presný zoznam:
+
+```bash
+git rev-list --reverse --topo-order A^..C
+```
+
+Stash walkthrough:
+
+```bash
+git status --short
+git stash push -u -m 'WIP ORD-8421 validation'
+git stash list
+git stash show --stat stash@{0}
+git stash show -p stash@{0}
+```
+
+`-u` pridá untracked files, ale nie ignored files. Stash zaznamená base, index a working state do commit-like objects a posunie `refs/stash` reflog. Potom obnoví tracked working tree/index; neznamená to cloud backup.
+
+Bezpečnejšie obnovenie:
+
+```bash
+git stash apply --index stash@{0}
+git status --short
+git diff
+git diff --cached
+# až po review a testoch:
+git stash drop stash@{0}
+```
+
+`apply --index` sa pokúsi obnoviť aj pôvodnú staged hranicu. Ak konflikt vznikne, stash entry zostáva. `pop` kombinuje apply a podmienený drop, čím skracuje čas na inspection; preto je pri dôležitej práci explicitný apply/drop čitateľnejší.
+
+`git stash branch recovery/wip stash@{0}` najprv vytvorí branch na pôvodnom base commit-e stashu, checkout-ne ju a aplikuje entry. To často znižuje konflikt, pretože context je bližší momentu uloženia. Po úspechu stash odstráni; pred command-e preto poznaj entry identity a prípadne si vytvor ďalší ref.
+
+Secrets a generated credentials nepatria do stashu. Stash objects sú súčasťou `.git`, môžu prežiť dlhšie než pracovný file a môžu sa dostať do backupu repository directory.
+
 ## Incident: hotfix sa opraví iba v release branch
 
 Tím cherry-pickne security fix do `release/4.1`, ale zabudne ho integrovať do main. Neskorší release 4.2 znovu obsahuje zraniteľnosť.

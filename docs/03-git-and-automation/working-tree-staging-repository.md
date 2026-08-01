@@ -124,6 +124,98 @@ git sparse-checkout list
 git ls-files -v | head
 ```
 
+## Mechanický walkthrough: čo presne porovnávajú status a diff
+
+Začni clean commitom a uprav jeden file:
+
+```bash
+printf 'maxOrderAmount: 4000\n' > config/orders.yaml
+git add config/orders.yaml
+git commit -m 'add initial order limit'
+printf 'maxOrderAmount: 5000\n' > config/orders.yaml
+```
+
+V tomto momente sú tri relevantné snapshots:
+
+```text
+HEAD tree:      4000
+index entry:    4000
+working file:   5000
+```
+
+Preto:
+
+```bash
+git diff -- config/orders.yaml
+```
+
+porovná working tree s indexom a ukáže 4000 → 5000. Naopak:
+
+```bash
+git diff --cached -- config/orders.yaml
+```
+
+je prázdny, pretože index stále zodpovedá HEAD. `git diff HEAD -- path` porovná working tree priamo s HEAD a v tejto chvíli ukáže rovnaký rozdiel ako prvý command, ale po partial stagingu už nie.
+
+```bash
+git add config/orders.yaml
+```
+
+`git add` načíta aktuálne bytes, zapíše alebo reuse-ne blob a zmení index entry. Working file nepresúva do špeciálneho priečinka. Po add:
+
+```text
+HEAD tree:      4000
+index entry:    5000
+working file:   5000
+```
+
+Teraz je obyčajný `git diff` prázdny a `git diff --cached` ukazuje staged change. Ak file znovu upravíš na 5500, súčasne existujú staged aj unstaged changes:
+
+```text
+HEAD tree:      4000
+index entry:    5000
+working file:   5500
+```
+
+`git status --short` môže zobraziť `MM`: prvé písmeno opisuje index proti HEAD, druhé working tree proti indexu. Status nie je štvrtá databáza; je to zhrnutie dvoch porovnaní a untracked/conflict state-u.
+
+Partial staging:
+
+```bash
+git add -p config/orders.yaml
+```
+
+Git rozdelí diff na hunks a pri každom sa pýta, či sa má aplikovať do indexu. Keď zvolíš `s`, skúsi hunk rozdeliť; `e` otvorí patch editor. Výsledok treba čítať oboma diffmi, pretože file môže obsahovať kombináciu staged a unstaged intentu.
+
+```bash
+git diff --cached
+git diff
+```
+
+Pri citlivom commite je vhodný explicitný gate:
+
+```bash
+git diff --cached --check
+git diff --cached --name-status
+git diff --cached
+```
+
+`--check` hľadá vybrané whitespace chyby, nie business correctness. `--name-status` ukáže path-level actions a posledný command celý patch. Až potom `git commit` vytvorí tree z indexu; neberie automaticky všetko, čo editor momentálne zobrazuje.
+
+Ak chceš staged file odstageovať bez straty working changes:
+
+```bash
+git restore --staged config/orders.yaml
+```
+
+Index sa vráti k HEAD, working file zostane. Ak chceš zahodiť working zmenu a obnoviť index version:
+
+```bash
+git restore config/orders.yaml
+```
+
+Tieto dve operácie majú opačný destination. Pred ich vykonaním si vždy povedz, ktorý snapshot je source a ktorú vrstvu chceš prepísať.
+
 ## Incident: commit neobsahuje poslednú opravu
 
 Alice stagedne `maxOrderAmount: 5000`, potom ho opraví na `5500` a spustí testy nad working tree. Testy prejdú, ale commit uloží staged hodnotu 5000. Review vidí starú hodnotu a pipeline zlyhá.

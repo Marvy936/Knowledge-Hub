@@ -131,6 +131,78 @@ Visual tool zlepšuje porovnanie base/ours/theirs. `.gitattributes` môže defin
 
 Pre lockfiles alebo generated manifests je často bezpečnejšie znovu generovať output z reconciled source než ručne merge-nuť generated lines.
 
+## Mechanický conflict-resolution walkthrough
+
+Keď operácia zastane, najprv urč jej typ a rozsah:
+
+```bash
+git status
+git diff --name-only --diff-filter=U
+git ls-files -u
+```
+
+`status` pomenuje merge/rebase/cherry-pick sequencer a navrhne správne `--continue` alebo `--abort`. `diff-filter=U` ukáže unresolved paths. `ls-files -u` vypíše mode, blob ID, stage a pathname; jeden path môže mať stages 1/2/3, ale pri add/delete konflikte niektorá stage chýba.
+
+Pre jeden textový file si vytiahni tri samostatné inputs:
+
+```bash
+git show :1:config/orders.yaml > /tmp/orders.base
+git show :2:config/orders.yaml > /tmp/orders.ours
+git show :3:config/orders.yaml > /tmp/orders.theirs
+```
+
+Ak niektorá stage neexistuje, command skončí non-zero; to je informácia o conflict type, nie dôvod vytvoriť prázdny file. Porovnaj:
+
+```bash
+diff -u /tmp/orders.base /tmp/orders.ours || true
+diff -u /tmp/orders.base /tmp/orders.theirs || true
+```
+
+Teraz je viditeľný intent každej strany voči spoločnému base-u. Conflict markers vo working file-i sú iba convenience representation a môžu obsahovať viac hunkov.
+
+Resolution vytvor ako nový celý file. Potom:
+
+```bash
+git add config/orders.yaml
+git ls-files -u -- config/orders.yaml
+git diff --cached -- config/orders.yaml
+git diff --check
+```
+
+Po `git add` má `ls-files -u` pre path zostať prázdny, pretože index už drží iba stage 0 blob. To dokazuje syntaktické označenie „resolved“, nie domain správnosť. `diff --cached` je rozhodujúci review subject.
+
+Pri merge výsledok porovnaj s oboma parents po vytvorení commit-u:
+
+```bash
+git diff HEAD^1 HEAD -- config/orders.yaml
+git diff HEAD^2 HEAD -- config/orders.yaml
+```
+
+Prvý diff ukáže, čo merge pridal voči current line; druhý, čo pridal voči druhej strane. Ak file-level `--ours` zahodil unrelated validation, jeden z týchto diffov to odhalí.
+
+Rename/delete konflikty čítaj cez status a raw diff:
+
+```bash
+git diff --raw --find-renames
+git status --short
+```
+
+Rename je heuristika odvodená z podobnosti. Resolution môže vyžadovať `git rm OLD`, `git add NEW` alebo nový pathname; nepokúšaj sa iba odstrániť markers.
+
+Po resolution spusti najnižší relevantný test a následne širší integration gate. Conflict je miesto, kde sa dve zmeny stretli; testovať iba jeden pôvodný feature path je slabý oracle.
+
+Ak zistíš, že nemáš dosť domain informácií, abort je validný výsledok:
+
+```bash
+git merge --abort
+# alebo
+git rebase --abort
+# alebo
+git cherry-pick --abort
+```
+
+Použi command zodpovedajúci aktívnej state machine. Ručné mazanie `.git/MERGE_HEAD` alebo rebase directories môže zanechať index a refs v nekonzistentnom stave.
+
 ## Incident: konflikt bol „vyriešený“ výberom ours
 
 Developer použije `git checkout --ours config/orders.yaml` a pokračuje. Tým odstráni Bobovu security validation, ktorá bola v rovnakom file, hoci viditeľný conflict sa týkal iba limitu. Pipeline unit tests neobsahujú forbidden case a merge prejde.

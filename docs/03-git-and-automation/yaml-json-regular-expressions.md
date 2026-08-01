@@ -158,6 +158,142 @@ môže prepísať commented example, nested field alebo block scalar. Nechá inv
 
 Regex je vhodný na lokálny text pattern, log line alebo striktne definovaný flat format. Nie na všeobecnú hierarchical mutation.
 
+## Mechanický rozbor parserov, serializácie a regex hraníc
+
+### Duplicate-key rejection v JSON
+
+```python
+def no_duplicates(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate key: {key}")
+        result[key] = value
+    return result
+
+value = json.loads(text, object_pairs_hook=no_duplicates)
+```
+
+Bežný `dict` už duplicate informáciu stratil, preto hook dostáva ordered list `(key, value)` pairs skôr, než sa object zostaví. Function iteruje a odmietne druhý výskyt. Hook sa volá pre každý nested JSON object, takže kontrola nie je iba top-level.
+
+Tento kód nerieši limits na document size, nesting alebo number precision. `json.loads` môže parse-nuť veľmi veľký integer, ale downstream JavaScript/DB ho môže stratiť. Pre peniaze a IDs definuj representation v schema a domain modeli.
+
+Ak JSON pochádza z bytes:
+
+```python
+text = raw.decode("utf-8", errors="strict")
+```
+
+Strict decoding odmietne invalid bytes namiesto silent replacement characters. BOM a alternate encodings musia mať explicitnú policy.
+
+### Safe YAML loading a effective types
+
+Všeobecný YAML vyžaduje pinned library. Príklad s PyYAML:
+
+```python
+from pathlib import Path
+import yaml
+
+raw = Path("orders.yaml").read_text(encoding="utf-8")
+value = yaml.safe_load(raw)
+if not isinstance(value, dict):
+    raise ValueError("root must be a mapping")
+```
+
+`safe_load` blokuje Python-specific object constructors, ale nie všetky resource-exhaustion risks a nevaliduje domain schema. Library/version určuje YAML schema a implicitné scalar types. Po parse si vypíš typy v teste:
+
+```python
+assert isinstance(value["release"], str)
+assert isinstance(value["maxOrderAmount"], int)
+```
+
+Anchors a merge keys môžu vytvoriť effective mapping odlišný od lokálneho textu. Review tool má vedieť zobraziť resolved model. Alias count/nesting limits sú potrebné pri nedôveryhodnom inpute.
+
+### Schema verzus domain validation
+
+Schema example:
+
+```json
+{
+  "type": "object",
+  "required": ["environment", "maxOrderAmount"],
+  "additionalProperties": false,
+  "properties": {
+    "environment": {"enum": ["dev", "staging", "prod"]},
+    "maxOrderAmount": {"type": "integer", "minimum": 1}
+  }
+}
+```
+
+`additionalProperties: false` zachytí typo field, ale komplikuje forward compatibility; versioning contract musí povedať, kedy sú unknown fields povolené. Schema nevie automaticky, že production limit nad 20 % vyžaduje approval. Domain function pracuje nad už schema-valid modelom a vydá odlišný error class.
+
+### Controlled serialization
+
+```python
+serialized = json.dumps(
+    model,
+    ensure_ascii=False,
+    sort_keys=True,
+    indent=2,
+) + "\n"
+Path("generated.json").write_text(serialized, encoding="utf-8", newline="\n")
+```
+
+Explicitný key order a newline znižujú noisy diffs. Pretty JSON nie je automaticky canonical hashing formát. Pri YAML round-tripe môže serializer odstrániť comments/anchors a zmeniť quoting; preto human source a generated artifact často majú byť oddelené files.
+
+Pred prepísaním source porovnaj semantic model a vykonaj atomic write. Serializer success nepreukazuje, že target platform config prijme alebo application načíta.
+
+### Regex full match a escaping
+
+```python
+pattern = re.compile(r"req-[0-9a-f]{4,32}")
+match = pattern.fullmatch(value)
+```
+
+Raw string zabráni Pythonu interpretovať väčšinu backslashes; regex engine stále interpretuje pattern. `fullmatch` vyžaduje pokrytie celého stringu, takže nepotrebuje `^...$` a vyhne sa multiline anchor prekvapeniam.
+
+Ak pattern prichádza z YAML:
+
+```yaml
+operationIdPattern: 'req-[0-9a-f]{4,32}'
+```
+
+single quotes v YAML minimalizujú backslash escapes. V double-quoted YAML stringu majú backslashes vlastnú escape vrstvu. Pattern, programming language string a shell command sú tri odlišné parsers.
+
+Pre literal user fragment používaj `re.escape(fragment)`, nie string concatenation do regex syntaxe. To rieši regex injection, nie ReDoS z okolitého patternu.
+
+### ReDoS test
+
+Nebezpečný pattern `(a+)+$` môže pri inpute `aaaa...!` explorovať veľa backtracking paths. Bezpečnostný gate zahŕňa:
+
+```text
+maximálnu input dĺžku
+pattern review bez nested ambiguous quantifiers
+engine s lineárnym-time contractom, ak treba
+execution timeout alebo isolation
+positive aj near-match performance test
+```
+
+Regex correctness test s krátkymi matches neodhalí complexity failure.
+
+### Prečo `sed` YAML edit nevie, čo mení
+
+```bash
+sed -i 's/maxOrderAmount:.*/maxOrderAmount: 5000/' config/orders.yaml
+```
+
+Shell najprv odovzdá single-quoted script bez expanzie. Sed potom matchne text na každom zodpovedajúcom riadku podľa implementácie. Nevidí indentation scope, comments, anchors ani duplicate keys. Môže zmeniť:
+
+```yaml
+# maxOrderAmount: 1000
+examples:
+  maxOrderAmount: 2500
+production:
+  maxOrderAmount: 4000
+```
+
+na viac nesprávnych miest. Parser-based mutation vyberie exact object path, overí pôvodnú expected value, zmení model, schema/domain-validuje a až potom serializuje. Pri potrebe zachovať comments použi round-trip YAML library s explicitným version/tool contractom.
+
 ## Incident: duplicate key zmení production limit
 
 Config obsahuje dvakrát `maxOrderAmount`. Linter ponechá prvú hodnotu 5000, runtime parser poslednú 50000. Pipeline a aplikácia teda overujú odlišný effective state.

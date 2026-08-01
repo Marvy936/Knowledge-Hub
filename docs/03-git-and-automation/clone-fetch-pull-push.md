@@ -143,6 +143,70 @@ Git môže používať SSH alebo HTTPS. Network, DNS, TLS a credential boundarie
 
 Secrets sa nemajú vkladať do remote URL alebo logs. Automation používa short-lived credentials a server-side branch policy.
 
+## Mechanický walkthrough: lokálne refs verzus serverový ref
+
+Po clone si vypíš tri vrstvy konfigurácie:
+
+```bash
+git remote get-url origin
+git config --get-all remote.origin.fetch
+git branch -vv
+git show-ref --heads --remotes
+```
+
+URL určuje transport endpoint. Fetch refspec typicky mapuje serverové `refs/heads/*` do lokálnych `refs/remotes/origin/*`. `branch -vv` ukáže upstream vzťah a ahead/behind podľa posledného lokálneho observation pointu. Žiadny z týchto výstupov nie je live query na server po tom, čo command skončil.
+
+Bezpečný observation flow:
+
+```bash
+old_remote=$(git rev-parse --verify refs/remotes/origin/main)
+git fetch --prune origin
+new_remote=$(git rev-parse --verify refs/remotes/origin/main)
+printf 'origin/main: %s -> %s\n' "$old_remote" "$new_remote"
+git log --graph --oneline --decorate --left-right main...origin/main
+```
+
+Fetch najprv vyjedná objects, potom aktualizuje remote-tracking refs. `--prune` odstráni lokálne tracking refs pre serverové branches, ktoré server už neinzeruje; nemaže local branches. Ak transfer prejde, ale ref update zlyhá, object database môže obsahovať nové objects bez posunutého tracking refu.
+
+`pull --ff-only` je zložená operácia:
+
+```bash
+git pull --ff-only origin main
+```
+
+Najprv vykoná fetch. Potom overí, či current branch tip je ancestor fetched tipu. Ak áno, posunie local branch bez nového commit-u. Ak branches divergovali, command skončí non-zero a working history nemá byť automaticky spojená. To je zámerný safety gate.
+
+Pri pushi si priprav explicitné IDs:
+
+```bash
+local_tip=$(git rev-parse HEAD)
+expected_remote=$(git rev-parse refs/remotes/origin/feature/ord-8421 2>/dev/null || true)
+printf 'local=%s expected_remote=%s\n' "$local_tip" "$expected_remote"
+git push origin HEAD:refs/heads/feature/ord-8421
+```
+
+Server prijme pack s chýbajúcimi objects a potom rozhodne o ref update-e. Ak hook alebo branch protection update odmietne, odoslané objects môžu na serveri dočasne existovať, ale branch sa neposunie. Push output preto čítaj ako ref verdict, nie iba network transfer.
+
+Explicitný lease pri history rewrite:
+
+```bash
+git push \
+  --force-with-lease=refs/heads/feature/ord-8421:"$expected_remote" \
+  origin \
+  HEAD:refs/heads/feature/ord-8421
+```
+
+Server prepíše ref iba ak jeho current old value stále zodpovedá `$expected_remote`. Ak Bob medzičasom pushol, lease zlyhá. Toto chráni observation–mutation race, ale nehovorí, že rewrite je organizačne povolený alebo že downstream users boli koordinovaní.
+
+Po úspechu vykonaj nový fetch a read-back:
+
+```bash
+git fetch origin
+test "$(git rev-parse refs/remotes/origin/feature/ord-8421)" = "$(git rev-parse HEAD)"
+```
+
+Test potvrdí lokálnu zhodu po novom server observation pointe. Neoveruje merge do main, CI ani artifact publication.
+
 ## Incident: `git pull` vytvorí neočakávaný merge
 
 Bob má lokálny commit a spustí default `git pull`. Konfigurácia použije merge a vytvorí merge commit, hoci tím vyžaduje lineárnu feature history. Technicky nič nie je poškodené, ale review diff a policy sa zmenia.
