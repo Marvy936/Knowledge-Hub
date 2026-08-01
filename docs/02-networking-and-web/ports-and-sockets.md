@@ -1,5 +1,33 @@
 # Porty a sockety
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú porty a sockety
+
+Port je 16-bitové číslo v transportnom protokole, ktoré pomáha kernelu doručiť traffic správnej aplikácii. Samotný port neidentifikuje službu globálne. Jeho význam závisí od protocolu, local address, network namespace a socket state-u.
+
+Socket je kernelový komunikačný objekt dostupný procesu cez file descriptor alebo ekvivalent runtime handle. TCP server najprv vytvorí listening socket. Po prijatí spojenia vznikne nový connected socket s vlastným remote endpointom, buffers a transportným state-om.
+
+```text
+listener:
+TCP 0.0.0.0:8080 LISTEN
+
+accepted connection:
+192.0.2.20:8080 ↔ 198.51.100.40:53144 ESTABLISHED
+```
+
+Jeden listener teda môže obslúžiť mnoho connections na rovnakom local porte. Unikátnosť TCP flowu typicky určuje source address, source port, destination address, destination port a protocol.
+
+Bind address mení reachability. `127.0.0.1:8080` je dostupné iba cez loopback daného namespace. `0.0.0.0:8080` je IPv4 wildcard pre lokálne adresy. `[::]:8080` je IPv6 wildcard a dual-stack behavior závisí od platformy.
+
+Client dostáva ephemeral source port z lokálneho range. Pri vysokom connection churn-e alebo NAT koncentrácii môže vzniknúť port exhaustion. Connection pooling a multiplexing znižujú počet nových tuples.
+
+Listen backlog a accept queue oddeľujú transportný handshake od rýchlosti, akou aplikácia prijíma connections. Otvorený listener ešte neznamená, že process stíha `accept()`, má voľné file descriptors alebo obsluhuje requests.
+
+Neutrálny incident: lokálny health check na `127.0.0.1:8080` prejde, ale remote client dostane connection refused. Process je bindnutý iba na loopback. Dôkaz o procese a porte je pravdivý, ale pre inú address scope než používa klient.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 IP adresa určí host alebo interface, port pomôže kernelu doručiť transportný traffic správnemu socketu. Port však nie je služba a socket nie je iba číslo. Význam vzniká kombináciou protocolu, local address, local port, remote address, remote portu, network namespace a process state-u.
 
 ## Listener a prijaté spojenie

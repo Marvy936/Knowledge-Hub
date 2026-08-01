@@ -42,9 +42,9 @@ Poradie sleduje reálnu cestu komunikácie. Najprv sa vytvorí analytická mapa 
 
 ## Výkladový štandard
 
-Každá kapitola najprv položí konkrétnu otázku z rovnakého requestu a až potom vysvetlí protokol alebo mechanizmus. CLI, packet fields, konfigurácia a HTTP ukážky sú vložené priamo pri kroku, ktorý objasňujú. Po každom pozorovaní je uvedené, čo dôkaz potvrdzuje a kde sa jeho platnosť končí.
+Každá koncepčná kapitola najprv samostatne vysvetlí, čo protokol alebo mechanizmus je, aký problém rieši, ktoré identity a vrstvy stavu vlastní a ako funguje bez väzby na Atlas topológiu. Nasleduje jednoduchý neutrálny príklad a jasná hranica toho, čo daný dôkaz potvrdzuje. Až potom kapitola prejde k sekcii `Atlas scenár a praktické použitie`, kde sa model aplikuje na spoločný request, doplnia sa CLI, packet fields, konfigurácia, incident a recovery. Scenár je teda aplikáciou už vysvetleného modelu, nie jeho náhradou.
 
-Odrážky zostávajú iba pri krátkom inventári fields, stavov alebo acceptance podmienok. Hlavný výklad nesú súvislé odseky a jeden priebežný scenár. Incidenty používajú presnú flow identity, čas, direction a observation points; nekončia neurčitým záverom „bol problém v sieti“.
+Odrážky zostávajú iba pri krátkom inventári fields, stavov alebo acceptance podmienok. Hlavný výklad nesú súvislé odseky. Incidenty používajú presnú flow identity, čas, direction a observation points; nekončia neurčitým záverom „bol problém v sieti“.
 
 Sekcia dôsledne rozlišuje tieto identity:
 

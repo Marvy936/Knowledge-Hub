@@ -1,5 +1,37 @@
 # TCP a UDP
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú TCP a UDP
+
+TCP a UDP sú transportné protokoly, ktoré pridávajú porty a komunikačné semantics nad IP. IP sa pokúša doručiť jednotlivé packets medzi adresami; transport určuje, ako aplikácie rozlíšia svoje flows a čo môžu očakávať od prenosu.
+
+TCP je connection-oriented byte-stream protokol. Pred prenosom vytvorí obojsmerný state cez handshake. Používa sequence numbers, acknowledgements, retransmission, receive window a congestion control. Zachová poradie bytes, ale nezachová hranice aplikačných messages. Jeden `write()` sa nemusí rovnať jednému segmentu ani jednému `read()`.
+
+UDP prenáša samostatné datagramy. Nemá transportný handshake, retransmission ani garanciu poradia. Hranica jedného datagramu sa zachová, ak ho aplikácia prijme. Aplikácia alebo vyšší protokol musí riešiť timeout, duplicate, loss a ordering podľa vlastného contractu.
+
+Neutrálny príklad TCP:
+
+```text
+client: 192.0.2.10:53000
+server: 198.51.100.20:443
+
+SYN
+→ SYN-ACK
+→ ACK
+→ byte stream
+```
+
+Úspešný handshake dokazuje transportnú reachability v oboch smeroch pre daný tuple. Neoveruje TLS, HTTP ani aplikáciu. Retransmission môže skryť packet loss a iba zvýšiť latency.
+
+Neutrálny príklad UDP je DNS query. Klient odošle jeden datagram na port 53 a čaká na odpoveď. Pri strate môže query zopakovať. Pri veľkej alebo truncated odpovedi môže DNS prejsť na TCP.
+
+„TCP je spoľahlivý“ neznamená exactly-once business operáciu. Server môže request commitnúť a response sa môže stratiť. Klient vidí timeout, no side effect existuje. Idempotency a unknown-outcome recovery patria aplikačnej vrstve.
+
+Rovnako „UDP je bez spojenia“ neznamená, že celá infraštruktúra nemá state. NAT, firewall, load balancer alebo QUIC implementation môžu nad UDP tuple udržiavať časovo obmedzený state.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Po route lookupu musí Atlas klient preniesť bytes k API. Transportná vrstva pridáva porty a komunikačné semantics. TCP vytvára obojsmerné spojenie s poradím, retransmission a flow control. UDP prenáša samostatné datagramy bez transportnej garancie doručenia alebo poradia. Ani jeden protokol však neposkytuje aplikačnú exactly-once garanciu.
 
 ## TCP spojenie je stav na oboch stranách

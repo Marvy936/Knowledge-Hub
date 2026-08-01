@@ -549,9 +549,9 @@
     {
       "path": "docs/02-networking-and-web/dhcp.md",
       "title": "DHCP",
-      "words": 650,
-      "headings": 9,
-      "sections": 9,
+      "words": 884,
+      "headings": 11,
+      "sections": 11,
       "findings": 6,
       "critical": 0,
       "high": 0,
@@ -563,37 +563,37 @@
     {
       "path": "docs/02-networking-and-web/dns.md",
       "title": "DNS",
-      "words": 723,
-      "headings": 9,
-      "sections": 9,
-      "findings": 6,
+      "words": 978,
+      "headings": 11,
+      "sections": 11,
+      "findings": 7,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 6,
-      "score": 8,
+      "low": 7,
+      "score": 9,
       "grade": "A"
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
       "title": "Ethernet, MAC a ARP",
-      "words": 801,
-      "headings": 7,
-      "sections": 7,
-      "findings": 5,
+      "words": 1061,
+      "headings": 9,
+      "sections": 9,
+      "findings": 7,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 5,
-      "score": 5,
+      "low": 7,
+      "score": 7,
       "grade": "A"
     },
     {
       "path": "docs/02-networking-and-web/firewalls.md",
       "title": "Firewally",
-      "words": 646,
-      "headings": 9,
-      "sections": 9,
+      "words": 881,
+      "headings": 11,
+      "sections": 11,
       "findings": 2,
       "critical": 0,
       "high": 0,
@@ -605,9 +605,9 @@
     {
       "path": "docs/02-networking-and-web/http.md",
       "title": "HTTP",
-      "words": 720,
-      "headings": 9,
-      "sections": 9,
+      "words": 988,
+      "headings": 11,
+      "sections": 11,
       "findings": 8,
       "critical": 0,
       "high": 0,
@@ -619,23 +619,23 @@
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "title": "HTTPS, TLS, certifikáty a PKI",
-      "words": 721,
-      "headings": 9,
-      "sections": 9,
-      "findings": 5,
+      "words": 980,
+      "headings": 11,
+      "sections": 11,
+      "findings": 6,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 5,
-      "score": 6,
+      "low": 6,
+      "score": 7,
       "grade": "A"
     },
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "title": "IPv4, IPv6 a subnetting",
-      "words": 741,
-      "headings": 7,
-      "sections": 7,
+      "words": 994,
+      "headings": 9,
+      "sections": 9,
       "findings": 9,
       "critical": 0,
       "high": 0,
@@ -647,9 +647,9 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "title": "Load balancing",
-      "words": 665,
-      "headings": 9,
-      "sections": 9,
+      "words": 937,
+      "headings": 11,
+      "sections": 11,
       "findings": 12,
       "critical": 0,
       "high": 0,
@@ -661,29 +661,29 @@
     {
       "path": "docs/02-networking-and-web/nat.md",
       "title": "NAT",
-      "words": 631,
-      "headings": 8,
-      "sections": 8,
-      "findings": 4,
+      "words": 876,
+      "headings": 10,
+      "sections": 10,
+      "findings": 6,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 4,
-      "score": 4,
+      "low": 6,
+      "score": 6,
       "grade": "A"
     },
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "title": "Network troubleshooting",
-      "words": 1622,
-      "headings": 16,
-      "sections": 16,
-      "findings": 16,
+      "words": 1901,
+      "headings": 18,
+      "sections": 18,
+      "findings": 18,
       "critical": 0,
       "high": 3,
       "medium": 3,
-      "low": 10,
-      "score": 48,
+      "low": 12,
+      "score": 50,
       "grade": "C"
     },
     {
@@ -703,23 +703,23 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "title": "OSI a TCP/IP model",
-      "words": 932,
-      "headings": 8,
-      "sections": 8,
-      "findings": 10,
+      "words": 1197,
+      "headings": 10,
+      "sections": 10,
+      "findings": 11,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 10,
-      "score": 10,
+      "low": 11,
+      "score": 11,
       "grade": "A"
     },
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
       "title": "Porty a sockety",
-      "words": 603,
-      "headings": 8,
-      "sections": 8,
+      "words": 837,
+      "headings": 10,
+      "sections": 10,
       "findings": 6,
       "critical": 0,
       "high": 0,
@@ -731,9 +731,9 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "title": "Proxy a reverse proxy",
-      "words": 635,
-      "headings": 8,
-      "sections": 8,
+      "words": 902,
+      "headings": 10,
+      "sections": 10,
       "findings": 10,
       "critical": 0,
       "high": 0,
@@ -745,37 +745,37 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "title": "REST API a WebSockety",
-      "words": 754,
-      "headings": 11,
-      "sections": 11,
-      "findings": 12,
+      "words": 1007,
+      "headings": 13,
+      "sections": 13,
+      "findings": 14,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 12,
-      "score": 18,
+      "low": 14,
+      "score": 20,
       "grade": "B"
     },
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
       "title": "Routing a default gateway",
-      "words": 746,
-      "headings": 9,
-      "sections": 9,
-      "findings": 6,
+      "words": 1003,
+      "headings": 11,
+      "sections": 11,
+      "findings": 7,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 6,
-      "score": 8,
+      "low": 7,
+      "score": 10,
       "grade": "A"
     },
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
       "title": "TCP a UDP",
-      "words": 718,
-      "headings": 8,
-      "sections": 8,
+      "words": 965,
+      "headings": 10,
+      "sections": 10,
       "findings": 6,
       "critical": 0,
       "high": 0,
@@ -23029,7 +23029,7 @@
     {
       "path": "docs/02-networking-and-web/dhcp.md",
       "section": "Relay a subnet identity",
-      "line": 55,
+      "line": 92,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23038,7 +23038,7 @@
     {
       "path": "docs/02-networking-and-web/dhcp.md",
       "section": "Relay a subnet identity",
-      "line": 55,
+      "line": 92,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23047,7 +23047,7 @@
     {
       "path": "docs/02-networking-and-web/dhcp.md",
       "section": "Conflict a duplicate address",
-      "line": 61,
+      "line": 98,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23056,7 +23056,7 @@
     {
       "path": "docs/02-networking-and-web/dhcp.md",
       "section": "Conflict a duplicate address",
-      "line": 61,
+      "line": 98,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23065,7 +23065,7 @@
     {
       "path": "docs/02-networking-and-web/dhcp.md",
       "section": "DHCPv6 a SLAAC",
-      "line": 67,
+      "line": 104,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23074,33 +23074,24 @@
     {
       "path": "docs/02-networking-and-web/dhcp.md",
       "section": "Incident: host má IP, ale interné API nejde",
-      "line": 77,
+      "line": 114,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "Čo je DNS",
+      "line": 4,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
       "path": "docs/02-networking-and-web/dns.md",
       "section": "Records a alias chain",
-      "line": 30,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "TTL a cache",
-      "line": 44,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/02-networking-and-web/dns.md",
-      "section": "Split-horizon a search domains",
       "line": 70,
       "severity": "low",
       "rule": "example-not-explicit",
@@ -23109,8 +23100,26 @@
     },
     {
       "path": "docs/02-networking-and-web/dns.md",
+      "section": "TTL a cache",
+      "line": 84,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
+      "section": "Split-horizon a search domains",
+      "line": 110,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/dns.md",
       "section": "DNSSEC a trust",
-      "line": 87,
+      "line": 127,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23119,7 +23128,7 @@
     {
       "path": "docs/02-networking-and-web/dns.md",
       "section": "DNSSEC a trust",
-      "line": 87,
+      "line": 127,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23128,7 +23137,7 @@
     {
       "path": "docs/02-networking-and-web/dns.md",
       "section": "Zhrnutie",
-      "line": 99,
+      "line": 139,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23136,8 +23145,26 @@
     },
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "Čo sú Ethernet, MAC adresa a ARP",
+      "line": 4,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
+      "section": "Atlas scenár a praktické použitie",
+      "line": 29,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
       "section": "Frame na klientskom linku",
-      "line": 7,
+      "line": 35,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23146,7 +23173,7 @@
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
       "section": "ARP ako neighbor resolution",
-      "line": 38,
+      "line": 66,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23155,7 +23182,7 @@
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
       "section": "IPv6 používa NDP",
-      "line": 63,
+      "line": 91,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23164,7 +23191,7 @@
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
       "section": "Incident: gateway odpovedá iba niektorým klientom",
-      "line": 78,
+      "line": 106,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23173,7 +23200,7 @@
     {
       "path": "docs/02-networking-and-web/ethernet-mac-arp.md",
       "section": "Zhrnutie",
-      "line": 86,
+      "line": 114,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23182,7 +23209,7 @@
     {
       "path": "docs/02-networking-and-web/firewalls.md",
       "section": "Stateful policy",
-      "line": 21,
+      "line": 52,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23191,7 +23218,7 @@
     {
       "path": "docs/02-networking-and-web/firewalls.md",
       "section": "Bezpečný rollout policy",
-      "line": 65,
+      "line": 96,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23200,7 +23227,7 @@
     {
       "path": "docs/02-networking-and-web/http.md",
       "section": "Target, authority a representation",
-      "line": 17,
+      "line": 47,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23209,7 +23236,7 @@
     {
       "path": "docs/02-networking-and-web/http.md",
       "section": "Method semantics",
-      "line": 25,
+      "line": 55,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23218,7 +23245,7 @@
     {
       "path": "docs/02-networking-and-web/http.md",
       "section": "Headers a intermediaries",
-      "line": 58,
+      "line": 88,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23227,7 +23254,7 @@
     {
       "path": "docs/02-networking-and-web/http.md",
       "section": "Caching",
-      "line": 64,
+      "line": 94,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23236,7 +23263,7 @@
     {
       "path": "docs/02-networking-and-web/http.md",
       "section": "Caching",
-      "line": 64,
+      "line": 94,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23245,7 +23272,7 @@
     {
       "path": "docs/02-networking-and-web/http.md",
       "section": "HTTP/1.1, HTTP/2 a HTTP/3",
-      "line": 89,
+      "line": 119,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23254,7 +23281,7 @@
     {
       "path": "docs/02-networking-and-web/http.md",
       "section": "Incident: 200 OK , ale objednávka neexistuje",
-      "line": 95,
+      "line": 125,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23263,7 +23290,7 @@
     {
       "path": "docs/02-networking-and-web/http.md",
       "section": "Zhrnutie",
-      "line": 101,
+      "line": 131,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23271,8 +23298,17 @@
     },
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
+      "section": "Atlas scenár a praktické použitie",
+      "line": 33,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "section": "ClientHello a server identity",
-      "line": 7,
+      "line": 39,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23281,7 +23317,7 @@
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "section": "Certificate chain",
-      "line": 39,
+      "line": 71,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23290,7 +23326,7 @@
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "section": "Session keys a forward secrecy",
-      "line": 47,
+      "line": 79,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23299,7 +23335,7 @@
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "section": "Revocation",
-      "line": 87,
+      "line": 119,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23308,7 +23344,7 @@
     {
       "path": "docs/02-networking-and-web/https-tls-certificates-pki.md",
       "section": "Incident: certifikát je „platný“, ale časť clients zlyháva",
-      "line": 93,
+      "line": 125,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23317,7 +23353,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "IPv4 adresa a prefix",
-      "line": 7,
+      "line": 33,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23326,7 +23362,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "Subnetting ako návrh hraníc",
-      "line": 22,
+      "line": 48,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23335,7 +23371,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "IPv6 nie je väčší IPv4",
-      "line": 38,
+      "line": 64,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23344,7 +23380,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "IPv6 nie je väčší IPv4",
-      "line": 38,
+      "line": 64,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23353,7 +23389,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "Dual-stack selection",
-      "line": 52,
+      "line": 78,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23362,7 +23398,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "Prefix length a host assumptions",
-      "line": 64,
+      "line": 90,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23371,7 +23407,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "Prefix length a host assumptions",
-      "line": 64,
+      "line": 90,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23380,7 +23416,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "Incident: nový AAAA záznam",
-      "line": 75,
+      "line": 101,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23389,7 +23425,7 @@
     {
       "path": "docs/02-networking-and-web/ipv4-ipv6-subnetting.md",
       "section": "Zhrnutie",
-      "line": 83,
+      "line": 109,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23398,7 +23434,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "L4 a L7 rozhodnutie",
-      "line": 14,
+      "line": 52,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23407,7 +23443,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Inventory a eligibility",
-      "line": 20,
+      "line": 58,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23416,7 +23452,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Selection algorithms",
-      "line": 39,
+      "line": 77,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23425,7 +23461,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Selection algorithms",
-      "line": 39,
+      "line": 77,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23434,7 +23470,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Health, readiness a passive feedback",
-      "line": 45,
+      "line": 83,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23443,7 +23479,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Draining",
-      "line": 51,
+      "line": 89,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23452,7 +23488,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Session affinity",
-      "line": 66,
+      "line": 104,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23461,7 +23497,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Global a local balancing",
-      "line": 72,
+      "line": 110,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23470,7 +23506,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Incident: každý druhý request zlyhá",
-      "line": 78,
+      "line": 116,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23479,7 +23515,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Incident: každý druhý request zlyhá",
-      "line": 78,
+      "line": 116,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23488,7 +23524,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Incident: každý druhý request zlyhá",
-      "line": 78,
+      "line": 116,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23497,7 +23533,7 @@
     {
       "path": "docs/02-networking-and-web/load-balancing.md",
       "section": "Zhrnutie",
-      "line": 84,
+      "line": 122,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23505,8 +23541,26 @@
     },
     {
       "path": "docs/02-networking-and-web/nat.md",
+      "section": "Čo je NAT",
+      "line": 4,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
+      "section": "Atlas scenár a praktické použitie",
+      "line": 36,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/nat.md",
       "section": "Conntrack a obojsmerný state",
-      "line": 43,
+      "line": 78,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23515,7 +23569,7 @@
     {
       "path": "docs/02-networking-and-web/nat.md",
       "section": "Port exhaustion",
-      "line": 56,
+      "line": 91,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23524,7 +23578,7 @@
     {
       "path": "docs/02-networking-and-web/nat.md",
       "section": "Hairpin NAT",
-      "line": 64,
+      "line": 99,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23533,7 +23587,25 @@
     {
       "path": "docs/02-networking-and-web/nat.md",
       "section": "Incident: iba časť outbound requests timeoutuje",
-      "line": 76,
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Čo je systematický network troubleshooting",
+      "line": 4,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/network-troubleshooting.md",
+      "section": "Atlas scenár a praktické použitie",
+      "line": 47,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23542,7 +23614,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "3. Vytvor časovú os a scope",
-      "line": 58,
+      "line": 104,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23551,7 +23623,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "3. Vytvor časovú os a scope",
-      "line": 58,
+      "line": 104,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23560,7 +23632,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "5. Competing hypotheses",
-      "line": 95,
+      "line": 141,
       "severity": "high",
       "rule": "list-heavy-section",
       "detail": "6 odrážok a iba 43 slov súvislého vysvetlenia.",
@@ -23569,7 +23641,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "5. Competing hypotheses",
-      "line": 95,
+      "line": 141,
       "severity": "high",
       "rule": "bare-bullet-items",
       "detail": "3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `Client alebo proxy má request-body size limit.`, `Edge proxy bufferuje veľký request a prekročí timeout.`, `Backend číta body pomaly alebo čaká na dependency.`.",
@@ -23578,7 +23650,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "5. Competing hypotheses",
-      "line": 95,
+      "line": 141,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -23587,7 +23659,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "5. Competing hypotheses",
-      "line": 95,
+      "line": 141,
       "severity": "medium",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ICMP`, `TLS`",
@@ -23596,7 +23668,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "6. Porovnaj malý a veľký request",
-      "line": 108,
+      "line": 154,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23605,7 +23677,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "7. Client observation",
-      "line": 135,
+      "line": 181,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23614,7 +23686,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "9. Path MTU Discovery",
-      "line": 191,
+      "line": 237,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23623,7 +23695,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "10. Effective tunnel a firewall state",
-      "line": 214,
+      "line": 260,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23632,7 +23704,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "11. Proxy a backend evidence",
-      "line": 231,
+      "line": 277,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23641,7 +23713,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "13. Autoritatívna oprava",
-      "line": 252,
+      "line": 298,
       "severity": "medium",
       "rule": "short-concept-section",
       "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
@@ -23650,7 +23722,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "13. Autoritatívna oprava",
-      "line": 252,
+      "line": 298,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23659,7 +23731,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "13. Autoritatívna oprava",
-      "line": 252,
+      "line": 298,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23668,7 +23740,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "13. Autoritatívna oprava",
-      "line": 252,
+      "line": 298,
       "severity": "high",
       "rule": "term-before-explanation",
       "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `MTU`, `ICMP`, `TCP`, `MSS`, `policy`",
@@ -23677,7 +23749,7 @@
     {
       "path": "docs/02-networking-and-web/network-troubleshooting.md",
       "section": "Zhrnutie",
-      "line": 302,
+      "line": 348,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23721,8 +23793,17 @@
     },
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
+      "section": "Atlas scenár a praktické použitie",
+      "line": 37,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "Jeden request, viac obálok",
-      "line": 7,
+      "line": 43,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23731,7 +23812,7 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "OSI a TCP/IP ako dve analytické mapy",
-      "line": 23,
+      "line": 59,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23740,7 +23821,7 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "Hop-by-hop a end-to-end identity",
-      "line": 40,
+      "line": 76,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23749,7 +23830,7 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "Data plane, control plane a management plane",
-      "line": 56,
+      "line": 92,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23758,7 +23839,7 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "Data plane, control plane a management plane",
-      "line": 56,
+      "line": 92,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23767,7 +23848,7 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "Observation point mení význam dôkazu",
-      "line": 62,
+      "line": 98,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23776,7 +23857,7 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "Observation point mení význam dôkazu",
-      "line": 62,
+      "line": 98,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23785,7 +23866,7 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "Timeout budget cez vrstvy",
-      "line": 73,
+      "line": 109,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23794,7 +23875,7 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "Priebežný incident",
-      "line": 90,
+      "line": 126,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23803,7 +23884,7 @@
     {
       "path": "docs/02-networking-and-web/osi-and-tcp-ip-model.md",
       "section": "Zhrnutie",
-      "line": 96,
+      "line": 132,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23812,7 +23893,7 @@
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
       "section": "Listener a prijaté spojenie",
-      "line": 5,
+      "line": 33,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23821,7 +23902,7 @@
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
       "section": "Bind address rozhoduje o reachability",
-      "line": 29,
+      "line": 57,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23830,7 +23911,7 @@
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
       "section": "Ephemeral ports",
-      "line": 47,
+      "line": 75,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23839,7 +23920,7 @@
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
       "section": "Ephemeral ports",
-      "line": 47,
+      "line": 75,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23848,7 +23929,7 @@
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
       "section": "Incident: health check je zelený, klient dostáva connection refused",
-      "line": 84,
+      "line": 112,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23857,7 +23938,7 @@
     {
       "path": "docs/02-networking-and-web/ports-and-sockets.md",
       "section": "Incident: health check je zelený, klient dostáva connection refused",
-      "line": 84,
+      "line": 112,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23866,7 +23947,7 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "Forward proxy a reverse proxy",
-      "line": 15,
+      "line": 45,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23875,7 +23956,7 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "HTTP routing",
-      "line": 23,
+      "line": 53,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23884,7 +23965,7 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "HTTP routing",
-      "line": 23,
+      "line": 53,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23893,7 +23974,7 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "Buffering a backpressure",
-      "line": 51,
+      "line": 81,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23902,7 +23983,7 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "Timeouts a retries",
-      "line": 59,
+      "line": 89,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23911,7 +23992,7 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "Timeouts a retries",
-      "line": 59,
+      "line": 89,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23920,7 +24001,7 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "Timeouts a retries",
-      "line": 59,
+      "line": 89,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23929,7 +24010,7 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "Incident: duplicate objednávky po proxy timeout-e",
-      "line": 76,
+      "line": 106,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23938,7 +24019,7 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "Incident: duplicate objednávky po proxy timeout-e",
-      "line": 76,
+      "line": 106,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23947,7 +24028,25 @@
     {
       "path": "docs/02-networking-and-web/proxy-and-reverse-proxy.md",
       "section": "Incident: duplicate objednávky po proxy timeout-e",
-      "line": 76,
+      "line": 106,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Čo sú REST API a WebSocket",
+      "line": 4,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
+      "section": "Čo sú REST API a WebSocket",
+      "line": 4,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23956,7 +24055,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Resource-oriented API",
-      "line": 5,
+      "line": 35,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -23965,7 +24064,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Idempotency a unknown outcome",
-      "line": 19,
+      "line": 49,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23974,7 +24073,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Idempotency a unknown outcome",
-      "line": 19,
+      "line": 49,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -23983,7 +24082,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Pagination a consistency",
-      "line": 31,
+      "line": 61,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -23992,7 +24091,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Versioning a compatibility",
-      "line": 43,
+      "line": 73,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24001,7 +24100,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "WebSocket upgrade",
-      "line": 55,
+      "line": 85,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24010,7 +24109,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Message identity, ordering a reconnect",
-      "line": 69,
+      "line": 99,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -24019,7 +24118,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Heartbeat a liveness",
-      "line": 86,
+      "line": 116,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24028,7 +24127,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Backpressure",
-      "line": 92,
+      "line": 122,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24037,7 +24136,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Backpressure",
-      "line": 92,
+      "line": 122,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -24046,7 +24145,7 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Incident: reconnect vytvára duplicate notifications",
-      "line": 98,
+      "line": 128,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -24055,7 +24154,16 @@
     {
       "path": "docs/02-networking-and-web/rest-apis-and-websockets.md",
       "section": "Zhrnutie",
-      "line": 104,
+      "line": 134,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
+      "section": "Atlas scenár a praktické použitie",
+      "line": 29,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24064,7 +24172,7 @@
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
       "section": "Policy routing",
-      "line": 46,
+      "line": 74,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -24073,7 +24181,7 @@
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
       "section": "Forward a return path",
-      "line": 60,
+      "line": 88,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24082,7 +24190,7 @@
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
       "section": "Dynamický routing a convergence",
-      "line": 82,
+      "line": 110,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -24091,7 +24199,7 @@
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
       "section": "Dynamický routing a convergence",
-      "line": 82,
+      "line": 110,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -24100,7 +24208,7 @@
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
       "section": "Incident: iba jeden application host nemá API",
-      "line": 88,
+      "line": 116,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -24109,7 +24217,7 @@
     {
       "path": "docs/02-networking-and-web/routing-and-default-gateway.md",
       "section": "Zhrnutie",
-      "line": 100,
+      "line": 128,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24118,7 +24226,7 @@
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
       "section": "TCP spojenie je stav na oboch stranách",
-      "line": 5,
+      "line": 37,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -24127,7 +24235,7 @@
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
       "section": "Byte stream a segmentácia",
-      "line": 31,
+      "line": 63,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -24136,7 +24244,7 @@
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
       "section": "UDP datagram",
-      "line": 58,
+      "line": 90,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -24145,7 +24253,7 @@
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
       "section": "UDP datagram",
-      "line": 58,
+      "line": 90,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -24154,7 +24262,7 @@
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
       "section": "Incident: SYN handshake funguje, ale throughput padá",
-      "line": 85,
+      "line": 117,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -24163,7 +24271,7 @@
     {
       "path": "docs/02-networking-and-web/tcp-and-udp.md",
       "section": "Incident: SYN handshake funguje, ale throughput padá",
-      "line": 85,
+      "line": 117,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

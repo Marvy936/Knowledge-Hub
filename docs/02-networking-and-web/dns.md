@@ -1,5 +1,45 @@
 # DNS
 
+<!-- CONCEPT-FIRST:START -->
+## Čo je DNS
+
+DNS je distribuovaný, hierarchický a cacheovaný naming systém. Preklad hostname na IP adresu je iba jedna jeho funkcia. DNS publikuje records, deleguje zóny a umožňuje resolverom dočasne uchovávať odpovede podľa TTL.
+
+Aplikácia typicky volá stub resolver operačného systému. Ten používa configured recursive resolver. Recursive resolver môže výsledok nájsť v cache alebo postupne získať referrals od root, TLD a authoritative serverov. Authoritative server publikuje data pre konkrétnu zónu; nevykonáva bežne rekurziu za klienta.
+
+Dôležité records:
+
+```text
+A      hostname → IPv4
+AAAA   hostname → IPv6
+CNAME  alias → canonical name
+NS     delegácia zóny
+MX     mail exchange
+TXT    textové policy alebo verification data
+SOA    základné metadata zóny
+```
+
+TTL neurčuje, kedy sa zmena „globálne aktivuje“. Určuje, ako dlho môže konkrétna cache používať starú odpoveď. Aplikačný runtime môže mať navyše vlastnú cache a existujúce TCP connections môžu pokračovať aj po zmene DNS.
+
+Negative odpovede, napríklad `NXDOMAIN`, sa môžu tiež cacheovať. Vytvorenie chýbajúceho recordu preto nemusí okamžite opraviť clients, ktoré ešte držia negatívny result.
+
+Split-horizon DNS vracia odlišné answers podľa resolvera alebo source siete. Môže byť zámerné, ale vytvára viac naming states, routes a certificate assumptions.
+
+Neutrálny príklad:
+
+```text
+app.example CNAME edge.example
+edge.example A     198.51.100.20
+edge.example AAAA  2001:db8::20
+```
+
+Klient musí vyriešiť alias chain a následne vybrať address family. Bežný request môže fallbacknúť z nefunkčného IPv6 na IPv4 a skryť chybu.
+
+`dig` overuje DNS query voči konkrétnemu serveru. `getent` alebo aplikačný test môže používať celý OS naming path vrátane hosts file a NSS. Rovnaký hostname preto treba testovať cez rovnaký resolver path ako reálna aplikácia.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Atlas klient nezačína IP adresou. Aplikácia pozná `api.atlas.example` a resolver musí vrátiť použiteľný address set. DNS je distribuovaná databáza s delegáciou, cachingom a časovou platnosťou. Zelený `dig` output dokazuje odpoveď konkrétneho servera; nepreukazuje, že aplikácia použila rovnaký resolver, cache, search path alebo address family.
 
 ## Od aplikácie k authoritative zóne

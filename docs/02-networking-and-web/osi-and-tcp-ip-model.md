@@ -1,5 +1,41 @@
 # OSI a TCP/IP model
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú OSI a TCP/IP model
+
+OSI a TCP/IP modely sú analytické rámce, ktoré rozdeľujú sieťovú komunikáciu na vrstvy s odlišnými zodpovednosťami. Neopisujú presnú implementáciu každého operačného systému ani zariadenia. Ich účelom je oddeliť typy identít, protokolov a failure boundaries, aby bolo jasné, čo konkrétny dôkaz potvrdzuje.
+
+OSI model tradične rozlišuje sedem vrstiev: physical, data link, network, transport, session, presentation a application. TCP/IP model ich zoskupuje praktickejšie na linkovú, internetovú, transportnú a aplikačnú vrstvu. Moderné protokoly sa nemusia dokonale zmestiť do jednej priehradky. TLS napríklad pracuje nad transportom a pod HTTP, zatiaľ čo QUIC spája transportné a cryptographic funkcie nad UDP.
+
+Encapsulation znamená, že vyššia vrstva odovzdá svoj payload nižšej vrstve, ktorá pridá vlastnú hlavičku alebo obálku:
+
+```text
+aplikačná message
+→ transportný segment alebo datagram
+→ IP packet
+→ linkový frame
+→ fyzický signál
+```
+
+Na prijímacej strane sa obálky spracujú opačným smerom. Hranice messages sa pritom nemusia zhodovať: jeden aplikačný request môže byť rozdelený do viacerých TCP segmentov a jeden TCP segment môže obsahovať časti viacerých aplikačných zápisov.
+
+Model je najpraktickejší pri troubleshootingu. Úspešný link nepreukazuje route, úspešný TCP handshake nepreukazuje TLS identity a HTTP response nepreukazuje správny business side effect. Každá vrstva má vlastné observation points a vlastný subject.
+
+Neutrálny príklad:
+
+```text
+browser vytvorí HTTP GET
+→ TLS ho zašifruje
+→ TCP prenesie byte stream
+→ IP vyberie routovaný destination
+→ Ethernet doručí packet k lokálnemu next hopu
+```
+
+Router typicky odstráni pôvodný Ethernet frame a vytvorí nový pre ďalší link, zatiaľ čo IP destination zostáva rovnaká, ak ju nemení NAT. Proxy môže ukončiť jedno TCP/TLS spojenie a vytvoriť druhé, takže „end-to-end“ treba vždy presne definovať.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Klient Atlas odošle `POST /v1/orders` na `https://api.atlas.example`. Používateľ vidí jednu operáciu, ale systém ju realizuje cez viac kontraktov. DNS preloží meno na adresu, kernel vyberie route, lokálny link doručí frame k next hopu, transport vytvorí spojenie, TLS overí peer identity a HTTP prenesie aplikačný request. Vrstvený model je mapa týchto zodpovedností a observation points.
 
 Nie je to presný obrázok implementácie. Moderný kernel, QUIC, proxy alebo smartNIC môže spájať viac funkcií a jeden komponent môže pracovať na viacerých vrstvách. Model je užitočný vtedy, keď pomôže odpovedať: *ktorý kontrakt zlyhal, kde ho možno pozorovať a čo tento dôkaz ešte nedokazuje?*
