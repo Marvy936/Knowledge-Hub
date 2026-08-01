@@ -90,9 +90,10 @@ jobs:
           )
           if hook is None:
               raise SystemExit("Unable to resolve temporary workflow hook")
+          hook_assignment = "HOOK = " + repr(hook.group(0))
           script, count = re.subn(
               r"(?ms)^HOOK = '''.*?'''",
-              "HOOK = " + repr(hook.group(0)),
+              lambda _: hook_assignment,
               script,
               count=1,
           )
