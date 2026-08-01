@@ -130,6 +130,72 @@ git reflog show feature/ord-8421
 
 Reflog zaznamenáva lokálne pohyby refov: commit, rebase, reset, checkout. Nie je distribuovanou históriou a nemusí existovať na remote. Je výborný recovery nástroj, ale nie dlhodobý audit alebo backup.
 
+## Mechanický walkthrough: ref pohyby a read-back po každom príkaze
+
+Vytvorenie branchu možno overiť bez domnienky, že Git skopíroval repository:
+
+```bash
+before=$(git rev-parse HEAD)
+git switch -c feature/ord-8421
+after=$(git rev-parse HEAD)
+branch_ref=$(git symbolic-ref HEAD)
+printf 'before=%s after=%s HEAD=%s\n' "$before" "$after" "$branch_ref"
+```
+
+`before` a `after` sú rovnaké, pretože branch creation zatiaľ iba vytvorila `refs/heads/feature/ord-8421` na current commit a nastavila HEAD ako symbolic ref na toto meno. Working tree sa checkout-ne podľa rovnakého snapshotu, takže nemusí vzniknúť filesystem diff.
+
+Po zmene a commite:
+
+```bash
+git add config/orders.yaml
+git commit -m 'ORD-8421 raise limit'
+git show --no-patch --format='commit=%H%nparents=%P%ntree=%T%nsubject=%s' HEAD
+git rev-parse refs/heads/feature/ord-8421
+```
+
+Commit command vykoná tri logické kroky: zapíše tree z indexu, vytvorí commit s parentom na predchádzajúci HEAD a atomicky posunie current branch ref. `git show` číta immutable commit fields; `rev-parse` potvrdí, že mutable branch teraz ukazuje na nový ID.
+
+Detached HEAD experiment:
+
+```bash
+git switch --detach HEAD~1
+git symbolic-ref -q HEAD || printf 'HEAD is detached at %s\n' "$(git rev-parse HEAD)"
+```
+
+`symbolic-ref -q` v detached stave vráti non-zero, čo je očakávaný outcome, nie poškodenie repository. Ak tu vytvoríš commit, zapíše sa object a HEAD sa posunie priamo naň. Žiadny branch ref ho však nepomenuje:
+
+```bash
+printf 'investigation\n' > notes.txt
+git add notes.txt
+git commit -m 'temporary investigation'
+new_tip=$(git rev-parse HEAD)
+git branch recovery/investigation "$new_tip"
+```
+
+Posledný command vytvorí stabilný ref pred prepnutím preč. Bez neho môže commit po reflog expiry stratiť reachability.
+
+Annotated tag:
+
+```bash
+git tag -a v4.2.0 -m 'Atlas Orders 4.2.0' "$new_tip"
+git cat-file -t v4.2.0
+git cat-file -p v4.2.0
+git rev-parse v4.2.0^{}
+```
+
+Prvé `cat-file` ukáže type `tag`, druhé tagger/message/target a `^{}` dereferencuje tag object na commit. Lightweight tag by mal type target objectu priamo. Pri release evidence preto zaznamenaj tag object ID aj dereferencovaný commit, ak používaš annotated alebo signed tag.
+
+Pri amend:
+
+```bash
+old=$(git rev-parse HEAD)
+git commit --amend --no-edit
+new=$(git rev-parse HEAD)
+printf 'old=%s new=%s\n' "$old" "$new"
+```
+
+Aj bez zmeny message môže byť ID nové, pretože commit metadata alebo tree/parent subject sa znovu serializujú. CI evidence viazané na `old` sa nesmie automaticky preniesť na `new`.
+
 ## Incident: release job buildne inú branch
 
 Pipeline checkoutne tag `v4.2.0`, čím je HEAD detached. Skript však verziu odvodzuje z `git branch --show-current`, dostane prázdny string a použije default `main`. Artifact má nesprávne metadata, hoci source snapshot je správny.

@@ -5,10 +5,10 @@
 ## Summary
 
 - Audited authoritative articles: **327**
-- Audited conceptual sections: **6711**
-- Total words: **591,349**
-- Findings: **7039** (critical 939, high 1504, medium 575, low 4021)
-- File grades: A 114, B 93, C 26, D 94
+- Audited conceptual sections: **6760**
+- Total words: **598,405**
+- Findings: **7075** (critical 942, high 1505, medium 576, low 4052)
+- File grades: A 112, B 93, C 28, D 94
 
 ## Interpretation
 
@@ -132,20 +132,22 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 57 | 2 | 3 | 1 | 6 | 3108 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md` |
 | C | 55 | 0 | 5 | 0 | 12 | 1816 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1341 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
+| C | 54 | 1 | 4 | 0 | 9 | 1897 | `docs/03-git-and-automation/python-for-automation.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1603 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | C | 53 | 0 | 6 | 0 | 4 | 2266 | `docs/11-cloud-and-aws/aws-practical-walkthrough.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 1822 | `docs/05-ci-cd-and-release/continuous-integration.md` |
 | C | 48 | 0 | 3 | 3 | 10 | 1889 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | C | 47 | 2 | 2 | 0 | 5 | 1215 | `docs/09-kubernetes/rbac.md` |
+| C | 44 | 1 | 2 | 0 | 11 | 1647 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | C | 42 | 1 | 0 | 1 | 19 | 3182 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | C | 41 | 0 | 4 | 0 | 8 | 3604 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
 | C | 39 | 0 | 3 | 0 | 10 | 2411 | `docs/08-container-fundamentals-and-docker/dockerfile.md` |
 | C | 39 | 1 | 1 | 0 | 13 | 2542 | `docs/09-kubernetes/kubernetes-troubleshooting.md` |
 | C | 37 | 1 | 2 | 0 | 8 | 1568 | `docs/06-gitlab/gitlab-troubleshooting.md` |
-| C | 36 | 0 | 4 | 0 | 3 | 1133 | `docs/03-git-and-automation/python-for-automation.md` |
 | B | 34 | 0 | 3 | 0 | 5 | 1099 | `docs/09-kubernetes/resourcequota-limitrange.md` |
 | B | 33 | 0 | 1 | 0 | 22 | 2086 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 32 | 0 | 1 | 0 | 19 | 2439 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
+| C | 31 | 1 | 0 | 0 | 13 | 1766 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | B | 31 | 0 | 2 | 0 | 11 | 1612 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 29 | 0 | 0 | 0 | 22 | 2019 | `docs/10-helm-and-cka/cka-timed-labs.md` |
@@ -159,19 +161,20 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 23 | 0 | 0 | 0 | 18 | 3437 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | B | 23 | 0 | 0 | 0 | 18 | 2027 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
 | B | 23 | 0 | 0 | 0 | 16 | 1832 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
-| B | 22 | 0 | 2 | 0 | 3 | 910 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 2044 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 1688 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | B | 22 | 0 | 1 | 0 | 9 | 1319 | `docs/09-kubernetes/cluster-installation-lifecycle.md` |
 | B | 22 | 0 | 1 | 0 | 8 | 1291 | `docs/09-kubernetes/probes.md` |
 | B | 22 | 0 | 1 | 0 | 8 | 1336 | `docs/09-kubernetes/requests-limits-qos.md` |
 | B | 22 | 0 | 1 | 0 | 9 | 1145 | `docs/09-kubernetes/taints-tolerations-affinity-topology.md` |
+| B | 21 | 0 | 1 | 0 | 8 | 1367 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 1768 | `docs/11-cloud-and-aws/aws-organizations-accounts.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 1658 | `docs/14-sre-and-operations/blameless-postmortems.md` |
 | B | 21 | 0 | 0 | 0 | 13 | 1798 | `docs/14-sre-and-operations/incident-management.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2087 | `docs/14-sre-and-operations/operational-readiness.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 1424 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 3225 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
+| B | 20 | 0 | 1 | 1 | 6 | 2300 | `docs/03-git-and-automation/bash-automation.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1844 | `docs/09-kubernetes/etcd-backup-restore.md` |
 | B | 20 | 0 | 1 | 0 | 8 | 1592 | `docs/09-kubernetes/upgrades.md` |
 | B | 20 | 0 | 0 | 0 | 12 | 1304 | `docs/09-kubernetes/volumes-pv-pvc-storageclass.md` |
@@ -188,6 +191,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 19 | 0 | 0 | 0 | 15 | 1517 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
 | B | 18 | 0 | 2 | 0 | 2 | 2460 | `docs/02-networking-and-web/networking-practical-walkthrough.md` |
 | B | 18 | 0 | 0 | 0 | 12 | 994 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
+| B | 18 | 0 | 1 | 0 | 6 | 1213 | `docs/03-git-and-automation/merge-conflicts.md` |
 | B | 18 | 0 | 0 | 0 | 16 | 1779 | `docs/08-container-fundamentals-and-docker/build-context-layer-cache.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 2410 | `docs/11-cloud-and-aws/kms-secrets-manager.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1521 | `docs/12-observability/opentelemetry.md` |
@@ -195,7 +199,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 926 | `docs/02-networking-and-web/load-balancing.md` |
-| B | 17 | 0 | 1 | 0 | 5 | 863 | `docs/03-git-and-automation/merge-conflicts.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 1887 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | B | 17 | 0 | 1 | 0 | 5 | 1262 | `docs/09-kubernetes/job-cronjob.md` |
@@ -221,7 +224,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 16 | 0 | 0 | 0 | 13 | 2260 | `docs/14-sre-and-operations/disaster-recovery.md` |
 | B | 16 | 0 | 0 | 0 | 15 | 1682 | `docs/16-gitops-and-platform-engineering/internal-developer-platform.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 1511 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
-| B | 15 | 0 | 0 | 0 | 11 | 1004 | `docs/03-git-and-automation/git-object-model.md` |
+| B | 15 | 0 | 0 | 0 | 11 | 1401 | `docs/03-git-and-automation/git-object-model.md` |
 | B | 15 | 0 | 0 | 0 | 13 | 1367 | `docs/09-kubernetes/kubernetes-architecture.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1564 | `docs/09-kubernetes/pod.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1252 | `docs/09-kubernetes/statefulset.md` |
@@ -258,7 +261,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 11 | 1411 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
-| A | 12 | 0 | 0 | 0 | 8 | 1127 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | A | 12 | 0 | 0 | 0 | 7 | 1255 | `docs/09-kubernetes/cluster-dns.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2416 | `docs/10-helm-and-cka/helm-chart-template-values-release.md` |
@@ -269,7 +271,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 12 | 0 | 0 | 0 | 10 | 1707 | `docs/14-sre-and-operations/toil.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 1818 | `docs/15-databases-and-distributed-systems/connection-pooling.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 980 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
-| A | 11 | 0 | 0 | 0 | 7 | 918 | `docs/03-git-and-automation/reset-revert-restore.md` |
+| A | 11 | 0 | 0 | 0 | 8 | 1243 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1510 | `docs/08-container-fundamentals-and-docker/docker-networks-port-publishing.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1447 | `docs/09-kubernetes/control-plane-components.md` |
 | A | 11 | 0 | 0 | 0 | 7 | 1129 | `docs/09-kubernetes/service-endpointslice.md` |
@@ -282,7 +284,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 11 | 0 | 0 | 0 | 9 | 1910 | `docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md` |
 | A | 10 | 0 | 0 | 0 | 8 | 978 | `docs/02-networking-and-web/http.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 1184 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
-| A | 10 | 0 | 0 | 0 | 7 | 896 | `docs/03-git-and-automation/merge-and-rebase.md` |
+| B | 10 | 0 | 1 | 0 | 2 | 1196 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | A | 10 | 0 | 0 | 0 | 9 | 1381 | `docs/09-kubernetes/api-object-model.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 2154 | `docs/10-helm-and-cka/named-templates.md` |
 | A | 10 | 0 | 0 | 0 | 9 | 2283 | `docs/10-helm-and-cka/template-functions-pipelines.md` |
@@ -298,8 +300,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 10 | 0 | 0 | 0 | 10 | 1841 | `docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 874 | `docs/02-networking-and-web/dhcp.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 825 | `docs/02-networking-and-web/ports-and-sockets.md` |
-| A | 9 | 0 | 0 | 0 | 6 | 872 | `docs/03-git-and-automation/branching-strategies.md` |
-| B | 9 | 0 | 1 | 0 | 1 | 833 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
+| A | 9 | 0 | 0 | 0 | 6 | 1189 | `docs/03-git-and-automation/branching-strategies.md` |
 | A | 9 | 0 | 0 | 0 | 5 | 1187 | `docs/09-kubernetes/ingress-gateway-api.md` |
 | A | 9 | 0 | 0 | 0 | 9 | 2240 | `docs/10-helm-and-cka/chart-dependencies.md` |
 | A | 9 | 0 | 0 | 0 | 8 | 2131 | `docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md` |
@@ -311,7 +312,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 9 | 0 | 0 | 0 | 8 | 1453 | `docs/15-databases-and-distributed-systems/retry-timeout-and-circuit-breaker.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 968 | `docs/02-networking-and-web/dns.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 990 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
-| B | 8 | 0 | 1 | 0 | 0 | 1022 | `docs/03-git-and-automation/bash-automation.md` |
+| A | 8 | 0 | 0 | 0 | 5 | 1201 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1427 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 960 | `docs/09-kubernetes/daemonset.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 1391 | `docs/09-kubernetes/worker-node-components.md` |
@@ -324,7 +325,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 8 | 0 | 0 | 0 | 7 | 1136 | `docs/16-gitops-and-platform-engineering/pull-based-deployment.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1281 | `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 953 | `docs/02-networking-and-web/tcp-and-udp.md` |
-| A | 7 | 0 | 0 | 0 | 4 | 825 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
 | A | 7 | 0 | 0 | 0 | 5 | 1718 | `docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1057 | `docs/09-kubernetes/serviceaccount.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1725 | `docs/11-cloud-and-aws/regions-availability-zones.md` |
@@ -339,11 +339,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 6 | 0 | 0 | 0 | 5 | 1273 | `docs/12-observability/use-method.md` |
 | A | 6 | 0 | 0 | 0 | 6 | 2514 | `docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md` |
 | A | 5 | 0 | 0 | 0 | 5 | 1047 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
-| A | 5 | 0 | 0 | 0 | 3 | 897 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
-| A | 5 | 0 | 0 | 0 | 4 | 844 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
+| A | 5 | 0 | 0 | 0 | 3 | 1255 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
+| A | 5 | 0 | 0 | 0 | 4 | 1159 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
+| A | 5 | 0 | 0 | 0 | 4 | 1218 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | A | 5 | 0 | 0 | 0 | 4 | 1330 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
 | A | 4 | 0 | 0 | 0 | 4 | 866 | `docs/02-networking-and-web/nat.md` |
-| A | 4 | 0 | 0 | 0 | 3 | 852 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | A | 4 | 0 | 0 | 0 | 3 | 800 | `docs/09-kubernetes/replicaset.md` |
 | A | 4 | 0 | 0 | 0 | 3 | 1445 | `docs/12-observability/red-method.md` |
 | A | 4 | 0 | 0 | 0 | 4 | 1238 | `docs/13-security-and-identity/kerberos.md` |
@@ -1124,6 +1124,24 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 359, `thin-concept-section` — **23. Diagnostické nástroje a otázky**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 - **HIGH** line 388, `term-before-explanation` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ACL`, `LSM`, `UID`, `GID`, `policy`
 - **HIGH** line 388, `thin-concept-section` — **25. Troubleshooting: používateľ je v skupine, ale nevie zapisovať**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
+### `docs/03-git-and-automation/powershell-fundamentals.md`
+
+- **CRITICAL** line 165, `empty-section` — **Mechanický rozbor kľúčových PowerShell vzorov**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 45, `list-first-introduction` — **Parameter contract**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 108, `list-first-introduction` — **Native processes**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
+### `docs/03-git-and-automation/python-for-automation.md`
+
+- **CRITICAL** line 208, `empty-section` — **Mechanický rozbor Python automation ukážok**: Sekcia nemá vysvetľovací obsah.
+- **HIGH** line 32, `list-first-introduction` — **CLI boundary**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 60, `list-first-introduction` — **Typed immutable model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 76, `list-first-introduction` — **Canonical fingerprint**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 111, `list-first-introduction` — **Atomic local write**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
+### `docs/03-git-and-automation/yaml-json-regular-expressions.md`
+
+- **CRITICAL** line 161, `empty-section` — **Mechanický rozbor parserov, serializácie a regex hraníc**: Sekcia nemá vysvetľovací obsah.
 
 ### `docs/04-testing-and-quality/chaos-testing.md`
 
@@ -2880,17 +2898,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **HIGH** line 35, `single-sentence-concept` — **Three-way merge**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/03-git-and-automation/powershell-fundamentals.md`
+### `docs/03-git-and-automation/reset-revert-restore.md`
 
-- **HIGH** line 45, `list-first-introduction` — **Parameter contract**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 108, `list-first-introduction` — **Native processes**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
-### `docs/03-git-and-automation/python-for-automation.md`
-
-- **HIGH** line 32, `list-first-introduction` — **CLI boundary**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 60, `list-first-introduction` — **Typed immutable model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 76, `list-first-introduction` — **Canonical fingerprint**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 111, `list-first-introduction` — **Atomic local write**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 178, `list-first-introduction` — **Odstageovanie**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
 ### `docs/05-ci-cd-and-release/a-b-testing.md`
 
@@ -3224,19 +3234,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 1871 | 1871 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1156 | 1156 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 994 | 994 |
+| `example-not-explicit` | 0 | 0 | 0 | 1881 | 1881 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1163 | 1163 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1008 | 1008 |
 | `single-sentence-concept` | 0 | 572 | 0 | 0 | 572 |
-| `term-before-explanation` | 0 | 81 | 392 | 0 | 473 |
+| `term-before-explanation` | 0 | 81 | 393 | 0 | 474 |
 | `outline-instead-of-explanation` | 431 | 0 | 0 | 0 | 431 |
 | `bare-bullet-items` | 351 | 55 | 0 | 0 | 406 |
-| `list-first-introduction` | 0 | 374 | 0 | 0 | 374 |
+| `list-first-introduction` | 0 | 375 | 0 | 0 | 375 |
 | `thin-concept-section` | 0 | 340 | 0 | 0 | 340 |
 | `short-concept-section` | 0 | 0 | 183 | 0 | 183 |
 | `no-prose-concept` | 84 | 0 | 0 | 0 | 84 |
 | `list-heavy-section` | 0 | 82 | 0 | 0 | 82 |
-| `empty-section` | 73 | 0 | 0 | 0 | 73 |
+| `empty-section` | 76 | 0 | 0 | 0 | 76 |
 
 ## Required remediation pattern
 

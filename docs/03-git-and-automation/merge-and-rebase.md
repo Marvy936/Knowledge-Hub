@@ -131,6 +131,71 @@ git config rerere.enabled true
 git rerere status
 ```
 
+## Mechanický walkthrough: merge a rebase ako dve state machines
+
+Pred integráciou zachovaj oba tipy a merge base:
+
+```bash
+feature_before=$(git rev-parse feature/ord-8421)
+main_before=$(git rev-parse origin/main)
+base=$(git merge-base feature/ord-8421 origin/main)
+printf 'base=%s feature=%s main=%s\n' "$base" "$feature_before" "$main_before"
+```
+
+`merge-base` vyberie best common ancestor pre graph, nie nevyhnutne „časovo posledný“ commit podľa dátumu. Three-way merge porovná stavy base→feature a base→main.
+
+Merge walkthrough:
+
+```bash
+git switch feature/ord-8421
+git merge --no-commit --no-ff origin/main
+```
+
+`--no-commit` zastaví pred vytvorením merge commit-u, ak merge nie je fast-forward. Index a working tree obsahujú navrhnutý integrated snapshot; `.git/MERGE_HEAD` drží druhý parent. Teraz možno čítať:
+
+```bash
+git status
+git diff --cached
+git rev-parse MERGE_HEAD
+```
+
+Ak výsledok nie je správny, `git merge --abort` obnoví pre-merge state, pokiaľ unrelated local changes nebránia bezpečnej obnove. Ak je správny, tests bežia ešte pred `git commit`. Nový merge commit dostane current HEAD ako first parent a MERGE_HEAD ako ďalší parent.
+
+Rebase walkthrough:
+
+```bash
+git switch feature/ord-8421
+git branch safety/ord-8421-before-rebase
+git rebase origin/main
+```
+
+Rebase dočasne identifikuje commits reachable z feature, ale nie z upstreamu, checkout-ne nový base a replayuje ich v poradí. Pri každom replayi vytvorí nový commit. Safety branch drží starý graph pre `range-diff` a recovery.
+
+Po rebase:
+
+```bash
+git range-diff \
+  origin/main...safety/ord-8421-before-rebase \
+  origin/main...feature/ord-8421
+
+git diff origin/main...feature/ord-8421
+```
+
+`range-diff` porovná commit series a pomáha odhaliť, že počas conflict resolution sa patch zmenil alebo zmizol. Final `diff ...` ukáže výsledný feature change voči merge base. Ani jeden command nespustí domain tests.
+
+Pri konflikte rebase index stages opisujú current replay context. `ours/theirs` labels môžu prekvapiť, pretože „ours“ je často nový upstream state a „theirs“ replayovaný commit. Namiesto file-level shortcutu čítaj:
+
+```bash
+git show :1:path
+git show :2:path
+git show :3:path
+git status
+```
+
+Po resolution `git add` vloží jeden výsledný blob do stage 0 a `git rebase --continue` vytvorí nový replay commit. `--skip` odstráni celý aktuálny patch; nepoužívaj ho iba preto, že konflikt je nepríjemný.
+
+Rozhodnutie medzi merge a rebase preto zahŕňa dve otázky: aký final snapshot chceme a aký ancestry/audit model má zostať publikovaný. Rovnaký tree hash neznamená rovnakú históriu alebo dôkaznú identitu.
+
 ## Incident: rebase zmení správanie bez textového conflict-u
 
 Feature A pridá default `maxOrderAmount=5000`. Nový main medzitým zmení currency rounding. Rebase aplikuje patch čisto, no kombinácia mení validation order a test začne zlyhávať. Git nemá textový conflict, pretože riadky sa neprekrývajú.

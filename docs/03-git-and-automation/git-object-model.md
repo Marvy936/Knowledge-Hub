@@ -144,6 +144,66 @@ git rev-parse main
 git rev-parse main^{tree}
 ```
 
+## Mechanický walkthrough: od bytes po commit bez porcelain skratiek
+
+Nasledujúci experiment je vhodné vykonať v disposable repository. Ukazuje presne, ktoré objects vznikajú; nepoužíva working tree ako neviditeľnú skratku.
+
+```bash
+mkdir object-lab && cd object-lab
+git init
+printf 'hello\n' > message.txt
+blob=$(git hash-object -w message.txt)
+printf 'blob=%s\n' "$blob"
+```
+
+`git hash-object -w message.txt` načíta bytes file-u, vytvorí Git object header `blob <size>\0`, z headeru a obsahu vypočíta object ID a compressed object zapíše pod `.git/objects/`. Prepínač `-w` je mutation; bez neho command hash iba vypočíta. File `message.txt` sa nemení a zatiaľ neexistuje tree ani commit.
+
+```bash
+git cat-file -t "$blob"
+git cat-file -s "$blob"
+git cat-file -p "$blob"
+```
+
+`-t` číta type, `-s` logical payload size a `-p` pretty-printne payload. Úspech dokazuje, že lokálna object database obsahuje object s týmto ID. Nedokazuje, že je reachable z branchu alebo že bol pushnutý.
+
+Tree sa vytvorí cez dočasný index. `GIT_INDEX_FILE` zabráni zmene reálneho staging area:
+
+```bash
+export GIT_INDEX_FILE="$PWD/lab.index"
+git update-index --add --cacheinfo 100644,"$blob",message.txt
+tree=$(git write-tree)
+printf 'tree=%s\n' "$tree"
+git cat-file -p "$tree"
+```
+
+`update-index --cacheinfo` vloží do indexu trojicu mode–blob ID–pathname. Mode `100644` znamená regular non-executable file. Index neobsahuje file contents; drží object IDs a metadata pre budúci snapshot. `write-tree` serializuje celý index do tree objectu. Ak zmeníš iba pathname alebo executable bit, tree ID sa zmení aj pri rovnakom blob-e.
+
+Commit možno vytvoriť bez `git commit`:
+
+```bash
+commit=$(printf 'manual root commit\n' | git commit-tree "$tree")
+printf 'commit=%s\n' "$commit"
+git cat-file -p "$commit"
+git update-ref refs/heads/lab "$commit"
+```
+
+`commit-tree` vytvorí commit object ukazujúci na tree. Keďže ide o root commit, nemá parent; pri ďalšom commite by sa pridal `-p <parent>`. Až `update-ref` vytvorí reachable branch identity. Táto operácia má byť preferovaná pred ručným zápisom do `.git/refs`, pretože rešpektuje ref locking a môže používať compare-and-swap old value.
+
+```bash
+git update-ref refs/heads/lab "$new_commit" "$expected_old_commit"
+```
+
+Tretí argument je precondition. Ak ref medzitým posunul iný writer, update zlyhá namiesto prepísania novšej práce. Rovnaký princíp sa neskôr objaví pri `--force-with-lease`, Terraform state serialoch alebo cloud `RevisionId`.
+
+Nakoniec odstráň dočasný index:
+
+```bash
+unset GIT_INDEX_FILE
+rm -f -- lab.index
+```
+
+Tento walkthrough vysvetľuje dôležitú hranicu: blob, tree a commit sú immutable content objects; branch je mutable meno. `git add` a `git commit` sú bezpečné porcelain commands, ktoré skladajú tieto primitives a posúvajú refs, ale object model pod nimi zostáva rovnaký.
+
 ## Incident: rovnaký diff, iný commit ID
 
 Alice a Bob nezávisle aplikujú rovnakú textovú zmenu. Ich blob a výsledný tree môžu byť identické, no commits majú odlišných parents a timestamps. CI cache viazaná na commit ID ich preto považuje za odlišné subjects, hoci build input tree môže byť rovnaký.

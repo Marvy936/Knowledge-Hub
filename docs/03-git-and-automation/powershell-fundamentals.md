@@ -162,6 +162,157 @@ PowerShell remoting posiela serialized representations, nie živé objects s pln
 
 Remote mutation potrebuje target identity, authentication, session configuration, timeout a verification na remote hoste. Successful command submission nepreukazuje desired runtime state.
 
+## Mechanický rozbor kľúčových PowerShell vzorov
+
+### Object pipeline nie je vizuálna tabuľka
+
+```powershell
+Get-ChildItem -Path . -File |
+    Where-Object Length -gt 1MB |
+    Select-Object Name, Length
+```
+
+`Get-ChildItem` zapisuje do success streamu `FileInfo` objekty. Pipeline enumeruje každý object. Skrátená syntax `Where-Object Length -gt 1MB` bindne property `Length`, porovná integer bytes s hodnotou `1MB` a prepustí matching objects. `Select-Object` vytvorí nové projected objects iba s properties `Name` a `Length`.
+
+Ak na koniec pridáš `Format-Table`, pipeline dostane formatting instruction objects určené hostu. Už nejde o pôvodné `FileInfo` a ďalšie `Where-Object Length` nebude mať očakávaný property. Formatting preto patrí až za machine-processing boundary.
+
+Over type:
+
+```powershell
+$item = Get-ChildItem -Path . -File | Select-Object -First 1
+$item.GetType().FullName
+$item | Get-Member
+```
+
+Po remoting alebo JSON round-tripe môže type a methods zmiznúť. Consumer má používať explicitný serialization contract, nie predpoklad živého .NET objectu.
+
+### Advanced parameter binding
+
+```powershell
+[CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
+param(
+    [Parameter(Mandatory)]
+    [ValidateScript({ Test-Path -LiteralPath $_ -PathType Leaf })]
+    [string]$ConfigPath
+)
+```
+
+`CmdletBinding` mení script/function na advanced command a pridáva common parameters. `Mandatory` rieši prítomnosť inputu, nie jeho business platnosť. `ValidateScript` sa vykoná počas bindingu; `$_` je candidate value. Použitie `-LiteralPath` zabráni wildcard interpretácii.
+
+Validation môže byť subjectom TOCTOU race: file existuje pri bindingu a zmení sa pred readom. Kritický apply musí po získaní locku znovu otvoriť/canonicalizovať file a overiť fingerprint.
+
+### Streams a návratová hodnota
+
+PowerShell automaticky zapisuje neassignnutý expression output do success streamu:
+
+```powershell
+function Get-Result {
+    'starting'                       # toto je tiež success output
+    [pscustomobject]@{ Status='OK' } # a toto tiež
+}
+```
+
+Caller dostane array dvoch objects, nie jeden result. Progress používaj cez `Write-Verbose`, `Write-Information` alebo `Write-Host` podľa contractu a success stream nechaj iba pre data.
+
+```powershell
+function Get-Result {
+    [CmdletBinding()]
+    param()
+    Write-Verbose 'Starting calculation'
+    [pscustomobject]@{ Status='OK' }
+}
+```
+
+Pri redirectoch poznaj stream numbers; napríklad `2>` je error stream a `*>` všetky streams. Zlúčenie všetkého do stdout môže zničiť JSON API rovnako ako v Bash.
+
+### Terminating a non-terminating error
+
+```powershell
+try {
+    $content = Get-Content -LiteralPath $ConfigPath -Raw -ErrorAction Stop
+}
+catch {
+    Write-Error "Unable to read config: $($_.Exception.Message)"
+    exit 2
+}
+```
+
+`-ErrorAction Stop` zmení error record tohto cmdletu na terminating error, takže execution preskočí do `catch`. `catch` premenná `$_` je `ErrorRecord`, nie iba Exception. Obsahuje category, target object, invocation info a stack information.
+
+`Write-Error` v catch môže samo vytvoriť non-terminating error podľa preference. Na CLI boundary je často čitateľnejšie zapísať bounded diagnostic na error stream a `return` stabilný code z `main`, než volať `exit` hlboko vo function.
+
+```powershell
+function Invoke-Main {
+    try { ...; return 0 }
+    catch [System.IO.IOException] { Write-Error $_; return 2 }
+}
+exit (Invoke-Main)
+```
+
+`finally` sa vykoná pri success aj exception. Cleanup nesmie prepísať primary error bez explicitnej policy.
+
+### Native process a `$LASTEXITCODE`
+
+```powershell
+& git diff --quiet
+$gitExit = $LASTEXITCODE
+```
+
+Call operator `&` spustí native executable alebo command path. `$LASTEXITCODE` musíš skopírovať okamžite, pretože ďalší native command ho zmení. `$?` je boolean success poslednej PowerShell pipeline a jeho správanie sa v rôznych versions/native preference nastaveniach môže líšiť.
+
+Git contract:
+
+```powershell
+switch ($gitExit) {
+    0 { $dirty = $false }
+    1 { $dirty = $true }
+    default { throw "git diff failed with exit code $gitExit" }
+}
+```
+
+Exit 1 nie je tool crash; je „differences exist“. Mapovanie command-specific statuses je súčasť wrappera.
+
+### `ShouldProcess` a nested mutations
+
+```powershell
+if ($PSCmdlet.ShouldProcess($StatePath, 'Apply Atlas desired state')) {
+    Set-Content -LiteralPath $StatePath -Value $payload
+}
+```
+
+Pri `-WhatIf` vráti `ShouldProcess` false a body sa nevykoná. Ak však helper pred gate-om už vytvoril directory, získal cloud token alebo zmenil temp state, dry-run nie je side-effect free. Najprv resolve/observe/plan, potom všetky mutácie umiestni za gate.
+
+Nested function môže sama deklarovať `SupportsShouldProcess` a caller má forwardovať `-WhatIf:$WhatIfPreference`. Alternatívne nech iba top-level function vlastní mutation gate a helpers nemutujú mimo nej. Mixed model často vytvára dvojité prompts alebo neúplný WhatIf.
+
+### JSON serialization a depth
+
+```powershell
+$json = $result | ConvertTo-Json -Depth 10 -Compress
+$roundTrip = $json | ConvertFrom-Json
+```
+
+`-Depth` určuje, ako hlboko sa nested objects serializujú; príliš malá hodnota môže orezať data a vydať warning. `-Compress` mení whitespace, nie semantics. PowerShell numbers, DateTime, enums, hashtables a ordered dictionaries sa mapujú do JSON s možnou stratou type fidelity.
+
+Pre fingerprint nepoužívaj náhodný property order z ľubovoľného object graphu. Vytvor explicitný ordered DTO a definuj string/date/number representation. Po serialization over schema alebo round-trip values.
+
+### Atomic file mutation
+
+`Set-Content` priamo na production path môže pri process crashi nechať partial alebo truncated file. Bezpečnejší local pattern:
+
+```powershell
+$directory = Split-Path -Parent $StatePath
+$temp = Join-Path $directory ('.' + [IO.Path]::GetRandomFileName())
+try {
+    [IO.File]::WriteAllText($temp, $json, [Text.UTF8Encoding]::new($false))
+    [IO.File]::Move($temp, $StatePath, $true)
+}
+finally {
+    Remove-Item -LiteralPath $temp -Force -ErrorAction SilentlyContinue
+}
+```
+
+Temporary file je na rovnakom filesysteme, aby rename/replace mal platformovo čo najsilnejšiu atomicitu. Windows file-sharing handles, ACL inheritance a antivirus môžu operation ovplyvniť. Po Move stále potrebuješ content fingerprint a runtime verify.
+
 ## Incident: native tool zlyhá, script vráti success
 
 PowerShell wrapper spustí Python CLI, potom vypíše success object bez kontroly `$LASTEXITCODE`:

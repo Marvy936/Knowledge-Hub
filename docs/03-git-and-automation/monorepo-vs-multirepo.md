@@ -87,6 +87,55 @@ Veľkosť `.git` závisí od histórie veľkých blobs a počtu objektov, nie ib
 
 Rozdelenie monorepa neskôr mení commit IDs a history mapping. Zlúčenie repositories potrebuje collision a provenance plan. Repository topology je dlhodobý architectural decision, hoci nie nezvratný.
 
+## Praktický rozbor affected graphu a cross-repository transitionu
+
+Changed paths nie sú dependency graph. V monorepe môže zmena v `libs/contracts` ovplyvniť služby, ktoré sa samy v diff-e nenachádzajú. Minimálny observation je:
+
+```bash
+base=$(git merge-base origin/main HEAD)
+git diff --name-status "$base" HEAD
+git diff --name-only "$base" HEAD > /tmp/changed-paths.txt
+```
+
+Tento zoznam je input pre build-graph tool, nie konečný affected set. Tool musí poznať edges, napríklad:
+
+```text
+libs/contracts
+├── services/orders
+├── services/payments
+└── clients/web
+```
+
+Ak cache key používa iba hash vlastného directory, consumer môže reuse-nuť output vytvorený so starou shared library. Správny key zahŕňa transitive source/dependency/toolchain inputs alebo používa hermetic action graph.
+
+Atomic source commit v monorepe stále neznamená atomic runtime. Predstav si commit, ktorý pridá optional response field a aktualizuje web client. Ak server deployne prvý, starý client musí field ignorovať. Ak client deployne prvý, starý server nesmie spôsobiť failure. Compatibility matrix je potrebný aj pri spoločnom commit-e.
+
+Multirepo transition zapisuje versions explicitne:
+
+```text
+contract artifact: orders-schema 2.3.0 @ digest D23
+producer tested with: 2.2.0, 2.3.0
+consumer-web tested with: 2.2.0, 2.3.0
+consumer-batch tested with: 2.2.0 only
+retirement gate: no 2.2.0 traffic for 14 days
+```
+
+Pipeline jednotlivého repository má uložiť dependency lock/digest. Testovanie proti `latest` nevie spätne určiť, ktorý contract bol použitý. Cross-repo coordinator alebo release manifest potom skladá immutable versions do jedného integration subjectu.
+
+Pri rozhodovaní o rozdelení zmeraj reálne change coupling:
+
+```text
+koľko PRs pravidelne mení oba komponenty
+koľko incidentov vzniká z compatibility gapu
+koľko CI času spotrebuje nepresný affected graph
+kto potrebuje read/write access k celej histórii
+či release a compliance lifecycle sú naozaj oddelené
+```
+
+Repo split nie je iba presun directories. Mení commit IDs, CODEOWNERS, secrets/tokens, CI provenance, package coordinates, issue links a release automation. Migračný plan potrebuje source-history mapping a obdobie, v ktorom staré repository už nie je writer.
+
+Generated code sa publikuje ako artifact s source schema digestom a generator version. Ručné kopírovanie medzi repositories vytvára hidden source a znemožňuje zistiť, či consumer používa správnu generation.
+
 ## Incident: samostatné repositories vytvoria nekompatibilný rollout
 
 Schema repo publikuje breaking change ako minor version. Service repo ju adoptuje, client repo nie. Každá pipeline je zelená proti vlastným fixtures, ale production client zlyhá.

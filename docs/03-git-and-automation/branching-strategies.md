@@ -103,6 +103,68 @@ Branching strategy funguje lepšie, keď commits majú coherent intent a sú bui
 
 Stacked changes môžu rozdeliť veľkú zmenu do závislých reviews, ale potrebujú tooling na base updates a merge order. Každý stack node má vlastný evidence subject.
 
+## Praktický branch lifecycle a dôkazné body
+
+Stratégia sa dá overiť iba konkrétnym ref transitionom. Krátko žijúca feature branch môže používať:
+
+```bash
+git fetch origin
+git switch --create feature/ord-8421 --track origin/main
+base=$(git rev-parse origin/main)
+printf 'branch_base=%s\n' "$base"
+```
+
+`--track` nastaví upstream; neznamená, že feature sa bude automaticky synchronizovať. `base` je initial observation, ktorý treba pri review nahradiť current merge candidate identity.
+
+Po malých commitoch:
+
+```bash
+git fetch origin
+git log --oneline --left-right origin/main...HEAD
+git diff --stat origin/main...HEAD
+```
+
+Triple-dot diff používa merge base a ukáže feature intent voči spoločnému predkovi. Left/right log ukáže divergence na oboch stranách. Ak main postúpil, branch evidence z predchádzajúceho CI runu môže byť stale.
+
+Pred pushom a merge requestom:
+
+```bash
+git rebase origin/main       # iba ak tím povoľuje rewrite feature history
+git push --force-with-lease  # iba po koordinovanom rebase
+git range-diff safety/before...HEAD
+```
+
+Alternatívny tímový contract použije merge z main a obyčajný push. Dôležité je, aby history strategy bola explicitná a server policy ju podporovala.
+
+Merge queue alebo merge-result pipeline má testovať exact candidate:
+
+```text
+source tip S
++ current target T
+→ synthetic candidate C
+→ required evidence bound to C
+→ atomic ref update T → C
+```
+
+Ak target medzitým prejde na T2, evidence pre C sa invaliduje. Branch protection, ktorá iba vyžaduje zelený source-branch pipeline, túto race úplne nerieši.
+
+Hotfix propagation si zapíš ako machine-readable matrix:
+
+```yaml
+hotfix: CVE-2026-8421
+sourceCommit: abc123
+requiredLines:
+  main: pending
+  release/4.2: applied
+  release/4.1: not-applicable
+```
+
+Každý applied entry potrebuje vlastný commit/artifact/test identity. Cherry-pick message s `-x` pomáha traceability, ale matrix uzatvára až evidence pre všetky podporované lines.
+
+Environment branches kontroluj otázkou: mení merge source bytes a vyvoláva rebuild, alebo iba desired release reference? Ak `prod` branch recompiluje source, nejde o promotion rovnakého artifactu. Bezpečnejší deployment repository mení immutable digest a environment configuration, pričom application source history zostáva oddelená.
+
+Server-side controls treba read-backnúť cez hosting API a overiť negatívnym testom. Dokument „force push je zakázaný“ nemá enforcement hodnotu, ak branch setting povoľuje Maintainer bypass.
+
 ## Incident: hotfix sa stratí medzi branches
 
 Production 4.1 dostane urgentný fix priamo na release branch. Main ho neobsahuje a o mesiac release 4.2 regresiu znovu zavedie. Tím síce mal branch diagram, ale nemal propagation state machine.

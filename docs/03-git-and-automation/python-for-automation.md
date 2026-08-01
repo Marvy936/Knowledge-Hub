@@ -205,6 +205,144 @@ Long-running automation reaguje na SIGINT/SIGTERM. Pri lokálnej atomic mutation
 
 „Rollback“ nie je automatický univerzálny krok. Ak downstream side effect prebehol, slepé inverse volanie môže zhoršiť stav. Recovery sa riadi domain contractom.
 
+## Mechanický rozbor Python automation ukážok
+
+### Parser vytvára syntaktický model, nie validný domain object
+
+```python
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="atlasctl")
+    sub = parser.add_subparsers(dest="command", required=True)
+```
+
+Function vytvorí nový parser pri každom volaní, čo zjednodušuje tests. `dest="command"` uloží zvolený subcommand do namespace a `required=True` odmietne prázdne CLI. `parse_args()` pri chybe štandardne vypíše diagnostic a vyvolá `SystemExit(2)`. Preto domain unit testy nemajú byť schované priamo v parser actions; parser testuje syntax, domain functions hodnoty.
+
+Path argument ako `str` ešte nie je canonical path ani existujúci file. Po parse sa vykoná explicitný resolve, allowed-root check a read pod lockom podľa risku.
+
+### Frozen dataclass
+
+```python
+@dataclass(frozen=True)
+class OrdersConfig:
+    service: str
+    environment: str
+    release: str
+    max_order_amount: int
+    currency: str
+```
+
+Dataclass vygeneruje `__init__`, equality a representation. `frozen=True` blokuje bežné assignmenty na fields po vytvorení, ale nerobí deep immutability, ak field obsahuje mutable list/dict. Type annotations nekontrolujú runtime input; `OrdersConfig(max_order_amount="five")` sa bez vlastnej validation vytvorí.
+
+Bezpečný loader najprv parse-ne external data, odmietne unknown keys, explicitne skonvertuje typy a overí invariants. Až potom vytvorí dataclass. Equality je užitočná pre plan/no-op tests.
+
+### Canonical fingerprint krok po kroku
+
+```python
+encoded = json.dumps(
+    value,
+    sort_keys=True,
+    separators=(",", ":"),
+    ensure_ascii=False,
+).encode("utf-8")
+return hashlib.sha256(encoded).hexdigest()
+```
+
+`sort_keys=True` stabilizuje object key order. Compact separators odstránia presentation whitespace. `ensure_ascii=False` zachová Unicode characters a následné UTF-8 encoding je explicitné. SHA-256 potom identifikuje presné canonical bytes.
+
+Toto nie je univerzálny JSON canonicalization štandard. Floats, Decimals, negative zero, Unicode normalization a custom objects potrebujú presný contract. Pre money používaj integer minor units alebo decimal string. Fingerprint má obsahovať iba state, ktorého zmena má invalidovať plan.
+
+Pri apply porovnaj tri identities:
+
+```text
+plan.desiredFingerprint == freshly loaded desired
+plan.observedFingerprint == freshly observed current state
+plan.tool/schema generation == current implementation contract
+```
+
+Chýbajúca tretia väzba umožní starému planu prejsť po zmene planning semantics.
+
+### Atomic write detailne
+
+```python
+fd, temp_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.")
+temp = Path(temp_name)
+```
+
+`mkstemp` atomicky vytvorí file a vráti otvorený OS descriptor aj pathname. Je bezpečnejší než `NamedTemporaryFile` v niektorých Windows replace scenároch a než predvídateľné meno. Directory je rovnaký ako target, aby `os.replace` neprekročil filesystem boundary.
+
+```python
+with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
+```
+
+`fdopen` prenesie ownership descriptoru file objectu; context manager ho zavrie. Ak exception nastane pred `fdopen`, treba descriptor explicitne zavrieť — production helper môže mať ešte širší try/finally než skrátená ukážka.
+
+`flush()` presunie Python userspace buffer do OS. `os.fsync()` žiada persistenciu file data/metadata podľa filesystem contractu. `os.replace(temp, path)` atomicky zmení directory entry z pohľadu readers na podporovanom filesysteme a prepíše existujúci target.
+
+Pre crash durability po rename môže byť potrebný fsync parent directory. Atomic visibility neznamená durable commit po power loss. ACL/owner/mode nového file-u tiež nemusia automaticky kopírovať target; nastav ich pred replace alebo použi platformový contract.
+
+`finally: temp.unlink(missing_ok=True)` odstráni leftover temp file. Po úspešnom replace temp pathname už neexistuje, takže je to no-op. Cleanup exception nemá prekryť primary mutation error bez diagnostic policy.
+
+### Exceptions na správnej vrstve
+
+```python
+try:
+    config = load_config(path)
+except json.JSONDecodeError as error:
+    raise InvalidConfiguration(f"invalid JSON at line {error.lineno}") from error
+```
+
+Lower adapter preloží parser-specific exception na domain error a zachová cause cez `from error`. Top-level `main` mapuje `InvalidConfiguration` na exit 2 a píše bounded diagnostic na stderr. Neočakávanú exception neprehltí; traceback je evidence pre tool defect.
+
+```python
+def main() -> int:
+    try:
+        return run_command(...)
+    except InvalidConfiguration as error:
+        print(str(error), file=sys.stderr)
+        return 2
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+Functions pod `main` nemajú volať `sys.exit`, pretože by komplikovali unit tests a cleanup.
+
+### Retry a unknown outcome
+
+Retry loop musí používať absolute deadline:
+
+```python
+deadline = time.monotonic() + 30.0
+for attempt in range(1, 4):
+    remaining = deadline - time.monotonic()
+    if remaining <= 0:
+        raise DeadlineExceeded()
+    try:
+        return client.create_rollout(
+            operation_id=operation_id,
+            timeout=min(5.0, remaining),
+        )
+    except RetryableTransportError:
+        if attempt == 3:
+            raise
+        time.sleep(min(2 ** (attempt - 1), max(0.0, deadline - time.monotonic())))
+```
+
+`time.monotonic()` nie je ovplyvnený wall-clock adjustmentom. Stabilný `operation_id` je rovnaký cez všetky pokusy. Transport exception po send/commit boundary nevie povedať, či server mutation vykonal; client má najprv query-nuť operation status alebo rely-nuť na server deduplication.
+
+Retry iba na status/error classes označené ako transient. Validation, authorization a precondition failure sa retryom spravidla neopraví a môže zbytočne zaťažovať dependency.
+
+### Dependency injection v teste
+
+Namiesto globálneho `requests`/clock/filesystemu:
+
+```python
+def apply_plan(plan: Plan, client: RolloutClient, clock: Clock) -> Result:
+    ...
+```
+
+Test dodá fake client, ktorý zaznamená calls a simuluje timeout po commite. Fake musí implementovať rovnaký behavior contract, nie iba vracať pohodlný success. Integration test s reálnym sandbox API potom kontroluje adapter a serialization boundary.
+
 ## Incident: retry vytvorí dvojitý rollout
 
 Python client odosiela mutating POST, connection timeoutne po tom, čo server request prijme. Generic retry odošle druhý request bez idempotency key. Server vytvorí dva rollout records.

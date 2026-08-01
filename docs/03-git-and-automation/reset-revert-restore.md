@@ -154,6 +154,101 @@ Je užitočný po merge, pull alebo reset-e, ale nie je garantovaným univerzál
 git branch backup/before-history-edit
 ```
 
+## Mechanický rozhodovací postup pred každou „návratovou“ operáciou
+
+Najprv si zapíš štyri observations:
+
+```bash
+git status --short
+git rev-parse HEAD
+git diff
+git diff --cached
+```
+
+Potom odpovedz: chceš zmeniť working file, index, branch ref alebo publikovanú históriu? Rovnaké slovo „undo“ nestačí.
+
+### Obnova working file-u
+
+```bash
+git restore --source=HEAD --worktree -- config/orders.yaml
+```
+
+Source je HEAD tree, destination iba working tree. Index zostane nedotknutý. Ak bol staged obsah odlišný od HEAD, working file sa môže po restore líšiť od indexu. Explicitné `--source` a `--worktree` sú dlhšie, ale pri výučbe odstraňujú nejednoznačnosť.
+
+### Odstageovanie
+
+```bash
+git restore --source=HEAD --staged -- config/orders.yaml
+```
+
+Destination je index. Working file zostane. Command nestratí edit, ale zmení budúci commit snapshot. Po ňom vždy pozri oba diffy.
+
+### Soft/mixed/hard reset na commit
+
+Predstav si:
+
+```text
+HEAD/main = C3
+index     = tree C3 + staged S
+worktree  = index + unstaged W
+```
+
+`git reset --soft C2` posunie iba `main/HEAD`; index a worktree ostanú. Rozdiel C2→index sa teda javí ako staged. `--mixed` navyše nastaví index na C2, takže všetky odchýlky ostanú iba vo working tree. `--hard` nastaví aj tracked working files na C2 a S/W stratí.
+
+Bezpečný lab:
+
+```bash
+git branch safety/before-reset
+git reset --soft HEAD~1
+git status --short
+git diff --cached
+```
+
+Safety branch nie je povinnosť Git-u; je to explicitný recovery ref. Ak overíš výsledok, môžeš ju neskôr zmazať.
+
+### Revert publikovaného commit-u
+
+```bash
+git show --stat BAD_SHA
+git revert --no-commit BAD_SHA
+git diff --cached
+```
+
+`--no-commit` pripraví inverse patch v indexe a working tree bez okamžitého commit-u. To umožní test a prípadnú úpravu, ak neskorší code zmenil context. Po validácii vytvor nový commit. Ak inverse nie je bezpečný, `git revert --abort` obnoví sequencer state.
+
+Pri merge commit-e:
+
+```bash
+git show --no-patch --format='%H parents=%P' MERGE_SHA
+git revert -m 1 --no-commit MERGE_SHA
+```
+
+`-m 1` neznamená „revert first parent“. Hovorí, že parent 1 je mainline, ktorú chceme zachovať, a Git má odstrániť net effect merge-u voči nej. Nesprávny parent môže obrátiť opačnú ancestry line.
+
+### Recovery po hard reset-e
+
+Bez ďalších mutations:
+
+```bash
+git reflog --date=iso
+old=$(git rev-parse 'HEAD@{1}')
+git branch recovery/hard-reset "$old"
+```
+
+Najprv vytvor ref, až potom prezeraj a rozhoduj. `HEAD@{1}` je príklad, nie univerzálna hodnota; reflog treba čítať podľa timestampu a action. Reflog nechráni untracked bytes ani obsah, ktorý nikdy nebol objectom.
+
+Rozhodovacia pomôcka:
+
+| Požadovaný výsledok | Typický command | Mení históriu/ref | Riziko |
+|---|---|---|---|
+| zahodiť working edit | `restore --worktree` | nie | prepíše tracked working bytes |
+| odstageovať | `restore --staged` | nie | zmení budúci commit snapshot |
+| preformovať lokálny posledný commit | `reset --soft/mixed` | áno, lokálne | history rewrite |
+| úplne vrátiť lokálny tracked stav | `reset --hard` | áno | stratí uncommitted tracked work |
+| zrušiť publikovanú zmenu auditovateľne | `revert` | pridá nový commit | inverse môže mať semantic conflict |
+
+Tabuľka je default, nie náhrada inspection. Paths, modes a operation state môžu semantics zmeniť.
+
 ## Incident: shared main bol hard-resetnutý a force-pushnutý
 
 Operátor chce odstrániť chybný commit z produkčnej branch a vykoná hard reset plus force push. Tým odpojí nielen chybný commit, ale aj dva následné commits iných tímov. Ich clones a CI refs sa rozídu.
