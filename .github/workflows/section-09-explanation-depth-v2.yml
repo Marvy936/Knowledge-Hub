@@ -7,6 +7,12 @@ on:
     paths:
       - scripts/section_09_explanation_depth_v2.py
       - .github/workflows/section-09-explanation-depth-v2.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - scripts/section_09_explanation_depth_v2.py
+      - .github/workflows/section-09-explanation-depth-v2.yml
 
 permissions:
   contents: write
