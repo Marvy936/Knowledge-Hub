@@ -67,6 +67,14 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
+      # SECTION08_VERIFIER_FIX_START
+      - name: Fix Section 08 Compose verifier
+        if: github.event_name == 'pull_request' && github.actor != 'github-actions[bot]'
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$PYTHON_BIN" scripts/fix_section_08_compose_verifier.py
+      # SECTION08_VERIFIER_FIX_END
       - name: Synchronize and commit generated documentation
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash
