@@ -1,0 +1,110 @@
+git -C alice config user.name 'Alice'
+git -C alice config user.email 'alice@atlas.example'
+git -C bob config user.name 'Bob'
+git -C bob config user.email 'bob@atlas.example'
+```
+
+Over:
+
+```bash
+git -C alice branch -vv
+git -C bob branch -vv
+git -C alice rev-parse HEAD
+git -C bob rev-parse HEAD
+```
+
+Obe local `main` a oba `origin/main` začínajú na rovnakom commite. Od tejto chvíle sa však repositories vyvíjajú nezávisle.
+
+## 4. Alice vytvorí feature branch a object evidence
+
+```bash
+cd alice
+git switch -c feature/ord-8421
+```
+
+Zmeň `maxOrderAmount` z `5000` na `6000` a release na `4.2.1`:
+
+```bash
+python3 - <<'PY2'
+import json
+from pathlib import Path
+path = Path('config/orders.yaml')
+value = json.loads(path.read_text(encoding='utf-8'))
+value['release'] = '4.2.1'
+value['maxOrderAmount'] = 6000
+path.write_text(json.dumps(value, indent=2) + '\n', encoding='utf-8')
+PY2
+```
+
+Pred stagingom sleduj vrstvy:
+
+```bash
+git status --short
+git diff
+```
+
+Vytvor blob priamo a potom stage-ni file:
+
+```bash
+blob=$(git hash-object -w config/orders.yaml)
+printf 'blob=%s\n' "$blob"
+git cat-file -t "$blob"
+git cat-file -p "$blob"
+
+git add config/orders.yaml
+git diff --cached
+git ls-files --stage config/orders.yaml
+```
+
+Commit:
+
+```bash
+git commit -m 'ORD-8421 raise development order limit'
+```
+
+Preskúmaj graph:
+
+```bash
+git cat-file -p HEAD
+git show --stat --decorate HEAD
+git rev-parse HEAD^{tree}
+```
+
+Zatiaľ branch nepushuj.
+
+## 5. Bob paralelne zmení rovnaký contract
+
+V druhom termináli alebo po návrate do parent directory:
+
+```bash
+cd ../bob
+git switch -c feature/ord-8450
+```
+
+Bob mení rovnaký limit na 7000, ale release field ponechá na `4.2.0`:
+
+```bash
+python3 - <<'PY2'
+import json
+from pathlib import Path
+path = Path('config/orders.yaml')
+value = json.loads(path.read_text(encoding='utf-8'))
+value['maxOrderAmount'] = 7000
+path.write_text(json.dumps(value, indent=2) + '\n', encoding='utf-8')
+PY2
+
+git add config/orders.yaml
+git commit -m 'ORD-8450 align order limit with risk policy'
+```
+
+Bob integruje change do `main` a pushne ho:
+
+```bash
+git switch main
+git merge --ff-only feature/ord-8450
+git push origin main
+```
+
+Remote `main` teraz obsahuje Bobov commit. Alice local remote-tracking ref to ešte nevie.
+
+## 6. Alice dostane non-fast-forward a najprv pozoruje
