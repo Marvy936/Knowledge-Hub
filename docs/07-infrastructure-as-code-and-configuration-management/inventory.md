@@ -6,6 +6,8 @@ Kapitola pokračuje incidentom `IAC-PAY-78`. Atlas Payments má dvanásť produk
 
 ## 1. Dominantný source-to-coverage lifecycle
 
+Nasledujúci model opisuje prechody jedného Ansible run, host alebo item subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí complete per-host coverage, pravdivý result a runtime/business read-back.
+
 ```text
 authoritative asset sources
 → inventory plugin parsing a source order
@@ -23,6 +25,8 @@ authoritative asset sources
 Ansible môže zlyhať iba na targetoch, ktoré pozná. Inventory omission preto nevytvorí `unreachable`; vytvorí tiché nepokrytie.
 
 ## 2. Exact inventory resolution subject
+
+Táto podsekcia definuje presný Ansible run, host alebo item subject. Názov alebo locator nestačí: subject musí niesť generation, authority a target identity potrebné na koreláciu reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome. Až complete per-host coverage, pravdivý result a runtime/business read-back ukáže, že ďalší command alebo YAML patrí správnemu objektu.
 
 ```yaml
 inventorySubject:
@@ -67,6 +71,8 @@ ansible-inventory -i inventories/prod --graph
 
 ## 4. Stable logical a immutable remote identity
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 ```yaml
 all:
   hosts:
@@ -86,6 +92,20 @@ Logical alias môže zostať stabilný pri IP change. IP sama je slabá identity
 
 ## 5. Worked failure: recyklovaná IP
 
+Static inventory stále mapoval `payments-app-b2` na `10.40.12.44`, hoci pôvodný production host bol odstránený a IP neskôr dostal test host v peered networke. Vypnuté host-key checking odstránilo posledný independent identity control, takže platný automation credential zasiahol nesprávny asset.
+
+```text
+stale logical mapping
++ recyklovaná IP
++ credential accepted na test hoste
++ bez host identity verification
+→ production play vykoná správne tasks na nesprávnom objecte
+```
+
+Containment zastaví run a zachová inventory source, resolved hostvars, SSH handshake/host-key evidence a cloud audit. Cloud instance ID, account/region a host certificate sa porovnajú s expected manifestom; až potom sa odstráni stale entry a obnoví authoritative dynamic mapping.
+
+Recovery auditne mutation test hosta a pridá forbidden fixture s rovnakou IP, ale odlišným immutable asset ID/host keyom. Play musí zlyhať pred prvou mutáciou.
+
 Static inventory stále mapuje `payments-app-b2` na `10.40.12.44`. Pôvodný production host bol odstránený a IP neskôr dostal test host v peered networke. Host-key checking bolo vypnuté.
 
 ```text
@@ -96,15 +116,9 @@ stale logical mapping
 → production play zasiahne test object
 ```
 
-Recovery:
+Recovery workflow zastaviť run, zachovať inventory/source a SSH evidence, overiť cloud instance IDs a host keys, odstrániť stale static entry, obnoviť dynamic authoritative mapping a auditovať test host mutation.
 
-1. zastaviť run;
-2. zachovať inventory/source a SSH evidence;
-3. overiť cloud instance IDs a host keys;
-4. odstrániť stale static entry;
-5. obnoviť dynamic authoritative mapping;
-6. auditovať test host mutation;
-7. otestovať forbidden identity mismatch.
+Dopĺňa ho otestovať forbidden identity mismatch.
 
 ## 6. Groups ako membership a variable graph
 
@@ -198,6 +212,8 @@ jq -e '
 
 ## 9. Static inventory ako vlastnená exception
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 ```yaml
 all:
   children:
@@ -211,6 +227,12 @@ all:
 Static entry potrebuje ownera, review a retirement. Dobrý model používa dynamic source pre ephemeral fleet a static source iba pre explicitné stabilné exceptions, ktoré sa pravidelne porovnávajú s asset inventory.
 
 ## 10. Source order a duplicate identities
+
+Viac inventory sources môže publikovať rovnaký `inventory_hostname`. Ansible ich zloží podľa load a precedence rules, ale výsledný host record môže spájať logical name z jedného source-u, `ansible_host` z druhého a environment/role z tretieho.
+
+Gate preto porovná duplicate logical names s immutable instance IDs, connection addresses, environment, role a source ownerom. Odlišný instance ID alebo target environment je hard conflict; rovnaká hodnota z dvoch sources je stále ownership ambiguity, ktorú treba odstrániť.
+
+Critical semantics sa nesmú spoliehať na alphabetic filename order. Resolved host record sa publikuje s provenance a forbidden fixture zámerne vytvorí konflikt, ktorý musí pre-run validation odmietnuť.
 
 Directory:
 
@@ -227,15 +249,13 @@ inventories/prod/
 
 Ansible môže zlúčiť duplicate `inventory_hostname` z viacerých sources. Kontroluj:
 
-- duplicate logical name s odlišným instance ID;
-- conflicting `ansible_host`;
-- conflicting environment/role;
-- unexpected variable override;
-- source ownership.
+Conflict gate kontroluje duplicate logical name s odlišným instance ID, conflicting `ansible_host`, conflicting environment alebo role, unexpected variable override a source ownership.
 
 Critical semantics sa nemajú spoliehať na to, že alphabetic load order náhodou vyberie správnu hodnotu.
 
 ## 11. Connection variables sú execution controls
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
 ```text
 ansible_host
@@ -275,6 +295,8 @@ ansible-playbook playbooks/payments.yml \
 `--limit` zužuje pattern, ale nie je environment security boundary. Pattern a inventory sa môžu medzi review a execution zmeniť, preto target manifest musí byť bound k runu.
 
 ## 13. Expected target manifest
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
 ```yaml
 expectedTargets:
@@ -346,6 +368,8 @@ Stale cache môže obsahovať terminated hosts, vynechať replacements, zachova�
 
 ## 16. Constructed groups a missing metadata
 
+Constructed group rule je policy nad raw metadata. Missing field nesmie byť ticho interpretovaný ako production alebo iná privileged cohorta; unknown values patria do quarantine group a mutation run sa zastaví, kým source alebo asset owner metadata neopraví.
+
 Rizikový rule:
 
 ```text
@@ -355,16 +379,11 @@ Environment != dev
 
 Missing tag sa stane production. Bezpečnejší model používa positive equality a unknown/quarantine group.
 
-Fixtures testujú:
-
-- valid production metadata;
-- missing role/environment;
-- case normalization;
-- forbidden overlaps;
-- plugin version upgrade;
-- null values.
+Constructed-group contract testuje valid production metadata, missing role alebo environment, case normalization, forbidden overlaps, plugin version upgrade a null values.
 
 ## 17. Variable conflicts v inventory
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
 ```text
 production: package_channel=stable
@@ -391,6 +410,8 @@ Inventory nemá obsahovať plaintext credentials. Môže obsahovať secret refer
 
 ## 19. Localhost boundary
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 ```yaml
 all:
   hosts:
@@ -403,6 +424,8 @@ Local tasks používajú controller filesystem, network a credentials. `localhos
 
 ## 20. Worked incident: stale cache vynechala dva hosts
 
+Tento incident vznikol ešte pred prvou task invocation. Green results na desiatich hosts preto nehovoria nič o dvoch omitted assets. Recovery musí zachovať cache generation aj direct API result a viazať targeted rerun na exact replacement IDs.
+
 Cloud replacement vytvoril nové instance IDs, ale cache ostala stará. Pattern vybral desať healthy old/current entries a play skončil success.
 
 ```text
@@ -412,17 +435,17 @@ expected manifest 12 current IDs
 → 2 nové hosts ostanú unconfigured
 ```
 
-Recovery:
+Recovery workflow zastaviť ďalší batch, zachovať cache generation a source API response, refreshnúť inventory cez correct account identity, porovnať exact asset IDs, nakonfigurovať missing hosts cez reviewed cohort manifest a overiť fleet version endpoint.
 
-1. zastaviť ďalší batch;
-2. zachovať cache generation a source API response;
-3. refreshnúť inventory cez correct account identity;
-4. porovnať exact asset IDs;
-5. nakonfigurovať missing hosts cez reviewed cohort manifest;
-6. overiť fleet version endpoint;
-7. full-fleet second run.
+Dopĺňa ho full-fleet second run.
 
 ## 21. Competing hypotheses pri chýbajúcom hoste
+
+H1/H2 porovnávajú direct source API s cached inventory a určujú, či asset chýba už v authority response alebo iba v stale cache. H3 testuje raw metadata a filter logic; H4 porovná resolved inventory s `--list-hosts`, aby odhalil pattern alebo `--limit` exclusion.
+
+H5 hľadá duplicate `inventory_hostname` a porovnáva immutable instance IDs. H6 číta group graph a quarantine/maintenance membership. H7 read-backne caller account/region a plugin target, pretože presný filter v nesprávnom account-e môže legitímne vrátiť nulu.
+
+Každá hypotéza má iný first divergent transition. Až po jeho potvrdení sa refreshuje cache, opravuje metadata, pattern alebo source identity; blind rerun nad rovnakým inventory subjectom je forbidden.
 
 ```text
 H1: source API ho nevrátil
@@ -434,16 +457,13 @@ H6: host je v maintenance/quarantine
 H7: porovnávame iný account/region
 ```
 
-Dôkazy:
+Discriminating evidence zahŕňa direct source API vs cached output H1/H2, raw metadata/filter H3, `--list-hosts` H4, resolved hostvars/instance IDs H5, group graph H6 a caller account/region H7.
 
-- direct source API vs cached output H1/H2;
-- raw metadata/filter H3;
-- `--list-hosts` H4;
-- resolved hostvars/instance IDs H5;
-- group graph H6;
-- caller account/region H7.
+Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
 
 ## 22. Acceptance a forbidden paths
+
+Acceptance uzatvára celý Ansible run, host alebo item subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je complete per-host coverage, pravdivý result a runtime/business read-back.
 
 Inventory blok je prijatý, keď:
 

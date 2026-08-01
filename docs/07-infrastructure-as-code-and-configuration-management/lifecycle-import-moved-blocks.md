@@ -14,6 +14,8 @@ Kapitola uzatvára incident `IAC-PAY-76`. Atlas presúva produkčnú VPC a load 
 
 ## 1. Dominantný identity-transition lifecycle
 
+Nasledujúci model opisuje prechody jedného Terraform configuration, state a remote-resource subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inputs a graph cez provider API mutation až po state binding a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí exact provider target, remote/state reconciliation a druhý no-op plan.
+
 ```text
 current configuration address
 + current state binding
@@ -36,7 +38,17 @@ Má sa zmeniť remote object, ownership binding alebo iba configuration address?
 
 ## 2. Tri transition classes
 
+Remote lifecycle change, ownership adoption a address refactor menia tri odlišné vrstvy identity. Pri remote lifecycle change zostáva management address, ale provider vykoná update alebo replacement a remote object môže dostať nové ID. Availability, data a downstream references preto patria do transition risku.
+
+Ownership adoption používa import: existujúci remote object bez current bindingu sa pripojí ku konkrétnej Terraform address-e a provider configuration. Import nemení automaticky remote bytes ani HCL; vytvára knowledge/ownership transition, ktorú musí následný plan porovnať s configuration.
+
+Address refactor používa `moved` mapping: existujúci binding prejde z old address na new address pri rovnakom remote ID. Je to configuration/state identity migration bez zamýšľanej remote mutation. Ak chain nie je úplný alebo caller preskočí verziu, plan môže stále navrhnúť destroy/create.
+
+Import ani `moved` negarantujú no-op. Fresh plan musí preukázať správny provider target, remote ID a configuration compatibility a forbidden fixture musí zachytiť chýbajúci migration contract.
+
 ### Remote lifecycle change
+
+Remote lifecycle change ponecháva Terraform address, ale provider môže vykonať in-place update alebo replacement a zmeniť remote ID. Availability, data a downstream references preto patria do transition contractu; plan summary bez remote/state read-backu nestačí.
 
 ```text
 same management address
@@ -46,6 +58,8 @@ same management address
 
 ### Ownership adoption
 
+Ownership adoption pripája existujúci remote objekt ku konkrétnej Terraform address-e a provider configuration. Import nevytvára správny HCL ani neoveruje target identity, preto musí po bindingu nasledovať fresh plan a remote inventory.
+
 ```text
 existujúci remote object bez current bindingu
 → import
@@ -53,6 +67,8 @@ existujúci remote object bez current bindingu
 ```
 
 ### Address refactor
+
+Address refactor presúva existujúci binding medzi old a new address bez zamýšľanej remote mutation. Úplný `moved` chain musí zachovať rovnaký remote ID aj pre neskorých consumerov; inak plan navrhne destroy/create namiesto identity migration.
 
 ```text
 existujúci binding na old address
@@ -63,6 +79,12 @@ existujúci binding na old address
 Import ani `moved` samy osebe negarantujú no-op remote outcome. Následný plan môže odhaliť configuration mismatch, provider normalization alebo lifecycle rule, ktorá stále navrhne update/replacement.
 
 ## 3. Replacement je identity a availability event
+
+Replacement nie je iba kombinácia `delete` a `create`. Môže zmeniť remote ID, IP/DNS endpoint, attached policies, encryption alebo data identity, sessions, traffic routing, downstream references a rollback možnosti. Poradie `destroy→create` alebo `create→destroy` mení availability a coexistence risk, nie samotný dôvod replacementu.
+
+Plan JSON musí pomenovať address, actions a `replace_paths`; reviewer potom posúdi data, capacity, quota a naming constraints. `create_before_destroy` môže zlyhať, ak platforma nepovolí dve rovnaké names alebo ak downstream consumer nevie paralelne prijať starú a novú identity.
+
+Acceptance zahŕňa successor remote ID, traffic/data migration, state binding a retirement predecessor-a. Zelený create bez týchto checks môže ponechať dva active objects alebo odstrániť jediný recovery subject.
 
 Plan môže pre resource ukázať:
 
@@ -75,15 +97,9 @@ replace destroy→create
 replace create→destroy
 ```
 
-Replacement môže zmeniť:
+Transition eviduje remote ID, IP, DNS alebo endpoint, attached policies, data alebo encryption identity, sessions a traffic a downstream references.
 
-- remote ID;
-- IP, DNS alebo endpoint;
-- attached policies;
-- data alebo encryption identity;
-- sessions a traffic;
-- downstream references;
-- rollback možnosti.
+Dopĺňa ho rollback možnosti.
 
 Praktické čítanie plan JSON:
 
@@ -100,6 +116,8 @@ jq -r '
 Výstup preukazuje addresses a actions, ktoré plan artifact obsahuje. Nepreukazuje, že plan je fresh voči current state alebo že provider remote operation bude úspešná. Replacement reason sa musí spojiť s exact provider/module/state subjectom.
 
 ## 4. `create_before_destroy` mení poradie, nie risk model
+
+Nasledujúci model opisuje prechody jedného Terraform configuration, state a remote-resource subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inputs a graph cez provider API mutation až po state binding a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí exact provider target, remote/state reconciliation a druhý no-op plan.
 
 ```hcl
 resource "aws_launch_template" "api" {
@@ -166,18 +184,15 @@ resource "aws_db_instance" "payments" {
 
 `prevent_destroy` blokuje plánovanú destroy/replacement action, kým rule existuje v configuration a resource je prítomný. Nechráni pred:
 
-- manuálnym cloud deletion;
-- compromised provider identity;
-- odstránením resource blocku spolu s rule;
-- data loss počas in-place update;
-- wrong backend alebo state corruption;
-- provider-side failure.
+Transition eviduje manuálnym cloud deletion, compromised provider identity, odstránením resource blocku spolu s rule, data loss počas in-place update, wrong backend alebo state corruption a provider-side failure.
 
 Je to posledný local guard, nie kompletná data protection. Kritické resources potrebujú provider deletion protection, backups, restore testy a high-risk approval.
 
 Ak guard blokuje change, najprv vysvetli prečo plan obsahuje destroy. Odstránenie rule bez analýzy iba vypne alarm.
 
 ## 7. `ignore_changes` ako explicitný ownership handoff
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
 ```hcl
 resource "aws_ecs_service" "api" {
@@ -200,16 +215,13 @@ Terraform vlastní service object
 
 Bez ownera, monitoringu a recovery rule iba skryje drift. Každý ignored attribute má mať:
 
-- authoritative writera;
-- dôvod delegácie;
-- acceptable bounds;
-- monitoring;
-- review alebo expiry;
-- incidentný recovery path.
+Transition eviduje authoritative writera, dôvod delegácie, acceptable bounds, monitoring, review alebo expiry a incidentný recovery path.
 
 `ignore_changes = all` prakticky odoberá Terraformu update ownership a vyžaduje veľmi silný dôvod.
 
 ## 8. `replace_triggered_by` ako identity edge
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
 ```hcl
 resource "terraform_data" "image_revision" {
@@ -237,6 +249,8 @@ ktorý subject sa zmenil
 ```
 
 ## 9. Preconditions a postconditions
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
 ```hcl
 resource "aws_db_instance" "payments" {
@@ -307,23 +321,21 @@ Názov resource-u alebo úspešný import command nepreukazuje target identity. 
 
 ## 12. CLI import verzus import block
 
+Táto transition mení remote identity, state ownership alebo Terraform address binding. Create/delete order, old/new address a provider target ovplyvňujú availability, data a rollback aj pri ekvivalentnom HCL. Fresh plan a remote/state read-back musia odlíšiť zachovaný remote objekt od skutočného replacementu.
+
 ```bash
 terraform import aws_s3_bucket.logs company-prod-logs
 ```
 
 CLI import vykoná okamžitú state mutation. Je vhodný pre recovery alebo legacy workflow, ale vyžaduje freeze writers, backup, exact backend/provider subject a fresh plan.
 
-Import block:
-
-- je versionovaný;
-- prejde reviewom;
-- môže byť súčasťou plan/policy evidence;
-- koordinuje viac imports;
-- zachová intent history.
+Configuration-driven import je versionovaný, prejde reviewom, môže byť súčasťou plan alebo policy evidence, koordinuje viac imports a zachová intent history.
 
 Pre plánovanú adoption je configuration-driven import preferovaný.
 
 ## 13. Worked failure: import do nesprávneho accountu
+
+Import command môže byť syntakticky úspešný a napriek tomu viazať address k objectu v nesprávnom provider targete. Pred importom sa preto read-backuje account/region a immutable remote ID a po importe sa porovná state show, remote API a fresh plan.
 
 Atlas chcel importovať `company-prod-logs`. Operátor použil default provider, ktorý smeroval do test accountu, kde existoval bucket s rovnakým názvom.
 
@@ -334,17 +346,13 @@ CLI import success
 → skutočný prod bucket zostáva unmanaged
 ```
 
-Recovery:
+Recovery workflow freeze writers, backup state, overiť remote IDs, account a audit timeline, odstrániť chybný binding bez mazania remote test objectu, použiť explicitný production provider mapping a importovať správny object.
 
-1. freeze writers;
-2. backup state;
-3. overiť remote IDs, account a audit timeline;
-4. odstrániť chybný binding bez mazania remote test objectu;
-5. použiť explicitný production provider mapping;
-6. importovať správny object;
-7. fresh plan a remote/runtime verification.
+Dopĺňa ho fresh plan a remote/runtime verification.
 
 ## 14. Post-import plan je povinný decision point
+
+Táto transition mení remote identity, state ownership alebo Terraform address binding. Create/delete order, old/new address a provider target ovplyvňujú availability, data a rollback aj pri ekvivalentnom HCL. Fresh plan a remote/state read-back musia odlíšiť zachovaný remote objekt od skutočného replacementu.
 
 Po importe môže plan ukázať:
 
@@ -369,6 +377,8 @@ zrušiť nesprávny import
 
 ## 15. `moved` block zachováva binding pri refaktore
 
+Táto transition mení remote identity, state ownership alebo Terraform address binding. Create/delete order, old/new address a provider target ovplyvňujú availability, data a rollback aj pri ekvivalentnom HCL. Fresh plan a remote/state read-back musia odlíšiť zachovaný remote objekt od skutočného replacementu.
+
 ```hcl
 moved {
   from = aws_vpc.main
@@ -387,6 +397,8 @@ old address binding
 Bez mappingu Terraform vidí old address removed a new address added. Výsledkom môže byť destroy/create aj pri identickom resource configuration.
 
 ## 16. Premenovanie `for_each` keya
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
 ```hcl
 moved {
@@ -411,20 +423,23 @@ moved {
 
 ## 17. `moved` verzus `terraform state mv`
 
+Táto transition mení remote identity, state ownership alebo Terraform address binding. Create/delete order, old/new address a provider target ovplyvňujú availability, data a rollback aj pri ekvivalentnom HCL. Fresh plan a remote/state read-back musia odlíšiť zachovaný remote objekt od skutočného replacementu.
+
 ### `moved` block
 
-- versionovaný a reviewovateľný;
-- opakovateľný naprieč environments;
-- vhodný pre reusable module releases;
-- podporuje neskorých consumers;
-- je súčasťou plan evidence.
+`moved` je versionovaný configuration contract, ktorý Terraform vie aplikovať pre každého caller-a prechádzajúceho podporovanou upgrade cestou. Zachováva remote ID pri address refaktore a je reviewovateľný spolu so source change-om. Musí zostať dostatočne dlho, aby pokryl podporované predecessor verzie.
+
+Táto transition mení remote identity, state ownership alebo Terraform address binding. Create/delete order, old/new address a provider target ovplyvňujú availability, data a rollback aj pri ekvivalentnom HCL. Fresh plan a remote/state read-back musia odlíšiť zachovaný remote objekt od skutočného replacementu.
+
+`moved` je versionovaný configuration contract, ktorý Terraform vie aplikovať pre každého caller-a prechádzajúceho podporovanou upgrade cestou. Zachováva remote ID pri address refaktore a je reviewovateľný spolu so source change-om. Musí zostať dostatočne dlho, aby pokryl podporované predecessor verzie.
+
+`moved` contract je versionovaný a reviewovateľný, opakovateľný naprieč environments, vhodný pre reusable module releases, podporuje neskorých consumers a je súčasťou plan evidence.
 
 ### `terraform state mv`
 
-- okamžitá mutation jedného state subjectu;
-- vyžaduje lock a backup;
-- nie je automaticky reprodukovaná inde;
-- vhodná pre recovery alebo jednorazovú legacy migration.
+`terraform state mv` je imperative mutation jedného konkrétneho state snapshotu. Je vhodná pre bounded recovery alebo legacy migration, ale ďalší caller ju z configuration nezdedí. Vyžaduje backup, exclusive lock, exact source/destination identity a bezprostredný fresh plan; pri opakovateľnom refaktore je preferovaný `moved` block.
+
+Okamžitá mutation jedného state subjectu, vyžaduje lock a backup, nie je automaticky reprodukovaná inde a vhodná pre recovery alebo jednorazovú legacy migration.
 
 Plánovaný refactor patrí do code. Manuálna surgery v každom environment-e vytvára divergentnú migration history.
 
@@ -515,6 +530,8 @@ Address manifest testuje H1–H3/H6/H7, type/provider metadata H4/H5 a lifecycle
 
 ## 22. Acceptance a forbidden paths
 
+Acceptance uzatvára celý Terraform configuration, state a remote-resource subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je exact provider target, remote/state reconciliation a druhý no-op plan.
+
 Transition blok je prijatý, keď:
 
 ```text
@@ -534,17 +551,25 @@ každá change je klasifikovaná ako remote lifecycle, adoption alebo address mo
 
 ### „`create_before_destroy` je univerzálny zero-downtime switch“
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 Mení poradie replacementu; nerieši unique names, data, quotas ani cutover.
 
 ### „`prevent_destroy` je backup“
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
 Je to plan guard, nie provider-side ani data recovery protection.
 
 ### „`ignore_changes` odstráni noise“
 
+Rovnaký diff môže reprezentovať unauthorized drift, expiring incident override, delegated ownership, provider normalization alebo lost binding. Najprv sa určí writer, authority, attribute owner a exact state/remote subject; až potom možno bezpečne zvoliť revert, adoption alebo recovery.
+
 Bez explicitného external ownera skryje ownership konflikt.
 
 ### „Import úspešne prešiel, objekt je správny“
+
+Táto transition mení remote identity, state ownership alebo Terraform address binding. Create/delete order, old/new address a provider target ovplyvňujú availability, data a rollback aj pri ekvivalentnom HCL. Fresh plan a remote/state read-back musia odlíšiť zachovaný remote objekt od skutočného replacementu.
 
 Import success nepreukazuje account, region, ownership ani configuration compatibility.
 

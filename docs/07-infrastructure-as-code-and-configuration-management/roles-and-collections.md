@@ -6,6 +6,8 @@ Kapitola otvára incident `IAC-PAY-79`. Atlas platform team publikuje collection
 
 ## 1. Dominantný capability-to-runtime lifecycle
 
+Role/collection lifecycle spája source, distribution artifact, execution environment a expanded host behavior. FQCN a semantic version sú locators; exact implementation tvoria artifact digest, transitive dependencies a image/plugin paths. Runtime verdict sa preto viaže na celý resolved dependency graph.
+
 ```text
 capability intent a owner
 → role public contract
@@ -21,20 +23,21 @@ capability intent a owner
 
 ## 2. Kedy vzniká role boundary
 
-Role má zmysel, keď capability má:
+Role boundary má zmysel, keď capability má jasný purpose a non-goals, verejné inputs/defaults a vlastné tasks, templates a handlers. Contract musí pomenovať privilege, package a network dependencies, podporované platformy, idempotency/recovery behavior a ownera s release lifecycle-om.
 
-- jasný purpose a non-goals;
-- verejné inputs a defaults;
-- vlastné tasks/templates/handlers;
-- privilege, package a network dependencies;
-- supported platforms;
-- idempotency a recovery behavior;
-- ownera a release lifecycle;
-- viac consumers alebo opakovateľné použitie.
+Dvojriadkový task file nemusí byť role, ak nemá samostatnú capability ani consumer contract. Jedna mega-role pre celý server naopak mieša odlišné ownership, failure a release domains. Boundary sa vyberá podľa coherent behavioru a support lifecycle-u, nie podľa directory template-u.
+
+Reusable role má viac consumerov alebo opakovateľné použitie a jej public topics, facts a generated artifacts sa verziujú. Upgrade fixture musí preukázať, že existing host prejde na successor bez hidden dependency alebo perpetual change.
+
+Contract eviduje jasný purpose a non-goals, verejné inputs a defaults, vlastné tasks/templates/handlers, privilege, package a network dependencies, supported platforms a idempotency a recovery behavior.
+
+Dopĺňa ho ownera a release lifecycle a viac consumers alebo opakovateľné použitie.
 
 Dvojriadkový task file nemusí byť role. Jedna mega-role pre celý server naopak skrýva odlišné ownership a failure domains.
 
 ## 3. Role public contract
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
 ```yaml
 roleContract:
@@ -64,6 +67,8 @@ roleContract:
 Contract zahŕňa variable semantics, modified resources, notification topics, side effects, check/diff expectations, upgrade a rollback behavior.
 
 ## 4. Defaults verzus role vars
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
 ```yaml
 # defaults/main.yml
@@ -100,6 +105,8 @@ Namespacuj variables, published facts, handler topics, tags a template data. Nam
 
 ## 6. Role structure ako lifecycle, nie cieľ
 
+Nasledujúci model opisuje prechody jedného Ansible run, host alebo item subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí complete per-host coverage, pravdivý result a runtime/business read-back.
+
 ```text
 roles/payments_runtime/
 ├── README.md
@@ -131,6 +138,8 @@ Rozdelenie po mechanistických phases je čitateľnejšie než jeden file na ka�
 
 ## 7. Static a dynamic role reuse
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 ```yaml
 - name: Import role statically
   ansible.builtin.import_role:
@@ -147,6 +156,8 @@ Rozdelenie po mechanistických phases je čitateľnejšie než jeden file na ka�
 Static a dynamic reuse ovplyvňujú parse/execution visibility, tags, conditions, variables a handler loading. Supported invocation modes patria do tests; caller nesmie predpokladať identické behavior bez contractu.
 
 ## 8. Handler topic ako public API
+
+Uložený artifact a loaded runtime sú dve odlišné generations. Notification iba zaradí handler; až handler result, process start/version a endpoint dokazujú, že nová konfigurácia bola načítaná. Host sa považuje za converged až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
 ```yaml
 handlers:
@@ -215,6 +226,8 @@ Custom plugin môže bežať na controlleri s accessom k credentials a networku.
 
 ## 11. Artifact subject
 
+Táto podsekcia definuje presný Ansible run, host alebo item subject. Názov alebo locator nestačí: subject musí niesť generation, authority a target identity potrebné na koreláciu reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome. Až complete per-host coverage, pravdivý result a runtime/business read-back ukáže, že ďalší command alebo YAML patrí správnemu objektu.
+
 ```yaml
 collectionArtifact:
   namespace: atlas
@@ -233,6 +246,8 @@ collectionArtifact:
 FQCN identifikuje namespace, nie exact bytes. Artifact version/digest a execution environment identifikujú implementation subject.
 
 ## 12. Requirements a pinning
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
 ```yaml
 # requirements.yml
@@ -276,6 +291,8 @@ Upgrade sa má vykonať ako explicitný dependency change s contract tests, nie 
 
 ## 14. Execution environment manifest
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 ```bash
 ansible --version
 ansible-galaxy collection list
@@ -287,21 +304,21 @@ Observed manifest je evidence aktuálneho runtime. Silnejší build pipeline gen
 
 ## 15. Supply-chain review
 
-Pred adopciou external collection over:
+External collection je executable supply-chain artifact. Review overuje publisher a source repository, release/maintenance históriu, artifact provenance/integrity a direct aj transitive dependencies. Osobitne sa kontrolujú controller-side action, lookup, inventory a callback plugins, pretože pracujú s credentials, filesystemom a networkom ešte pred remote module executionom.
 
-- publisher/source repository;
-- release a maintenance history;
-- artifact provenance/integrity;
-- custom controller-side plugins;
-- shell/command usage;
-- logging a secret behavior;
-- network/privilege requirements;
-- direct/transitive dependencies;
-- supported core/runtime matrix.
+Shell/command usage, logging/secret behavior, privilege/network requirements a supported `ansible-core`/Python/system matrix určujú blast radius a compatibility. Download count alebo populárny namespace nie sú trust verdict.
+
+Adoption gate pinne artifact a execution-environment digest, generuje SBOM/provenance a vykoná forbidden egress/secret fixture. Upgrade sa posudzuje ako explicitná dependency change s consumer integration a second-converge testom.
+
+Supply-chain review zahŕňa publishera a source repository, release a maintenance history, artifact provenance a integrity, custom controller-side plugins, shell alebo command usage a logging a secret behavior.
+
+Dopĺňa ho network/privilege requirements, direct/transitive dependencies a supported core/runtime matrix.
 
 Download count nie je security verdict.
 
 ## 16. Role a collection test lifecycle
+
+Nasledujúci model opisuje prechody jedného Ansible run, host alebo item subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí complete per-host coverage, pravdivý result a runtime/business read-back.
 
 ```text
 contract fixtures
@@ -330,19 +347,23 @@ Assertions kontrolujú package version, config checksum, service state, loaded v
 
 ## 17. Compatibility policy
 
-Breaking changes zahŕňajú:
+Breaking change nie je iba odstránenie variable. Rename/type/default zmena, nový required privilege, handler topic rename, generated-config format change, package replacement, published fact/result schema alebo supported runtime matrix môžu zmeniť consumer behavior bez playbook source diffu.
 
-- variable rename/type/default change;
-- new required privilege;
-- handler topic rename;
-- generated config format change;
-- package removal/replacement;
-- published result/fact schema change;
-- supported platform/core change.
+Semantic version je owner claim. Evidence poskytuje consumer upgrade fixture nad existing hostom, handler integration a loaded-runtime test. Compatibility policy definuje supported predecessor versions, deprecation window a migration aliasy/topics.
+
+Consumer inventory je potrebný na bezpečné retirement. Bez neho nemožno vedieť, či old topic alebo result field ešte používa production repository.
+
+Compatibility review sleduje variable rename/type/default change, new required privilege, handler topic rename, generated config format change, package removal/replacement a published result/fact schema change.
+
+Dopĺňa ho supported platform/core change.
+
+Každá zmena sa posudzuje nad existujúcim consumer state-om, pretože syntakticky platný upgrade môže meniť identity alebo behavior.
 
 Semantic version je owner claim. Consumer integration a upgrade tests sú evidence.
 
 ## 18. Consumer inventory
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
 ```yaml
 consumer:
@@ -374,6 +395,12 @@ Root cause bol unresolved reusable dependency a breaking public contract bez con
 
 ## 20. Competing hypotheses pri local/controller rozdiele
 
+H1 porovná collection artifact/version/digest; H2 execution image SBOM a Python/system dependencies. H3 číta FQCN, collection/search path a plugin resolution, pretože rovnaké meno môže resolve-núť iný content.
+
+H4 porovná static/dynamic invocation a handler visibility. H5/H7 čítajú role source checksums a effective values/target inventory. H6 skúma controller cache path a timestamps.
+
+Dôkazy sa viažu na rovnaký run subject. Obnova lokálneho `requirements.yml` bez kontroly controller image-u nemusí zmeniť effective bytes a preto nie je recovery closure.
+
 ```text
 H1: collection versions/digests sa líšia
 H2: transitive Python/system dependency sa líši
@@ -384,26 +411,23 @@ H6: controller cache má stale content
 H7: target inventory/values sa líšia
 ```
 
-Dôkazy:
+Discriminating evidence zahŕňa image/collection digests H1, package/SBOM H2, FQCN/search config H3, task/handler graph H4, source checksums/effective values H5/H7 a cache path/timestamps H6.
 
-- image/collection digests H1;
-- package/SBOM H2;
-- FQCN/search config H3;
-- task/handler graph H4;
-- source checksums/effective values H5/H7;
-- cache path/timestamps H6.
+Každá observation musí potvrdiť alebo oslabiť konkrétnu hypotézu nad rovnakou identity a časovou osou.
 
 ## 21. Evidence-preserving containment a recovery
 
-1. pozastaviť rollout;
-2. zachovať local aj controller images/manifests;
-3. identifikovať exact collection bytes a topic/result changes;
-4. obnoviť pinned known-good image alebo publikovať compatible fix;
-5. overiť handler execution a runtime version na canary hoste;
-6. spustiť second converge;
-7. aktualizovať consumer inventory a deprecation controls.
+Rollout sa pozastaví a zachovajú sa local aj controller image/collection manifests, task/handler graph a affected host evidence. Exact breaking change sa identifikuje na artifact, dependency, topic alebo result-schema úrovni.
+
+Containment môže pinne obnoviť known-good execution image alebo publikovať compatible fix s aliasom. Canary musí preukázať file mutation, handler execution, loaded version a second converge. Až potom sa aktualizuje consumer inventory a deprecation/retirement policy.
+
+Recovery workflow pozastaviť rollout, zachovať local aj controller images/manifests, identifikovať exact collection bytes a topic/result changes, obnoviť pinned known-good image alebo publikovať compatible fix, overiť handler execution a runtime version na canary hoste a spustiť second converge.
+
+Dopĺňa ho aktualizovať consumer inventory a deprecation controls.
 
 ## 22. Acceptance a forbidden paths
+
+Acceptance uzatvára celý Ansible run, host alebo item subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je complete per-host coverage, pravdivý result a runtime/business read-back.
 
 ```text
 role contract je documented a namespaced
@@ -422,21 +446,31 @@ role contract je documented a namespaced
 
 ### „Role je iba folder structure“
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 Bez public contractu je to iba reorganizovaný task code.
 
 ### „FQCN pinne version“
+
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
 
 Identifikuje namespace, nie artifact bytes.
 
 ### „Broad range automaticky prijíma kompatibilné minor releases“
 
+Táto podsekcia vysvetľuje konkrétnu časť Ansible run, host alebo item subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inventory a variables cez task/module result, handler a loaded process až po serving outcome; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 Compatibility musí byť testovaná.
 
 ### „Handler topic je interný detail“
 
+Uložený artifact a loaded runtime sú dve odlišné generations. Notification iba zaradí handler; až handler result, process start/version a endpoint dokazujú, že nová konfigurácia bola načítaná. Host sa považuje za converged až po complete per-host coverage, pravdivý result a runtime/business read-back.
+
 Ak ho consumers notify-ujú, je public API.
 
 ### „Controller image `latest` je pohodlná“
+
+Každá testovacia alebo policy vrstva má vlastný subject a oracle. Parser/schema pass nepreukazuje remote authorization, report existence nepreukazuje processing a isolated apply nepreukazuje production runtime. Gate preto odlišuje violation, missing/invalid evidence, tool failure a stale subject.
 
 Ruší reproducibility a approval identity.
 

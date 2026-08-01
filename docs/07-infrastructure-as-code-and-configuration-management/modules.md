@@ -6,6 +6,8 @@ Kapitola pokračuje incidentom `IAC-PAY-76`. Atlas Payments publikuje interný m
 
 ## 1. Dominantný module-consumer lifecycle
 
+Nasledujúci model opisuje prechody jedného Terraform configuration, state a remote-resource subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inputs a graph cez provider API mutation až po state binding a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí exact provider target, remote/state reconciliation a druhý no-op plan.
+
 ```text
 consumer capability intent
 → immutable module source a release identity
@@ -22,14 +24,13 @@ Dobrý module znižuje počet nebezpečných rozhodnutí, ktoré musí robiť ka
 
 ## 2. Root module verzus child module
 
-Root module vlastní:
+Root module je deployment a state owner. Vyberá backend/state subject, environment composition, provider configurations a credentials, top-level inputs, apply identity, queue, recovery a acceptance lifecycle. Jeho repository a pipeline preto určujú, nad akým remote subjectom sa reusable code vykoná.
 
-- backend a state subject;
-- environment composition;
-- provider configurations a credentials;
-- top-level inputs a policy;
-- plan/apply identity a queue;
-- recovery a acceptance lifecycle.
+Child module poskytuje versionovanú capability cez inputs, outputs, required providers, resources a migration semantics. Caller ho instancuje `module` blockom a jeho resources sa rozvinú do caller graphu a state-u, napríklad `module.payments_service.aws_lb.api`.
+
+Child module teda automaticky nedostáva vlastný lock, permissions ani blast-radius isolation. Samostatná state boundary vzniká iba samostatným root module-om, backendom a execution lifecycle-om. Module boundary rieši code/interface coupling; root/state boundary rieši ownership a failure domain.
+
+Transition eviduje backend a state subject, environment composition, provider configurations a credentials, top-level inputs a policy, plan/apply identity a queue a recovery a acceptance lifecycle.
 
 Child module je volaný cez `module` block:
 
@@ -96,6 +97,8 @@ terraform show -json module-upgrade.tfplan > module-upgrade.json
 `init -upgrade` resolve-ne nové allowed module/provider selections. Nepreukazuje compatibility. Plan a upgrade tests musia overiť addresses, defaults, replacements, permissions a runtime behavior.
 
 ## 4. Public contract modulu
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
 Module contract obsahuje viac než variable/output tabuľku:
 
@@ -218,6 +221,8 @@ Output contract definuje typ, význam, sensitivity, availability phase a compati
 
 ## 8. Module composition a dependencies
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 ```hcl
 module "network" {
   source  = "app.terraform.io/atlas/network/aws"
@@ -245,20 +250,21 @@ Module-wide `depends_on` môže vytvoriť false uncertainty a odložiť reads un
 
 ## 9. Module boundary podľa capability a coupling-u
 
-Primeraný module má:
+Primeraný module reprezentuje jednu koherentnú capability so známym ownerom, spoločným lifecycle-om a release cadence. Jeho public contract má stabilné inputs/outputs, zvládnuteľný state space a jasnú policy alebo abstraction hodnotu.
 
-- jednu koherentnú capability;
-- jasného ownera;
-- spoločný lifecycle a release cadence;
-- testovateľný state space;
-- stabilný public contract;
-- zmysluplnú policy/abstraction hodnotu.
+Mega-module pre celý account mieša nezávislé security domains a vytvára široký upgrade blast radius. Extrémne tenký wrapper iba premenúva provider arguments a zvyšuje nesting bez stabilizácie behavioru. Počet `.tf` files preto nie je boundary criterion.
+
+Boundary sa vyberá podľa change coupling-u, ownershipu, failure/recovery jednotky a support lifecycle-u. Consumer musí vedieť capability otestovať a upgradovať bez neúmyselného prebratia unrelated resources.
+
+Contract eviduje jednu koherentnú capability, jasného ownera, spoločný lifecycle a release cadence, testovateľný state space, stabilný public contract a zmysluplnú policy/abstraction hodnotu.
 
 Mega-module pre celý cloud account vytvára desiatky modes a široký upgrade blast radius. Extrémne tenký wrapper zvyšuje nesting bez pridanej stability.
 
 Boundary sa nevyberá podľa počtu `.tf` files. Vyberá sa podľa ownershipu, behavioru, change coupling-u a support lifecycle-u.
 
 ## 10. Module instance identity
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
 ```hcl
 module "service" {
@@ -280,22 +286,21 @@ Key je state identity. Premenovanie `payments` na `payments-api` môže vyzerať
 
 ## 11. Versioning ako compatibility promise
 
-Kompatibilné zmeny môžu byť:
+Module version je promise o caller contracte a existing-state transitione. Nový optional input s bezpečným defaultom, nový output alebo interný refactor s úplným `moved` chainom môžu byť kompatibilné, ak nemenia effective identity, exposure ani behavior existujúcich callerov.
 
-- nový optional input s bezpečným defaultom;
-- nový output;
-- interný refactor s úplným moved chainom;
-- bug fix bez zmeny identity a behavior contractu.
+Zmena default/null semantics, provider requirements, instance keys alebo resource addresses je risk-significant. Rovnako breaking môže byť nový replacement/destroy behavior alebo privilege/exposure expansion, aj keď HCL caller zostane syntakticky platný.
 
-Potenciálne breaking zmeny:
+Semantic version label je deklarácia, nie dôkaz. Dôveryhodný release publikuje compatibility matrix a consumer upgrade test nad reprezentatívnym state-om. Plan musí vysvetliť migrations a runtime canary musí potvrdiť capability; druhý no-op plan uzatvára stabilitu successor verzie.
 
-- zmena default/null semantics;
-- odstránenie alebo premenovanie inputu/outputu;
-- zmena provider requirementu;
-- zmena instance keys;
-- resource address refactor bez migration;
-- nový replacement alebo destroy behavior;
-- privilege/exposure expansion.
+Compatibility review sleduje nový optional input s bezpečným defaultom, nový output, interný refactor s úplným moved chainom a bug fix bez zmeny identity a behavior contractu.
+
+Každá zmena sa posudzuje nad existujúcim consumer state-om, pretože syntakticky platný upgrade môže meniť identity alebo behavior.
+
+Compatibility review sleduje zmena default/null semantics, odstránenie alebo premenovanie inputu/outputu, zmena provider requirementu, zmena instance keys, resource address refactor bez migration a nový replacement alebo destroy behavior.
+
+Dopĺňa ho privilege/exposure expansion.
+
+Každá zmena sa posudzuje nad existujúcim consumer state-om, pretože syntakticky platný upgrade môže meniť identity alebo behavior.
 
 Semantic version label nie je dôkaz compatibility. Autoritatívny je consumer upgrade plan a test.
 
@@ -348,6 +353,8 @@ Module composition test musí overovať effective provider configuration a remot
 
 ## 15. Upgrade lifecycle
 
+Nasledujúci model opisuje prechody jedného Terraform configuration, state a remote-resource subject, nie iba poradie krokov. Failure môže nastať v ktoromkoľvek bode reťazca resolved inputs a graph cez provider API mutation až po state binding a zanechať partial alebo unknown outcome. Každý transition preto potrebuje vlastný read-back a closure tvorí exact provider target, remote/state reconciliation a druhý no-op plan.
+
 ```text
 consumer inventory a current version
 → immutable candidate release
@@ -362,14 +369,9 @@ consumer inventory a current version
 → consumer status a support closure
 ```
 
-Upgrade review osobitne zvýrazní:
+Compatibility review sleduje moves, replacements a destroys, provider target changes, effective default changes, IAM/network exposure a output schema changes.
 
-- moves;
-- replacements a destroys;
-- provider target changes;
-- effective default changes;
-- IAM/network exposure;
-- output schema changes.
+Každá zmena sa posudzuje nad existujúcim consumer state-om, pretože syntakticky platný upgrade môže meniť identity alebo behavior.
 
 ## 16. Retained moved history pre neskorých consumers
 
@@ -386,6 +388,8 @@ breaking boundary a deadline
 ```
 
 ## 17. Module testing portfolio
+
+Každá testovacia alebo policy vrstva má vlastný subject a oracle. Parser/schema pass nepreukazuje remote authorization, report existence nepreukazuje processing a isolated apply nepreukazuje production runtime. Gate preto odlišuje violation, missing/invalid evidence, tool failure a stale subject.
 
 ```text
 fmt/validate
@@ -427,15 +431,11 @@ Plan assertion preukazuje Terraform evaluation result. Nepreukazuje remote API b
 
 ## 18. Consumer inventory
 
-Owner interného modulu potrebuje vedieť:
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
-- consumer repository/root module;
-- current module version;
-- environment a owner;
-- Terraform/provider versions;
-- deprecated/vulnerable status;
-- supported upgrade path;
-- posledný successful test/plan.
+Transition eviduje consumer repository/root module, current module version, environment a owner, Terraform/provider versions, deprecated/vulnerable status a supported upgrade path.
+
+Dopĺňa ho posledný successful test/plan.
 
 Bez inventory nemožno bezpečne odstrániť moved history alebo koordinovať security release.
 
@@ -485,6 +485,8 @@ Manuálny `state mv` v jednom environment-e by neopravil reusable contract pre o
 
 ## 21. Acceptance a forbidden paths
 
+Acceptance uzatvára celý Terraform configuration, state a remote-resource subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je exact provider target, remote/state reconciliation a druhý no-op plan.
+
 Module blok je prijatý, keď:
 
 ```text
@@ -504,21 +506,31 @@ source/version/package identity sú immutable
 
 ### „Module je state boundary“
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 Child module zdieľa root state, lock, permissions a apply lifecycle.
 
 ### „Wrapper okolo resource je automaticky abstraction“
+
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
 
 Bez domain contractu a invariantov iba pridáva nesting.
 
 ### „Version number zaručuje SemVer compatibility“
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 Consumer plan a upgrade tests sú dôkaz; label je tvrdenie ownera.
 
 ### „Module môže konfigurovať vlastný production provider“
 
+Táto podsekcia vysvetľuje konkrétnu časť Terraform configuration, state a remote-resource subject. Source deklarácia sa nesmie zameniť za effective reťazec resolved inputs a graph cez provider API mutation až po state binding; treba pomenovať aj partial a unknown outcomes. Výsledok sa prijíma až po exact provider target, remote/state reconciliation a druhý no-op plan.
+
 Target a credentials má spravidla explicitne vlastniť root caller.
 
 ### „Môžeme odstrániť staré moved blocks po jednom release“
+
+Táto transition mení remote identity, state ownership alebo Terraform address binding. Create/delete order, old/new address a provider target ovplyvňujú availability, data a rollback aj pri ekvivalentnom HCL. Fresh plan a remote/state read-back musia odlíšiť zachovaný remote objekt od skutočného replacementu.
 
 Neskorí consumers môžu preskakovať versions a potrebujú retained migration chain.
 

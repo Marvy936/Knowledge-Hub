@@ -1,0 +1,35 @@
+name: Section 07 ledger once
+
+on:
+  push:
+    branches:
+      - agent/section-07-explanation-depth
+    paths:
+      - scripts/section_07_ledger_once.py
+      - .github/workflows/section-07-ledger-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-ledger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/section-07-explanation-depth
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Update ledger
+        run: python scripts/section_07_ledger_once.py
+      - name: Commit ledger
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add DOCUMENTATION-REVIEW-STATUS.md
+          git diff --cached --check
+          git commit -m "docs: finalize Section 07 review ledger"
+          git push origin HEAD:agent/section-07-explanation-depth
