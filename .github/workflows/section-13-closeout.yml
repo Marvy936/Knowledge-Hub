@@ -1,0 +1,57 @@
+name: Section 13 explanation closeout
+
+on:
+  push:
+    branches:
+      - agent/section-13-explanation-depth
+    paths:
+      - scripts/section_13_closeout.py
+      - .github/workflows/section-13-closeout.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - scripts/section_13_closeout.py
+      - .github/workflows/section-13-closeout.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: section-13-closeout
+  cancel-in-progress: true
+
+jobs:
+  closeout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/section-13-explanation-depth
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate and finalize Section 13
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/section_13_closeout.py
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/audit_learning_depth.py --all-docs
+      - name: Commit closeout
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/13-security-and-identity/README.md DOCUMENTATION-REVIEW-STATUS.md DOCUMENTATION-AUDIT.md documentation-audit.json GLOSSARY.md ROADMAP.md
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "No closeout changes to commit."
+            exit 0
+          fi
+          git commit -m "docs: close Security and Identity explanation-depth review"
+          git pull --rebase origin agent/section-13-explanation-depth
+          git push origin HEAD:agent/section-13-explanation-depth
