@@ -1767,7 +1767,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "title": "Drift",
-      "words": 2937,
+      "words": 2972,
       "headings": 39,
       "sections": 39,
       "findings": 17,
@@ -1837,7 +1837,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "title": "Lifecycle, import a moved blocks",
-      "words": 3291,
+      "words": 3329,
       "headings": 36,
       "sections": 36,
       "findings": 29,
@@ -1949,7 +1949,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "title": "Terraform testing a policy",
-      "words": 3787,
+      "words": 3903,
       "headings": 38,
       "sections": 38,
       "findings": 32,
@@ -41168,7 +41168,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "17. Acceptance a forbidden paths",
-      "line": 458,
+      "line": 460,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -41177,7 +41177,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "17. Acceptance a forbidden paths",
-      "line": 458,
+      "line": 460,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -41186,7 +41186,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/drift.md",
       "section": "„Exit code 0 znamená čistú produkciu“",
-      "line": 496,
+      "line": 498,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42095,7 +42095,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "terraform state mv",
-      "line": 474,
+      "line": 476,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -42104,7 +42104,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "22. Acceptance a forbidden paths",
-      "line": 571,
+      "line": 573,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42113,7 +42113,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "„ create before destroy je univerzálny zero-downtime switch“",
-      "line": 593,
+      "line": 595,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42122,7 +42122,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "„ create before destroy je univerzálny zero-downtime switch“",
-      "line": 593,
+      "line": 595,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42131,7 +42131,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "„ prevent destroy je backup“",
-      "line": 600,
+      "line": 602,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -42140,7 +42140,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "„ prevent destroy je backup“",
-      "line": 600,
+      "line": 602,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -42149,7 +42149,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md",
       "section": "„Import úspešne prešiel, objekt je správny“",
-      "line": 614,
+      "line": 616,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43778,7 +43778,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "21. Authoritative recovery incidentu IAC-PAY-77",
-      "line": 660,
+      "line": 662,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43787,7 +43787,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "22. Acceptance a forbidden paths",
-      "line": 675,
+      "line": 679,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43796,7 +43796,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "22. Acceptance a forbidden paths",
-      "line": 675,
+      "line": 679,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43805,7 +43805,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„ validate prešlo, infra je správna“",
-      "line": 708,
+      "line": 714,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43814,7 +43814,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„ validate prešlo, infra je správna“",
-      "line": 708,
+      "line": 714,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43823,7 +43823,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„Scanner job success znamená clean“",
-      "line": 722,
+      "line": 728,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43832,7 +43832,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„Scanner job success znamená clean“",
-      "line": 722,
+      "line": 728,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -43841,7 +43841,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„Policy engine nefungoval, preto dočasne povoľme všetko“",
-      "line": 736,
+      "line": 742,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43850,7 +43850,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„Apply znovu vypočíta rovnaký plan“",
-      "line": 743,
+      "line": 749,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -43859,7 +43859,7 @@
     {
       "path": "docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md",
       "section": "„Apply znovu vypočíta rovnaký plan“",
-      "line": 743,
+      "line": 749,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

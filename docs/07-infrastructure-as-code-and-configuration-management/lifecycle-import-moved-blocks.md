@@ -460,6 +460,8 @@ Táto transition mení remote identity, state ownership alebo Terraform address 
 
 ### `moved` block
 
+`moved` je versionovaný configuration contract, ktorý Terraform vie aplikovať pre každého caller-a prechádzajúceho podporovanou upgrade cestou. Zachováva remote ID pri address refaktore a je reviewovateľný spolu so source change-om. Musí zostať dostatočne dlho, aby pokryl podporované predecessor verzie.
+
 Táto transition mení remote identity, state ownership alebo Terraform address binding. Create/delete order, old/new address a provider target ovplyvňujú availability, data a rollback aj pri ekvivalentnom HCL. Fresh plan a remote/state read-back musia odlíšiť zachovaný remote objekt od skutočného replacementu.
 
 

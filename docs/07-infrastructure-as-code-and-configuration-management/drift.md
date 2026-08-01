@@ -442,6 +442,8 @@ Containment zastaví auto-apply. `ignore_changes` sa nepridá, kým nie je znám
 
 ## 16. Authoritative recovery incidentu `IAC-PAY-77`
 
+Recovery musí najprv obnoviť incidentnú authority a až potom normálnu Terraform reconciliation. Scheduled auto-apply zostáva pozastavený, kým sa neuzavrie, či dočasná WAF rule bude adoptovaná alebo reviewed revertovaná; inak by rovnaký mechanismus znova odstránil containment.
+
 Incident sa rekonštruuje ako causal chain nad jedným Terraform configuration, state a remote-resource subject. Observations určujú prvý divergentný bod v reťazci resolved inputs a graph cez provider API mutation až po state binding; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju exact provider target, remote/state reconciliation a druhý no-op plan.
 
 

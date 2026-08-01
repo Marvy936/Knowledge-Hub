@@ -633,6 +633,8 @@ Rovnosť IDs preukazuje completeness len vtedy, keď každý received artifact p
 
 ## 20. Competing hypotheses pri „green“ pipeline a failed production apply
 
+Green pre-production pipeline a failed production apply môžu znamenať chýbajúcu real-policy coverage, odlišnú identity, quota, stale saved plan alebo neplatný/missing report. Každá hypotéza sa viaže na konkrétny subject a discriminating evidence; „testy prešli“ nie je jedna univerzálna premise.
+
 Hypotézy sú navzájom konkurenčné vysvetlenia rovnakého symptómu. Každá musí predpovedať konkrétny observation result a zároveň výsledok, ktorý ju oslabí; inak nejde o discriminating test. Dôkazy sa viažu na rovnaký Terraform configuration, state a remote-resource subject a finálny verdict potvrdí exact provider target, remote/state reconciliation a druhý no-op plan.
 
 
@@ -659,6 +661,8 @@ Rerun bez zachovania first-attempt evidence môže zničiť najlepší dôkaz.
 
 ## 21. Authoritative recovery incidentu `IAC-PAY-77`
 
+Recovery najprv preklasifikuje každý gate result na `PASS`, `VIOLATION`, `TOOL_OR_INFRA_FAILURE`, `MISSING_OR_SKIPPED`, `STALE_SUBJECT` alebo `INVALID_REPORT`. Chýbajúci policy output sa nesmie normalizovať na prázdny clean report a fix sa musí overiť nad exact production-equivalent identity a policy bundle.
+
 Incident sa rekonštruuje ako causal chain nad jedným Terraform configuration, state a remote-resource subject. Observations určujú prvý divergentný bod v reťazci resolved inputs a graph cez provider API mutation až po state binding; samy osebe nie sú success alebo failure verdictom. Recovery sa vyberá až po zachovaní evidence a uzatvára ju exact provider target, remote/state reconciliation a druhý no-op plan.
 
 
@@ -673,6 +677,8 @@ Poradie chráni evidence a zabraňuje tomu, aby ďalšia mutation prekryla parti
 
 
 ## 22. Acceptance a forbidden paths
+
+Testing acceptance zahŕňa happy path, forbidden configuration, tool/report failure a cleanup failure. Gate musí odmietnuť missing evidence rovnako spoľahlivo ako policy violation a druhá operation musí potvrdiť, že fixed artifact a policy generation zostali stabilné.
 
 Acceptance uzatvára celý Terraform configuration, state a remote-resource subject, nie iba posledný command. Positive path dokazuje požadovanú capability, forbidden path zachovanie ownership alebo security hranice a recovery/second-operation path stabilitu successor generation. Spoločným oracle-om je exact provider target, remote/state reconciliation a druhý no-op plan.
 

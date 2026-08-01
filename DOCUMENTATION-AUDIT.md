@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **327**
 - Audited conceptual sections: **6774**
-- Total words: **638,271**
+- Total words: **638,460**
 - Findings: **6524** (critical 660, high 908, medium 470, low 4486)
 - File grades: A 125, B 110, C 32, D 60
 
@@ -103,10 +103,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 48 | 0 | 0 | 0 | 35 | 3348 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | C | 47 | 2 | 2 | 0 | 5 | 1215 | `docs/09-kubernetes/rbac.md` |
-| C | 44 | 0 | 0 | 0 | 32 | 3787 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
+| C | 44 | 0 | 0 | 0 | 32 | 3903 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2860 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
-| C | 41 | 0 | 0 | 0 | 29 | 3291 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
+| C | 41 | 0 | 0 | 0 | 29 | 3329 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
 | C | 41 | 0 | 4 | 0 | 8 | 3604 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
 | C | 39 | 0 | 0 | 0 | 29 | 3094 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
@@ -129,7 +129,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 24 | 0 | 0 | 0 | 16 | 1669 | `docs/06-gitlab/security-scanning.md` |
-| B | 24 | 0 | 0 | 0 | 17 | 2937 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
+| B | 24 | 0 | 0 | 0 | 17 | 2972 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | B | 24 | 0 | 0 | 0 | 20 | 2129 | `docs/08-container-fundamentals-and-docker/container-security.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2623 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 2060 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
