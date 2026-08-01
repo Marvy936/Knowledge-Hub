@@ -36,7 +36,7 @@ Konkrétne testy, konfigurácia, výsledky a failure artifacts sa objavujú pri 
 
 ## Výklad pojmov je súčasťou príbehu kapitoly
 
-Každá kapitola vysvetľuje odborné pojmy, setup, príkazy a výsledky súvislými odsekmi priamo pred scenárom alebo failure, v ktorom sa používajú. Nový text nie je oddelený ako slovník ani postavený na opisných odrážkach. Zoznamy zostávajú iba tam, kde sú prirodzeným porovnaním, acceptance contractom, kontrolnými otázkami alebo inventárom evidence.
+Každá kapitola vysvetľuje odborné pojmy, setup, príkazy a výsledky súvislými odsekmi priamo pred scenárom alebo failure, v ktorom sa používajú. Nový text nie je oddelený ako slovník ani postavený na opisných odrážkach. Zoznamy zostávajú iba tam, kde sú prirodzeným porovnaním, acceptance contractom, kontrolnými otázkami alebo inventárom evidence. Ak poradie jednotlivých položiek samo nenesie význam, obsah sa má vysvetliť odsekmi, nie premenovať na checklist.
 
 Kód a konfigurácia sú vložené pri mechanizme, ktorý demonštrujú. Nasledujúci text vždy vysvetľuje, čo sa pri vykonaní stane, čo výsledok preukazuje a ktorú časť runtime alebo business správania ešte treba overiť iným testom.
 
