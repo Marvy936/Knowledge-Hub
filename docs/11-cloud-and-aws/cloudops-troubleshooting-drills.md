@@ -309,5 +309,5 @@ Combined drills sú dôležité, pretože production evidence sa neorganizuje po
 
 **Navigácia**
 
-[← Predchádzajúca: CloudOps hands-on labs](cloudops-hands-on-labs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Monitoring vs. observability →](../12-observability/monitoring-vs-observability.md)
+[← Predchádzajúca: CloudOps hands-on labs](cloudops-hands-on-labs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický AWS projekt od lokálneho artifactu po overenú Lambda release →](aws-practical-walkthrough.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

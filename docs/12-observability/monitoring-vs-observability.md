@@ -212,5 +212,5 @@ Telemetry cost sa riadi už pri signal design-e: emission overhead, network, ing
 
 **Navigácia**
 
-[← Predchádzajúca: CloudOps troubleshooting drills](../11-cloud-and-aws/cloudops-troubleshooting-drills.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Metrics, logs, traces a events →](metrics-logs-traces-events.md)
+[← Predchádzajúca: AWS troubleshooting](../11-cloud-and-aws/aws-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Metrics, logs, traces a events →](metrics-logs-traces-events.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

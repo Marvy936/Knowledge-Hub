@@ -173,5 +173,5 @@ Relevantné pojmy: tenant subject, platform/business/infrastructure tenant, isol
 
 **Navigácia**
 
-[← Predchádzajúca: Guardrails](guardrails.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Keycloak architecture a responsibility boundary →](../17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md)
+[← Predchádzajúca: Guardrails](guardrails.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Praktický GitOps projekt od Git revision po overený runtime →](gitops-practical-walkthrough.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

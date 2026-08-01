@@ -6,7 +6,7 @@ Cieľom nie je memorovať názvy služieb. Každá kapitola vysvetľuje responsi
 
 ## Section-wide mentálny model
 
-Všetkých 28 authoritative kapitol používa connected Atlas Payments cloud-adoption subject `CAP-PAY-42` a tvorí jeden learning chain:
+Všetkých 30 authoritative kapitol používa connected Atlas Payments cloud-adoption subject `CAP-PAY-42` a tvorí jeden learning chain:
 
 ```text
 business capability a service/deployment responsibility
@@ -96,113 +96,30 @@ Odporúča sa najprv dokončiť:
 26. [CloudOps domain review a timed reasoning](cloudops-domain-review-timed-reasoning.md)
 27. [CloudOps hands-on labs](cloudops-hands-on-labs.md)
 28. [CloudOps troubleshooting drills](cloudops-troubleshooting-drills.md)
+29. [Praktický AWS projekt od lokálneho artifactu po overenú Lambda release](aws-practical-walkthrough.md)
+30. [AWS troubleshooting](aws-troubleshooting.md)
 
-Praktické vykonávacie scenáre sú oddelené v:
+## Hlavný AWS walkthrough a troubleshooting
+
+[Praktický AWS projekt od lokálneho artifactu po overenú Lambda release](aws-practical-walkthrough.md) vytvára cost-bounded serverless release v sandbox account-e. Spája STS identity, IAM execution role, DynamoDB conditional idempotency, reproducible Lambda zip a `CodeSha256`, immutable published versions, alias-based exposure, CloudWatch logs, CloudTrail management evidence, broken candidate, alias compare-and-swap recovery a úplný cleanup.
+
+[AWS troubleshooting](aws-troubleshooting.md) používa preserve-first postup naprieč account/region/principal identity, IAM authorization, VPC path, EC2/ASG/ELB, Lambda/ECS/EKS, storage a databases, messaging, telemetry, KMS/secrets, CloudFormation a backup/restore. Connected incident ukazuje false-green Lambda release, stale alias a duplicate business operation.
+
+Ďalšie praktické vykonávacie scenáre zostávajú v:
 
 - [AWS CloudOps laby](../../labs/aws-cloudops/README.md),
 - [AWS CloudOps troubleshooting scenáre](../../troubleshooting/aws-cloudops/README.md).
 
 Po dokončení tejto sekcie pokračuje lineárna dokumentácia sekciou [Observability](../12-observability/README.md).
 
-## Cieľ zvládnutia
+## Čo má čitateľ po sekcii vedieť
 
-### Cloud foundations a governance
+Čitateľ má vedieť začať explicitnou AWS account, region, principal a resource identity a až potom vyhodnocovať service status. Musí odlíšiť control-plane configuration od data-plane a application outcome-u, vysvetliť IAM allow/deny chain, prejsť celý VPC path a rozlíšiť compute, storage, database, serverless, container, telemetry a recovery failure domains.
 
-- rozlíšiť service a deployment modely podľa responsibility boundary,
-- vysvetliť Region, Availability Zone, regional/zonal/global scope a Multi-AZ/multi-Region trade-offy,
-- vytvoriť shared-responsibility matrix,
-- rozlíšiť scalability, elasticity, fault tolerance, HA a DR,
-- definovať BIA, RTO, RPO, failover a failback,
-- navrhnúť Organizations, OU, SCP, delegated administration a multi-account model.
+Pri release-i má vedieť viazať source artifact na immutable AMI, image digest alebo Lambda version, oddeliť publication od alias/traffic exposure a overiť loaded runtime generation aj business operation. Pri incidente má zachovať request IDs, CloudTrail, CloudWatch a service-native evidence, riešiť unknown outcomes stabilnou operation identity a uzatvoriť recovery forbidden-path a second-operation testom.
 
-### Identity a networking
-
-- vyhodnotiť IAM policies, roles, STS sessions, federation, boundaries, SCPs a cross-account trust,
-- diagnostikovať `AccessDenied` cez všetky applicable policy vrstvy,
-- navrhnúť VPC CIDR, subnets, route tables, endpoints a hybrid connectivity,
-- rozlíšiť IGW, NAT Gateway, egress-only IGW, Security Groups a NACLs,
-- diagnostikovať network path cez routes, SG, NACL, Flow Logs a return traffic.
-
-### Compute, storage a data
-
-- prevádzkovať EC2 fleet cez AMI, launch template, ASG, health checks a instance refresh,
-- navrhnúť ELB listeners, target groups, health, TLS a draining,
-- rozlíšiť S3 object, EBS block a EFS shared-file contracts,
-- navrhnúť RDS HA, read scaling, backup, PITR, upgrades a recovery,
-- používať Route 53 routing/Resolver a CloudFront caching/origin security.
-
-### Serverless, containers a operations
-
-- navrhnúť Lambda invocation, concurrency, retries, idempotenciu a deployment,
-- rozlíšiť ECS a EKS orchestration, identity, capacity a upgrade ownership,
-- korelovať CloudWatch operational telemetry s CloudTrail auditom,
-- používať Systems Manager na fleet access, patching, configuration a automation,
-- spravovať KMS key policies, envelope encryption a Secrets Manager rotation.
-
-### Recovery, architecture a FinOps
-
-- navrhnúť AWS Backup plans, isolated copies, Vault Lock a restore testing,
-- odlíšiť backup success od preukázanej application recovery,
-- vykonávať evidence-driven Well-Architected reviews cez šesť pilierov,
-- vytvoriť improvement plan, risk ownership a milestones,
-- analyzovať cost cez allocation, Cost Explorer, Budgets, anomaly detection a Cost Optimization Hub,
-- vyhodnotiť rightsizing, commitments, data transfer, telemetry cost a unit economics.
-
-### SOA-C03 readiness
-
-- viazať prípravu na current SOA-C03 exam-guide generation,
-- mapovať vedomosti na domény s váhami 22/22/22/16/18,
-- riešiť scenario questions podľa outcome, constraints, scope a complete pathu,
-- vykonať 65-question/130-minute simuláciu bez time collapse,
-- prakticky vykonávať cost-safe AWS laby s evidence a cleanupom,
-- diagnostikovať IAM, networking, compute, storage, backup, observability a automation failures,
-- vysvetliť, prečo sú distractors nesprávne, nie iba označiť správnu odpoveď,
-- uzavrieť practical incident až po original, forbidden, adjacent a second-operation validation.
-
-## Section-level completion gate
-
-Sekcia je pripravená na používateľskú kontrolu až keď:
-
-- všetkých 28 authoritative kapitol prešlo manuálnym strict narrative/mechanism/scenario gate-om;
-- connected `CAP-PAY-42` subject zostáva terminologicky konzistentný;
-- kapitoly rozlišujú exact subject generations, configured/effective state a technical/business verdict;
-- každý komplexný failure cluster obsahuje competing hypotheses, discriminating evidence, containment, authoritative recovery a outcome validation;
-- glossary fragments a generated `GLOSSARY.md` sú synchronizované;
-- navigation chain je obojsmerný od predchádzajúcej Helm/CKA sekcie až po nasledujúcu Observability sekciu;
-- SOA-C03 current facts sú overené proti oficiálnemu AWS exam guide-u;
-- generated navigation, glossary a learning-depth audit prejdú bez reportovaného failure-u.
-
-`Ready for user review` znamená ukončenú internú strict revalidation, nie automatické používateľské schválenie alebo garanciu exam výsledku.
+Cost, security a recovery sú súčasťou každého designu. Sandbox lab musí mať tags, budget/cost hranicu a cleanup. Backup alebo replication status sa nepovažuje za recovery dôkaz bez izolovaného restore-u a application validation.
 
 ## Stav
 
-| Téma | Status | Úroveň |
-|---|---|---|
-| IaaS, PaaS a SaaS | Learning | L2 |
-| Public, private a hybrid cloud | Learning | L2 |
-| Regions a Availability Zones | Learning | L2 |
-| Shared responsibility model | Learning | L2 |
-| Scalability, elasticity a fault tolerance | Learning | L2 |
-| High availability a disaster recovery | Learning | L2 |
-| AWS Organizations a accounts | Learning | L2 |
-| IAM | Learning | L2 |
-| VPC, subnets a route tables | Learning | L2 |
-| Internet Gateway a NAT Gateway | Learning | L2 |
-| Security Groups a Network ACLs | Learning | L2 |
-| EC2 a Auto Scaling | Learning | L2 |
-| Elastic Load Balancing | Learning | L2 |
-| S3, EBS a EFS | Learning | L2 |
-| RDS | Learning | L2 |
-| Route 53 a CloudFront | Learning | L2 |
-| Lambda | Learning | L2 |
-| ECS a EKS | Learning | L2 |
-| CloudWatch a CloudTrail | Learning | L2 |
-| Systems Manager | Learning | L2 |
-| KMS a Secrets Manager | Learning | L2 |
-| AWS Backup | Learning | L2 |
-| Well-Architected Framework | Learning | L2 |
-| Cost management a FinOps | Learning | L2 |
-| AWS Certified CloudOps Engineer – Associate (SOA-C03) | Learning | L2 |
-| CloudOps domain review a timed reasoning | Learning | L2 |
-| CloudOps hands-on labs | Practicing | L3 |
-| CloudOps troubleshooting drills | Practicing | L3 |
+Všetkých 30 authoritative kapitol vrátane samostatného AWS walkthroughu a troubleshooting kapitoly je pripravených na používateľskú kontrolu. Stav neznamená automatické používateľské schválenie, certifikačný výsledok ani runtime overenie labu v každom AWS account-e. SOA-C03 fakty a tool-specific syntax zostávajú viazané na uvedené official source a toolchain generation.

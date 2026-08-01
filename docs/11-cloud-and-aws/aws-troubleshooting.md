@@ -449,5 +449,5 @@ AWS troubleshooting je korelácia distribuovaných control planes. Console statu
 
 **Navigácia**
 
-[← Predchádzajúca: Praktický AWS projekt od lokálneho artifactu po overenú Lambda release](aws-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Observability and Troubleshooting →](../12-observability-and-troubleshooting/README.md)
+[← Predchádzajúca: Praktický AWS projekt od lokálneho artifactu po overenú Lambda release](aws-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Monitoring vs. observability →](../12-observability/monitoring-vs-observability.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

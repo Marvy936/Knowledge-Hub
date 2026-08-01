@@ -2913,6 +2913,34 @@
       "grade": "B"
     },
     {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "title": "Praktický AWS projekt od lokálneho artifactu po overenú Lambda release",
+      "words": 2266,
+      "headings": 16,
+      "sections": 16,
+      "findings": 10,
+      "critical": 0,
+      "high": 6,
+      "medium": 0,
+      "low": 4,
+      "score": 53,
+      "grade": "C"
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "title": "AWS troubleshooting",
+      "words": 2439,
+      "headings": 23,
+      "sections": 23,
+      "findings": 20,
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 19,
+      "score": 32,
+      "grade": "B"
+    },
+    {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
       "title": "CloudOps domain review a timed reasoning",
       "words": 1928,
@@ -2957,7 +2985,7 @@
     {
       "path": "docs/11-cloud-and-aws/cloudops-troubleshooting-drills.md",
       "title": "CloudOps troubleshooting drills",
-      "words": 2124,
+      "words": 2131,
       "headings": 15,
       "sections": 15,
       "findings": 8,
@@ -3433,7 +3461,7 @@
     {
       "path": "docs/12-observability/monitoring-vs-observability.md",
       "title": "Monitoring vs. observability",
-      "words": 1425,
+      "words": 1424,
       "headings": 10,
       "sections": 10,
       "findings": 5,
@@ -4299,6 +4327,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-practical-walkthrough.md",
+      "title": "Praktický GitOps projekt od Git revision po overený runtime",
+      "words": 1984,
+      "headings": 15,
+      "sections": 15,
+      "findings": 7,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 7,
+      "score": 8,
+      "grade": "A"
+    },
+    {
       "path": "docs/16-gitops-and-platform-engineering/gitops-secrets.md",
       "title": "GitOps secrets",
       "words": 1696,
@@ -4309,6 +4351,20 @@
       "high": 0,
       "medium": 0,
       "low": 11,
+      "score": 11,
+      "grade": "A"
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md",
+      "title": "GitOps troubleshooting",
+      "words": 1910,
+      "headings": 16,
+      "sections": 16,
+      "findings": 9,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 9,
       "score": 11,
       "grade": "A"
     },
@@ -4357,7 +4413,7 @@
     {
       "path": "docs/16-gitops-and-platform-engineering/multi-tenancy.md",
       "title": "Multi-tenancy",
-      "words": 1694,
+      "words": 1698,
       "headings": 14,
       "sections": 14,
       "findings": 14,
@@ -4441,7 +4497,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
       "title": "Keycloak architecture a responsibility boundary",
-      "words": 2513,
+      "words": 2514,
       "headings": 23,
       "sections": 23,
       "findings": 6,
@@ -56086,6 +56142,276 @@
       "score": 2
     },
     {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "Predpoklady a lab identity",
+      "line": 23,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "Predpoklady a lab identity",
+      "line": 23,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "2. Reprodukovateľný zip a lokálny checksum",
+      "line": 157,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "3. DynamoDB table",
+      "line": 174,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "5. Vytvorenie Lambda $LATEST",
+      "line": 265,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "8. DynamoDB remote read-back",
+      "line": 406,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "11. Broken candidate bez zmeny aliasu live",
+      "line": 468,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "Cleanup",
+      "line": 632,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "Acceptance walkthroughu",
+      "line": 678,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "Acceptance walkthroughu",
+      "line": 678,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "Minimálny incident manifest",
+      "line": 20,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "2. Credential fungoval a náhle expiroval",
+      "line": 76,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "3. Resource „neexistuje“, ale console ho ukazuje",
+      "line": 94,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "5. Load balancer je healthy, používateľ dostáva chybu",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "6. Auto Scaling nahrádza instances alebo neškáluje",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "7. Lambda function je Active, invocation zlyháva",
+      "line": 180,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "8. ECS task alebo service sa nespustí",
+      "line": 195,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "10. S3 request je denied alebo object je „starý“",
+      "line": 234,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "10. S3 request je denied alebo object je „starý“",
+      "line": 234,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "11. EBS/EFS/storage problém",
+      "line": 249,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "12. RDS je Available, connection alebo query zlyháva",
+      "line": 263,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "12. RDS je Available, connection alebo query zlyháva",
+      "line": 263,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "12. RDS je Available, connection alebo query zlyháva",
+      "line": 263,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "14. SQS/SNS/EventBridge: messages chýbajú alebo sa opakujú",
+      "line": 291,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "15. CloudWatch alarm je INSUFFICIENT DATA alebo nealarmuje",
+      "line": 304,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "16. CloudTrail event chýba",
+      "line": 317,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "19. CloudFormation stack je stuck alebo rollbackuje",
+      "line": 367,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "Connected incident: health green, starý Lambda alias a duplicate payment",
+      "line": 393,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "Connected incident: health green, starý Lambda alias a duplicate payment",
+      "line": 393,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
+      "section": "Closure gate",
+      "line": 427,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md",
       "section": "4. Timed session ako control loop",
       "line": 122,
@@ -65707,6 +66033,69 @@
       "score": 1
     },
     {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-practical-walkthrough.md",
+      "section": "Predpoklady a bezpečnostná hranica",
+      "line": 19,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-practical-walkthrough.md",
+      "section": "Predpoklady a bezpečnostná hranica",
+      "line": 19,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-practical-walkthrough.md",
+      "section": "2. Inštalácia Argo CD z pinned release manifestu",
+      "line": 68,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-practical-walkthrough.md",
+      "section": "2. Inštalácia Argo CD z pinned release manifestu",
+      "line": 68,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-practical-walkthrough.md",
+      "section": "6. Resolved desired a live state",
+      "line": 336,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-practical-walkthrough.md",
+      "section": "7. Aplikačný read-back",
+      "line": 386,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-practical-walkthrough.md",
+      "section": "10. Failure: chybný image digest",
+      "line": 477,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/16-gitops-and-platform-engineering/gitops-secrets.md",
       "section": "1. Exact secret subject a plaintext boundaries",
       "line": 19,
@@ -65800,6 +66189,87 @@
       "path": "docs/16-gitops-and-platform-engineering/gitops-secrets.md",
       "section": "10. Connected incident GITOPS-PAY-62",
       "line": 152,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md",
+      "section": "2. Repository authentication alebo trust zlyháva",
+      "line": 96,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md",
+      "section": "3. Source je ready, render zlyháva",
+      "line": 124,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md",
+      "section": "4. Desired manifest je iný než operátor očakáva",
+      "line": 151,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md",
+      "section": "5. Application/Kustomization je OutOfSync alebo Ready=False",
+      "line": 178,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md",
+      "section": "10. Prune, finalizers a deletion visia",
+      "line": 317,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md",
+      "section": "11. Secret decryption alebo rotation",
+      "line": 342,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md",
+      "section": "12. Promotion používa stale evidence",
+      "line": 361,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md",
+      "section": "Connected incident: Synced/Healthy, ale tri release generations",
+      "line": 394,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md",
+      "section": "Connected incident: Synced/Healthy, ale tri release generations",
+      "line": 394,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

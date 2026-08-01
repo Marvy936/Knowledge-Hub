@@ -450,5 +450,5 @@ GitOps troubleshooting preto koreluje viac control planes. Git, controller statu
 
 **Navigácia**
 
-[← Predchádzajúca: Praktický GitOps projekt od Git revision po overený runtime](gitops-practical-walkthrough.md) · [↑ Obsah sekcie](README.md)
+[← Predchádzajúca: Praktický GitOps projekt od Git revision po overený runtime](gitops-practical-walkthrough.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Keycloak architecture a responsibility boundary →](../17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
