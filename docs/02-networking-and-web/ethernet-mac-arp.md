@@ -1,5 +1,33 @@
 # Ethernet, MAC a ARP
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú Ethernet, MAC adresa a ARP
+
+Ethernet je linkový protokol používaný na prenos frames v jednej lokálnej broadcast doméne alebo VLAN. Neurčuje end-to-end cestu cez internet. Jeho scope končí na jednom linku; router prijatý frame odstráni a pre ďalší link vytvorí nový.
+
+Ethernet frame obsahuje source a destination MAC adresu, EtherType a payload, ktorým býva IPv4, IPv6 alebo iný linkový protokol. MAC adresa identifikuje linkový interface alebo logický endpoint v danej doméne. Destination MAC pri routovanom packete patrí next hopu, nie vzdialenému serveru.
+
+Switch sa učí source MAC adresy z prijatých frames a vytvára forwarding table `MAC → port + VLAN`. Known unicast pošle na konkrétny port, broadcast a unknown unicast typicky flooduje iba v rámci príslušnej VLAN. VLAN tak oddeľuje broadcast domains aj na spoločnej fyzickej infraštruktúre.
+
+ARP rieši IPv4 neighbor resolution: mapuje on-link IPv4 adresu na MAC adresu. Host vyšle broadcast otázku „kto má túto IP“ a vlastník odpovie svojou MAC. Výsledok sa uloží do neighbor cache s časovo meniacim sa stavom. ARP neoveruje identitu cryptograficky, preto je vystavený spoofingu.
+
+Neutrálny príklad:
+
+```text
+host:    192.0.2.10/24
+gateway: 192.0.2.1
+server:  198.51.100.20
+```
+
+Server nie je on-link. Host preto nevykonáva ARP pre `198.51.100.20`; vykoná ARP pre gateway `192.0.2.1` a IP packet vloží do frame-u adresovaného MAC gatewaya.
+
+IPv6 nepoužíva ARP. Neighbor Discovery Protocol prenáša neighbor a router discovery cez ICMPv6. Blokovanie ICMPv6 preto môže rozbiť základnú konektivitu, nie iba diagnostický `ping`.
+
+Zdravý ARP alebo NDP mapping dokazuje iba lokálnu schopnosť doručiť frame next hopu. Nepotvrdzuje, že next hop má funkčnú route, firewall policy alebo vzdialenú aplikáciu.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Klient `10.24.8.37` chce odoslať packet na verejnú API adresu `203.0.113.40`. Destination nie je v lokálnom prefixe, takže kernel vyberie gateway `10.24.8.1`. Pred odoslaním IP packetu však potrebuje linkovú adresu gatewaya. Ethernet a ARP riešia práve tento prvý lokálny hop.
 
 Ethernet neposkytuje end-to-end routing. Doručuje frames v jednej broadcast doméne alebo VLAN. Router frame prijme, odstráni ho a pre ďalší link vytvorí nový. Preto sa pri každom routovanom hope menia linkové adresy, aj keď IP packet pokračuje k rovnakému cieľu.

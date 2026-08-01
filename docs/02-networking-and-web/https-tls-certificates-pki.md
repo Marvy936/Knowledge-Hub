@@ -1,5 +1,37 @@
 # HTTPS, TLS, certifikáty a PKI
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú TLS, certifikát a PKI
+
+TLS vytvára šifrovaný a integrity-protected channel medzi dvoma endpoints a typicky overuje identity servera. HTTPS je HTTP prenášané cez TLS. Šifrovanie platí iba medzi konkrétnymi TLS endpoints; reverse proxy môže channel ukončiť a vytvoriť ďalší upstream channel.
+
+Handshake dohodne protocol version, cryptographic parametre a session keys. ClientHello môže obsahovať SNI pre výber virtual hostu a ALPN pre dohodu aplikačného protokolu, napríklad HTTP/2.
+
+Server posiela certificate chain. Client overuje podpisy, trust anchor, časovú platnosť, key usage, constraints a hostname v Subject Alternative Name. Certifikát podpísaný dôveryhodnou CA nie je platný pre ľubovoľný hostname.
+
+Typický chain:
+
+```text
+server leaf certificate
+→ intermediate CA
+→ root CA v client trust store
+```
+
+Server zvyčajne neposiela root. Chýbajúci intermediate môže fungovať na clientovi s cached chainom a zlyhať na čistom zariadení.
+
+PKI je celý lifecycle identity: issuance, key generation a protection, deployment, trust distribution, renewal, revocation a retirement. Úspešné vydanie certifikátu nepreukazuje, že listener načítal nový file. Runtime handshake je samostatný read-back.
+
+Private key dokazuje possession identity a musí zostať v kontrolovanom termination boundary. Forward secrecy používa ephemeral key agreement, aby neskorší únik dlhodobého key automaticky neodhalil staré sessions.
+
+Pri mTLS posiela certificate aj client. Authentication certifikátom ešte nie je authorization; certificate identity sa musí mapovať na konkrétne permissions a audience.
+
+Neutrálny príklad: client sa pripája na `api.example.test`, ale server pošle certificate iba pre `other.example.test`. TCP a cryptography môžu fungovať, no hostname validation musí handshake odmietnuť.
+
+TLS troubleshooting preto oddeľuje transport connect, certificate chain, hostname, trust store, protocol negotiation a následný HTTP outcome.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Atlas klient sa pripája na `https://api.atlas.example`. TCP handshake potvrdil transport, ale klient ešte nevie, kto je na druhej strane. TLS vytvorí cryptographic channel, dohodne parametre a overí peer identity podľa certificate chainu a hostname policy.
 
 HTTPS je HTTP prenášané cez TLS. Šifrovanie chráni obsah medzi TLS endpoints, nie automaticky za reverse proxy, v logoch alebo v backend storage.

@@ -1,5 +1,43 @@
 # Load balancing
 
+<!-- CONCEPT-FIRST:START -->
+## Čo je load balancing
+
+Load balancing rozdeľuje connections alebo requests medzi viac eligible targets. Nie je to iba výber algoritmu. Zahŕňa backend inventory, health, readiness, capacity, selection, draining a feedback z reálnych outcomes.
+
+L4 load balancer rozhoduje najmä podľa transportných fields a pracuje s TCP alebo UDP flows. L7 load balancer rozumie aplikačnému protokolu, typicky HTTP, a môže routovať podľa hostname, pathu, headers alebo cookies.
+
+Backend môže byť configured, ale neeligible. Môže zlyhávať health check, byť v drain stave, mať nulovú weight alebo byť vyradený outlier detectionom. Runtime inventory je preto dôležitejší než samotný source configuration.
+
+Bežné algoritmy:
+
+```text
+round robin
+strieda eligible targets
+
+least connections
+uprednostní target s menším počtom aktívnych connections
+
+weighted selection
+zohľadní rozdielnu kapacitu
+
+hash alebo affinity
+viaže cohort na stabilný target
+```
+
+Algoritmus musí zodpovedať workloadu. Pri rozdielne dlhých requests nemusí round robin rozdeliť prácu rovnomerne. Pri HTTP/2 nemusí počet TCP connections zodpovedať počtu requestov.
+
+Active health check vytvára umelý probe. Passive health sleduje reálne errors alebo latency. Plytký endpoint môže byť zelený, hoci business dependency nefunguje. Príliš hlboký health check môže pri shared dependency brownout-e vyradiť všetky backends a premeniť degradáciu na úplný outage.
+
+Draining znamená zastaviť nové assignments a ponechať in-flight requests alebo long-lived connections dokončiť do definovaného deadline. Okamžité odstránenie môže resetnúť uploady alebo WebSockety; nekonečný drain blokuje rollout.
+
+Session affinity môže pomôcť legacy stateful aplikácii, ale zhoršuje rebalancing a fault tolerance. Source-IP affinity za NAT-om môže poslať veľkú user cohortu na jediný backend.
+
+Zelený VIP alebo jeden úspešný request nepreukazuje zdravie všetkých backend cohorts. Overenie potrebuje target identity, distribution, business outcome a správanie pri removal alebo recovery.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Atlas reverse proxy má dva backendy: `10.60.1.21:8080` a `10.60.1.22:8080`. Load balancing nie je iba algoritmus „round robin“. Je to lifecycle, ktorý udržiava inventory, rozhoduje o eligibility, vyberá target, sleduje health a capacity a bezpečne vyraďuje backend počas rollout-u.
 
 ```text

@@ -1,5 +1,35 @@
 # Proxy a reverse proxy
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú forward proxy a reverse proxy
+
+Proxy prijme komunikáciu na jednej strane a vytvorí novú komunikáciu na druhej. Tým rozdelí pôvodnú cestu na samostatné connections, timeout budgets, identities a trust boundaries.
+
+Forward proxy koná v mene klienta. Client vie, že request posiela proxy, ktorá následne komunikuje s vybraným destination. Používa sa pre outbound access control, inspection, caching alebo privacy.
+
+Reverse proxy koná pred servermi. Client používa service hostname a proxy vyberá upstream backend. Môže terminovať TLS, routovať podľa hostname alebo pathu, autentizovať, rate-limitovať, bufferovať, retryovať a load-balancovať.
+
+```text
+client connection:
+client → reverse proxy
+
+upstream connection:
+reverse proxy → backend
+```
+
+Tieto connections majú odlišné transportné tuples. Backend typicky vidí source adresu proxy, nie klienta. Pôvodnú address alebo scheme možno preniesť cez `Forwarded` alebo `X-Forwarded-*` headers, ale proxy musí odstrániť nedôveryhodné client-supplied hodnoty. Backend smie veriť týmto headers iba od explicitne trusted proxy chainu.
+
+TLS môže skončiť na proxy a upstream môže byť plaintext alebo nové TLS spojenie. V druhom prípade client overuje proxy identity a proxy samostatne overuje backend identity. Jedna cryptographic session neprechádza automaticky cez oba hops.
+
+Buffering mení backpressure a timing. Proxy môže prijať celé request body pred odoslaním upstreamu alebo bufferovať response pre pomalého klienta. To chráni resources, ale môže skryť pomalý backend a meniť streaming semantics.
+
+Retry musí rešpektovať aplikačnú idempotenciu a unknown outcome. Proxy nevie bezpečne zopakovať mutating request iba preto, že nedostala response. Server mohol side effect dokončiť.
+
+Proxy config v control plane nie je automaticky effective worker state. Po zmene treba overiť runtime route, listener, certificate a reálny request cez rovnakú cestu ako client.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Proxy ukončí jedno aplikačné alebo transportné spojenie a vytvorí ďalšie. Tým vzniká nová identity, nový timeout budget a nový trust boundary. Pri Atlas requeste klient komunikuje s edge proxy na `203.0.113.40:443`; proxy následne komunikuje s backendom `10.60.1.21:8080`.
 
 ```text

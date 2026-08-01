@@ -1,5 +1,35 @@
 # HTTP
 
+<!-- CONCEPT-FIRST:START -->
+## Čo je HTTP
+
+HTTP je aplikačný request-response protokol. Definuje method, target, headers, message body a response status, ale nedefinuje interný database model ani automaticky nezaručuje business side effect. Jeden HTTP request môže prejsť cez cache, proxy alebo load balancer a môže byť prenášaný cez HTTP/1.1, HTTP/2 alebo HTTP/3.
+
+URL obsahuje scheme, authority, path a voliteľný query a fragment. DNS používa hostname, TLS ho môže používať pri SNI a certificate validation a HTTP routing používa `Host` alebo `:authority`. Path pomenúva aplikačný target v rámci originu.
+
+Methods majú semantics. `GET` a `HEAD` majú byť safe z pohľadu zamýšľanej state change. `PUT` a `DELETE` majú idempotentný zamýšľaný výsledok. `POST` je všeobecná processing metóda a nie je implicitne idempotentná. Tieto vlastnosti sú contract, nie vynútenie protokolom.
+
+Status code opisuje HTTP outcome. `2xx` neznamená automaticky dokončený business proces. `202 Accepted` napríklad potvrdzuje prijatie na neskoršie spracovanie. `4xx` a `5xx` tiež potrebujú stabilný machine-readable error model.
+
+HTTP caching používa cache key, freshness, validators a directives ako `Cache-Control`, `ETag`, `If-None-Match` a `Vary`. Cache hit môže obslúžiť klienta bez kontaktu s originom. Úspešný response preto nemusí dokazovať aktuálne zdravie backendu.
+
+Neutrálny request:
+
+```http
+GET /items/42 HTTP/1.1
+Host: api.example.test
+Accept: application/json
+```
+
+Response representation má `Content-Type`; JSON syntax sama nehovorí o domain schéme. Conditional request s `If-Match` alebo `If-None-Match` môže poskytovať optimistic concurrency alebo cache validation.
+
+HTTP/2 multiplexuje viac streams v jednom TCP connection. HTTP/3 prenáša HTTP semantics cez QUIC nad UDP. Connection-level health preto nemusí reprezentovať každý request stream.
+
+Retry mutating requestu musí rešpektovať idempotency key alebo iný deduplication contract. Timeout môže znamenať unknown business outcome, nie jednoznačné zlyhanie servera.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Po DNS, routing, TCP a TLS dostane Atlas reverse proxy aplikačný request:
 
 ```http

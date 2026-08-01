@@ -1,5 +1,51 @@
 # Network troubleshooting
 
+<!-- CONCEPT-FIRST:START -->
+## Čo je systematický network troubleshooting
+
+Network troubleshooting je proces lokalizácie prvého chýbajúceho alebo nesprávneho transitionu na komunikačnej ceste. Nezačína zoznamom príkazov, ale presným symptómom, subject identity, časom a scope-om.
+
+Jedna používateľská operácia môže zahŕňať viac identít:
+
+```text
+hostname a DNS answer
+→ IP address a route
+→ packet a transportný tuple
+→ socket a process
+→ TLS session a peer identity
+→ HTTP request a proxy attempt
+→ backend operation a business outcome
+```
+
+Každý observation point vidí iba časť cesty. Client capture nevie automaticky povedať, čo prijal backend. Proxy log nemusí dokazovať, že client dostal response. Absencia logu nie je dôkaz, kým nie je overená log coverage.
+
+Základný workflow:
+
+```text
+presný symptom
+→ timeline a recent changes
+→ scope zdravých a chybných cohorts
+→ flow/request/business identity
+→ preservation volatile evidence
+→ path a enforcement inventory
+→ competing hypotheses
+→ diskriminačný test
+→ minimálne containment
+→ oprava authoritative state-u
+→ positive, negative a business verification
+```
+
+„Ping funguje“ dokazuje iba určitý ICMP path. „Port je otvorený“ môže dokazovať TCP handshake, nie TLS alebo HTTP. Zelený health endpoint môže používať inú route, payload, dependency alebo backend cohort než reálny request.
+
+Competing hypotheses majú predpovedať odlišné dôkazy. Pri timeoute väčších payloadov môžu byť kandidátmi application size limit, proxy buffering, congestion, packet loss alebo PMTU black hole. Porovnanie malého a veľkého requestu, captures pred a za tunnelom a ICMP feedback má vyššiu diskriminačnú hodnotu než opakovaný restart služby.
+
+Preserve-first znamená zachovať pcap, counters, conntrack, route, ruleset, logs a generation identity pred zásahom, ktorý volatile state zničí. Containment má mať úzky scope a rollback.
+
+Incident sa uzatvára až pôvodným user journey a business outcome-om, nie iba zeleným technickým probe. Zároveň sa overuje zakázaný flow a susedné cohorts, aby oprava nevytvorila security alebo availability regresiu.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Network troubleshooting nezačína príkazom. Začína presným používateľským symptómom, flow identity a časom. Vrstvy z predchádzajúcich kapitol poskytujú mapu, no incident sa rieši hľadaním prvého chýbajúceho transitionu, nie mechanickým vykonaním rovnakého checklistu pri každom probléme.
 
 Nosný incident tejto kapitoly:

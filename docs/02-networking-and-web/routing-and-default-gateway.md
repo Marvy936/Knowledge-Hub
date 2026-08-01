@@ -1,5 +1,33 @@
 # Routing a default gateway
 
+<!-- CONCEPT-FIRST:START -->
+## Čo je routing a default gateway
+
+Routing je rozhodovanie, ktorým egress interface-om a cez aký next hop sa odošle IP packet. Host aj router používajú routing table a vyberajú najšpecifickejšiu zodpovedajúcu route, teda longest-prefix match. Default route `0.0.0.0/0` alebo `::/0` je iba najmenej špecifický fallback.
+
+Route môže byť connected, statická, naučená dynamickým protokolom alebo vložená platformovým control plane-om. Výsledné forwarding rozhodnutie zahŕňa destination prefix, next hop, interface, metric a často source-address selection. Policy routing môže navyše vyberať inú table podľa source, fwmark alebo ďalších fields.
+
+Neutrálny príklad:
+
+```text
+203.0.113.0/24 via 192.0.2.1
+203.0.113.40/32 via 192.0.2.2
+default via 192.0.2.254
+```
+
+Packet na `203.0.113.40` použije `/32`, nie default a ani `/24`, pretože `/32` je najšpecifickejšia. Metric rozhoduje až medzi porovnateľnými candidates; neprebije dlhší prefix.
+
+Default gateway musí byť sama dosiahnuteľná na lokálnom linku alebo cez explicitný recursive next-hop mechanizmus. Existencia route nepreukazuje neighbor resolution ani to, že ďalší router pozná pokračovanie cesty.
+
+End-to-end komunikácia potrebuje forward aj return path. Asymetria nemusí byť automaticky chybná, ale stateful firewall alebo NAT môže vyžadovať, aby oba directions prešli rovnakým state ownerom.
+
+TTL pri IPv4 a hop limit pri IPv6 sa znižuje na každom routeri. Traceroute využíva expiráciu tejto hodnoty, no jeho výstup nie je úplná topologická pravda: zariadenia môžu ICMP rate-limitovať, tunely skrývať hops a load balancing meniť pozorovanú cestu.
+
+Routing control plane a forwarding data plane sú odlišné states. Prijatá BGP route alebo zelená routing session nepreukazuje, že konkrétny packet je skutočne forwardovaný požadovanou cestou. Najpresnejší lokálny read-back je route lookup pre konkrétny destination a source.
+<!-- CONCEPT-FIRST:END -->
+
+## Atlas scenár a praktické použitie
+
 Klient pozná destination IP `203.0.113.40`, ale musí rozhodnúť, kam packet odoslať ako ďalší hop. Routing je proces výberu egress interface, next hopu a source address podľa aktuálnych rules, route tables a packet metadata. Default gateway je iba najširšia fallback route; nie je automaticky prvým ani jediným rozhodnutím.
 
 ## Route lookup pre konkrétny packet
