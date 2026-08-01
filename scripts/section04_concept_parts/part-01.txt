@@ -1,0 +1,141 @@
+@@ verification-vs-validation.md
+## Čo sú verification a validation
+
+Verification a validation sú dve odlišné otázky kvality. **Verification** skúma, či systém alebo artefakt zodpovedá špecifikácii, designu alebo explicitnému contractu. **Validation** skúma, či výsledný systém rieši správny používateľský alebo business problém v reálnom kontexte.
+
+Zjednodušene:
+
+```text
+verification:
+Postavili sme systém správne podľa definovaných pravidiel?
+
+validation:
+Postavili sme správny systém pre skutočnú potrebu?
+```
+
+Verification môže overiť, že API vracia schema-valid JSON a používa správny status code. Validation môže zistiť, že používateľ napriek tomu nedokáže dokončiť objednávku alebo že workflow rieši nesprávny problém.
+
+Každý test potrebuje **oracle**: pravidlo alebo zdroj pravdy, podľa ktorého sa rozhodne pass/fail. Oracle môže byť presná hodnota, invariant, schema, referenčný model, business rule, user acceptance criterion alebo pozorovaný production baseline. Slabý oracle môže vytvárať false positives alebo false negatives aj pri technicky správnom test runneri.
+
+Traceability spája:
+
+```text
+požiadavka alebo riziko
+→ očakávané správanie
+→ test subject a scope
+→ oracle
+→ evidence
+→ rozhodnutie
+```
+
+Bez tejto väzby môže suite obsahovať veľa testov, ale nepokrývať najdôležitejšie riziko.
+
+Neutrálny príklad: kalkulačka má requirement, že delenie nulou musí vrátiť definovanú chybu. Unit test, ktorý overí konkrétny error type, je verification. Používateľské testovanie môže odhaliť, že text chyby je pre cieľovú skupinu nezrozumiteľný; to je validation.
+
+Verification ani validation nie sú jednorazové fázy na konci projektu. Prebiehajú na rôznych úrovniach od requirements reviewu cez static checks a tests až po produkčné business outcomes. Dôkaz musí vždy pomenovať, pre ktorý subject, verziu, prostredie a čas platí.
+
+@@ test-pyramid.md
+## Čo je test pyramid
+
+Test pyramid je heuristický model portfólia testov. Odporúča mať veľa rýchlych a úzko scoped testov pri základe, menej integračných testov v strede a malý počet drahých end-to-end testov na vrchu. Nie je to fixná percentuálna kvóta ani tvrdenie, že všetky systémy potrebujú rovnaký pomer.
+
+Základná myšlienka vychádza z trade-offu:
+
+```text
+nižší scope
+→ rýchlejší feedback
+→ lepšia lokalizácia chyby
+→ nižšia environment fidelity
+
+vyšší scope
+→ viac reálnych hraníc
+→ vyššia confidence pre celý journey
+→ pomalší a menej diagnostický feedback
+```
+
+Test trophy alebo iné varianty kladú väčší dôraz na integration tests, najmä pri aplikáciách, kde riziko vzniká hlavne medzi modulmi a frameworkom. Dôležitý nie je tvar diagramu, ale risk-based umiestnenie dôkazu.
+
+Najnižší vhodný scope je taký, ktorý spoľahlivo aktivuje failure mode. Čistú business funkciu je výhodné testovať unit testom. SQL transaction behavior potrebuje reálnu alebo fidelity-valid databázovú hranicu. DNS, TLS alebo browser behavior nemožno presvedčivo nahradiť čistým unit testom.
+
+Neutrálny príklad e-shopu:
+
+```text
+unit:
+výpočet ceny a dane
+
+integration:
+repository voči databáze
+
+component:
+celá API služba s controlled dependencies
+
+contract:
+kompatibilita client–provider
+
+E2E:
+používateľ vytvorí a zaplatí objednávku
+```
+
+Portfólio musí zohľadniť execution time, determinism, maintenance cost, diagnostickosť a unikátny risk coverage. Desať E2E testov, ktoré všetky zlyhajú pri rovnakom database outage-i, neposkytuje desať nezávislých dôkazov.
+
+Pyramid tiež nehovorí, že testy vyššieho scope-u sú menej dôležité. Kritický end-to-end journey môže byť release-blocking aj pri jednom teste, pretože overuje unikátnu kombináciu boundaries, ktorú nižšie testy nevidia.
+
+@@ unit-integration-component-tests.md
+## Čo odlišuje unit, integration a component test
+
+Rozdiel medzi unit, integration a component testom neurčuje názov frameworku ani to, či test beží „lokálne“. Určuje ho subject, boundary a ktoré dependencies sú reálne alebo nahradené.
+
+**Unit test** overuje malú jednotku správania v izolovanom a kontrolovanom prostredí. Unit môže byť funkcia, class alebo coherent modul. Dôležité je, že test rýchlo a deterministicky lokalizuje logic failure a nepoužíva drahé externé boundaries.
+
+**Integration test** overuje spoluprácu medzi dvoma alebo viacerými reálnymi komponentmi alebo technológiami. Môže testovať SQL mapping voči databáze, serialization library, filesystem semantics alebo message broker clienta. Jeho hodnota je práve v reálnom contracte medzi boundaries.
+
+**Component test** spúšťa celý deployable component cez jeho verejné rozhranie, ale kontroluje alebo nahrádza okolité externé systémy. Overuje routing, dependency injection, serialization, business flow a error mapping v rámci jedného componentu.
+
+Neutrálny príklad:
+
+```text
+unit:
+CalculateDiscount(order)
+
+integration:
+OrderRepository ↔ PostgreSQL
+
+component:
+HTTP POST /orders cez celú službu,
+platobná brána nahradená fake serverom
+```
+
+Test double nie je automaticky známkou unit testu. Component test môže používať fake payment provider, zatiaľ čo unit test môže omylom spúšťať reálny filesystem. Scope treba popísať mechanicky.
+
+Hermetic test má explicitné inputs, izolovaný state a kontrolované dependencies. Parallelizability vyžaduje unikátne test data, ports, files alebo database schemas. Cleanup musí fungovať aj pri failure; ešte lepšie je vytvárať disposable environment.
+
+Nižší scope zvyšuje diagnostickosť, ale môže skryť boundary bugs. Vyšší scope zvyšuje fidelity, ale failure má viac možných príčin. Dobré portfolio používa oba a nevytvára component test pre logic, ktorú možno presnejšie overiť unit testom.
+
+@@ contract-and-api-tests.md
+## Čo sú contract test a API test
+
+API test a contract test nie sú synonymá. **API test** posiela request na runtime rozhranie a overuje jeho aktuálne správanie: status, headers, body, authorization, side effects alebo latency. **Contract test** overuje kompatibilitu medzi producerom a consumerom podľa explicitnej dohody o messages a semantics.
+
+Provider contract môže byť OpenAPI, AsyncAPI, protobuf schema, event schema alebo iný versioned artifact. Schema však zachytí iba časť contractu. Dôležité sú aj required/optional fields, error semantics, ordering, idempotency, authorization a lifecycle.
+
+Consumer-driven contract zachytáva interactions, ktoré konkrétny consumer reálne potrebuje. Provider ich verifikuje voči svojej implementácii. Producer-driven contract vychádza z providerom publikovanej špecifikácie a consumers sa testujú proti nej. Obe stratégie potrebujú version a deployment compatibility model.
+
+Neutrálny príklad:
+
+```text
+consumer očakáva:
+GET /items/42
+→ 200
+→ JSON s required fieldmi id a price
+
+provider zmena:
+price sa premenuje na amount
+```
+
+Provider môže mať lokálne zelené API testy pre nový response, no contract test odhalí, že existujúci consumer stále potrebuje `price`.
+
+Backward compatibility znamená, že nový provider funguje so starým consumerom. Forward compatibility môže znamenať, že starší provider alebo consumer toleruje nové additive data podľa contractu. Reálna deployment matrix môže obsahovať viac súčasných verzií než iba latest/latest.
+
+Contract test nepreukazuje dostupnosť runtime prostredia, routing ani reálny database side effect. API test zase nemusí odhaliť, že zmena rozbije consumer, ak testuje iba providerov vlastný pohľad. Preto sa kombinujú contract artifact, provider verification, consumer tests a vybrané runtime API journeys.
+
+Pri event-driven systéme treba testovať nielen schema, ale aj key, ordering, duplicate, retry a evolution semantics. Syntakticky validný event môže byť semanticky nekompatibilný.
