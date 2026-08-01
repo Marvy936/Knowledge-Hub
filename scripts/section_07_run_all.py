@@ -28,6 +28,13 @@ run_script(
         ),
     },
 )
-run_script(ROOT / "scripts" / "section_07_ansible_depth.py")
+run_script(
+    ROOT / "scripts" / "section_07_ansible_depth.py",
+    {
+        '"### „force_handlers dokončí partial rollout“"': (
+            '"### „`force_handlers` dokončí partial rollout“"'
+        ),
+    },
+)
 
 print("Combined Section 07 explanation-depth pass applied.")
