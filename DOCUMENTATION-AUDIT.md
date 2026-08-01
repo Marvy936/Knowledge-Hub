@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **327**
 - Audited conceptual sections: **6774**
-- Total words: **640,403**
-- Findings: **6532** (critical 654, high 872, medium 469, low 4537)
-- File grades: A 135, B 105, C 28, D 59
+- Total words: **641,011**
+- Findings: **6537** (critical 654, high 865, medium 469, low 4549)
+- File grades: A 135, B 106, C 27, D 59
 
 ## Interpretation
 
@@ -94,7 +94,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | C | 53 | 0 | 0 | 6 | 22 | 2531 | `docs/00-foundations/desired-state-and-reconciliation.md` |
-| C | 53 | 0 | 6 | 0 | 4 | 2266 | `docs/11-cloud-and-aws/aws-practical-walkthrough.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 2059 | `docs/05-ci-cd-and-release/continuous-integration.md` |
 | C | 49 | 0 | 0 | 0 | 35 | 3321 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
@@ -112,13 +111,13 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
-| B | 32 | 0 | 1 | 0 | 19 | 2439 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
+| B | 25 | 0 | 0 | 0 | 20 | 2559 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
 | B | 24 | 0 | 0 | 0 | 16 | 1669 | `docs/06-gitlab/security-scanning.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2890 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | B | 24 | 0 | 0 | 0 | 20 | 2129 | `docs/08-container-fundamentals-and-docker/container-security.md` |
@@ -175,6 +174,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 14 | 1887 | `docs/08-container-fundamentals-and-docker/oci-image-runtime-standards.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 3965 | `docs/09-kubernetes/kubernetes-practical-walkthrough.md` |
 | B | 17 | 0 | 0 | 0 | 11 | 1617 | `docs/09-kubernetes/logging-metrics-events.md` |
+| B | 17 | 0 | 0 | 0 | 15 | 2754 | `docs/11-cloud-and-aws/aws-practical-walkthrough.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1839 | `docs/11-cloud-and-aws/ec2-auto-scaling.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 1808 | `docs/11-cloud-and-aws/internet-gateway-nat-gateway.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 1871 | `docs/11-cloud-and-aws/shared-responsibility-model.md` |
@@ -2095,33 +2095,20 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/11-cloud-and-aws/aws-practical-walkthrough.md`
-
-- **HIGH** line 157, `list-first-introduction` — **2. Reprodukovateľný zip a lokálny checksum**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 174, `list-first-introduction` — **3. DynamoDB table**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 265, `list-first-introduction` — **5. Vytvorenie Lambda $LATEST**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 406, `list-first-introduction` — **8. DynamoDB remote read-back**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 678, `list-first-introduction` — **Acceptance walkthroughu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 678, `single-sentence-concept` — **Acceptance walkthroughu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/11-cloud-and-aws/aws-troubleshooting.md`
-
-- **HIGH** line 20, `list-first-introduction` — **Minimálny incident manifest**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2106 | 2106 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1291 | 1291 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1140 | 1140 |
+| `example-not-explicit` | 0 | 0 | 0 | 2112 | 2112 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1292 | 1292 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1145 | 1145 |
 | `term-before-explanation` | 0 | 54 | 320 | 0 | 374 |
-| `single-sentence-concept` | 0 | 346 | 0 | 0 | 346 |
+| `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
 | `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 129 | 0 | 0 | 129 |
+| `list-first-introduction` | 0 | 123 | 0 | 0 | 123 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |

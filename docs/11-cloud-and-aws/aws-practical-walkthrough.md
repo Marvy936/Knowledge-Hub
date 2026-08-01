@@ -156,6 +156,10 @@ Lambda runtime obsahuje AWS SDK, no jeho verzia je platform input. Produkčný a
 
 ## 2. Reprodukovateľný zip a lokálny checksum
 
+Lambda deployment package je immutable input až vtedy, keď rovnaký source a build procedure vytvoria rovnaké bytes. Exact artifact subject preto zahŕňa source revision, runtime a dependency set, archive file order, timestamps a metadata normalization. Lokálny hex alebo base64 SHA-256 identifikuje konkrétny `function.zip`; názov súboru ani pipeline job identity nestačia.
+
+Nasledujúci build odstráni ZIP extra fields a stabilizuje timestamp, potom vytvorí dve reprezentácie rovnakého digestu. Hex checksum je vhodný pre local evidence a base64 hodnota sa porovnáva s Lambda `CodeSha256`. Zhoda preukazuje, že AWS eviduje rovnaký uploadnutý ZIP payload; nepreukazuje správnu handler configuration, runtime compatibility, execution role ani business behavior.
+
 ```bash
 cp src/lambda_function.py build/
 (
@@ -172,6 +176,10 @@ printf 'hex=%s\nbase64=%s\n' "$LOCAL_ZIP_SHA256" "$LOCAL_ZIP_SHA256_B64"
 `zip -X` odstráni extra metadata a stabilný timestamp znižuje nondeterminism. Checksum opisuje lokálne bytes; Lambda API vracia `CodeSha256` v base64. Predpoklad rovnosti platí pre priamo uploadnutý zip artifact.
 
 ## 3. DynamoDB table
+
+DynamoDB table je durable business-state subject pre operation IDs, nie iba prerequisite Lambda funkcie. Table name, account, region, partition key schema a billing mode tvoria ownership a cost boundary. Partition key `operationId` umožní conditional create a následný consistent read rovnakého business subjectu; zmena key schema by vytvorila iný deduplication contract.
+
+`create-table` mutuje control plane a `table-exists` čaká na service-reported availability. Následný `describe-table` read-back zachová ARN, ktorý sa použije v IAM policy a evidence. Available table ešte nepreukazuje, že Lambda execution role smie čítať alebo zapisovať, že conditional expression funguje ani že business item prežije retry bez duplicity.
 
 ```bash
 aws dynamodb create-table \
@@ -263,6 +271,10 @@ sleep 10
 ```
 
 ## 5. Vytvorenie Lambda `$LATEST`
+
+`$LATEST` je mutable working generation funkcie, do ktorej sa spájajú code bytes, runtime, handler, execution role, timeout, memory, environment a logging configuration. Vytvorenie funkcie preto musí viazať lokálny artifact digest na exact account, region, function name a role ARN. `$LATEST` ešte nie je immutable release subject a nemá sa používať ako stabilný production traffic target.
+
+`create-function` zapisuje control-plane configuration a uploaduje code. Waiter uzatvára iba service state transition do active generation. `get-function` následne číta `CodeSha256`, `RevisionId`, runtime, role a environment a porovnáva ich s local evidence. Až publication vytvorí immutable numbered version; invocation a business read-back potom dokazujú runtime a application outcome.
 
 ```bash
 aws lambda create-function \
@@ -404,6 +416,10 @@ jq '{StatusCode,FunctionError,ExecutedVersion}' evidence/invoke-2.json
 `ExecutedVersion` musí zodpovedať alias targetu `$VERSION_1`.
 
 ## 8. DynamoDB remote read-back
+
+Remote read-back používa rovnaký table subject a business `operationId`, ktorý niesli obe Lambda invocations. `--consistent-read` žiada strongly consistent observation v regione table, aby sa acceptance neopierala o prípadne oneskorenú eventual read. Výsledok sa koreluje s `authorizationId`, amount, release ID a response outcomes.
+
+Jeden item podporuje tvrdenie, že conditional write nevytvoril druhý business result pre tento operation key. Nehovorí, koľko invocation attempts, throttles alebo failed writes nastalo a nepreukazuje všeobecnú exactly-once garanciu mimo definovaného idempotency contractu. Tieto hranice dopĺňajú structured Lambda logs, AWS request IDs a CloudTrail management evidence.
 
 ```bash
 aws dynamodb get-item \
@@ -676,6 +692,10 @@ aws iam get-role --role-name "$ROLE_NAME" || true
 Nakoniec skontroluj Cost Explorer alebo billing dashboard podľa account policy. Resource deletion neznamená okamžitú finalizáciu všetkých usage records.
 
 ## Acceptance walkthroughu
+
+Acceptance je evidence matrix nad jedným sandbox lab subjectom. Každý riadok nižšie musí byť naviazaný na rovnaký account, region, artifact digest, function version, alias revision, table a business operation ID. Úspech jednej vrstvy sa neprenáša automaticky na ďalšiu: control-plane creation, immutable publication, alias exposure, runtime execution, durable business state, audit evidence a cleanup sú samostatné verdicts.
+
+Checklist zároveň definuje negatívnu hranicu. Walkthrough nepreukazuje production concurrency, multi-region recovery, organization-wide policy, reserved concurrency, VPC networking ani dlhodobú cost optimalizáciu. Preukazuje iba explicitné transitions a forbidden outcomes vykonané v tomto cost-bounded sandboxe vrátane broken candidate isolation, compare-and-swap alias recovery, retry idempotency a resource-deletion read-backu.
 
 ```text
 principal, account a region sú explicitné

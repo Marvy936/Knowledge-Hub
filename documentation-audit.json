@@ -2915,29 +2915,29 @@
     {
       "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
       "title": "Praktický AWS projekt od lokálneho artifactu po overenú Lambda release",
-      "words": 2266,
+      "words": 2754,
       "headings": 16,
       "sections": 16,
-      "findings": 10,
+      "findings": 15,
       "critical": 0,
-      "high": 6,
+      "high": 0,
       "medium": 0,
-      "low": 4,
-      "score": 53,
-      "grade": "C"
+      "low": 15,
+      "score": 17,
+      "grade": "B"
     },
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "title": "AWS troubleshooting",
-      "words": 2439,
+      "words": 2559,
       "headings": 23,
       "sections": 23,
       "findings": 20,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 19,
-      "score": 32,
+      "low": 20,
+      "score": 25,
       "grade": "B"
     },
     {
@@ -51600,42 +51600,78 @@
       "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
       "section": "2. Reprodukovateľný zip a lokálny checksum",
       "line": 157,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "2. Reprodukovateľný zip a lokálny checksum",
+      "line": 157,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
       "section": "3. DynamoDB table",
-      "line": 174,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 178,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "3. DynamoDB table",
+      "line": 178,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
       "section": "5. Vytvorenie Lambda $LATEST",
-      "line": 265,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 273,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "5. Vytvorenie Lambda $LATEST",
+      "line": 273,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
       "section": "8. DynamoDB remote read-back",
-      "line": 406,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 418,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "8. DynamoDB remote read-back",
+      "line": 418,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
       "section": "11. Broken candidate bez zmeny aliasu live",
-      "line": 468,
+      "line": 484,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51644,7 +51680,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
       "section": "Cleanup",
-      "line": 632,
+      "line": 648,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -51653,34 +51689,43 @@
     {
       "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
       "section": "Acceptance walkthroughu",
-      "line": 678,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "line": 694,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
       "section": "Acceptance walkthroughu",
-      "line": 678,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 694,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/11-cloud-and-aws/aws-practical-walkthrough.md",
+      "section": "Acceptance walkthroughu",
+      "line": 694,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "Minimálny incident manifest",
       "line": 20,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "2. Credential fungoval a náhle expiroval",
-      "line": 76,
+      "line": 80,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51689,7 +51734,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "3. Resource „neexistuje“, ale console ho ukazuje",
-      "line": 94,
+      "line": 98,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51698,7 +51743,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "5. Load balancer je healthy, používateľ dostáva chybu",
-      "line": 137,
+      "line": 141,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51707,7 +51752,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "6. Auto Scaling nahrádza instances alebo neškáluje",
-      "line": 166,
+      "line": 170,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51716,7 +51761,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "7. Lambda function je Active, invocation zlyháva",
-      "line": 180,
+      "line": 184,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51725,7 +51770,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "8. ECS task alebo service sa nespustí",
-      "line": 195,
+      "line": 199,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51734,7 +51779,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "10. S3 request je denied alebo object je „starý“",
-      "line": 234,
+      "line": 238,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51743,7 +51788,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "10. S3 request je denied alebo object je „starý“",
-      "line": 234,
+      "line": 238,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -51752,7 +51797,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "11. EBS/EFS/storage problém",
-      "line": 249,
+      "line": 253,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51761,7 +51806,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "12. RDS je Available, connection alebo query zlyháva",
-      "line": 263,
+      "line": 267,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -51770,7 +51815,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "12. RDS je Available, connection alebo query zlyháva",
-      "line": 263,
+      "line": 267,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51779,7 +51824,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "12. RDS je Available, connection alebo query zlyháva",
-      "line": 263,
+      "line": 267,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -51788,7 +51833,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "14. SQS/SNS/EventBridge: messages chýbajú alebo sa opakujú",
-      "line": 291,
+      "line": 295,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51797,7 +51842,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "15. CloudWatch alarm je INSUFFICIENT DATA alebo nealarmuje",
-      "line": 304,
+      "line": 308,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51806,7 +51851,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "16. CloudTrail event chýba",
-      "line": 317,
+      "line": 321,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -51815,7 +51860,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "19. CloudFormation stack je stuck alebo rollbackuje",
-      "line": 367,
+      "line": 371,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -51824,7 +51869,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "Connected incident: health green, starý Lambda alias a duplicate payment",
-      "line": 393,
+      "line": 397,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -51833,7 +51878,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "Connected incident: health green, starý Lambda alias a duplicate payment",
-      "line": 393,
+      "line": 397,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -51842,7 +51887,7 @@
     {
       "path": "docs/11-cloud-and-aws/aws-troubleshooting.md",
       "section": "Closure gate",
-      "line": 427,
+      "line": 431,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",

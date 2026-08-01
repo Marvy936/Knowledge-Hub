@@ -19,6 +19,10 @@ používateľský alebo operational symptom
 
 ## Minimálny incident manifest
 
+Incident manifest fixuje identity skôr, než sa symptoms interpretujú alebo začne containment. AWS CLI profile a shell region sú iba klientsky context; authoritative subject vzniká až z STS caller identity, partition, account, region, resource ARN alebo ID, request ID a relevantnej configuration alebo artifact generation. Pri assumed role sa zaznamenáva aj session name, source identity, credential expiry a session policy boundary.
+
+Manifest musí odlíšiť caller identity od workload identity. Operátor môže používať správny account, zatiaľ čo Lambda, EC2 instance profile, ECS task role alebo EKS Pod používa inú principal generation. Zozbierané network, KMS, deployment a business fields vytvoria korelačný contract pre CloudTrail, CloudWatch a service-native read-back; samotný zoznam resource names bez UTC timeline a immutable IDs nie je incident subject.
+
 ```bash
 aws sts get-caller-identity
 aws configure list
