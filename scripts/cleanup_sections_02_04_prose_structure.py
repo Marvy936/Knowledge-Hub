@@ -65,8 +65,8 @@ def remove_metadata(text: str, path: Path) -> str:
         r"(?ms)^## Metadata\n.*?(?=^## |^<!-- KNOWLEDGE-NAVIGATION:START -->|\Z)"
     )
     updated, count = pattern.subn("", text, count=1)
-    if count != 1:
-        raise RuntimeError(f"Expected one Metadata section in {path}, found {count}")
+    if count > 1:
+        raise RuntimeError(f"Expected at most one Metadata section in {path}, found {count}")
     return updated
 
 
@@ -107,7 +107,7 @@ text = replace_section(
     "Výkladový štandard",
     """## Výkladový štandard
 
-Každá kapitola začína priamo súvislým vysvetlením protokolu alebo mechanizmu: čo rieši, aké identity a state vlastní, ako sa rozhodnutie vykonáva a kde sa dá pozorovať. Atlas request sa do výkladu zapája priebežne ako konkrétna aplikácia všeobecného modelu; nevytvára sa samostatná školská vrstva s learning statusom, úrovňou alebo metadata blokom.
+Každá kapitola začína priamo súvislým vysvetlením protokolu alebo mechanizmu: čo rieši, aké identity a state vlastní, ako sa rozhodnutie vykonáva a kde sa dá pozorovať. Atlas request sa do výkladu zapája priebežne ako konkrétna aplikácia všeobecného modelu; nevytvára sa samostatná školská vrstva s learning statusom alebo metadata blokom.
 
 CLI, packet fields, konfigurácia a HTTP ukážky sú vložené pri mechanizme, ktorý objasňujú. Kapitola potom prirodzene pokračuje cez dôkaznú hranicu, konkrétny incident, competing hypotheses, recovery a overenie pôvodného business outcome-u. Odrážky zostávajú iba pri krátkom inventári fields, stavov alebo acceptance podmienok.
 
@@ -139,7 +139,7 @@ text = replace_section(
     "Výkladový štandard",
     """## Výkladový štandard
 
-Každá kapitola začína priamo výkladom testovacieho typu, techniky alebo stratégie. Vysvetľuje subject, scope, failure mode, potrebnú fidelity, oracle a hranicu dôkazu a následne tieto pojmy priebežne aplikuje na Atlas Orders. Neexistuje samostatný blok `Metadata`, learning status ani úroveň `L2`; kapitola je jeden súvislý odborný text.
+Každá kapitola začína priamo výkladom testovacieho typu, techniky alebo stratégie. Vysvetľuje subject, scope, failure mode, potrebnú fidelity, oracle a hranicu dôkazu a následne tieto pojmy priebežne aplikuje na Atlas Orders. Kapitola je jeden súvislý odborný text bez samostatnej learning alebo metadata vrstvy.
 
 Konkrétne testy, konfigurácia, výsledky a failure artifacts sa objavujú pri rozhodnutí, ktoré podporujú. Výklad pokračuje od všeobecného mechanizmu cez experiment alebo test contract k Atlas incidentu, diagnosis, recovery a skoršiemu controlu. Inventáre, matice a checklisty zostávajú iba tam, kde presne porovnávajú scope, evidence alebo acceptance podmienky.""",
 )
@@ -169,7 +169,7 @@ ledger_path = REPO / "DOCUMENTATION-REVIEW-STATUS.md"
 ledger = ledger_path.read_text(encoding="utf-8")
 ledger = re.sub(
     r"^\| `02-networking-and-web`[^\n]*$",
-    "| `02-networking-and-web` — Networking and Web Fundamentals | 17/17 integrated full prose and practical revalidation | Ready for user review | 2026-08-01 | Všetkých 16 koncepčných kapitol používa jeden súvislý prose flow bez learning metadát, úrovne L2, concept markerov alebo oddeleného Atlas wrappera. Každá kapitola začína priamo vysvetlením protokolu alebo mechanizmu, priebežne zapája Atlas request, CLI alebo capture evidence a pokračuje cez incident, recovery a business verification. Praktický namespace walkthrough zostáva záverečnou integráciou. Navigation, glossary a full learning-depth audit boli znovu synchronizované. |",
+    "| `02-networking-and-web` — Networking and Web Fundamentals | 17/17 integrated full prose and practical revalidation | Ready for user review | 2026-08-01 | Všetkých 16 koncepčných kapitol používa jeden súvislý prose flow bez learning metadát, concept markerov alebo oddeleného Atlas wrappera. Každá kapitola začína priamo vysvetlením protokolu alebo mechanizmu, priebežne zapája Atlas request, CLI alebo capture evidence a pokračuje cez incident, recovery a business verification. Praktický namespace walkthrough zostáva záverečnou integráciou. Navigation, glossary a full learning-depth audit boli znovu synchronizované. |",
     ledger,
     count=1,
     flags=re.MULTILINE,
@@ -183,7 +183,7 @@ ledger = re.sub(
 )
 ledger = re.sub(
     r"^\| `04-testing-and-quality`[^\n]*$",
-    "| `04-testing-and-quality` — Testing and Software Quality | 15/15 integrated full prose revalidation | Ready for user review | 2026-08-01 | Všetkých 15 kapitol používa jeden súvislý odborný prose flow bez blokov Metadata, learning statusu, úrovne L2, concept markerov alebo pomocného nadpisu medzi výkladom a Atlas aplikáciou. Subject, scope, fidelity, oracle, evidence, Atlas experiment, failure, diagnosis a recovery sú vysvetlené v jednej prirodzenej kapitole. README už neobsahuje starú Learning/L2 tabuľku. Navigation, glossary a full learning-depth audit boli znovu synchronizované. |",
+    "| `04-testing-and-quality` — Testing and Software Quality | 15/15 integrated full prose revalidation | Ready for user review | 2026-08-01 | Všetkých 15 kapitol používa jeden súvislý odborný prose flow bez learning alebo metadata vrstvy, concept markerov alebo pomocného nadpisu medzi výkladom a Atlas aplikáciou. Subject, scope, fidelity, oracle, evidence, Atlas experiment, failure, diagnosis a recovery sú vysvetlené v jednej prirodzenej kapitole. README už neobsahuje starú statusovú tabuľku. Navigation, glossary a full learning-depth audit boli znovu synchronizované. |",
     ledger,
     count=1,
     flags=re.MULTILINE,
