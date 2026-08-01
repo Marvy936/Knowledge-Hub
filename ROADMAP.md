@@ -377,10 +377,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Realm, client, user, group, role a session](docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md)
 - [x] [OIDC clients, redirect URIs, scopes a PKCE](docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md)
 - [x] [SAML clients, metadata, assertions a bindings](docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md)
-- [ ] Tokens, claims, protocol mappers a client scopes
-- [ ] Public, confidential a bearer-only client model
-- [ ] Service accounts a machine-to-machine authentication
-- [ ] Authentication flows, executions a required actions
+- [x] [Tokens, claims, protocol mappers a client scopes](docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md)
+- [x] [Public, confidential a bearer-only client model](docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md)
+- [x] [Service accounts a machine-to-machine authentication](docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md)
+- [x] [Authentication flows, executions a required actions](docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md)
 - [ ] MFA, WebAuthn, passkeys a step-up authentication
 - [ ] Password policies, brute-force protection a account recovery
 - [ ] Identity brokering

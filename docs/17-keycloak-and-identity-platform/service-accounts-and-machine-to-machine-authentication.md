@@ -331,3 +331,11 @@ Relevantné pojmy: Keycloak service account, service-account user, client-creden
 - [Keycloak — Securing applications and services: Service accounts](https://www.keycloak.org/securing-apps/oidc-layers)
 - [RFC 6749 — OAuth 2.0 Client Credentials Grant](https://www.rfc-editor.org/rfc/rfc6749.html)
 - [RFC 7523 — JWT Profile for OAuth 2.0 Client Authentication](https://www.rfc-editor.org/rfc/rfc7523.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Public, confidential a bearer-only client model](public-confidential-and-bearer-only-clients.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Authentication flows, executions a required actions →](authentication-flows-executions-and-required-actions.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

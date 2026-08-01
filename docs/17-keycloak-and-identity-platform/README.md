@@ -22,15 +22,15 @@ Odporúča sa najprv dokončiť:
 2. [Realm, client, user, group, role a session](realm-client-user-group-role-session.md)
 3. [OIDC clients, redirect URIs, scopes a PKCE](oidc-clients-redirect-uris-scopes-pkce.md)
 4. [SAML clients, metadata, assertions a bindings](saml-clients-metadata-assertions-bindings.md)
+5. [Tokens, claims, protocol mappers a client scopes](tokens-claims-protocol-mappers-client-scopes.md)
+6. [Public, confidential a bearer-only client model](public-confidential-and-bearer-only-clients.md)
+7. [Service accounts a machine-to-machine authentication](service-accounts-and-machine-to-machine-authentication.md)
+8. [Authentication flows, executions a required actions](authentication-flows-executions-and-required-actions.md)
 
-Aktuálny authoritative stav sekcie je **4/30 · In progress**.
+Aktuálny authoritative stav sekcie je **8/30 · In progress**. Kapitoly 1–8 tvoria prvý kompletný identity, protocol, token-projection, client-capability, machine-identity a authentication-transaction blok. Sekcia zatiaľ nie je `Ready for user review`; ďalší blok začína MFA, credential recovery, brokering a federation lifecycle-om.
 
 ## Plánované pokračovanie
 
-5. Tokens, claims, protocol mappers a client scopes  
-6. Public, confidential a bearer-only client model  
-7. Service accounts a machine-to-machine authentication  
-8. Authentication flows, executions a required actions  
 9. MFA, WebAuthn, passkeys a step-up authentication  
 10. Password policies, brute-force protection a account recovery  
 11. Identity brokering  
@@ -78,6 +78,25 @@ organizational group hierarchy
 ```
 
 Redesign používa client roles namiesto broad realm role, explicitné role scope mappings, exact OIDC redirects, povinné PKCE `S256`, SP-initiated SAML pre privilegovaný client, exact ACS a metadata contract, mapper allowlist, oddelený Keycloak/application/token revocation a second-login/second-client negative tests.
+
+### `KC-PAY-66` — broad token projection, mixed-purpose client a bypassed step-up
+
+Atlas použil client `settlement-ops` súčasne pre desktop CLI, browser administration aj Kubernetes batch workload. Client mal zapnuté Standard Flow, Direct Access Grants a Service Accounts, používal shared secret distribuovaný aj v CLI a zostal na `Full Scope Allowed`. Shared default client scope publikoval expanded realm roles, broad internal audience a custom claim `permissions`; dedicated mapper browser clienta zapisoval ten istý claim inou semantics.
+
+Service-account user zdedil composite `settlement-operator`, ktorý zahŕňal reconcile aj export actions. Browser flow obsahoval WebAuthn execution, ale validná Cookie `ALTERNATIVE` uspokojila remembered-SSO path bez fresh step-up. `CONFIGURE_TOTP` bol označený ako default required action, no existujúcim users nebol spätne priradený. Legacy CLI použil Direct Access Grant, takže Browser flow a jeho WebAuthn branch sa nevykonali vôbec.
+
+```text
+mixed browser, native a machine responsibility
+→ one confidential client a shared credential
+→ broad role-scope a claim projection
+→ remembered SSO alebo Direct Grant path
+→ valid token bez intended fresh authentication
+→ role-only API authorization
+→ privileged reconciliation alebo export operation
+→ secret rotation bez already-issued-token closure
+```
+
+Redesign rozdelí browser, native, machine a resource-server responsibilities do samostatných clients. Token projection používa dedicated/default/optional scopes s jedným ownerom claims, explicitný role-scope intersection a service-specific audience. Machine workload používa workload-bound confidential authentication, browser client má versionovaný step-up flow override, Direct Access Grant je zakázaný, existing users dostanú staged required-action assignment a downstream APIs validujú issuer, audience, caller, token type, tenant, resource a action. Recovery uzatvára old credential, stale token, remembered SSO, fresh login, second client, second token a second operation paths.
 
 ## Dominantný model sekcie
 
@@ -154,3 +173,47 @@ Každá komplexná kapitola musí rozlišovať:
 - navrhnúť signing, encryption a key rollover contract;
 - obmedziť NameID, role a attribute mappers podľa authority;
 - diagnostikovať issuer, ACS, binding, signature, audience, time, mapper a logout failures.
+
+### Tokens, claims, protocol mappers a client scopes
+
+- definovať exact token-projection subject vrátane realm, client, session, requested scopes, mapper, role graph a signing-key generation;
+- rozlíšiť access token, ID token, refresh token a UserInfo consumer contract;
+- odlíšiť OAuth scope string, Keycloak client scope object a Authorization Services scope;
+- vysvetliť default, optional a dedicated client scopes a ich blast radius;
+- navrhnúť role scope mappings a vypnutie `Full Scope Allowed` bez straty intended role projection;
+- používať protocol mappers ako explicitnú assertion authority s jediným ownerom claimu a stabilným JSON type-om;
+- vysvetliť `aud`, `azp`, `scope`, realm/client roles a local resource permission;
+- overiť stale token, key rotation, wrong audience, wrong client, second token a second operation.
+
+### Public, confidential a bearer-only client model
+
+- viazať client model na runtime architecture a schopnosť chrániť credential, nie na UI label;
+- vysvetliť aktuálny `Client authentication` ON/OFF model a historické bearer-only terminology;
+- oddeliť browser/native public clients, server-side confidential clients a resource-server responsibility;
+- navrhnúť exact enabled-grant a endpoint capability matrix pre každý client;
+- zakázať shared mixed-purpose clients, secrets v public binaries a nepotrebné Direct Access Grants;
+- porovnať secret, private-key JWT, mTLS a workload-bound authentication;
+- overiť redirect, PKCE, client authentication, audience, token storage a wrong-runtime paths;
+- vykonať second-instance, old-credential, stolen-token a adjacent-client negative tests.
+
+### Service accounts a machine-to-machine authentication
+
+- definovať exact service-account subject vrátane client internal ID, linked service-account usera, credential, role-scope a workload generation;
+- vysvetliť client-credentials grant bez human browser/MFA lifecycle-u;
+- preukázať intersection service-account roles a client/client-scope role scope mappings;
+- navrhnúť explicitné resource-server client roles a service-specific audience;
+- oddeliť credential rotation od already-issued-token descendants;
+- porovnať client secret, private-key JWT, mTLS a federovanú workload identity;
+- viazať token na caller client, tenant, resource, action a durable operation ID;
+- overiť old credential, wrong audience, wrong tenant, stale token, retry a second-operation behavior.
+
+### Authentication flows, executions a required actions
+
+- definovať exact authentication transaction vrátane realm/client flow bindingu, execution graphu, authentication session a existing user session;
+- vysvetliť `REQUIRED`, `ALTERNATIVE`, `CONDITIONAL` a `DISABLED` semantics spolu s priority a subflow levelom;
+- rozlíšiť fresh login, remembered SSO Cookie path, client-specific step-up a insufficient authentication level;
+- vysvetliť, prečo Browser MFA automaticky nechráni Direct Access Grant;
+- kopírovať a versionovať flows, používať client overrides a staged promotion;
+- rozlíšiť enabled/default/per-user required action a Application-Initiated Action;
+- sledovať action-token issue, authoritative user mutation a session/token descendants;
+- overiť fresh, remembered, missing-credential, expired-link, replay, second-user a second-client paths.

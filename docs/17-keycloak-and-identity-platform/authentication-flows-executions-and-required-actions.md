@@ -418,3 +418,11 @@ Relevantné pojmy: Keycloak authentication flow, authentication execution, authe
 - [Keycloak — Server Administration Guide: Required actions and application-initiated actions](https://www.keycloak.org/docs/latest/server_admin/)
 - [Keycloak — Server Developer Guide: Authenticator and Required Action SPIs](https://www.keycloak.org/docs/latest/server_development/)
 - [RFC 9700 — Best Current Practice for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Service accounts a machine-to-machine authentication](service-accounts-and-machine-to-machine-authentication.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
