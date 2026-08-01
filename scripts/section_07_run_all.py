@@ -42,6 +42,13 @@ ADDITIVE_ANSIBLE = '''def replace_section(name: str, heading: str, body: str) ->
 '''
 
 
+def execute(path: Path) -> None:
+    source = path.read_text(encoding="utf-8")
+    code = compile(source, str(path), "exec")
+    namespace = {"__name__": "__main__", "__file__": str(path)}
+    exec(code, namespace)
+
+
 def run_script(
     path: Path,
     *,
@@ -86,7 +93,7 @@ def write_compact_findings() -> None:
 
     output = (
         "# Temporary Section 07 critical/high findings\n\n"
-        "> Generated from the clean Section 07 audit for manual closeout; remove before final PR.\n\n"
+        "> Generated from the clean Section 07 audit for prose-first closeout.\n\n"
         + "\n\n".join(sections)
         + "\n"
     )
@@ -95,7 +102,6 @@ def write_compact_findings() -> None:
     )
 
 
-# Both authored passes are executed with additive-only section semantics.
 run_script(
     ROOT / "scripts" / "section_07_terraform_depth.py",
     function_replacement=(TERRAFORM_REPLACE, ADDITIVE_TERRAFORM),
@@ -120,5 +126,6 @@ run_script(
     },
 )
 write_compact_findings()
+execute(ROOT / "scripts" / "section_07_closeout.py")
 
-print("Combined additive-only Section 07 explanation-depth pass applied.")
+print("Combined additive-only Section 07 pass and natural prose-first closeout applied.")
