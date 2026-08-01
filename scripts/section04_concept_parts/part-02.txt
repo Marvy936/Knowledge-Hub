@@ -1,0 +1,126 @@
+@@ end-to-end-and-acceptance-tests.md
+## Čo sú end-to-end a acceptance test
+
+End-to-end test overuje celý kritický flow cez viac reálnych komponentov a boundaries podobne, ako ho používa externý actor. Acceptance test rozhoduje, či systém spĺňa explicitné business alebo používateľské acceptance criteria. Tieto kategórie sa môžu prekrývať, ale nie sú identické.
+
+E2E subject je celý journey, nie jedna funkcia. Môže zahŕňať UI alebo API gateway, identity, viac služieb, databázu, messaging a externú dependency. Jeho výhodou je vysoká integračná fidelity; nevýhodou pomalosť, drahý setup a slabšia lokalizácia failure.
+
+Acceptance criterion musí byť merateľný a pozorovateľný. „Objednávka funguje“ nie je oracle. Lepší contract je:
+
+```text
+Given platný zákazník a dostupný produkt
+When zákazník odošle objednávku
+Then vznikne presne jedna objednávka
+And používateľ dostane potvrdenie
+And sklad sa zníži o jednu jednotku
+```
+
+Acceptance test môže byť vykonaný na nižšom scope-e, ak criterion nevyžaduje celý systém. E2E test zase môže byť technický journey, ktorý nie je priamym business acceptance testom, napríklad overenie login redirect chainu.
+
+Neutrálny príklad cestovnej aplikácie: browser vyhľadá spoj, vytvorí rezerváciu, simuluje platbu a overí vydaný lístok. Jeden test prejde cez kritické boundaries, ale pri failure potrebuje artifacts: screenshot, trace, network log, backend correlation ID a database/event evidence.
+
+E2E suite má zostať malá a risk-based. Duplikovanie každého input variantu na najvyššom scope-e vytvára pomalú a flaky pyramídu. Varianty patria nižšie; E2E overuje unikátne journeys a wiring.
+
+Test data a environment musia byť kontrolované. Zdieľané účty, časovo citlivé inventory alebo neizolované payment sandboxy vytvárajú nondeterminism. Cleanup musí rešpektovať business side effects a unknown outcome.
+
+@@ smoke-and-regression-tests.md
+## Čo sú smoke a regression test
+
+Smoke test je krátka sada kontrol, ktorá overuje, že nový build alebo deployment je dostatočne funkčný na ďalšie testovanie alebo exposure. Neoveruje celý systém. Jeho účelom je rýchlo zachytiť hrubé failures, napríklad neštartujúci process, nedostupný endpoint alebo nefunkčný kritický journey.
+
+Regression test chráni správanie, ktoré už raz fungovalo alebo opravuje známy failure mode. Regression suite nie je automaticky „všetky testy“. Je to kurátorované portfolio dôkazov proti riziku, že nová zmena poškodila existujúce capabilities.
+
+Neutrálny deployment smoke:
+
+```text
+process je ready
+→ login funguje
+→ jeden read journey prejde
+→ jeden bounded write journey prejde
+→ základná observability prijíma data
+```
+
+Smoke musí byť krátky, deterministický a mať jasný rollback alebo stop verdict. Plytký `/healthz` s `200` môže byť súčasťou smoke-u, ale sám nepreukazuje funkčný user flow.
+
+Regression test vzniká často po incidente:
+
+```text
+failure: nulová cena pre určitý discount
+→ root cause opravený
+→ pridaný test pre presný invariant
+→ širšia property alebo boundary kontrola
+```
+
+Test nemá iba zakonzervovať chybnú implementáciu. Má zachytiť intent, ktorý incident porušil. Inak refactoring rozbije test bez reálnej regresie alebo bug prejde cez príliš úzky example.
+
+Risk-based výber zohľadňuje kritickosť journey, pravdepodobnosť zmeny, historické incidenty, blast radius a execution cost. Suite sa musí aj čistiť: duplicity, stále zelené nízkohodnotné testy a testy bez jasného ownera zvyšujú čas bez primeranej confidence.
+
+Smoke a regression sú labels podľa účelu, nie podľa frameworku. Ten istý API test môže byť deployment smoke v jednom pipeline gate a regression check v inom kontexte.
+
+@@ performance-load-stress-tests.md
+## Čo sú performance, load, stress, spike a soak test
+
+Performance testing meria správanie systému vzhľadom na latency, throughput, concurrency, saturation a resource usage. Nie je to iba poslanie veľkého počtu requestov. Experiment potrebuje workload model, environment, warm-up, measurement window, oracle a koreláciu so systémovými metrics.
+
+**Load test** overuje očakávanú alebo plánovanú záťaž. **Stress test** zvyšuje load za normálnu kapacitu a hľadá breaking point a recovery. **Spike test** sleduje náhlu zmenu záťaže. **Soak test** beží dlho a hľadá leaks, queue growth alebo degradáciu. **Capacity test** určuje, koľko workloadu systém zvládne pri stanovenom SLO.
+
+Closed workload model udržiava pevný počet virtuálnych users, ktorí čakajú na response. Keď systém spomalí, arrival rate prirodzene klesá. Open model generuje arrivals nezávisle od response time a lepšie odhaľuje queue collapse pri externom trafficu.
+
+Neutrálny contract:
+
+```text
+500 requestov/s počas 20 minút
+payload distribution podľa production profilu
+p95 < 250 ms
+p99 < 600 ms
+error rate < 0,5 %
+CPU < 75 %
+queue bez trvalého rastu
+```
+
+Priemer latency môže skryť zlý tail. Coordinated omission vznikne, keď load generator počas spomalenia neposiela plánované requests a podhodnotí problém. Workload tool a model preto ovplyvňujú meranú pravdu.
+
+Výsledky bez resource a dependency metrics sú málo diagnostické. Rovnaká latency môže pochádzať z CPU saturation, lock contention, connection poolu, disk I/O, GC alebo downstream rate limitu.
+
+Environment musí byť dostatočne reprezentatívny pre testované riziko. Malá databáza, prázdne cache alebo odlišná network path môžu viesť k falošnému capacity verdictu. Performance result platí iba pre konkrétny artifact, config, data volume a topology.
+
+Po stress experimente sa overuje recovery: backlog drain, error normalization, resource release a business reconciliation. Prežitie peak-u bez návratu do stabilného stavu nie je úspech.
+
+@@ security-and-infrastructure-tests.md
+## Čo sú security a infrastructure testy
+
+Security testing overuje, či definované threats a abuse cases sú blokované alebo detegované. Infrastructure testing overuje deklarovaný a effective stav infraštruktúry, policy a runtime boundaries. Ani jedno nie je jeden scanner ani jednorazový audit.
+
+Threat-informed prístup začína assetom, actorom, trust boundary a možným dopadom:
+
+```text
+asset
+→ threat actor a capability
+→ attack path
+→ preventive alebo detective control
+→ test oracle
+→ evidence
+```
+
+Application security môže zahŕňať authentication, authorization, input handling, session lifecycle a business abuse. Supply-chain tests kontrolujú dependencies, artifacts, signatures a provenance. Infrastructure tests pokrývajú IAM, network exposure, encryption, secrets, runtime privileges a drift.
+
+IaC potrebuje viac vrstiev evidence:
+
+```text
+syntax a parse
+→ schema a provider validation
+→ policy nad desired state-om
+→ plan/change review
+→ apply result
+→ runtime effective-state verification
+```
+
+Zelený Terraform plan nepreukazuje, že cloud resource je reachable iba povolenou cestou. Runtime probe a platform read-back sú odlišné dôkazy.
+
+SAST analyzuje source alebo intermediate representation bez spusteného systému. DAST testuje bežiacu aplikáciu zvonka. SCA identifikuje známe dependency riziká. Artifact a container scanning kontroluje výsledný deliverable. Finding potrebuje triage podľa reachability, exploitability, environmentu a impactu.
+
+Neutrálny authorization test: user A vytvorí resource a user B sa ho pokúsi prečítať a zmeniť. Oracle musí overiť denial aj absenciu side effectu alebo information leak-u. Pozitívny test usera A nestačí.
+
+Security testy potrebujú safe scope, test identities a cleanup. Destruktívny alebo production test musí mať blast-radius a abort contract. Controls sa overujú positive aj negative cestou: legitímna operácia musí prejsť a zakázaná musí zlyhať správnym spôsobom.
+
+Exception vo quality gate musí mať ownera, dôvod, expiry a compensating control. Trvalé ignorovanie findingu bez lifecycle-u premieňa scanner na noise generator.
