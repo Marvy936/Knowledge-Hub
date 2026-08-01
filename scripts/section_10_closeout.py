@@ -6,6 +6,7 @@ README = SECTION / "README.md"
 LEDGER = ROOT / "DOCUMENTATION-REVIEW-STATUS.md"
 AUDIT = ROOT / "DOCUMENTATION-AUDIT.md"
 TROUBLESHOOTING = SECTION / "helm-testing-troubleshooting.md"
+CKA_TIMED = SECTION / "cka-timed-labs.md"
 
 REQUIREMENTS = {
     "helm-chart-template-values-release.md": ["Chart.yaml", "values.yaml", "helm lint", "helm template", "helm upgrade", "helm get", "kubectl"],
@@ -41,7 +42,19 @@ def ensure_release_readback() -> None:
     TROUBLESHOOTING.write_text(text.replace(marker, addition, 1).rstrip() + "\n", encoding="utf-8", newline="\n")
 
 
+def ensure_client_dry_run() -> None:
+    text = CKA_TIMED.read_text(encoding="utf-8")
+    marker = "Imperative príkazy sú efektívne, keď presne mapujú požadovanú zmenu: `set image`, `scale`, `label`, `taint`, `expose` alebo dry-run generátory. Pri multi-field resource-e je často rýchlejšie vytvoriť validný YAML skeleton, doplniť ho a použiť client a server dry-run pred apply.\n"
+    addition = """Imperative príkazy sú efektívne, keď presne mapujú požadovanú zmenu: `set image`, `scale`, `label`, `taint`, `expose` alebo dry-run generátory. Pri multi-field resource-e je často rýchlejšie vytvoriť validný YAML skeleton, doplniť ho a použiť client a server dry-run pred apply. Napríklad Service skeleton možno vytvoriť bez mutation:\n\n```bash\nkubectl -n payments create service clusterip payments-api \\\n  --tcp=80:8080 \\\n  --dry-run=client \\\n  -o yaml > /tmp/payments-api-service.yaml\n```\n\n`--dry-run=client -o yaml` používa lokálny kubectl generator a preukazuje iba syntakticky vytvorený client-side object podľa zadaných flags. Neoveruje current cluster schema, namespace policy, RBAC, admission mutation ani to, že selector nájde správne Pody. Kandidát preto YAML doplní a skontroluje, následne použije server-side dry-run alebo apply a uzatvorí úlohu live Service, EndpointSlice a request validáciou.\n"""
+    if addition in text:
+        return
+    if marker not in text:
+        raise RuntimeError("Expected CKA client dry-run insertion point not found")
+    CKA_TIMED.write_text(text.replace(marker, addition, 1).rstrip() + "\n", encoding="utf-8", newline="\n")
+
+
 ensure_release_readback()
+ensure_client_dry_run()
 
 for name, tokens in REQUIREMENTS.items():
     text = (SECTION / name).read_text(encoding="utf-8")
@@ -66,7 +79,7 @@ README.write_text(readme_text.replace(old_status, new_status, 1).rstrip() + "\n"
 replace_prefixed_line(
     LEDGER,
     "| `10-helm-and-cka`",
-    "| `10-helm-and-cka` — Helm and CKA | 10/10 chapter-by-chapter explanation-depth and practical-example revalidation | Ready for user review | 2026-08-01 | Všetkých desať authoritative kapitol bolo znovu preverených podľa immutable chart/dependency/values/release subjectu, deterministic renderu, API/admission/runtime evidence, durable hook side effectu, upgrade/rollback compatibility a CKA timed-diagnosis štandardu. Existujúci prose-first základ zostal zachovaný. Completion gate overil executable surface v každej kapitole: `Chart.yaml`, values/schema, templates/helpers, rendered YAML, dependency lock/build, hook Job a operation ledger, upgrade/history/rollback, Helm test a Kubernetes diagnosis, timed-lab commands a troubleshooting drills. Helm troubleshooting doplnil `helm get values`, `helm get manifest` a `helm get hooks` read-back pre rozlíšenie stored release intentu od live a serving state-u. README deklarovaný stav `practical-example remediation in progress` bol uzavretý; Section 10 nemá critical ani high learning-depth findings. Navigation, glossary a full audit boli synchronizované. Reálny Helm release, cluster-specific admission/runtime a CKA exam environment neboli týmto documentation workflowom vykonané; sekcia je Ready for user review, nie runtime Verified ani používateľsky Accepted. |",
+    "| `10-helm-and-cka` — Helm and CKA | 10/10 chapter-by-chapter explanation-depth and practical-example revalidation | Ready for user review | 2026-08-01 | Všetkých desať authoritative kapitol bolo znovu preverených podľa immutable chart/dependency/values/release subjectu, deterministic renderu, API/admission/runtime evidence, durable hook side effectu, upgrade/rollback compatibility a CKA timed-diagnosis štandardu. Existujúci prose-first základ zostal zachovaný. Completion gate overil executable surface v každej kapitole: `Chart.yaml`, values/schema, templates/helpers, rendered YAML, dependency lock/build, hook Job a operation ledger, upgrade/history/rollback, Helm test a Kubernetes diagnosis, timed-lab commands a troubleshooting drills. Helm troubleshooting doplnil `helm get values`, `helm get manifest` a `helm get hooks` read-back pre rozlíšenie stored release intentu od live a serving state-u; CKA timed labs doplnili client-side dry-run skeleton s explicitnou server/runtime hranicou. README deklarovaný stav `practical-example remediation in progress` bol uzavretý; Section 10 nemá critical ani high learning-depth findings. Navigation, glossary a full audit boli synchronizované. Reálny Helm release, cluster-specific admission/runtime a CKA exam environment neboli týmto documentation workflowom vykonané; sekcia je Ready for user review, nie runtime Verified ani používateľsky Accepted. |",
 )
 
 print("Section 10 executable-surface gate passed for 10/10 chapters and status was finalized.")
