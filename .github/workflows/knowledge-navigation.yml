@@ -72,6 +72,34 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          "$PYTHON_BIN" - <<'PY'
+          from pathlib import Path
+          import re
+
+          script_path = Path("scripts/integrate_sections_04_05_prose.py")
+          workflow_path = Path(".github/workflows/knowledge-navigation.yml")
+          script = script_path.read_text(encoding="utf-8")
+          script = script.replace(
+              '    "docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md": "Ako čítať end-to-end release walkthrough",\n',
+              '',
+          )
+          workflow = workflow_path.read_text(encoding="utf-8")
+          hook = re.search(
+              r"(?ms)^      - name: Integrate Sections 04 and 05 prose\n.*?(?=^      - name: )",
+              workflow,
+          )
+          if hook is None:
+              raise SystemExit("Unable to resolve temporary workflow hook")
+          script, count = re.subn(
+              r"(?ms)^HOOK = '''.*?'''",
+              "HOOK = " + repr(hook.group(0)),
+              script,
+              count=1,
+          )
+          if count != 1:
+              raise SystemExit(f"Unable to update hook constant: {count}")
+          script_path.write_text(script, encoding="utf-8")
+          PY
           "$PYTHON_BIN" scripts/integrate_sections_04_05_prose.py
 
       - name: Synchronize and commit generated documentation
