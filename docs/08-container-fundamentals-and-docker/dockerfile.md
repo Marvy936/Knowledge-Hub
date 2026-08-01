@@ -1,119 +1,150 @@
 # Dockerfile
 
-Dockerfile je versionovaný build program. Z deklarovaných a externých inputs vytvorí stage graph, filesystem changesets a image runtime metadata. Nie je to deployment manifest ani záruka, že výsledný workload bude správne fungovať v produkcii.
+Dockerfile je versionovaný build program. Neopisuje iba výsledný filesystem; určuje, ktoré inputs sa načítajú, v akom poradí sa vykonajú build operácie, ako sa vytvorí stage graph a aké runtime defaults sa zapíšu do image configu.
 
-Dominantný model kapitoly je:
+Dockerfile však nie je deployment manifest. Neurčuje konečný host port, production secret, network policy, resource limity ani to, či aplikácia bude po štarte ready. Jeho úlohou je vytvoriť reprodukovateľný aplikačný artifact s úzkym a zrozumiteľným runtime contractom.
 
-```text
-build intent a immutable input inventory
-→ Dockerfile frontend a parse
-→ stage graph
-→ instruction execution
-→ filesystem a image-config transitions
-→ final image subject
-→ build/policy evidence
-→ runtime-contract test
-→ publication a update lifecycle
-```
+Budeme postupne skladať Dockerfile pre `payments-api`. Aplikácia je napísaná v Go, testy sa majú vykonať v samostatnom stage-i a final image má obsahovať iba statický binary a minimum runtime metadata.
 
-Instruction katalóg má význam iba v tomto modeli. Každá instruction buď vytvára nový stage, mení build filesystem, alebo zapisuje metadata, ktoré neskôr ovplyvnia runtime process.
+## 1. Parser directive a syntax frontend
 
-## 1. Atlas Payments Dockerfile ako jeden program
-
-Atlas Payments publikuje release `R42` pre `linux/amd64` a `linux/arm64`.
-
-Build subject obsahuje:
-
-- source commit `C42`,
-- Dockerfile digest,
-- Dockerfile frontend identity,
-- build context inventory,
-- base image digests,
-- dependency lock files,
-- target platform,
-- build args a secret references,
-- builder/BuildKit identity,
-- selected final target,
-- expected runtime user, command, port a writable paths.
-
-Výsledný image subject obsahuje:
-
-- image index alebo platform manifest digest,
-- image config digest,
-- ordered layer digests,
-- effective `ENTRYPOINT`, `CMD`, `USER`, `ENV`, labels a health metadata,
-- provenance a test/policy evidence.
-
-„Rovnaký Dockerfile“ nestačí. Ak sa zmení base tag, remote package repository, frontend alebo build context, mení sa aj program input a potenciálne výsledný artifact.
-
-## 2. Parse a stage graph
-
-Dockerfile frontend interpretuje syntax a vytvára build graph.
+Dockerfile môže začínať parser directive:
 
 ```dockerfile
 # syntax=docker/dockerfile:1
 ```
 
-Každý `FROM` vytvára stage:
+BuildKit podľa nej resolve-ne Dockerfile frontend a dostupnú syntax. Novšie features, napríklad `RUN --mount`, závisia od frontend contractu.
+
+Directive nie je obyčajný komentár, ak sa nachádza v správnej úvodnej pozícii. Release pipeline má zachovať effective frontend identity, pretože zmena frontendu môže zmeniť parsing alebo build semantics bez zmeny aplikačného source-u.
+
+## 2. `ARG` pred `FROM` a base image
+
+Global build arguments možno deklarovať pred prvým `FROM` a použiť v base reference:
 
 ```dockerfile
-FROM golang:1.24 AS build
-FROM gcr.io/distroless/static-debian12:nonroot AS runtime
+ARG GO_IMAGE=golang:1.25-alpine@sha256:<build-base-digest>
+ARG RUNTIME_IMAGE=gcr.io/distroless/static-debian12:nonroot@sha256:<runtime-base-digest>
+
+FROM ${GO_IMAGE} AS source
 ```
 
-Stage identity je súčasť build graphu. Pomenované stages sú stabilnejšie než numerické odkazy:
+Tag pomáha človeku rozpoznať verziu a variant. Digest určuje konkrétny manifest. Pipeline môže argument prepísať:
+
+```bash
+docker buildx build \
+  --build-arg GO_IMAGE="registry.example.com/base/go@sha256:<digest>" \
+  .
+```
+
+Review Dockerfile-u preto samo nepreukazuje, ktorý base image sa použil. Effective build arguments patria do provenance alebo build manifestu.
+
+Global `ARG` má osobitný scope. Ak sa jeho hodnota potrebuje neskôr v stage-i, argument sa v stage-i znovu deklaruje.
+
+## 3. `FROM` vytvára stage graph
+
+Každý `FROM` začína nový stage. Stage môže mať meno:
+
+```dockerfile
+FROM ${GO_IMAGE} AS source
+```
+
+Neskorší stage môže kopírovať artifacts:
 
 ```dockerfile
 COPY --from=build /out/payments-api /usr/local/bin/payments-api
 ```
 
-Frontend identity je build dependency. Novšia alebo iná syntax implementácia môže zmeniť dostupné features, validation alebo graph behavior, preto musí byť zahrnutá do provenance a update policy.
+Stage nie je automaticky vykonaný iba preto, že je v Dockerfile-i. BuildKit vykonáva graph potrebný pre zvolený target. Ak `test` a `build` sú sibling stages a final `runtime` závisí iba od `build`, build runtime targetu nemusí vykonať test stage.
 
-## 3. `FROM`: prvý supply-chain a runtime contract
-
-`FROM` určuje parent filesystem a metadata jedného stage-u.
-
-```dockerfile
-FROM debian:bookworm-slim@sha256:<digest>
+```text
+source
+├── test
+└── build
+    └── runtime
 ```
 
-Tag je discovery/version label. Digest je konkrétna content identity.
+Preto sa test target spúšťa samostatne alebo sa release graph navrhne tak, aby required artifact jednoznačne závisel od testovaného outputu.
 
-### Failure boundary: mutable base po approval
-
-Security review schváli build nad jedným `debian:bookworm-slim`, no neskorší release build resolveuje rovnaký tag na iný digest. Source commit aj Dockerfile sú rovnaké, ale:
-
-- package inventory sa zmení,
-- runtime libraries sa môžu zmeniť,
-- scan evidence už nepatrí k novému image-u,
-- výsledný manifest má iný subject.
-
-Digest pinning tento race odstráni, ale vytvára povinnosť pravidelného a reviewovaného update workflowu. Pin bez aktualizácie iba konzervuje starý base.
-
-## 4. Build-time filesystem transitions
-
-### `WORKDIR`
+## 4. `WORKDIR` vytvára stabilný build context vo stage-i
 
 ```dockerfile
 WORKDIR /src
 ```
 
-Mení working-directory context pre nasledujúce instructions a podľa final configu môže nastaviť runtime default.
+Nastaví working directory pre nasledujúce `RUN`, `COPY`, `CMD` a ďalšie instructions v danom stage-i. Ak path neexistuje, builder ho vytvorí.
 
-### `COPY`
+Explicitný absolute path je čitateľnejší než séria `RUN cd /src && ...`. Stav working directory sa stáva súčasťou stage semantics.
+
+Vo final image-i môže byť iný working directory:
+
+```dockerfile
+WORKDIR /home/nonroot
+```
+
+Runtime aplikácia potom nemá náhodne závisieť od `/src`, ktorý vo final stage-i vôbec nemusí existovať.
+
+## 5. `COPY` a build context
+
+`COPY` načíta files z build contextu alebo named contextu a pridá ich do stage filesystemu.
 
 ```dockerfile
 COPY go.mod go.sum ./
-COPY --chown=65532:65532 /out/payments-api /usr/local/bin/payments-api
 ```
 
-`COPY` prenáša content z povoleného contextu, named contextu, image-u alebo stage-u. Source identity, file metadata, ownership a target path sú súčasťou build contractu.
+Source paths sa interpretujú voči rootu build contextu, nie voči umiestneniu Dockerfile-u podľa ľudskej intuície. Files vylúčené `.dockerignore` nie sú dostupné pre bežné `COPY` z primary contextu.
 
-### `ADD`
+Neskôr:
 
-`ADD` má širšie semantics, napríklad automatic local tar extraction alebo podporované remote/Git sources podľa frontend feature-u. Pre bežný local copy preferuj `COPY`, aby bol transition explicitnejší.
+```dockerfile
+COPY cmd ./cmd
+```
 
-### `RUN`
+Oddeľuje dependency metadata od application source-u a zlepšuje cache reuse.
+
+`COPY --chown` nastaví ownership počas pridania súboru:
+
+```dockerfile
+COPY --from=build --chown=65532:65532 \
+  /out/payments-api \
+  /usr/local/bin/payments-api
+```
+
+To je lepšie než samostatný `RUN chown`, ktorý vytvára ďalší filesystem changeset a môže dočasne ukladať nesprávne ownership metadata.
+
+## 6. `ADD` používaj iba pri potrebnej semantics
+
+`ADD` má širšie správanie než `COPY`, napríklad automatické rozbalenie lokálnych tar archives a podľa syntax verzie podporu ďalších source typov. Táto pohodlnosť môže zakryť, čo build robí.
+
+Pre obyčajné local files používaj `COPY`. `ADD` má zmysel, keď explicitne potrebuješ jeho semantics a vieš ju vysvetliť.
+
+Remote download je často lepšie vykonať cez `RUN` s checksum verifikáciou, aby bol network a integrity contract viditeľný:
+
+```dockerfile
+ARG TOOL_SHA256
+RUN wget -O /tmp/tool.tgz https://example.invalid/tool.tgz \
+    && echo "$TOOL_SHA256  /tmp/tool.tgz" | sha256sum -c - \
+    && tar -xzf /tmp/tool.tgz -C /usr/local/bin \
+    && rm /tmp/tool.tgz
+```
+
+## 7. `RUN` mení build filesystem
+
+Shell form:
+
+```dockerfile
+RUN go test ./...
+```
+
+na Linux stage-i typicky používa shell. Exec form umožňuje explicitnejšiu argv semantics:
+
+```dockerfile
+RUN ["go", "test", "./..."]
+```
+
+Pri dlhších package install krokoch je dôležité spojiť update, install a cleanup do jedného instruction, aby cache nepoužila stale repository metadata a temporary files nezostali v layer.
+
+Debian-like príklad:
 
 ```dockerfile
 RUN apt-get update \
@@ -121,451 +152,326 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 ```
 
-`RUN` vykonáva build-time process a vytvára nový filesystem result. Nevytvára budúci runtime process.
-
-Spájanie package index refreshu a install operácie v jednej instruction zabraňuje jednoduchému reuse starého index layeru oddelene od install kroku. Stále však treba riešiť mutable repository inputs a rebuild/update policy.
-
-## 5. Image config transitions
-
-Nie všetky instructions vytvárajú významný filesystem changeset. Niektoré zapisujú runtime metadata do image configu.
-
-### `ENV` a `ARG`
+Alpine:
 
 ```dockerfile
-ARG APP_VERSION
-ENV APP_ENV=production
+RUN apk add --no-cache ca-certificates
 ```
 
-- `ARG` je build-time input;
-- `ENV` sa stáva image/runtime metadata.
+Package install stále závisí od repository generation. Reprodukovateľnosť potrebuje pinned package alebo snapshot repository podľa požadovanej úrovne assurance.
 
-Ani jedno nie je bezpečný secret transport.
+## 8. BuildKit mounts
 
-`ARG` môže ovplyvniť:
+Cache mount zrýchľuje dependency a compiler cache bez automatického pridania cache obsahu do final layer:
 
-- build history,
-- command output,
-- cache keys,
-- generated files.
+```dockerfile
+RUN --mount=type=cache,target=/go/pkg/mod,sharing=locked \
+    --mount=type=cache,target=/root/.cache/go-build,sharing=locked \
+    go test ./...
+```
 
-`ENV` môže byť viditeľné v image configu, runtime inspecte, process environment a dumpoch.
+Build musí fungovať aj s prázdnou cache. Cache nie je deklarovaný source artifact ani correctness authority.
 
-### `USER`
+Secret mount:
+
+```dockerfile
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc \
+    npm ci
+```
+
+SSH mount môže dočasne forwardovať SSH agent pre private repository access. Každý takýto mount rozširuje build trust boundary a musí byť povolený iba trusted jobom.
+
+## 9. `ARG` a `ENV` majú odlišný lifecycle
+
+`ARG` je build-time input. Nie je automaticky runtime environment, hoci jeho hodnota sa môže dostať do layer history, commands alebo explicitného `ENV`.
+
+```dockerfile
+ARG VERSION
+ARG VCS_REF
+```
+
+`ENV` zapisuje default do image configu:
+
+```dockerfile
+ENV LISTEN_ADDRESS=:8080 \
+    LOG_LEVEL=info
+```
+
+Runtime môže `ENV` prepísať:
+
+```bash
+docker run --env LOG_LEVEL=debug IMAGE
+```
+
+Secrets sa nemajú ukladať do `ARG` alebo `ENV`, pretože môžu byť viditeľné v image metadata, history alebo runtime inspect.
+
+## 10. Build metadata cez `LABEL`
+
+OCI annotations môžu niesť source, version a revision metadata:
+
+```dockerfile
+ARG VERSION
+ARG VCS_REF
+
+LABEL org.opencontainers.image.title="Atlas Payments API" \
+      org.opencontainers.image.version="$VERSION" \
+      org.opencontainers.image.revision="$VCS_REF" \
+      org.opencontainers.image.source="https://github.com/example/atlas-payments"
+```
+
+Keďže `ARG` scope sa resetuje pri novom `FROM`, `VERSION` a `VCS_REF` sa musia vo final stage-i znovu deklarovať.
+
+Labels sú metadata, nie cryptographic provenance. Hodnota revision môže byť nesprávna, ak ju producer dodal ručne. Trusted pipeline ju získava z checkout state-u a viaže na build evidence.
+
+## 11. `USER` ako runtime default
 
 ```dockerfile
 USER 65532:65532
 ```
 
-Definuje default runtime credentials. Je to iba jedna vrstva effective runtime policy; runtime môže hodnotu prepísať a mounted paths musia mať kompatibilný ownership/LSM contract.
+nastaví default usera pre nasledujúce build instructions a runtime process podľa pozície. Vo final stage-i ho zvyčajne nastavíme až po skopírovaní binary a príprave filesystem permissions.
 
-### `EXPOSE`
+Numeric UID/GID funguje aj bez `/etc/passwd`. Aplikácia však môže očakávať home directory alebo username lookup; minimal image contract treba otestovať.
+
+Runtime môže usera prepísať, preto audit číta image aj container:
+
+```bash
+docker image inspect IMAGE --format '{{.Config.User}}'
+docker inspect CONTAINER --format '{{.Config.User}}'
+```
+
+## 12. `EXPOSE` je metadata
 
 ```dockerfile
 EXPOSE 8080
 ```
 
-Je metadata o očakávanom container porte. Nevytvára host listener, port-forwarding ani firewall allow.
+hovorí, že aplikácia očakáva traffic na porte `8080`. Nevytvára host listener ani firewall rule.
 
-### `VOLUME`
+Host publishing sa nastaví runtime:
 
-```dockerfile
-VOLUME ["/data"]
+```bash
+docker run -p 127.0.0.1:18080:8080 IMAGE
 ```
 
-Deklaruje mount-point metadata. Neurčuje production data identity, backend, access mode, backup, fencing ani restore policy. Stateful storage contract patrí predovšetkým do runtime/orchestration vrstvy.
+Aplikácia zároveň musí na `8080` skutočne počúvať na vhodnej adrese. `EXPOSE` nemá enforcement ani health semantics.
 
-## 6. `ENTRYPOINT`, `CMD` a process contract
+## 13. `HEALTHCHECK`
 
-Exec forma:
+Image môže definovať default healthcheck:
+
+```dockerfile
+HEALTHCHECK \
+  --interval=10s \
+  --timeout=3s \
+  --start-period=5s \
+  --retries=3 \
+  CMD ["/usr/local/bin/payments-api", "healthcheck"]
+```
+
+Exec form nevyžaduje shell. Application binary môže zavolať local readiness endpoint a vrátiť non-zero exit code pri chybe.
+
+Healthcheck by mal byť krátky, deterministic a bezpečný pri opakovaní. Nemá vykonávať drahú business transakciu ani meniť state bez idempotency.
+
+Runtime alebo Compose môže image healthcheck prepísať alebo vypnúť. Image definition preto nie je effective proof.
+
+## 14. `ENTRYPOINT` a `CMD`
+
+Exec-form entrypoint:
 
 ```dockerfile
 ENTRYPOINT ["/usr/local/bin/payments-api"]
-CMD ["serve", "--port", "8080"]
+CMD ["serve"]
 ```
 
-Výsledný process argument model je približne:
+vytvorí default argv:
 
 ```text
-ENTRYPOINT + CMD/default runtime arguments
+/usr/local/bin/payments-api serve
 ```
 
-Runtime arguments typicky nahradia `CMD`. Explicitný entrypoint override môže nahradiť aj `ENTRYPOINT`.
+Pri `docker run IMAGE version` runtime arguments nahradia `CMD`:
 
-Shell forma:
+```text
+/usr/local/bin/payments-api version
+```
+
+`--entrypoint` môže prepísať aj entrypoint.
+
+Shell form:
 
 ```dockerfile
-CMD payments-api serve
+ENTRYPOINT /usr/local/bin/payments-api serve
 ```
 
-môže vytvoriť shell ako PID 1. To mení:
+typicky spustí shell ako PID 1. Signal forwarding a argument semantics sú menej priame. Pre jednu hlavnú aplikáciu je exec form bezpečnejšia a čitateľnejšia.
 
-- signal delivery,
-- argument expansion,
-- exit-code propagation,
-- zombie reaping,
-- graceful shutdown.
-
-Wrapper musí pri bežnom handoffe použiť `exec`:
-
-```sh
-#!/bin/sh
-set -eu
-exec /usr/local/bin/payments-api "$@"
-```
-
-## 7. Runtime readiness metadata
-
-### `HEALTHCHECK`
-
-```dockerfile
-HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
-  CMD ["/usr/local/bin/payments-health"]
-```
-
-Healthcheck má testovať schopnosť relevantnú pre runtime contract. `pgrep` alebo existencia PID môže potvrdiť liveness, nie readiness či business correctness.
-
-Image healthcheck je default metadata. Runtime alebo Compose ho môže prepísať alebo ignorovať.
-
-### `STOPSIGNAL`
+## 15. `STOPSIGNAL`
 
 ```dockerfile
 STOPSIGNAL SIGTERM
 ```
 
-Definuje preferovaný termination signal. Úspešné graceful shutdown stále potrebuje:
+určuje default signal použitý pri stop lifecycle. Aplikácia ho musí spracovať. Samotná deklarácia negarantuje graceful shutdown.
 
-- správny PID 1,
-- application handler,
-- child-process propagation,
-- dostatočný runtime stop timeout,
-- overenie, že request drain a state flush prebehli.
-
-## 8. Build secrets: neviditeľný mount nie je úplné riešenie
-
-Použi BuildKit secret mount:
-
-```dockerfile
-RUN --mount=type=secret,id=repo_token \
-    TOKEN="$(cat /run/secrets/repo_token)" \
-    && fetch-private-dependency "$TOKEN"
-```
-
-Secret mount sa štandardne nestane súčasťou výsledného layeru. Secret však môže stále uniknúť cez:
-
-- stdout/stderr,
-- tool config alebo generated file,
-- copied artifact directory,
-- package/build cache,
-- crash dump,
-- provenance alebo metadata pri nesprávnom použití.
-
-### Failure boundary: `ARG TOKEN` a false cleanup
-
-Build použije:
-
-```dockerfile
-ARG TOKEN
-RUN fetch-private-dependency "$TOKEN"
-RUN rm -f /tmp/token
-```
-
-Odstránenie file-u v neskoršej instruction neodstráni bytes ani metadata zo staršieho immutable layeru, history alebo cache. Incident recovery vyžaduje:
-
-1. revoke/rotate credential,
-2. odstrániť secret zo source a build pathu,
-3. zneplatniť kompromitovaný cache/artifact graph,
-4. rebuildnúť z čistého subjectu,
-5. overiť všetky platform variants,
-6. auditovať použitie credentialu.
-
-## 9. Ownership, permissions a read-only runtime
-
-Build typicky beží s vysokými oprávneniami vo stage-i, ale final runtime by mal mať explicitný identity contract.
-
-```dockerfile
-COPY --from=build --chown=65532:65532 \
-  /out/payments-api /usr/local/bin/payments-api
-USER 65532:65532
-```
-
-Výsledný image musí definovať:
-
-- executable a shared-library permissions,
-- readable configuration paths,
-- writable runtime paths,
-- stable numeric UID/GID,
-- behavior pri read-only root filesysteme,
-- compatibility s volume a user-namespace mappingom.
-
-`chmod -R 777` neopravil identity model. Iba rozšíril write authority.
-
-## 10. Base, packages a external downloads
-
-Každý external download je build dependency.
-
-Bezpečnejší contract zahŕňa:
-
-- approved source,
-- immutable version alebo snapshot podľa update modelu,
-- checksum/signature verification,
-- TLS a repository trust,
-- dependency lock,
-- explicitnú architecture/platform,
-- update a deprecation ownera.
-
-Anti-pattern:
-
-```dockerfile
-RUN curl -fsSL https://example.invalid/install.sh | sh
-```
-
-Source sa môže zmeniť bez zmeny Dockerfile-u a okamžite sa vykonáva s build-stage authority.
-
-Package pins a floating ranges majú odlišný trade-off:
-
-- úplne mutable latest znižuje reproducibility;
-- exact pin bez update automation vytvára security backlog;
-- správny model kombinuje controlled immutable subject s pravidelným update workflowom.
-
-## 11. Deterministický artifact a provenance
-
-Image výsledok ovplyvňujú:
-
-- source a context content,
-- Dockerfile/frontend,
-- base digests,
-- external repositories a downloads,
-- lock files,
-- build args a platform,
-- clocks, generated timestamps a locale,
-- toolchain/compiler,
-- builder a cache inputs,
-- selected final target.
-
-Build evidence musí odpovedať:
-
-```text
-ktorý source
-+ ktoré inputs
-+ ktorý builder/frontend
-+ ktorý stage/target
-+ ktorá platforma
-→ ktorý image digest
-```
-
-Reproducibility nie je iba cache hit. Cache môže vrátiť rovnaký starý result aj vtedy, keď remote mutable input už mal byť aktualizovaný.
-
-## 12. Causal walkthrough: running container, green health a nefunkčný shutdown
-
-### Symptóm
-
-Release `R42` sa spustí. Docker reportuje `running` a healthcheck je green, ale API po strate database connection vracia chyby. Pri rollout replacement-e container ignoruje `SIGTERM` a musí byť killnutý.
-
-### Competing hypotheses
-
-1. runtime prepísal `ENTRYPOINT` alebo `CMD`;
-2. shell forma vytvorila shell PID 1;
-3. wrapper nepoužil `exec`;
-4. `STOPSIGNAL` nezodpovedá application handleru;
-5. healthcheck overuje iba existenciu processu;
-6. image neobsahuje správny readiness helper;
-7. stop timeout je kratší než application drain;
-8. problém je mimo image-u v orchestrator policy.
-
-### Discriminating observation points
-
-Najprv potvrď image a runtime subject:
+Test:
 
 ```bash
-docker image inspect <digest>
-docker inspect <container>
+docker stop --time 15 payments-api
+docker inspect payments-api \
+  --format 'exit={{.State.ExitCode}} finished={{.State.FinishedAt}}'
 ```
 
-Porovnaj:
+Aplikačný acceptance test má navyše overiť, že in-flight operácia nezostala v nekonzistentnom stave.
 
-- image `Entrypoint`, `Cmd`, `Healthcheck` a `StopSignal`,
-- runtime overrides,
-- process tree a PID 1,
-- signal delivery a exit timeline,
-- healthcheck command/output,
-- listener a dependency readiness,
-- application shutdown logs.
-
-### Finding
-
-Dockerfile používal:
-
-```dockerfile
-CMD payments-api serve
-HEALTHCHECK CMD pgrep payments-api
-```
-
-Shell bol PID 1 a neposlal termination signal child procesu. Healthcheck ostal green, pretože process existoval, hoci database dependency a request path nefungovali.
-
-### Recovery
-
-1. zastav rollout a obmedz traffic na zdravé instances;
-2. rebuildni image s exec-form `ENTRYPOINT`/`CMD`;
-3. pridaj readiness check nad relevantným dependency/request outcome-om;
-4. nastav a otestuj zodpovedajúci stop signal a grace period;
-5. over signal, request drain, exit code a replacement;
-6. publikuj nový digest a nekoriguj live container ručne.
-
-### Skoršie controls
-
-- Dockerfile lint pre shell-form runtime command,
-- image-config contract assertions,
-- production-like readiness test,
-- termination integration test,
-- policy vyžadujúca non-root a explicitný final target,
-- runtime evidence viazaná na exact image digest.
-
-## 13. Worked failure boundaries
-
-### `COPY` nenájde file
-
-Mechanizmus:
-
-```text
-context root alebo ignore rule
-→ file nie je v builder input inventory
-→ COPY source resolution zlyhá
-```
-
-Over context root, `.dockerignore`, case sensitivity, symlink a Dockerfile path. Source path sa nevyhodnocuje voči directory Dockerfile-u, ale voči contextu alebo explicitnému source stage/contextu.
-
-### `no such file or directory`, hoci binary existuje
-
-Path môže existovať, ale kernel nevie načítať:
-
-- dynamic linker,
-- interpreter zo shebang-u,
-- správnu architecture,
-- required shared library.
-
-Filesystem existence a executable runtime compatibility sú odlišné.
-
-### Non-root nevie zapisovať
-
-Over:
-
-- effective runtime UID/GID,
-- file ownership v image,
-- mount source identity,
-- user namespace mapping,
-- Unix ACL/mode,
-- SELinux/AppArmor,
-- read-only root/mount policy.
-
-Nemeň image na root alebo `777` bez identifikácie konkrétneho denied objectu a operation.
-
-### Security rebuild stále obsahuje starý vulnerable package
-
-Možné príčiny:
-
-- nezmenený pinned base digest,
-- `RUN` instruction obnovená z cache,
-- mutable repository snapshot nebol refreshnutý,
-- scanner analyzuje iný platform manifest,
-- release publishuje starý target/digest.
-
-Tento failure sa detailnejšie rieši v nasledujúcej kapitole o contextoch a cache.
-
-## 14. Referenčný instruction katalóg
-
-| Instruction | Hlavný build/runtime efekt | Kľúčová failure boundary |
-|---|---|---|
-| `FROM` | vytvorí stage a parent subject | mutable alebo unsupported base |
-| `WORKDIR` | mení working-directory context | neexistujúci/neprístupný runtime path |
-| `COPY` | prenesie declared content/metadata | wrong context, broad copy, ownership |
-| `ADD` | širší source/extraction transition | hidden remote/extraction semantics |
-| `RUN` | vykoná build process a uloží result | mutable remote input, stale cache, secret output |
-| `ARG` | build-time value | history/cache/log exposure |
-| `ENV` | image/runtime metadata | secret/config drift |
-| `USER` | default runtime credentials | mount/permission incompatibility |
-| `ENTRYPOINT` | base executable | override a PID 1 behavior |
-| `CMD` | default command/arguments | shell form a runtime replacement |
-| `EXPOSE` | port metadata | false assumption o publication/firewall |
-| `VOLUME` | mount-point metadata | implicit anonymous data lifecycle |
-| `HEALTHCHECK` | default health command | shallow oracle a false green |
-| `STOPSIGNAL` | preferred termination signal | handler/grace-period mismatch |
-| `LABEL` | artifact metadata | nondeterministic alebo sensitive metadata |
-
-Katalóg sumarizuje semantics. Bez dominantného build-to-runtime modelu však nevysvetlí výsledný artifact ani failure.
-
-## 15. Reference Dockerfile
+## 16. Kompletný multi-stage Dockerfile
 
 ```dockerfile
 # syntax=docker/dockerfile:1
 
-FROM --platform=$BUILDPLATFORM golang:1.24@sha256:<build-digest> AS build
-ARG TARGETOS TARGETARCH
+ARG GO_IMAGE=golang:1.25-alpine@sha256:<build-base-digest>
+ARG RUNTIME_IMAGE=gcr.io/distroless/static-debian12:nonroot@sha256:<runtime-base-digest>
+
+FROM ${GO_IMAGE} AS source
 WORKDIR /src
 
 COPY go.mod go.sum ./
-RUN --mount=type=cache,target=/go/pkg/mod \
+RUN --mount=type=cache,target=/go/pkg/mod,sharing=locked \
     go mod download
 
 COPY cmd ./cmd
-COPY internal ./internal
-RUN --mount=type=cache,target=/root/.cache/go-build \
-    CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH \
-    go build -trimpath -o /out/payments-api ./cmd/payments-api
 
-FROM gcr.io/distroless/static-debian12:nonroot@sha256:<runtime-digest> AS runtime
+FROM source AS test
+RUN --mount=type=cache,target=/go/pkg/mod,sharing=locked \
+    --mount=type=cache,target=/root/.cache/go-build,sharing=locked \
+    go test ./...
+
+FROM source AS build
+ARG TARGETOS
+ARG TARGETARCH
+ARG VERSION
+ARG VCS_REF
+
+RUN --mount=type=cache,target=/go/pkg/mod,sharing=locked \
+    --mount=type=cache,target=/root/.cache/go-build,sharing=locked \
+    CGO_ENABLED=0 GOOS="$TARGETOS" GOARCH="$TARGETARCH" \
+    go build \
+      -trimpath \
+      -ldflags="-s -w -X main.version=$VERSION -X main.commit=$VCS_REF" \
+      -o /out/payments-api \
+      ./cmd/payments-api
+
+FROM ${RUNTIME_IMAGE} AS runtime
+ARG VERSION
+ARG VCS_REF
+
+LABEL org.opencontainers.image.title="Atlas Payments API" \
+      org.opencontainers.image.version="$VERSION" \
+      org.opencontainers.image.revision="$VCS_REF"
+
+WORKDIR /home/nonroot
 COPY --from=build --chown=65532:65532 \
-  /out/payments-api /usr/local/bin/payments-api
+  /out/payments-api \
+  /usr/local/bin/payments-api
+
 USER 65532:65532
+ENV LISTEN_ADDRESS=:8080 \
+    DATA_PATH=/var/lib/atlas-payments/payments.jsonl
+
 EXPOSE 8080
 STOPSIGNAL SIGTERM
+
+HEALTHCHECK \
+  --interval=10s \
+  --timeout=3s \
+  --start-period=5s \
+  --retries=3 \
+  CMD ["/usr/local/bin/payments-api", "healthcheck"]
+
 ENTRYPOINT ["/usr/local/bin/payments-api"]
-CMD ["serve", "--port", "8080"]
+CMD ["serve"]
 ```
 
-Aj tento Dockerfile potrebuje mimo samotného textu:
+Tento Dockerfile vytvára úzky runtime image, ale sám nepreukazuje, že `test` stage bol vykonaný, že digest-pinned bases existujú, že runtime volume má správny ownership ani že host publishing funguje.
 
-- immutable dependency a context subject,
-- test stage alebo external test evidence,
-- provenance a SBOM,
-- multi-platform validation,
-- production-like readiness a termination test,
-- runtime configuration, identity, network a storage policy.
+## 17. Lint, build a inspect
 
-## 16. Praktické controls
+Static kontrola môže zachytiť syntax a vybrané best practices:
 
-- pinuj base a external image subjects a automatizuj ich update;
-- používaj narrow build contexts a `COPY` paths;
-- používaj BuildKit secret/SSH mounts, nie `ARG` alebo `ENV` secrets;
-- oddeľ build toolchain od final runtime stage;
-- používaj exec-form runtime command;
-- definuj numeric non-root identity a explicitné writable paths;
-- testuj image config aj effective runtime overrides;
-- viaž scan, SBOM, provenance a runtime test na exact digest;
-- zakáž publication debug/build targetu pod production reference;
-- pri incidente rebuildni clean artifact; neopravuj live container.
+```bash
+docker buildx build --check .
+```
 
-## 17. Kontrolné otázky
+Podpora konkrétnych checks závisí od Buildx a frontendu.
 
-1. Prečo Dockerfile predstavuje program a nie iba zoznam instructions?
-2. Čo patrí do immutable build input inventory?
-3. Ako `FROM` ovplyvňuje supply chain aj runtime compatibility?
-4. Aký je rozdiel medzi filesystem a image-config transitionom?
-5. Prečo `ARG` a `ENV` nie sú secret mechanisms?
-6. Ako `ENTRYPOINT` a `CMD` vytvoria runtime process contract?
-7. Prečo healthcheck môže byť green pri nefunkčnej aplikácii?
-8. Prečo zmazanie secretu v neskoršej instruction nestačí?
-9. Ako sa odlišuje image default od effective runtime configuration?
-10. Ktoré dôkazy spájajú source a final image digest?
+Test target:
 
-## Glossary impact
+```bash
+docker buildx build \
+  --target test \
+  --output=type=cacheonly \
+  --progress=plain \
+  .
+```
 
-Relevantné pojmy: Dockerfile program subject, immutable build input inventory, Dockerfile frontend identity, stage graph, filesystem transition, image-config transition, runtime process contract, effective image metadata, build secret path, image-config contract test a clean image rebuild.
+Runtime image:
 
-## Oficiálna dokumentácia
+```bash
+docker buildx build \
+  --target runtime \
+  --build-arg VERSION=1.0.0 \
+  --build-arg VCS_REF="$(git rev-parse --short=12 HEAD)" \
+  --tag atlas/payments-api:1.0.0 \
+  --load \
+  .
+```
+
+Inspect:
+
+```bash
+docker image inspect atlas/payments-api:1.0.0 \
+  --format '{{json .Config}}' | jq .
+```
+
+Každý krok má inú hranicu: check je static, test target vykoná konkrétny graph, runtime build vytvorí image a inspect číta final metadata. Ani jeden sám nepreukazuje production behavior.
+
+## 18. Incident: test stage existoval, ale nikdy nebežal
+
+Team pridal `FROM source AS test` a `RUN go test ./...`. CI však buildovala iba final runtime target:
+
+```bash
+docker buildx build --target runtime --push .
+```
+
+Keďže runtime stage závisel od `build`, nie od sibling `test`, BuildKit test stage nevykonal. Pipeline bola zelená a image obsahoval regression.
+
+Oprava pridala samostatný required test build s `--target test` a uložila subject identity source-u, Dockerfile-u, base images a buildera. Release build sa spustil iba po PASS rovnakého input subjectu.
+
+## 19. Incident: `false` configuration sa zmenila na default
+
+Entrypoint wrapper používal shell expansion:
+
+```sh
+LEGACY_ENABLED="${LEGACY_ENABLED:-true}"
+```
+
+V deployment-e bola premenná explicitne prázdna alebo nesprávne serializovaná. Shell použil `true`, hoci owner očakával disabled behavior.
+
+Dockerfile a runtime configuration začali rozlišovať missing, empty a explicitnú hodnotu. Application parser validoval iba `true` alebo `false` a `/version` publikoval loaded configuration generation bez secretov.
+
+## Čo si z kapitoly odniesť
+
+Dockerfile je build program a stage graph. `FROM`, `COPY` a `RUN` tvoria filesystem a build dependencies. `USER`, `ENV`, `ENTRYPOINT`, `CMD`, `HEALTHCHECK` a labels zapisujú runtime defaults a metadata.
+
+Poradie instructions ovplyvňuje cache. `ARG` a `ENV` majú iný lifecycle. `EXPOSE` nepublikuje port a healthcheck nie je business acceptance. Multi-stage Dockerfile môže obsahovať test stage, ktorý final target nevykoná. Preto sa build graph, final image config a runtime behavior overujú samostatne.
+
+## Primárne zdroje
 
 - [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
-- [Dockerfile overview](https://docs.docker.com/build/concepts/dockerfile/)
-- [Building best practices](https://docs.docker.com/build/building/best-practices/)
+- [Dockerfile best practices](https://docs.docker.com/build/building/best-practices/)
+- [Multi-stage builds](https://docs.docker.com/build/building/multi-stage/)
+- [Build secrets](https://docs.docker.com/build/building/secrets/)
+- [Build checks](https://docs.docker.com/build/checks/)
 
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
