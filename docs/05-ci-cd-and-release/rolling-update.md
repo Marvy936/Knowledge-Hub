@@ -153,6 +153,22 @@ kubectl -n payments get deployment payments-api \
 
 Condition preukazuje controller interpretation. Nepreukazuje business acceptance ani že `rollout undo` je data-compatible. Previous ReplicaSet môže existovať, ale old version nemusí vedieť čítať current state.
 
+## Doplnenie výkladu: surge, unavailable a dve súbežné cohorts
+
+Rolling update postupne nahrádza staré replicas novými. Počas transition existujú minimálne dve cohorts s odlišnou generation.
+
+`maxUnavailable` určuje, koľko desired replicas môže byť nedostupných. `maxSurge` určuje, koľko replicas nad desired count môže dočasne vzniknúť. Percentá sa prepočítavajú a zaokrúhľujú podľa controller contractu, preto malé deploymenty môžu mať prekvapivé absolútne hodnoty.
+
+Pri desired `10`, `maxUnavailable=20%` a `maxSurge=30%` môže controller cieliť približne na minimálne 8 available a maximálne 13 total replicas. Existing unavailable baseline znižuje reálnu rezervu.
+
+Readiness odstraňuje nový Pod z unavailable countu, ale nepreukazuje stabilitu počas observation window. Pod môže byť ready pred warm-upom alebo pred načítaním všetkých routes.
+
+Traffic počas rolloutu smeruje na old aj new cohort. Session, cache, events a database musia byť mixed-version compatible. Ak nová verzia zapisuje formát, ktorý stará nevie čítať, samotné replica poradie problém nevyrieši.
+
+Termination potrebuje drain: odstrániť endpoint eligibility, počkať na in-flight requests a až potom ukončiť process. Príliš krátky grace period vytvára reset connections.
+
+Rollback controllera vytvorí ďalší rolling transition. Nie je instantný návrat a nemusí byť data-compatible.
+
 ## 11. Connected incident `REL-PAY-69`
 
 Atlas mal desired `20` replicas, strategy `maxSurge=25%`, `maxUnavailable=10%`. Pred rolloutom boli tri Pods unavailable kvôli CNI IP pressure, takže baseline available bolo `17`. Gate kontroloval iba, že Deployment condition `Available=True`.

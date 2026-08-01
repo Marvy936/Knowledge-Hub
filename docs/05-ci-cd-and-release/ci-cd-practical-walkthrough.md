@@ -395,6 +395,38 @@ neoverený rebuild sa nedá promovovať
 
 Walkthrough tým spája CI, delivery, deployment, promotion, progressive exposure a recovery do jedného vykonateľného modelu. Nezávisí od konkrétneho CI produktu; GitLab, GitHub Actions alebo Jenkins majú implementovať rovnaké subject a evidence boundaries.
 
+## Doplnenie výkladu: ako čítať artifact, digest a atomic promotion v walkthroughu
+
+Praktický walkthrough používa deterministic artifact preto, aby rovnaké vstupy vytvorili stabilné bytes. Tar archive môže inak obsahovať timestamps, owner IDs alebo nestabilné file ordering. Digest potom identifikuje presný výsledok, nie iba source commit.
+
+Keď sa vykoná:
+
+```bash
+sha256sum "$artifact" > "$artifact.sha256"
+sha256sum --check "$artifact.sha256"
+```
+
+prvý command vytvorí digest aktuálnych bytes a druhý overí local equality. Trusted release flow uloží digest aj do release manifestu a viaže na build subject; samotný `.sha256` file sa dá nahradiť spolu s artifactom.
+
+Staging a production promotion kopírujú alebo referencujú ten istý digest. Rebuild nie je promotion. Ak nový build vytvorí iný digest, potrebuje nové testy a approval.
+
+Atomic active-generation switch v local modeli môže používať symlink alebo rename. Atomic znamená, že readers vidia starý alebo nový pointer, nie partial text. Neznamená to, že všetky running processes okamžite načítali nový target. Runtime read-back a business verification zostávajú potrebné.
+
+Lost response po switchi vytvára unknown outcome. Správny postup je prečítať active pointer, candidate directory a ledger operation ID. Opakovanie switch commandu bez read-backu môže prepísať novšiu transition.
+
+Walkthrough preto oddeľuje:
+
+```text
+artifact integrity
+release manifest authority
+deployment mutation
+active generation
+loaded runtime
+business outcome
+```
+
+Každý successful command preukazuje iba svoju vrstvu.
+
 <!-- KNOWLEDGE-NAVIGATION:START -->
 ---
 

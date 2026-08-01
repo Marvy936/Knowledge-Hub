@@ -277,6 +277,34 @@ trigger subject
 
 Cloud audit log môže potvrdiť, ktorá federated role vykonala deployment. Nepreukazuje, že role získala správny workflow subject, ak trust policy neobsahuje relevantné claims alebo logs ich nezachovávajú.
 
+## Doplnenie výkladu: source YAML nie je resolved pipeline
+
+Pipeline as Code ukladá workflow definition do versionovaného source-u, ale execution systém najprv vykoná ďalšie kroky: načíta includes/templates, aplikuje inheritance/defaults, vyhodnotí rules a vytvorí resolved graph.
+
+```text
+root pipeline file
++ included templates a versions
++ variables a event context
++ rules/conditions
+→ resolved jobs, dependencies a permissions
+```
+
+Review jedného YAML file-u preto nemusí ukázať effective pipeline. Mutable include na `main` môže medzi dvoma runs zmeniť graph bez zmeny aplikačného commitu.
+
+Syntax validation preukazuje iba parse a schema:
+
+```bash
+yamllint .gitlab-ci.yml
+```
+
+Linter nevie, ktoré jobs vzniknú pre tag, fork alebo schedule. Platformový compiled/config view alebo dry-run graph je silnejší read-back.
+
+Pipeline source je executable authority. Zmena workflow môže získať secrets, meniť artifacts alebo deployovať. Untrusted pull request nemá používať vlastnú zmenenú workflow definition s production credentials. Trusted workflow source a untrusted application source sa niekedy oddeľujú.
+
+Reproducibility vyžaduje pinned actions/images/templates a zaznamenaný resolved graph. Tag `v4` môže byť convenience locator, ale commit digest je presnejšia dependency identity.
+
+Pipeline as Code neodstraňuje platform runtime state: runner config, protected variables, environment policy a scheduler behavior zostávajú mimo repository a musia sa read-backnúť.
+
 ## 12. Connected incident `REL-PAY-67`
 
 Atlas root workflow používal reusable release workflow cez `@main`. Review diff v application repository menil iba `canary-percent: 2`. Po approval platform tím zmenil reusable workflow: pridal prefix cache restore, rozšíril `id-token: write` na workflow level a deployment condition z `refs/heads/main` na expression, ktorá bola true aj pre protected tag vytvorený fork-driven automation.

@@ -171,6 +171,27 @@ post-destructive migration
 
 Old artifact retention bez compatible data state nie je rollback readiness.
 
+## Doplnenie výkladu: recreate ako explicitná downtime state machine
+
+Recreate deployment najprv ukončí starú generation a až potom spustí novú. Výhodou je, že sa nemiešajú dve aplikačné verzie. Nevýhodou je obdobie bez dostupnej capacity.
+
+```text
+old serving
+→ stop/drain old
+→ zero serving capacity
+→ start new
+→ readiness
+→ traffic resumes
+```
+
+Downtime nie je iba process startup time. Zahŕňa termination grace, volume detach/attach, scheduling, image pull, initialization, migration a readiness. Ak DNS alebo proxy cacheuje staré endpointy, user-visible failure môže trvať dlhšie.
+
+Recreate je vhodný pre singleton workload, development prostredie alebo systém, kde mixed versions nie sú možné a downtime je prijateľný. Nie je automaticky bezpečný pre stateful service; nový process môže očakávať nekompatibilnú schema.
+
+Precondition zahŕňa backup/recovery, capacity a exact target. Po stopnutí starej generation rollback už nemusí byť okamžitý, pretože staré Pods/processes boli zničené.
+
+Readiness musí overovať schopnosť prijímať reálnu prácu. Process running alebo open port nepreukazuje načítanú config a dependency readiness. Acceptance pridáva business smoke a druhú operáciu.
+
 ## 10. Connected incident `REL-PAY-69`
 
 Atlas zvolil recreate pre singleton settlement writer, pretože release menil local state format. Maintenance budget bol 10 minút. Runbook scale-nul Deployment a po Pod termination spustil migration. Queue admission však nebola zatvorená na brokeri a old writer na partitioned node držal provider credential aj lease cache.

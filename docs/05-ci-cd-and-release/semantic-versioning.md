@@ -204,6 +204,37 @@ old producer + old consumer
 
 SemVer release label nenahrádza deployment compatibility plan.
 
+## Doplnenie výkladu: SemVer je contract o kompatibilite, nie dôkaz kvality
+
+Semantic Versioning zapisuje verziu ako `MAJOR.MINOR.PATCH` pre software s definovaným **public API**. Public API nie je iba HTTP endpoint. Môže zahŕňať package symbols, CLI flags, config schema, event payloads alebo behavior, na ktorý sa consumers spoliehajú.
+
+```text
+MAJOR
+→ nekompatibilná zmena public contractu
+
+MINOR
+→ backward-compatible nová funkcionalita
+
+PATCH
+→ backward-compatible oprava
+```
+
+Version `2.4.1` sama nepreukazuje, že zmena je správne klasifikovaná. Tím musí vedieť, čo public contract zahŕňa a aké consumers existujú.
+
+Pre-release:
+
+```text
+2.4.0-alpha.1 < 2.4.0-beta.1 < 2.4.0-rc.1 < 2.4.0
+```
+
+Pre-release versions majú nižšiu precedence než final release. Build metadata za `+`, napríklad `2.4.0+build.17`, nemení SemVer precedence a nemá sa používať ako jediná immutable artifact identity.
+
+Breaking change môže byť skrytý v semantics: pole zostane string, ale zmení význam; timeout default sa skráti; event ordering sa zmení. Schema diff preto nemusí stačiť.
+
+SemVer je komunikácia pre dependency resolver a používateľov. Nezaručuje security, support duration, artifact immutability ani deployment compatibility so zmenenou databázou. Release manifest stále potrebuje digest a compatibility metadata.
+
+Ak sa už publikovaná version ukáže chybná, neprepisuje sa novými bytes. Vydá sa nová PATCH alebo ďalšia pre-release version. Rovnaké číslo s dvoma digestmi rozbíja resolver, cache aj audit.
+
 ## 12. Connected incident `REL-PAY-68`
 
 Atlas pridal enum value `PROVIDER_REVIEW` do `SettlementStatus`, zmenil idempotency scope a dropol PostgreSQL 14. Source diff bol označený `feat`, automation navrhla `9.10.0`. OpenAPI diff bol green, pretože enum bol v event schema a behavior idempotency nebol v OpenAPI.

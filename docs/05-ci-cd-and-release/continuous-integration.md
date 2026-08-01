@@ -195,6 +195,46 @@ deployment
 
 Container executor nie je automatická hard security boundary. Privileged mounts, shared host kernel, persistent workspace, Docker socket a broad egress môžu spojiť untrusted job s ďalšími runs. Runner sa klasifikuje podľa identity, persistence, networku a oprávnení, nie iba podľa executor labelu.
 
+## Doplnenie výkladu: integration candidate a stale evidence
+
+Continuous Integration neznamená iba to, že sa po pushi spustí test job. Jej hlavným subjectom je **integration candidate**: presný snapshot, ktorý vznikne spojením navrhovanej zmeny s aktuálnym cieľovým stavom.
+
+Pri pull requeste existujú minimálne tri rozdielne identity:
+
+```text
+feature branch tip
+cieľová branch tip
+synthetic merge candidate
+```
+
+Feature branch môže byť zelená voči starému `main`, no po integrácii s novším `main` vznikne iný tree. Hosting platforma alebo merge queue preto často vytvorí dočasný commit, ktorý má ako parents feature a cieľový tip. Testy nad týmto synthetic merge commitom poskytujú evidence pre budúci integrated snapshot.
+
+Príkazy:
+
+```bash
+feature_sha=$(git rev-parse HEAD)
+target_sha=$(git rev-parse origin/main)
+merge_base=$(git merge-base HEAD origin/main)
+printf 'feature=%s target=%s base=%s\n' \
+  "$feature_sha" "$target_sha" "$merge_base"
+```
+
+`rev-parse` resolve-ne refs na commit IDs. `merge-base` nájde spoločného predka používaného na porovnanie zmien. Tieto hodnoty ešte nevytvárajú merge candidate; iba presne identifikujú vstupy.
+
+CI evidence musí viazať:
+
+```text
+source commit
++ target commit
++ výsledný candidate tree alebo merge commit
++ workflow generation
++ dependency/build inputs
+```
+
+Ak sa target branch po úspešnom teste posunie, pôvodný verdict môže byť **stale**. Neznamená to, že test klamal; znamená to, že platil pre iný subject. Merge queue tento problém rieši sériou alebo skupinou kandidátov testovaných v poradí budúcej integrácie.
+
+Zelená CI teda preukazuje, že konkrétny candidate prešiel konkrétnymi checks. Nepreukazuje, že všetky required checks skutočne existovali, že runner bol trusted, že artifact neskôr vznikol z rovnakých bytes alebo že produkcia používa tento candidate.
+
 ## 10. Connected incident `REL-PAY-66`
 
 Atlas Payments pripravoval release `payments 10.0`. PR A menil `SettlementCreated` schema a generated client. PR B menil serializer dependency. Oba pipelines boli zelené proti `main=M1`. PR B sa mergol a vytvoril `M2`; PR A sa následne mergol bez merge-result revalidácie.

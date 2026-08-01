@@ -5,10 +5,10 @@
 ## Summary
 
 - Audited authoritative articles: **327**
-- Audited conceptual sections: **6775**
-- Total words: **602,863**
-- Findings: **7081** (critical 942, high 1508, medium 576, low 4055)
-- File grades: A 112, B 93, C 28, D 94
+- Audited conceptual sections: **6799**
+- Total words: **607,387**
+- Findings: **7091** (critical 943, high 1508, medium 576, low 4064)
+- File grades: A 112, B 93, C 26, D 96
 
 ## Interpretation
 
@@ -89,53 +89,53 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 139 | 5 | 5 | 3 | 22 | 2691 | `docs/00-foundations/sdlc.md` |
 | D | 139 | 2 | 13 | 0 | 9 | 1406 | `docs/06-gitlab/variables-and-secrets.md` |
 | D | 133 | 5 | 3 | 4 | 26 | 2820 | `docs/00-foundations/devops.md` |
-| D | 127 | 3 | 9 | 2 | 8 | 1531 | `docs/05-ci-cd-and-release/quality-gates-and-approvals.md` |
+| D | 127 | 3 | 9 | 2 | 8 | 1731 | `docs/05-ci-cd-and-release/quality-gates-and-approvals.md` |
 | D | 124 | 2 | 11 | 1 | 5 | 1249 | `docs/06-gitlab/container-and-package-registry.md` |
 | D | 122 | 2 | 9 | 3 | 11 | 1933 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-providers-resources-data-sources.md` |
 | D | 120 | 3 | 7 | 2 | 16 | 2053 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
 | D | 116 | 0 | 13 | 0 | 8 | 1292 | `docs/06-gitlab/environments-deployments-releases.md` |
 | D | 108 | 3 | 2 | 7 | 22 | 2403 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | D | 106 | 3 | 2 | 4 | 29 | 2222 | `docs/00-foundations/idempotency.md` |
-| D | 105 | 1 | 10 | 2 | 3 | 1310 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
+| D | 105 | 1 | 10 | 2 | 3 | 1473 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
 | D | 103 | 1 | 10 | 0 | 7 | 1202 | `docs/06-gitlab/artifacts-and-cache.md` |
 | D | 102 | 3 | 2 | 4 | 27 | 2649 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
-| D | 102 | 2 | 7 | 2 | 10 | 1535 | `docs/05-ci-cd-and-release/release-management.md` |
+| D | 102 | 2 | 7 | 2 | 10 | 1725 | `docs/05-ci-cd-and-release/release-management.md` |
 | D | 98 | 4 | 4 | 0 | 13 | 1815 | `docs/00-foundations/dora-metrics.md` |
 | D | 97 | 4 | 2 | 3 | 19 | 1745 | `docs/01-linux-and-systems/environment-variables.md` |
-| D | 96 | 2 | 6 | 2 | 12 | 1731 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
-| D | 95 | 1 | 10 | 0 | 4 | 1300 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
+| D | 96 | 2 | 6 | 2 | 12 | 1930 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
+| D | 95 | 1 | 10 | 0 | 4 | 1456 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 90 | 0 | 9 | 0 | 11 | 1373 | `docs/06-gitlab/security-scanning.md` |
-| D | 86 | 1 | 8 | 1 | 5 | 1401 | `docs/05-ci-cd-and-release/canary-deployment.md` |
-| D | 84 | 0 | 8 | 1 | 11 | 1488 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
+| D | 86 | 1 | 8 | 1 | 5 | 1580 | `docs/05-ci-cd-and-release/canary-deployment.md` |
+| D | 85 | 0 | 8 | 1 | 12 | 1681 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
 | D | 84 | 0 | 9 | 0 | 9 | 1469 | `docs/06-gitlab/runners-and-executors.md` |
+| D | 82 | 1 | 8 | 0 | 4 | 1584 | `docs/05-ci-cd-and-release/feature-flags.md` |
 | D | 80 | 3 | 3 | 1 | 11 | 1516 | `docs/00-foundations/value-stream-mapping.md` |
-| D | 80 | 0 | 9 | 0 | 6 | 1341 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
+| D | 80 | 0 | 9 | 0 | 6 | 1516 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
 | D | 79 | 0 | 8 | 0 | 10 | 1303 | `docs/06-gitlab/merge-requests-and-approvals.md` |
 | D | 79 | 1 | 8 | 0 | 3 | 1466 | `docs/06-gitlab/projects-groups-permissions.md` |
 | D | 77 | 0 | 9 | 0 | 5 | 3195 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
-| D | 76 | 0 | 8 | 0 | 9 | 1614 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
+| D | 76 | 0 | 8 | 0 | 9 | 1798 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
 | D | 76 | 0 | 9 | 0 | 3 | 1351 | `docs/06-gitlab/gitlab-ci-cd-syntax.md` |
-| D | 72 | 0 | 8 | 0 | 5 | 1261 | `docs/05-ci-cd-and-release/a-b-testing.md` |
-| C | 69 | 0 | 8 | 0 | 3 | 1408 | `docs/05-ci-cd-and-release/feature-flags.md` |
-| C | 69 | 1 | 6 | 0 | 9 | 1683 | `docs/05-ci-cd-and-release/pipeline-as-code.md` |
-| C | 68 | 0 | 8 | 0 | 3 | 1268 | `docs/05-ci-cd-and-release/ring-deployment.md` |
-| C | 67 | 0 | 7 | 0 | 9 | 1557 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
-| C | 67 | 0 | 7 | 0 | 9 | 1637 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
+| D | 72 | 0 | 8 | 0 | 5 | 1434 | `docs/05-ci-cd-and-release/a-b-testing.md` |
+| D | 71 | 1 | 6 | 0 | 11 | 1867 | `docs/05-ci-cd-and-release/pipeline-as-code.md` |
+| C | 68 | 0 | 8 | 0 | 3 | 1428 | `docs/05-ci-cd-and-release/ring-deployment.md` |
+| C | 68 | 0 | 7 | 0 | 10 | 1852 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
+| C | 67 | 0 | 7 | 0 | 9 | 1741 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
 | C | 65 | 1 | 5 | 0 | 10 | 3778 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-practical-walkthrough.md` |
-| C | 64 | 0 | 7 | 0 | 5 | 1277 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
+| C | 64 | 0 | 7 | 0 | 5 | 1443 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | C | 64 | 0 | 7 | 0 | 7 | 1333 | `docs/06-gitlab/protected-branches-and-environments.md` |
+| C | 62 | 0 | 7 | 0 | 5 | 1667 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | C | 62 | 0 | 6 | 0 | 12 | 3535 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
 | D | 62 | 3 | 1 | 1 | 11 | 1385 | `docs/09-kubernetes/desired-state-reconciliation-loops.md` |
-| C | 61 | 0 | 7 | 0 | 4 | 1410 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
-| C | 60 | 0 | 6 | 0 | 9 | 1459 | `docs/05-ci-cd-and-release/rolling-update.md` |
-| C | 57 | 0 | 5 | 0 | 14 | 1746 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
+| C | 60 | 0 | 6 | 0 | 9 | 1636 | `docs/05-ci-cd-and-release/rolling-update.md` |
+| C | 58 | 0 | 5 | 0 | 15 | 1947 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | C | 57 | 2 | 3 | 1 | 6 | 3108 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-practical-walkthrough.md` |
-| C | 55 | 0 | 5 | 0 | 12 | 1816 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
-| C | 55 | 0 | 6 | 0 | 6 | 1341 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
+| C | 55 | 0 | 5 | 0 | 12 | 1774 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
+| C | 55 | 0 | 5 | 0 | 12 | 2027 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
+| C | 55 | 0 | 6 | 0 | 6 | 1497 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 1 | 4 | 0 | 9 | 1897 | `docs/03-git-and-automation/python-for-automation.md` |
-| C | 54 | 0 | 5 | 0 | 11 | 1603 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | C | 53 | 0 | 6 | 0 | 4 | 2266 | `docs/11-cloud-and-aws/aws-practical-walkthrough.md` |
-| C | 51 | 0 | 4 | 0 | 16 | 1822 | `docs/05-ci-cd-and-release/continuous-integration.md` |
+| C | 51 | 0 | 4 | 0 | 16 | 2071 | `docs/05-ci-cd-and-release/continuous-integration.md` |
 | C | 48 | 0 | 3 | 3 | 10 | 1889 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | C | 47 | 2 | 2 | 0 | 5 | 1215 | `docs/09-kubernetes/rbac.md` |
 | C | 44 | 1 | 2 | 0 | 11 | 1647 | `docs/03-git-and-automation/powershell-fundamentals.md` |
@@ -313,6 +313,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 8 | 0 | 0 | 0 | 6 | 968 | `docs/02-networking-and-web/dns.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 990 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
 | A | 8 | 0 | 0 | 0 | 5 | 1201 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
+| A | 8 | 0 | 0 | 0 | 6 | 1923 | `docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1427 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-troubleshooting.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 960 | `docs/09-kubernetes/daemonset.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 1391 | `docs/09-kubernetes/worker-node-components.md` |
@@ -325,7 +326,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 8 | 0 | 0 | 0 | 7 | 1136 | `docs/16-gitops-and-platform-engineering/pull-based-deployment.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1281 | `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 953 | `docs/02-networking-and-web/tcp-and-udp.md` |
-| A | 7 | 0 | 0 | 0 | 5 | 1718 | `docs/05-ci-cd-and-release/ci-cd-practical-walkthrough.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1057 | `docs/09-kubernetes/serviceaccount.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1725 | `docs/11-cloud-and-aws/regions-availability-zones.md` |
 | A | 7 | 0 | 0 | 0 | 5 | 1619 | `docs/11-cloud-and-aws/scalability-elasticity-fault-tolerance.md` |
@@ -2065,12 +2065,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 87, `bare-bullet-items` — **5. Observation contract**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact population a denominator;`, `signal authority a instrumentation coverage;`, `minimum sample a duration;`, `promotion/abort thresholds;`.
 - **HIGH** line 23, `list-first-introduction` — **2. Exact canary subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 87, `list-heavy-section` — **5. Observation contract**: 8 odrážok a iba 56 slov súvislého vysvetlenia.
-- **HIGH** line 208, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 226, `single-sentence-concept` — **Canary iba podľa replica percenta**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 230, `single-sentence-concept` — **Per-request random assignment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 234, `single-sentence-concept` — **HTTP attempts ako business denominator**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 238, `single-sentence-concept` — **No data znamená no errors**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 242, `single-sentence-concept` — **Promotion podľa krátkeho green okna**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 231, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 249, `single-sentence-concept` — **Canary iba podľa replica percenta**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 253, `single-sentence-concept` — **Per-request random assignment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 257, `single-sentence-concept` — **HTTP attempts ako business denominator**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 261, `single-sentence-concept` — **No data znamená no errors**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 265, `single-sentence-concept` — **Promotion podľa krátkeho green okna**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/continuous-deployment.md`
 
@@ -2078,32 +2078,44 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 234, `bare-bullet-items` — **10. Delayed failures a acceptance**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `exact production artifact/config generations;`, `exposure a feature generations;`, `technical SLO a capacity;`, `business completion a correctness;`.
 - **HIGH** line 80, `list-heavy-section` — **4. Change-risk a target-health policy**: 7 odrážok a iba 63 slov súvislého vysvetlenia.
 - **HIGH** line 234, `list-heavy-section` — **10. Delayed failures a acceptance**: 8 odrážok a iba 35 slov súvislého vysvetlenia.
-- **HIGH** line 305, `single-sentence-concept` — **Green CI rovno na 100 % trafficu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 313, `single-sentence-concept` — **Missing data ako success**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 317, `single-sentence-concept` — **Readiness ako business oracle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 321, `single-sentence-concept` — **Percento bez stable assignment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 340, `single-sentence-concept` — **Green CI rovno na 100 % trafficu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 348, `single-sentence-concept` — **Missing data ako success**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 352, `single-sentence-concept` — **Readiness ako business oracle**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 356, `single-sentence-concept` — **Percento bez stable assignment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+
+### `docs/05-ci-cd-and-release/feature-flags.md`
+
+- **CRITICAL** line 220, `bare-bullet-items` — **Doplnenie výkladu: flag evaluation je samostatný runtime control plane**: 3 z 4 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `release flag dočasne skrýva novú funkcionalitu;`, `experiment flag prideľuje variants;`, `operational kill switch vypína rizikový path;`.
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný intent-to-evaluation model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 24, `list-first-introduction` — **2. Exact flag subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 283, `list-first-introduction` — **15. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 300, `single-sentence-concept` — **Flag ako permanentná configuration bez ownera**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 304, `single-sentence-concept` — **Fail-open pre high-risk financial path**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 308, `single-sentence-concept` — **UI targeting ako jediný evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 312, `single-sentence-concept` — **Account ID v metric labels**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 316, `single-sentence-concept` — **Zmazanie flagu pred code cleanup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/pipeline-as-code.md`
 
 - **CRITICAL** line 174, `bare-bullet-items` — **7. Pipeline dependency a supply-chain boundary**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `immutable source revision;`, `trusted repository a ownership;`, `reviewed update process;`, `checksum alebo signature pre binaries;`.
 - **HIGH** line 174, `list-heavy-section` — **7. Pipeline dependency a supply-chain boundary**: 8 odrážok a iba 63 slov súvislého vysvetlenia.
-- **HIGH** line 336, `single-sentence-concept` — **„YAML je reviewnutý, pipeline je bezpečná“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 340, `single-sentence-concept` — **Reusable workflow cez mutable branch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 344, `single-sentence-concept` — **Workflow-level broad permissions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 348, `single-sentence-concept` — **String inputs bez domain validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 352, `single-sentence-concept` — **Shared workflow big-bang update**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 364, `single-sentence-concept` — **„YAML je reviewnutý, pipeline je bezpečná“**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 368, `single-sentence-concept` — **Reusable workflow cez mutable branch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 372, `single-sentence-concept` — **Workflow-level broad permissions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 376, `single-sentence-concept` — **String inputs bez domain validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 380, `single-sentence-concept` — **Shared workflow big-bang update**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/progressive-delivery.md`
 
 - **CRITICAL** line 130, `outline-instead-of-explanation` — **7. Analysis verdicts**: 6 odrážok je podopretých iba 21 slovami súvislého vysvetlenia.
 - **HIGH** line 23, `list-first-introduction` — **2. Exact rollout contract**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 65, `list-first-introduction` — **3. Observed multi-axis state**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 222, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 239, `single-sentence-concept` — **Jeden progress bar pre viac axes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 243, `single-sentence-concept` — **Súčasná zmena trafficu, flagu a data**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 247, `single-sentence-concept` — **Metrics analysis nad invalid state-om**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 251, `single-sentence-concept` — **Automatický global rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 255, `single-sentence-concept` — **Full traffic ako okamžitá closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 243, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 260, `single-sentence-concept` — **Jeden progress bar pre viac axes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 264, `single-sentence-concept` — **Súčasná zmena trafficu, flagu a data**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 268, `single-sentence-concept` — **Metrics analysis nad invalid state-om**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 272, `single-sentence-concept` — **Automatický global rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 276, `single-sentence-concept` — **Full traffic ako okamžitá closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 130, `term-before-explanation` — **7. Analysis verdicts**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PROMOTE`, `PAUSE`, `ABORT`, `INCONCLUSIVE`, `COMPLETE`
 - **HIGH** line 130, `thin-concept-section` — **7. Analysis verdicts**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
@@ -2114,11 +2126,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 259, `outline-instead-of-explanation` — **11. Gate telemetry a quality**: 9 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný subject-to-decision model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 169, `single-sentence-concept` — **6. Decision classes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 332, `single-sentence-concept` — **Gate podľa počtu zelených checks**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 336, `single-sentence-concept` — **Human ako fallback scanner**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 340, `single-sentence-concept` — **Permanent exception**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 344, `single-sentence-concept` — **Approval viazané na tag**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 348, `single-sentence-concept` — **Policy decision bez enforcement coverage**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 354, `single-sentence-concept` — **Gate podľa počtu zelených checks**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 358, `single-sentence-concept` — **Human ako fallback scanner**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 362, `single-sentence-concept` — **Permanent exception**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 366, `single-sentence-concept` — **Approval viazané na tag**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 370, `single-sentence-concept` — **Policy decision bez enforcement coverage**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 169, `term-before-explanation` — **6. Decision classes**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `REVIEW`, `EXPIRED`, `WAIVED`, `REVOKED`, `policy`
 - **HIGH** line 169, `thin-concept-section` — **6. Decision classes**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
 
@@ -2128,11 +2140,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **CRITICAL** line 186, `outline-instead-of-explanation` — **9. Release notes a communication contract**: 8 odrážok je podopretých iba 31 slovami súvislého vysvetlenia.
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný scope-to-lifecycle model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 23, `list-first-introduction` — **2. Exact release subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 306, `single-sentence-concept` — **Git tag ako celý release**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 310, `single-sentence-concept` — **Release notes z commit titles iba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 314, `single-sentence-concept` — **Deployed ako Released**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 318, `single-sentence-concept` — **Emergency ako evidence-free cesta**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 322, `single-sentence-concept` — **Prepísanie chybnej release version**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 332, `single-sentence-concept` — **Git tag ako celý release**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 336, `single-sentence-concept` — **Release notes z commit titles iba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 340, `single-sentence-concept` — **Deployed ako Released**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 344, `single-sentence-concept` — **Emergency ako evidence-free cesta**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 348, `single-sentence-concept` — **Prepísanie chybnej release version**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/rollback-and-roll-forward.md`
 
@@ -2141,12 +2153,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 24, `list-first-introduction` — **2. Exact recovery subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 87, `list-heavy-section` — **5. Application rollback eligibility**: 6 odrážok a iba 36 slov súvislého vysvetlenia.
 - **HIGH** line 166, `single-sentence-concept` — **11. Recovery validation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 218, `list-first-introduction` — **14. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 235, `single-sentence-concept` — **Previous ReplicaSet ako safe rollback proof**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 239, `single-sentence-concept` — **Rollback all axes naraz bez inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 243, `single-sentence-concept` — **Retry unknown external operation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 247, `single-sentence-concept` — **Roll-forward cez live patch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 251, `single-sentence-concept` — **Health green ako recovery closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 243, `list-first-introduction` — **14. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 260, `single-sentence-concept` — **Previous ReplicaSet ako safe rollback proof**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 264, `single-sentence-concept` — **Rollback all axes naraz bez inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 268, `single-sentence-concept` — **Retry unknown external operation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 272, `single-sentence-concept` — **Roll-forward cez live patch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 276, `single-sentence-concept` — **Health green ako recovery closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/06-gitlab/artifacts-and-cache.md`
 
@@ -2909,157 +2921,146 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný hypothesis-to-decision model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 24, `list-first-introduction` — **2. Exact experiment subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 182, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 200, `single-sentence-concept` — **Traffic split ako celý experiment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 204, `single-sentence-concept` — **Exposed-only analysis bez bias modelu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 208, `single-sentence-concept` — **Zmena primary metric po výsledkoch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 212, `single-sentence-concept` — **Stop pri prvom zelenom grafe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 216, `single-sentence-concept` — **Experiment flag ponechaný navždy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 198, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 216, `single-sentence-concept` — **Traffic split ako celý experiment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 220, `single-sentence-concept` — **Exposed-only analysis bez bias modelu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 224, `single-sentence-concept` — **Zmena primary metric po výsledkoch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 228, `single-sentence-concept` — **Stop pri prvom zelenom grafe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 232, `single-sentence-concept` — **Experiment flag ponechaný navždy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/artifact-versioning.md`
 
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný source-to-release-identity model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 46, `list-first-introduction` — **3. Exact artifact subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 258, `single-sentence-concept` — **Version ako jediná identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 262, `single-sentence-concept` — **Tag promotion bez digestu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 266, `single-sentence-concept` — **Jeden image digest ako celá release unit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 270, `single-sentence-concept` — **Delete tagu ako revocation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 274, `single-sentence-concept` — **Rebuild a overwrite rovnakej version**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 297, `single-sentence-concept` — **Version ako jediná identity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 301, `single-sentence-concept` — **Tag promotion bez digestu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 305, `single-sentence-concept` — **Jeden image digest ako celá release unit**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 309, `single-sentence-concept` — **Delete tagu ako revocation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 313, `single-sentence-concept` — **Rebuild a overwrite rovnakej version**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/blue-green-deployment.md`
 
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný dual-target model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 23, `list-first-introduction` — **2. Exact blue-green subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 60, `list-first-introduction` — **4. Provision green z immutable subjectu**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 197, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 214, `single-sentence-concept` — **Dve deployments znamenajú úplnú izoláciu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 218, `single-sentence-concept` — **Green test cez interný Pod IP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 222, `single-sentence-concept` — **Cutover success podľa API response**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 226, `single-sentence-concept` — **Blue je vždy rollback target**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 230, `single-sentence-concept` — **Okamžité vypnutie blue**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 220, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 237, `single-sentence-concept` — **Dve deployments znamenajú úplnú izoláciu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 241, `single-sentence-concept` — **Green test cez interný Pod IP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 245, `single-sentence-concept` — **Cutover success podľa API response**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 249, `single-sentence-concept` — **Blue je vždy rollback target**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 253, `single-sentence-concept` — **Okamžité vypnutie blue**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/continuous-delivery.md`
 
-- **HIGH** line 269, `single-sentence-concept` — **Rebuild per environment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 273, `single-sentence-concept` — **Staging ako ceremoniálny krok**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 277, `single-sentence-concept` — **Approval nad release názvom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 281, `single-sentence-concept` — **Rollout success ako business acceptance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 285, `single-sentence-concept` — **Runbook-only production deploy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 312, `single-sentence-concept` — **Rebuild per environment**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 316, `single-sentence-concept` — **Staging ako ceremoniálny krok**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 320, `single-sentence-concept` — **Approval nad release názvom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 324, `single-sentence-concept` — **Rollout success ako business acceptance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 328, `single-sentence-concept` — **Runbook-only production deploy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/continuous-integration.md`
 
-- **HIGH** line 257, `single-sentence-concept` — **Branch green ako merge proof**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 265, `single-sentence-concept` — **Rebuild pred publication**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 269, `single-sentence-concept` — **Privileged persistent runner pre PRs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 273, `single-sentence-concept` — **Rerun-until-green**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 297, `single-sentence-concept` — **Branch green ako merge proof**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 305, `single-sentence-concept` — **Rebuild pred publication**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 309, `single-sentence-concept` — **Privileged persistent runner pre PRs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 313, `single-sentence-concept` — **Rerun-until-green**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md`
 
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný compatibility protocol**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 25, `list-first-introduction` — **2. Exact database transition subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 250, `list-first-introduction` — **14. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 268, `single-sentence-concept` — **Add a drop v jednom rolling release**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 272, `single-sentence-concept` — **COALESCE ako automaticky správny fallback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 276, `single-sentence-concept` — **Backfill bez optimistic generation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 280, `single-sentence-concept` — **Zero mismatch ako complete migration proof**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 284, `single-sentence-concept` — **Application rollback ako database rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 280, `list-first-introduction` — **14. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 298, `single-sentence-concept` — **Add a drop v jednom rolling release**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 302, `single-sentence-concept` — **COALESCE ako automaticky správny fallback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 306, `single-sentence-concept` — **Backfill bez optimistic generation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 310, `single-sentence-concept` — **Zero mismatch ako complete migration proof**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 314, `single-sentence-concept` — **Application rollback ako database rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/environment-and-promotion.md`
 
-- **HIGH** line 268, `single-sentence-concept` — **Environment definovaný iba názvom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 272, `single-sentence-concept` — **Promotion ako rebuild**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 276, `single-sentence-concept` — **kubectl diff ako race-free plan**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 280, `single-sentence-concept` — **Manual approval ako environment lock**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 284, `single-sentence-concept` — **Break-glass bez reconciliation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/05-ci-cd-and-release/feature-flags.md`
-
-- **HIGH** line 7, `list-first-introduction` — **1. Dominantný intent-to-evaluation model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 24, `list-first-introduction` — **2. Exact flag subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 255, `list-first-introduction` — **15. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 272, `single-sentence-concept` — **Flag ako permanentná configuration bez ownera**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 276, `single-sentence-concept` — **Fail-open pre high-risk financial path**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 280, `single-sentence-concept` — **UI targeting ako jediný evidence**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 284, `single-sentence-concept` — **Account ID v metric labels**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 288, `single-sentence-concept` — **Zmazanie flagu pred code cleanup**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 305, `single-sentence-concept` — **Environment definovaný iba názvom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 309, `single-sentence-concept` — **Promotion ako rebuild**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 313, `single-sentence-concept` — **kubectl diff ako race-free plan**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 317, `single-sentence-concept` — **Manual approval ako environment lock**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 321, `single-sentence-concept` — **Break-glass bez reconciliation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md`
 
-- **HIGH** line 302, `single-sentence-concept` — **Stages ako dôkaz správneho ordering-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 306, `single-sentence-concept` — **Shared filesystem medzi jobs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 310, `single-sentence-concept` — **Final job s always() bez explicitného fan-inu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 314, `single-sentence-concept` — **Jeden runner pool pre všetky trust classes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 318, `single-sentence-concept` — **Retry jobu bez identity invariants**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 335, `single-sentence-concept` — **Stages ako dôkaz správneho ordering-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 339, `single-sentence-concept` — **Shared filesystem medzi jobs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 343, `single-sentence-concept` — **Final job s always() bez explicitného fan-inu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 347, `single-sentence-concept` — **Jeden runner pool pre všetky trust classes**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 351, `single-sentence-concept` — **Retry jobu bez identity invariants**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/recreate-deployment.md`
 
 - **HIGH** line 25, `list-first-introduction` — **2. Exact recreate subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 229, `single-sentence-concept` — **Scale to zero ako dôkaz zero writers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 233, `single-sentence-concept` — **Downtime odhad podľa startup času**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 237, `single-sentence-concept` — **Snapshot existence ako restore proof**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 241, `single-sentence-concept` — **Automatický old-version restart po migration failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 245, `single-sentence-concept` — **Otvorenie trafficu po readiness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 250, `single-sentence-concept` — **Scale to zero ako dôkaz zero writers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 254, `single-sentence-concept` — **Downtime odhad podľa startup času**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 258, `single-sentence-concept` — **Snapshot existence ako restore proof**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 262, `single-sentence-concept` — **Automatický old-version restart po migration failure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 266, `single-sentence-concept` — **Otvorenie trafficu po readiness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md`
 
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný provider-to-fan-in model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 23, `list-first-introduction` — **2. Exact reusable-workflow subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 277, `single-sentence-concept` — **Reusable workflow ako copy-paste reduction iba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 281, `single-sentence-concept` — **Expected inventory z actual jobs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 285, `single-sentence-concept` — **Empty output fallback na latest artifact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 289, `single-sentence-concept` — **Maximálny počet shards**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 293, `single-sentence-concept` — **Consumer bez rollbacku provider generation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 299, `single-sentence-concept` — **Reusable workflow ako copy-paste reduction iba**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 303, `single-sentence-concept` — **Expected inventory z actual jobs**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 307, `single-sentence-concept` — **Empty output fallback na latest artifact**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 311, `single-sentence-concept` — **Maximálny počet shards**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 315, `single-sentence-concept` — **Consumer bez rollbacku provider generation**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/ring-deployment.md`
 
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný ring-promotion model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 23, `list-first-introduction` — **2. Exact ring subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 188, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 205, `single-sentence-concept` — **Ring ako percento trafficu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 209, `single-sentence-concept` — **Current membership ako historical denominator**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 213, `single-sentence-concept` — **Viac membership writers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 217, `single-sentence-concept` — **Ring promotion bez new-risk contractu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 221, `single-sentence-concept` — **Permanent old release ring bez support policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 210, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 227, `single-sentence-concept` — **Ring ako percento trafficu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 231, `single-sentence-concept` — **Current membership ako historical denominator**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 235, `single-sentence-concept` — **Viac membership writers**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 239, `single-sentence-concept` — **Ring promotion bez new-risk contractu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 243, `single-sentence-concept` — **Permanent old release ring bez support policy**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/rolling-update.md`
 
 - **HIGH** line 23, `list-first-introduction` — **2. Exact rolling subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 214, `single-sentence-concept` — **Percentá bez absolute výpočtu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 218, `single-sentence-concept` — **Rollout pri unhealthy baseline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 222, `single-sentence-concept` — **Process health ako readiness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 226, `single-sentence-concept` — **PDB ako ochrana pred Deployment rolloutom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 230, `single-sentence-concept` — **rollout undo ako univerzálny rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 230, `single-sentence-concept` — **Percentá bez absolute výpočtu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 234, `single-sentence-concept` — **Rollout pri unhealthy baseline**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 238, `single-sentence-concept` — **Process health ako readiness**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 242, `single-sentence-concept` — **PDB ako ochrana pred Deployment rolloutom**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 246, `single-sentence-concept` — **rollout undo ako univerzálny rollback**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/semantic-versioning.md`
 
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný contract-to-version model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 106, `bare-bullet-items` — **6. Behavioral compatibility**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `API začne vracať položky v inom ordering-u;`, `retryable error sa zmení na terminal;`, `event vznikne pred DB commitom namiesto po commite;`, `config default povolí novú feature.`.
 - **HIGH** line 106, `list-heavy-section` — **6. Behavioral compatibility**: 6 odrážok a iba 60 slov súvislého vysvetlenia.
-- **HIGH** line 265, `single-sentence-concept` — **Bump podľa veľkosti diffu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 269, `single-sentence-concept` — **feat automaticky znamená MINOR**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 273, `single-sentence-concept` — **Additive field je vždy safe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 277, `single-sentence-concept` — **OpenAPI ako celý public API**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 281, `single-sentence-concept` — **MAJOR bez migration lifecycle-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 296, `single-sentence-concept` — **Bump podľa veľkosti diffu**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 300, `single-sentence-concept` — **feat automaticky znamená MINOR**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 304, `single-sentence-concept` — **Additive field je vždy safe**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 308, `single-sentence-concept` — **OpenAPI ako celý public API**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 312, `single-sentence-concept` — **MAJOR bez migration lifecycle-u**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/shadow-deployment.md`
 
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný mirror-to-comparison model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 23, `list-first-introduction` — **2. Exact shadow subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 190, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 212, `single-sentence-concept` — **Synchronous shadow v primary requeste**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 216, `single-sentence-concept` — **Production mutation credentials pre fidelity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 220, `single-sentence-concept` — **Porovnanie iba response body**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 224, `single-sentence-concept` — **Unlimited replay po outage**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 210, `list-first-introduction` — **13. Troubleshooting flow**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 232, `single-sentence-concept` — **Synchronous shadow v primary requeste**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 236, `single-sentence-concept` — **Production mutation credentials pre fidelity**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 240, `single-sentence-concept` — **Porovnanie iba response body**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 244, `single-sentence-concept` — **Unlimited replay po outage**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/05-ci-cd-and-release/trigger-artifact-cache.md`
 
 - **HIGH** line 7, `list-first-introduction` — **1. Dominantný event-to-artifact model**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 - **HIGH** line 151, `bare-bullet-items` — **8. Cache poisoning a trust direction**: 3 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `immutable cache entries, ak backend podporuje;`, `validation obnoveného obsahu;`, `periodic cold builds;`.
 - **HIGH** line 151, `list-heavy-section` — **8. Cache poisoning a trust direction**: 6 odrážok a iba 50 slov súvislého vysvetlenia.
-- **HIGH** line 252, `single-sentence-concept` — **Každý trigger používa rovnaké permissions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 256, `single-sentence-concept` — **Cache key iba podľa branch name**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 260, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 268, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 278, `single-sentence-concept` — **Každý trigger používa rovnaké permissions**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 282, `single-sentence-concept` — **Cache key iba podľa branch name**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 286, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 294, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
 ### `docs/06-gitlab/environments-deployments-releases.md`
 
@@ -3237,13 +3238,13 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 1882 | 1882 |
+| `example-not-explicit` | 0 | 0 | 0 | 1884 | 1884 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1164 | 1164 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1009 | 1009 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1016 | 1016 |
 | `single-sentence-concept` | 0 | 572 | 0 | 0 | 572 |
 | `term-before-explanation` | 0 | 81 | 393 | 0 | 474 |
 | `outline-instead-of-explanation` | 431 | 0 | 0 | 0 | 431 |
-| `bare-bullet-items` | 351 | 58 | 0 | 0 | 409 |
+| `bare-bullet-items` | 352 | 58 | 0 | 0 | 410 |
 | `list-first-introduction` | 0 | 375 | 0 | 0 | 375 |
 | `thin-concept-section` | 0 | 340 | 0 | 0 | 340 |
 | `short-concept-section` | 0 | 0 | 183 | 0 | 183 |

@@ -151,6 +151,26 @@ Load safety sa overí aj na primary dependencies. Read-only shadow queries môž
 
 Shadow evidence pomáha pri parser rewrite, migration logic, routing decision alebo new stack parity. Nepreukazuje user-perceived behavior, client interaction, browser state ani write correctness, ak writes sú stubbed. Promotion gate má presne uviesť, ktoré risks shadow pokrýva a ktoré zostávajú na canary alebo test environment.
 
+## Doplnenie výkladu: duplikovaný traffic bez authoritative side effectu
+
+Shadow deployment posiela kópiu production inputu candidate systému, ale primary response používateľovi pochádza zo súčasnej active path. Cieľom je pozorovať behavior pri realistickom trafficu bez exposure výsledku.
+
+```text
+primary request
+→ active system → authoritative response/side effect
+↘ shadow copy → candidate observation only
+```
+
+Najväčšie riziko je side-effect suppression. Candidate nesmie chargeovať kartu, posielať email alebo publikovať authoritative event. Nestačí zahodiť HTTP response; side effects môžu vzniknúť hlbšie.
+
+Shadow input môže obsahovať PII alebo secrets. Kopírovanie do iného environmentu potrebuje data classification, masking a retention policy. Produkčné credentials sa nemajú automaticky preniesť.
+
+Porovnanie outputs musí normalizovať nondeterministické fields, timestamps a IDs. Rozdiel neznamená automaticky defect; candidate môže mať vedome nový behavior. Comparator potrebuje domain rules.
+
+Shadow lag a dropped copies sú evidence. Ak mirror posiela iba 60 % requestov alebo sa oneskoruje, coverage je neúplná. Shadow success nepreukazuje user-facing latency, pretože response nie je na critical path.
+
+Cleanup odstráni mirroring rules, shadow data a temporary credentials. Candidate nemá zostať ako skrytý permanentný consumer.
+
 ## 11. Connected incident `REL-PAY-70`
 
 Atlas shadowoval settlement requests do new routing engine. Shadow workload používal production provider credential, pretože tím chcel „maximálnu fidelity“. Application mala flag `shadow_mode=true`, ale nový error-recovery path ho nekontroloval a po timeout-e zavolal provider authorize endpoint.

@@ -193,6 +193,32 @@ workflow-generated commit
 
 Broad rule „ignore bot commits“ môže skryť legitímnu supply-chain mutation. Lepšie je rozlišovať operation type, changed paths a expected automation identity.
 
+## Doplnenie výkladu: trigger, artifact a cache sú tri odlišné kontrakty
+
+**Trigger** určuje, prečo a s akým security contextom pipeline vznikla. Push, pull request, tag, schedule, API call a upstream pipeline môžu mať odlišné permissions a vstupy. Rovnaký YAML preto nemusí vytvoriť rovnaký graph.
+
+**Artifact** je output určený na ďalšie použitie ako evidence alebo release input. Má producer job, identity, retention a integrity contract. **Cache** je performance optimalizácia; jej obsah môže chýbať, byť starý alebo byť znovu vytvorený bez zmeny correctness.
+
+```text
+artifact:
+required output, napríklad binary alebo test report
+
+cache:
+reusable acceleration, napríklad package download directory
+```
+
+Cache key určuje namespace obsahu. Key iba podľa branch name môže zdieľať nekompatibilné dependencies po zmene lockfile-u. Bezpečnejší key zahŕňa toolchain a dependency fingerprint.
+
+```yaml
+cacheKey: npm-${os}-${nodeVersion}-${lockfileSha}
+```
+
+Restore cache nepreukazuje provenance jednotlivých files. Untrusted fork nesmie zapisovať do cache namespace-u, ktorý trusted release job automaticky používa ako executable input.
+
+Artifact hand-off potrebuje checksum/digest a producer identity. Ak downstream job iba stiahne `build.zip`, nevie, či pochádza z očakávaného candidate-u. Manifest môže viazať artifact digest na source a build job.
+
+Trigger trust sa vyhodnocuje pred poskytnutím secrets alebo privileged runnera. Pull request z fork-u môže bezpečne spustiť read-only checks, ale nemá automaticky dostať production credentials. Event name samostatne nestačí; dôležitý je actor, repository/ref protection a resolved workflow source.
+
 ## 11. Connected incident `REL-PAY-67`
 
 Fork PR zmenil code generator a CI cache key zostal založený iba na `package-lock.json`. Untrusted job zapísal generated client do shared prefix cache `payments-generated-*`. Neskorší protected tag pipeline obnovil najnovšiu prefix match, spustil build na trusted runneri a publikoval signed image.

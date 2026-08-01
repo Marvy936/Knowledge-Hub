@@ -210,6 +210,36 @@ WHERE version = '42';
 
 Journal output sa porovná s actual catalog. Journal row môže existovať pred/po partial operation podľa tool behavior. Blind rerun bez engine-aware read-back môže zlyhať alebo poškodiť state.
 
+## Doplnenie výkladu: expand/contract a mixed-version window
+
+Počas rolling alebo progressive deploymentu stará a nová application version často používajú rovnakú databázu. Schema zmena preto musí byť kompatibilná počas **mixed-version window**.
+
+Expand/contract pattern:
+
+```text
+expand:
+pridať nový nullable column/table/index bez odstránenia starého contractu
+
+migrate:
+nová verzia dual-write/dual-read alebo backfilluje dáta
+
+switch:
+consumers prejdú na nový contract po overení completeness
+
+contract:
+odstrániť starý column/path až keď ho žiadna supported verzia nepoužíva
+```
+
+`ALTER TABLE` success nepreukazuje, že operation bola online alebo že replicas/backfill sú complete. DDL môže držať lock, prepísať table alebo zvýšiť replication lag. Plan zahŕňa engine/version a dataset size.
+
+Backfill je production workload. Potrebuje batches, checkpoint, rate limit, idempotenciu a verification query. Stale backfill nesmie prepísať novší live write; používa conditional update alebo version comparison.
+
+Dual-write môže vytvoriť partial outcome, ak jeden write uspeje a druhý zlyhá. Transaction alebo reconciliation contract musí určiť authority.
+
+Schema version v migration table preukazuje, že migration runner zaznamenal krok. Nepreukazuje data completeness ani to, že všetky processes načítali nový model.
+
+Contract removal je samostatný release po telemetry dôkaze, že starý field/path sa nepoužíva. Rollback eligibility sa posudzuje pred každou fázou.
+
 ## 12. Connected incident `REL-PAY-71`
 
 Atlas expandol `provider_route_v2` a spustil backfill. Worker načítal 500-row batch bez row generations. Počas spracovania live new writer aktualizoval 83 rows. Backfill neskôr prepísal `provider_route_v2` hodnotou odvodenou zo stale legacy snapshotu.
