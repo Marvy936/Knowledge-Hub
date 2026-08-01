@@ -1,5 +1,39 @@
 # Static analysis, linting a type checking
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú static analysis, linting a type checking
+
+Statické kontroly analyzujú source code, configuration alebo intermediate representation bez vykonania celého programu v cieľovom runtime. Poskytujú rýchly feedback, ale ich dôkaz je obmedzený na model, ktorý analyzátor pozná.
+
+Formatter mení alebo kontroluje konzistentný textový štýl. Linter hľadá syntaktické, idiomatické alebo konfigurovateľné patterns. Type checker overuje vzťahy medzi deklarovanými alebo odvodenými typmi. Hlbšia static analysis môže sledovať control flow, data flow, taint, nullability alebo resource lifecycle.
+
+```text
+formatter:
+rovnaký zápis a minimálny style drift
+
+linter:
+podozrivý pattern alebo pravidlo
+
+type checker:
+nekompatibilný typový contract
+
+data-flow analysis:
+hodnota alebo resource prechádza rizikovou cestou
+```
+
+Finding nie je automaticky runtime bug. Analyzer môže mať false positive, nepoznať framework behavior alebo označiť nereachable path. Naopak čistý static report nepreukazuje, že runtime configuration, dependencies alebo external systems fungujú.
+
+Neutrálny príklad: type checker odhalí, že funkcia môže vrátiť `None`, ale caller očakáva string. Linter upozorní na ignorovaný return value. Iba runtime test však môže potvrdiť behavior konkrétneho database drivera pri timeout-e.
+
+Pravidlá musia byť versionované a pinované. Upgrade analyzátora môže vytvoriť novú vlnu findings bez zmeny source. Gate preto potrebuje baseline, triage a ratcheting namiesto náhodného globálneho vypnutia.
+
+Generated code, vendored dependencies a test fixtures môžu vyžadovať odlišný scope, ale exclusions majú byť explicitné. Inline suppression musí obsahovať dôvod a podľa rizika expiry alebo ownera.
+
+Static checks sú najhodnotnejšie, keď sú rýchle, lokálne reprodukovateľné a ich failure message vedie k presnému source subjectu. Nemajú nahrádzať runtime tests, ale odstraňovať lacno detegovateľné failures skôr.
+<!-- CONCEPT-FIRST:END -->
+
+## Detailný výklad a Atlas aplikácia
+
 ## Metadata
 
 - Status: Learning

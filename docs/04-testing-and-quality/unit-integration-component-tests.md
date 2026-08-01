@@ -1,5 +1,39 @@
 # Unit, integration a component tests
 
+<!-- CONCEPT-FIRST:START -->
+## Čo odlišuje unit, integration a component test
+
+Rozdiel medzi unit, integration a component testom neurčuje názov frameworku ani to, či test beží „lokálne“. Určuje ho subject, boundary a ktoré dependencies sú reálne alebo nahradené.
+
+**Unit test** overuje malú jednotku správania v izolovanom a kontrolovanom prostredí. Unit môže byť funkcia, class alebo coherent modul. Dôležité je, že test rýchlo a deterministicky lokalizuje logic failure a nepoužíva drahé externé boundaries.
+
+**Integration test** overuje spoluprácu medzi dvoma alebo viacerými reálnymi komponentmi alebo technológiami. Môže testovať SQL mapping voči databáze, serialization library, filesystem semantics alebo message broker clienta. Jeho hodnota je práve v reálnom contracte medzi boundaries.
+
+**Component test** spúšťa celý deployable component cez jeho verejné rozhranie, ale kontroluje alebo nahrádza okolité externé systémy. Overuje routing, dependency injection, serialization, business flow a error mapping v rámci jedného componentu.
+
+Neutrálny príklad:
+
+```text
+unit:
+CalculateDiscount(order)
+
+integration:
+OrderRepository ↔ PostgreSQL
+
+component:
+HTTP POST /orders cez celú službu,
+platobná brána nahradená fake serverom
+```
+
+Test double nie je automaticky známkou unit testu. Component test môže používať fake payment provider, zatiaľ čo unit test môže omylom spúšťať reálny filesystem. Scope treba popísať mechanicky.
+
+Hermetic test má explicitné inputs, izolovaný state a kontrolované dependencies. Parallelizability vyžaduje unikátne test data, ports, files alebo database schemas. Cleanup musí fungovať aj pri failure; ešte lepšie je vytvárať disposable environment.
+
+Nižší scope zvyšuje diagnostickosť, ale môže skryť boundary bugs. Vyšší scope zvyšuje fidelity, ale failure má viac možných príčin. Dobré portfolio používa oba a nevytvára component test pre logic, ktorú možno presnejšie overiť unit testom.
+<!-- CONCEPT-FIRST:END -->
+
+## Detailný výklad a Atlas aplikácia
+
 ## Metadata
 
 - Status: Learning

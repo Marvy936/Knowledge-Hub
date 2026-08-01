@@ -1,5 +1,40 @@
 # Flaky tests a test data
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú flaky test a test-data isolation
+
+Flaky test má pri rovnakom zamýšľanom subjecte a inputs premenlivý výsledok. Môže striedavo prejsť a zlyhať bez relevantnej zmeny product code-u. Flakiness ničí dôveru v gate a často vedie k nebezpečnému rerun-until-green behavioru.
+
+Typické zdroje:
+
+```text
+čas a race conditions
+shared mutable state
+poradie testov
+neizolované ports/files/databáza
+externá dependency
+náhodnosť bez uloženého seedu
+timezone alebo locale
+nedostatočné čakanie na eventual consistency
+```
+
+`Sleep(5)` nie je synchronization contract. Test má čakať na pozorovateľnú podmienku s deadline-om a pri failure zachovať timeline. Polling bez limitu zase vytvára hanging suite.
+
+Test data musí byť unikátne, izolované a vlastnené testom. Shared account alebo pevný order ID vytvára konflikty pri paralelnom behu. Disposable database schema, tenant alebo namespaced identifier znižuje coupling.
+
+Neutrálny príklad: dva testy používajú rovnaký email. Jeden usera vytvorí, druhý očakáva, že neexistuje. Samostatne prejdú, paralelne sú nondeterministické. Oprava nie je retry, ale unikátny test subject a cleanup.
+
+Quarantine dočasne odstráni flaky test z blocking gate-u, ale musí mať ownera, incident, expiry a viditeľnú metriku. Inak sa stane trvalým cintorínom failures.
+
+Retry môže byť diagnostický signál, nie pass override. First-attempt pass rate a počet retry treba zachovať. Test, ktorý prejde na tretí pokus, je stále flaky evidence.
+
+Failure artifacts zahŕňajú seed, timestamps, thread dumps, logs, screenshots, network trace a environment identity. Bez nich sa intermittent failure ťažko lokalizuje.
+
+Test data management musí rešpektovať privacy a retention. Production data sa nemá nekontrolovane kopírovať do test environmentu; používa sa syntetická alebo anonymizovaná reprezentatívna data sada.
+<!-- CONCEPT-FIRST:END -->
+
+## Detailný výklad a Atlas aplikácia
+
 ## Metadata
 
 - Status: Learning

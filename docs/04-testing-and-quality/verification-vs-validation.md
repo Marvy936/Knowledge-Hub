@@ -1,5 +1,44 @@
 # Verification vs. validation
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú verification a validation
+
+Verification a validation sú dve odlišné otázky kvality. **Verification** skúma, či systém alebo artefakt zodpovedá špecifikácii, designu alebo explicitnému contractu. **Validation** skúma, či výsledný systém rieši správny používateľský alebo business problém v reálnom kontexte.
+
+Zjednodušene:
+
+```text
+verification:
+Postavili sme systém správne podľa definovaných pravidiel?
+
+validation:
+Postavili sme správny systém pre skutočnú potrebu?
+```
+
+Verification môže overiť, že API vracia schema-valid JSON a používa správny status code. Validation môže zistiť, že používateľ napriek tomu nedokáže dokončiť objednávku alebo že workflow rieši nesprávny problém.
+
+Každý test potrebuje **oracle**: pravidlo alebo zdroj pravdy, podľa ktorého sa rozhodne pass/fail. Oracle môže byť presná hodnota, invariant, schema, referenčný model, business rule, user acceptance criterion alebo pozorovaný production baseline. Slabý oracle môže vytvárať false positives alebo false negatives aj pri technicky správnom test runneri.
+
+Traceability spája:
+
+```text
+požiadavka alebo riziko
+→ očakávané správanie
+→ test subject a scope
+→ oracle
+→ evidence
+→ rozhodnutie
+```
+
+Bez tejto väzby môže suite obsahovať veľa testov, ale nepokrývať najdôležitejšie riziko.
+
+Neutrálny príklad: kalkulačka má requirement, že delenie nulou musí vrátiť definovanú chybu. Unit test, ktorý overí konkrétny error type, je verification. Používateľské testovanie môže odhaliť, že text chyby je pre cieľovú skupinu nezrozumiteľný; to je validation.
+
+Verification ani validation nie sú jednorazové fázy na konci projektu. Prebiehajú na rôznych úrovniach od requirements reviewu cez static checks a tests až po produkčné business outcomes. Dôkaz musí vždy pomenovať, pre ktorý subject, verziu, prostredie a čas platí.
+<!-- CONCEPT-FIRST:END -->
+
+## Detailný výklad a Atlas aplikácia
+
 ## Metadata
 
 - Status: Learning

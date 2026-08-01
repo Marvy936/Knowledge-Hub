@@ -1,5 +1,47 @@
 # Security a infrastructure tests
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú security a infrastructure testy
+
+Security testing overuje, či definované threats a abuse cases sú blokované alebo detegované. Infrastructure testing overuje deklarovaný a effective stav infraštruktúry, policy a runtime boundaries. Ani jedno nie je jeden scanner ani jednorazový audit.
+
+Threat-informed prístup začína assetom, actorom, trust boundary a možným dopadom:
+
+```text
+asset
+→ threat actor a capability
+→ attack path
+→ preventive alebo detective control
+→ test oracle
+→ evidence
+```
+
+Application security môže zahŕňať authentication, authorization, input handling, session lifecycle a business abuse. Supply-chain tests kontrolujú dependencies, artifacts, signatures a provenance. Infrastructure tests pokrývajú IAM, network exposure, encryption, secrets, runtime privileges a drift.
+
+IaC potrebuje viac vrstiev evidence:
+
+```text
+syntax a parse
+→ schema a provider validation
+→ policy nad desired state-om
+→ plan/change review
+→ apply result
+→ runtime effective-state verification
+```
+
+Zelený Terraform plan nepreukazuje, že cloud resource je reachable iba povolenou cestou. Runtime probe a platform read-back sú odlišné dôkazy.
+
+SAST analyzuje source alebo intermediate representation bez spusteného systému. DAST testuje bežiacu aplikáciu zvonka. SCA identifikuje známe dependency riziká. Artifact a container scanning kontroluje výsledný deliverable. Finding potrebuje triage podľa reachability, exploitability, environmentu a impactu.
+
+Neutrálny authorization test: user A vytvorí resource a user B sa ho pokúsi prečítať a zmeniť. Oracle musí overiť denial aj absenciu side effectu alebo information leak-u. Pozitívny test usera A nestačí.
+
+Security testy potrebujú safe scope, test identities a cleanup. Destruktívny alebo production test musí mať blast-radius a abort contract. Controls sa overujú positive aj negative cestou: legitímna operácia musí prejsť a zakázaná musí zlyhať správnym spôsobom.
+
+Exception vo quality gate musí mať ownera, dôvod, expiry a compensating control. Trvalé ignorovanie findingu bez lifecycle-u premieňa scanner na noise generator.
+<!-- CONCEPT-FIRST:END -->
+
+## Detailný výklad a Atlas aplikácia
+
 ## Metadata
 
 - Status: Learning

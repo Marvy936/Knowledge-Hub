@@ -1,5 +1,37 @@
 # Contract a API tests
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú contract test a API test
+
+API test a contract test nie sú synonymá. **API test** posiela request na runtime rozhranie a overuje jeho aktuálne správanie: status, headers, body, authorization, side effects alebo latency. **Contract test** overuje kompatibilitu medzi producerom a consumerom podľa explicitnej dohody o messages a semantics.
+
+Provider contract môže byť OpenAPI, AsyncAPI, protobuf schema, event schema alebo iný versioned artifact. Schema však zachytí iba časť contractu. Dôležité sú aj required/optional fields, error semantics, ordering, idempotency, authorization a lifecycle.
+
+Consumer-driven contract zachytáva interactions, ktoré konkrétny consumer reálne potrebuje. Provider ich verifikuje voči svojej implementácii. Producer-driven contract vychádza z providerom publikovanej špecifikácie a consumers sa testujú proti nej. Obe stratégie potrebujú version a deployment compatibility model.
+
+Neutrálny príklad:
+
+```text
+consumer očakáva:
+GET /items/42
+→ 200
+→ JSON s required fieldmi id a price
+
+provider zmena:
+price sa premenuje na amount
+```
+
+Provider môže mať lokálne zelené API testy pre nový response, no contract test odhalí, že existujúci consumer stále potrebuje `price`.
+
+Backward compatibility znamená, že nový provider funguje so starým consumerom. Forward compatibility môže znamenať, že starší provider alebo consumer toleruje nové additive data podľa contractu. Reálna deployment matrix môže obsahovať viac súčasných verzií než iba latest/latest.
+
+Contract test nepreukazuje dostupnosť runtime prostredia, routing ani reálny database side effect. API test zase nemusí odhaliť, že zmena rozbije consumer, ak testuje iba providerov vlastný pohľad. Preto sa kombinujú contract artifact, provider verification, consumer tests a vybrané runtime API journeys.
+
+Pri event-driven systéme treba testovať nielen schema, ale aj key, ordering, duplicate, retry a evolution semantics. Syntakticky validný event môže byť semanticky nekompatibilný.
+<!-- CONCEPT-FIRST:END -->
+
+## Detailný výklad a Atlas aplikácia
+
 ## Metadata
 
 - Status: Learning

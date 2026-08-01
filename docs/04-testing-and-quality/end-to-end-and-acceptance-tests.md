@@ -1,5 +1,33 @@
 # End-to-end a acceptance tests
 
+<!-- CONCEPT-FIRST:START -->
+## Čo sú end-to-end a acceptance test
+
+End-to-end test overuje celý kritický flow cez viac reálnych komponentov a boundaries podobne, ako ho používa externý actor. Acceptance test rozhoduje, či systém spĺňa explicitné business alebo používateľské acceptance criteria. Tieto kategórie sa môžu prekrývať, ale nie sú identické.
+
+E2E subject je celý journey, nie jedna funkcia. Môže zahŕňať UI alebo API gateway, identity, viac služieb, databázu, messaging a externú dependency. Jeho výhodou je vysoká integračná fidelity; nevýhodou pomalosť, drahý setup a slabšia lokalizácia failure.
+
+Acceptance criterion musí byť merateľný a pozorovateľný. „Objednávka funguje“ nie je oracle. Lepší contract je:
+
+```text
+Given platný zákazník a dostupný produkt
+When zákazník odošle objednávku
+Then vznikne presne jedna objednávka
+And používateľ dostane potvrdenie
+And sklad sa zníži o jednu jednotku
+```
+
+Acceptance test môže byť vykonaný na nižšom scope-e, ak criterion nevyžaduje celý systém. E2E test zase môže byť technický journey, ktorý nie je priamym business acceptance testom, napríklad overenie login redirect chainu.
+
+Neutrálny príklad cestovnej aplikácie: browser vyhľadá spoj, vytvorí rezerváciu, simuluje platbu a overí vydaný lístok. Jeden test prejde cez kritické boundaries, ale pri failure potrebuje artifacts: screenshot, trace, network log, backend correlation ID a database/event evidence.
+
+E2E suite má zostať malá a risk-based. Duplikovanie každého input variantu na najvyššom scope-e vytvára pomalú a flaky pyramídu. Varianty patria nižšie; E2E overuje unikátne journeys a wiring.
+
+Test data a environment musia byť kontrolované. Zdieľané účty, časovo citlivé inventory alebo neizolované payment sandboxy vytvárajú nondeterminism. Cleanup musí rešpektovať business side effects a unknown outcome.
+<!-- CONCEPT-FIRST:END -->
+
+## Detailný výklad a Atlas aplikácia
+
 End-to-end test a acceptance test odpovedajú na dve rozdielne otázky:
 
 ```text
