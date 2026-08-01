@@ -1,0 +1,109 @@
+        raise InvalidInput(
+            f"{path} must use the JSON-compatible YAML subset: {exc}"
+        ) from exc
+    if not isinstance(value, dict):
+        raise InvalidInput(f"{path} must contain an object")
+    return value
+
+
+def validate_config(value: dict[str, Any]) -> OrdersConfig:
+    keys = set(value)
+    if keys != EXPECTED_KEYS:
+        missing = sorted(EXPECTED_KEYS - keys)
+        unknown = sorted(keys - EXPECTED_KEYS)
+        raise InvalidInput(f"invalid keys; missing={missing}, unknown={unknown}")
+    if value["service"] != "orders-api":
+        raise InvalidInput("service must be orders-api")
+    if value["environment"] not in {"dev", "staging", "production"}:
+        raise InvalidInput("environment is not supported")
+    if not isinstance(value["maxOrderAmount"], int) or isinstance(
+        value["maxOrderAmount"], bool
+    ):
+        raise InvalidInput("maxOrderAmount must be an integer")
+    if not 1 <= value["maxOrderAmount"] <= 1_000_000:
+        raise InvalidInput("maxOrderAmount is outside the allowed range")
+    if value["currency"] not in {"EUR", "USD", "GBP"}:
+        raise InvalidInput("currency is not supported")
+    if not isinstance(value["release"], str) or not re.fullmatch(
+        r"[0-9]+\.[0-9]+\.[0-9]+", value["release"]
+    ):
+        raise InvalidInput("release must use MAJOR.MINOR.PATCH")
+    return OrdersConfig(**value)
+
+
+def canonical(value: Any) -> str:
+    return json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    )
+
+
+def fingerprint(value: Any) -> str:
+    return hashlib.sha256(canonical(value).encode("utf-8")).hexdigest()
+
+
+def load_config(path: Path) -> OrdersConfig:
+    return validate_config(load_json_compatible_yaml(path))
+
+
+def load_state(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    return load_json_compatible_yaml(path)
+
+
+def state_fingerprint(state: dict[str, Any] | None) -> str | None:
+    return None if state is None else fingerprint(state)
+
+
+def build_plan(config: OrdersConfig, state: dict[str, Any] | None) -> dict[str, Any]:
+    desired = asdict(config)
+    changes: dict[str, dict[str, Any]] = {}
+    for key, desired_value in desired.items():
+        current_value = None if state is None else state.get(key)
+        if current_value != desired_value:
+            changes[key] = {"from": current_value, "to": desired_value}
+    return {
+        "schemaVersion": 1,
+        "desiredFingerprint": fingerprint(desired),
+        "observedFingerprint": state_fingerprint(state),
+        "changed": bool(changes),
+        "changes": changes,
+        "desired": desired,
+    }
+
+
+def atomic_write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, temp_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.")
+    temp_path = Path(temp_name)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
+            json.dump(payload, handle, sort_keys=True, indent=2, ensure_ascii=False)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temp_path, path)
+    except OSError as exc:
+        raise ApplyFailed(f"unable to write {path}: {exc}") from exc
+    finally:
+        temp_path.unlink(missing_ok=True)
+
+
+def read_plan(path: Path) -> dict[str, Any]:
+    value = load_json_compatible_yaml(path)
+    if value.get("schemaVersion") != 1:
+        raise InvalidInput("unsupported plan schemaVersion")
+    required = {
+        "desiredFingerprint",
+        "observedFingerprint",
+        "changed",
+        "changes",
+        "desired",
+    }
+    if not required.issubset(value):
+        raise InvalidInput("plan is missing required fields")
+    return value
+
