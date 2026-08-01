@@ -50,3 +50,5 @@ jobs:
           git diff --cached --check
           git commit -m "docs: close section 02 explanation depth"
           git push origin HEAD:agent/section-02-explanation-depth
+
+# Triggered after the workflow existed on the branch.
