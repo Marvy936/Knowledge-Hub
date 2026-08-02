@@ -1086,6 +1086,10 @@ Proces overenia identity alebo kontroly nad authenticatorom pred vytvorením ses
 
 Versionovaný výsledok verifiera viažuci principal, authenticator, method, assurance, verifier identity, timestamp a subsequent session alebo token issuance. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
 
+## Authentication level
+
+Numeric assurance level achieved by a Keycloak authentication flow and stored in the user session. OIDC ACR values or SAML authentication contexts may map to this level, but the resulting claim must reflect the level actually achieved, not merely requested.
+
 ## Authentication Service — Kerberos AS
 
 Časť KDC, ktorá po počiatočnej authentication vydáva clientovi Ticket-Granting Ticket. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
@@ -1814,6 +1818,10 @@ Stav, keď hlavná integračná branch nespĺňa povinné build alebo quality ga
 
 Stav, po ktorom broker publication prijal a chráni podľa konkrétnej leader/replication/queue policy, bez tvrdenia o downstream business completion. Pozri [Message queues a event-driven architecture](../docs/15-databases-and-distributed-systems/message-queues-and-event-driven-architecture.md).
 
+## Brokered identity context
+
+Temporary Keycloak representation of identity data received from an external OIDC, SAML or social identity provider. Identity-provider mappers can transform this context before First Broker Login creates or links a local user.
+
 ## Brownout
 
 Čiastočné alebo premenlivé zlyhanie dependency, pri ktorom služba odpovedá pomaly, iba niektorým requestom alebo s neúplným výsledkom namiesto úplného outage-u. Brownout často drží resources a spúšťa retry amplification. Pozri [Chaos testing](docs/04-testing-and-quality/chaos-testing.md).
@@ -2453,6 +2461,10 @@ Presná identita infra zmeny zahŕňajúca source revision, resolved toolchain a
 ## Changed state — Ansible
 
 Task result signal `changed: true`, ktorým module alebo custom `changed_when` oznamuje, že target state bol zmenený; používa sa aj na handler notifications. Pozri [Modules, tasks, plays a playbooks](docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md).
+
+## Changed-users sync
+
+LDAP synchronization mode that imports or updates entries changed since the provider's previous synchronization boundary. It is cheaper than a full sync but may miss deletions, group-membership changes or directory-specific modifications that do not advance the expected change attribute.
 
 ## Changelog
 
@@ -5058,6 +5070,10 @@ Exact business capability, disruption scenario, primary/recovery locations, cons
 
 Schopnosť hybridného alebo edge workloadu pokračovať v definovanom režime pri strate spojenia s central cloud control plane alebo WAN dependency. Pozri [Public, private a hybrid cloud](docs/11-cloud-and-aws/public-private-hybrid-cloud.md).
 
+## Discoverable credential
+
+WebAuthn credential that an authenticator can find for a relying party without the server first supplying a credential identifier. It enables username-less or loginless passkey flows when the authenticator returns the user handle associated with the credential.
+
 ## Discovery generation
 
 Versionovaný snapshot service-to-endpoint mapovania načítaný registry clientom, proxy alebo dataplane-om. Pozri [Service discovery a API gateway](../docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md).
@@ -6802,6 +6818,10 @@ Dočasná branch určená na izolovaný vývoj jednej zmeny. Pri trunk-based mod
 
 Runtime control oddeľujúci deployment kódu od sprístupnenia capability pomocou versionovaného evaluation pravidla. Pozri [Feature flags](docs/05-ci-cd-and-release/feature-flags.md).
 
+## Federated identity link
+
+Durable Keycloak relation between one local realm user and an external identity-provider subject. A secure link is identified by the local user ID, provider identity and stable external subject; email or username alone is insufficient.
+
 ## Federation
 
 Trust model, v ktorom relying party prijíma authentication assertion alebo token od samostatne spravovaného identity provider-a. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
@@ -6961,6 +6981,10 @@ Alert instance, ktorej condition zostala aktívna podľa požadovaných time sem
 ## First-attempt pass rate
 
 Podiel testov, ktoré prejdú na prvý pokus bez retry. Je citlivejším signálom flakiness než finálna pass rate po opakovaniach. Pozri [Flaky tests a test data](docs/04-testing-and-quality/flaky-tests-and-test-data.md).
+
+## First Broker Login
+
+Authentication flow executed when a valid external identity has no existing federated link in the realm. It controls profile review, local user creation, existing-account discovery, account-link verification and final link creation.
 
 ## First-match routing verdict — ALB
 
@@ -7181,6 +7205,10 @@ Pod security context group identity používaná pri ownership a access nastaven
 ## Fulcio
 
 Sigstore certificate authority vydávajúca short-lived code-signing certificates pre overené OIDC identities. Pozri [Image signing](docs/13-security-and-identity/image-signing.md).
+
+## Full LDAP sync
+
+Synchronization operation that enumerates the configured LDAP population and creates or updates corresponding imported Keycloak users. A successful job proves processing of the configured search result, not correctness of the search base, filter, mappers or downstream sessions.
 
 ## Full Scope Allowed
 
@@ -8326,6 +8354,10 @@ Proces zhromažďovania a overovania evidence, ktorým sa digitálna identita sp
 
 SAML entita autentizujúca principal-a a vydávajúca signed assertions. Pozri [SAML](docs/13-security-and-identity/saml.md).
 
+## Identity-provider sync mode
+
+Policy controlling when a Keycloak identity-provider mapper writes upstream profile data to the local user. `IMPORT` applies the mapping during first creation or linking, `FORCE` reapplies it at broker logins, `INHERIT` follows the provider-level setting and `LEGACY` preserves older behavior.
+
 ## Identity reconciliation
 
 Proces porovnávajúci authoritative identity/entitlement desired state s downstream accounts, groups, roles, sessions a local access paths a pridávajúci aj odstraňujúci delta. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
@@ -9094,6 +9126,14 @@ Rozhodnutie, že nový encrypt path je active, všetky retained ciphertext/backu
 
 Exact operational identity Keycloak servera vrátane version/image, feature profile, node, server configuration, public/admin URLs, providers, realm a relevantnej loaded generation. Všeobecný názov „production Keycloak“ nie je dostatočný incident subject.
 
+## Keycloak LDAP edit mode
+
+Ownership policy for federated user attributes and passwords. `READ_ONLY` rejects supported writes, `WRITABLE` propagates them to LDAP and `UNSYNCED` stores supported changes locally, deliberately allowing Keycloak and LDAP state to diverge.
+
+## Keycloak recovery code
+
+One-time backup authentication secret generated and stored by Keycloak for use when the primary second factor is unavailable. It is a phishing-prone bearer credential; consumption, regeneration, replay denial and descendant-session handling require explicit validation.
+
 ## Keycloak SAML client generation
 
 Versionovaný effective SP registration v Keycloak realm-e vrátane entity ID, ACS/SLO endpoints, bindings, keys, NameID, mappers, scopes a session settings.
@@ -9369,6 +9409,10 @@ Rozšírenie LDAP operation behavior, napríklad paged results alebo server-side
 ## LDAP filter
 
 Výraz určujúci, ktoré directory entries zodpovedajú Search requestu; user input musí byť správne escaped. Pozri [LDAP](docs/13-security-and-identity/ldap.md).
+
+## LDAP imported user
+
+Local Keycloak user representation linked to a stable LDAP entry identifier when `Import Users` is enabled. Profile and Keycloak-specific metadata may be stored locally, but LDAP passwords are never imported and authentication still validates against the directory unless a deliberate local credential path exists.
 
 ## LDAP injection
 
@@ -11546,6 +11590,10 @@ External authorization boundary, pri ktorej partner rozhoduje podľa translated 
 
 Attack, pri ktorom útočník použije ukradnutý Kerberos TGT alebo service ticket bez znalosti pôvodného passwordu. Pozri [Kerberos](docs/13-security-and-identity/kerberos.md).
 
+## Passkey mediation
+
+Browser interaction policy controlling how discoverable passkeys are offered on the Keycloak login page. Conditional mediation uses autofill-style suggestions, optional mediation may open an account chooser automatically, and none requires an explicit user action.
+
 ## Password-client script — Ansible Vault
 
 Executable helper poskytujúci vault password z chráneného zdroja, typicky po autentifikácii job identity voči secret manageru. Pozri [Vault](docs/07-infrastructure-as-code-and-configuration-management/vault.md).
@@ -12333,6 +12381,10 @@ Prvý fresh plan po vytvorení import bindingu, používaný na rozhodnutie, či
 ## Post-import reconciliation — Terraform
 
 Review prvého planu po importe, ktorý rozhoduje, či sa remote hodnoty adoptujú do configuration, vrátia k desired state-u, rozdelí sa attribute ownership alebo sa chybný binding odstráni. Pozri [Lifecycle, import a moved blocks](docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md).
+
+## Post Login Flow
+
+Authentication flow executed after successful authentication at an external identity provider and local account resolution. It can enforce local MFA, required actions or assurance checks before Keycloak creates the final local client session.
 
 ## Post-point divergence
 
@@ -13765,6 +13817,10 @@ Exact business capability, user/cohort, required function, stated conditions, en
 ## Relying Party
 
 OIDC client, ktorý dôveruje validovanému ID Token-u od OpenID Providera a vytvára vlastnú application session. Pozri [OpenID Connect](docs/13-security-and-identity/openid-connect.md).
+
+## Relying Party ID
+
+WebAuthn domain identifier to which a credential and assertion are scoped. Keycloak's public hostname, browser origin and configured RP ID must form a consistent trust boundary; a valid signature for a different RP ID must be rejected.
 
 ## Remaining deadline budget
 
@@ -15594,6 +15650,10 @@ Rozdelenie právomocí tak, aby citlivú zmenu nevytvorila, neschválila a nenas
 
 Model s jedným globálnym orderom rešpektujúcim program order každého clienta, ale nie nutne real-time order medzi clients. Pozri [Consistency models](../docs/15-databases-and-distributed-systems/consistency-models.md).
 
+## Sequential LDAP failover
+
+Behavior of a Keycloak LDAP provider configured with multiple space-separated connection URLs. The underlying provider tries URLs from left to right when creating a connection; it is failover, not load balancing, and all endpoints must be replicas preserving the same entry UUIDs.
+
 ## Serial — Terraform state
 
 Monotónne rastúce číslo snapshotu v jednej state lineage používané na rozpoznanie novšej verzie a ochranu pred stale overwrite. Pozri [Terraform state](docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md).
@@ -16592,7 +16652,7 @@ Falsifikovateľné tvrdenie, že definovaný user/business outcome, invariant al
 
 ## Step-up authentication
 
-Vyžiadanie silnejšieho alebo čerstvejšieho authentication eventu pri sensitive action, vyššom risku alebo zmene contextu. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
+Authentication transition that raises an existing Keycloak user session from its current assurance level to a higher level required by a client or protected operation. Acceptance requires the intended additional authenticator, a correct resulting ACR or authentication context, freshness evidence and downstream enforcement.
 
 ## stickiness — ELB
 
@@ -17738,6 +17798,10 @@ Miesto, kde sa mení úroveň dôvery, identity authority, administrative contro
 
 SPIFFE administrative a security boundary určujúca namespace workload identities a trust bundle pre ich verification. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
 
+## Trust Email
+
+Identity-provider setting delegating email-verification authority to the upstream provider. It may mark brokered email as verified, but it does not make email a stable person identifier and must not by itself authorize account linking, tenant membership or privileged recovery.
+
 ## Trust-recovery generation
 
 Matching authoritative identity, posture, policy, trust-root, PEP configuration a resource/runtime state obnovené po security incidente. Pozri [Zero Trust](docs/13-security-and-identity/zero-trust.md).
@@ -18385,6 +18449,10 @@ Invocation v už existujúcom Lambda execution environment, ktorý môže reuse-
 ## Web origin
 
 Browser origin povolený pre CORS komunikáciu s Keycloak endpoints. Nie je totožný s redirect URI; oba controls chránia odlišné browser paths.
+
+## WebAuthn user verification
+
+Authenticator evidence that the person operating a WebAuthn credential completed a local verification gesture such as a PIN or biometric check. Passwordless or high-assurance policy commonly requires this flag; user presence alone does not provide the same assurance.
 
 ## Webhook hint — GitOps
 

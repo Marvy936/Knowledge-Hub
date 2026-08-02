@@ -424,5 +424,5 @@ Relevantné pojmy: Keycloak authentication flow, authentication execution, authe
 
 **Navigácia**
 
-[← Predchádzajúca: Service accounts a machine-to-machine authentication](service-accounts-and-machine-to-machine-authentication.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Service accounts a machine-to-machine authentication](service-accounts-and-machine-to-machine-authentication.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: MFA, WebAuthn, passkeys a step-up authentication →](mfa-webauthn-passkeys-step-up-authentication.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

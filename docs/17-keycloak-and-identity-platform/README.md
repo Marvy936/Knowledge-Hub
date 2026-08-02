@@ -26,15 +26,15 @@ Odporúča sa najprv dokončiť:
 6. [Public, confidential a bearer-only client model](public-confidential-and-bearer-only-clients.md)
 7. [Service accounts a machine-to-machine authentication](service-accounts-and-machine-to-machine-authentication.md)
 8. [Authentication flows, executions a required actions](authentication-flows-executions-and-required-actions.md)
+9. [MFA, WebAuthn, passkeys a step-up authentication](mfa-webauthn-passkeys-step-up-authentication.md)
+10. [Password policies, brute-force protection a account recovery](password-policies-brute-force-protection-account-recovery.md)
+11. [Identity brokering](identity-brokering.md)
+12. [LDAP a Active Directory federation](ldap-active-directory-federation.md)
 
-Aktuálny authoritative stav sekcie je **8/30 · In progress**. Kapitoly 1–8 tvoria prvý kompletný identity, protocol, token-projection, client-capability, machine-identity a authentication-transaction blok. Sekcia zatiaľ nie je `Ready for user review`; ďalší blok začína MFA, credential recovery, brokering a federation lifecycle-om.
+Aktuálny authoritative stav sekcie je **12/30 · In progress**. Kapitoly 1–12 teraz pokrývajú Keycloak deployment a core identity model, OIDC/SAML clients, token projection, client a machine capabilities, authentication flows, MFA/passkeys/step-up, password a recovery controls, identity brokering a LDAP/Active Directory federation. Sekcia zatiaľ nie je `Ready for user review`; ďalší blok začína user-storage/cache semantics, Authorization Services, token exchange/delegated access a Admin API automation.
 
 ## Plánované pokračovanie
 
-9. MFA, WebAuthn, passkeys a step-up authentication  
-10. Password policies, brute-force protection a account recovery  
-11. Identity brokering  
-12. LDAP a Active Directory federation  
 13. User storage, synchronization a cache semantics  
 14. Authorization Services, resources, scopes, policies a permissions  
 15. Token exchange, impersonation a delegated access  
@@ -97,6 +97,23 @@ mixed browser, native a machine responsibility
 ```
 
 Redesign rozdelí browser, native, machine a resource-server responsibilities do samostatných clients. Token projection používa dedicated/default/optional scopes s jedným ownerom claims, explicitný role-scope intersection a service-specific audience. Machine workload používa workload-bound confidential authentication, browser client má versionovaný step-up flow override, Direct Access Grant je zakázaný, existing users dostanú staged required-action assignment a downstream APIs validujú issuer, audience, caller, token type, tenant, resource a action. Recovery uzatvára old credential, stale token, remembered SSO, fresh login, second client, second token a second operation paths.
+
+### `KC-PAY-67` — assurance downgrade, mailbox recovery, unsafe broker link a stale directory privilege
+
+Atlas zaviedol passkeys pre privileged settlement clienta, ale ACR `gold` bol omylom namapovaný na nízku authentication level. Remembered brokered SSO session preto získala `acr=gold` bez fresh WebAuthn challenge. Recovery flow dôveroval verified emailu synchronizovanému z workforce directory; kompromitovaná alebo recyklovaná mailbox adresa mohla dokončiť password reset a pridať nový passkey.
+
+Partner OIDC provider mal `Trust Email`, `FORCE` mappers a unsafe AutoLink. Nový upstream subject s recyklovaným emailom sa spojil so starým local userom. Súčasne Active Directory changed-users sync nezachytil intended nested-group removal a Keycloak cache/local group mapping ponechali privilege. Password alebo credential reset nezrušil offline token ani local application session.
+
+```text
+stale alebo low-assurance upstream/directory identity state
+→ incorrect ACR/LoA alebo mapper/sync result
+→ unsafe local account link alebo credential recovery
+→ stale Keycloak group/role/session descendants
+→ protocol-valid privileged token
+→ settlement export alebo administration operation
+```
+
+Redesign viaže passkeys na exact RP/origin, required user verification a correct ACR-to-LoA mapping; credential management a recovery vyžadujú adequate current assurance a complete session/token closure. Broker linking používa stable external issuer+subject a verified existing-account proof namiesto email AutoLinku. LDAP federation používa stable `objectGUID`, explicitný mapper ownership, full/changed sync evidence, cache invalidation, local emergency admin a fresh-login/offboarding tests. Recovery uzatvára old credential, old broker subject, stale group mapping, offline/application sessions a second-login paths.
 
 ## Dominantný model sekcie
 
@@ -217,3 +234,47 @@ Každá komplexná kapitola musí rozlišovať:
 - rozlíšiť enabled/default/per-user required action a Application-Initiated Action;
 - sledovať action-token issue, authoritative user mutation a session/token descendants;
 - overiť fresh, remembered, missing-credential, expired-link, replay, second-user a second-client paths.
+
+### MFA, WebAuthn, passkeys a step-up authentication
+
+- rozlíšiť TOTP/HOTP, WebAuthn druhý faktor, passwordless a loginless discoverable passkey;
+- definovať exact RP ID, origin, credential, policy, flow, user-session a client subject;
+- vysvetliť WebAuthn registration a authentication ceremony vrátane challenge, signature, user presence a user verification;
+- navrhnúť passkey mediation, fallback a recovery bez silent assurance downgrade-u;
+- rozlíšiť attestation, AAGUID, authenticator class a privacy/usability trade-off;
+- mapovať OIDC ACR alebo SAML authentication context na skutočne dosiahnutú Keycloak LoA;
+- chrániť add/delete credential operations current step-upom a auditom;
+- overiť wrong origin/RP, UV=false, stale SSO, used recovery code, second client a second-login paths.
+
+### Password policies, brute-force protection a account recovery
+
+- definovať password credential ownera, realm policy, hashing generation a LDAP/external boundary;
+- vysvetliť composition rules, password history/expiry a migration existujúcich credentials;
+- modelovať brute-force failure state, quick-login threshold, temporary/permanent/mixed lockout a DoS consequence;
+- používať Attack Detection read-back a controlled unlock namiesto restartu alebo bulk clear-u;
+- vysvetliť Reset Credentials flow, action-token issue/delivery/replay a account-enumeration boundary;
+- oddeliť password mutation od Keycloak, offline-token a application-session descendants;
+- navrhnúť mailbox/helpdesk recovery s adequate identity proofom;
+- overiť old password, expired/replayed link, lockout DoS, old token a second-login paths.
+
+### Identity brokering
+
+- definovať exact external IdP alias/configuration, issuer/entity, external subject, local user a federated-link subject;
+- vysvetliť OIDC/SAML upstream validation a oddeliť ju od local account correlation;
+- navrhnúť First Broker Login create/link/verify flow bez unsafe AutoLinku;
+- používať `Trust Email` iba ako explicitnú delegáciu email-verification authority, nie person identity;
+- rozlíšiť IMPORT/FORCE/INHERIT mapper sync modes a ich stale/overwrite behavior;
+- minimalizovať stored upstream token custody a read-token permission;
+- vynútiť Post Login Flow step-up pre insufficient upstream assurance;
+- overiť same-email/different-subject, wrong issuer, stale link, unlink/relogin a stored-token paths.
+
+### LDAP a Active Directory federation
+
+- definovať exact provider, directory namespace, secure connection, bind credential, stable UUID, mapper a sync generation;
+- rozlíšiť Import Users ON/OFF a local versus transient user-state consequences;
+- vysvetliť READ_ONLY, WRITABLE a UNSYNCED field/password ownership;
+- používať multiple LDAP URLs ako sequential replica failover, nie identity-provider load balancing;
+- modelovať on-demand, full a changed-users sync vrátane missed deletion/group-change risks;
+- vysvetliť LDAP mappers, AD `objectGUID`, `sAMAccountName`, UPN, nested groups a account-control semantics;
+- oddeliť directory disable/password state, Keycloak cache/session a token descendants;
+- overiť first-server-down, wrong UUID, provider failure, removed group, local emergency admin a leaver paths.

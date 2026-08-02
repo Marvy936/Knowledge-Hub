@@ -381,10 +381,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Public, confidential a bearer-only client model](docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md)
 - [x] [Service accounts a machine-to-machine authentication](docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md)
 - [x] [Authentication flows, executions a required actions](docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md)
-- [ ] MFA, WebAuthn, passkeys a step-up authentication
-- [ ] Password policies, brute-force protection a account recovery
-- [ ] Identity brokering
-- [ ] LDAP a Active Directory federation
+- [x] [MFA, WebAuthn, passkeys a step-up authentication](docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md)
+- [x] [Password policies, brute-force protection a account recovery](docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md)
+- [x] [Identity brokering](docs/17-keycloak-and-identity-platform/identity-brokering.md)
+- [x] [LDAP a Active Directory federation](docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md)
 - [ ] User storage, synchronization a cache semantics
 - [ ] Authorization Services, resources, scopes, policies a permissions
 - [ ] Token exchange, impersonation a delegated access

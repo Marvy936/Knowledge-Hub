@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **329**
-- Audited conceptual sections: **6811**
-- Total words: **645,786**
-- Findings: **6558** (critical 654, high 865, medium 469, low 4570)
-- File grades: A 137, B 106, C 27, D 59
+- Audited authoritative articles: **333**
+- Audited conceptual sections: **6897**
+- Total words: **655,543**
+- Findings: **6605** (critical 654, high 869, medium 470, low 4612)
+- File grades: A 137, B 110, C 27, D 59
 
 ## Interpretation
 
@@ -118,6 +118,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 25 | 0 | 0 | 0 | 20 | 2559 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
+| B | 25 | 0 | 1 | 1 | 12 | 2369 | `docs/17-keycloak-and-identity-platform/identity-brokering.md` |
 | B | 24 | 0 | 0 | 0 | 16 | 1669 | `docs/06-gitlab/security-scanning.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2890 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | B | 24 | 0 | 0 | 0 | 20 | 2129 | `docs/08-container-fundamentals-and-docker/container-security.md` |
@@ -151,6 +152,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 14 | 1452 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1894 | `docs/11-cloud-and-aws/iam.md` |
 | B | 20 | 0 | 0 | 0 | 16 | 1538 | `docs/13-security-and-identity/zero-trust.md` |
+| B | 20 | 0 | 1 | 0 | 10 | 2995 | `docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md` |
+| B | 20 | 0 | 1 | 0 | 10 | 2177 | `docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1797 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1774 | `docs/06-gitlab/runners-and-executors.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1622 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
@@ -168,6 +171,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 15 | 1331 | `docs/13-security-and-identity/sbom.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
+| B | 18 | 0 | 1 | 0 | 10 | 2211 | `docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -246,7 +250,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 10 | 1279 | `docs/15-databases-and-distributed-systems/leader-election-and-consensus.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1371 | `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1411 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
-| A | 13 | 0 | 0 | 0 | 13 | 2558 | `docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md` |
+| A | 13 | 0 | 0 | 0 | 13 | 2563 | `docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
@@ -2097,15 +2101,31 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/17-keycloak-and-identity-platform/identity-brokering.md`
+
+- **HIGH** line 306, `single-sentence-concept` — **18. Positive, recovery a forbidden acceptance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+
+### `docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md`
+
+- **HIGH** line 336, `single-sentence-concept` — **20. Positive, recovery a forbidden acceptance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+
+### `docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md`
+
+- **HIGH** line 267, `single-sentence-concept` — **15. Positive, recovery a forbidden acceptance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+
+### `docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md`
+
+- **HIGH** line 262, `single-sentence-concept` — **17. Positive, recovery a forbidden acceptance**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2121 | 2121 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1292 | 1292 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1157 | 1157 |
-| `term-before-explanation` | 0 | 54 | 320 | 0 | 374 |
-| `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
+| `example-not-explicit` | 0 | 0 | 0 | 2132 | 2132 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1297 | 1297 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1183 | 1183 |
+| `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
+| `single-sentence-concept` | 0 | 349 | 0 | 0 | 349 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
