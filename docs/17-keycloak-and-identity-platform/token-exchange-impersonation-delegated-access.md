@@ -6,6 +6,10 @@ External-to-internal trust sa má riešiť podporovaným JWT Authorization Grant
 
 ## 1. Dominantný subject-token-to-target-token lifecycle
 
+Token exchange vytvára nový credential subject, nie iba nový encoding predecessor tokenu. Requester client musí byť autorizovaný spracovať subject token, target client musí vytvoriť vlastný scope/mapper projection a successor token má samostatný audience, lifetime, session a revocation contract. Lifecycle sa preto číta ako transition medzi dvoma token generations a jednou business operation, nie ako jednoduché „forwardovanie usera“.
+
+Najdôležitejšie je zachovať tri identities: user alebo workload subject, requester/acting client a target resource server. Ak successor token ponechá iba `sub` a API ignoruje acting client, confused-deputy alebo overbroad service môže vykonať operáciu, ktorú user context sám nevysvetľuje. Ak retry vytvorí dva successor tokens, credential duplication nesmie vytvoriť dva business side effects; operation idempotency patrí do downstream API.
+
 ```text
 originating user alebo workload a business intent
 → exact subject token issuer/session/client/audience/scope generation

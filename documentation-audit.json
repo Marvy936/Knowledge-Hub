@@ -4525,16 +4525,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "title": "Authorization Services, resources, scopes, policies a permissions",
-      "words": 2470,
+      "words": 2705,
       "headings": 26,
       "sections": 26,
-      "findings": 18,
-      "critical": 1,
-      "high": 2,
-      "medium": 3,
-      "low": 12,
-      "score": 54,
-      "grade": "C"
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 12,
+      "grade": "A"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
@@ -4679,16 +4679,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "title": "Token exchange, impersonation a delegated access",
-      "words": 2155,
+      "words": 2270,
       "headings": 23,
       "sections": 23,
       "findings": 10,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 9,
-      "score": 17,
-      "grade": "B"
+      "low": 10,
+      "score": 10,
+      "grade": "A"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
@@ -4707,16 +4707,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
       "title": "User storage, synchronization a cache semantics",
-      "words": 2265,
+      "words": 2399,
       "headings": 23,
       "sections": 23,
-      "findings": 14,
+      "findings": 10,
       "critical": 0,
-      "high": 2,
-      "medium": 1,
-      "low": 11,
-      "score": 37,
-      "grade": "C"
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 16,
+      "grade": "B"
     }
   ],
   "findings": [
@@ -63276,53 +63276,8 @@
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
-      "section": "3. PAP, PDP, PEP a PIP",
-      "line": 72,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
-      "section": "3. PAP, PDP, PEP a PIP",
-      "line": 72,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
-      "section": "3. PAP, PDP, PEP a PIP",
-      "line": 72,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
-      "section": "3. PAP, PDP, PEP a PIP",
-      "line": 72,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
-      "section": "3. PAP, PDP, PEP a PIP",
-      "line": 72,
-      "severity": "high",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PAP`, `REST`, `PIP`, `Enforcement`, `resource`, `identity`",
-      "score": 7
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "section": "4. Resource server",
-      "line": 92,
+      "line": 91,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -63331,7 +63286,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "section": "5. Resources",
-      "line": 100,
+      "line": 99,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -63340,7 +63295,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "section": "5. Resources",
-      "line": 100,
+      "line": 99,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -63349,7 +63304,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "section": "6. Scopes",
-      "line": 117,
+      "line": 116,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -63358,7 +63313,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "section": "8. Aggregated policies a logic",
-      "line": 150,
+      "line": 149,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -63366,35 +63321,8 @@
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
-      "section": "10. Decision strategies",
-      "line": 183,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `UNANIMOUS vyžaduje positive result všetkých relevantných policies.`, `AFFIRMATIVE povolí, ak aspoň jedna policy grantne.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
-      "section": "10. Decision strategies",
-      "line": 183,
-      "severity": "medium",
-      "rule": "short-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
-      "score": 4
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
-      "section": "10. Decision strategies",
-      "line": 183,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `UNANIMOUS`, `CONSENSUS`",
-      "score": 4
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "section": "11. Evaluation context",
-      "line": 193,
+      "line": 190,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -63403,7 +63331,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "section": "12. Protection API a PAT",
-      "line": 201,
+      "line": 198,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -63412,7 +63340,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "section": "18. Export, import a versioning",
-      "line": 293,
+      "line": 290,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -63421,7 +63349,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "section": "19. Admin REST inventory a evaluation",
-      "line": 310,
+      "line": 307,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -63430,7 +63358,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md",
       "section": "20. Connected incident KC-PAY-68 — stale PIP a broad affirmative policy",
-      "line": 329,
+      "line": 326,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64421,15 +64349,15 @@
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "section": "1. Dominantný subject-token-to-target-token lifecycle",
       "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "section": "3. Standard Token Exchange V2",
-      "line": 68,
+      "line": 72,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64438,7 +64366,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "section": "7. Audience a target client",
-      "line": 112,
+      "line": 116,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64447,7 +64375,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "section": "9. Access a refresh token descendants",
-      "line": 141,
+      "line": 145,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64456,7 +64384,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "section": "11. External-to-internal: JWT Authorization Grant",
-      "line": 174,
+      "line": 178,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64465,7 +64393,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "section": "13. Impersonation",
-      "line": 195,
+      "line": 199,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64474,7 +64402,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "section": "13. Impersonation",
-      "line": 195,
+      "line": 199,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64483,7 +64411,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "section": "15. Cross-domain identity chaining",
-      "line": 232,
+      "line": 236,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64492,7 +64420,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "section": "17. Connected incident KC-PAY-68 — broad exchange a lost actor context",
-      "line": 261,
+      "line": 265,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64501,7 +64429,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
       "section": "18. Evidence-preserving containment a recovery",
-      "line": 276,
+      "line": 280,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64608,44 +64536,8 @@
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
-      "section": "4. User Storage SPI capability model",
-      "line": 91,
-      "severity": "high",
-      "rule": "list-heavy-section",
-      "detail": "6 odrážok a iba 59 slov súvislého vysvetlenia.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
-      "section": "4. User Storage SPI capability model",
-      "line": 91,
-      "severity": "high",
-      "rule": "bare-bullet-items",
-      "detail": "4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `UserRegistrationProvider umožňuje create/remove users.`, `UserBulkUpdateProvider podporuje scoped bulk mutation.`, `CredentialInputValidator validuje credential types.`, `CredentialInputUpdater zapisuje credentials.`.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
-      "section": "4. User Storage SPI capability model",
-      "line": 91,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
-      "section": "4. User Storage SPI capability model",
-      "line": 91,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `ID`",
-      "score": 4
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
       "section": "5. Provider instance a transaction boundary",
-      "line": 116,
+      "line": 113,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64654,7 +64546,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
       "section": "7. Import strategy",
-      "line": 144,
+      "line": 141,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64663,7 +64555,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
       "section": "9. ImportSynchronization",
-      "line": 180,
+      "line": 177,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64672,7 +64564,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
       "section": "10. User cache",
-      "line": 203,
+      "line": 200,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64681,7 +64573,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
       "section": "11. Cache policies",
-      "line": 219,
+      "line": 216,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64690,7 +64582,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
       "section": "12. OnUserCache a custom cached metadata",
-      "line": 227,
+      "line": 224,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64699,7 +64591,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
       "section": "13. Explicit cache eviction",
-      "line": 246,
+      "line": 243,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64708,7 +64600,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
       "section": "18. Evidence-preserving containment a recovery",
-      "line": 308,
+      "line": 305,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64717,7 +64609,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md",
       "section": "19. Positive, recovery a forbidden acceptance",
-      "line": 314,
+      "line": 311,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",

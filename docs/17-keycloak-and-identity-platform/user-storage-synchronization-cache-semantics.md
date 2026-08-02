@@ -90,14 +90,11 @@ Provider priority je identity-selection policy. Dva providers s overlapping user
 
 ## 4. User Storage SPI capability model
 
-Custom provider implementuje `UserStorageProvider` a factory, ale reálne operácie prichádzajú cez capability interfaces. Provider nemá predstierať capabilities, ktoré external store nevie authoritative vykonať.
+Custom provider implementuje `UserStorageProvider` a factory, ale reálne operácie prichádzajú cez capability interfaces. Keycloak zisťuje supported behavior podľa implementovaných interfaces a potom volá odlišné methods pri login-e, user searchi, Admin Console inventory, credential update alebo synchronization. Provider preto nemá deklarovať capability iba preto, že dokáže podobnú operáciu emulovať; každá capability musí mať authoritative source, transaction boundary, pagination alebo conflict semantics a explicitné failure správanie.
 
-- `UserLookupProvider` poskytuje lookup podľa ID, username alebo emailu a je základ loginu.
-- `UserQueryMethodsProvider` a `UserCountMethodsProvider` podporujú searches, pagination a Admin Console inventory.
-- `UserRegistrationProvider` umožňuje create/remove users.
-- `UserBulkUpdateProvider` podporuje scoped bulk mutation.
-- `CredentialInputValidator` validuje credential types.
-- `CredentialInputUpdater` zapisuje credentials.
+`UserLookupProvider` poskytuje lookup podľa internal storage ID, username alebo emailu a je základom authentication resolution. `UserQueryMethodsProvider` a `UserCountMethodsProvider` sú samostatná inventory capability: určujú filtering, pagination a count completeness pre Admin Console a Admin REST, preto successful lookup jedného usera nepreukazuje kompletný query surface. `UserRegistrationProvider` vlastní create/remove lifecycle a musí definovať stable external ID, duplicate detection a delete direction. `UserBulkUpdateProvider` pridáva scoped bulk mutation, pri ktorej sa per-item výsledky nesmú schovať za aggregate success.
+
+Credential capabilities majú odlišnú authority než profile lookup. `CredentialInputValidator` rozhoduje, ktoré credential types provider vie authoritative overiť a čo znamená disabled, expired alebo unavailable source. `CredentialInputUpdater` zapisuje alebo odstraňuje credential a musí riešiť policy, partial external/local commit a descendant sessions. Provider môže validovať LDAP password a súčasne odmietať jeho update; implementácia jedného interface preto nesmie implicitne deklarovať druhý.
 
 ```java
 public final class AtlasUserStorageProvider

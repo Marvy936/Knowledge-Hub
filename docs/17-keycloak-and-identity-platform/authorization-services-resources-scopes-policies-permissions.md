@@ -71,12 +71,11 @@ Human-readable resource alebo policy name nie je stable subject. Export/import m
 
 ## 3. PAP, PDP, PEP a PIP
 
-Authorization Services rozdeľujú zodpovednosti:
+Authorization Services rozdeľujú administration, rozhodovanie, dodanie contextu a enforcement medzi štyri odlišné responsibility boundaries. Toto rozdelenie je dôležité pri dokazovaní incidentu: správna policy uložená cez PAP ešte nepreukazuje, že PDP načítal intended generation; správny PDP deny nepreukazuje, že PEP zastavil handler; complete identity token nepreukazuje, že PIP dodal current object ownership alebo transaction amount.
 
-- **Policy Administration Point (PAP)** spravuje resources, scopes, policies a permissions cez Admin Console, Admin REST alebo Protection API.
-- **Policy Decision Point (PDP)** vyhodnocuje permissions a policies pre authorization request.
-- **Policy Enforcement Point (PEP)** v resource serveri zastaví alebo povolí request podľa rozhodnutia.
-- **Policy Information Point (PIP)** dodáva identity, attributes a runtime context použitý policy evaluationom.
+**Policy Administration Point (PAP)** spravuje resources, scopes, policies a permissions cez Admin Console, Admin REST alebo Protection API. Jeho výstupom je desired authorization graph s konkrétnymi internal IDs a references. **Policy Decision Point (PDP)** tento graph vyhodnotí pre exact subject, client, resource, scopes a context a vytvorí grant, deny alebo error verdict. PDP nevykonáva business mutation a nepozná automaticky current database object, pokiaľ ho request/PIP neposkytne.
+
+**Policy Information Point (PIP)** dodáva policy inputs ako token claims, user/group/role state, pushed claims, time alebo application context. Každý input potrebuje authority a freshness; client-supplied tenant claim nie je automaticky trusted. **Policy Enforcement Point (PEP)** mapuje reálny HTTP alebo business request na resource/scopes, získa alebo validuje decision a musí zastaviť handler pred side effectom pri deny alebo neprijateľnom error-e. PEP je preto posledný security writer boundary, nie iba logging middleware.
 
 ```text
 PAP desired policy generation
@@ -182,13 +181,11 @@ Policy bez permission sa nevyhodnotí pre resource. Permission bez intended reso
 
 ## 10. Decision strategies
 
-Decision strategy určuje, ako kombinovať policy outcomes:
+Decision strategy určuje, ako sa jednotlivé policy outcomes skombinujú do permission verdictu. Nie je to kozmetické nastavenie: rovnaké tri policies nad rovnakým userom môžu pri odlišnej strategy vydať opačný výsledok. Test fixture preto musí zachovať outcomes každého policy node-u aj final strategy na permission a resource-server úrovni.
 
-- **UNANIMOUS** vyžaduje positive result všetkých relevantných policies.
-- **AFFIRMATIVE** povolí, ak aspoň jedna policy grantne.
-- **CONSENSUS** vyžaduje viac positive než negative decisions; tie resultuje deny.
+**UNANIMOUS** vyžaduje positive result všetkých relevantných policies. Je vhodná tam, kde role, tenant ownership, authentication freshness a time window tvoria súčasne povinné preconditions; jeden deny alebo nesplnená podmienka zastaví grant. **AFFIRMATIVE** povolí, ak aspoň jedna policy grantne. Je bezpečná iba vtedy, keď policies reprezentujú skutočne alternatívne rovnocenné authority paths; broad role policy by inak prebila tenant alebo freshness deny. **CONSENSUS** vyžaduje viac positive než negative decisions a pri zhode výsledok deny-ne. Počet policies a ich abstain/error semantics preto priamo menia outcome.
 
-AFFIRMATIVE môže vytvoriť bypass, ak jedna broad role policy prebije tenant alebo freshness deny. Strategy je súčasť permission aj resource-server graphu a treba ju testovať na complete truth table, nie iba intended positive userovi.
+Strategy je súčasť permission aj resource-server graphu a treba ju testovať na complete truth table, nie iba intended positive userovi. Pridanie novej policy môže pri CONSENSUS zmeniť majority a pri AFFIRMATIVE vytvoriť nový bypass, aj keď existujúce policies zostali bez zmeny.
 
 ## 11. Evaluation context
 
