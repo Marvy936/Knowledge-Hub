@@ -54,5 +54,4 @@ jobs:
             exit 0
           fi
           git commit -m "docs: activate AI roadmap sections 18-21"
-          git pull --rebase origin agent/activate-ai-roadmap-and-user-review
           git push origin HEAD:agent/activate-ai-roadmap-and-user-review
