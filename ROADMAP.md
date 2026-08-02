@@ -385,10 +385,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Password policies, brute-force protection a account recovery](docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md)
 - [x] [Identity brokering](docs/17-keycloak-and-identity-platform/identity-brokering.md)
 - [x] [LDAP a Active Directory federation](docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md)
-- [ ] User storage, synchronization a cache semantics
-- [ ] Authorization Services, resources, scopes, policies a permissions
-- [ ] Token exchange, impersonation a delegated access
-- [ ] Admin Console, Admin REST API a automation
+- [x] [User storage, synchronization a cache semantics](docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md)
+- [x] [Authorization Services, resources, scopes, policies a permissions](docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md)
+- [x] [Token exchange, impersonation a delegated access](docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md)
+- [x] [Admin Console, Admin REST API a automation](docs/17-keycloak-and-identity-platform/admin-console-admin-rest-api-automation.md)
 - [ ] Events, audit, metrics a observability
 - [ ] Themes, email templates a localization
 - [ ] Keycloak server configuration, hostname a reverse proxy

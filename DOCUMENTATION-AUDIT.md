@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **333**
-- Audited conceptual sections: **6897**
-- Total words: **655,729**
-- Findings: **6602** (critical 654, high 865, medium 470, low 4613)
-- File grades: A 140, B 107, C 27, D 59
+- Audited authoritative articles: **337**
+- Audited conceptual sections: **6996**
+- Total words: **665,407**
+- Findings: **6667** (critical 655, high 870, medium 474, low 4668)
+- File grades: A 140, B 109, C 29, D 59
 
 ## Interpretation
 
@@ -93,6 +93,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
+| C | 54 | 1 | 2 | 3 | 12 | 2470 | `docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md` |
 | C | 53 | 0 | 0 | 6 | 22 | 2531 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 2059 | `docs/05-ci-cd-and-release/continuous-integration.md` |
@@ -108,6 +109,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
+| C | 37 | 0 | 2 | 1 | 11 | 2265 | `docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
@@ -124,6 +126,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 24 | 0 | 0 | 0 | 21 | 4079 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2623 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 2060 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
+| B | 24 | 0 | 0 | 0 | 23 | 2783 | `docs/17-keycloak-and-identity-platform/admin-console-admin-rest-api-automation.md` |
 | B | 23 | 0 | 0 | 0 | 17 | 1717 | `docs/06-gitlab/environments-deployments-releases.md` |
 | B | 23 | 0 | 0 | 0 | 20 | 2657 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | B | 23 | 0 | 0 | 0 | 19 | 1927 | `docs/08-container-fundamentals-and-docker/container-storage.md` |
@@ -183,6 +186,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 12 | 1821 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 2272 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
 | B | 17 | 0 | 0 | 1 | 12 | 2417 | `docs/17-keycloak-and-identity-platform/identity-brokering.md` |
+| B | 17 | 0 | 1 | 0 | 9 | 2155 | `docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1588 | `docs/06-gitlab/artifacts-and-cache.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1711 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md` |
 | B | 16 | 0 | 0 | 0 | 12 | 2628 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
@@ -259,7 +263,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 12 | 0 | 0 | 0 | 10 | 1460 | `docs/13-security-and-identity/threat-modeling.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 1707 | `docs/14-sre-and-operations/toil.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 1818 | `docs/15-databases-and-distributed-systems/connection-pooling.md` |
-| A | 12 | 0 | 0 | 0 | 10 | 3040 | `docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md` |
+| A | 12 | 0 | 0 | 0 | 10 | 3045 | `docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 2220 | `docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 980 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | A | 11 | 0 | 0 | 0 | 8 | 1243 | `docs/03-git-and-automation/merge-and-rebase.md` |
@@ -1941,6 +1945,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 259, `single-sentence-concept` — **Roll-forward cez live patch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 263, `single-sentence-concept` — **Health green ako recovery closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md`
+
+- **CRITICAL** line 72, `outline-instead-of-explanation` — **3. PAP, PDP, PEP a PIP**: 4 odrážok je podopretých iba 29 slovami súvislého vysvetlenia.
+- **HIGH** line 183, `bare-bullet-items` — **10. Decision strategies**: 2 z 3 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `UNANIMOUS vyžaduje positive result všetkých relevantných policies.`, `AFFIRMATIVE povolí, ak aspoň jedna policy grantne.`.
+- **HIGH** line 72, `term-before-explanation` — **3. PAP, PDP, PEP a PIP**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `PAP`, `REST`, `PIP`, `Enforcement`, `resource`, `identity`
+
 ### `docs/00-foundations/value-stream-mapping.md`
 
 - **HIGH** line 33, `list-first-introduction` — **3. Základný model toku**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
@@ -2101,21 +2111,30 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md`
+
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný subject-token-to-target-token lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
+### `docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md`
+
+- **HIGH** line 91, `bare-bullet-items` — **4. User Storage SPI capability model**: 4 z 6 odrážok nemá vysvetlenú úlohu, význam alebo dôsledok v aktuálnom kontexte. Príklady: `UserRegistrationProvider umožňuje create/remove users.`, `UserBulkUpdateProvider podporuje scoped bulk mutation.`, `CredentialInputValidator validuje credential types.`, `CredentialInputUpdater zapisuje credentials.`.
+- **HIGH** line 91, `list-heavy-section` — **4. User Storage SPI capability model**: 6 odrážok a iba 59 slov súvislého vysvetlenia.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2133 | 2133 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1297 | 1297 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1183 | 1183 |
-| `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
+| `example-not-explicit` | 0 | 0 | 0 | 2161 | 2161 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1307 | 1307 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1200 | 1200 |
+| `term-before-explanation` | 0 | 55 | 323 | 0 | 378 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
-| `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
-| `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
+| `outline-instead-of-explanation` | 315 | 0 | 0 | 0 | 315 |
+| `bare-bullet-items` | 236 | 35 | 0 | 0 | 271 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
-| `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 123 | 0 | 0 | 123 |
-| `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
+| `short-concept-section` | 0 | 0 | 151 | 0 | 151 |
+| `list-first-introduction` | 0 | 124 | 0 | 0 | 124 |
+| `list-heavy-section` | 0 | 68 | 0 | 0 | 68 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |
 
