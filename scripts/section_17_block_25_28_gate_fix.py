@@ -1,5 +1,6 @@
 from pathlib import Path
 
+# Branch-only, idempotent correction of one mixed-language semantic-gate token.
 path = Path(__file__).resolve().with_name("section_17_block_25_28.py")
 text = path.read_text(encoding="utf-8")
 old = '"pitr", "realm export", "persisted sessions", "all nodes", "override", "bootstrap-admin", "kc-pay-77"'
