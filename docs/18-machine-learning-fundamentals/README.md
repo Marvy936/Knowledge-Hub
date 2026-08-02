@@ -27,10 +27,10 @@ Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktív
 10. [Decision trees, random forests a gradient boosting](decision-trees-random-forests-gradient-boosting.md)
 11. [Neural network fundamentals](neural-network-fundamentals.md)
 12. [Loss functions a optimization](loss-functions-optimization.md)
-13. Gradient descent, learning rate a convergence
-14. Overfitting, underfitting, bias a variance
-15. Regularization a early stopping
-16. Hyperparameters a hyperparameter optimization
+13. [Gradient descent, learning rate a convergence](gradient-descent-learning-rate-convergence.md)
+14. [Overfitting, underfitting, bias a variance](overfitting-underfitting-bias-variance.md)
+15. [Regularization a early stopping](regularization-early-stopping.md)
+16. [Hyperparameters a hyperparameter optimization](hyperparameters-hyperparameter-optimization.md)
 17. Classification metrics
 18. Regression metrics
 19. Imbalanced datasets a threshold selection
@@ -71,4 +71,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **12/26 · In progress**. Tretí blok uzatvára linear/logistic model form, tree ensembles, neural architecture a loss/optimizer lifecycle. Kapitoly 13–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
+Aktuálny authoritative stav sekcie je **16/26 · In progress**. Štvrtý blok uzatvára optimization trajectory, generalization diagnosis, regularization/early-stopping a hyperparameter-search lifecycle. Kapitoly 17–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
