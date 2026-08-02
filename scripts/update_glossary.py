@@ -87,6 +87,7 @@ def finalize_keycloak_block_on_pr_check(args: argparse.Namespace) -> None:
     env[KEYCLOAK_GUARD] = "1"
 
     run([sys.executable, "scripts/section_17_block_09_12_finalize.py"], env=env)
+    run([sys.executable, "scripts/section_17_block_09_12_closeout.py"], env=env)
     run([sys.executable, "scripts/update_glossary.py", "--write"], env=env)
     run([sys.executable, "scripts/update_navigation.py", "--write"], env=env)
     run([sys.executable, "scripts/audit_learning_depth.py", "--all-docs"], env=env)
