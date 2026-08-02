@@ -53,16 +53,16 @@ Takýto manifest oddeľuje learned artifact od system policy. Rovnaké probabili
 
 Artificial intelligence je najširší pojem v tejto štvorici. Prakticky označuje engineered system, ktorý pre definované objectives vytvára predictions, recommendations, decisions alebo content ovplyvňujúce reálne či virtuálne prostredie. Taký systém môže používať learned model, explicitné pravidlá, search/planning alebo kombináciu viacerých mechanizmov.
 
-AI system teda nie je automaticky neurónová sieť a už vôbec nie iba model file. Payment review application môže kombinovať:
+AI system teda nie je automaticky neurónová sieť a už vôbec nie iba model file. Payment review application skladá viac komponentov, z ktorých každý vlastní inú transition a inú dôkaznú hranicu. Rules rozhodujú hard eligibility, learned model vytvára štatistický odhad, ranking policy prevádza scores na kapacitné poradie, generátor pripravuje text a človek alebo enforcement layer vlastní citlivý side effect.
 
-- deterministic eligibility rules, ktoré odmietnu nekompletný request;
-- supervised classifier, ktorý odhadne probability budúcej straty;
-- ranking policy, ktorá zoradí prípady podľa expected value kontroly;
-- generatívny model, ktorý pripraví analyst summary;
-- human reviewer, ktorý má autoritu rozhodnúť o ďalšom kroku;
-- audit a reconciliation, ktoré preukážu skutočný business outcome.
+- deterministic eligibility rules — odmietajú nekompletný alebo policy-forbidden request ešte pred modelom, takže learned component nikdy nedostane authority obísť hard constraints;
+- supervised classifier — odhaduje probability budúcej straty pre exact operation a model generation, ale sám neurčuje review action;
+- ranking policy — kombinuje score, recoverable amount, capacity a tie-breaking do auditovateľného poradia kandidátov;
+- generatívny model — pripravuje analyst summary ako pomocný content, ktorého factuality a faithful relationship k source evidence sa validujú osobitne;
+- human reviewer — vlastní finálne posúdenie prípadu v rámci explicitných permissions a zaznamenáva reason/outcome;
+- audit a reconciliation — spájajú input, component generations, action a neskorší business outcome, aby sa dal zmerať aj opraviť celý path.
 
-Dôsledok je dôležitý: model evaluation preukazuje vlastnosť modelu na definovanom datasete. Nepreukazuje automaticky správnosť identity, authorization, queue semantics, human processu ani finálnej business operácie. AI-system acceptance musí pokryť celý path.
+Komponenty preto netvoria zoznam rovnocenných „AI features“. Tvoria ordered authority chain: hard policy obmedzuje možné actions, model poskytne evidence, ranking vyberie bounded workload, človek rozhodne a reconciliation overí následok. Model evaluation preukazuje vlastnosť modelu na definovanom datasete; nepreukazuje automaticky správnosť identity, authorization, queue semantics, human processu ani finálnej business operácie. AI-system acceptance musí pokryť celý path.
 
 ## 4. Machine learning ako učenie správania z dát
 

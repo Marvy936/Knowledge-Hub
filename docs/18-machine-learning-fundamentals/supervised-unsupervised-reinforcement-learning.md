@@ -158,18 +158,20 @@ state s_t
 → ďalší krok
 ```
 
-Základné subjects:
+RL subject nemožno zredukovať na samotný model file. Environment vlastní transition dynamics, policy vlastní výber action a reward function určuje, ktorý observed consequence sa optimalizuje. State je analytický predpoklad decision problemu, zatiaľ čo observation je konkrétna informácia dostupná agentovi; ich zámena môže vytvoriť policy, ktorá pri trainingu videla informáciu nedostupnú v produkcii.
 
-- environment — systém alebo svet, ktorý reaguje na actions;
-- state — informácia potrebná pre predikciu future rewards pri danom decision model;
-- observation — to, čo agent skutočne vidí; nemusí byť complete state;
-- action — voľba, ktorú agent môže vykonať;
-- reward — scalar feedback pre jeden transition;
-- return — kumulovaný budúci reward;
-- policy — mapping zo state/observation na action distribution;
-- episode — bounded sequence interakcií, ak má problem prirodzený začiatok a koniec.
+Základné subjects tvoria jeden transition contract:
 
-RL nie je „supervised learning, ktorý sa často retrainuje“. Label pre correct action nemusí byť priamo dostupný; agent hodnotí consequences actions cez reward a transition dynamics.
+- environment — systém alebo svet, ktorý prijme action a vytvorí next state aj observed consequences;
+- state — informácia, ktorá je v zvolenom modelovaní potrebná pre predikciu future rewards;
+- observation — to, čo agent skutočne dostane na vstupe; pri partial observability nemusí určovať complete state;
+- action — explicitne povolená voľba, ktorú policy môže navrhnúť alebo vykonať v danom state;
+- reward — scalar feedback priradený transitionu, ktorý reprezentuje iba zakódovanú časť objective-u;
+- return — kumulovaný budúci reward, podľa ktorého sa porovnávajú krátkodobé a dlhodobé consequences;
+- policy — versionovaný mapping zo state-u alebo observation na action alebo action distribution;
+- episode — bounded trajectory od definovaného začiatku po termination, ak má problem takú prirodzenú hranicu.
+
+Tieto položky musia byť versionované spolu, pretože zmena action setu, rewardu alebo observation schema mení meaning policy aj pri rovnakých weights. RL nie je „supervised learning, ktorý sa často retrainuje“. Label pre correct action nemusí byť priamo dostupný; agent hodnotí consequences actions cez reward a transition dynamics, pričom authorization a safety constraints zostávajú mimo reward optimization.
 
 ## 10. Exploration, exploitation a bezpečnostná hranica
 

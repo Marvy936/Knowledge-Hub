@@ -259,16 +259,16 @@ Vyššie model complexity je odôvodnená iba merateľným gainom na relevantnej
 
 ## 16. Wrong-task failure modes
 
-Wrong-task formulation môže vyzerať ako algorithm failure, hoci model optimalizuje presne zadaný objective.
+Wrong-task formulation môže vyzerať ako algorithm failure, hoci model optimalizuje presne zadaný objective. Diagnostic otázka preto nie je iba „ktorý estimator má lepšie score“, ale „má output rovnakú unit, comparison boundary a action semantics, akú potrebuje business operation?“. Každý z nasledujúcich omylov oddeľuje training objective od downstream decisionu iným spôsobom.
 
-- classification namiesto ranking — high overall accuracy, ale zlé top-K poradie;
-- regression bez action horizon — numerický odhad nemá usable decision boundary;
-- clustering interpretovaný ako classes — arbitrary groups sa vydávajú za truth;
-- ranking bez candidate evaluation — relevantné items chýbajú ešte pred scorerom;
-- probability zamieňaná so utility — high risk s nízkym amountom preplní capacity;
-- hard class threshold pri variable capacity — queue size a analyst load sa nekontrolovane menia.
+- classification namiesto ranking — model môže mať high overall accuracy, ale nevytvorí správne relatívne top-K poradie pre bounded capacity;
+- regression bez action horizon — numerický odhad nemá jasnú dobu platnosti ani usable decision boundary;
+- clustering interpretovaný ako classes — arbitrary groups podľa feature metric sa vydávajú za authoritative business truth;
+- ranking bez candidate evaluation — relevantné items chýbajú ešte pred scorerom, takže dobrá list metric hodnotí iba neúplnú population;
+- probability zamieňaná so utility — high risk s nízkym recoverable amountom môže vytlačiť hodnotnejší prípad a preplniť capacity;
+- hard class threshold pri variable capacity — queue size a analyst load sa menia s prevalence a score distribution bez explicitného capacity ownera.
 
-Root cause sa neopraví automatickým hyperparameter tuningom. Najprv sa musí zmeniť task contract a evaluation.
+Spoločným mechanizmom je neviditeľný post-model transition: score sa mení na inú business quantity bez versionovanej policy a task-specific evaluation. Root cause sa preto neopraví automatickým hyperparameter tuningom. Najprv sa musí zmeniť task contract, baseline a acceptance tak, aby merali rovnaký decision, aký sa skutočne vykonáva.
 
 ## 17. Worked incident `ML-PAY-83`: classification score pre ranking problém
 
@@ -301,14 +301,14 @@ Classification model zostal componentom, nie final task authority. Tím pridal r
 
 Po incidente tím zachoval raw classifier scores, probabilities, active threshold, queue insertion timestamps, rank/order fields, candidate manifests a final analyst outcomes. Zastavil arrival-time ordering a vrátil sa k poslednej deterministic risk-and-amount prioritization policy.
 
-Recovery porovnala štyri alternatives nad rovnakým operation/time holdoutom:
+Recovery porovnala štyri alternatives nad rovnakým operation/time holdoutom. Porovnanie nebolo zoznamom model names, ale controlled experimentom s rovnakým candidate manifestom, capacity `K`, label maturity a cost assumptions. Tým sa zabránilo tomu, aby jeden variant získal výhodu lepším data coverage alebo iným evaluation windowom.
 
-1. classification probability sort;
-2. predicted expected loss regression;
-3. transparent composed utility score;
-4. learned ranking model.
+1. Classification probability sort použil calibrated probability ako jednoduchý ranking baseline a ukázal hodnotu samotného classifieru bez ďalšej amount policy.
+2. Predicted expected-loss regression zoradila operations podľa numeric recoverable-loss targetu a odhalila sensitivity na heavy-tail errors.
+3. Transparent composed utility score skombinoval probability, recoverable amount a review cost cez explicitnú versionovanú formulu, ktorú vedel risk owner auditovať.
+4. Learned ranking model optimalizoval relatívne list order a musel preukázať incremental gain oproti transparentným baselines.
 
-Každý variant dostal rovnaký candidate set a capacity `K`. Evaluation oddelila model metric od business metric a serving cost. Learned ranker nebol promoted iba preto, že mal najlepší offline NDCG; musel prejsť shadow queue, latency, stability a cohort checks.
+Každý variant dostal rovnaký candidate set a capacity `K`. Evaluation oddelila model metric od business metric, serving latency, operational complexity a recovery cost. Learned ranker nebol promoted iba preto, že mal najlepší offline NDCG; musel prejsť shadow queue, stability a cohort checks a mať schválený fallback na jednoduchšiu ordering policy.
 
 ## 19. Task-specific acceptance contract
 
@@ -379,5 +379,5 @@ Relevantné pojmy: regression, numeric target, classification, binary/multiclass
 
 **Navigácia**
 
-[← Predchádzajúca: Supervised, unsupervised a reinforcement learning](supervised-unsupervised-reinforcement-learning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Train, validation a test split →](README.md)
+[← Predchádzajúca: Supervised, unsupervised a reinforcement learning](supervised-unsupervised-reinforcement-learning.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

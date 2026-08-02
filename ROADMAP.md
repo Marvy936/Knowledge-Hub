@@ -411,10 +411,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### Machine Learning Fundamentals
 
-- [ ] Artificial intelligence, machine learning, deep learning a generative AI
-- [ ] Dataset, sample, feature, label a target
-- [ ] Supervised, unsupervised a reinforcement learning
-- [ ] Regression, classification, ranking a clustering
+- [x] [Artificial intelligence, machine learning, deep learning a generative AI](docs/18-machine-learning-fundamentals/artificial-intelligence-machine-learning-deep-learning-generative-ai.md)
+- [x] [Dataset, sample, feature, label a target](docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md)
+- [x] [Supervised, unsupervised a reinforcement learning](docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md)
+- [x] [Regression, classification, ranking a clustering](docs/18-machine-learning-fundamentals/regression-classification-ranking-clustering.md)
 - [ ] Train, validation a test split
 - [ ] Data preprocessing, normalization a encoding
 - [ ] Feature engineering a feature selection
