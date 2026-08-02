@@ -19,10 +19,10 @@ Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktív
 2. [Dataset, sample, feature, label a target](dataset-sample-feature-label-target.md)
 3. [Supervised, unsupervised a reinforcement learning](supervised-unsupervised-reinforcement-learning.md)
 4. [Regression, classification, ranking a clustering](regression-classification-ranking-clustering.md)
-5. Train, validation a test split
-6. Data preprocessing, normalization a encoding
-7. Feature engineering a feature selection
-8. Data leakage a train-serving skew
+5. [Train, validation a test split](train-validation-test-split.md)
+6. [Data preprocessing, normalization a encoding](data-preprocessing-normalization-encoding.md)
+7. [Feature engineering a feature selection](feature-engineering-feature-selection.md)
+8. [Data leakage a train-serving skew](data-leakage-train-serving-skew.md)
 9. Linear a logistic regression
 10. Decision trees, random forests a gradient boosting
 11. Neural network fundamentals
@@ -71,4 +71,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **4/26 · In progress**. Prvý blok aktivuje spoločný lifecycle od AI-system scope-u cez dataset a learning signal po task formulation. Kapitoly 5–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
+Aktuálny authoritative stav sekcie je **8/26 · In progress**. Druhý blok uzatvára evaluation isolation, fitted preprocessing, feature lifecycle a leakage/train-serving parity. Kapitoly 9–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.

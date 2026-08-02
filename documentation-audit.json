@@ -4929,6 +4929,34 @@
       "grade": "A"
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "title": "Data leakage a train-serving skew",
+      "words": 2924,
+      "headings": 27,
+      "sections": 27,
+      "findings": 20,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 20,
+      "score": 25,
+      "grade": "B"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "title": "Data preprocessing, normalization a encoding",
+      "words": 2652,
+      "headings": 24,
+      "sections": 24,
+      "findings": 28,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 28,
+      "score": 36,
+      "grade": "C"
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md",
       "title": "Dataset, sample, feature, label a target",
       "words": 2554,
@@ -4943,9 +4971,23 @@
       "grade": "B"
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "title": "Feature engineering a feature selection",
+      "words": 2595,
+      "headings": 24,
+      "sections": 24,
+      "findings": 29,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 29,
+      "score": 40,
+      "grade": "C"
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/regression-classification-ranking-clustering.md",
       "title": "Regression, classification, ranking a clustering",
-      "words": 2669,
+      "words": 2673,
       "headings": 22,
       "sections": 22,
       "findings": 27,
@@ -4968,6 +5010,20 @@
       "medium": 0,
       "low": 25,
       "score": 33,
+      "grade": "B"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "title": "Train, validation a test split",
+      "words": 2872,
+      "headings": 24,
+      "sections": 24,
+      "findings": 25,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 25,
+      "score": 31,
       "grade": "B"
     }
   ],
@@ -66614,6 +66670,438 @@
       "score": 1
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "1. Dominantný leakage/skew lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "1. Dominantný leakage/skew lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "3. Target leakage",
+      "line": 59,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "4. Temporal leakage",
+      "line": 75,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "5. Entity a group leakage",
+      "line": 89,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "10. Leakage cez cross-sample aggregates",
+      "line": 159,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "11. Train-serving schema skew",
+      "line": 173,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "12. Feature skew",
+      "line": 186,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "12. Feature skew",
+      "line": 186,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "13. Distribution skew",
+      "line": 200,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "13. Distribution skew",
+      "line": 200,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "15. Feature availability a freshness skew",
+      "line": 228,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "16. Label skew nie je serving skew",
+      "line": 243,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "18. Leakage detection techniques",
+      "line": 276,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "18. Leakage detection techniques",
+      "line": 276,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "19. Skew detection techniques",
+      "line": 295,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "20. Drift oproti skew",
+      "line": 320,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "21. Leakage a skew v RAG/LLM context-e",
+      "line": 334,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "22. Worked incident ML-PAY-84",
+      "line": 348,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
+      "section": "24. Acceptance contract",
+      "line": 392,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "1. Dominantný preprocessing lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "1. Dominantný preprocessing lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "4. Parsing, data types a units",
+      "line": 65,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "5. Missing value nie je jedna vec",
+      "line": 83,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "5. Missing value nie je jedna vec",
+      "line": 83,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "6. Scaling a standardization",
+      "line": 110,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "7. Normalization a terminologická hranica",
+      "line": 126,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "7. Normalization a terminologická hranica",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "8. Robust, nonlinear a distribution transforms",
+      "line": 146,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "8. Robust, nonlinear a distribution transforms",
+      "line": 146,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "9. Categorical encoding",
+      "line": 160,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "10. Ordinal encoding a false ordering",
+      "line": 180,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "10. Ordinal encoding a false ordering",
+      "line": 180,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "11. Target encoding a leakage",
+      "line": 194,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "12. Text, timestamps a structured extraction",
+      "line": 207,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "13. ColumnTransformer a heterogeneous schema",
+      "line": 224,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "14. Pipeline ako fit/transform a packaging boundary",
+      "line": 254,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "14. Pipeline ako fit/transform a packaging boundary",
+      "line": 254,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "15. Online a offline preprocessing parity",
+      "line": 274,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "15. Online a offline preprocessing parity",
+      "line": 274,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "16. Schema, ordering a dtype compatibility",
+      "line": 289,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "17. Fit state read-back",
+      "line": 305,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "17. Fit state read-back",
+      "line": 305,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "18. Preprocessing monitoring",
+      "line": 319,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "20. Evidence-preserving containment a recovery",
+      "line": 360,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "20. Evidence-preserving containment a recovery",
+      "line": 360,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "21. Acceptance contract",
+      "line": 377,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md",
+      "section": "21. Acceptance contract",
+      "line": 377,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md",
       "section": "1. Dominantný data-to-learning lifecycle",
       "line": 7,
@@ -66842,6 +67330,267 @@
       "path": "docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md",
       "section": "16. Dataset acceptance contract",
       "line": 307,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "1. Dominantný feature lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "2. Exact feature subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "3. Feature engineering ako business representation",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "3. Feature engineering ako business representation",
+      "line": 57,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "4. Aggregates a windows",
+      "line": 74,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "5. Ratios, denominators a small-sample instability",
+      "line": 94,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "6. Interactions a polynomial features",
+      "line": 107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "6. Interactions a polynomial features",
+      "line": 107,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "7. Time a cyclical features",
+      "line": 125,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "7. Time a cyclical features",
+      "line": 125,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "8. Identity, memorization a high cardinality",
+      "line": 141,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "8. Identity, memorization a high cardinality",
+      "line": 141,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "9. Proxy features a fairness/security boundary",
+      "line": 158,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "9. Proxy features a fairness/security boundary",
+      "line": 158,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "11. Filter methods",
+      "line": 180,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "12. Wrapper methods",
+      "line": 197,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "13. Embedded methods",
+      "line": 215,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "14. Feature groups a dependency-aware selection",
+      "line": 236,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "15. Feature freshness a availability",
+      "line": 255,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "15. Feature freshness a availability",
+      "line": 255,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "16. Feature selection stability",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "18. Monitoring selected features",
+      "line": 299,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "18. Monitoring selected features",
+      "line": 299,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "19. Worked incident ML-PAY-84",
+      "line": 315,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "20. Evidence-preserving containment a recovery",
+      "line": 333,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "20. Evidence-preserving containment a recovery",
+      "line": 333,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "20. Evidence-preserving containment a recovery",
+      "line": 333,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "21. Acceptance contract",
+      "line": 351,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
+      "section": "21. Acceptance contract",
+      "line": 351,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -67310,6 +68059,231 @@
       "path": "docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md",
       "section": "17. Acceptance contract podľa learning mode",
       "line": 302,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "1. Dominantný split lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "1. Dominantný split lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "2. Exact split subject",
+      "line": 25,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "2. Exact split subject",
+      "line": 25,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "3. Training set ako fit authority",
+      "line": 52,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "4. Validation set ako design-feedback authority",
+      "line": 68,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "6. Random split a jeho assumptions",
+      "line": 100,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "6. Random split a jeho assumptions",
+      "line": 100,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "7. Stratification a class proportions",
+      "line": 120,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "7. Stratification a class proportions",
+      "line": 120,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "8. Group-aware split",
+      "line": 134,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "8. Group-aware split",
+      "line": 134,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "9. Time-based split",
+      "line": 155,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "10. Gap, embargo a label overlap",
+      "line": 175,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "11. Spatial, site a cohort split",
+      "line": 190,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "12. Cross-validation a jeho role",
+      "line": 202,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "12. Cross-validation a jeho role",
+      "line": 202,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "14. Refit po selection",
+      "line": 245,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "15. Split reproducibility a stable assignment",
+      "line": 265,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "16. Test contamination cez human feedback",
+      "line": 281,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "19. Worked incident ML-PAY-84",
+      "line": 334,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "20. Evidence-preserving containment a recovery",
+      "line": 351,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "20. Evidence-preserving containment a recovery",
+      "line": 351,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "21. Acceptance contract",
+      "line": 369,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/train-validation-test-split.md",
+      "section": "21. Acceptance contract",
+      "line": 369,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",

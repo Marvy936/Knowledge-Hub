@@ -415,10 +415,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Dataset, sample, feature, label a target](docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md)
 - [x] [Supervised, unsupervised a reinforcement learning](docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md)
 - [x] [Regression, classification, ranking a clustering](docs/18-machine-learning-fundamentals/regression-classification-ranking-clustering.md)
-- [ ] Train, validation a test split
-- [ ] Data preprocessing, normalization a encoding
-- [ ] Feature engineering a feature selection
-- [ ] Data leakage a train-serving skew
+- [x] [Train, validation a test split](docs/18-machine-learning-fundamentals/train-validation-test-split.md)
+- [x] [Data preprocessing, normalization a encoding](docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md)
+- [x] [Feature engineering a feature selection](docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md)
+- [x] [Data leakage a train-serving skew](docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md)
 - [ ] Linear a logistic regression
 - [ ] Decision trees, random forests a gradient boosting
 - [ ] Neural network fundamentals

@@ -379,5 +379,5 @@ Relevantné pojmy: regression, numeric target, classification, binary/multiclass
 
 **Navigácia**
 
-[← Predchádzajúca: Supervised, unsupervised a reinforcement learning](supervised-unsupervised-reinforcement-learning.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Supervised, unsupervised a reinforcement learning](supervised-unsupervised-reinforcement-learning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Train, validation a test split →](train-validation-test-split.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
