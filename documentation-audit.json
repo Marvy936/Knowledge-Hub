@@ -4537,6 +4537,34 @@
       "grade": "A"
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "title": "Backup, restore, realm import/export a disaster recovery",
+      "words": 2190,
+      "headings": 24,
+      "sections": 24,
+      "findings": 16,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 16,
+      "score": 26,
+      "grade": "B"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md",
+      "title": "Custom providers, SPI a extension lifecycle",
+      "words": 2394,
+      "headings": 29,
+      "sections": 29,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 11,
+      "grade": "A"
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/database-transactions-connection-pools-schema-lifecycle.md",
       "title": "Database, transactions, connection pools a schema lifecycle",
       "words": 1998,
@@ -4567,7 +4595,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "title": "High availability, multi-AZ a multi-cluster trade-offs",
-      "words": 3099,
+      "words": 3105,
       "headings": 35,
       "sections": 35,
       "findings": 21,
@@ -4747,6 +4775,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "title": "Securing APIs, microservices a MCP servers cez Keycloak",
+      "words": 2873,
+      "headings": 33,
+      "sections": 33,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 15,
+      "grade": "B"
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
       "title": "Service accounts a machine-to-machine authentication",
       "words": 2211,
@@ -4814,6 +4856,20 @@
       "medium": 0,
       "low": 10,
       "score": 10,
+      "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md",
+      "title": "Upgrades, migration guides a rollback boundaries",
+      "words": 2252,
+      "headings": 28,
+      "sections": 28,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 12,
       "grade": "A"
     },
     {
@@ -63477,6 +63533,222 @@
       "score": 1
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "2. Exact recovery subject",
+      "line": 27,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "3. Chránený state inventory",
+      "line": 74,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "4. Database backup je primárny durable backup",
+      "line": 94,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "4. Database backup je primárny durable backup",
+      "line": 94,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "5. RPO a časová konzistencia",
+      "line": 109,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "8. Export build-time a runtime side effects",
+      "line": 164,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "9. Realm CLI import",
+      "line": 177,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "10. Startup import",
+      "line": 198,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "11. Admin Console partial export/import",
+      "line": 208,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "11. Admin Console partial export/import",
+      "line": 208,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "12. Environment placeholders v import files",
+      "line": 220,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "12. Environment placeholders v import files",
+      "line": 220,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "17. Backup integrity a retention",
+      "line": 306,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "18. Restore validation ladder",
+      "line": 322,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "19. Failback",
+      "line": 341,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md",
+      "section": "21. Evidence-preserving containment a recovery",
+      "line": 372,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md",
+      "section": "3. Najprv posúď, či custom kód treba",
+      "line": 65,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md",
+      "section": "10. Lifecycle methods",
+      "line": 238,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md",
+      "section": "10. Lifecycle methods",
+      "line": 238,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md",
+      "section": "11. Transaction boundary",
+      "line": 261,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md",
+      "section": "12. Blocking a asynchronous behavior",
+      "line": 287,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md",
+      "section": "15. User Storage SPI",
+      "line": 328,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md",
+      "section": "21. Testing ladder",
+      "line": 410,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md",
+      "section": "25. Incident KC-PAY-79",
+      "line": 464,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/database-transactions-connection-pools-schema-lifecycle.md",
       "section": "4. Datasource configuration a exact target",
       "line": 83,
@@ -65169,6 +65441,114 @@
       "score": 2
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "5. JWKS cache a key rotation",
+      "line": 119,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "7. Audience a caller validation",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "9. Role, scope a permission semantics",
+      "line": 180,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "13. BFF, browser a CORS",
+      "line": 243,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "14. Error semantics",
+      "line": 255,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "17. Authorization Services a PEP",
+      "line": 298,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "20. MCP authorization architecture",
+      "line": 344,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "23. MCP scopes a local tool policy",
+      "line": 399,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "23. MCP scopes a local tool policy",
+      "line": 399,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "23. MCP scopes a local tool policy",
+      "line": 399,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "29. Incident KC-PAY-80",
+      "line": 512,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
+      "section": "30. Evidence-preserving containment a recovery",
+      "line": 528,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
       "section": "3. Client registration a service-account user",
       "line": 73,
@@ -65634,6 +66014,78 @@
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md",
+      "section": "2. Exact upgrade subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md",
+      "section": "8. Database migration ownership",
+      "line": 155,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md",
+      "section": "12. Acceptance inventory",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md",
+      "section": "18. Multi-cluster upgrade",
+      "line": 313,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md",
+      "section": "21. Rollback decision point",
+      "line": 358,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md",
+      "section": "22. Backup a restore rehearsal",
+      "line": 385,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md",
+      "section": "24. Incident KC-PAY-78",
+      "line": 408,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md",
+      "section": "25. Evidence-preserving containment a recovery",
+      "line": 424,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {

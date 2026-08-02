@@ -577,5 +577,5 @@ Second-failure test zopakuje failure po failbacku alebo počas degraded one-site
 
 **Navigácia**
 
-[← Predchádzajúca: Keycloak Operator a Kubernetes deployment](keycloak-operator-kubernetes-deployment.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Keycloak Operator a Kubernetes deployment](keycloak-operator-kubernetes-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Backup, restore, realm import/export a disaster recovery →](backup-restore-realm-import-export-disaster-recovery.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

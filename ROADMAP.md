@@ -397,9 +397,9 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Infinispan caches, clustering a session behavior](docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md)
 - [x] [Keycloak Operator a Kubernetes deployment](docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md)
 - [x] [High availability, multi-AZ a multi-cluster trade-offs](docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md)
-- [ ] Backup, restore, realm import/export a disaster recovery
-- [ ] Upgrades, migration guides a rollback boundaries
-- [ ] Custom providers, SPI a extension lifecycle
-- [ ] Securing APIs, microservices a MCP servers cez Keycloak
+- [x] [Backup, restore, realm import/export a disaster recovery](docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md)
+- [x] [Upgrades, migration guides a rollback boundaries](docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md)
+- [x] [Custom providers, SPI a extension lifecycle](docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md)
+- [x] [Securing APIs, microservices a MCP servers cez Keycloak](docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md)
 - [ ] Keycloak performance, sizing a load testing
 - [ ] Keycloak troubleshooting
