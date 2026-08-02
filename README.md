@@ -64,8 +64,12 @@ Aktívne sekcie:
 16. [Databases and Distributed Systems](docs/15-databases-and-distributed-systems/README.md)
 17. [GitOps and Platform Engineering](docs/16-gitops-and-platform-engineering/README.md)
 18. [Keycloak and Identity Platform](docs/17-keycloak-and-identity-platform/README.md)
+19. [Machine Learning Fundamentals](docs/18-machine-learning-fundamentals/README.md)
+20. [MLOps and ML Platforms](docs/19-mlops-and-ml-platforms/README.md)
+21. [LLM and GenAI Engineering](docs/20-llm-and-genai-engineering/README.md)
+22. [AI Agents and Intelligent Automation](docs/21-ai-agents-and-intelligent-automation/README.md)
 
-Hlavná roadmapa pokračuje aktívnou sekciou Keycloak and Identity Platform. Budúce ML, MLOps, LLM a agentické oblasti zostávajú rozpracované v [FUTURE-IDENTITY-AI-ROADMAP.md](FUTURE-IDENTITY-AI-ROADMAP.md).
+Sekcie 00–17 boli používateľom schválené v aktuálnom rozsahu. Machine Learning Fundamentals, MLOps and ML Platforms, LLM and GenAI Engineering a AI Agents and Intelligent Automation sú aktivované ako sekcie 18–21 s plánovaným inventorym; ich kapitoly sa budú spracúvať po blokoch. Pôvodné rozhodnutia, flagship projekty a produktové tracky zostávajú v [FUTURE-IDENTITY-AI-ROADMAP.md](FUTURE-IDENTITY-AI-ROADMAP.md).
 
 Kompletné poradie a stav spracovania je v [ROADMAP.md](ROADMAP.md).
 
