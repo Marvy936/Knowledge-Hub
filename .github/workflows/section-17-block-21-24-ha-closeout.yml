@@ -1,0 +1,52 @@
+name: Keycloak block 21-24 HA closeout
+
+on:
+  push:
+    branches:
+      - agent/section-17-keycloak-block-21-24
+    paths:
+      - scripts/section_17_block_21_24_ha_closeout.py
+      - .github/workflows/section-17-block-21-24-ha-closeout.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - scripts/section_17_block_21_24_ha_closeout.py
+      - .github/workflows/section-17-block-21-24-ha-closeout.yml
+
+permissions:
+  contents: write
+
+jobs:
+  closeout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/section-17-keycloak-block-21-24
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply HA closeout and regenerate audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/section_17_block_21_24_ha_closeout.py
+          python scripts/update_navigation.py --write
+          python scripts/audit_learning_depth.py --all-docs
+      - name: Commit HA closeout
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/17-keycloak-and-identity-platform DOCUMENTATION-AUDIT.md documentation-audit.json ROADMAP.md
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "No HA closeout changes to commit."
+            exit 0
+          fi
+          git commit -m "docs: close final Keycloak HA prose gaps"
+          git pull --rebase origin agent/section-17-keycloak-block-21-24
+          git push origin HEAD:agent/section-17-keycloak-block-21-24
