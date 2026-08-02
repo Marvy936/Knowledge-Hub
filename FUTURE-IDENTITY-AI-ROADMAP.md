@@ -1,19 +1,19 @@
 # Future Identity, ML, LLM and Intelligent Automation Roadmap
 
-Tento dokument pôvodne plánoval identity, ML, LLM a agentické sekcie po dokončení základnej roadmapy. Sekcia Keycloak and Identity Platform je od 30. júla 2026 aktivovaná v hlavnom poradí; dokument naďalej plánuje jej zostávajúce bloky a budúce ML, MLOps, LLM a agentické sekcie.
+Tento dokument zachytáva schválené rozhodnutia pre identity, ML, MLOps, LLM a agentickú automatizáciu. Keycloak and Identity Platform je dokončená ako sekcia 17 a používateľom schválená v aktuálnom rozsahu. Sekcie 18–21 sú od 2. augusta 2026 aktivované v hlavnej roadmape; tento súbor zostáva detailným planning inventorym pre ich kapitoly, laby, troubleshooting drilly a cross-section flagship projekty.
 
 Navrhované poradie:
 
 ```text
 existujúca roadmapa
-→ Keycloak and Identity Platform — aktívna sekcia 17
+→ Keycloak and Identity Platform — 30/30 · User reviewed
 → Machine Learning Fundamentals
 → MLOps and ML Platforms
 → LLM and GenAI Engineering
 → AI Agents and Intelligent Automation
 ```
 
-Číslovanie priečinkov je predbežné. Ak existujúce sekcie Observability, Security and Identity, SRE, Databases a GitOps získajú očakávané čísla `12` až `16`, nové sekcie môžu pokračovať ako `17` až `21`.
+Číslovanie je stabilizované: Keycloak používa sekciu `17` a nové oblasti pokračujú ako `18-machine-learning-fundamentals`, `19-mlops-and-ml-platforms`, `20-llm-and-genai-engineering` a `21-ai-agents-and-intelligent-automation`.
 
 ## Zásady návrhu
 
@@ -29,7 +29,7 @@ existujúca roadmapa
 
 ## Keycloak and Identity Platform
 
-> Stav: aktívna sekcia [`docs/17-keycloak-and-identity-platform/`](docs/17-keycloak-and-identity-platform/README.md), prvý authoritative blok 4/30 je spracovaný.
+> Stav: sekcia [`docs/17-keycloak-and-identity-platform/`](docs/17-keycloak-and-identity-platform/README.md) je dokončená **30/30 · User reviewed**. Praktické runtime laby zostávajú samostatnou budúcou vrstvou.
 
 Aktívny priečinok:
 
@@ -514,4 +514,4 @@ Primárne zdroje sa majú pri realizácii vždy znovu overiť, pretože tieto ob
 
 # Stav
 
-Tento plán je pripravený, ale ešte nie je súčasťou aktívnej lineárnej dokumentácie. Keď sa dokončí aktuálna roadmapa, témy sa prenesú do `ROADMAP.md`, vytvoria sa sekčné `README.md` súbory a zapoja sa do automatickej navigácie, glossary a review workflowu.
+Plán je aktivovaný v hlavnej lineárnej dokumentácii. Sekcie 18–21 majú vlastné `README.md`, ich topic inventory je prenesený do `ROADMAP.md` a budú sa plniť po authoritative blokoch. Tento súbor naďalej vlastní širšie sequencing rozhodnutia, praktické tracky a flagship projekty; stav jednotlivých kapitol vlastní hlavná roadmapa a sekčné README súbory.

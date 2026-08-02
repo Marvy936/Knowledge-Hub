@@ -403,3 +403,182 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Securing APIs, microservices a MCP servers cez Keycloak](docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md)
 - [x] [Keycloak performance, sizing a load testing](docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md)
 - [x] [Keycloak troubleshooting](docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md)
+
+<!-- ACTIVE-AI-ROADMAP:START -->
+
+## Fáza 7 — Machine Learning a MLOps
+
+### Machine Learning Fundamentals
+
+- [ ] Artificial intelligence, machine learning, deep learning a generative AI
+- [ ] Dataset, sample, feature, label a target
+- [ ] Supervised, unsupervised a reinforcement learning
+- [ ] Regression, classification, ranking a clustering
+- [ ] Train, validation a test split
+- [ ] Data preprocessing, normalization a encoding
+- [ ] Feature engineering a feature selection
+- [ ] Data leakage a train-serving skew
+- [ ] Linear a logistic regression
+- [ ] Decision trees, random forests a gradient boosting
+- [ ] Neural network fundamentals
+- [ ] Loss functions a optimization
+- [ ] Gradient descent, learning rate a convergence
+- [ ] Overfitting, underfitting, bias a variance
+- [ ] Regularization a early stopping
+- [ ] Hyperparameters a hyperparameter optimization
+- [ ] Classification metrics
+- [ ] Regression metrics
+- [ ] Imbalanced datasets a threshold selection
+- [ ] Cross-validation
+- [ ] Calibration a uncertainty
+- [ ] Explainability a feature importance
+- [ ] Data quality, bias a responsible AI
+- [ ] Reproducibility a random seeds
+- [ ] Offline evaluation oproti production outcome
+- [ ] ML troubleshooting mental model
+
+### MLOps and ML Platforms
+
+- [ ] ML lifecycle a rozdiel medzi DevOps a MLOps
+- [ ] Data, code, environment a model lineage
+- [ ] Dataset versioning
+- [ ] Experiment tracking
+- [ ] Artifact stores
+- [ ] Model packaging a reproducible environments
+- [ ] Model Registry, versions, stages a aliases
+- [ ] Feature stores a online/offline consistency
+- [ ] ML pipeline orchestration
+- [ ] Training pipelines a distributed training
+- [ ] CI pre ML code, data a pipelines
+- [ ] Continuous Delivery pre modely
+- [ ] Continuous Training a retraining triggers
+- [ ] Model validation a promotion gates
+- [ ] Batch, online a streaming inference
+- [ ] Shadow, canary a A/B model deployment
+- [ ] Model serving a autoscaling
+- [ ] GPU scheduling, utilization a capacity
+- [ ] Model monitoring
+- [ ] Data drift, concept drift a prediction drift
+- [ ] Performance, latency, throughput a cost monitoring
+- [ ] Feedback loops a ground-truth delay
+- [ ] Model rollback a recovery
+- [ ] Governance, approvals a audit
+- [ ] Privacy, security a adversarial ML
+- [ ] ML supply-chain security
+- [ ] MLflow experiment tracking a Model Registry
+- [ ] MLflow evaluation, tracing a deployment
+- [ ] Kubeflow Pipelines
+- [ ] Kubeflow Trainer a distributed training
+- [ ] KServe alebo ekvivalentný Kubernetes model serving
+- [ ] Amazon SageMaker a cloud MLOps mapping
+- [ ] MLOps platform architecture
+- [ ] MLOps troubleshooting
+
+## Fáza 8 — LLM, GenAI a agentická automatizácia
+
+### LLM and GenAI Engineering
+
+- [ ] Generative AI, foundation model a large language model
+- [ ] Transformer architecture na praktickej úrovni
+- [ ] Tokens, tokenization a context window
+- [ ] Embeddings a semantic similarity
+- [ ] Inference parameters, sampling a determinism
+- [ ] Prompt roles, instructions, context a examples
+- [ ] Zero-shot, one-shot a few-shot prompting
+- [ ] Prompt templates, variables a versioning
+- [ ] Prompt decomposition a chain-of-thought boundaries
+- [ ] Structured Outputs a schema validation
+- [ ] Function calling a tool calling
+- [ ] Model selection a capability/cost trade-offs
+- [ ] Model version pinning a compatibility
+- [ ] Retrieval-Augmented Generation architecture
+- [ ] Chunking, metadata a document processing
+- [ ] Vector stores a indexing
+- [ ] Retrieval, hybrid search a reranking
+- [ ] Context assembly a citation grounding
+- [ ] RAG evaluation a retrieval diagnostics
+- [ ] Fine-tuning, instruction tuning a preference tuning
+- [ ] PEFT, adapters a LoRA
+- [ ] Quantization a local inference
+- [ ] GPU memory, batching a serving performance
+- [ ] Prompt caching, semantic caching a response caching
+- [ ] LLM gateways, routing, fallback a rate limiting
+- [ ] Prompt Registry a lifecycle
+- [ ] LLM evaluation datasets a graders
+- [ ] Human evaluation a expert feedback
+- [ ] Tracing, token usage a cost observability
+- [ ] Hallucination, faithfulness a factuality
+- [ ] Prompt injection a indirect prompt injection
+- [ ] Data exfiltration, tool abuse a excessive agency
+- [ ] Guardrails, moderation a output validation
+- [ ] Privacy, retention a provider data controls
+- [ ] Multimodal models
+- [ ] LLMOps a production readiness
+- [ ] LLM application troubleshooting
+
+### AI Agents and Intelligent Automation
+
+- [ ] Deterministic workflow, probabilistic component a autonomous agent
+- [ ] Agent loop, state, observation, action a termination
+- [ ] Tool calling a tool contracts
+- [ ] Planning, decomposition a replanning
+- [ ] Short-term state, long-term memory a external memory
+- [ ] Single-agent a multi-agent architecture
+- [ ] Supervisor, router a specialist patterns
+- [ ] Human-in-the-loop a approval gates
+- [ ] Durable execution, retries a resumability
+- [ ] Idempotency a side-effect control
+- [ ] Model Context Protocol
+- [ ] Agent interoperability a protocol evolution
+- [ ] Agent identity, authentication a authorization
+- [ ] Least privilege pre tools a credentials
+- [ ] Sandboxing a code execution
+- [ ] Prompt injection cez tools a retrieved content
+- [ ] Tool poisoning, confused deputy a data exfiltration
+- [ ] Agent evaluation
+- [ ] Trajectory, tool-selection a outcome evaluation
+- [ ] Agent tracing, replay a debugging
+- [ ] Cost, latency a token budgets
+- [ ] Agent reliability, fallback a kill switch
+- [ ] Multi-tenant isolation
+- [ ] Agent governance a audit
+- [ ] n8n architecture a execution model
+- [ ] Triggers, nodes, expressions a data mapping
+- [ ] Webhooks a API integrations
+- [ ] Credentials, secrets a access control
+- [ ] Error workflows, retries a partial execution
+- [ ] Idempotency a duplicate-event handling
+- [ ] Sub-workflows a reusable workflow contracts
+- [ ] Source control a environments
+- [ ] Self-hosting s PostgreSQL
+- [ ] Queue mode, Redis, workers a scaling
+- [ ] Binary data, storage a execution retention
+- [ ] n8n monitoring, logs a security audit
+- [ ] AI Agent nodes, tools a memory
+- [ ] Human approval pre citlivé tool calls
+- [ ] RAG a knowledge workflows v n8n
+- [ ] Production hardening a troubleshooting
+- [ ] Harness AI platform overview
+- [ ] DevOps Agent pre pipeline a resource operations
+- [ ] Worker Agents v pipelines
+- [ ] MCP connectors a external tools
+- [ ] AI-assisted pipeline creation a failure analysis
+- [ ] Agentický code review, testing a remediation
+- [ ] GitOps a release agents
+- [ ] Incident triage a evidence collection
+- [ ] Policy generation a policy validation
+- [ ] Human approval, audit a rollback
+- [ ] Vendor lock-in a portability agentických workflowov
+- [ ] Workflow engine oproti agent frameworku
+- [ ] n8n oproti Temporal, Airflow a Prefect use cases
+- [ ] Event-driven automation
+- [ ] AI-assisted CI/CD
+- [ ] AI-assisted observability a incident response
+- [ ] AI-assisted security operations
+- [ ] Knowledge assistants a enterprise search
+- [ ] Ticket, email a chat automation
+- [ ] Autonomous remediation boundaries
+- [ ] Evaluation-driven automation lifecycle
+- [ ] Intelligent automation troubleshooting
+
+<!-- ACTIVE-AI-ROADMAP:END -->
