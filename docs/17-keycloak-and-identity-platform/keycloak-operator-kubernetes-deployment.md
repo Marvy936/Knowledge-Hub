@@ -458,3 +458,11 @@ Second-reconcile test znovu aplikuje unchanged CR a očakáva no child churn. Se
 - [Keycloak Operator — Advanced configuration](https://www.keycloak.org/operator/advanced-configuration)
 - [Keycloak Operator — Realm import](https://www.keycloak.org/operator/realm-import)
 - [Keycloak — Deploying across multiple availability zones with the Operator](https://www.keycloak.org/high-availability/single-cluster/deploy-keycloak)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Infinispan caches, clustering a session behavior](infinispan-caches-clustering-session-behavior.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: High availability, multi-AZ a multi-cluster trade-offs →](high-availability-multi-az-multi-cluster-trade-offs.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

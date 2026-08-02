@@ -555,3 +555,11 @@ Second-failure test zopakuje failure po failbacku alebo počas degraded one-site
 - [Keycloak — Health checks for multi-cluster deployments](https://www.keycloak.org/high-availability/multi-cluster/health-checks)
 - [Keycloak — Multi-cluster deployments v2](https://www.keycloak.org/high-availability/multi-cluster-v2/introduction)
 - [Keycloak — Managing upgrades v2](https://www.keycloak.org/high-availability/multi-cluster-v2/upgrades)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Keycloak Operator a Kubernetes deployment](keycloak-operator-kubernetes-deployment.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

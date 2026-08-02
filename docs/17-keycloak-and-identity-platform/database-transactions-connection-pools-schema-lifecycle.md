@@ -384,3 +384,11 @@ Second-migration test obnoví production-like backup do isolated environmentu a 
 - [Keycloak — Database connection pool concepts](https://www.keycloak.org/high-availability/concepts-database-connections)
 - [Keycloak — Upgrading Guide](https://www.keycloak.org/docs/latest/upgrading/)
 - [Keycloak — Supported configurations](https://www.keycloak.org/server/supported-configurations)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: TLS, truststores, cookies, headers a production hardening](tls-truststores-cookies-headers-production-hardening.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Infinispan caches, clustering a session behavior →](infinispan-caches-clustering-session-behavior.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

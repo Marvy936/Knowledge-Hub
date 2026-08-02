@@ -393,10 +393,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Themes, email templates a localization](docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md)
 - [x] [Keycloak server configuration, hostname a reverse proxy](docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md)
 - [x] [TLS, truststores, cookies, headers a production hardening](docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md)
-- [ ] Database, transactions, connection pools a schema lifecycle
-- [ ] Infinispan caches, clustering a session behavior
-- [ ] Keycloak Operator a Kubernetes deployment
-- [ ] High availability, multi-AZ a multi-cluster trade-offs
+- [x] [Database, transactions, connection pools a schema lifecycle](docs/17-keycloak-and-identity-platform/database-transactions-connection-pools-schema-lifecycle.md)
+- [x] [Infinispan caches, clustering a session behavior](docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md)
+- [x] [Keycloak Operator a Kubernetes deployment](docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md)
+- [x] [High availability, multi-AZ a multi-cluster trade-offs](docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md)
 - [ ] Backup, restore, realm import/export a disaster recovery
 - [ ] Upgrades, migration guides a rollback boundaries
 - [ ] Custom providers, SPI a extension lifecycle

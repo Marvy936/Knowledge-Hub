@@ -431,3 +431,11 @@ Second-invalidation test mení client/role/user state a overí successor result 
 - [Keycloak — Concepts for multi-cluster deployments](https://www.keycloak.org/high-availability/multi-cluster/concepts)
 - [Keycloak — Multi-cluster deployments v2](https://www.keycloak.org/high-availability/multi-cluster-v2/introduction)
 - [Keycloak — Storing sessions in Keycloak 26](https://www.keycloak.org/2024/12/storing-sessions-in-kc26)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Database, transactions, connection pools a schema lifecycle](database-transactions-connection-pools-schema-lifecycle.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Keycloak Operator a Kubernetes deployment →](keycloak-operator-kubernetes-deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

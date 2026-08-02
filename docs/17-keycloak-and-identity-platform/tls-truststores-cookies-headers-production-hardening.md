@@ -458,5 +458,5 @@ Second-client test zahŕňa modern browser, automation client, proxy backend, LD
 
 **Navigácia**
 
-[← Predchádzajúca: Keycloak server configuration, hostname a reverse proxy](keycloak-server-configuration-hostname-reverse-proxy.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Keycloak server configuration, hostname a reverse proxy](keycloak-server-configuration-hostname-reverse-proxy.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Database, transactions, connection pools a schema lifecycle →](database-transactions-connection-pools-schema-lifecycle.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

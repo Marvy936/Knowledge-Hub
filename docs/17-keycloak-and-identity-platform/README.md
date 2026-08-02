@@ -38,15 +38,15 @@ Odporúča sa najprv dokončiť:
 18. [Themes, email templates a localization](themes-email-templates-localization.md)
 19. [Keycloak server configuration, hostname a reverse proxy](keycloak-server-configuration-hostname-reverse-proxy.md)
 20. [TLS, truststores, cookies, headers a production hardening](tls-truststores-cookies-headers-production-hardening.md)
+21. [Database, transactions, connection pools a schema lifecycle](database-transactions-connection-pools-schema-lifecycle.md)
+22. [Infinispan caches, clustering a session behavior](infinispan-caches-clustering-session-behavior.md)
+23. [Keycloak Operator a Kubernetes deployment](keycloak-operator-kubernetes-deployment.md)
+24. [High availability, multi-AZ a multi-cluster trade-offs](high-availability-multi-az-multi-cluster-trade-offs.md)
 
-Aktuálny authoritative stav sekcie je **20/30 · In progress**. Kapitoly 1–20 teraz pokrývajú identity, protocol, authentication, federation, authorization a administration lifecycle-y aj operational evidence, theme/email/localization artifacts, canonical hostname a reverse-proxy authority a inbound/outbound TLS, browser-session a HTTP hardening. Sekcia zatiaľ nie je `Ready for user review`; ďalší blok začína database/schema lifecycle-om, Infinispan clusteringom, Keycloak Operatorom a high-availability topology.
+Aktuálny authoritative stav sekcie je **24/30 · In progress**. Kapitoly 1–24 teraz pokrývajú identity, protocol, authentication, federation, authorization, administration a edge hardening lifecycle-y aj database transaction/schema authority, Infinispan cache a persistent/volatile session semantics, Operator/Kubernetes reconciliation a supported multi-AZ/multi-cluster HA trade-offs. Sekcia zatiaľ nie je `Ready for user review`; ďalší blok začína backup/restore/import-export disaster recovery, upgrades a rollback boundaries, custom providers/SPI lifecycle a securing APIs, microservices a MCP servers.
 
 ## Plánované pokračovanie
 
-21. Database, transactions, connection pools a schema lifecycle  
-22. Infinispan caches, clustering a session behavior  
-23. Keycloak Operator a Kubernetes deployment  
-24. High availability, multi-AZ a multi-cluster trade-offs  
 25. Backup, restore, realm import/export a disaster recovery  
 26. Upgrades, migration guides a rollback boundaries  
 27. Custom providers, SPI a extension lifecycle  
@@ -151,6 +151,25 @@ partial events/metrics population
 ```
 
 Recovery uzatvára source-generated, delivered, durable a queryable evidence; immutable minimal theme s locale/action-link acceptance; explicitný hostname, admin/management route isolation a exact trusted proxy sources; a service-specific TLS/SNI/truststore, cookie a security-header policy. Closure vyžaduje second-node, second-locale, second-proxy, second-certificate a second-session testy.
+
+### `KC-PAY-73` až `KC-PAY-76` — schema, cache, controller a site authority collapse
+
+Platform blok rozširuje connected settlement incident o durable state a availability. Autoscaler násobil per-Pod database pool ceiling nad writer capacity, zatiaľ čo nový Pod automaticky migroval schema počas mixed-version trafficu. Timeout-nutá Admin REST mutation bola bez authoritative read-backu zopakovaná a prepísala concurrent client generation.
+
+Jeden Pod používal local cache, ďalšie dva rozdielne cluster names nad rovnakou database. Persistent sessions sa po failoveri načítali, ale realm/client invalidácie zostali rozdelené a jeden node vydával predecessor claims. GitOps zároveň vlastnil `Keycloak` CR aj Operator-managed workload; manuálne/env patch-e oscilovali pri reconcile a management TLS skryté iba v custom image rozbilo Operator probes.
+
+Dve sites boli označené ako active-active HA, no global load balancer sledoval iba HTTP readiness. Pri cross-site Infinispan partition obe sites pokračovali v trafficu bez fencing-u a survivor nemal kapacitu pre celý peak load.
+
+```text
+ambiguous schema/pool authority
++ split cache/session topology
++ multiple writers na Operator-managed state
++ HTTP-only site health bez fencing/capacity reserve
+→ durable, cached, reconciled a serving generations sa rozídu
+→ duplicate mutation, stale entitlement alebo failed site recovery
+```
+
+Recovery zavádza jediného migration writera a global pool budget, exact cache/session authority a cluster-view gate, GitOps ownership iba CR plus Operator ownership descendants a failure-specific fencing, capacity, RPO/RTO a failback acceptance. Closure vyžaduje second migration, second invalidation, second reconcile a second-site failure testy.
 
 ## Dominantný model sekcie
 
@@ -404,3 +423,47 @@ Každá komplexná kapitola musí rozlišovať:
 - riadiť CSP, HSTS, frame, content-type a referrer policy bez conflicting proxy rewrites;
 - oddeliť TLS rotation od Keycloak session, token a application descendants;
 - overiť wrong-host, expired, untrusted-CA, spoofed-certificate-header, direct-backend a second-session paths.
+
+### Database, transactions, connection pools a schema lifecycle
+
+- definovať exact database, schema, writer endpoint, credential, truststore a migration generation;
+- rozpočítať global connection budget ako per-Pod maximum krát max replicas plus recovery reserve;
+- odlíšiť connection acquisition, transaction commit, cache invalidation a response delivery;
+- riešiť timeout ako unknown outcome cez operation ID a authoritative read-back pred retry;
+- oddeliť runtime DML account od migration DDL ownershipu;
+- vysvetliť `update`, `manual` a `validate` migration stratégie a readiness počas migration;
+- navrhnúť mixed-version, backup, binary/schema rollback a writer-failover boundaries;
+- overiť saturation, wrong schema, failover, unknown outcome a second-migration paths.
+
+### Infinispan caches, clustering a session behavior
+
+- mapovať realms/users/authorization, sessions, offline sessions, authentication sessions, action tokens, login failures a work cache na ich authority;
+- rozlíšiť default persistent sessions od volatile cache-authoritative sessions;
+- vysvetliť preview stateless mode bez zamieňania za supported production default;
+- identifikovať exact cluster, view, topology, owner, site/rack/machine a database generation;
+- používať `jdbc-ping` discovery a overiť transport reachability aj expected member view;
+- chápať affinity ako optimization, nie durability mechanismus;
+- overiť invalidation medzi nodes bez restart workaroundu;
+- testovať eviction, node/full-cluster restart, split cluster, offline token a second-session behavior.
+
+### Keycloak Operator a Kubernetes deployment
+
+- definovať exact Operator, CRD, `Keycloak` CR, image, Secret a managed-workload generation;
+- rozlíšiť first-class CR fields, `additionalOptions` a raw `spec.env`;
+- používať immutable optimized custom image s build provenance;
+- zachovať single-writer model: GitOps vlastní CR, Operator owns descendants;
+- čítať spec generation, observed generation, conditions a workload revision ako oddelené states;
+- navrhnúť public/admin/management route isolation mimo default ingress limitov;
+- zosúladiť scheduling/resources/HPA s cache topology a database pool budgetom;
+- overiť Secret rotation, Pod/zone loss, Operator upgrade, drift a second-reconcile paths.
+
+### High availability, multi-AZ a multi-cluster trade-offs
+
+- pomenovať exact architecture: multi-node, multi-AZ single cluster, supported v1 alebo preview v2;
+- viazať HA na database, cache/session, load balancer, DNS/TLS, dependencies a survivor capacity;
+- udržať low-latency synchronous replication a merať tail latency, nie iba average RTT;
+- vysvetliť v1 external Infinispan cross-site, site offlining/resync a two-site boundary;
+- označiť v2/stateless ako preview a zahrnúť vyššiu database CPU/IOPS/latency;
+- rozlíšiť active-active a active-passive traffic, fencing a authoritative-site decision;
+- merať `/lb-check`, synthetic protocol a business canary ako layered evidence;
+- overiť RPO/RTO, failover, survivor load, failback, upgrade a second-failure paths.
