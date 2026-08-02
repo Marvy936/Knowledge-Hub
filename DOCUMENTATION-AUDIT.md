@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **351**
 - Audited conceptual sections: **7366**
-- Total words: **699,996**
-- Findings: **6837** (critical 654, high 870, medium 470, low 4843)
-- File grades: A 147, B 117, C 28, D 59
+- Total words: **700,202**
+- Findings: **6837** (critical 654, high 866, medium 470, low 4847)
+- File grades: A 147, B 118, C 27, D 59
 
 ## Interpretation
 
@@ -93,7 +93,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
-| C | 54 | 0 | 5 | 0 | 9 | 3709 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
 | C | 53 | 0 | 0 | 6 | 22 | 2531 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 2059 | `docs/05-ci-cd-and-release/continuous-integration.md` |
@@ -116,6 +115,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
+| B | 28 | 0 | 1 | 0 | 13 | 3915 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 27 | 0 | 0 | 0 | 20 | 2317 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
 | B | 26 | 0 | 0 | 0 | 16 | 2190 | `docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md` |
@@ -2121,18 +2121,14 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md`
 
-- **HIGH** line 586, `list-first-introduction` — **31. Custom provider failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 607, `list-first-introduction` — **32. Themes a localization**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 653, `list-first-introduction` — **35. Safe containment patterns**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 667, `list-first-introduction` — **36. Dangerous troubleshooting anti-patterns**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 711, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 719, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2231 | 2231 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1379 | 1379 |
+| `example-not-explicit` | 0 | 0 | 0 | 2233 | 2233 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1381 | 1381 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1233 | 1233 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
@@ -2140,7 +2136,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
 | `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 128 | 0 | 0 | 128 |
+| `list-first-introduction` | 0 | 124 | 0 | 0 | 124 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |

@@ -4693,16 +4693,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "title": "Keycloak troubleshooting",
-      "words": 3709,
+      "words": 3915,
       "headings": 43,
       "sections": 43,
       "findings": 14,
       "critical": 0,
-      "high": 5,
+      "high": 1,
       "medium": 0,
-      "low": 9,
-      "score": 54,
-      "grade": "C"
+      "low": 13,
+      "score": 28,
+      "grade": "B"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
@@ -64932,42 +64932,42 @@
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "31. Custom provider failure",
       "line": 586,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
-      "section": "32. Themes a localization",
-      "line": 607,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "35. Safe containment patterns",
-      "line": 653,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 657,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "36. Dangerous troubleshooting anti-patterns",
-      "line": 667,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 673,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "36. Dangerous troubleshooting anti-patterns",
+      "line": 673,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "38. Bounded experiment design",
-      "line": 711,
+      "line": 719,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",

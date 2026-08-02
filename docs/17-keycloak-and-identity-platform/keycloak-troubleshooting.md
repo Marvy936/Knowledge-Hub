@@ -585,6 +585,8 @@ Compare affected and healthy Pod cohorts. Heap dump/profiling je sensitive a bou
 
 ## 31. Custom provider failure
 
+Provider incident treba analyzovať ako server-binary, transaction a external-dependency failure zároveň. Startup alebo registry success nepreukazuje shared-classloader compatibility, thread safety, bounded queues ani custom schema semantics pri rollbacku. Evidence preto spája exact provider/dependency/image generation, request transaction, thread/heap state a affected external effect skôr, než sa JAR vypne alebo vráti.
+
 ```text
 NoClassDefFoundError/NoSuchMethodError
 → target-version/dependency/shared-classloader conflict
@@ -605,6 +607,8 @@ DB errors after rollback
 Fix entire immutable image, nie live JAR injection. Capture provider/dependency hashes, thread dump, transaction/external event IDs a rollout cohorts.
 
 ## 32. Themes a localization
+
+Theme troubleshooting musí oddeliť artifact selection, parent/template inheritance, server a browser cache, rendered transaction URLs a výslednú identity mutation. Vizuálne správna password stránka nepreukazuje passkey, required-action alebo email path a stale locale override môže meniť iba jednu population. Preto sa porovnáva exact theme/JAR generation, selected realm setting, locale source a journey-specific output.
 
 ```text
 actual selected login/email theme
@@ -652,6 +656,8 @@ Green login is insufficient. Restore may rewind revocation; image rollback may b
 
 ## 35. Safe containment patterns
 
+Containment má zastaviť ďalší impact pri čo najmenšej zmene authority a zároveň zachovať dôkazy pre root-cause analysis. Bezpečný pattern izoluje konkrétny Pod, client, tool, route alebo mutation class, má explicitný owner a rollback a nemení širšiu authentication či authorization semantics. Nasledujúce zásahy sú preto príklady bounded reduction blast radiusu, nie univerzálne recovery kroky.
+
 ```text
 remove one bad Pod cohort from traffic
 freeze admin/import/config mutations
@@ -665,6 +671,8 @@ extend evidence retention
 Containment must be bounded and reversible. Broad actions like disable realm, clear all caches, rotate all keys, delete sessions or restart every node destroy evidence and increase blast radius unless failure demands them.
 
 ## 36. Dangerous troubleshooting anti-patterns
+
+Nebezpečné troubleshooting kroky vytvárajú nový security alebo consistency incident skôr, než vysvetlia pôvodný symptom. Broad restart, wildcard, disabled validation alebo direct database edit môže dočasne zmeniť outcome, ale ničí evidence, rozširuje privilege path alebo vytvára nezdokumentovanú state generation. Každý taký návrh musí byť pred vykonaním odmietnutý alebo premenený na bounded, auditovaný experiment.
 
 ```text
 restart until green
