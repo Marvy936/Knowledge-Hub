@@ -1,5 +1,6 @@
 from pathlib import Path
 
+# Branch-only, idempotent closeout used to remove the final code-first HA audit hints.
 path = Path(__file__).resolve().parents[1] / "docs" / "17-keycloak-and-identity-platform" / "high-availability-multi-az-multi-cluster-trade-offs.md"
 text = path.read_text(encoding="utf-8")
 
