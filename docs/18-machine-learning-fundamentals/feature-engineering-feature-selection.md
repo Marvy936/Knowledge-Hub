@@ -25,6 +25,10 @@ Feature engineering mení information space; selection mení model dependency gr
 
 ## 2. Exact feature subject
 
+Feature manifest rozhoduje, či dve columns s rovnakým názvom reprezentujú tú istú information generation. Spája entity a prediction subject, source authority, time window, availability, missingness, offline/online implementations a ownera. Bez tejto väzby sa nedá preukázať, či model počas trainingu a servingu používal rovnaký measurement alebo iba podobne pomenovaný field.
+
+Nasledujúci subject preto nie je katalóg metadata. Je to contract, podľa ktorého sa feature materializuje, validuje, publikuje a pri incidente porovnáva s loaded online hodnotou. Zmena window boundary, denominatora, late-event policy alebo implementation digestu vytvára successor generation aj pri rovnakom output type.
+
 ```yaml
 feature_subject: merchant_decline_rate_1h-v4
 entity: merchant_id
