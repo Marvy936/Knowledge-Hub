@@ -109,6 +109,8 @@ Tento model zvyšuje process availability a throughput, nie zone alebo cluster a
 
 ### Single cluster across multiple AZs
 
+Tento model rozkladá serving a database capacity cez zones, ale zachováva jednu transparentnú cluster/network a regional control-plane boundary. Failover môže byť rýchly, pretože Pods patria do jedného cache clusteru, no latency, synchronous database replication a surviving-zone capacity musia zostať v podporovanom limite.
+
 ```text
 jeden transparentný Kubernetes/network cluster
 → Pods spread cez zones
@@ -121,6 +123,8 @@ Je to preferovaný jednoduchší HA model, ak transparentná network a latency p
 
 ### Multi-cluster v1
 
+V1 oddeľuje Kubernetes control planes a Keycloak deployments, takže vie tolerovať failure celého clusteru. Cena za túto izoláciu je external Infinispan cross-site, explicitná site-health/fencing authority a resynchronization lifecycle; samotná shared database nestačí na safe invalidation a session behavior.
+
 ```text
 dva nezávislé Keycloak/Kubernetes clusters
 → external Infinispan cross-site
@@ -131,6 +135,8 @@ dva nezávislé Keycloak/Kubernetes clusters
 Tento podporovaný blueprint cieli na dve sites v jednom low-latency regionálnom prostredí. Nie je generickým multi-region active-active modelom.
 
 ### Multi-cluster v2 / stateless
+
+V2 presúva volatile authentication state do synchronously replicated database a odstraňuje external Infinispan cross-site. Tým zjednodušuje site failover, ale zvyšuje database write/latency sensitivity a v Keycloak 26.7 zostáva preview; support status je preto rovnako dôležitý ako architektonická jednoduchosť.
 
 ```text
 dva alebo viac nezávislých clusters
@@ -390,6 +396,8 @@ bin/kc.sh start \
 Clusters musia mať odlišné names. Model stále vyžaduje synchronously replicated database a low latency. Database CPU a write IOPS môžu približne zdvojnásobiť podľa workloadu a authentication interaction môže mať ďalšiu latency. Preview status znamená possible breaking changes a production risk acceptance.
 
 ## 18. V1 versus v2 trade-off
+
+Porovnanie nie je iba zoznam komponentov. V1 presúva complexity do external cache, fencing-u a resync-u, ale vychádza zo supported blueprintu; v2 ju presúva do database capacity a preview feature lifecycle-u. Rozhodnutie musí preto porovnať supportability, operational burden, latency, failure recovery a upgrade risk na rovnakom workload-e.
 
 ```text
 v1
