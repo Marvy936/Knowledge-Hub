@@ -8,6 +8,13 @@ on:
       - scripts/activate_ai_roadmap.py
       - scripts/patch_activate_ai_roadmap.py
       - .github/workflows/activate-ai-roadmap.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - scripts/activate_ai_roadmap.py
+      - scripts/patch_activate_ai_roadmap.py
+      - .github/workflows/activate-ai-roadmap.yml
 
 permissions:
   contents: write
@@ -39,6 +46,7 @@ jobs:
           python scripts/update_navigation.py --check
           git diff --check
       - name: Commit activation result
+        if: github.event_name == 'push'
         shell: bash
         run: |
           set -euo pipefail
