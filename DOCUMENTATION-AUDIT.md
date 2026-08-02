@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **341**
 - Audited conceptual sections: **7069**
-- Total words: **673,882**
-- Findings: **6704** (critical 654, high 867, medium 470, low 4713)
-- File grades: A 142, B 113, C 27, D 59
+- Total words: **673,993**
+- Findings: **6705** (critical 654, high 865, medium 470, low 4716)
+- File grades: A 144, B 111, C 27, D 59
 
 ## Interpretation
 
@@ -160,7 +160,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 19 | 0 | 0 | 0 | 14 | 1732 | `docs/14-sre-and-operations/on-call-and-escalation.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1885 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | B | 19 | 0 | 0 | 0 | 15 | 1517 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
-| B | 19 | 0 | 1 | 0 | 9 | 1859 | `docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md` |
 | B | 19 | 0 | 0 | 0 | 15 | 2032 | `docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md` |
 | B | 18 | 0 | 0 | 0 | 13 | 1113 | `docs/02-networking-and-web/load-balancing.md` |
 | B | 18 | 0 | 0 | 0 | 16 | 2147 | `docs/03-git-and-automation/python-for-automation.md` |
@@ -172,7 +171,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 15 | 1331 | `docs/13-security-and-identity/sbom.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
-| B | 18 | 0 | 1 | 0 | 9 | 1634 | `docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -254,6 +252,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 11 | 1371 | `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1411 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 2563 | `docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md` |
+| A | 13 | 0 | 0 | 0 | 11 | 1914 | `docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
@@ -285,6 +284,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 11 | 0 | 0 | 0 | 11 | 1696 | `docs/16-gitops-and-platform-engineering/gitops-secrets.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1910 | `docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md` |
 | A | 11 | 0 | 0 | 0 | 11 | 2261 | `docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md` |
+| A | 11 | 0 | 0 | 0 | 10 | 1690 | `docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md` |
 | A | 10 | 0 | 0 | 0 | 8 | 978 | `docs/02-networking-and-web/http.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 1184 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | A | 10 | 0 | 0 | 0 | 6 | 1264 | `docs/03-git-and-automation/merge-conflicts.md` |
@@ -2109,28 +2109,20 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md`
-
-- **HIGH** line 241, `single-sentence-concept` — **12. Acceptance matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md`
-
-- **HIGH** line 7, `list-first-introduction` — **1. Dominantný render-to-operation lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2181 | 2181 |
+| `example-not-explicit` | 0 | 0 | 0 | 2182 | 2182 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1319 | 1319 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1213 | 1213 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1215 | 1215 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
-| `single-sentence-concept` | 0 | 346 | 0 | 0 | 346 |
+| `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
 | `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 124 | 0 | 0 | 124 |
+| `list-first-introduction` | 0 | 123 | 0 | 0 | 123 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |

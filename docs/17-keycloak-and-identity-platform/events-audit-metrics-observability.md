@@ -240,6 +240,8 @@ Containment môže zvýšiť retention, zapnúť focused categories, zastaviť r
 
 ## 12. Acceptance matrix
 
+Acceptance musí overiť celý evidence chain, nie iba existenciu jedného eventu alebo zelenej metriky. Positive path dokazuje complete intended journey, recovery path dokazuje signalizovanú stratu a obnovenú durable delivery a forbidden path dokazuje, že observability surface ani ambiguous target nemožno zneužiť. Každý test sa viaže na rovnaký deployment, node population, realm, client a operation identity.
+
 Positive:
 
 ```text

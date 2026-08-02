@@ -4539,16 +4539,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
       "title": "Events, audit, metrics a observability",
-      "words": 1859,
+      "words": 1914,
       "headings": 14,
       "sections": 14,
-      "findings": 10,
+      "findings": 11,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 9,
-      "score": 19,
-      "grade": "B"
+      "low": 11,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
@@ -4707,16 +4707,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "title": "Themes, email templates a localization",
-      "words": 1634,
+      "words": 1690,
       "headings": 17,
       "sections": 17,
       "findings": 10,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 9,
-      "score": 18,
-      "grade": "B"
+      "low": 10,
+      "score": 11,
+      "grade": "A"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
@@ -63505,10 +63505,19 @@
       "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
       "section": "12. Acceptance matrix",
       "line": 241,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "12. Acceptance matrix",
+      "line": 241,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
@@ -64630,15 +64639,15 @@
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "section": "1. Dominantný render-to-operation lifecycle",
       "line": 7,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "section": "5. Deployment a trust boundary",
-      "line": 110,
+      "line": 112,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64647,7 +64656,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "section": "5. Deployment a trust boundary",
-      "line": 110,
+      "line": 112,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64656,7 +64665,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "section": "6. Theme cache a development mode",
-      "line": 127,
+      "line": 129,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64665,7 +64674,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "section": "7. Login templates a protocol correctness",
-      "line": 142,
+      "line": 144,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64674,7 +64683,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "section": "7. Login templates a protocol correctness",
-      "line": 142,
+      "line": 144,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64683,7 +64692,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "section": "8. Email theme a action-token URL",
-      "line": 158,
+      "line": 160,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64692,7 +64701,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "section": "9. Localization precedence",
-      "line": 188,
+      "line": 190,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64701,7 +64710,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "section": "10. Message bundles a format stability",
-      "line": 206,
+      "line": 208,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64710,7 +64719,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
       "section": "10. Message bundles a format stability",
-      "line": 206,
+      "line": 208,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

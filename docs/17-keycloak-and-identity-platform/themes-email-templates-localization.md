@@ -6,6 +6,8 @@ Najčastejší upgrade incident vzniká vtedy, keď custom theme skopíruje star
 
 ## 1. Dominantný render-to-operation lifecycle
 
+Theme lifecycle začína ešte pred renderom: release vyberie artifact a parent generation, realm zvolí theme a request určí journey aj locale. Rendered HTML alebo email je iba medzistav; authoritative výsledok vznikne až po browser/email interaction, Keycloak transaction validation a user/session mutation. Diagram preto spája supply-chain, server render, client behavior a identity outcome do jednej testovateľnej cesty.
+
 ```text
 realm/client identity journey
 → selected theme type a theme name
