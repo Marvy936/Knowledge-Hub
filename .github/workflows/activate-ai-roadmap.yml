@@ -19,10 +19,6 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: activate-ai-roadmap-and-user-review
-  cancel-in-progress: true
-
 jobs:
   activate:
     runs-on: ubuntu-latest
