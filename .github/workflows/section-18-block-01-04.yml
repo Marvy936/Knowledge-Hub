@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - scripts/section_18_block_01_04.py
+      - scripts/section_18_block_01_04_closeout.py
       - .github/workflows/section-18-block-01-04.yml
       - docs/18-machine-learning-fundamentals/**
 
@@ -27,11 +28,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run strict ML block gate
+      - name: Run strict ML block gate and focused closeout
         shell: bash
         run: |
           set -euo pipefail
           python scripts/section_18_block_01_04.py
+          python scripts/section_18_block_01_04_closeout.py
           python scripts/update_navigation.py --write
           python scripts/update_glossary.py --write
           python scripts/audit_learning_depth.py --all-docs
