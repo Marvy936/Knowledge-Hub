@@ -451,5 +451,5 @@ Relevantné pojmy: data leakage, target leakage, temporal leakage, entity/group 
 
 **Navigácia**
 
-[← Predchádzajúca: Feature engineering a feature selection](feature-engineering-feature-selection.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Feature engineering a feature selection](feature-engineering-feature-selection.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Linear a logistic regression →](linear-logistic-regression.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

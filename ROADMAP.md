@@ -419,10 +419,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Data preprocessing, normalization a encoding](docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md)
 - [x] [Feature engineering a feature selection](docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md)
 - [x] [Data leakage a train-serving skew](docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md)
-- [ ] Linear a logistic regression
-- [ ] Decision trees, random forests a gradient boosting
-- [ ] Neural network fundamentals
-- [ ] Loss functions a optimization
+- [x] [Linear a logistic regression](docs/18-machine-learning-fundamentals/linear-logistic-regression.md)
+- [x] [Decision trees, random forests a gradient boosting](docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md)
+- [x] [Neural network fundamentals](docs/18-machine-learning-fundamentals/neural-network-fundamentals.md)
+- [x] [Loss functions a optimization](docs/18-machine-learning-fundamentals/loss-functions-optimization.md)
 - [ ] Gradient descent, learning rate a convergence
 - [ ] Overfitting, underfitting, bias a variance
 - [ ] Regularization a early stopping

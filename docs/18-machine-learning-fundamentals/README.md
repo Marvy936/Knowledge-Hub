@@ -23,10 +23,10 @@ Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktív
 6. [Data preprocessing, normalization a encoding](data-preprocessing-normalization-encoding.md)
 7. [Feature engineering a feature selection](feature-engineering-feature-selection.md)
 8. [Data leakage a train-serving skew](data-leakage-train-serving-skew.md)
-9. Linear a logistic regression
-10. Decision trees, random forests a gradient boosting
-11. Neural network fundamentals
-12. Loss functions a optimization
+9. [Linear a logistic regression](linear-logistic-regression.md)
+10. [Decision trees, random forests a gradient boosting](decision-trees-random-forests-gradient-boosting.md)
+11. [Neural network fundamentals](neural-network-fundamentals.md)
+12. [Loss functions a optimization](loss-functions-optimization.md)
 13. Gradient descent, learning rate a convergence
 14. Overfitting, underfitting, bias a variance
 15. Regularization a early stopping
@@ -71,4 +71,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **8/26 · In progress**. Druhý blok uzatvára evaluation isolation, fitted preprocessing, feature lifecycle a leakage/train-serving parity. Kapitoly 9–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
+Aktuálny authoritative stav sekcie je **12/26 · In progress**. Tretí blok uzatvára linear/logistic model form, tree ensembles, neural architecture a loss/optimizer lifecycle. Kapitoly 13–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.

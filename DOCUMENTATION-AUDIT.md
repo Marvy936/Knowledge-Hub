@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **359**
-- Audited conceptual sections: **7543**
-- Total words: **721,530**
-- Findings: **7029** (critical 654, high 866, medium 470, low 5039)
-- File grades: A 148, B 122, C 30, D 59
+- Audited authoritative articles: **363**
+- Audited conceptual sections: **7657**
+- Total words: **733,083**
+- Findings: **7207** (critical 654, high 866, medium 470, low 5217)
+- File grades: A 148, B 122, C 33, D 60
 
 ## Interpretation
 
@@ -72,6 +72,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 101 | 2 | 2 | 7 | 28 | 2185 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 100 | 4 | 3 | 3 | 15 | 2584 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 100 | 3 | 4 | 1 | 23 | 2469 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
+| D | 98 | 0 | 0 | 0 | 72 | 3838 | `docs/18-machine-learning-fundamentals/loss-functions-optimization.md` |
 | D | 96 | 2 | 6 | 2 | 12 | 1951 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
 | D | 95 | 1 | 10 | 0 | 4 | 1505 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 93 | 3 | 2 | 3 | 22 | 2801 | `docs/00-foundations/sdlc.md` |
@@ -89,6 +90,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 64 | 0 | 7 | 0 | 5 | 1468 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | C | 63 | 0 | 7 | 0 | 6 | 1655 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | C | 60 | 0 | 6 | 0 | 9 | 1682 | `docs/05-ci-cd-and-release/rolling-update.md` |
+| C | 60 | 0 | 0 | 0 | 43 | 2654 | `docs/18-machine-learning-fundamentals/neural-network-fundamentals.md` |
 | C | 57 | 0 | 5 | 0 | 14 | 1949 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
@@ -102,10 +104,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
+| C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
 | C | 40 | 0 | 0 | 0 | 29 | 2595 | `docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md` |
+| C | 39 | 0 | 0 | 0 | 31 | 2510 | `docs/18-machine-learning-fundamentals/linear-logistic-regression.md` |
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
@@ -128,7 +132,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 25 | 0 | 0 | 0 | 20 | 2559 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
-| B | 25 | 0 | 0 | 0 | 20 | 2924 | `docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md` |
+| B | 25 | 0 | 0 | 0 | 20 | 2927 | `docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md` |
 | B | 24 | 0 | 0 | 0 | 16 | 1669 | `docs/06-gitlab/security-scanning.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2890 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | B | 24 | 0 | 0 | 0 | 20 | 2129 | `docs/08-container-fundamentals-and-docker/container-security.md` |
@@ -2135,9 +2139,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2305 | 2305 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1437 | 1437 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1297 | 1297 |
+| `example-not-explicit` | 0 | 0 | 0 | 2379 | 2379 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1499 | 1499 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1339 | 1339 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |

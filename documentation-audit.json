@@ -4931,7 +4931,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
       "title": "Data leakage a train-serving skew",
-      "words": 2924,
+      "words": 2927,
       "headings": 27,
       "sections": 27,
       "findings": 20,
@@ -4971,6 +4971,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "title": "Decision trees, random forests a gradient boosting",
+      "words": 2548,
+      "headings": 27,
+      "sections": 27,
+      "findings": 32,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 32,
+      "score": 43,
+      "grade": "C"
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
       "title": "Feature engineering a feature selection",
       "words": 2595,
@@ -4982,6 +4996,48 @@
       "medium": 0,
       "low": 29,
       "score": 40,
+      "grade": "C"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "title": "Linear a logistic regression",
+      "words": 2510,
+      "headings": 24,
+      "sections": 24,
+      "findings": 31,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 31,
+      "score": 39,
+      "grade": "C"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "title": "Loss functions a optimization",
+      "words": 3838,
+      "headings": 35,
+      "sections": 35,
+      "findings": 72,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 72,
+      "score": 98,
+      "grade": "D"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "title": "Neural network fundamentals",
+      "words": 2654,
+      "headings": 28,
+      "sections": 28,
+      "findings": 43,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 43,
+      "score": 60,
       "grade": "C"
     },
     {
@@ -67336,6 +67392,294 @@
       "score": 1
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "1. Dominantný tree-ensemble lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "1. Dominantný tree-ensemble lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "3. Decision tree partition mechanism",
+      "line": 49,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "3. Decision tree partition mechanism",
+      "line": 49,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "4. Tree capacity a overfitting",
+      "line": 67,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "4. Tree capacity a overfitting",
+      "line": 67,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "4. Tree capacity a overfitting",
+      "line": 67,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "5. Pruning a cost-complexity",
+      "line": 86,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "6. Decision path a leaf identity",
+      "line": 98,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "7. Random forest ako bagged randomized trees",
+      "line": 109,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "8. Bootstrap a out-of-bag evidence",
+      "line": 130,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "9. Random forest probabilities a calibration",
+      "line": 145,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "9. Random forest probabilities a calibration",
+      "line": 145,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "11. Gradient boosting ako stage-wise additive model",
+      "line": 159,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "12. Gradient boosting loss a residual correction",
+      "line": 175,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "12. Gradient boosting loss a residual correction",
+      "line": 175,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "14. Histogram-based gradient boosting",
+      "line": 207,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "14. Histogram-based gradient boosting",
+      "line": 207,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "15. Missing values v trees",
+      "line": 226,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "17. Feature importance caveats",
+      "line": 242,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "17. Feature importance caveats",
+      "line": 242,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "17. Feature importance caveats",
+      "line": 242,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "18. Monotonic constraints",
+      "line": 257,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "19. Tree ensemble serving characteristics",
+      "line": 265,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "19. Tree ensemble serving characteristics",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "20. Robustness a out-of-range behavior",
+      "line": 276,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "21. Model comparison discipline",
+      "line": 290,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "22. Worked incident ML-PAY-85",
+      "line": 304,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "22. Worked incident ML-PAY-85",
+      "line": 304,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "23. Evidence-preserving containment a recovery",
+      "line": 319,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "24. Acceptance contract",
+      "line": 335,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md",
+      "section": "24. Acceptance contract",
+      "line": 335,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
       "section": "1. Dominantný feature lifecycle",
       "line": 7,
@@ -67591,6 +67935,1320 @@
       "path": "docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md",
       "section": "21. Acceptance contract",
       "line": 351,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "1. Dominantný linear-model lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "2. Exact linear-model subject",
+      "line": 25,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "3. Linear regression model form",
+      "line": 51,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "4. Residuals a error structure",
+      "line": 77,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "4. Residuals a error structure",
+      "line": 77,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "6. Logistic regression je classifier",
+      "line": 110,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "6. Logistic regression je classifier",
+      "line": 110,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "7. Binary, multinomial a one-vs-rest formulations",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "8. Loss a maximum likelihood boundary",
+      "line": 153,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "9. Feature scaling a coefficient units",
+      "line": 164,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "9. Feature scaling a coefficient units",
+      "line": 164,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "10. Collinearity a coefficient instability",
+      "line": 187,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "10. Collinearity a coefficient instability",
+      "line": 187,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "11. Ridge, Lasso a Elastic Net",
+      "line": 200,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "12. Class weights a sample weights",
+      "line": 229,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "12. Class weights a sample weights",
+      "line": 229,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "13. Separation a convergence",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "13. Separation a convergence",
+      "line": 245,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "14. Calibration a logistic probability",
+      "line": 259,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "15. Threshold nie je parameter logistic estimatoru",
+      "line": 272,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "15. Threshold nie je parameter logistic estimatoru",
+      "line": 272,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "16. Coefficient interpretation",
+      "line": 287,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "16. Coefficient interpretation",
+      "line": 287,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "16. Coefficient interpretation",
+      "line": 287,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "17. Prediction intervals a uncertainty",
+      "line": 301,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "18. Baseline role",
+      "line": 309,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "19. Worked incident ML-PAY-85",
+      "line": 324,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "20. Evidence-preserving containment a recovery",
+      "line": 346,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "20. Evidence-preserving containment a recovery",
+      "line": 346,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "21. Acceptance contract",
+      "line": 363,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
+      "section": "21. Acceptance contract",
+      "line": 363,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "1. Dominantný objective-to-update lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "1. Dominantný objective-to-update lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "2. Exact optimization subject",
+      "line": 27,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "2. Exact optimization subject",
+      "line": 27,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "3. Loss ako surrogate objective",
+      "line": 75,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "3. Loss ako surrogate objective",
+      "line": 75,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "4. Per-example loss a reduction",
+      "line": 89,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "4. Per-example loss a reduction",
+      "line": 89,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "4. Per-example loss a reduction",
+      "line": 89,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "5. Regression losses: MSE, MAE a Huber",
+      "line": 109,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "5. Regression losses: MSE, MAE a Huber",
+      "line": 109,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "5. Regression losses: MSE, MAE a Huber",
+      "line": 109,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "6. Quantile loss",
+      "line": 136,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "6. Quantile loss",
+      "line": 136,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "6. Quantile loss",
+      "line": 136,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "7. Binary cross-entropy",
+      "line": 149,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "7. Binary cross-entropy",
+      "line": 149,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "7. Binary cross-entropy",
+      "line": 149,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "8. Multiclass cross-entropy",
+      "line": 177,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "8. Multiclass cross-entropy",
+      "line": 177,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "9. Numerical stability",
+      "line": 191,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "10. Label smoothing",
+      "line": 203,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "10. Label smoothing",
+      "line": 203,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "11. Class imbalance, class weights a focal behavior",
+      "line": 216,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "11. Class imbalance, class weights a focal behavior",
+      "line": 216,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "11. Class imbalance, class weights a focal behavior",
+      "line": 216,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "12. Empirical risk a regularization",
+      "line": 229,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "12. Empirical risk a regularization",
+      "line": 229,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "12. Empirical risk a regularization",
+      "line": 229,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "13. Gradient descent",
+      "line": 249,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "13. Gradient descent",
+      "line": 249,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "14. Mini-batch stochastic optimization",
+      "line": 261,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "14. Mini-batch stochastic optimization",
+      "line": 261,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "14. Mini-batch stochastic optimization",
+      "line": 261,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "15. Learning rate",
+      "line": 277,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "15. Learning rate",
+      "line": 277,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "15. Learning rate",
+      "line": 277,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "17. Adam",
+      "line": 314,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "17. Adam",
+      "line": 314,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "18. AdamW a weight decay",
+      "line": 336,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "18. AdamW a weight decay",
+      "line": 336,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "18. AdamW a weight decay",
+      "line": 336,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "19. Optimizer state and checkpoint resume",
+      "line": 351,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "19. Optimizer state and checkpoint resume",
+      "line": 351,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "19. Optimizer state and checkpoint resume",
+      "line": 351,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "20. Learning-rate schedules a warmup",
+      "line": 367,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "20. Learning-rate schedules a warmup",
+      "line": 367,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "20. Learning-rate schedules a warmup",
+      "line": 367,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "21. Gradient clipping",
+      "line": 380,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "21. Gradient clipping",
+      "line": 380,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "22. Mixed precision a loss scaling",
+      "line": 395,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "22. Mixed precision a loss scaling",
+      "line": 395,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "23. NaN/Inf diagnosis",
+      "line": 409,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "23. NaN/Inf diagnosis",
+      "line": 409,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "24. Gradient accumulation",
+      "line": 426,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "24. Gradient accumulation",
+      "line": 426,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "25. Convergence diagnostics",
+      "line": 442,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "26. Early stopping",
+      "line": 459,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "27. Training loss, validation metric a business metric",
+      "line": 476,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "28. Custom training loop boundary",
+      "line": 495,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "28. Custom training loop boundary",
+      "line": 495,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "29. Distributed optimization",
+      "line": 513,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "29. Distributed optimization",
+      "line": 513,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "30. Worked incident ML-PAY-85",
+      "line": 527,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "30. Worked incident ML-PAY-85",
+      "line": 527,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "30. Worked incident ML-PAY-85",
+      "line": 527,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "31. Evidence-preserving containment a recovery",
+      "line": 546,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "31. Evidence-preserving containment a recovery",
+      "line": 546,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "31. Evidence-preserving containment a recovery",
+      "line": 546,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "32. Acceptance contract",
+      "line": 564,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "32. Acceptance contract",
+      "line": 564,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/loss-functions-optimization.md",
+      "section": "32. Acceptance contract",
+      "line": 564,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "2. Exact neural model subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "3. Neuron a affine transformation",
+      "line": 58,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "4. Prečo je nonlinearity potrebná",
+      "line": 85,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "5. ReLU, sigmoid, tanh a softmax",
+      "line": 98,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "6. Layers ako representations",
+      "line": 122,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "6. Layers ako representations",
+      "line": 122,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "6. Layers ako representations",
+      "line": 122,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "7. Sequential, Functional a subclassed models",
+      "line": 137,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "7. Sequential, Functional a subclassed models",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "7. Sequential, Functional a subclassed models",
+      "line": 137,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "8. Parameter count, memory a compute",
+      "line": 154,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "11. Initialization",
+      "line": 211,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "11. Initialization",
+      "line": 211,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "12. Vanishing a exploding gradients",
+      "line": 219,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "12. Vanishing a exploding gradients",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "13. Batch size a stochastic gradients",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "13. Batch size a stochastic gradients",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "14. Epoch, step a checkpoint",
+      "line": 247,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "14. Epoch, step a checkpoint",
+      "line": 247,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "15. Training mode oproti inference mode",
+      "line": 260,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "15. Training mode oproti inference mode",
+      "line": 260,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "16. Dropout",
+      "line": 273,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "16. Dropout",
+      "line": 273,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "17. Batch normalization",
+      "line": 285,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "17. Batch normalization",
+      "line": 285,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "18. Overparameterization a generalization",
+      "line": 293,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "18. Overparameterization a generalization",
+      "line": 293,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "18. Overparameterization a generalization",
+      "line": 293,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "19. Architecture search a validation feedback",
+      "line": 301,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "20. Serialization a export",
+      "line": 317,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "20. Serialization a export",
+      "line": 317,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "21. Serving batching a state isolation",
+      "line": 329,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "21. Serving batching a state isolation",
+      "line": 329,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "22. Neural network interpretability",
+      "line": 337,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "22. Neural network interpretability",
+      "line": 337,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "22. Neural network interpretability",
+      "line": 337,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "23. Worked incident ML-PAY-85",
+      "line": 345,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "23. Worked incident ML-PAY-85",
+      "line": 345,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "24. Evidence-preserving containment a recovery",
+      "line": 369,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "24. Evidence-preserving containment a recovery",
+      "line": 369,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "24. Evidence-preserving containment a recovery",
+      "line": 369,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "25. Acceptance contract",
+      "line": 386,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
+      "section": "25. Acceptance contract",
+      "line": 386,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
