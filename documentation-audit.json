@@ -4495,20 +4495,6 @@
       "grade": "B"
     },
     {
-      "path": "docs/17-keycloak-and-identity-platform/SECTION-17-BLOCK-05-08-FINALIZATION.md",
-      "title": "Temporary Section 17 block 05–08 finalization",
-      "words": 98,
-      "headings": 0,
-      "sections": 0,
-      "findings": 0,
-      "critical": 0,
-      "high": 0,
-      "medium": 0,
-      "low": 0,
-      "score": 0,
-      "grade": "A"
-    },
-    {
       "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
       "title": "Authentication flows, executions a required actions",
       "words": 2558,
