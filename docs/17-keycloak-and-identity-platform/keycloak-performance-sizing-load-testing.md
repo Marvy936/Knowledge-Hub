@@ -604,3 +604,11 @@ Second-architecture test porovná CPU architecture/JDK alebo topology pri rovnak
 - [Keycloak Benchmark](https://www.keycloak.org/keycloak-benchmark/)
 - [Keycloak Benchmark — Running benchmarks](https://www.keycloak.org/keycloak-benchmark/benchmark-guide/latest/run/)
 - [Keycloak — Troubleshooting using metrics](https://www.keycloak.org/observability/metrics-for-troubleshooting)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Securing APIs, microservices a MCP servers cez Keycloak](securing-apis-microservices-mcp-servers.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Keycloak troubleshooting →](keycloak-troubleshooting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

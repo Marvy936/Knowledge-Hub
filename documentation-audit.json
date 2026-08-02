@@ -4663,6 +4663,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "title": "Keycloak performance, sizing a load testing",
+      "words": 2747,
+      "headings": 33,
+      "sections": 33,
+      "findings": 14,
+      "critical": 0,
+      "high": 5,
+      "medium": 0,
+      "low": 9,
+      "score": 55,
+      "grade": "C"
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
       "title": "Keycloak server configuration, hostname a reverse proxy",
       "words": 2032,
@@ -4675,6 +4689,20 @@
       "low": 15,
       "score": 19,
       "grade": "B"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "title": "Keycloak troubleshooting",
+      "words": 3304,
+      "headings": 43,
+      "sections": 43,
+      "findings": 17,
+      "critical": 0,
+      "high": 13,
+      "medium": 0,
+      "low": 4,
+      "score": 112,
+      "grade": "D"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
@@ -4777,7 +4805,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md",
       "title": "Securing APIs, microservices a MCP servers cez Keycloak",
-      "words": 2873,
+      "words": 2878,
       "headings": 33,
       "sections": 33,
       "findings": 12,
@@ -64568,6 +64596,132 @@
       "score": 1
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "9. Cache cardinality a cold state",
+      "line": 191,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "9. Cache cardinality a cold state",
+      "line": 191,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "10. Persistent sessions a database demand",
+      "line": 207,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "11. Global connection budget",
+      "line": 220,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "14. HPA",
+      "line": 258,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "15. Load-test dataset",
+      "line": 288,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "16. Keycloak Benchmark",
+      "line": 307,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "17. Load-generator capacity",
+      "line": 322,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "18. Test phases",
+      "line": 339,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "19. Warm versus cold tests",
+      "line": 369,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "24. Bottleneck signatures",
+      "line": 447,
+      "severity": "high",
+      "rule": "single-sentence-concept",
+      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "24. Bottleneck signatures",
+      "line": 447,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "25. Change-one-axis discipline",
+      "line": 471,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
+      "section": "28. Security počas performance testu",
+      "line": 516,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
       "section": "1. Dominantný configuration-to-endpoint lifecycle",
       "line": 7,
@@ -64701,6 +64855,159 @@
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "1. Dominantný troubleshooting lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "5. Change timeline",
+      "line": 113,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "9. 502 , 503 , 504",
+      "line": 207,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "15. Redirect URI a OIDC transaction",
+      "line": 307,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "16. invalid client a token endpoint",
+      "line": 325,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "19. Session, refresh a logout",
+      "line": 380,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "21. Required actions a email links",
+      "line": 415,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "22. Identity brokering",
+      "line": 429,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "25. User Storage SPI",
+      "line": 474,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "27. Schema migration",
+      "line": 503,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "28. Infinispan a cluster",
+      "line": 518,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "29. Operator reconciliation",
+      "line": 534,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "31. Custom provider failure",
+      "line": 570,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "32. Themes a localization",
+      "line": 591,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "35. Safe containment patterns",
+      "line": 637,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "36. Dangerous troubleshooting anti-patterns",
+      "line": 651,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
+      "section": "38. Bounded experiment design",
+      "line": 695,
+      "severity": "high",
+      "rule": "list-first-introduction",
+      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
+      "score": 8
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",

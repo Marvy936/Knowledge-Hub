@@ -813,3 +813,11 @@ Root cause nie je „Keycloak“ ani „cache“. Musí pomenovať konkrétny me
 - [Keycloak — Using a reverse proxy](https://www.keycloak.org/server/reverseproxy)
 - [Keycloak — Configuring distributed caches](https://www.keycloak.org/server/caching)
 - [Keycloak — Upgrading Guide](https://www.keycloak.org/docs/latest/upgrading/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Keycloak performance, sizing a load testing](keycloak-performance-sizing-load-testing.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
