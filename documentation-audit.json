@@ -4495,6 +4495,34 @@
       "grade": "B"
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/SECTION-17-BLOCK-05-08-FINALIZATION.md",
+      "title": "Temporary Section 17 block 05–08 finalization",
+      "words": 98,
+      "headings": 0,
+      "sections": 0,
+      "findings": 0,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "score": 0,
+      "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "title": "Authentication flows, executions a required actions",
+      "words": 2558,
+      "headings": 20,
+      "sections": 20,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 13,
+      "grade": "A"
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
       "title": "Keycloak architecture a responsibility boundary",
       "words": 2514,
@@ -4553,7 +4581,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md",
       "title": "SAML clients, metadata, assertions a bindings",
-      "words": 3225,
+      "words": 3231,
       "headings": 29,
       "sections": 29,
       "findings": 17,
@@ -4563,6 +4591,20 @@
       "low": 17,
       "score": 21,
       "grade": "B"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
+      "title": "Service accounts a machine-to-machine authentication",
+      "words": 2211,
+      "headings": 17,
+      "sections": 17,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 8,
+      "grade": "A"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",
@@ -62811,6 +62853,123 @@
       "score": 1
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "1. Dominantný transaction-to-session model",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "2. Exact authentication transaction subject",
+      "line": 28,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "3. Top-level flows a realm bindings",
+      "line": 74,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "6. Conditional MFA a step-up",
+      "line": 138,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "7. Inventory flow bindings a executions",
+      "line": 152,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "8. Copy a promotion flowu",
+      "line": 192,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "8. Copy a promotion flowu",
+      "line": 192,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "9. Direct Access Grant je samostatný flow",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "9. Direct Access Grant je samostatný flow",
+      "line": 219,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "10. Required actions ako post-authentication lifecycle",
+      "line": 234,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "11. Default action, per-user assignment a Application-Initiated Action",
+      "line": 251,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "12. Required-action tokens a email links",
+      "line": 276,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
+      "section": "17. Troubleshooting a anti-patterny",
+      "line": 392,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
       "section": "2. Keycloak responsibility a non-responsibility",
       "line": 30,
@@ -63322,6 +63481,78 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
+      "section": "3. Client registration a service-account user",
+      "line": 73,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
+      "section": "4. Role intersection: service-account roles a client scope",
+      "line": 87,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
+      "section": "5. Inventory cez Admin API a kcadm.sh",
+      "line": 104,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
+      "section": "5. Inventory cez Admin API a kcadm.sh",
+      "line": 104,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
+      "section": "6. Token request so secretom",
+      "line": 142,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
+      "section": "8. Client secret a key rotation",
+      "line": 178,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
+      "section": "9. Audience, caller identity a local authorization",
+      "line": 197,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
+      "section": "12. Connected incident KC-PAY-66 — machine path",
+      "line": 243,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md",

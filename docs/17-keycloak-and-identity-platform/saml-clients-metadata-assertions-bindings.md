@@ -401,5 +401,5 @@ Relevantné pojmy: Keycloak SAML client generation, SP entity ID, metadata gener
 
 **Navigácia**
 
-[← Predchádzajúca: OIDC clients, redirect URIs, scopes a PKCE](oidc-clients-redirect-uris-scopes-pkce.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: OIDC clients, redirect URIs, scopes a PKCE](oidc-clients-redirect-uris-scopes-pkce.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Tokens, claims, protocol mappers a client scopes →](tokens-claims-protocol-mappers-client-scopes.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

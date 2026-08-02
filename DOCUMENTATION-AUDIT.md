@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **327**
-- Audited conceptual sections: **6774**
-- Total words: **641,011**
-- Findings: **6537** (critical 654, high 865, medium 469, low 4549)
-- File grades: A 135, B 106, C 27, D 59
+- Audited authoritative articles: **330**
+- Audited conceptual sections: **6811**
+- Total words: **645,884**
+- Findings: **6558** (critical 654, high 865, medium 469, low 4570)
+- File grades: A 138, B 106, C 27, D 59
 
 ## Interpretation
 
@@ -141,7 +141,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 21 | 0 | 0 | 0 | 13 | 1798 | `docs/14-sre-and-operations/incident-management.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2087 | `docs/14-sre-and-operations/operational-readiness.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 1424 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
-| B | 21 | 0 | 0 | 0 | 17 | 3225 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
+| B | 21 | 0 | 0 | 0 | 17 | 3231 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1220 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | B | 20 | 0 | 0 | 0 | 18 | 3585 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1635 | `docs/06-gitlab/merge-requests-and-approvals.md` |
@@ -246,6 +246,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 10 | 1279 | `docs/15-databases-and-distributed-systems/leader-election-and-consensus.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1371 | `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1411 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
+| A | 13 | 0 | 0 | 0 | 13 | 2558 | `docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
@@ -321,6 +322,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 8 | 0 | 0 | 0 | 7 | 1984 | `docs/16-gitops-and-platform-engineering/gitops-practical-walkthrough.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1136 | `docs/16-gitops-and-platform-engineering/pull-based-deployment.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1281 | `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md` |
+| A | 8 | 0 | 0 | 0 | 8 | 2211 | `docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 3162 | `docs/02-networking-and-web/networking-practical-walkthrough.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 953 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1963 | `docs/06-gitlab/projects-groups-permissions.md` |
@@ -350,6 +352,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 3 | 0 | 0 | 0 | 3 | 1928 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
 | A | 2 | 0 | 0 | 0 | 2 | 871 | `docs/02-networking-and-web/firewalls.md` |
 | A | 2 | 0 | 0 | 0 | 2 | 1860 | `docs/11-cloud-and-aws/well-architected-framework.md` |
+| A | 0 | 0 | 0 | 0 | 0 | 98 | `docs/17-keycloak-and-identity-platform/SECTION-17-BLOCK-05-08-FINALIZATION.md` |
 
 ## Critical and high findings
 
@@ -2099,9 +2102,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2112 | 2112 |
+| `example-not-explicit` | 0 | 0 | 0 | 2121 | 2121 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1292 | 1292 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1145 | 1145 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1157 | 1157 |
 | `term-before-explanation` | 0 | 54 | 320 | 0 | 374 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
