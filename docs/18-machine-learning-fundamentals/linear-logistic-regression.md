@@ -24,6 +24,10 @@ Coefficient read-back preukazuje fitted parameter v konkrétnom representation s
 
 ## 2. Exact linear-model subject
 
+Linear-model manifest musí zviazať representation, objective a downstream decision, pretože samotné coefficients nemajú význam bez feature units, preprocessing, regularization a output interpretation. Rovnaký estimator class môže vytvoriť odlišné fitted functions pri zmene scaleru, class weights alebo `C`; rovnaká fitted function môže vytvoriť odlišné business actions pri zmene calibration alebo threshold/ranking policy.
+
+Nasledujúci subject preto oddeľuje, čo optimizer fituje, čo calibration mení a čo application policy vykonáva. Pri incidente umožňuje porovnať requested experiment, final refit, loaded artifact a active queue policy bez zjednodušenia všetkých vrstiev na názov „logistic regression“.
+
 ```yaml
 model_subject: ML-PAY-LR-2026-08-v3
 task: binary classification

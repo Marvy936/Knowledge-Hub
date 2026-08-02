@@ -25,6 +25,10 @@ Checkpoint weights nie sú kompletná identity, ak architecture/config alebo pre
 
 ## 2. Exact neural model subject
 
+Neural model identity musí pokryť graph aj všetok state, ktorý mení forward alebo training behavior. Architecture určuje tensor transitions, checkpoint nesie trainable a non-trainable layer state, optimizer a global step určujú resume trajectory a export/runtime určujú skutočný inference graph. Názov `nn-v2` ani samotný weights file preto nestačí na reprodukciu alebo rollback.
+
+Nasledujúci subject fixuje input schema, layer graph, initialization, loss, optimizer, batching, seeds, checkpoint a serving export. Tým umožňuje rozlíšiť complete training continuation od weights-only warm startu a training checkpoint od production artifactu, ktorý musí prejsť signature a output-parity read-backom.
+
 ```yaml
 model_subject: ML-PAY-DNN-2026-08-v2
 input_schema: risk-dense-v8

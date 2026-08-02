@@ -631,5 +631,5 @@ Relevantné pojmy: loss function, surrogate objective, per-example loss, reducti
 
 **Navigácia**
 
-[← Predchádzajúca: Neural network fundamentals](neural-network-fundamentals.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Gradient descent, learning rate a convergence →](README.md)
+[← Predchádzajúca: Neural network fundamentals](neural-network-fundamentals.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
