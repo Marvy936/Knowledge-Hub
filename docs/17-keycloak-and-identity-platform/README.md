@@ -46,13 +46,10 @@ Odporúča sa najprv dokončiť:
 26. [Upgrades, migration guides a rollback boundaries](upgrades-migration-guides-rollback-boundaries.md)
 27. [Custom providers, SPI a extension lifecycle](custom-providers-spi-extension-lifecycle.md)
 28. [Securing APIs, microservices a MCP servers cez Keycloak](securing-apis-microservices-mcp-servers.md)
+29. [Keycloak performance, sizing a load testing](keycloak-performance-sizing-load-testing.md)
+30. [Keycloak troubleshooting](keycloak-troubleshooting.md)
 
-Aktuálny authoritative stav sekcie je **28/30 · In progress**. Kapitoly 1–28 teraz pokrývajú identity, protocol, authentication, federation, authorization, administration, edge hardening, database/cache/Operator/HA lifecycle-y aj database/PITR a realm-export recovery, version/schema/provider/theme upgrade a rollback boundaries, trusted custom SPI lifecycle a resource-server/API/microservice/MCP enforcement. Sekcia zatiaľ nie je `Ready for user review`; posledný blok tvorí performance, sizing a load testing spolu s end-to-end Keycloak troubleshootingom.
-
-## Plánované pokračovanie
-
-29. Keycloak performance, sizing a load testing  
-30. Keycloak troubleshooting
+Aktuálny authoritative stav sekcie je **30/30 · Ready for user review**. Všetkých tridsať authoritative kapitol prešlo preserve-first chapter inventory a nový blok 29–30 strict substantial-prose, executable/model-surface a subject/evidence/recovery/acceptance gate-om. Sekcia pokrýva kompletný Keycloak lifecycle od realm/client/user/session a OIDC/SAML cez token projection, authentication, MFA, federation, Authorization Services, administration, observability, themes, hostname/TLS, database/cache/Operator/HA, DR/upgrades/SPIs, API/MCP enforcement až po performance a evidence-first troubleshooting. Repository validation nepredstavuje runtime `Verified`, production `Stable` ani user `Accepted`; reálne Keycloak deploymenty, dependencies, failover, backup/restore, load tests a business journeys zostávajú samostatnou acceptance hranicou.
 
 ## Connected learning scenario
 
@@ -187,6 +184,23 @@ logical export treated as full DR
 ```
 
 Recovery používa database/PITR plus immutable runtime artifacts a isolated restore; explicitný migration-guide/schema/provider/theme a rollback-axis contract; signed, rebuilt, bounded a authorized SPI artifacts; a per-service issuer/token-type/audience/caller plus local tenant/resource/action enforcement. MCP novšie profiles zostávajú označené ako partial workaround, kým authorization server neposkytne native RFC 8707 semantics. Closure vyžaduje second restore, second rollout, second provider version a cross-service/cross-tenant/MCP negative tests.
+
+### `KC-PAY-81` a `KC-PAY-82` — false capacity verdict a restart-driven troubleshooting
+
+Záverečný blok spája capacity a incident reasoning. Atlas dimenzoval cluster podľa aggregate RPS z warm refresh-only testu, ignoroval password hashing, cold cache po rollout-e, concurrently used client cardinality, database pool amplification a load-generator `TIME_WAIT` limit. Production spike preto vyvolal CPU throttling, database reads, HPA scale-out a ďalšie connection pressure, hoci pôvodný benchmark vyzeral stabilne.
+
+Následný login-loop incident mal viac nezávislých príčin: jedna proxy cohort posielala wrong forwarded port, successor theme používala predecessor WebAuthn JavaScript, BFF zmenil cookie domain a API token mapper zmenil claim type. Restart všetkých Pods dočasne presunul traffic a vymazal authentication-session/cache evidence, preto bol restart nesprávne označený za recovery.
+
+```text
+aggregate warm-only benchmark bez generator proof
++ missing failure/cold-state headroom
++ generic browser symptom cez viac authority layers
++ restart before evidence/read-back
+→ false capacity a root-cause verdict
+→ recurring overload alebo identity journey failure
+```
+
+Final model začína workload mixom, SLO, datasetom a exact release/topology generation, meria Keycloak/JVM/database/cache/load-generator saturation a testuje spike, soak a failure recovery. Troubleshooting začína exact subjectom, layer mapou, competing hypotheses a read-only evidence; mutation je bounded, authoritative read-back oddeľuje configured/loaded/live/business state a closure vyžaduje positive, recovery, forbidden a second-journey testy bez restart workaroundu.
 
 ## Dominantný model sekcie
 
@@ -528,3 +542,29 @@ Každá komplexná kapitola musí rozlišovať:
 - mapovať MCP protected-resource metadata, PKCE, registration a exact tool/resource/prompt policy;
 - uvádzať MCP 2025-03-26 ako supported a 2025-06-18/2025-11-25 iba ako partial bez RFC 8707 Resource Indicators;
 - chrániť CIMD/DCR metadata fetch pred SSRF a overiť cross-service, cross-tenant a duplicate-tool paths.
+
+### Keycloak performance, sizing a load testing
+
+- odvodiť capacity z exact password, refresh, client-credentials a ďalšieho journey mixu, nie aggregate HTTP RPS;
+- používať current official CPU/memory/database čísla iba ako starting model a potvrdiť ich vlastným testom;
+- fixovať hashing, JDK/CPU architecture, dataset, sessions/caches, database, topology, providers a load-generator generation;
+- rozpočítať CPU headroom, container heap/non-heap memory, global database pool a cache cardinality;
+- rozlíšiť cold, warming, steady, rolling, spike, stress, soak a failure phases;
+- dokázať, že load generator doručil intended arrival rate bez CPU, ports alebo `TIME_WAIT` saturation;
+- korelovať Keycloak, JVM, Agroal, cache/JGroups, database, load-balancer a generator metrics;
+- meniť jednu axis, rerun-nuť identical workload a overiť survivor capacity aj second steady phase.
+
+### Keycloak troubleshooting
+
+- definovať exact deployment/realm/client/user/workload/session/token/request/business subject a affected population;
+- mapovať symptom cez DNS/TLS, proxy/hostname, process, DB/cache/dependencies, realm/flow, protocol/token, API authorization a business layer;
+- vytvoriť competing hypotheses s evidence, ktoré ich môže potvrdiť aj vyvrátiť;
+- zachovať first-response evidence pred restartom, cache clearom alebo broad mutation;
+- odlíšiť configured, loaded, live a business-effective state cez authoritative read-back;
+- diagnostikovať OIDC/SAML, sessions, MFA/passkeys, required actions, brokering, LDAP, DB/cache/Operator, performance, providers, API/MCP a restore/upgrade paths;
+- používať bounded containment a one-axis repair namiesto security-weakening workaroundov;
+- uzavrieť incident positive, recovery, forbidden a second node/proxy/client/session/operation testom a postmortemom.
+
+## Section completion boundary
+
+Section 17 je dokumentačne uzavretá až po chapter-by-chapter inventory 30/30, synchronizovanom README/ROADMAP/glossary/navigation/ledger/audite a nulovej Section 17 critical/high queue. Tento gate overuje connected prose, executable examples, exact identity/authority/evidence/recovery boundaries a preserve-first consistency. Nevykonáva živý Keycloak cluster, database, LDAP/AD, IdP, SMTP, Infinispan, Operator, proxy, certificates, MCP clients/servers, load generators ani business applications. Preto je výsledok `Ready for user review`, nie runtime `Verified`, production `Stable` alebo user `Accepted`.

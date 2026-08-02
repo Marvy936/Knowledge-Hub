@@ -600,5 +600,5 @@ Second-service test replayne token voči adjacent API. Second-tenant test použ�
 
 **Navigácia**
 
-[← Predchádzajúca: Custom providers, SPI a extension lifecycle](custom-providers-spi-extension-lifecycle.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Custom providers, SPI a extension lifecycle](custom-providers-spi-extension-lifecycle.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Keycloak performance, sizing a load testing →](keycloak-performance-sizing-load-testing.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

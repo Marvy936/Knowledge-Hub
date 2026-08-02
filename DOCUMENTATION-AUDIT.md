@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **349**
-- Audited conceptual sections: **7290**
-- Total words: **693,348**
-- Findings: **6810** (critical 654, high 865, medium 470, low 4821)
-- File grades: A 147, B 116, C 27, D 59
+- Audited authoritative articles: **351**
+- Audited conceptual sections: **7366**
+- Total words: **700,202**
+- Findings: **6837** (critical 654, high 866, medium 470, low 4847)
+- File grades: A 147, B 118, C 27, D 59
 
 ## Interpretation
 
@@ -115,6 +115,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
+| B | 28 | 0 | 1 | 0 | 13 | 3915 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 27 | 0 | 0 | 0 | 20 | 2317 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
 | B | 26 | 0 | 0 | 0 | 16 | 2190 | `docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md` |
@@ -137,6 +138,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 23 | 0 | 0 | 0 | 16 | 1832 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 2044 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 1688 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
+| B | 22 | 0 | 0 | 0 | 13 | 2934 | `docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2736 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | B | 21 | 0 | 0 | 0 | 14 | 1821 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2662 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
@@ -224,7 +226,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 12 | 2309 | `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md` |
 | B | 15 | 0 | 0 | 0 | 13 | 1477 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 2220 | `docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md` |
-| B | 15 | 0 | 0 | 0 | 12 | 2873 | `docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md` |
+| B | 15 | 0 | 0 | 0 | 12 | 2878 | `docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md` |
 | A | 14 | 0 | 0 | 1 | 8 | 2356 | `docs/03-git-and-automation/bash-automation.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 2498 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1538 | `docs/08-container-fundamentals-and-docker/registries.md` |
@@ -2117,20 +2119,24 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md`
+
+- **HIGH** line 719, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2224 | 2224 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1365 | 1365 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1232 | 1232 |
+| `example-not-explicit` | 0 | 0 | 0 | 2233 | 2233 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1381 | 1381 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1233 | 1233 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
 | `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 123 | 0 | 0 | 123 |
+| `list-first-introduction` | 0 | 124 | 0 | 0 | 124 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |

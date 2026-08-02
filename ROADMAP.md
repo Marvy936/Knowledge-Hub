@@ -401,5 +401,5 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Upgrades, migration guides a rollback boundaries](docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md)
 - [x] [Custom providers, SPI a extension lifecycle](docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md)
 - [x] [Securing APIs, microservices a MCP servers cez Keycloak](docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md)
-- [ ] Keycloak performance, sizing a load testing
-- [ ] Keycloak troubleshooting
+- [x] [Keycloak performance, sizing a load testing](docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md)
+- [x] [Keycloak troubleshooting](docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md)
