@@ -15,10 +15,10 @@ Odporúčané predchádzajúce oblasti:
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-1. Artificial intelligence, machine learning, deep learning a generative AI
-2. Dataset, sample, feature, label a target
-3. Supervised, unsupervised a reinforcement learning
-4. Regression, classification, ranking a clustering
+1. [Artificial intelligence, machine learning, deep learning a generative AI](artificial-intelligence-machine-learning-deep-learning-generative-ai.md)
+2. [Dataset, sample, feature, label a target](dataset-sample-feature-label-target.md)
+3. [Supervised, unsupervised a reinforcement learning](supervised-unsupervised-reinforcement-learning.md)
+4. [Regression, classification, ranking a clustering](regression-classification-ranking-clustering.md)
 5. Train, validation a test split
 6. Data preprocessing, normalization a encoding
 7. Feature engineering a feature selection
@@ -71,4 +71,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **0/26 · In progress**. Inventory a dependencies sú aktivované; prvé kapitoly ešte nie sú označené ako spracované. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
+Aktuálny authoritative stav sekcie je **4/26 · In progress**. Prvý blok aktivuje spoločný lifecycle od AI-system scope-u cez dataset a learning signal po task formulation. Kapitoly 5–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.

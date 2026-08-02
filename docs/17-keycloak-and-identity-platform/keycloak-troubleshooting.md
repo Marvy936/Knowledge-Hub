@@ -843,5 +843,5 @@ Root cause nie je „Keycloak“ ani „cache“. Musí pomenovať konkrétny me
 
 **Navigácia**
 
-[← Predchádzajúca: Keycloak performance, sizing a load testing](keycloak-performance-sizing-load-testing.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Keycloak performance, sizing a load testing](keycloak-performance-sizing-load-testing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Artificial intelligence, machine learning, deep learning a generative AI →](../18-machine-learning-fundamentals/artificial-intelligence-machine-learning-deep-learning-generative-ai.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
