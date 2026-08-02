@@ -41,6 +41,13 @@ jobs:
           audit = Path('DOCUMENTATION-AUDIT.md').read_text(encoding='utf-8')
           marker = '### `docs/18-machine-learning-fundamentals/'
           if marker in audit:
+              blocks = audit.split('\n### `')
+              focused = [
+                  '### `' + block
+                  for block in blocks[1:]
+                  if block.startswith('docs/18-machine-learning-fundamentals/')
+              ]
+              print('\n\n'.join(focused))
               raise SystemExit('Section 18 still appears in the critical/high learning-depth queue')
           print('Section 18 has no critical/high learning-depth queue entry.')
           PY
