@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **345**
 - Audited conceptual sections: **7176**
-- Total words: **683,151**
-- Findings: **6769** (critical 656, high 875, medium 470, low 4768)
-- File grades: A 145, B 112, C 28, D 60
+- Total words: **683,469**
+- Findings: **6766** (critical 654, high 869, medium 470, low 4773)
+- File grades: A 145, B 113, C 28, D 59
 
 ## Interpretation
 
@@ -72,7 +72,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 101 | 2 | 2 | 7 | 28 | 2185 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 100 | 4 | 3 | 3 | 15 | 2584 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 100 | 3 | 4 | 1 | 23 | 2469 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
-| D | 100 | 2 | 7 | 0 | 14 | 2758 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
 | D | 96 | 2 | 6 | 2 | 12 | 1951 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
 | D | 95 | 1 | 10 | 0 | 4 | 1505 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 93 | 3 | 2 | 3 | 22 | 2801 | `docs/00-foundations/sdlc.md` |
@@ -91,6 +90,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 63 | 0 | 7 | 0 | 6 | 1655 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | C | 60 | 0 | 6 | 0 | 9 | 1682 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | C | 57 | 0 | 5 | 0 | 14 | 1949 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
+| C | 57 | 0 | 4 | 0 | 17 | 2935 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
@@ -105,7 +105,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
-| C | 41 | 0 | 2 | 0 | 18 | 2227 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
@@ -117,6 +116,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
+| B | 27 | 0 | 0 | 0 | 20 | 2317 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 25 | 0 | 0 | 0 | 20 | 2559 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
@@ -134,7 +134,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 23 | 0 | 0 | 0 | 18 | 3437 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | B | 23 | 0 | 0 | 0 | 18 | 2027 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
 | B | 23 | 0 | 0 | 0 | 16 | 1832 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
-| B | 23 | 0 | 1 | 0 | 11 | 2169 | `docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 2044 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 1688 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2736 | `docs/02-networking-and-web/network-troubleshooting.md` |
@@ -223,6 +222,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 11 | 1567 | `docs/14-sre-and-operations/error-budgets.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 2309 | `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md` |
 | B | 15 | 0 | 0 | 0 | 13 | 1477 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
+| B | 15 | 0 | 0 | 0 | 11 | 2220 | `docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md` |
 | A | 14 | 0 | 0 | 1 | 8 | 2356 | `docs/03-git-and-automation/bash-automation.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 2498 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1538 | `docs/08-container-fundamentals-and-docker/registries.md` |
@@ -1953,18 +1953,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 259, `single-sentence-concept` — **Roll-forward cez live patch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 263, `single-sentence-concept` — **Health green ako recovery closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md`
-
-- **CRITICAL** line 80, `empty-section` — **3. Architektonické úrovne**: Sekcia nemá vysvetľovací obsah.
-- **CRITICAL** line 286, `empty-section` — **12. Traffic mode: active-active vs active-passive**: Sekcia nemá vysvetľovací obsah.
-- **HIGH** line 82, `list-first-introduction` — **Single instance**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 93, `list-first-introduction` — **Multi-node single cluster v jednej failure zone**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 93, `single-sentence-concept` — **Multi-node single cluster v jednej failure zone**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 104, `list-first-introduction` — **Single cluster across multiple AZs**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 116, `list-first-introduction` — **Multi-cluster v1**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 127, `list-first-introduction` — **Multi-cluster v2 / stateless**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 384, `list-first-introduction` — **18. V1 versus v2 trade-off**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
 ### `docs/00-foundations/value-stream-mapping.md`
 
 - **HIGH** line 33, `list-first-introduction` — **3. Základný model toku**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
@@ -2125,32 +2113,30 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md`
+### `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md`
 
-- **HIGH** line 330, `single-sentence-concept` — **20. Node failure a full restart**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-
-### `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md`
-
-- **HIGH** line 79, `list-first-introduction` — **4. Basic Keycloak CR**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 281, `list-first-introduction` — **14. Reconcile a status conditions**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 110, `list-first-introduction` — **Single cluster across multiple AZs**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 122, `list-first-introduction` — **Multi-cluster v1**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 133, `list-first-introduction` — **Multi-cluster v2 / stateless**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 392, `list-first-introduction` — **18. V1 versus v2 trade-off**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2204 | 2204 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1340 | 1340 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1224 | 1224 |
+| `example-not-explicit` | 0 | 0 | 0 | 2205 | 2205 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1342 | 1342 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1226 | 1226 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
-| `single-sentence-concept` | 0 | 347 | 0 | 0 | 347 |
+| `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
 | `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 131 | 0 | 0 | 131 |
+| `list-first-introduction` | 0 | 127 | 0 | 0 | 127 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
-| `empty-section` | 50 | 0 | 0 | 0 | 50 |
+| `empty-section` | 48 | 0 | 0 | 0 | 48 |
 
 ## Required remediation pattern
 

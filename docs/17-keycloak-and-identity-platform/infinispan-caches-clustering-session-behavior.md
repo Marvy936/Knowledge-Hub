@@ -329,6 +329,8 @@ Debug output je temporary evidence; môže zvýšiť log volume.
 
 ## 20. Node failure a full restart
 
+Failure outcome závisí od authority konkrétneho state-u. Pri persistent regular sessions je cache loss performance a reload problém, kým pri volatile sessions môže byť cache loss authoritative data loss; authentication session a brute-force state majú zase vlastný persistence model. Test preto nesmie zovšeobecniť výsledok jedného refresh tokenu na všetky identity journeys.
+
 Node failure pri persistent sessions:
 
 ```text

@@ -4567,16 +4567,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "title": "High availability, multi-AZ a multi-cluster trade-offs",
-      "words": 2758,
+      "words": 2935,
       "headings": 35,
       "sections": 35,
-      "findings": 23,
-      "critical": 2,
-      "high": 7,
+      "findings": 21,
+      "critical": 0,
+      "high": 4,
       "medium": 0,
-      "low": 14,
-      "score": 100,
-      "grade": "D"
+      "low": 17,
+      "score": 57,
+      "grade": "C"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
@@ -4595,15 +4595,15 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md",
       "title": "Infinispan caches, clustering a session behavior",
-      "words": 2169,
+      "words": 2220,
       "headings": 25,
       "sections": 25,
-      "findings": 12,
+      "findings": 11,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
       "low": 11,
-      "score": 23,
+      "score": 15,
       "grade": "B"
     },
     {
@@ -4623,16 +4623,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "title": "Keycloak Operator a Kubernetes deployment",
-      "words": 2227,
+      "words": 2317,
       "headings": 25,
       "sections": 25,
       "findings": 20,
       "critical": 0,
-      "high": 2,
+      "high": 0,
       "medium": 0,
-      "low": 18,
-      "score": 41,
-      "grade": "C"
+      "low": 20,
+      "score": 27,
+      "grade": "B"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
@@ -63676,44 +63676,35 @@
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
-      "section": "3. Architektonické úrovne",
-      "line": 80,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
+      "section": "Single instance",
+      "line": 84,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "Single instance",
-      "line": 82,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 84,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "Multi-node single cluster v jednej failure zone",
-      "line": 93,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
-      "section": "Multi-node single cluster v jednej failure zone",
-      "line": 93,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 97,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "Single cluster across multiple AZs",
-      "line": 104,
+      "line": 110,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -63722,7 +63713,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "Multi-cluster v1",
-      "line": 116,
+      "line": 122,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -63731,7 +63722,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "Multi-cluster v2 / stateless",
-      "line": 127,
+      "line": 133,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -63740,7 +63731,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "5. Single-cluster multi-AZ prerequisites",
-      "line": 160,
+      "line": 166,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -63749,7 +63740,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "7. Capacity po failure",
-      "line": 200,
+      "line": 206,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -63758,25 +63749,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "7. Capacity po failure",
-      "line": 200,
+      "line": 206,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
-      "section": "12. Traffic mode: active-active vs active-passive",
-      "line": 286,
-      "severity": "critical",
-      "rule": "empty-section",
-      "detail": "Sekcia nemá vysvetľovací obsah.",
-      "score": 12
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "13. Global load balancer, DNS a origin identity",
-      "line": 307,
+      "line": 315,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -63785,7 +63767,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "15. Fencing a split-brain authority",
-      "line": 335,
+      "line": 343,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -63794,7 +63776,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "15. Fencing a split-brain authority",
-      "line": 335,
+      "line": 343,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -63803,7 +63785,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "18. V1 versus v2 trade-off",
-      "line": 384,
+      "line": 392,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -63812,7 +63794,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "19. Multi-region hranica",
-      "line": 402,
+      "line": 410,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -63821,7 +63803,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "20. Maintenance a upgrades",
-      "line": 408,
+      "line": 416,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -63830,7 +63812,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "22. RPO/RTO matrix",
-      "line": 438,
+      "line": 446,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -63839,7 +63821,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "22. RPO/RTO matrix",
-      "line": 438,
+      "line": 446,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -63848,7 +63830,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "24. Incident KC-PAY-76",
-      "line": 470,
+      "line": 478,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -63857,7 +63839,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md",
       "section": "25. Evidence-preserving containment a recovery",
-      "line": 488,
+      "line": 496,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64054,17 +64036,8 @@
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md",
-      "section": "20. Node failure a full restart",
-      "line": 330,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md",
       "section": "21. Incident KC-PAY-74",
-      "line": 356,
+      "line": 358,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64073,7 +64046,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md",
       "section": "22. Evidence-preserving containment a recovery",
-      "line": 373,
+      "line": 375,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64082,7 +64055,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md",
       "section": "22. Evidence-preserving containment a recovery",
-      "line": 373,
+      "line": 375,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64164,15 +64137,15 @@
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "4. Basic Keycloak CR",
       "line": 79,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "5. First-class fields, additionalOptions a spec.env",
-      "line": 116,
+      "line": 118,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64181,7 +64154,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "7. Secrets a rollout generation",
-      "line": 163,
+      "line": 165,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64190,7 +64163,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "7. Secrets a rollout generation",
-      "line": 163,
+      "line": 165,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64199,7 +64172,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "9. Scheduling a failure domains",
-      "line": 195,
+      "line": 197,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64208,7 +64181,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "9. Scheduling a failure domains",
-      "line": 195,
+      "line": 197,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64217,7 +64190,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "10. Resources a JVM memory",
-      "line": 223,
+      "line": 225,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64226,7 +64199,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "11. Probes a management interface",
-      "line": 240,
+      "line": 242,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64235,7 +64208,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "12. Truststores a service-account token",
-      "line": 254,
+      "line": 256,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64244,7 +64217,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "13. Operator-managed resource ownership",
-      "line": 269,
+      "line": 271,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64253,7 +64226,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "13. Operator-managed resource ownership",
-      "line": 269,
+      "line": 271,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64262,16 +64235,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "14. Reconcile a status conditions",
-      "line": 281,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 283,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "16. Realm import CR a job semantics",
-      "line": 317,
+      "line": 321,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64280,7 +64253,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "17. Autoscaling",
-      "line": 332,
+      "line": 336,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64289,7 +64262,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "20. Operator upgrade",
-      "line": 367,
+      "line": 371,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64298,7 +64271,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "21. Incident KC-PAY-75",
-      "line": 381,
+      "line": 385,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64307,7 +64280,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "22. Evidence-preserving containment a recovery",
-      "line": 400,
+      "line": 404,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64316,7 +64289,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md",
       "section": "22. Evidence-preserving containment a recovery",
-      "line": 400,
+      "line": 404,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

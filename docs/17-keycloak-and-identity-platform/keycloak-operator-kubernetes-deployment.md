@@ -78,6 +78,8 @@ Operator service account potrebuje cluster/namespace permissions podľa installa
 
 ## 4. Basic `Keycloak` CR
 
+Basic CR je authoritative desired-state vstup pre Operator, nie hotový runtime manifest. First-class fields dávajú controlleru semantic context pre dependent resources, status a rollout, zatiaľ čo referenced Secrets a custom image zostávajú samostatnými generations. YAML preto čítame spolu s následným observed-generation, workload a protocol read-backom.
+
 ```yaml
 apiVersion: k8s.keycloak.org/v2beta1
 kind: Keycloak
@@ -279,6 +281,8 @@ manual kubectl patch managed workload
 Break-glass zmena sa robí cez CR alebo dočasným pozastavením ownershipu podľa documented procedure, s auditom a následnou reconciliation. GitOps controller a Operator nesmú byť concurrent writers toho istého managed child resource; GitOps vlastní CR, Operator vlastní descendants.
 
 ## 14. Reconcile a status conditions
+
+Reconcile evidence musí odlíšiť prijatú spec generation, controllerom spracovanú generation, vytvorený workload revision a usable Keycloak outcome. Conditions vysvetľujú controller a health state, ale nepreukazujú canonical hostname, realm initialization ani client journey. Nasledujúce príkazy preto slúžia ako prvý controller read-back, nie ako finálny acceptance verdict.
 
 ```bash
 kubectl -n identity-prod get keycloak atlas-keycloak -o yaml

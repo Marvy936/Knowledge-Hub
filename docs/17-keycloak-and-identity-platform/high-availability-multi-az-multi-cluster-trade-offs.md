@@ -79,7 +79,11 @@ Bez architecture modelu sa `site` môže zamieňať s availability zone, cluster
 
 ## 3. Architektonické úrovne
 
+Jednotlivé topology sa nelíšia iba počtom Pods alebo clusters. Každá posúva failure boundary, pridáva nové shared dependencies a mení, ktorý state sa musí synchronizovať pred traffic failoverom. Nasledujúce varianty preto hodnotíme podľa tolerovaného failure domainu, authoritative database/cache/session modelu a kapacity po strate jednej časti architektúry.
+
 ### Single instance
+
+Single instance je baseline bez runtime redundancy. Je vhodná iba tam, kde je výpadok processu akceptovaný a recovery sa meria ako restart alebo rebuild, nie ako transparentné pokračovanie identity journey. Backup môže znížiť data-loss risk, ale nepridáva serving capacity počas failure.
 
 ```text
 1 Keycloak process
@@ -91,6 +95,8 @@ Bez architecture modelu sa `site` môže zamieňať s availability zone, cluster
 Single instance môže mať database backup a rýchly restart, ale nie je HA. RTO zahŕňa detection, restart, cache/session recovery, DNS/LB a business verification.
 
 ### Multi-node single cluster v jednej failure zone
+
+Viac nodes odstraňuje jeden process alebo host ako jediný serving point a umožňuje rolling maintenance. Ak však všetky nodes, databáza alebo load balancer zostávajú v rovnakej failure zone, topology stále nevie prežiť zone outage; zvyšuje dostupnosť iba pre menšie failure classes.
 
 ```text
 viac Keycloak nodes
@@ -284,6 +290,8 @@ business canary
 Global LB nemá routovať podľa jedného Podu. Site health zahŕňa minimum ready capacity, database writer access, cache/site state, certificate/route a error/latency thresholds.
 
 ## 12. Traffic mode: active-active vs active-passive
+
+Traffic mode určuje, kedy sa standby capacity, state synchronization a dependencies reálne používajú. Active-active priebežne preveruje obe sites, ale vyžaduje trvalú consistency a survivor headroom; active-passive zjednodušuje normal routing, no musí samostatne dokazovať, že warm site nie je drifted alebo cold. Výber preto mení failover trigger, monitoring aj testovací cadence.
 
 ### Active-active
 
