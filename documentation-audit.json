@@ -4497,7 +4497,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md",
       "title": "Authentication flows, executions a required actions",
-      "words": 2558,
+      "words": 2563,
       "headings": 20,
       "sections": 20,
       "findings": 13,
@@ -4507,6 +4507,20 @@
       "low": 13,
       "score": 13,
       "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "title": "Identity brokering",
+      "words": 2417,
+      "headings": 22,
+      "sections": 22,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 12,
+      "score": 17,
+      "grade": "B"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
@@ -4523,6 +4537,34 @@
       "grade": "A"
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "title": "LDAP a Active Directory federation",
+      "words": 3040,
+      "headings": 24,
+      "sections": 24,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 12,
+      "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "title": "MFA, WebAuthn, passkeys a step-up authentication",
+      "words": 2261,
+      "headings": 19,
+      "sections": 19,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 11,
+      "score": 11,
+      "grade": "A"
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "title": "OIDC clients, redirect URIs, scopes a PKCE",
       "words": 2786,
@@ -4534,6 +4576,20 @@
       "medium": 0,
       "low": 12,
       "score": 13,
+      "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "title": "Password policies, brute-force protection a account recovery",
+      "words": 2220,
+      "headings": 21,
+      "sections": 21,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 12,
       "grade": "A"
     },
     {
@@ -62956,6 +63012,123 @@
       "score": 1
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "3. Broker selection, kc idp hint a default provider",
+      "line": 77,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "5. Brokered identity context a mappers",
+      "line": 113,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "6. Sync modes: IMPORT, FORCE, LEGACY a INHERIT",
+      "line": 130,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "8. Create User If Unique a automatic user creation",
+      "line": 171,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "9. Account linking a existing-account verification",
+      "line": 179,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "9. Account linking a existing-account verification",
+      "line": 179,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "10. AutoLink a recycled identifier risk",
+      "line": 194,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "11. Trust Email a email verified",
+      "line": 207,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "13. Post Login Flow a brokered step-up",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "14. Session notes a downstream evidence",
+      "line": 256,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "14. Session notes a downstream evidence",
+      "line": 256,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `identity`",
+      "score": 4
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "16. Connected incident KC-PAY-67 — recycled email a unsafe AutoLink",
+      "line": 282,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
+      "section": "17. Evidence-preserving containment a recovery",
+      "line": 300,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
       "section": "2. Keycloak responsibility a non-responsibility",
       "line": 30,
@@ -63007,6 +63180,195 @@
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "section": "5. User search namespace a identity attributes",
+      "line": 109,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "section": "5. User search namespace a identity attributes",
+      "line": 109,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "section": "6. Import Users ON",
+      "line": 127,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "section": "7. Import Users OFF",
+      "line": 143,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "section": "7. Import Users OFF",
+      "line": 143,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "section": "8. Edit modes: READ ONLY, WRITABLE a UNSYNCED",
+      "line": 157,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "section": "10. Password validation a password update",
+      "line": 188,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "section": "11. Full sync, changed-users sync a on-demand import",
+      "line": 196,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "section": "12. Admin REST sync a connection tests",
+      "line": 215,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
+      "section": "19. Evidence-preserving containment a recovery",
+      "line": 330,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "3. TOTP a HOTP ako shared-secret OTP",
+      "line": 73,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "4. WebAuthn registration ceremony",
+      "line": 90,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "6. WebAuthn 2FA versus passwordless credential",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "7. Passkeys, conditional UI a mediation",
+      "line": 149,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "11. Step-up a Level of Authentication",
+      "line": 208,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "12. Enrollment a removal ako privileged operations",
+      "line": 224,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "12. Enrollment a removal ako privileged operations",
+      "line": 224,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "13. Connected incident KC-PAY-67 — nesprávne namapovaný step-up",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "13. Connected incident KC-PAY-67 — nesprávne namapovaný step-up",
+      "line": 245,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "14. Authoritative recovery",
+      "line": 261,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
+      "section": "15. Positive, recovery a forbidden acceptance",
+      "line": 267,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
@@ -63112,6 +63474,96 @@
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
       "section": "18. Troubleshooting flow",
       "line": 323,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "section": "4. Hashing authority a rehash lifecycle",
+      "line": 90,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "section": "6. Brute-force state a supported mechanisms",
+      "line": 122,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "section": "8. Failure evidence a admin operations",
+      "line": 146,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "section": "9. Reset Credentials flow",
+      "line": 171,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "section": "9. Reset Credentials flow",
+      "line": 171,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "section": "13. Session a token descendants po password change",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "section": "14. LDAP a directory recovery boundary",
+      "line": 235,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "section": "15. Connected incident KC-PAY-67 — mailbox recovery bez session closure",
+      "line": 241,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "section": "16. Evidence-preserving containment a recovery",
+      "line": 256,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
+      "section": "16. Evidence-preserving containment a recovery",
+      "line": 256,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",

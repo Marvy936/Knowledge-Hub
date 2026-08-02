@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **329**
-- Audited conceptual sections: **6811**
-- Total words: **645,786**
-- Findings: **6558** (critical 654, high 865, medium 469, low 4570)
-- File grades: A 137, B 106, C 27, D 59
+- Audited authoritative articles: **333**
+- Audited conceptual sections: **6897**
+- Total words: **655,729**
+- Findings: **6602** (critical 654, high 865, medium 470, low 4613)
+- File grades: A 140, B 107, C 27, D 59
 
 ## Interpretation
 
@@ -182,6 +182,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 12 | 1877 | `docs/14-sre-and-operations/root-cause-analysis.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1821 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 2272 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
+| B | 17 | 0 | 0 | 1 | 12 | 2417 | `docs/17-keycloak-and-identity-platform/identity-brokering.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1588 | `docs/06-gitlab/artifacts-and-cache.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1711 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md` |
 | B | 16 | 0 | 0 | 0 | 12 | 2628 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
@@ -246,7 +247,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 10 | 1279 | `docs/15-databases-and-distributed-systems/leader-election-and-consensus.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1371 | `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1411 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
-| A | 13 | 0 | 0 | 0 | 13 | 2558 | `docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md` |
+| A | 13 | 0 | 0 | 0 | 13 | 2563 | `docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
@@ -258,6 +259,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 12 | 0 | 0 | 0 | 10 | 1460 | `docs/13-security-and-identity/threat-modeling.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 1707 | `docs/14-sre-and-operations/toil.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 1818 | `docs/15-databases-and-distributed-systems/connection-pooling.md` |
+| A | 12 | 0 | 0 | 0 | 10 | 3040 | `docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md` |
+| A | 12 | 0 | 0 | 0 | 10 | 2220 | `docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 980 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | A | 11 | 0 | 0 | 0 | 8 | 1243 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1716 | `docs/06-gitlab/container-and-package-registry.md` |
@@ -274,6 +277,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 11 | 0 | 0 | 0 | 9 | 1801 | `docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md` |
 | A | 11 | 0 | 0 | 0 | 11 | 1696 | `docs/16-gitops-and-platform-engineering/gitops-secrets.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1910 | `docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md` |
+| A | 11 | 0 | 0 | 0 | 11 | 2261 | `docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md` |
 | A | 10 | 0 | 0 | 0 | 8 | 978 | `docs/02-networking-and-web/http.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 1184 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | A | 10 | 0 | 0 | 0 | 6 | 1264 | `docs/03-git-and-automation/merge-conflicts.md` |
@@ -2101,10 +2105,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2121 | 2121 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1292 | 1292 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1157 | 1157 |
-| `term-before-explanation` | 0 | 54 | 320 | 0 | 374 |
+| `example-not-explicit` | 0 | 0 | 0 | 2133 | 2133 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1297 | 1297 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1183 | 1183 |
+| `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
