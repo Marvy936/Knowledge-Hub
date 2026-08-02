@@ -452,3 +452,11 @@ Second-client test zahŕňa modern browser, automation client, proxy backend, LD
 - [Keycloak — Management interface](https://www.keycloak.org/server/management-interface)
 - [Keycloak Server Administration Guide — Realm security defenses and cookies](https://www.keycloak.org/docs/latest/server_admin/)
 - [OWASP — Transport Layer Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Keycloak server configuration, hostname a reverse proxy](keycloak-server-configuration-hostname-reverse-proxy.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

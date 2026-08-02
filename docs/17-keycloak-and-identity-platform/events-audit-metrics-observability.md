@@ -293,3 +293,11 @@ Second-operation test zopakuje rovnaký login/admin journey po node restarte a o
 - [Keycloak — Management interface](https://www.keycloak.org/server/management-interface)
 - [Keycloak — Logging](https://www.keycloak.org/server/logging)
 - [Keycloak Server Developer Guide — Event Listener SPI](https://www.keycloak.org/docs/latest/server_development/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Admin Console, Admin REST API a automation](admin-console-admin-rest-api-automation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Themes, email templates a localization →](themes-email-templates-localization.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

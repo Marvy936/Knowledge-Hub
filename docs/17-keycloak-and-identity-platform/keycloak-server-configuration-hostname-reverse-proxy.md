@@ -401,3 +401,11 @@ Second-proxy test vykoná login, reset email, Admin API a backchannel token requ
 - [Keycloak — Management interface](https://www.keycloak.org/server/management-interface)
 - [Keycloak — Configuring Keycloak for production](https://www.keycloak.org/server/configuration-production)
 - [RFC 7239 — Forwarded HTTP Extension](https://www.rfc-editor.org/rfc/rfc7239.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Themes, email templates a localization](themes-email-templates-localization.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: TLS, truststores, cookies, headers a production hardening →](tls-truststores-cookies-headers-production-hardening.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

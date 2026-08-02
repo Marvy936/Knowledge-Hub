@@ -313,3 +313,11 @@ Second-locale test zopakuje tú istú operation v každom podporovanom locale. S
 - [Keycloak UI customization — Localization](https://www.keycloak.org/ui-customization/localization)
 - [Keycloak Server Administration Guide — Themes and internationalization](https://www.keycloak.org/docs/latest/server_admin/)
 - [Keycloak Server Developer Guide — Theme Resource and Locale Selector SPIs](https://www.keycloak.org/docs/latest/server_development/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Events, audit, metrics a observability](events-audit-metrics-observability.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Keycloak server configuration, hostname a reverse proxy →](keycloak-server-configuration-hostname-reverse-proxy.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

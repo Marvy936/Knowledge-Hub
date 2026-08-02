@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **337**
-- Audited conceptual sections: **6996**
-- Total words: **665,891**
-- Findings: **6655** (critical 654, high 865, medium 470, low 4666)
-- File grades: A 142, B 109, C 27, D 59
+- Audited authoritative articles: **341**
+- Audited conceptual sections: **7069**
+- Total words: **673,882**
+- Findings: **6704** (critical 654, high 867, medium 470, low 4713)
+- File grades: A 142, B 113, C 27, D 59
 
 ## Interpretation
 
@@ -124,7 +124,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 24 | 0 | 0 | 0 | 21 | 4079 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2623 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 2060 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
-| B | 24 | 0 | 0 | 0 | 23 | 2783 | `docs/17-keycloak-and-identity-platform/admin-console-admin-rest-api-automation.md` |
+| B | 24 | 0 | 0 | 0 | 23 | 2787 | `docs/17-keycloak-and-identity-platform/admin-console-admin-rest-api-automation.md` |
 | B | 23 | 0 | 0 | 0 | 17 | 1717 | `docs/06-gitlab/environments-deployments-releases.md` |
 | B | 23 | 0 | 0 | 0 | 20 | 2657 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | B | 23 | 0 | 0 | 0 | 19 | 1927 | `docs/08-container-fundamentals-and-docker/container-storage.md` |
@@ -152,6 +152,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 14 | 1452 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1894 | `docs/11-cloud-and-aws/iam.md` |
 | B | 20 | 0 | 0 | 0 | 16 | 1538 | `docs/13-security-and-identity/zero-trust.md` |
+| B | 20 | 0 | 0 | 0 | 14 | 2462 | `docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1797 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1774 | `docs/06-gitlab/runners-and-executors.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1622 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
@@ -159,6 +160,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 19 | 0 | 0 | 0 | 14 | 1732 | `docs/14-sre-and-operations/on-call-and-escalation.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1885 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | B | 19 | 0 | 0 | 0 | 15 | 1517 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
+| B | 19 | 0 | 1 | 0 | 9 | 1859 | `docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md` |
+| B | 19 | 0 | 0 | 0 | 15 | 2032 | `docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md` |
 | B | 18 | 0 | 0 | 0 | 13 | 1113 | `docs/02-networking-and-web/load-balancing.md` |
 | B | 18 | 0 | 0 | 0 | 16 | 2147 | `docs/03-git-and-automation/python-for-automation.md` |
 | B | 18 | 0 | 0 | 0 | 15 | 1951 | `docs/06-gitlab/variables-and-secrets.md` |
@@ -169,6 +172,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 15 | 1331 | `docs/13-security-and-identity/sbom.md` |
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
+| B | 18 | 0 | 1 | 0 | 9 | 1634 | `docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -2105,20 +2109,28 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md`
+
+- **HIGH** line 241, `single-sentence-concept` — **12. Acceptance matrix**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+
+### `docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md`
+
+- **HIGH** line 7, `list-first-introduction` — **1. Dominantný render-to-operation lifecycle**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2161 | 2161 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1306 | 1306 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1199 | 1199 |
+| `example-not-explicit` | 0 | 0 | 0 | 2181 | 2181 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1319 | 1319 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1213 | 1213 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
-| `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
+| `single-sentence-concept` | 0 | 346 | 0 | 0 | 346 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
 | `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 123 | 0 | 0 | 123 |
+| `list-first-introduction` | 0 | 124 | 0 | 0 | 124 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |

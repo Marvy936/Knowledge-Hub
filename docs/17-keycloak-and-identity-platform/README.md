@@ -34,15 +34,15 @@ Odporúča sa najprv dokončiť:
 14. [Authorization Services, resources, scopes, policies a permissions](authorization-services-resources-scopes-policies-permissions.md)
 15. [Token exchange, impersonation a delegated access](token-exchange-impersonation-delegated-access.md)
 16. [Admin Console, Admin REST API a automation](admin-console-admin-rest-api-automation.md)
+17. [Events, audit, metrics a observability](events-audit-metrics-observability.md)
+18. [Themes, email templates a localization](themes-email-templates-localization.md)
+19. [Keycloak server configuration, hostname a reverse proxy](keycloak-server-configuration-hostname-reverse-proxy.md)
+20. [TLS, truststores, cookies, headers a production hardening](tls-truststores-cookies-headers-production-hardening.md)
 
-Aktuálny authoritative stav sekcie je **16/30 · In progress**. Kapitoly 1–16 teraz pokrývajú identity/protocol/authentication/federation lifecycle-y aj user-storage/cache authority, fine-grained Authorization Services, supported token exchange/delegation boundaries a bezpečnú Admin Console/Admin REST automation. Sekcia zatiaľ nie je `Ready for user review`; ďalší blok začína events/observability, themes/localization, server hostname/reverse-proxy configuration a TLS/cookie/header hardening.
+Aktuálny authoritative stav sekcie je **20/30 · In progress**. Kapitoly 1–20 teraz pokrývajú identity, protocol, authentication, federation, authorization a administration lifecycle-y aj operational evidence, theme/email/localization artifacts, canonical hostname a reverse-proxy authority a inbound/outbound TLS, browser-session a HTTP hardening. Sekcia zatiaľ nie je `Ready for user review`; ďalší blok začína database/schema lifecycle-om, Infinispan clusteringom, Keycloak Operatorom a high-availability topology.
 
 ## Plánované pokračovanie
 
-17. Events, audit, metrics a observability  
-18. Themes, email templates a localization  
-19. Keycloak server configuration, hostname a reverse proxy  
-20. TLS, truststores, cookies, headers a production hardening  
 21. Database, transactions, connection pools a schema lifecycle  
 22. Infinispan caches, clustering a session behavior  
 23. Keycloak Operator a Kubernetes deployment  
@@ -134,6 +134,23 @@ stale external identity/cache/session generation
 ```
 
 Redesign pridáva authoritative external-change invalidation a bounded user cache, exact resource/scope a `UNANIMOUS` authorization graph, actor-aware target-specific exchange a operation idempotency. Administration používa scoped service account, expected realm/internal IDs, canonical plan s predecessor hashom, read-back po unknown outcome a second no-op. Recovery uzatvára provider code/config, cache, sessions/tokens, Authorization Services decisions/RPT, exchange descendants, Admin Events a business operations.
+
+### `KC-PAY-69` až `KC-PAY-72` — incomplete evidence, stale UI artifact a broken network trust
+
+Operational blok rozširuje connected settlement incident o štyri vrstvy. Jeden Pod po reštarte resetoval event counters a druhý prestal byť scrapovaný, zatiaľ čo custom event listener strácal Admin Events pri broker backpressure. Dashboard preto vyzeral zdravo, hoci audit population bola neúplná. Custom theme zároveň kopírovala predecessor passkey template, hardcodovala starý hostname do HTML emailu a mala rozdielnu expiry semantics medzi locales.
+
+Server nemal explicitnú frontend hostname authority, dôveroval broad VPC proxy range-u a verejný ingress publikoval aj `/admin/`. Spoofed forwarding headers ovplyvnili action-link origin a nesprávny forwarded port rozbil callbacks. Re-encrypt backend navyše validoval broad corporate CA bez exact hostname/SNI contractu; outbound truststore dôveroval širšej CA hierarchy než potrebovali konkrétne IdP/LDAP dependencies. Proxy kvôli theme compatibility oslabila CSP a scheme trust ovplyvnil cookie behavior.
+
+```text
+partial events/metrics population
++ stale theme/email/localization generation
++ dynamic hostname a broad proxy trust
++ broad TLS CA/header/cookie policy
+→ protocol-valid, ale neúplne pozorovaný a nesprávne ohraničený identity journey
+→ misleading incident verdict alebo session compromise path
+```
+
+Recovery uzatvára source-generated, delivered, durable a queryable evidence; immutable minimal theme s locale/action-link acceptance; explicitný hostname, admin/management route isolation a exact trusted proxy sources; a service-specific TLS/SNI/truststore, cookie a security-header policy. Closure vyžaduje second-node, second-locale, second-proxy, second-certificate a second-session testy.
 
 ## Dominantný model sekcie
 
@@ -343,3 +360,47 @@ Každá komplexná kapitola musí rozlišovať:
 - reconciliovať partial import a bulk per-item results namiesto predpokladu global transactionu;
 - korelovať Admin Events, target representation, runtime/session a business evidence;
 - overiť wrong realm, wrong UUID, forbidden adjacent operation, timeout recovery a delete/recreate identity paths.
+
+### Events, audit, metrics a observability
+
+- rozlíšiť User Events, Admin Events, server/access logs, metrics, health a traces podľa ich proof boundary;
+- definovať exact deployment/node/realm/client/session/request a evidence-generation subject;
+- sledovať source generation, listener delivery, durable storage a queryability ako samostatné states;
+- vysvetliť event-listener loss, duplicate, ordering a backpressure semantics;
+- agregovať instance-local event counters so scrape-population a restart evidence;
+- riadiť metric label cardinality a chrániť management interface na porte 9000;
+- korelovať identity journey s downstream business operation bez logovania secrets;
+- overiť missing-node, restart, listener outage, wrong-target a second-operation paths.
+
+### Themes, email templates a localization
+
+- považovať theme JAR/FreeMarker za trusted runtime artifact s digestom a parent generation;
+- preferovať minimal CSS/message override pred kopírovaním built-in templates;
+- zachovať login action URL, transaction context, WebAuthn a required-action contract;
+- generovať email action URLs z canonical hostname bez tracking alebo hardcoded redirectu;
+- vysvetliť locale precedence, realm overrides a message-bundle fallback;
+- validovať placeholder parity, UTF-8, HTML escaping a security semantics vo všetkých locales;
+- testovať accessibility, browser/passkey matrix a upstream-template upgrade diff;
+- uzavrieť stale server/browser/CDN cache cez immutable rollout a second-locale journey.
+
+### Keycloak server configuration, hostname a reverse proxy
+
+- určiť configuration-source precedence a build-time/runtime generation;
+- používať explicitný hostname ako issuer, endpoint a action-link authority;
+- oddeliť `hostname-admin` URL generation od skutočného network isolationu;
+- navrhnúť frontend, backchannel a admin route contract;
+- porovnať re-encrypt, edge a passthrough termination modes;
+- dôverovať Forwarded/X-Forwarded headers iba od exact proxy source cohortu;
+- chrániť management interface, direct listeners a public endpoint allowlist;
+- overiť spoofed-header, wrong-port, direct-service, proxy-failover a second-Pod paths.
+
+### TLS, truststores, cookies, headers a production hardening
+
+- rozlíšiť inbound server certificate/private key, outbound CA truststore a client-authentication keystore;
+- validovať complete chain, hostname/SNI, protocols, ciphers a key/certificate pairing;
+- vykonať predecessor/successor certificate a truststore rotation s wire read-backom;
+- udržať service-specific outbound trust a exact DNS/hostname validation;
+- vysvetliť Secure, HttpOnly, SameSite, Path a Domain cookie behavior cez proxy topology;
+- riadiť CSP, HSTS, frame, content-type a referrer policy bez conflicting proxy rewrites;
+- oddeliť TLS rotation od Keycloak session, token a application descendants;
+- overiť wrong-host, expired, untrusted-CA, spoofed-certificate-header, direct-backend a second-session paths.
