@@ -226,6 +226,14 @@ Overenie, že oprava funguje aj na relevantných Nodes, Pods, endpoints alebo fa
 
 Overenie, že recovery funguje nielen na pôvodnom affected subjecte, ale aj na susedných Node, zone, release, tenant alebo endpoint cohortách. Pozri [Kubernetes troubleshooting](docs/09-kubernetes/kubernetes-troubleshooting.md).
 
+## Admin Event
+
+Keycloak audit record for an administrative operation. It can identify actor, realm, resource path, operation type, time and optionally a representation, but it does not by itself prove downstream session, token or business-state convergence.
+
+## Admin permissions client
+
+Keycloak client created or used by Fine-Grained Admin Permissions to hold authorization resources, policies and permissions for delegated administration. Its authorization graph is separate from broad built-in realm-management roles.
+
 ## Administration endpoint
 
 Keycloak endpoint group pre Admin Console a Admin REST API, cez ktoré sa mení realm configuration. Potrebuje samostatnú network a authorization boundary; skrytie UI alebo odlišný hostname nenahrádza server-side admin permission.
@@ -233,6 +241,10 @@ Keycloak endpoint group pre Admin Console a Admin REST API, cez ktoré sa mení 
 ## Administrative connection reserve
 
 Connection slots, identity a route vyhradené pre incident inspection, fencing, recovery a administratívne operations pri application saturation. Pozri [Connection pooling](../docs/15-databases-and-distributed-systems/connection-pooling.md).
+
+## Administrative operation subject
+
+Complete identity of a Keycloak administrative change: actor and authentication realm, target deployment and realm, resource internal ID, predecessor representation, request body and operation identity, Admin Event, successor read-back and dependent runtime outcome.
 
 ## Admission action
 
@@ -1186,6 +1198,10 @@ Krátkodobý jednorazový OAuth grant, ktorý client vymieňa na token endpoint-
 
 Schopnosť rekonštruovať principal/session, direct a nested assignments, roles/policies, resource/context, combining semantics, decision, enforcement a výsledok jedného allow alebo deny. Pozri [IAM a RBAC](docs/13-security-and-identity/iam-rbac.md).
 
+## Authorization permission
+
+Keycloak Authorization Services object that binds resources or authorization scopes to one or more policies. A policy without a permission is reusable logic but is not applied to a protected resource request.
+
 ## Authorization request subject
 
 Exact authenticated user/groups/extras, verb, API group, resource/subresource, namespace, resourceName a request timestamp vyhodnocované authorizerom. Pozri [RBAC](../docs/09-kubernetes/rbac.md).
@@ -1193,6 +1209,14 @@ Exact authenticated user/groups/extras, verb, API group, resource/subresource, n
 ## Authorization request tuple
 
 Exact principal, action, resource a context spolu s policy generation, nad ktorými vzniká authorization decision. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
+
+## Authorization resource
+
+Object, resource type or protected URI registered in a Keycloak resource server. Its internal resource ID must remain correlated with the real application object; URI or display name alone is not durable business identity.
+
+## Authorization scope
+
+Action or bounded capability over an Authorization Services resource, such as `view`, `export` or `approve`. It is distinct from an OAuth scope string and from a Keycloak client-scope configuration object.
 
 ## Authorization server
 
@@ -2130,6 +2154,10 @@ Oddelený cache key/prefix a write policy podľa trust contextu, napríklad fork
 
 Metadata ako generation, ETag alebo version umožňujúca overiť equivalence cached representation-u s authority. Pozri [Caching](../docs/15-databases-and-distributed-systems/caching.md).
 
+## Cached user model
+
+In-memory Keycloak representation of a user copied from local or external storage. It can include provider-specific metadata through `OnUserCache`, but it is a snapshot and not an authoritative audit record.
+
 ## Calendar versioning
 
 Versioning schéma odvodená primárne z kalendárneho dátumu alebo release cadence, napríklad `2026.07.21`. Pozri [Artifact versioning](docs/05-ci-cd-and-release/artifact-versioning.md).
@@ -2728,7 +2756,7 @@ OAuth machine-to-machine grant, pri ktorom client získava token vo vlastnom ide
 
 ## Client internal UUID
 
-Keycloak interný identifier client objectu používaný v administračných API paths a relations. Nie je totožný s protocolovým `clientId`; delete/recreate môže zachovať `clientId`, ale vytvoriť nový internal object.
+Server-generated Keycloak identifier used by many Admin REST endpoints for a client. It is different from the protocol-facing `clientId` and changes when a client is deleted and recreated.
 
 ## Client — OAuth
 
@@ -4541,6 +4569,10 @@ Zachovanie väzby medzi human initiatorom, delegujúcou service a executing work
 ## Delegated-administration subject
 
 Service-specific organization capability viazaná na delegated account ID, role/trust generation, managed scope, audit a emergency revocation path. Pozri [AWS Organizations a accounts](docs/11-cloud-and-aws/aws-organizations-accounts.md).
+
+## Delegated administrator
+
+Administrator or automation principal whose allowed operations are limited to specific resources or actions through scoped realm-management roles and Fine-Grained Admin Permissions rather than broad realm-wide administration.
 
 ## Delegated administrator — AWS Organizations
 
@@ -6374,6 +6406,10 @@ Stav, keď study material, question explanation alebo service assumption vychád
 
 Zachovanie pôvodnej exception ako príčiny novej kontextovej exception cez `raise ... from ...`. Pozri [Python for automation](docs/03-git-and-automation/python-for-automation.md).
 
+## Exchange descendant
+
+Access or refresh token issued from a token-exchange request. It has its own identifier, audience, lifetime and revocation behavior; invalidating the predecessor access token does not automatically prove immediate invalidation of every access-token descendant.
+
 ## Exclusion contract — SLO
 
 Explicitné, bounded a auditovateľné pravidlá určujúce, ktoré events alebo intervals nevstupujú do SLI/SLO alebo SLA population a prečo. Pozri [SLI, SLO a SLA](docs/14-sre-and-operations/sli-slo-sla.md).
@@ -6961,6 +6997,10 @@ Kombinácia sandbox isolation, bounded permissions/quotas, budget signals, TTL, 
 ## Finding generation — vulnerability
 
 Versionovaný súbor advisory revision, scanner/plugin logic, asset inventory, scan position, credential coverage, timestamp a matching evidence, ktoré vytvorili finding. Pozri [Vulnerability a patch management](docs/13-security-and-identity/vulnerability-and-patch-management.md).
+
+## Fine-Grained Admin Permissions
+
+Keycloak authorization model for delegating administration of supported users, groups, clients, roles, organizations and related resources through explicit policies and permissions. Broad admin roles can bypass this graph and therefore must not be assigned by default.
 
 ## FinOps
 
@@ -8518,9 +8558,17 @@ Versionovaná configuration deklarácia mapujúca existujúci remote objekt cez 
 
 Statické načítanie Ansible role spracované počas parse fázy, ktoré sa líši od runtime `include_role` v condition, tag a variable semantics. Pozri [Roles a collections](docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md).
 
+## Import synchronization
+
+User Storage SPI capability for full or changed-since reconciliation of external users into Keycloak local storage. A successful synchronization count proves processing of the configured population, not correctness of filters, deletion semantics or active session descendants.
+
 ## `import-values` — Helm
 
 Dependency declaration mechanism prenášajúci vybrané exported alebo mapped child values do parent values scope-u. Pozri [Chart dependencies](docs/10-helm-and-cka/chart-dependencies.md).
+
+## Imported user validation
+
+User Storage SPI callback that validates or proxies an imported local user against its external source when the local record is loaded. A cache hit may avoid that load, so validation latency depends on cache and invalidation behavior.
 
 ## Improvement plan — Well-Architected
 
@@ -9477,6 +9525,10 @@ Lightweight object v `coordination.k8s.io` používaný napríklad na Node heart
 ## Least privilege
 
 Princíp prideľovania iba permissions potrebných na konkrétnu úlohu, v najmenšom scope-e a na najkratší potrebný čas. Pozri [Least privilege](docs/13-security-and-identity/least-privilege.md).
+
+## Legacy Token Exchange V1
+
+Deprecated preview Keycloak exchange implementation covering historical external-token and impersonation scenarios. It has different permission and parameter semantics and requires an explicit migration plan rather than silent coexistence with Standard V2.
 
 ## Lens — Well-Architected
 
@@ -11150,6 +11202,10 @@ Service určená na jednorazové úspešné dokončenie úlohy, napríklad migra
 
 Databázová schema operácia navrhnutá tak, aby minimalizovala blocking a downtime počas aktívnej prevádzky; jej skutočné správanie závisí od engine, verzie a dátového objemu. Pozri [Databázová kompatibilita počas deploymentu](docs/05-ci-cd-and-release/database-compatibility-during-deployment.md).
 
+## OnUserCache
+
+User Storage SPI callback invoked when Keycloak caches a user model. Providers can add custom values to the cached representation, but must define authoritative invalidation or a bounded cache lifetime for security-relevant data.
+
 ## OOM killer
 
 Kernel mechanizmus poslednej možnosti ukončujúci proces pri memory exhaustion. Pozri [Memory a CPU fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md).
@@ -11546,6 +11602,10 @@ Predvýpočet policy nad známymi data s vytvorením residual query pre runtime 
 
 Stav, keď controller dokončí iba časť distribuovanej operácie, napríklad vytvorí external resource, ale nestihne uložiť jeho identity do statusu, a musí sa bezpečne zotaviť pri retry. Pozri [Desired state a reconciliation loops](docs/09-kubernetes/desired-state-reconciliation-loops.md).
 
+## Partial import
+
+Keycloak Admin REST operation that imports selected realm resources according to conflict strategy. It may create, overwrite, skip or fail different items independently and must not be treated as one all-or-nothing transaction.
+
 ## Partial index
 
 Index obsahujúci iba rows spĺňajúce definovaný predicate, vhodný pre bounded active/missing cohort, ak query predicate a business semantics presne zodpovedajú jeho scope-u. Pozri [Indexy, locks a migrations](../docs/15-databases-and-distributed-systems/indexes-locks-and-migrations.md).
@@ -11741,6 +11801,10 @@ Resolved tok authority medzi pipeline jobs, runners, artifacts, secrets, registr
 ## Permission path — Kubernetes RBAC
 
 Jedna konkrétna cesta `subject/group → binding → roleRef → resolved rule → request match`, ktorá prispieva do additive allow verdictu. Pozri [RBAC](../docs/09-kubernetes/rbac.md).
+
+## Permission ticket
+
+Short-lived UMA authorization-request artifact representing a requested resource and scopes. A client exchanges the ticket at the token endpoint; the ticket itself is not a granted permission.
 
 ## Permissions boundary
 
@@ -12190,6 +12254,10 @@ Miera, do akej sú relevantné resources, actions, environments a enforcement po
 
 Supporting reference state používaný policy decisionom, napríklad approved registries, identity groups alebo resource classifications. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
 
+## Policy Decision Point
+
+Component that evaluates Keycloak Authorization Services policies and permissions for a subject, client, resource, scopes and context. Its decision becomes effective only when a Policy Enforcement Point applies it to the real request.
+
 ## Policy Decision Point — PDP
 
 Komponent vyhodnocujúci authorization request voči policies a contextu a vracajúci allow alebo deny decision. Pozri [Authentication, authorization a auditing](docs/13-security-and-identity/authentication-authorization-auditing.md).
@@ -12209,6 +12277,10 @@ Exact allow, deny alebo error výsledok PDP nad principal–action–resource–
 ## Policy distribution skew
 
 Dočasný stav, keď distributed PDP alebo PEP instances používajú rozdielne policy revisions pre asynchronous rollout alebo activation failure. Pozri [Policy as Code](docs/13-security-and-identity/policy-as-code.md).
+
+## Policy Enforcement Point
+
+Application, gateway or policy-enforcer component that maps a real request to a Keycloak resource and scopes, obtains or validates an authorization decision, fails closed when required and blocks the business handler after denial.
 
 ## Policy enforcement point — network
 
@@ -12821,6 +12893,10 @@ Versionovaná identita business value alebo credentialu, KMS key/materialu, secr
 ## Protected variable — GitLab
 
 CI/CD variable sprístupnená iba pipeline contextom na protected refs podľa GitLab trust pravidiel; stále vyžaduje bezpečný runner a pipeline kód. Pozri [Protected branches a environments](docs/06-gitlab/protected-branches-and-environments.md).
+
+## Protection API Token
+
+Access token used by a Keycloak resource server to call the Authorization Services Protection API, commonly carrying `uma_protection`. It is a privileged machine credential and must not be exposed to browser clients.
 
 ## Protection-state verdict
 
@@ -14013,6 +14089,10 @@ Build proces, pri ktorom rovnaké explicitné vstupy a toolchain vytvoria rovnak
 ## Request rate
 
 Počet requestov alebo jednotiek práce za čas na presne definovanej measurement boundary. Pozri [RED method](docs/12-observability/red-method.md).
+
+## Requesting Party Token
+
+Access token issued through UMA with an `authorization.permissions` claim describing granted resource IDs and scopes. It is a snapshot of a policy decision and still requires normal issuer, audience, expiry and resource-binding validation.
 
 ## Required configuration
 
@@ -16458,6 +16538,10 @@ Používateľský názov pre Git index ako pripravovaný snapshot ďalšieho com
 
 Riadený presun labelov ako `AWSPENDING`, `AWSCURRENT` a `AWSPREVIOUS` medzi immutable secret versions; nepreukazuje sám target ani consumer state. Pozri [KMS a Secrets Manager](docs/11-cloud-and-aws/kms-secrets-manager.md).
 
+## Stale administrative plan
+
+Previously approved desired-state diff whose target predecessor generation has changed before mutation. Safe automation refuses the plan instead of overwriting an intervening administrative change.
+
 ## Stale approval — GitLab
 
 Approval, ktorý bol udelený pre starší source SHA, target context, candidate alebo policy revision a už neposkytuje dôkaz pre aktuálny merge subject. Pozri [Merge requests a approvals](docs/06-gitlab/merge-requests-and-approvals.md).
@@ -16489,6 +16573,10 @@ Semantics, ktorou Prometheus prestane považovať starú sample za aktuálnu po 
 ## Staleness verdict — Prometheus
 
 Rozhodnutie, či series predstavuje current measurement, zmizla pre target/label/producer zmenu alebo je už stale a nesmie byť interpretovaná ako aktuálna hodnota. Pozri [Prometheus](docs/12-observability/prometheus.md).
+
+## Standard Token Exchange V2
+
+Supported Keycloak token-exchange implementation for exchanging an internal Keycloak access token for another internal token in the same realm. The requester client must have the capability enabled and be authorized for the subject token and target audience.
 
 ## Standing privilege
 
@@ -18073,6 +18161,10 @@ Realm-level Keycloak state autentizovaného usera, ku ktorému sa pripájajú cl
 ## User space
 
 Menej privilegované prostredie, v ktorom bežia aplikácie a systémové procesy. Pozri [Kernel a user space](docs/01-linux-and-systems/kernel-and-user-space.md).
+
+## User Storage SPI
+
+Keycloak extension contract for integrating external identity and credential sources through capability interfaces such as lookup, query, registration, credential validation, imported-user validation, synchronization and caching.
 
 ## UserInfo endpoint
 

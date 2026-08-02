@@ -420,5 +420,5 @@ Relevantné pojmy: Keycloak user federation, LDAP storage provider, Import Users
 
 **Navigácia**
 
-[← Predchádzajúca: Identity brokering](identity-brokering.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Identity brokering](identity-brokering.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: User storage, synchronization a cache semantics →](user-storage-synchronization-cache-semantics.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -30,15 +30,15 @@ Odporúča sa najprv dokončiť:
 10. [Password policies, brute-force protection a account recovery](password-policies-brute-force-protection-account-recovery.md)
 11. [Identity brokering](identity-brokering.md)
 12. [LDAP a Active Directory federation](ldap-active-directory-federation.md)
+13. [User storage, synchronization a cache semantics](user-storage-synchronization-cache-semantics.md)
+14. [Authorization Services, resources, scopes, policies a permissions](authorization-services-resources-scopes-policies-permissions.md)
+15. [Token exchange, impersonation a delegated access](token-exchange-impersonation-delegated-access.md)
+16. [Admin Console, Admin REST API a automation](admin-console-admin-rest-api-automation.md)
 
-Aktuálny authoritative stav sekcie je **12/30 · In progress**. Kapitoly 1–12 teraz pokrývajú Keycloak deployment a core identity model, OIDC/SAML clients, token projection, client a machine capabilities, authentication flows, MFA/passkeys/step-up, password a recovery controls, identity brokering a LDAP/Active Directory federation. Sekcia zatiaľ nie je `Ready for user review`; ďalší blok začína user-storage/cache semantics, Authorization Services, token exchange/delegated access a Admin API automation.
+Aktuálny authoritative stav sekcie je **16/30 · In progress**. Kapitoly 1–16 teraz pokrývajú identity/protocol/authentication/federation lifecycle-y aj user-storage/cache authority, fine-grained Authorization Services, supported token exchange/delegation boundaries a bezpečnú Admin Console/Admin REST automation. Sekcia zatiaľ nie je `Ready for user review`; ďalší blok začína events/observability, themes/localization, server hostname/reverse-proxy configuration a TLS/cookie/header hardening.
 
 ## Plánované pokračovanie
 
-13. User storage, synchronization a cache semantics  
-14. Authorization Services, resources, scopes, policies a permissions  
-15. Token exchange, impersonation a delegated access  
-16. Admin Console, Admin REST API a automation  
 17. Events, audit, metrics a observability  
 18. Themes, email templates a localization  
 19. Keycloak server configuration, hostname a reverse proxy  
@@ -114,6 +114,26 @@ stale alebo low-assurance upstream/directory identity state
 ```
 
 Redesign viaže passkeys na exact RP/origin, required user verification a correct ACR-to-LoA mapping; credential management a recovery vyžadujú adequate current assurance a complete session/token closure. Broker linking používa stable external issuer+subject a verified existing-account proof namiesto email AutoLinku. LDAP federation používa stable `objectGUID`, explicitný mapper ownership, full/changed sync evidence, cache invalidation, local emergency admin a fresh-login/offboarding tests. Recovery uzatvára old credential, old broker subject, stale group mapping, offline/application sessions a second-login paths.
+
+### `KC-PAY-68` — stale user-storage cache, broad authorization, exchange amplification a wrong-target automation
+
+Atlas custom User Storage SPI provider čítal workforce identity z HR databázy a entitlement revision z oddelenej policy služby. `OnUserCache` uložil `settlement.export=true` na tridsať minút, no external mover event nevyslal Keycloak invalidation. Active user session a token preto niesli predecessor entitlement aj po authoritative removal.
+
+Authorization Services permission pre export používala `AFFIRMATIVE` strategy nad broad role, same-tenant a fresh-authentication policies. Broad role sama vytvorila grant, zatiaľ čo PEP cache key neobsahoval tenant, resource ID ani policy generation. `settlement-orchestrator` následne exchange-nul frontend token na `settlement-api` token s broad default scopes a API ignorovalo actor/requester context.
+
+Configuration controller sa autentizoval broad master-realm adminom. Target realm a client resolve-nul iba podľa names, po timeout-e slepo retryol mutation a potom spustil partial import do druhého realm-u. Stage aj production skončili v odlišnej partial generation, zatiaľ čo Admin Event bez representation nevysvetlil final state.
+
+```text
+stale external identity/cache/session generation
+→ broad PDP strategy a incomplete PEP cache key
+→ overprivileged exchange successor token
+→ broad administrative actor a ambiguous target
+→ timeout, blind retry a partial import
+→ mixed client/policy/runtime generations
+→ cross-tenant alebo duplicate settlement operation
+```
+
+Redesign pridáva authoritative external-change invalidation a bounded user cache, exact resource/scope a `UNANIMOUS` authorization graph, actor-aware target-specific exchange a operation idempotency. Administration používa scoped service account, expected realm/internal IDs, canonical plan s predecessor hashom, read-back po unknown outcome a second no-op. Recovery uzatvára provider code/config, cache, sessions/tokens, Authorization Services decisions/RPT, exchange descendants, Admin Events a business operations.
 
 ## Dominantný model sekcie
 
@@ -278,3 +298,48 @@ Každá komplexná kapitola musí rozlišovať:
 - vysvetliť LDAP mappers, AD `objectGUID`, `sAMAccountName`, UPN, nested groups a account-control semantics;
 - oddeliť directory disable/password state, Keycloak cache/session a token descendants;
 - overiť first-server-down, wrong UUID, provider failure, removed group, local emergency admin a leaver paths.
+
+### User storage, synchronization a cache semantics
+
+- definovať exact provider component, deployed SPI JAR, external user, local/imported user a cache generation;
+- rozlíšiť User Storage SPI capability interfaces a neinferovať query/write capability zo successful loginu;
+- vysvetliť non-import adapter a import strategy vrátane federated supplemental state-u;
+- používať `ImportedUserValidation` a `ImportSynchronization` s explicitnou cache/timestamp/deletion boundary;
+- vysvetliť local invalidation cache, cache policies, `OnUserCache` a custom cached metadata;
+- rolloutovať provider code/config ako pinned generation naprieč všetkými nodes;
+- zachovať local emergency admin pri external-provider outage;
+- overiť duplicate user, provider failure, stale cache, mixed generation, session/token a second-login paths.
+
+### Authorization Services, resources, scopes, policies a permissions
+
+- definovať exact resource-server client, resource ID, authorization scope, permission, policy graph a request context;
+- rozlíšiť PAP, PDP, PEP a PIP a overiť application-side enforcement;
+- odlíšiť OAuth scope, Keycloak client scope a Authorization Services scope;
+- navrhnúť reusable role/group/time/context policies a resource/scope permissions;
+- vysvetliť UNANIMOUS, AFFIRMATIVE a CONSENSUS decision strategies vrátane bypass risku;
+- používať Protection API/PAT, permission tickets a RPT s explicitným custody a revocation contractom;
+- verziovať export/import authorization graph a decision/PEP cache key;
+- overiť wrong tenant, adjacent resource, missing context, stale RPT, PDP outage a second-request paths.
+
+### Token exchange, impersonation a delegated access
+
+- rozlíšiť podporovaný Standard Token Exchange V2 od deprecated Legacy V1;
+- definovať requester client, subject token, target audience, requested scope a successor-token generation;
+- vynútiť requester audience/capability a target least-privilege projection;
+- oddeliť external-to-internal JWT Authorization Grant a internal-to-external broker token retrieval;
+- rozlíšiť user subject, acting client/actor, audience a delegated permission;
+- nepoužívať legacy impersonation ako default production delegation model;
+- modelovať access/refresh exchange descendants a retry/business-operation idempotency;
+- overiť wrong requester, wrong realm/target, excess scope, stale descendant a duplicate exchange paths.
+
+### Admin Console, Admin REST API a automation
+
+- definovať exact actor/authentication realm, target realm/internal ID, resource UUID a predecessor generation;
+- rozlíšiť master admin, realm-management built-ins a Fine-Grained Admin Permissions;
+- navrhnúť scoped service-account automation bez broad `realm-admin` a s workload-bound credentialom;
+- bezpečne používať `kcadm.sh`, interné UUIDs, pagination a permission-complete inventory;
+- vytvoriť canonical desired-state plan, stale-plan refusal, mutation read-back a second no-op;
+- interpretovať endpoint-specific `201/204/409`, timeout a unknown outcome bez blind retry;
+- reconciliovať partial import a bulk per-item results namiesto predpokladu global transactionu;
+- korelovať Admin Events, target representation, runtime/session a business evidence;
+- overiť wrong realm, wrong UUID, forbidden adjacent operation, timeout recovery a delete/recreate identity paths.
