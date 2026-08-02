@@ -1,0 +1,53 @@
+name: Activate AI roadmap and user review
+
+on:
+  push:
+    branches:
+      - agent/activate-ai-roadmap-and-user-review
+    paths:
+      - scripts/activate_ai_roadmap.py
+      - .github/workflows/activate-ai-roadmap.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: activate-ai-roadmap-and-user-review
+  cancel-in-progress: true
+
+jobs:
+  activate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/activate-ai-roadmap-and-user-review
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Activate AI sections and record user approval
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/activate_ai_roadmap.py
+          python scripts/update_navigation.py --write
+          python scripts/update_glossary.py --write
+          python scripts/audit_learning_depth.py --all-docs
+          python scripts/update_navigation.py --check
+          git diff --check
+      - name: Commit activation result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md ROADMAP.md FUTURE-IDENTITY-AI-ROADMAP.md DOCUMENTATION-REVIEW-STATUS.md DOCUMENTATION-AUDIT.md documentation-audit.json GLOSSARY.md docs/18-machine-learning-fundamentals docs/19-mlops-and-ml-platforms docs/20-llm-and-genai-engineering docs/21-ai-agents-and-intelligent-automation
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "No activation changes to commit."
+            exit 0
+          fi
+          git commit -m "docs: activate AI roadmap sections 18-21"
+          git pull --rebase origin agent/activate-ai-roadmap-and-user-review
+          git push origin HEAD:agent/activate-ai-roadmap-and-user-review
