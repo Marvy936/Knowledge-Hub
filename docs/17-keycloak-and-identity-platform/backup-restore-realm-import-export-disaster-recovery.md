@@ -321,6 +321,8 @@ Retention musí spĺňať legal/privacy requirements. Dlhé backup retention mô
 
 ## 18. Restore validation ladder
 
+Restore sa neakceptuje jedným health checkom, pretože každá vyššia vrstva závisí od predchádzajúcej a zároveň pridáva vlastnú authority. Ladder začína integritou backup artifactu, pokračuje durable schema a runtime generation a končí protocolom, sessions, auditom a business outcome. Failure na ktoromkoľvek stupni zastaví route activation, aj keď nižšie technické checks zostali zelené.
+
 ```text
 artifact checksum/decryption
 → database engine restore

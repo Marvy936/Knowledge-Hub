@@ -179,6 +179,8 @@ Mutable profile attribute nesmie byť security authority bez controlled writer. 
 
 ## 9. Role, scope a permission semantics
 
+Tieto štyri pojmy môžu používať rovnaký textový názov, ale vznikajú v odlišnej authority a dokazujú odlišnú vec. OAuth scope opisuje granted client capability, role je Keycloak entitlement, Authorization Services permission je PDP decision a local permission je finálny business-resource verdict. API musí preto fixovať namespace, issuer a writer každého claimu skôr, než ho porovná s endpoint policy.
+
 ```text
 OAuth scope
 → requested/granted client capability string
@@ -251,6 +253,8 @@ browser
 BFF musí riešiť CSRF, session fixation, cookie attributes, logout a token refresh. CORS určuje, ktorý browser origin smie čítať response; nie je authentication ani authorization. Allowed origin `*` s credentials je unsafe/nevalidný model.
 
 ## 14. Error semantics
+
+HTTP status je súčasť security contractu, nie iba UX detail. `401` signalizuje, že request nemá prijateľnú credential identity; `403` znamená validnú identity bez požadovanej local permission a `404` môže zámerne skryť foreign-resource existence. Konzistentná voľba riadi client retry, reauthentication, audit aj ochranu pred enumeration.
 
 ```text
 401 Unauthorized
@@ -393,6 +397,8 @@ Token fixture:
 MCP server musí exact audience URL validate-nuť. Workaround nevytvára plnú RFC 8707 semantics: Keycloak nespracúva `resource` parameter ako authorization-server input. Dokumentácia a client interoperability test to uvádzajú.
 
 ## 23. MCP scopes a local tool policy
+
+MCP scopes definujú hrubú capability surface, nie automatické povolenie každého toolu, resource alebo promptu. Server musí po scope gate-e vykonať local decision nad callerom, tenantom, exact operation name-om, arguments/resource ownershipom a risk contextom. Tým sa z MCP servera nestane confused deputy, ktorý broad capability premení na neobmedzený downstream access.
 
 ```text
 mcp:tools

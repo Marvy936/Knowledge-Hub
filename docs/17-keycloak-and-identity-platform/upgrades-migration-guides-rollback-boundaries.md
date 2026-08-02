@@ -218,6 +218,8 @@ Canary traffic musí pokryť real journeys a extensions. Health-only canary je n
 
 ## 12. Acceptance inventory
 
+Upgrade acceptance musí reprezentovať skutočné identity paths a state descendants, nie iba server startup alebo jeden local login. Inventory pokrýva protocol families, sessions, external identity authorities, machine clients, administration, extensions a operational evidence, aby successor generation nebola zelená iba v nepoužívanej happy path. Každá journey fixuje predecessor/successor subject a positive aj forbidden outcome.
+
 Minimálne journeys:
 
 ```text
@@ -354,6 +356,8 @@ freeze risky mutations
 Live manual patch bez source/commit a second rollout vytvára undocumented generation. Emergency fix sa musí premeniť na immutable artifact a re-run-nuť.
 
 ## 21. Rollback decision point
+
+Rollback je bezpečný iba do okamihu, keď successor zmení state spôsobom, ktorý predecessor nevie čítať alebo korektne meniť. Decision point preto kombinuje technické stop conditions s časovou hranicou pred irreversible schema, provider-data alebo client behavior changes. Po jej prekročení sa incident nesmie riešiť reflexívnym image rollbackom, ale vopred zvoleným forward fixom alebo coordinated restore-om.
 
 Pred rolloutom definuj stop conditions:
 

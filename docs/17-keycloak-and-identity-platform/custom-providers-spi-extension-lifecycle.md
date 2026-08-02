@@ -185,6 +185,8 @@ Provider ID musí zodpovedať `getId()`. Používaj dvojité `--` v canonical op
 
 ## 7. Packaging a optimized build
 
+Provider artifact sa nestáva aktívnym iba skopírovaním JAR-u do filesystemu. Build musí spojiť exact Keycloak base, provider a dependency bytes, service descriptors a build-time SPI selection do jednej immutable optimized image generation. Až runtime registry a behavior test dokazujú, že nasadený server používa intended provider namiesto built-in fallbacku alebo stale predecessor registry.
+
 ```Dockerfile
 FROM quay.io/keycloak/keycloak:26.7.0 AS builder
 ENV KC_DB=postgres
@@ -234,6 +236,8 @@ bin/kc.sh start --optimized \
 Secret nesmie byť CLI literal. Použi environment/keystore/Secret file a provider configuration resolution s redaction. `Config.Scope` value validation má fail-fast pri missing/invalid settings; silent defaults pre endpoint alebo tenant sú risk.
 
 ## 10. Lifecycle methods
+
+Lifecycle určuje, ktoré resources sú process-wide, ktoré request-scoped a kedy je bezpečné ich vytvoriť alebo zatvoriť. Factory môže obsluhovať concurrent requests a nesie iba thread-safe shared state; provider instance používa konkrétny `KeycloakSession` a nesmie prežiť jeho transaction. Nasledujúce callbacks preto tvoria ownership a cleanup contract, nie iba poradie frameworkových metód.
 
 ```text
 factory init
@@ -404,6 +408,8 @@ transaction outcome correlation
 Labels nesmú obsahovať user/session/token IDs s high cardinality alebo PII. Logs nesmú obsahovať passwords, OTP, authorization codes, refresh/access tokens, client secrets alebo full admin representations.
 
 ## 21. Testing ladder
+
+Provider testovanie musí postupne zvyšovať realizmus, pretože compile ani mocked session neodhalia shared classloader, optimized registry, database transaction, cache alebo external backpressure behavior. Každý stupeň pridáva nový failure domain a uchováva exact target Keycloak/provider/dependency generation. Release môže prejsť až po node/upgrade a target-next-version rehearsal, nie po prvom úspešnom requeste.
 
 ```text
 unit tests proti public SPI contracts
