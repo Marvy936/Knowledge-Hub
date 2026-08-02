@@ -436,6 +436,8 @@ SMTP `250` nepreukazuje delivery. Redirect po action nepreukazuje mutation. Hard
 
 ## 22. Identity brokering
 
+Broker troubleshooting musí oddeliť upstream authentication, federated-link resolution a vytvorenie lokálneho Keycloak user/session state-u. Platný external token alebo SAML assertion dokazuje iba upstream identity; nedokazuje, že sa prepojil správny lokálny account, mappers aplikovali intended attributes alebo post-broker flow skončil úspešne. Evidence chain preto sleduje exact IdP configuration, upstream subject, federated link a local session generation.
+
 ```text
 external IdP alias/config generation
 upstream issuer/client/redirect/JWKS/metadata
@@ -510,6 +512,8 @@ Over global ceiling across replicas. Inspect DB CPU/IOPS/locks/commit latency/co
 
 ## 27. Schema migration
 
+Schema troubleshooting je koordinovaný binary/database problém, nie iba čítanie startup logu. Rovnaký lock alebo timeout môže znamenať zdravú dlhú migration, súbežných migration writerov, incompatible mixed-version fleet alebo už commitnutý unknown outcome. Evidence musí pred retry alebo restartom spojiť source/target versions, migration ownera, exact SQL/schema generation a rollback boundary.
+
 ```text
 exact source/target version
 schema version
@@ -524,6 +528,8 @@ backup/rollback boundary
 Restart loop during migration môže opakovane čakať na lock. Never manually edit schema bez supported plan. `Ready` after upgrade nepreukazuje missing indexes/performance or predecessor compatibility.
 
 ## 28. Infinispan a cluster
+
+Cache a cluster troubleshooting začína určením, ktorý state je database-authoritative a ktorá cache/topology generation ho má sprístupniť na každom node. Node-specific stale claim môže vzniknúť split membershipom, zlyhanou `work` invalidation, rebalancingom alebo mixed cache configuration; restart node-u môže všetky štyri mechanizmy dočasne zakryť. Pred mutation preto porovnaj cluster views, topology a successor object/session behavior naprieč všetkými Pods.
 
 ```text
 cache mode local/ispn
@@ -540,6 +546,8 @@ external Infinispan site state
 Node-specific stale client/role/mapper result naznačuje split cluster alebo invalidation failure. Restart stale node je containment/evidence, nie root-cause fix. Test second mutation across every node without restart.
 
 ## 29. Operator reconciliation
+
+Operator troubleshooting musí oddeliť desired CR generation, controllerom observed generation, managed child revision a usable Keycloak outcome. Ready Pod môže stále patriť stale CR generation, zatiaľ čo miznúci manual patch môže byť iba očakávaný reconcile vlastníka. Conditions, events, owner references a rollout, Secret aj image revisions sa preto čítajú spolu pred zmenou child workloadu.
 
 ```text
 CR generation vs status observed generation

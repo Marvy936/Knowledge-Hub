@@ -4693,16 +4693,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "title": "Keycloak troubleshooting",
-      "words": 3495,
+      "words": 3709,
       "headings": 43,
       "sections": 43,
-      "findings": 16,
+      "findings": 14,
       "critical": 0,
-      "high": 9,
+      "high": 5,
       "medium": 0,
-      "low": 7,
-      "score": 84,
-      "grade": "D"
+      "low": 9,
+      "score": 54,
+      "grade": "C"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
@@ -64903,17 +64903,8 @@
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
-      "section": "22. Identity brokering",
-      "line": 437,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "25. User Storage SPI",
-      "line": 482,
+      "line": 484,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64922,34 +64913,25 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "27. Schema migration",
-      "line": 511,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 513,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "28. Infinispan a cluster",
-      "line": 526,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
-      "section": "29. Operator reconciliation",
-      "line": 542,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 530,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "31. Custom provider failure",
-      "line": 578,
+      "line": 586,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64958,7 +64940,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "32. Themes a localization",
-      "line": 599,
+      "line": 607,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64967,7 +64949,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "35. Safe containment patterns",
-      "line": 645,
+      "line": 653,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64976,7 +64958,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "36. Dangerous troubleshooting anti-patterns",
-      "line": 659,
+      "line": 667,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64985,7 +64967,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "38. Bounded experiment design",
-      "line": 703,
+      "line": 711,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",

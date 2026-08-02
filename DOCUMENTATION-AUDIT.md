@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **351**
 - Audited conceptual sections: **7366**
-- Total words: **699,782**
-- Findings: **6839** (critical 654, high 874, medium 470, low 4841)
-- File grades: A 147, B 117, C 27, D 60
+- Total words: **699,996**
+- Findings: **6837** (critical 654, high 870, medium 470, low 4843)
+- File grades: A 147, B 117, C 28, D 59
 
 ## Interpretation
 
@@ -78,7 +78,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 87 | 3 | 0 | 4 | 26 | 2902 | `docs/00-foundations/devops.md` |
 | D | 86 | 1 | 8 | 1 | 5 | 1610 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 85 | 0 | 8 | 1 | 12 | 1689 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
-| D | 84 | 0 | 9 | 0 | 7 | 3495 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
 | D | 80 | 0 | 9 | 0 | 6 | 1554 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
 | D | 76 | 0 | 8 | 0 | 9 | 1840 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
 | D | 72 | 0 | 8 | 0 | 5 | 1475 | `docs/05-ci-cd-and-release/a-b-testing.md` |
@@ -94,6 +93,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
+| C | 54 | 0 | 5 | 0 | 9 | 3709 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
 | C | 53 | 0 | 0 | 6 | 22 | 2531 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 2059 | `docs/05-ci-cd-and-release/continuous-integration.md` |
@@ -2121,21 +2121,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 ### `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md`
 
-- **HIGH** line 437, `list-first-introduction` — **22. Identity brokering**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 511, `list-first-introduction` — **27. Schema migration**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 526, `list-first-introduction` — **28. Infinispan a cluster**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 542, `list-first-introduction` — **29. Operator reconciliation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 578, `list-first-introduction` — **31. Custom provider failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 599, `list-first-introduction` — **32. Themes a localization**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 645, `list-first-introduction` — **35. Safe containment patterns**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 659, `list-first-introduction` — **36. Dangerous troubleshooting anti-patterns**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 703, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 586, `list-first-introduction` — **31. Custom provider failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 607, `list-first-introduction` — **32. Themes a localization**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 653, `list-first-introduction` — **35. Safe containment patterns**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 667, `list-first-introduction` — **36. Dangerous troubleshooting anti-patterns**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 711, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2229 | 2229 |
+| `example-not-explicit` | 0 | 0 | 0 | 2231 | 2231 |
 | `mechanism-not-explicit` | 0 | 0 | 0 | 1379 | 1379 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1233 | 1233 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
@@ -2144,7 +2140,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
 | `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 132 | 0 | 0 | 132 |
+| `list-first-introduction` | 0 | 128 | 0 | 0 | 128 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |
