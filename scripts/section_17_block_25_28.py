@@ -34,7 +34,7 @@ BASELINE_ARTICLES = [
 
 BLOCK_ARTICLES = {
     "backup-restore-realm-import-export-disaster-recovery.md": [
-        "pitr", "realm export", "persisted sessions", "all nodes", "override", "bootstrap-admin", "kc-pay-77"
+        "pitr", "realm export", "persisted sessions", "všetky nodes", "override", "bootstrap-admin", "kc-pay-77"
     ],
     "upgrades-migration-guides-rollback-boundaries.md": [
         "migration guide", "mixed-version", "schema", "provider", "theme", "rollback axes", "kc-pay-78"
