@@ -6,6 +6,7 @@ on:
       - agent/activate-ai-roadmap-and-user-review
     paths:
       - scripts/activate_ai_roadmap.py
+      - scripts/patch_activate_ai_roadmap.py
       - .github/workflows/activate-ai-roadmap.yml
 
 permissions:
@@ -30,6 +31,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          python scripts/patch_activate_ai_roadmap.py
           python scripts/activate_ai_roadmap.py
           python scripts/update_navigation.py --write
           python scripts/update_glossary.py --write
