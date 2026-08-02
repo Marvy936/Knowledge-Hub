@@ -338,6 +338,8 @@ Server nemôže byť vyhlásený za limit, ak generator nedodáva planned arriva
 
 ## 18. Test phases
 
+Jeden dlhý load run nevie oddeliť scenario correctness, JIT/cache warm-up, steady-state capacity, overload behavior, leak risk a recovery. Fázy preto menia presne jednu vlastnosť testu a majú vlastné SLO, stop conditions a evidence window. Až ich spojenie ukáže, či systém zvláda normálny demand, prudkú zmenu aj návrat do stabilného stavu.
+
 ```text
 smoke
 → scenario correctness pri malom load-e
@@ -367,6 +369,8 @@ recovery
 Každá fáza má start/end timestamps, immutable config a expected assertions. Nemixuj tuning change uprostred runu bez novej generation identity.
 
 ## 19. Warm versus cold tests
+
+Warm a cold state reprezentujú odlišné production moments. Warm run meria stabilized JIT, pools a caches, kým cold alebo mixed rollout ukazuje startup, database reload, cache fill a temporary cohort asymmetry. Capacity plan musí prijať oba outcomes, pretože incident alebo deploy môže presunúť celý traffic na cold successor.
 
 ```text
 cold start
@@ -446,6 +450,8 @@ Metric names a labels sa pin-nú k Keycloak version. Event counters sú instance
 
 ## 24. Bottleneck signatures
 
+Bottleneck sa neurčuje podľa najvyššej jednej metriky, ale podľa spoločného patternu medzi arrival rate, latency, queues a resource saturation. Rovnaká high latency môže vzniknúť hashing CPU, database waitom, cache churnom alebo load-generator limitom. Signatures sú preto hypothesis shortcuts, ktoré sa musia potvrdiť one-axis comparative experimentom.
+
 ```text
 CPU near limit + throttling + low DB wait
 → Keycloak/hash/crypto/provider CPU bottleneck
@@ -469,6 +475,8 @@ low server utilization + generator TIME_WAIT/CPU
 Hypothesis sa potvrdí comparative testom po jednej bounded zmene.
 
 ## 25. Change-one-axis discipline
+
+Tuning je experiment s kauzálnou hypotézou. Ak sa súčasne zmení CPU, pool, cache a replicas, výsledok nedokáže priradiť improvement ani regression konkrétnemu mechanismu a nový limit zostane neznámy. One-axis rerun zachováva dataset, workload, topology a SLO, aby sa dala zmena reprodukovať alebo bezpečne vrátiť.
 
 ```text
 baseline run

@@ -4665,16 +4665,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
       "title": "Keycloak performance, sizing a load testing",
-      "words": 2747,
+      "words": 2934,
       "headings": 33,
       "sections": 33,
-      "findings": 14,
+      "findings": 13,
       "critical": 0,
-      "high": 5,
+      "high": 0,
       "medium": 0,
-      "low": 9,
-      "score": 55,
-      "grade": "C"
+      "low": 13,
+      "score": 22,
+      "grade": "B"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
@@ -4693,15 +4693,15 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "title": "Keycloak troubleshooting",
-      "words": 3304,
+      "words": 3495,
       "headings": 43,
       "sections": 43,
-      "findings": 17,
+      "findings": 16,
       "critical": 0,
-      "high": 13,
+      "high": 9,
       "medium": 0,
-      "low": 4,
-      "score": 112,
+      "low": 7,
+      "score": 84,
       "grade": "D"
     },
     {
@@ -64671,51 +64671,42 @@
       "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
       "section": "18. Test phases",
       "line": 339,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
       "section": "19. Warm versus cold tests",
-      "line": 369,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 371,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
       "section": "24. Bottleneck signatures",
-      "line": 447,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
-      "section": "24. Bottleneck signatures",
-      "line": 447,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 451,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
       "section": "25. Change-one-axis discipline",
-      "line": 471,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 477,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md",
       "section": "28. Security počas performance testu",
-      "line": 516,
+      "line": 524,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -64878,15 +64869,15 @@
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "9. 502 , 503 , 504",
       "line": 207,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "15. Redirect URI a OIDC transaction",
-      "line": 307,
+      "line": 309,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64895,34 +64886,25 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "16. invalid client a token endpoint",
-      "line": 325,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
-      "section": "19. Session, refresh a logout",
-      "line": 380,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 327,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "21. Required actions a email links",
-      "line": 415,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "line": 421,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "22. Identity brokering",
-      "line": 429,
+      "line": 437,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64931,7 +64913,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "25. User Storage SPI",
-      "line": 474,
+      "line": 482,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -64940,7 +64922,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "27. Schema migration",
-      "line": 503,
+      "line": 511,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64949,7 +64931,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "28. Infinispan a cluster",
-      "line": 518,
+      "line": 526,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64958,7 +64940,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "29. Operator reconciliation",
-      "line": 534,
+      "line": 542,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64967,7 +64949,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "31. Custom provider failure",
-      "line": 570,
+      "line": 578,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64976,7 +64958,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "32. Themes a localization",
-      "line": 591,
+      "line": 599,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64985,7 +64967,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "35. Safe containment patterns",
-      "line": 637,
+      "line": 645,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -64994,7 +64976,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "36. Dangerous troubleshooting anti-patterns",
-      "line": 651,
+      "line": 659,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
@@ -65003,7 +64985,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md",
       "section": "38. Bounded experiment design",
-      "line": 695,
+      "line": 703,
       "severity": "high",
       "rule": "list-first-introduction",
       "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",

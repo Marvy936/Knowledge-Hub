@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **351**
 - Audited conceptual sections: **7366**
-- Total words: **699,404**
-- Findings: **6841** (critical 654, high 883, medium 470, low 4834)
-- File grades: A 147, B 116, C 28, D 60
+- Total words: **699,782**
+- Findings: **6839** (critical 654, high 874, medium 470, low 4841)
+- File grades: A 147, B 117, C 27, D 60
 
 ## Interpretation
 
@@ -67,7 +67,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 117 | 2 | 5 | 7 | 22 | 2840 | `docs/00-foundations/automation-mindset.md` |
 | D | 117 | 3 | 3 | 6 | 24 | 2035 | `docs/01-linux-and-systems/package-management.md` |
 | D | 114 | 2 | 4 | 7 | 29 | 3111 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
-| D | 112 | 0 | 13 | 0 | 4 | 3304 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
 | D | 105 | 1 | 10 | 2 | 3 | 1513 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
 | D | 102 | 2 | 7 | 2 | 10 | 1736 | `docs/05-ci-cd-and-release/release-management.md` |
 | D | 101 | 2 | 2 | 7 | 28 | 2185 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
@@ -79,6 +78,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 87 | 3 | 0 | 4 | 26 | 2902 | `docs/00-foundations/devops.md` |
 | D | 86 | 1 | 8 | 1 | 5 | 1610 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 85 | 0 | 8 | 1 | 12 | 1689 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
+| D | 84 | 0 | 9 | 0 | 7 | 3495 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
 | D | 80 | 0 | 9 | 0 | 6 | 1554 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
 | D | 76 | 0 | 8 | 0 | 9 | 1840 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
 | D | 72 | 0 | 8 | 0 | 5 | 1475 | `docs/05-ci-cd-and-release/a-b-testing.md` |
@@ -93,7 +93,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 57 | 0 | 5 | 0 | 14 | 1949 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
-| C | 55 | 0 | 5 | 0 | 9 | 2747 | `docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | C | 53 | 0 | 0 | 6 | 22 | 2531 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
@@ -139,6 +138,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 23 | 0 | 0 | 0 | 16 | 1832 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 2044 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 1688 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
+| B | 22 | 0 | 0 | 0 | 13 | 2934 | `docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2736 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | B | 21 | 0 | 0 | 0 | 14 | 1821 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2662 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
@@ -2119,44 +2119,32 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md`
-
-- **HIGH** line 339, `list-first-introduction` — **18. Test phases**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 369, `list-first-introduction` — **19. Warm versus cold tests**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 447, `list-first-introduction` — **24. Bottleneck signatures**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 447, `single-sentence-concept` — **24. Bottleneck signatures**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
-- **HIGH** line 471, `list-first-introduction` — **25. Change-one-axis discipline**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-
 ### `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md`
 
-- **HIGH** line 207, `list-first-introduction` — **9. 502 , 503 , 504**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 325, `list-first-introduction` — **16. invalid client a token endpoint**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 380, `list-first-introduction` — **19. Session, refresh a logout**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 415, `list-first-introduction` — **21. Required actions a email links**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 429, `list-first-introduction` — **22. Identity brokering**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 503, `list-first-introduction` — **27. Schema migration**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 518, `list-first-introduction` — **28. Infinispan a cluster**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 534, `list-first-introduction` — **29. Operator reconciliation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 570, `list-first-introduction` — **31. Custom provider failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 591, `list-first-introduction` — **32. Themes a localization**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 637, `list-first-introduction` — **35. Safe containment patterns**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 651, `list-first-introduction` — **36. Dangerous troubleshooting anti-patterns**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
-- **HIGH** line 695, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 437, `list-first-introduction` — **22. Identity brokering**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 511, `list-first-introduction` — **27. Schema migration**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 526, `list-first-introduction` — **28. Infinispan a cluster**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 542, `list-first-introduction` — **29. Operator reconciliation**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 578, `list-first-introduction` — **31. Custom provider failure**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 599, `list-first-introduction` — **32. Themes a localization**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 645, `list-first-introduction` — **35. Safe containment patterns**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 659, `list-first-introduction` — **36. Dangerous troubleshooting anti-patterns**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 703, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2226 | 2226 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1375 | 1375 |
+| `example-not-explicit` | 0 | 0 | 0 | 2229 | 2229 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1379 | 1379 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1233 | 1233 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
-| `single-sentence-concept` | 0 | 346 | 0 | 0 | 346 |
+| `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
 | `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 140 | 0 | 0 | 140 |
+| `list-first-introduction` | 0 | 132 | 0 | 0 | 132 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |

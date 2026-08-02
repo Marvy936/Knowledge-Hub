@@ -206,6 +206,8 @@ Testuj každý proxy cohort a direct backend forbidden path. `hostname-admin` s�
 
 ## 9. `502`, `503`, `504`
 
+Tieto statusy generuje edge alebo proxy podľa rozdielnych upstream outcomes a nesmú sa zjednotiť na generic Keycloak outage. `502` typicky znamená connect/TLS/protocol failure, `503` nedostupnú alebo zámerne odmietajúcu capacity a `504` prekročený response timeout. Diagnostika preto koreluje edge error s endpoint population, Pod healthom a Keycloak request logom.
+
 ```text
 502 Bad Gateway
 → proxy nedostal validnú upstream response; connect/TLS/protocol/reset
@@ -324,6 +326,8 @@ Keycloak exact-match/allowed redirect policy je authority. URL encoding, trailin
 
 ## 16. `invalid_client` a token endpoint
 
+`invalid_client` je client-authentication alebo client-resolution verdict, nie dôkaz nesprávneho user passwordu. Token endpoint najprv musí nájsť exact realm/client generation, overiť enabled grant a potom credential method vrátane secretu, private-key JWT alebo mTLS. Troubleshooting preto oddeľuje client capability, credential generation a request endpoint skôr, než mení grant alebo secret.
+
 ```text
 wrong client ID/realm
 client authentication disabled/enabled mismatch
@@ -379,6 +383,8 @@ HTTPS certificate je iný key family než realm signing keys.
 
 ## 19. Session, refresh a logout
 
+Browser session, Keycloak user/client session, refresh alebo offline credential, access token a local application session sú samostatné descendants. Failure alebo revocation jednej vrstvy nemusí okamžite odstrániť ostatné, preto sa symptom mapuje na exact session/token generation a consumer. Nasledujúce patterns pomáhajú odlíšiť stale bearer acceptance od refresh alebo logout lifecycle problému.
+
 ```text
 access token valid, refresh fails
 → refresh/session/client state issue
@@ -413,6 +419,8 @@ required action enrollment
 WebAuthn `NotAllowedError` je generic: user cancel, timeout, origin/RP mismatch, credential absence alebo policy. Capture browser console/device data bez credential secrets. Fresh-login and remembered-session paths sa testujú zvlášť.
 
 ## 21. Required actions a email links
+
+Required-action journey spája stored pending action, signed action-token generation, hostname/theme render, SMTP delivery, browser transaction a authoritative user mutation. Zelený SMTP response alebo redirect pokrýva iba jednu časť chainu. Troubleshooting musí preto prejsť issue, delivery, validation, mutation a replay denial v rovnakom user/client context-e.
 
 ```text
 pending requiredActions on user
