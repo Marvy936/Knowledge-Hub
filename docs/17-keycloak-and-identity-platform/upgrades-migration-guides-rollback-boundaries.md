@@ -482,3 +482,11 @@ Second-rollout test reštartuje/replaces all Pods z immutable target image. Seco
 - [Keycloak — Configuring distributed caches](https://www.keycloak.org/server/caching)
 - [Keycloak — Configuring providers](https://www.keycloak.org/server/configuration-provider)
 - [Keycloak — Multi-cluster upgrades](https://www.keycloak.org/high-availability/multi-cluster-v2/upgrades)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Backup, restore, realm import/export a disaster recovery](backup-restore-realm-import-export-disaster-recovery.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Custom providers, SPI a extension lifecycle →](custom-providers-spi-extension-lifecycle.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

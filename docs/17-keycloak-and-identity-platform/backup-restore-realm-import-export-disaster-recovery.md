@@ -430,3 +430,11 @@ Second-restore test používa iný backup generation a iný operator. Second-fai
 - [Keycloak — Bootstrapping and recovering an admin account](https://www.keycloak.org/server/bootstrap-admin-recovery)
 - [Keycloak — High availability overview](https://www.keycloak.org/high-availability/introduction)
 - [Keycloak — Upgrading Guide](https://www.keycloak.org/docs/latest/upgrading/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: High availability, multi-AZ a multi-cluster trade-offs](high-availability-multi-az-multi-cluster-trade-offs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Upgrades, migration guides a rollback boundaries →](upgrades-migration-guides-rollback-boundaries.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

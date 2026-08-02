@@ -536,3 +536,11 @@ Second-node test overí cluster consistency. Second-version test rebuildne a spu
 - [Keycloak — Server Container Image](https://www.keycloak.org/server/containers)
 - [Keycloak — Upgrading Guide](https://www.keycloak.org/docs/latest/upgrading/)
 - [Keycloak — Configuring distributed caches](https://www.keycloak.org/server/caching)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Upgrades, migration guides a rollback boundaries](upgrades-migration-guides-rollback-boundaries.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Securing APIs, microservices a MCP servers cez Keycloak →](securing-apis-microservices-mcp-servers.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

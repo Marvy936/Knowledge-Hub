@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **345**
-- Audited conceptual sections: **7176**
-- Total words: **683,633**
-- Findings: **6766** (critical 654, high 865, medium 470, low 4777)
-- File grades: A 145, B 114, C 27, D 59
+- Audited authoritative articles: **349**
+- Audited conceptual sections: **7290**
+- Total words: **692,889**
+- Findings: **6808** (critical 654, high 874, medium 470, low 4810)
+- File grades: A 145, B 118, C 27, D 59
 
 ## Interpretation
 
@@ -111,12 +111,16 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
-| B | 32 | 0 | 0 | 0 | 21 | 3099 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
+| B | 33 | 0 | 1 | 0 | 15 | 2139 | `docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md` |
+| B | 33 | 0 | 3 | 0 | 7 | 2723 | `docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md` |
+| B | 32 | 0 | 3 | 0 | 5 | 2243 | `docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md` |
+| B | 32 | 0 | 0 | 0 | 21 | 3105 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 27 | 0 | 0 | 0 | 20 | 2317 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
+| B | 26 | 0 | 2 | 0 | 6 | 2145 | `docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 25 | 0 | 0 | 0 | 20 | 2559 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
@@ -2113,20 +2117,41 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 272, `single-sentence-concept` — **Release artifact uložený iba ako pipeline ZIP**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 280, `single-sentence-concept` — **Blind retry po upload timeout-e**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md`
+
+- **HIGH** line 322, `list-first-introduction` — **18. Restore validation ladder**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
+### `docs/17-keycloak-and-identity-platform/custom-providers-spi-extension-lifecycle.md`
+
+- **HIGH** line 186, `list-first-introduction` — **7. Packaging a optimized build**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 236, `list-first-introduction` — **10. Lifecycle methods**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 406, `list-first-introduction` — **21. Testing ladder**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
+### `docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md`
+
+- **HIGH** line 180, `list-first-introduction` — **9. Role, scope a permission semantics**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 253, `list-first-introduction` — **14. Error semantics**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 395, `list-first-introduction` — **23. MCP scopes a local tool policy**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
+### `docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md`
+
+- **HIGH** line 219, `single-sentence-concept` — **12. Acceptance inventory**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+- **HIGH** line 356, `single-sentence-concept` — **21. Rollback decision point**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2206 | 2206 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1345 | 1345 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1226 | 1226 |
+| `example-not-explicit` | 0 | 0 | 0 | 2217 | 2217 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1364 | 1364 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1229 | 1229 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
-| `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
+| `single-sentence-concept` | 0 | 347 | 0 | 0 | 347 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
 | `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 123 | 0 | 0 | 123 |
+| `list-first-introduction` | 0 | 130 | 0 | 0 | 130 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |

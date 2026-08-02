@@ -42,15 +42,15 @@ Odporúča sa najprv dokončiť:
 22. [Infinispan caches, clustering a session behavior](infinispan-caches-clustering-session-behavior.md)
 23. [Keycloak Operator a Kubernetes deployment](keycloak-operator-kubernetes-deployment.md)
 24. [High availability, multi-AZ a multi-cluster trade-offs](high-availability-multi-az-multi-cluster-trade-offs.md)
+25. [Backup, restore, realm import/export a disaster recovery](backup-restore-realm-import-export-disaster-recovery.md)
+26. [Upgrades, migration guides a rollback boundaries](upgrades-migration-guides-rollback-boundaries.md)
+27. [Custom providers, SPI a extension lifecycle](custom-providers-spi-extension-lifecycle.md)
+28. [Securing APIs, microservices a MCP servers cez Keycloak](securing-apis-microservices-mcp-servers.md)
 
-Aktuálny authoritative stav sekcie je **24/30 · In progress**. Kapitoly 1–24 teraz pokrývajú identity, protocol, authentication, federation, authorization, administration a edge hardening lifecycle-y aj database transaction/schema authority, Infinispan cache a persistent/volatile session semantics, Operator/Kubernetes reconciliation a supported multi-AZ/multi-cluster HA trade-offs. Sekcia zatiaľ nie je `Ready for user review`; ďalší blok začína backup/restore/import-export disaster recovery, upgrades a rollback boundaries, custom providers/SPI lifecycle a securing APIs, microservices a MCP servers.
+Aktuálny authoritative stav sekcie je **28/30 · In progress**. Kapitoly 1–28 teraz pokrývajú identity, protocol, authentication, federation, authorization, administration, edge hardening, database/cache/Operator/HA lifecycle-y aj database/PITR a realm-export recovery, version/schema/provider/theme upgrade a rollback boundaries, trusted custom SPI lifecycle a resource-server/API/microservice/MCP enforcement. Sekcia zatiaľ nie je `Ready for user review`; posledný blok tvorí performance, sizing a load testing spolu s end-to-end Keycloak troubleshootingom.
 
 ## Plánované pokračovanie
 
-25. Backup, restore, realm import/export a disaster recovery  
-26. Upgrades, migration guides a rollback boundaries  
-27. Custom providers, SPI a extension lifecycle  
-28. Securing APIs, microservices a MCP servers cez Keycloak  
 29. Keycloak performance, sizing a load testing  
 30. Keycloak troubleshooting
 
@@ -170,6 +170,23 @@ ambiguous schema/pool authority
 ```
 
 Recovery zavádza jediného migration writera a global pool budget, exact cache/session authority a cluster-view gate, GitOps ownership iba CR plus Operator ownership descendants a failure-specific fencing, capacity, RPO/RTO a failback acceptance. Closure vyžaduje second migration, second invalidation, second reconcile a second-site failure testy.
+
+### `KC-PAY-77` až `KC-PAY-80` — incomplete recovery, upgrade, extension a resource-server authority
+
+Final platform-security blok rozširuje connected settlement incident o recovery a consumer boundaries. Atlas považoval realm export za kompletný backup, importoval ho nad stale running clusterom a po point-in-time návrate database znovu prijal predecessor session/revocation state. Upgrade potom zmenil schema, provider API a passkey theme, ale rollback vrátil iba image. Custom provider bežal bez sandboxu v shared classloaderi, držal unbounded queue a publikoval custom REST endpoint bez explicitnej audience a admin permission policy.
+
+Na resource-server strane gateway validoval iba JWT signature a expiry, API dôverovalo spoofable identity headeru a role-only policy neviazala tenant/resource. MCP server akceptoval broad `mcp:tools` scope bez exact audience a tool policy a bol nesprávne označený ako plne compliant s MCP 2025-11-25, hoci Keycloak 26.7 nespracúva RFC 8707 `resource` parameter.
+
+```text
+logical export treated as full DR
++ partial binary-only rollback
++ privileged unsandboxed provider without lifecycle controls
++ signature-only API/MCP enforcement
+→ recovered alebo upgraded Keycloak vyzerá green
+→ session, extension alebo downstream authorization zostáva unsafe
+```
+
+Recovery používa database/PITR plus immutable runtime artifacts a isolated restore; explicitný migration-guide/schema/provider/theme a rollback-axis contract; signed, rebuilt, bounded a authorized SPI artifacts; a per-service issuer/token-type/audience/caller plus local tenant/resource/action enforcement. MCP novšie profiles zostávajú označené ako partial workaround, kým authorization server neposkytne native RFC 8707 semantics. Closure vyžaduje second restore, second rollout, second provider version a cross-service/cross-tenant/MCP negative tests.
 
 ## Dominantný model sekcie
 
@@ -467,3 +484,47 @@ Každá komplexná kapitola musí rozlišovať:
 - rozlíšiť active-active a active-passive traffic, fencing a authoritative-site decision;
 - merať `/lb-check`, synthetic protocol a business canary ako layered evidence;
 - overiť RPO/RTO, failover, survivor load, failback, upgrade a second-failure paths.
+
+### Backup, restore, realm import/export a disaster recovery
+
+- rozlíšiť transaction-consistent database/PITR backup, realm CLI export a Admin Console partial export;
+- evidovať export exclusions vrátane events, persisted sessions, workflow state a revoked tokens;
+- zastaviť všetky nodes pre consistent export a override import a používať isolated immutable Job image;
+- definovať exact backup timestamp, schema/image/secret/key generation, encryption a retention;
+- izolovať restore od production SMTP, callbacks, routes a external effects;
+- reconciliovať signing keys, sessions, offline tokens, revocation a downstream application sessions po point-in-time návrate;
+- používať temporary admin iba ako auditovaný bounded recovery mechanismus a následne ho odstrániť;
+- overiť checksum, decrypt, schema, protocol, business, failback a second-restore paths.
+
+### Upgrades, migration guides a rollback boundaries
+
+- inventarizovať predecessor a successor server, schema, provider, theme, feature, configuration a client-library generations;
+- reviewovať migration guide pre každú preskočenú version boundary;
+- buildnúť nový immutable optimized image namiesto in-place upgrade-u;
+- určiť jediného schema writera, bounded mixed-version window a transaction setup timeout;
+- rebuildnúť custom providers a diffnúť copied themes proti successor baseline-u;
+- testovať existing sessions, tokens, metadata, failover a full protocol/business journey matrix;
+- rozlíšiť binary, schema, provider/theme, configuration, realm data a client rollback axes;
+- zvoliť supported rollback/restore alebo immutable forward fix pred irreversible decision pointom.
+
+### Custom providers, SPI a extension lifecycle
+
+- považovať provider JAR za fully trusted server code bez sandboxu a so shared classloaderom;
+- fixovať exact SPI/provider ID, Keycloak target, source, dependency, descriptor, registry a image generation;
+- správne oddeliť ProviderFactory shared lifecycle od request/session-scoped Provider state;
+- registrovať services cez `META-INF/services` a buildnúť optimized immutable image;
+- navrhnúť transaction, rollback a external-effect delivery/idempotency semantics;
+- explicitne chrániť custom REST endpoints, JPA schema, User Storage, authenticators a token mappers;
+- riadiť dependency conflicts, threads/queues, redaction, supply chain, upgrade a uninstall;
+- overiť concurrency, backpressure, node failure, second transaction a target-next-version behavior.
+
+### Securing APIs, microservices a MCP servers cez Keycloak
+
+- validovať access-token issuer, signature, time, token type, audience a caller/`azp` v každom resource serveri;
+- odmietnuť ID/refresh tokens a dokončiť tenant/resource/action authorization lokálne;
+- rozlíšiť gateway coarse enforcement od service PEP a blokovať spoofed/direct paths;
+- navrhnúť bounded JWKS refresh, introspection, revocation freshness a sender constraints;
+- používať service-specific M2M audiences a narrowed token exchange s actor contextom;
+- mapovať MCP protected-resource metadata, PKCE, registration a exact tool/resource/prompt policy;
+- uvádzať MCP 2025-03-26 ako supported a 2025-06-18/2025-11-25 iba ako partial bez RFC 8707 Resource Indicators;
+- chrániť CIMD/DCR metadata fetch pred SSRF a overiť cross-service, cross-tenant a duplicate-tool paths.
