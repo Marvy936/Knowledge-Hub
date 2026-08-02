@@ -2,7 +2,7 @@
 
 Tento dokument zachytáva schválené rozhodnutia pre identity, ML, MLOps, LLM a agentickú automatizáciu. Keycloak and Identity Platform je dokončená ako sekcia 17 a používateľom schválená v aktuálnom rozsahu. Sekcie 18–21 sú od 2. augusta 2026 aktivované v hlavnej roadmape; tento súbor zostáva detailným planning inventorym pre ich kapitoly, laby, troubleshooting drilly a cross-section flagship projekty.
 
-Navrhované poradie:
+Aktívne poradie:
 
 ```text
 existujúca roadmapa
@@ -108,7 +108,7 @@ Navrhované drilly:
 
 ## Machine Learning Fundamentals
 
-Predbežný priečinok:
+Aktívny priečinok:
 
 ```text
 docs/18-machine-learning-fundamentals/
@@ -164,7 +164,7 @@ raw dataset
 
 ## MLOps and ML Platforms
 
-Predbežný priečinok:
+Aktívny priečinok:
 
 ```text
 docs/19-mlops-and-ml-platforms/
@@ -245,7 +245,7 @@ Navrhované drilly:
 
 ## LLM and GenAI Engineering
 
-Predbežný priečinok:
+Aktívny priečinok:
 
 ```text
 docs/20-llm-and-genai-engineering/
@@ -309,7 +309,7 @@ Flagship projekty:
 
 ## AI Agents and Intelligent Automation
 
-Predbežný priečinok:
+Aktívny priečinok:
 
 ```text
 docs/21-ai-agents-and-intelligent-automation/

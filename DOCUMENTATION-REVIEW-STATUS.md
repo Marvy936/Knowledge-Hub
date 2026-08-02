@@ -1,6 +1,6 @@
 # Documentation section review status
 
-Tento súbor je ručne udržiavaný ledger section-level reviewov. Eviduje, ktoré hlavné sekcie boli kapitolu po kapitole preverené podľa aktuálneho learning-depth a authoring štandardu a sú pripravené na používateľskú kontrolu.
+Tento súbor je ručne udržiavaný ledger section-level reviewov. Eviduje, ktoré hlavné sekcie boli kapitolu po kapitole preverené podľa aktuálneho learning-depth a authoring štandardu a aký je ich aktuálny review state.
 
 Nie je náhradou za [`DOCUMENTATION-AUDIT.md`](DOCUMENTATION-AUDIT.md). Ten je generovaný skriptom `scripts/audit_learning_depth.py`, obsahuje heuristické findings na úrovni článkov a pri ďalšom spustení sa celý prepíše. Ručný stav preto patrí do tohto samostatného súboru.
 
@@ -12,7 +12,7 @@ Nie je náhradou za [`DOCUMENTATION-AUDIT.md`](DOCUMENTATION-AUDIT.md). Ten je g
 
 ## Stav sekcií
 
-Používateľ 2. augusta 2026 schválil aktuálny dokumentačný rozsah sekcií 00–17. Stav `User reviewed` vyjadruje prijatie dokumentácie, nie automatické vykonanie labov, runtime verifikáciu ani úroveň zvládnutia v `REVIEW.md`.
+Používateľ 2. augusta 2026 schválil aktuálny dokumentačný rozsah sekcií 00–17. Stav `User reviewed` vyjadruje prijatie dokumentácie, nie automatické vykonanie labov, runtime verifikáciu ani úroveň zvládnutia v `REVIEW.md`. Stavový stĺpec je autoritatívny; výrazy `Ready for user review` alebo `nie Accepted` v historických poznámkach opisujú predošlý dokumentačný gate a po tomto schválení už neurčujú aktuálny stav sekcie.
 
 | Sekcia | Dokončené kapitoly | Stav | Posledný manuálny pass | Poznámka |
 |---|---:|---|---|---|

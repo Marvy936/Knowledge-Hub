@@ -404,6 +404,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Keycloak performance, sizing a load testing](docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md)
 - [x] [Keycloak troubleshooting](docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md)
 
+
 <!-- ACTIVE-AI-ROADMAP:START -->
 
 ## Fáza 7 — Machine Learning a MLOps
