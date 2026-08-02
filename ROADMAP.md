@@ -389,10 +389,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Authorization Services, resources, scopes, policies a permissions](docs/17-keycloak-and-identity-platform/authorization-services-resources-scopes-policies-permissions.md)
 - [x] [Token exchange, impersonation a delegated access](docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md)
 - [x] [Admin Console, Admin REST API a automation](docs/17-keycloak-and-identity-platform/admin-console-admin-rest-api-automation.md)
-- [ ] Events, audit, metrics a observability
-- [ ] Themes, email templates a localization
-- [ ] Keycloak server configuration, hostname a reverse proxy
-- [ ] TLS, truststores, cookies, headers a production hardening
+- [x] [Events, audit, metrics a observability](docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md)
+- [x] [Themes, email templates a localization](docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md)
+- [x] [Keycloak server configuration, hostname a reverse proxy](docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md)
+- [x] [TLS, truststores, cookies, headers a production hardening](docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md)
 - [ ] Database, transactions, connection pools a schema lifecycle
 - [ ] Infinispan caches, clustering a session behavior
 - [ ] Keycloak Operator a Kubernetes deployment

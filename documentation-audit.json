@@ -4497,7 +4497,7 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/admin-console-admin-rest-api-automation.md",
       "title": "Admin Console, Admin REST API a automation",
-      "words": 2783,
+      "words": 2787,
       "headings": 27,
       "sections": 27,
       "findings": 23,
@@ -4537,6 +4537,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "title": "Events, audit, metrics a observability",
+      "words": 1914,
+      "headings": 14,
+      "sections": 14,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 11,
+      "score": 13,
+      "grade": "A"
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
       "title": "Identity brokering",
       "words": 2417,
@@ -4563,6 +4577,20 @@
       "low": 6,
       "score": 6,
       "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "title": "Keycloak server configuration, hostname a reverse proxy",
+      "words": 2032,
+      "headings": 20,
+      "sections": 20,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 19,
+      "grade": "B"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
@@ -4675,6 +4703,34 @@
       "low": 8,
       "score": 8,
       "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "title": "Themes, email templates a localization",
+      "words": 1690,
+      "headings": 17,
+      "sections": 17,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 11,
+      "grade": "A"
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "title": "TLS, truststores, cookies, headers a production hardening",
+      "words": 2462,
+      "headings": 22,
+      "sections": 22,
+      "findings": 14,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 14,
+      "score": 20,
+      "grade": "B"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md",
@@ -63365,6 +63421,105 @@
       "score": 1
     },
     {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "1. Dominantný evidence lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "2. Exact observability subject",
+      "line": 24,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "4. Admin Events",
+      "line": 93,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "4. Admin Events",
+      "line": 93,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "5. Event listeners a delivery semantics",
+      "line": 120,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "6. Server logs a HTTP access logs",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "7. Metrics a cardinality",
+      "line": 156,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "8. Health a management interface",
+      "line": 175,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "11. Evidence-preserving recovery",
+      "line": 235,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "12. Acceptance matrix",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md",
+      "section": "12. Acceptance matrix",
+      "line": 241,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
       "section": "3. Broker selection, kc idp hint a default provider",
       "line": 77,
@@ -63530,6 +63685,141 @@
       "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
       "section": "10. High availability nie je iba viac replík",
       "line": 176,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "1. Dominantný configuration-to-endpoint lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "4. Build-time a runtime options",
+      "line": 98,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "5. Hostname v2 ako protocol authority",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "5. Hostname v2 ako protocol authority",
+      "line": 117,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "5. Hostname v2 ako protocol authority",
+      "line": 117,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "6. Admin hostname a network isolation",
+      "line": 138,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "6. Admin hostname a network isolation",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "7. Backchannel hostname",
+      "line": 160,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "7. Backchannel hostname",
+      "line": 160,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "10. Trusted proxy addresses",
+      "line": 221,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "12. Public endpoint allowlist",
+      "line": 249,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "13. PROXY protocol",
+      "line": 271,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "15. Hostname debug a read-back",
+      "line": 300,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "17. Evidence-preserving recovery",
+      "line": 343,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md",
+      "section": "17. Evidence-preserving recovery",
+      "line": 343,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -64340,6 +64630,222 @@
       "path": "docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md",
       "section": "12. Connected incident KC-PAY-66 — machine path",
       "line": 243,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "section": "1. Dominantný render-to-operation lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "section": "5. Deployment a trust boundary",
+      "line": 112,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "section": "5. Deployment a trust boundary",
+      "line": 112,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "section": "6. Theme cache a development mode",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "section": "7. Login templates a protocol correctness",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "section": "7. Login templates a protocol correctness",
+      "line": 144,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "section": "8. Email theme a action-token URL",
+      "line": 160,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "section": "9. Localization precedence",
+      "line": 190,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "section": "10. Message bundles a format stability",
+      "line": 208,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md",
+      "section": "10. Message bundles a format stability",
+      "line": 208,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "1. Dominantný trust-to-session lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "4. TLS protocols, ciphers a client compatibility",
+      "line": 102,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "4. TLS protocols, ciphers a client compatibility",
+      "line": 102,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "5. Certificate hostname a chain validation",
+      "line": 126,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "5. Certificate hostname a chain validation",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "8. Outbound truststore",
+      "line": 181,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "9. Outbound HTTP client a subsystem overrides",
+      "line": 202,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "11. Client certificate a X.509 authentication",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "12. Keycloak session cookies",
+      "line": 247,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "13. Proxy scheme a Secure cookies",
+      "line": 277,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "14. Security headers",
+      "line": 290,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "16. Secrets, private keys a filesystem hardening",
+      "line": 333,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "16. Secrets, private keys a filesystem hardening",
+      "line": 333,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md",
+      "section": "19. Evidence-preserving containment a recovery",
+      "line": 388,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

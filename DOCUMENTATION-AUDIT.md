@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **337**
-- Audited conceptual sections: **6996**
-- Total words: **665,891**
-- Findings: **6655** (critical 654, high 865, medium 470, low 4666)
-- File grades: A 142, B 109, C 27, D 59
+- Audited authoritative articles: **341**
+- Audited conceptual sections: **7069**
+- Total words: **673,993**
+- Findings: **6705** (critical 654, high 865, medium 470, low 4716)
+- File grades: A 144, B 111, C 27, D 59
 
 ## Interpretation
 
@@ -124,7 +124,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 24 | 0 | 0 | 0 | 21 | 4079 | `docs/08-container-fundamentals-and-docker/docker-practical-walkthrough.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2623 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 2060 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
-| B | 24 | 0 | 0 | 0 | 23 | 2783 | `docs/17-keycloak-and-identity-platform/admin-console-admin-rest-api-automation.md` |
+| B | 24 | 0 | 0 | 0 | 23 | 2787 | `docs/17-keycloak-and-identity-platform/admin-console-admin-rest-api-automation.md` |
 | B | 23 | 0 | 0 | 0 | 17 | 1717 | `docs/06-gitlab/environments-deployments-releases.md` |
 | B | 23 | 0 | 0 | 0 | 20 | 2657 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | B | 23 | 0 | 0 | 0 | 19 | 1927 | `docs/08-container-fundamentals-and-docker/container-storage.md` |
@@ -152,6 +152,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 14 | 1452 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1894 | `docs/11-cloud-and-aws/iam.md` |
 | B | 20 | 0 | 0 | 0 | 16 | 1538 | `docs/13-security-and-identity/zero-trust.md` |
+| B | 20 | 0 | 0 | 0 | 14 | 2462 | `docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1797 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1774 | `docs/06-gitlab/runners-and-executors.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1622 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
@@ -159,6 +160,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 19 | 0 | 0 | 0 | 14 | 1732 | `docs/14-sre-and-operations/on-call-and-escalation.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1885 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | B | 19 | 0 | 0 | 0 | 15 | 1517 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
+| B | 19 | 0 | 0 | 0 | 15 | 2032 | `docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md` |
 | B | 18 | 0 | 0 | 0 | 13 | 1113 | `docs/02-networking-and-web/load-balancing.md` |
 | B | 18 | 0 | 0 | 0 | 16 | 2147 | `docs/03-git-and-automation/python-for-automation.md` |
 | B | 18 | 0 | 0 | 0 | 15 | 1951 | `docs/06-gitlab/variables-and-secrets.md` |
@@ -250,6 +252,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 11 | 1371 | `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1411 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 2563 | `docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md` |
+| A | 13 | 0 | 0 | 0 | 11 | 1914 | `docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
@@ -281,6 +284,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 11 | 0 | 0 | 0 | 11 | 1696 | `docs/16-gitops-and-platform-engineering/gitops-secrets.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1910 | `docs/16-gitops-and-platform-engineering/gitops-troubleshooting.md` |
 | A | 11 | 0 | 0 | 0 | 11 | 2261 | `docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md` |
+| A | 11 | 0 | 0 | 0 | 10 | 1690 | `docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md` |
 | A | 10 | 0 | 0 | 0 | 8 | 978 | `docs/02-networking-and-web/http.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 1184 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | A | 10 | 0 | 0 | 0 | 6 | 1264 | `docs/03-git-and-automation/merge-conflicts.md` |
@@ -2109,9 +2113,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2161 | 2161 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1306 | 1306 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1199 | 1199 |
+| `example-not-explicit` | 0 | 0 | 0 | 2182 | 2182 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1319 | 1319 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1215 | 1215 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |

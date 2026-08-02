@@ -503,5 +503,5 @@ Relevantné pojmy: Keycloak administrative operation subject, authentication rea
 
 **Navigácia**
 
-[← Predchádzajúca: Token exchange, impersonation a delegated access](token-exchange-impersonation-delegated-access.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Token exchange, impersonation a delegated access](token-exchange-impersonation-delegated-access.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Events, audit, metrics a observability →](events-audit-metrics-observability.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
