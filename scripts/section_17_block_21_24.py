@@ -36,7 +36,7 @@ BLOCK_ARTICLES = {
         "persistent sessions", "volatile sessions", "jdbc-ping", "topology", "invalidation", "stateless", "kc-pay-74"
     ],
     "keycloak-operator-kubernetes-deployment.md": [
-        "keycloak custom resource", "additionaloptions", "spec.env", "observed generation", "managed", "operator", "kc-pay-75"
+        "custom resource", "additionaloptions", "spec.env", "observed generation", "managed", "operator", "kc-pay-75"
     ],
     "high-availability-multi-az-multi-cluster-trade-offs.md": [
         "multi-cluster v1", "multi-cluster v2", "preview", "/lb-check", "fencing", "rpo", "rto", "kc-pay-76"
