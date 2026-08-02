@@ -1,5 +1,6 @@
 from pathlib import Path
 
+# Branch-only compatibility patch used before the activation script runs.
 path = Path(__file__).with_name("activate_ai_roadmap.py")
 text = path.read_text(encoding="utf-8")
 old = '("MLOps and ML Platforms", None),'
