@@ -261,6 +261,8 @@ Containment môže disable-nuť usera, blocknúť high-risk API operations, revo
 
 ## 17. Positive, recovery a forbidden acceptance
 
+Password a recovery acceptance nie je jeden successful login. Positive path overuje policy a authoritative credential write, recovery path pridáva identity re-verification a descendant revocation a forbidden paths dokazujú, že enumeration, stale links, weak candidates, guessing a predecessor sessions nemôžu obísť successor contract.
+
 Positive path:
 
 ```text

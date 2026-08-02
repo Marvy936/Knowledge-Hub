@@ -305,6 +305,8 @@ Containment disable-ne provider alebo affected client path, blokne high-risk ope
 
 ## 18. Positive, recovery a forbidden acceptance
 
+Broker acceptance musí preukázať správny external issuer+subject, bezpečný local link a intended downstream session ako jeden chain. Recovery navyše uzatvára wrong link, stored upstream token a local descendants, zatiaľ čo forbidden paths dokazujú, že email collision, wrong issuer, low assurance alebo explicitný provider hint nevytvoria privilegovanú local identity.
+
 Positive path:
 
 ```text

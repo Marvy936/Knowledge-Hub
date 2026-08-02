@@ -266,6 +266,8 @@ Incident closure zahŕňa inventory všetkých credential IDs, removal attacker 
 
 ## 15. Positive, recovery a forbidden acceptance
 
+Acceptance musí oddelene overiť bežnú autentizáciu, obnovu po strate alebo compromise credentialu a downgrade paths, ktoré nikdy nesmú vytvoriť požadovanú assurance. Positive verdict dokazuje intended credential, flow a downstream operation; recovery verdict navyše dokazuje predecessor credential a session closure; forbidden verdict falsifikuje slabšie origin, RP, user-verification, recovery-code a adjacent-client alternatívy.
+
 Positive path:
 
 ```text

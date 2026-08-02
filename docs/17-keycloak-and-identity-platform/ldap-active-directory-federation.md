@@ -335,6 +335,8 @@ Containment disable-ne high-risk client/operations, revoke-ne sessions a podľa 
 
 ## 20. Positive, recovery a forbidden acceptance
 
+Directory acceptance musí odlíšiť správny LDAP entry/provider/UUID mapping od cached, imported a session snapshots. Positive path overuje intended login a role projection, recovery path dokazuje sync/cache/session convergence a forbidden paths testujú disabled users, removed groups, wrong replicas, provider failures a unsupported writes bez identity substitution.
+
 Positive path:
 
 ```text

@@ -4511,15 +4511,15 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
       "title": "Identity brokering",
-      "words": 2369,
+      "words": 2417,
       "headings": 22,
       "sections": 22,
-      "findings": 14,
+      "findings": 13,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 1,
       "low": 12,
-      "score": 25,
+      "score": 17,
       "grade": "B"
     },
     {
@@ -4539,30 +4539,30 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
       "title": "LDAP a Active Directory federation",
-      "words": 2995,
+      "words": 3040,
       "headings": 24,
       "sections": 24,
-      "findings": 11,
+      "findings": 10,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
       "low": 10,
-      "score": 20,
-      "grade": "B"
+      "score": 12,
+      "grade": "A"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
       "title": "MFA, WebAuthn, passkeys a step-up authentication",
-      "words": 2211,
+      "words": 2261,
       "headings": 19,
       "sections": 19,
       "findings": 11,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 10,
-      "score": 18,
-      "grade": "B"
+      "low": 11,
+      "score": 11,
+      "grade": "A"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
@@ -4581,16 +4581,16 @@
     {
       "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
       "title": "Password policies, brute-force protection a account recovery",
-      "words": 2177,
+      "words": 2220,
       "headings": 21,
       "sections": 21,
-      "findings": 11,
+      "findings": 10,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
       "low": 10,
-      "score": 20,
-      "grade": "B"
+      "score": 12,
+      "grade": "A"
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
@@ -63129,15 +63129,6 @@
       "score": 1
     },
     {
-      "path": "docs/17-keycloak-and-identity-platform/identity-brokering.md",
-      "section": "18. Positive, recovery a forbidden acceptance",
-      "line": 306,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
       "path": "docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md",
       "section": "2. Keycloak responsibility a non-responsibility",
       "line": 30,
@@ -63282,15 +63273,6 @@
       "score": 1
     },
     {
-      "path": "docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md",
-      "section": "20. Positive, recovery a forbidden acceptance",
-      "line": 336,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
-    },
-    {
       "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
       "section": "3. TOTP a HOTP ako shared-secret OTP",
       "line": 73,
@@ -63384,10 +63366,10 @@
       "path": "docs/17-keycloak-and-identity-platform/mfa-webauthn-passkeys-step-up-authentication.md",
       "section": "15. Positive, recovery a forbidden acceptance",
       "line": 267,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md",
@@ -63586,15 +63568,6 @@
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
-    },
-    {
-      "path": "docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md",
-      "section": "17. Positive, recovery a forbidden acceptance",
-      "line": 262,
-      "severity": "high",
-      "rule": "single-sentence-concept",
-      "detail": "Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.",
-      "score": 8
     },
     {
       "path": "docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md",
