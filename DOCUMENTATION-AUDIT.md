@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **341**
-- Audited conceptual sections: **7069**
-- Total words: **673,993**
-- Findings: **6705** (critical 654, high 865, medium 470, low 4716)
-- File grades: A 144, B 111, C 27, D 59
+- Audited authoritative articles: **345**
+- Audited conceptual sections: **7176**
+- Total words: **683,633**
+- Findings: **6766** (critical 654, high 865, medium 470, low 4777)
+- File grades: A 145, B 114, C 27, D 59
 
 ## Interpretation
 
@@ -111,10 +111,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
+| B | 32 | 0 | 0 | 0 | 21 | 3099 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
+| B | 27 | 0 | 0 | 0 | 20 | 2317 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 25 | 0 | 0 | 0 | 20 | 2559 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
@@ -152,7 +154,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 14 | 1452 | `docs/11-cloud-and-aws/cloudwatch-cloudtrail.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1894 | `docs/11-cloud-and-aws/iam.md` |
 | B | 20 | 0 | 0 | 0 | 16 | 1538 | `docs/13-security-and-identity/zero-trust.md` |
-| B | 20 | 0 | 0 | 0 | 14 | 2462 | `docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md` |
+| B | 20 | 0 | 0 | 0 | 14 | 2468 | `docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1797 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1774 | `docs/06-gitlab/runners-and-executors.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1622 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
@@ -220,6 +222,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 11 | 1567 | `docs/14-sre-and-operations/error-budgets.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 2309 | `docs/15-databases-and-distributed-systems/relational-vs-non-relational-databases.md` |
 | B | 15 | 0 | 0 | 0 | 13 | 1477 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
+| B | 15 | 0 | 0 | 0 | 11 | 2220 | `docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md` |
 | A | 14 | 0 | 0 | 1 | 8 | 2356 | `docs/03-git-and-automation/bash-automation.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 2498 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1538 | `docs/08-container-fundamentals-and-docker/registries.md` |
@@ -252,6 +255,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 11 | 1371 | `docs/15-databases-and-distributed-systems/service-discovery-and-api-gateway.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1411 | `docs/15-databases-and-distributed-systems/synchronous-vs-asynchronous-communication.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 2563 | `docs/17-keycloak-and-identity-platform/authentication-flows-executions-and-required-actions.md` |
+| A | 13 | 0 | 0 | 0 | 9 | 1998 | `docs/17-keycloak-and-identity-platform/database-transactions-connection-pools-schema-lifecycle.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1914 | `docs/17-keycloak-and-identity-platform/events-audit-metrics-observability.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
@@ -2113,9 +2117,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2182 | 2182 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1319 | 1319 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1215 | 1215 |
+| `example-not-explicit` | 0 | 0 | 0 | 2206 | 2206 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1345 | 1345 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1226 | 1226 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
