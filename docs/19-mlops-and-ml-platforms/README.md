@@ -38,15 +38,15 @@ Odporúčané predchádzajúce oblasti:
 22. [Feedback loops a ground-truth delay](feedback-loops-ground-truth-delay.md)
 23. [Model rollback a recovery](model-rollback-recovery.md)
 24. [Governance, approvals a audit](governance-approvals-audit.md)
+25. [Privacy, security a adversarial ML](privacy-security-adversarial-ml.md)
+26. [ML supply-chain security](ml-supply-chain-security.md)
+27. [MLflow experiment tracking a Model Registry](mlflow-experiment-tracking-model-registry.md)
+28. [MLflow evaluation, tracing a deployment](mlflow-evaluation-tracing-deployment.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-25. Privacy, security a adversarial ML
-26. ML supply-chain security
-27. MLflow experiment tracking a Model Registry
-28. MLflow evaluation, tracing a deployment
 29. Kubeflow Pipelines
 30. Kubeflow Trainer a distributed training
 31. KServe alebo ekvivalentný Kubernetes model serving
@@ -83,4 +83,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **24/34 · In progress**. Šiesty blok uzatvára performance-to-governance control chain. Performance kapitola oddeľuje raw throughput od useful deadline-successful work a viaže latency, saturation a OpenCost allocation na správny result-class a business denominator; feedback kapitola modeluje prediction-action-environment-label slučku, ground-truth maturity, right censoring, selective labels a human-review bias; rollback kapitola vracia celý known-good composite release a overuje configured, resolved, loaded, exercised a mature business recovery vrátane reconciliation side effects; governance kapitola viaže intended use, risk classification, evidence, approvals, waivery, human oversight, runtime conformity a retirement do auditovateľného decision lifecycle. Incident `MLOPS-PAY-95` spája lacnejší fallback skrytý v HTTP success, action-conditioned labels, alias-only rollback s mixed runtime a emergency override bez expiry alebo úplného approval subjectu. Ďalší authoritative blok sú kapitoly 25–28: privacy/security/adversarial ML, ML supply-chain security, MLflow experiment tracking a Model Registry a MLflow evaluation/tracing/deployment. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
+Aktuálny authoritative stav sekcie je **28/34 · In progress**. Siedmy blok uzatvára security-to-MLflow implementation chain. Privacy/security kapitola viaže threat actor, lifecycle capability, data minimization, membership/inversion/extraction risk, evasion, poisoning/backdoor, serialization, endpoint abuse, privacy-safe telemetry a red-team/recovery evidence; supply-chain kapitola vytvára trust graph od source a datasetu cez locked dependencies, trusted builder, SLSA provenance, SBOM/model/data manifests a Sigstore attestations až po admission a runtime loaded fingerprint; MLflow tracking/Registry kapitola implementuje database/artifact-store architecture, secure pinned environment, dataset inputs, runs, Logged Models, version/tag/alias read-back, environment separation, smoke serving a restore; evaluation/tracing/deployment kapitola oddeľuje classic ML evaluation a `MetricThreshold` validation od GenAI `Scorer`/trace evaluation a od production target authority. Incident `MLOPS-PAY-96` spája adaptívne endpoint probing, untrusted feedback, mutable build inputs, neúplnú image/model provenance, alias-driven mixed runtime a zlúčenie nekompatibilných MLflow quality surfaces do jedného `quality_passed` verdictu. Ďalší authoritative blok sú kapitoly 29–32: Kubeflow Pipelines, Kubeflow Trainer, KServe a Amazon SageMaker cloud mapping. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.

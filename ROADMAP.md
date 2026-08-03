@@ -464,10 +464,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Feedback loops a ground-truth delay](docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md)
 - [x] [Model rollback a recovery](docs/19-mlops-and-ml-platforms/model-rollback-recovery.md)
 - [x] [Governance, approvals a audit](docs/19-mlops-and-ml-platforms/governance-approvals-audit.md)
-- [ ] Privacy, security a adversarial ML
-- [ ] ML supply-chain security
-- [ ] MLflow experiment tracking a Model Registry
-- [ ] MLflow evaluation, tracing a deployment
+- [x] [Privacy, security a adversarial ML](docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md)
+- [x] [ML supply-chain security](docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md)
+- [x] [MLflow experiment tracking a Model Registry](docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md)
+- [x] [MLflow evaluation, tracing a deployment](docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md)
 - [ ] Kubeflow Pipelines
 - [ ] Kubeflow Trainer a distributed training
 - [ ] KServe alebo ekvivalentný Kubernetes model serving
