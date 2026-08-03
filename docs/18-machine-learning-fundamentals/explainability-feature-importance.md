@@ -55,7 +55,9 @@ Model output musí byť explicitný. Explanation raw logit, calibrated probabili
 
 ## 3. Explanation question a audience
 
-Najprv sa určí, čo má explanation zodpovedať:
+Explanation method sa vyberá až po definovaní rozhodnutia, ktoré má artifact podporiť. Debugger potrebuje fidelity voči model function a prístup k transformed features; reviewer potrebuje actionable evidence a hranice confidence; affected user môže potrebovať policy-approved reason, ktorý vysvetľuje final action, nie interný gradient. Rovnaký chart preto nemožno bez transformácie a validation použiť pre všetky audiences.
+
+Question určuje aj správny output a reference population. Pri performance debugging-u môže byť relevantný raw score a failure cohort, pri threshold incidente calibrated probability a pri notice final rule/queue decision. Audience určuje allowed complexity, terminology, privacy a security exposure. Po tejto definícii sa rozlišujú najmä tieto ciele:
 
 - model debugging — ktoré inputs a interactions riadia chyby alebo unexpected behavior;
 - global model understanding — ako sa fitted function správa na relevantnej population;
@@ -329,7 +331,9 @@ Root cause bol explanation-subject failure: method, metric, background, output s
 
 ## 21. Competing failure hypotheses
 
-Explainability incident sa diagnostikuje cez exact artifact a question. Najprv sa určí, či problém je v model reliance, explainer assumptions, reference data, transformation mapping alebo interpretation/presentation.
+Explainability incident sa diagnostikuje cez exact artifact a question. Najprv sa určí, či problém je v model reliance, explainer assumptions, reference data, transformation mapping alebo interpretation/presentation. Reproduction začína rovnakým inputom a model digestom: ak prediction sedí a attribution nie, problém je pravdepodobne v explainer/background generation; ak nesedí už prediction, explanation je iba downstream symptom.
+
+Každá hypotéza musí meniť inú kontrolnú veličinu. Wrong-output explanation sa odhalí porovnaním raw score, calibrated probability a final action. Background mismatch zmení baseline a contributions bez zmeny modelu. Correlated-substitute masking reaguje na grouped permutation alebo ablation, kým off-manifold perturbation sa prejaví invalidnými synthetic combinations. Policy-layer omission zachová model attribution, ale nezodpovedá rule alebo queue reasonu. Pred opravou reportu sa preto rozlišujú tieto mechanisms:
 
 - wrong output explained — attribution sa počíta pre raw score, ale prezentuje ako calibrated probability alebo final action;
 - reference/background mismatch — baseline population nereprezentuje intended cohort a posúva local contributions;

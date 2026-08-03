@@ -6,9 +6,9 @@
 
 - Audited authoritative articles: **375**
 - Audited conceptual sections: **7966**
-- Total words: **766,549**
-- Findings: **7575** (critical 655, high 872, medium 475, low 5573)
-- File grades: A 148, B 124, C 42, D 61
+- Total words: **767,207**
+- Findings: **7557** (critical 654, high 866, medium 470, low 5567)
+- File grades: A 148, B 126, C 41, D 60
 
 ## Interpretation
 
@@ -76,7 +76,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 96 | 2 | 6 | 2 | 12 | 1951 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
 | D | 95 | 1 | 10 | 0 | 4 | 1505 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 93 | 3 | 2 | 3 | 22 | 2801 | `docs/00-foundations/sdlc.md` |
-| D | 91 | 1 | 3 | 3 | 33 | 3104 | `docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md` |
 | D | 87 | 3 | 0 | 4 | 26 | 2902 | `docs/00-foundations/devops.md` |
 | D | 86 | 1 | 8 | 1 | 5 | 1610 | `docs/05-ci-cd-and-release/canary-deployment.md` |
 | D | 85 | 0 | 8 | 1 | 12 | 1689 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
@@ -97,7 +96,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | C | 53 | 0 | 0 | 6 | 22 | 2531 | `docs/00-foundations/desired-state-and-reconciliation.md` |
-| C | 52 | 0 | 2 | 1 | 25 | 3016 | `docs/18-machine-learning-fundamentals/explainability-feature-importance.md` |
 | C | 52 | 0 | 0 | 0 | 34 | 2114 | `docs/18-machine-learning-fundamentals/regularization-early-stopping.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 2059 | `docs/05-ci-cd-and-release/continuous-integration.md` |
@@ -108,7 +106,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | C | 46 | 0 | 0 | 0 | 35 | 3174 | `docs/18-machine-learning-fundamentals/calibration-uncertainty.md` |
 | C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
-| C | 44 | 0 | 1 | 1 | 24 | 2849 | `docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
@@ -122,6 +119,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
 | C | 37 | 0 | 0 | 0 | 30 | 3025 | `docs/18-machine-learning-fundamentals/classification-metrics.md` |
+| C | 37 | 0 | 0 | 0 | 29 | 3480 | `docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2673 | `docs/18-machine-learning-fundamentals/regression-classification-ranking-clustering.md` |
 | C | 37 | 0 | 0 | 0 | 28 | 2914 | `docs/18-machine-learning-fundamentals/regression-metrics.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
@@ -132,6 +130,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 33 | 0 | 0 | 0 | 25 | 2463 | `docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md` |
 | B | 32 | 0 | 0 | 0 | 21 | 3105 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
 | B | 32 | 0 | 0 | 0 | 28 | 3158 | `docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md` |
+| B | 31 | 0 | 0 | 0 | 24 | 3202 | `docs/18-machine-learning-fundamentals/explainability-feature-importance.md` |
+| B | 31 | 0 | 0 | 0 | 23 | 2945 | `docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md` |
 | B | 31 | 0 | 0 | 0 | 25 | 2872 | `docs/18-machine-learning-fundamentals/train-validation-test-split.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 30 | 0 | 0 | 0 | 22 | 2088 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
@@ -1983,13 +1983,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 259, `single-sentence-concept` — **Roll-forward cez live patch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 263, `single-sentence-concept` — **Health green ako recovery closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
-### `docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md`
-
-- **CRITICAL** line 106, `bare-bullet-items` — **6. Label quality a target validity**: 7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source authority a adjudication process;`, `maturity delay a censoring;`, `inter-annotator agreement a guideline version;`, `positive/negative/unknown semantics;`.
-- **HIGH** line 58, `list-heavy-section` — **3. Data quality ako fitness for purpose**: 8 odrážok a iba 43 slov súvislého vysvetlenia.
-- **HIGH** line 106, `list-heavy-section` — **6. Label quality a target validity**: 7 odrážok a iba 41 slov súvislého vysvetlenia.
-- **HIGH** line 348, `list-heavy-section` — **23. Competing failure hypotheses**: 12 odrážok a iba 62 slov súvislého vysvetlenia.
-
 ### `docs/00-foundations/value-stream-mapping.md`
 
 - **HIGH** line 33, `list-first-introduction` — **3. Základný model toku**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
@@ -2154,30 +2147,21 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **HIGH** line 719, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
-### `docs/18-machine-learning-fundamentals/explainability-feature-importance.md`
-
-- **HIGH** line 56, `list-heavy-section` — **3. Explanation question a audience**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
-- **HIGH** line 330, `list-heavy-section` — **21. Competing failure hypotheses**: 12 odrážok a iba 66 slov súvislého vysvetlenia.
-
-### `docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md`
-
-- **HIGH** line 25, `list-heavy-section` — **2. Úrovne reproducibility**: 6 odrážok a iba 39 slov súvislého vysvetlenia.
-
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2525 | 2525 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1617 | 1617 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1431 | 1431 |
-| `term-before-explanation` | 0 | 54 | 322 | 0 | 376 |
+| `example-not-explicit` | 0 | 0 | 0 | 2524 | 2524 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1615 | 1615 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1428 | 1428 |
+| `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
-| `bare-bullet-items` | 237 | 33 | 0 | 0 | 270 |
+| `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
-| `short-concept-section` | 0 | 0 | 153 | 0 | 153 |
+| `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
 | `list-first-introduction` | 0 | 124 | 0 | 0 | 124 |
-| `list-heavy-section` | 0 | 73 | 0 | 0 | 73 |
+| `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |
 

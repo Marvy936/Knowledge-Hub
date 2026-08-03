@@ -24,7 +24,9 @@ reproducibility objective a tolerance
 
 ## 2. Úrovne reproducibility
 
-Reproducibility sa deklaruje podľa use case-u:
+Reproducibility sa deklaruje podľa operation a dôkazu, ktorý treba zopakovať. Forensic checkpoint test môže vyžadovať rovnakú training trajectory v pevnom environment-e, zatiaľ čo model promotion medzi podporovanými GPU generations môže akceptovať malé numerické rozdiely, ak predictions, metrics a business verdict zostanú v tolerancii. Bez tejto voľby tím buď požaduje nemožnú bitwise identitu, alebo príliš voľne označí akýkoľvek podobný výsledok za reproducible.
+
+Úrovne tvoria hierarchy dôkazov, nie navzájom zameniteľné labels. Byte identity je najužšia a najsilnejšie viazaná na platformu. Statistical alebo procedural reproducibility je širšia, ale potrebuje viac runov, explicitnú distribution/tolerance a independent operatora. Contract preto vyberá jednu primárnu úroveň a doplnkové gates:
 
 - bitwise reproducibility — outputs sú byte-for-byte identické v constrained environment;
 - numerical reproducibility — tensors/predictions sa zhodujú v definovanej absolute/relative tolerance;
