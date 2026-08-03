@@ -221,3 +221,11 @@ python validate_dataset.py \
 - [GitHub documentation — Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage)
 
 Dataset versioning je základ provenance, nie úplný MLOps systém. Musí sa spojiť s experiment runom, model artifactom, deploymentom a production outcome-om, inak vie tím obnoviť dáta, ale nevie dokázať, čo z nich vzniklo.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Data, code, environment a model lineage](data-code-environment-model-lineage.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Experiment tracking →](experiment-tracking.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

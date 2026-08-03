@@ -5141,7 +5141,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
       "title": "ML troubleshooting mental model",
-      "words": 2901,
+      "words": 2908,
       "headings": 34,
       "sections": 34,
       "findings": 24,
@@ -5276,6 +5276,62 @@
       "medium": 0,
       "low": 25,
       "score": 31,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "title": "Data, code, environment a model lineage",
+      "words": 2026,
+      "headings": 14,
+      "sections": 14,
+      "findings": 18,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 18,
+      "score": 20,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "title": "Dataset versioning",
+      "words": 1835,
+      "headings": 14,
+      "sections": 14,
+      "findings": 16,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 16,
+      "score": 20,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "title": "Experiment tracking",
+      "words": 2036,
+      "headings": 17,
+      "sections": 17,
+      "findings": 21,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 21,
+      "score": 26,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "title": "ML lifecycle a rozdiel medzi DevOps a MLOps",
+      "words": 2220,
+      "headings": 15,
+      "sections": 15,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 17,
       "grade": "B"
     }
   ],
@@ -73714,6 +73770,618 @@
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "1. Lineage ako graf príčin, nie zoznam tagov",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "2. Exact identity každej lineage vrstvy",
+      "line": 33,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "3. Data lineage",
+      "line": 71,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "4. Code a configuration lineage",
+      "line": 79,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "5. Environment lineage",
+      "line": 96,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "5. Environment lineage",
+      "line": 96,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "6. Model lineage",
+      "line": 110,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "6. Model lineage",
+      "line": 110,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "7. Runtime a business lineage",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "8. OpenLineage object model a jeho hranica",
+      "line": 134,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "9. Lineage collection patterns",
+      "line": 142,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "9. Lineage collection patterns",
+      "line": 142,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "10. Dôkazná hierarchia lineage",
+      "line": 148,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "10. Dôkazná hierarchia lineage",
+      "line": 148,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "11. Failure walkthrough incidentu MLOPS-PAY-90",
+      "line": 154,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "11. Failure walkthrough incidentu MLOPS-PAY-90",
+      "line": 154,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "12. Recovery a acceptance",
+      "line": 162,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
+      "section": "12. Recovery a acceptance",
+      "line": 162,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "1. Exact dataset subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "1. Exact dataset subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "1. Exact dataset subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "2. Čo všetko tvorí verziu datasetu",
+      "line": 34,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "3. Snapshot oproti mutable view",
+      "line": 51,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "4. DVC pointer model",
+      "line": 79,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "5. Git LFS a jeho hranica",
+      "line": 96,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "6. Schema, contract a compatibility",
+      "line": 110,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "6. Schema, contract a compatibility",
+      "line": 110,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "7. Split membership ako versionovaný artifact",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "7. Split membership ako versionovaný artifact",
+      "line": 138,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "8. Labels a dozrievanie pravdy",
+      "line": 151,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "9. Storage, cache a garbage collection",
+      "line": 157,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "9. Storage, cache a garbage collection",
+      "line": 157,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "10. Dataset diff a change review",
+      "line": 163,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
+      "section": "11. Failure walkthrough incidentu MLOPS-PAY-90",
+      "line": 181,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "1. Experiment, run a model nie sú jedna vec",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "3. Parameters, tags a immutable references",
+      "line": 47,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "4. Metrics ako časové a kontextové observations",
+      "line": 55,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "5. Dataset inputs v tracking-u",
+      "line": 81,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "5. Dataset inputs v tracking-u",
+      "line": 81,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "6. Artifacts, checkpoints a evidence bundle",
+      "line": 89,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "7. Autologging a jeho dôkazná hranica",
+      "line": 97,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "8. Local oproti remote tracking architektúre",
+      "line": 103,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "9. Experiment organization a queryability",
+      "line": 119,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "9. Experiment organization a queryability",
+      "line": 119,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "9. Experiment organization a queryability",
+      "line": 119,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "10. Reproducibility cez tracking record",
+      "line": 139,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "11. Experiment comparison a multiple testing",
+      "line": 145,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "12. Failure semantics a unknown outcomes",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "12. Failure semantics a unknown outcomes",
+      "line": 151,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "13. Failure walkthrough incidentu MLOPS-PAY-90",
+      "line": 157,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "13. Failure walkthrough incidentu MLOPS-PAY-90",
+      "line": 157,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "13. Failure walkthrough incidentu MLOPS-PAY-90",
+      "line": 157,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "14. Tracking contract a promotion gate",
+      "line": 165,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "15. Recovery a acceptance",
+      "line": 190,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
+      "section": "15. Recovery a acceptance",
+      "line": 190,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "1. Dominantný ML lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "1. Dominantný ML lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "3. Čo pridáva MLOps",
+      "line": 35,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "4. Exact ML product subject",
+      "line": 43,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "5. Viacero navzájom previazaných lifecycle-ov",
+      "line": 74,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "5. Viacero navzájom previazaných lifecycle-ov",
+      "line": 74,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "6. Development, validation a production nie sú iba tri clustre",
+      "line": 82,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "8. Control plane, execution plane a evidence plane",
+      "line": 108,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "8. Control plane, execution plane a evidence plane",
+      "line": 108,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "9. Promotion nie je kopírovanie súboru",
+      "line": 122,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "9. Promotion nie je kopírovanie súboru",
+      "line": 122,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "11. Containment, recovery a rollback",
+      "line": 136,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
+      "section": "12. Acceptance model",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     }
   ]

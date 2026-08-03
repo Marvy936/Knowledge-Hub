@@ -192,3 +192,11 @@ CI môže overiť schema, formát digestov, existenciu references a zakázať mu
 - [DVC Get Started — versioning data and models](https://dvc.org/doc/start)
 
 Dokumentácia nástrojov vysvetľuje ich object model a API. Production MLOps contract však musí navyše definovať, ako sa tieto objekty spájajú s identity, promotion, serving a business outcome vrstvou konkrétnej organizácie.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ML troubleshooting mental model](../18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Data, code, environment a model lineage →](data-code-environment-model-lineage.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -207,3 +207,11 @@ Policy kontroluje prítomnosť a formát evidence. Neoveruje sama existenciu obj
 - [Git Large File Storage pointer model](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage)
 
 Lineage platforma má zmysel iba vtedy, keď identifiers a edges zodpovedajú skutočným authority boundaries. Veľký graf vytvorený z mutable názvov môže vyzerať kompletne, ale pri reprodukcii alebo incidente sa rozpadne.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ML lifecycle a rozdiel medzi DevOps a MLOps](ml-lifecycle-devops-vs-mlops.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Dataset versioning →](dataset-versioning.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

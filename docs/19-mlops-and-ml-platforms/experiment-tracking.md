@@ -221,3 +221,11 @@ Tento read-back dokazuje, že tracker eviduje parameters a artifact paths. Neove
 - [Remote experiment tracking with MLflow](https://mlflow.org/docs/latest/ml/tracking/tutorials/remote-server)
 
 Experiment tracker je evidence service, nie oracle kvality. Jeho hodnota závisí od immutable identities, konzistentného tracking contractu a väzby na dataset, artifact, promotion, deployment a production outcome.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Dataset versioning](dataset-versioning.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
