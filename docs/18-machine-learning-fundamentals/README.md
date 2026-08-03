@@ -71,4 +71,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **20/26 · In progress**. Piaty blok uzatvára classification a regression evaluation, class-imbalance/sampling/threshold policy a deployment-aligned cross-validation lifecycle. Kapitoly 21–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
+Aktuálny authoritative stav sekcie je **20/26 · In progress**. Piaty blok uzatvára classification a regression evaluation, class-imbalance/sampling/threshold policy a deployment-aligned cross-validation lifecycle. Nasledujúci authoritative blok tvoria calibration a uncertainty, explainability a feature importance, data quality/bias/responsible AI a reproducibility/random seeds. Kapitoly 21–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
