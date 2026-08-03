@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **393**
-- Audited conceptual sections: **8285**
-- Total words: **803,383**
-- Findings: **7855** (critical 658, high 871, medium 475, low 5851)
-- File grades: A 151, B 139, C 42, D 61
+- Audited authoritative articles: **397**
+- Audited conceptual sections: **8320**
+- Total words: **809,319**
+- Findings: **7891** (critical 658, high 871, medium 475, low 5887)
+- File grades: A 154, B 140, C 42, D 61
 
 ## Interpretation
 
@@ -208,7 +208,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 18 | 0 | 0 | 0 | 18 | 2059 | `docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md` |
-| B | 18 | 0 | 0 | 0 | 15 | 1815 | `docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md` |
+| B | 18 | 0 | 0 | 0 | 15 | 1818 | `docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -245,6 +245,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 16 | 0 | 0 | 0 | 13 | 1511 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
 | B | 16 | 0 | 0 | 0 | 10 | 2399 | `docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md` |
 | B | 16 | 0 | 0 | 0 | 14 | 1888 | `docs/19-mlops-and-ml-platforms/artifact-stores.md` |
+| B | 16 | 0 | 0 | 0 | 13 | 1532 | `docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md` |
 | B | 16 | 0 | 0 | 0 | 16 | 1900 | `docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 2032 | `docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1401 | `docs/03-git-and-automation/git-object-model.md` |
@@ -303,6 +304,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2587 | `docs/18-machine-learning-fundamentals/artificial-intelligence-machine-learning-deep-learning-generative-ai.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 1515 | `docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md` |
+| A | 13 | 0 | 0 | 0 | 10 | 1133 | `docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1580 | `docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | A | 12 | 0 | 0 | 0 | 7 | 1255 | `docs/09-kubernetes/cluster-dns.md` |
@@ -355,6 +357,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 10 | 0 | 0 | 0 | 9 | 2375 | `docs/17-keycloak-and-identity-platform/realm-client-user-group-role-session.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 2270 | `docs/17-keycloak-and-identity-platform/token-exchange-impersonation-delegated-access.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 1841 | `docs/17-keycloak-and-identity-platform/tokens-claims-protocol-mappers-client-scopes.md` |
+| A | 10 | 0 | 0 | 0 | 9 | 1512 | `docs/19-mlops-and-ml-platforms/model-monitoring.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 874 | `docs/02-networking-and-web/dhcp.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 825 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 1189 | `docs/03-git-and-automation/branching-strategies.md` |
@@ -408,6 +411,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 5 | 0 | 0 | 0 | 4 | 1159 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
 | A | 5 | 0 | 0 | 0 | 4 | 1218 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | A | 5 | 0 | 0 | 0 | 4 | 1330 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
+| A | 5 | 0 | 0 | 0 | 4 | 1756 | `docs/19-mlops-and-ml-platforms/model-serving-autoscaling.md` |
 | A | 4 | 0 | 0 | 0 | 4 | 866 | `docs/02-networking-and-web/nat.md` |
 | A | 4 | 0 | 0 | 0 | 4 | 1248 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | A | 4 | 0 | 0 | 0 | 3 | 800 | `docs/09-kubernetes/replicaset.md` |
@@ -2184,9 +2188,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2650 | 2650 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1675 | 1675 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1526 | 1526 |
+| `example-not-explicit` | 0 | 0 | 0 | 2662 | 2662 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1683 | 1683 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1542 | 1542 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

@@ -5363,6 +5363,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "title": "Data drift, concept drift a prediction drift",
+      "words": 1532,
+      "headings": 11,
+      "sections": 11,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 16,
+      "grade": "B"
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
       "title": "Dataset versioning",
       "words": 1835,
@@ -5405,6 +5419,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "title": "GPU scheduling, utilization a capacity",
+      "words": 1133,
+      "headings": 6,
+      "sections": 6,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 13,
+      "grade": "A"
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
       "title": "ML lifecycle a rozdiel medzi DevOps a MLOps",
       "words": 2220,
@@ -5431,6 +5459,20 @@
       "low": 18,
       "score": 18,
       "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
+      "title": "Model monitoring",
+      "words": 1512,
+      "headings": 10,
+      "sections": 10,
+      "findings": 9,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 9,
+      "score": 10,
+      "grade": "A"
     },
     {
       "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
@@ -5461,6 +5503,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/model-serving-autoscaling.md",
+      "title": "Model serving a autoscaling",
+      "words": 1756,
+      "headings": 8,
+      "sections": 8,
+      "findings": 4,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 4,
+      "score": 5,
+      "grade": "A"
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
       "title": "Model validation a promotion gates",
       "words": 1580,
@@ -5477,7 +5533,7 @@
     {
       "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
       "title": "Shadow, canary a A/B model deployment",
-      "words": 1815,
+      "words": 1818,
       "headings": 17,
       "sections": 17,
       "findings": 15,
@@ -74850,6 +74906,123 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "1. Formálne rozdiely medzi driftmi",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "1. Formálne rozdiely medzi driftmi",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "2. Exact drift subject",
+      "line": 22,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "4. Data drift methods a interpretácia",
+      "line": 75,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "4. Data drift methods a interpretácia",
+      "line": 75,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "5. Multiple testing a segment explosion",
+      "line": 85,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "6. Prediction drift a policy changes",
+      "line": 93,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "6. Prediction drift a policy changes",
+      "line": 93,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "7. Concept drift a delayed labels",
+      "line": 110,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "8. Drift, performance a causality",
+      "line": 118,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "9. Practical computation contract",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "10. Failure hypotheses a recovery",
+      "line": 173,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
+      "section": "11. Acceptance boundaries",
+      "line": 181,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/dataset-versioning.md",
       "section": "1. Exact dataset subject",
       "line": 7,
@@ -75318,6 +75491,96 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "section": "1. Device lifecycle a authority",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "section": "1. Device lifecycle a authority",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "section": "1. Device lifecycle a authority",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "section": "2. Kubernetes extended resources",
+      "line": 27,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "section": "3. Exclusive GPU, MIG a time-slicing",
+      "line": 70,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "section": "4. Utilization, useful throughput a memory",
+      "line": 95,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "section": "5. Fragmentation, queueing a autoscaling",
+      "line": 105,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "section": "5. Fragmentation, queueing a autoscaling",
+      "line": 105,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "section": "5. Fragmentation, queueing a autoscaling",
+      "line": 105,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
+      "section": "6. Failure hypotheses a recovery",
+      "line": 124,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
       "section": "1. Dominantný ML lifecycle",
       "line": 7,
@@ -75597,6 +75860,87 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
+      "section": "1. Monitoring lifecycle a observation subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
+      "section": "1. Monitoring lifecycle a observation subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
+      "section": "2. Štyri monitoring vrstvy",
+      "line": 46,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
+      "section": "4. Result classes a denominator discipline",
+      "line": 93,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
+      "section": "5. Latency, throughput, saturation a cost",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
+      "section": "6. Data a prediction evidence bez labels",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
+      "section": "6. Data a prediction evidence bez labels",
+      "line": 130,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
+      "section": "7. Ground truth, delayed labels a realized performance",
+      "line": 138,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
+      "section": "10. Troubleshooting, recovery a acceptance",
+      "line": 190,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
       "section": "1. Dominantný packaging lifecycle",
       "line": 7,
@@ -75847,6 +76191,42 @@
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-serving-autoscaling.md",
+      "section": "1. Serving lifecycle a authoritative subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-serving-autoscaling.md",
+      "section": "5. Autoscaling metrics a control-loop stability",
+      "line": 153,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-serving-autoscaling.md",
+      "section": "6. Model loading, batching a request correctness",
+      "line": 163,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-serving-autoscaling.md",
+      "section": "7. Failure hypotheses a troubleshooting",
+      "line": 187,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",

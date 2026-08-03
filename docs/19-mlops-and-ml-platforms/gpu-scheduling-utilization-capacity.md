@@ -130,3 +130,11 @@ Containment môže oddeliť online workload od batch tenantov, vrátiť službu 
 Pozitívna acceptance vyžaduje deklarovaný resource class, úspešný GPU smoke test na každej ready replike, memory headroom a load test tail latency aj useful throughput. Recovery acceptance vyžaduje overiť isolation mode a ďalší workload po oprave. Forbidden acceptance je cluster-wide utilization, `Pod Running` alebo allocatable count bez request a outcome evidence.
 
 Second-operation test spustí ďalší Pod alebo model load rovnakého profilu. Ak prvá operácia zanechala fragmentovaný layout alebo neobnoviteľný device state, druhá operácia problém odhalí. Stabilná GPU platforma musí reprodukovať pridelenie a výkon bez manuálneho čistenia node.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Model serving a autoscaling](model-serving-autoscaling.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Model monitoring →](model-monitoring.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

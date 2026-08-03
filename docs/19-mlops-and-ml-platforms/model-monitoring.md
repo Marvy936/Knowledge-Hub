@@ -196,3 +196,11 @@ Containment môže byť freeze rollout, zvýšenie ready capacity, vypnutie chyb
 Pozitívna acceptance vyžaduje request-correlated release identity, bounded metric labels, explicitné result classes, correct denominators, telemetry coverage a aspoň jeden end-to-end synthetic journey. Recovery acceptance vyžaduje návrat service aj business metrics a dobehnutie delayed label pipeline. Forbidden acceptance je zelený dashboard bez overenia freshness alebo model accuracy z neúplných labels.
 
 Second-operation test overí ďalšie monitoring window po recovery. Ak prvé window bolo správne iba kvôli manuálnemu backfillu, ale ďalšie znovu stratí events alebo joins, recovery nie je uzavretá. Stabilný monitoring musí reprodukovať metrics, alert verdict a evidence linkage bez ručnej opravy.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: GPU scheduling, utilization a capacity](gpu-scheduling-utilization-capacity.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Data drift, concept drift a prediction drift →](data-drift-concept-drift-prediction-drift.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

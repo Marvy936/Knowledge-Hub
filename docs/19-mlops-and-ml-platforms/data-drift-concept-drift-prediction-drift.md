@@ -185,3 +185,11 @@ Pozitívna acceptance vyžaduje versioned drift subject, complete event-time win
 Forbidden acceptance je automatický retrain alebo rollback iba na základe jedného drift score, p-value bez effect size, porovnanie nekompatibilných populations alebo concept-drift claim bez labels/predpokladov. Rovnako zakázané je ignorovať fallback a missing telemetry.
 
 Second-operation test spracuje ďalšie kompletné window rovnakým contractom. Ak sa report nedá reprodukovať, reference sa potichu posunula alebo population query závisí od processing-time race, drift monitoring nie je authoritative. Stabilný systém musí vysvetliť rovnaký verdict z uložených manifests a artifacts.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Model monitoring](model-monitoring.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

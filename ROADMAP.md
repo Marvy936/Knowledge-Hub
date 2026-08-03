@@ -456,10 +456,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Model validation a promotion gates](docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md)
 - [x] [Batch, online a streaming inference](docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md)
 - [x] [Shadow, canary a A/B model deployment](docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md)
-- [ ] Model serving a autoscaling
-- [ ] GPU scheduling, utilization a capacity
-- [ ] Model monitoring
-- [ ] Data drift, concept drift a prediction drift
+- [x] [Model serving a autoscaling](docs/19-mlops-and-ml-platforms/model-serving-autoscaling.md)
+- [x] [GPU scheduling, utilization a capacity](docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md)
+- [x] [Model monitoring](docs/19-mlops-and-ml-platforms/model-monitoring.md)
+- [x] [Data drift, concept drift a prediction drift](docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md)
 - [ ] Performance, latency, throughput a cost monitoring
 - [ ] Feedback loops a ground-truth delay
 - [ ] Model rollback a recovery

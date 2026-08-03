@@ -210,3 +210,11 @@ Component recovery potvrdzuje, že nová alebo rollback replika načítala sprá
 Pozitívna acceptance vyžaduje, aby všetky ready repliky reportovali rovnaký release fingerprint, warm aj cold SLO boli merané, autoscaling target zodpovedal load-test capacity a burst nespôsobil neobmedzený fallback. Recovery acceptance vyžaduje rollback celého composite release a následný second-operation test. Forbidden acceptance je `InferenceService Ready`, počet replík alebo priemerná latency bez request-correlated evidence.
 
 Druhý apply rovnakého immutable manifestu musí byť no-op. Druhý syntetický request musí prejsť bez opätovného model downloadu alebo neočakávaného cold pathu. Ak sa alias, storage URI alebo runtime dependency medzi operáciami zmení, release nebol reprodukovateľný a nemožno ho označiť za stabilný.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Shadow, canary a A/B model deployment](shadow-canary-ab-model-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: GPU scheduling, utilization a capacity →](gpu-scheduling-utilization-capacity.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
