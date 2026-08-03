@@ -5769,6 +5769,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "title": "Function calling a tool calling",
+      "words": 1268,
+      "headings": 16,
+      "sections": 16,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 20,
+      "grade": "B"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
       "title": "Generative AI, foundation model a large language model",
       "words": 1194,
@@ -5797,6 +5811,34 @@
       "grade": "A"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
+      "title": "Model selection a capability/cost trade-offs",
+      "words": 1220,
+      "headings": 16,
+      "sections": 16,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 11,
+      "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
+      "title": "Prompt decomposition a chain-of-thought boundaries",
+      "words": 1401,
+      "headings": 12,
+      "sections": 12,
+      "findings": 7,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 7,
+      "score": 9,
+      "grade": "A"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
       "title": "Prompt roles, instructions, context a examples",
       "words": 1871,
@@ -5813,7 +5855,7 @@
     {
       "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
       "title": "Prompt templates, variables a versioning",
-      "words": 1891,
+      "words": 1895,
       "headings": 17,
       "sections": 17,
       "findings": 12,
@@ -5823,6 +5865,20 @@
       "low": 12,
       "score": 15,
       "grade": "B"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md",
+      "title": "Structured Outputs a schema validation",
+      "words": 1255,
+      "headings": 14,
+      "sections": 14,
+      "findings": 7,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 7,
+      "score": 11,
+      "grade": "A"
     },
     {
       "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
@@ -78688,6 +78744,123 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "3. Tool catalog design",
+      "line": 45,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "3. Tool catalog design",
+      "line": 45,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "4. Tool choice",
+      "line": 69,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "6. Read, compute a write tools",
+      "line": 98,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "6. Read, compute a write tools",
+      "line": 98,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "10. Error model",
+      "line": 147,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "12. Built-in tools, custom functions a MCP",
+      "line": 171,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "13. Observability",
+      "line": 179,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "14. Evaluation",
+      "line": 185,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "15. Failure hypotheses a troubleshooting",
+      "line": 191,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "15. Failure hypotheses a troubleshooting",
+      "line": 191,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "16. Acceptance",
+      "line": 197,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
+      "section": "16. Acceptance",
+      "line": 197,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
       "section": "1. Tri rozdielne pojmy",
       "line": 7,
@@ -78871,6 +79044,141 @@
       "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
       "section": "14. Recovery a acceptance",
       "line": 196,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
+      "section": "3. Capability matrix",
+      "line": 44,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
+      "section": "3. Capability matrix",
+      "line": 44,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
+      "section": "6. Latency a throughput",
+      "line": 99,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
+      "section": "7. Context window a effective context",
+      "line": 107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
+      "section": "8. Structured output a tool compatibility",
+      "line": 113,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
+      "section": "15. Failure hypotheses a troubleshooting",
+      "line": 183,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
+      "section": "16. Acceptance",
+      "line": 189,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
+      "section": "16. Acceptance",
+      "line": 189,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
+      "section": "1. Decomposition subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
+      "section": "1. Decomposition subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
+      "section": "1. Decomposition subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
+      "section": "2. Task graph namiesto neurčitého „mysli krok za krokom“",
+      "line": 25,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
+      "section": "3. Observable intermediate artifacts",
+      "line": 44,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
+      "section": "4. Chain of thought nie je authority",
+      "line": 74,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
+      "section": "12. Acceptance",
+      "line": 184,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -79118,6 +79426,69 @@
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md",
+      "section": "2. JSON text, JSON mode a Structured Outputs",
+      "line": 24,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md",
+      "section": "5. Refusal, incomplete a transport states",
+      "line": 126,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md",
+      "section": "6. Nullable, optional a missing",
+      "line": 144,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md",
+      "section": "10. Schema evolution",
+      "line": 208,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md",
+      "section": "11. Security boundary",
+      "line": 225,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md",
+      "section": "12. Evaluation a observability",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md",
+      "section": "14. Acceptance",
+      "line": 243,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",

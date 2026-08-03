@@ -487,10 +487,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Prompt roles, instructions, context a examples](docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md)
 - [x] [Zero-shot, one-shot a few-shot prompting](docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md)
 - [x] [Prompt templates, variables a versioning](docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md)
-- [ ] Prompt decomposition a chain-of-thought boundaries
-- [ ] Structured Outputs a schema validation
-- [ ] Function calling a tool calling
-- [ ] Model selection a capability/cost trade-offs
+- [x] [Prompt decomposition a chain-of-thought boundaries](docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md)
+- [x] [Structured Outputs a schema validation](docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md)
+- [x] [Function calling a tool calling](docs/20-llm-and-genai-engineering/function-calling-tool-calling.md)
+- [x] [Model selection a capability/cost trade-offs](docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md)
 - [ ] Model version pinning a compatibility
 - [ ] Retrieval-Augmented Generation architecture
 - [ ] Chunking, metadata a document processing

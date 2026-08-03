@@ -335,5 +335,5 @@ Forbidden acceptance je `support-latest` bez resolution, silent undefined variab
 
 **Navigácia**
 
-[← Predchádzajúca: Zero-shot, one-shot a few-shot prompting](zero-one-few-shot-prompting.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Zero-shot, one-shot a few-shot prompting](zero-one-few-shot-prompting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Prompt decomposition a chain-of-thought boundaries →](prompt-decomposition-chain-of-thought-boundaries.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
