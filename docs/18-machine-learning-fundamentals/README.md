@@ -31,10 +31,10 @@ Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktív
 14. [Overfitting, underfitting, bias a variance](overfitting-underfitting-bias-variance.md)
 15. [Regularization a early stopping](regularization-early-stopping.md)
 16. [Hyperparameters a hyperparameter optimization](hyperparameters-hyperparameter-optimization.md)
-17. Classification metrics
-18. Regression metrics
-19. Imbalanced datasets a threshold selection
-20. Cross-validation
+17. [Classification metrics](classification-metrics.md)
+18. [Regression metrics](regression-metrics.md)
+19. [Imbalanced datasets a threshold selection](imbalanced-datasets-threshold-selection.md)
+20. [Cross-validation](cross-validation.md)
 21. Calibration a uncertainty
 22. Explainability a feature importance
 23. Data quality, bias a responsible AI
@@ -71,4 +71,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **16/26 · In progress**. Štvrtý blok uzatvára optimization trajectory, generalization diagnosis, regularization/early-stopping a hyperparameter-search lifecycle. Kapitoly 17–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
+Aktuálny authoritative stav sekcie je **20/26 · In progress**. Piaty blok uzatvára classification a regression evaluation, class-imbalance/sampling/threshold policy a deployment-aligned cross-validation lifecycle. Kapitoly 21–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
