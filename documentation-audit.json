@@ -5057,7 +5057,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "title": "Imbalanced datasets a threshold selection",
-      "words": 3119,
+      "words": 3158,
       "headings": 26,
       "sections": 26,
       "findings": 28,
@@ -69261,7 +69261,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "section": "18. Multiclass a multilabel imbalance",
-      "line": 299,
+      "line": 315,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -69270,7 +69270,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "section": "18. Multiclass a multilabel imbalance",
-      "line": 299,
+      "line": 315,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69279,7 +69279,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "section": "18. Multiclass a multilabel imbalance",
-      "line": 299,
+      "line": 315,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -69288,7 +69288,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "section": "19. Feedback loops a selective labels",
-      "line": 320,
+      "line": 336,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -69297,7 +69297,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "section": "19. Feedback loops a selective labels",
-      "line": 320,
+      "line": 336,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69306,7 +69306,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "section": "19. Feedback loops a selective labels",
-      "line": 320,
+      "line": 336,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -69315,7 +69315,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "section": "20. Worked incident ML-PAY-87",
-      "line": 334,
+      "line": 350,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -69324,7 +69324,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "section": "21. Competing failure hypotheses",
-      "line": 351,
+      "line": 367,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69333,7 +69333,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "section": "23. Acceptance contract",
-      "line": 387,
+      "line": 403,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69342,7 +69342,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
       "section": "23. Acceptance contract",
-      "line": 387,
+      "line": 403,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",

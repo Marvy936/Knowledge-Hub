@@ -6,7 +6,7 @@
 
 - Audited authoritative articles: **371**
 - Audited conceptual sections: **7860**
-- Total words: **754,365**
+- Total words: **754,404**
 - Findings: **7446** (critical 654, high 866, medium 470, low 5456)
 - File grades: A 148, B 124, C 39, D 60
 
@@ -127,7 +127,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 33 | 0 | 0 | 0 | 26 | 2554 | `docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md` |
 | B | 33 | 0 | 0 | 0 | 25 | 2463 | `docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md` |
 | B | 32 | 0 | 0 | 0 | 21 | 3105 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
-| B | 32 | 0 | 0 | 0 | 28 | 3119 | `docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md` |
+| B | 32 | 0 | 0 | 0 | 28 | 3158 | `docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md` |
 | B | 31 | 0 | 0 | 0 | 25 | 2872 | `docs/18-machine-learning-fundamentals/train-validation-test-split.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 30 | 0 | 0 | 0 | 22 | 2088 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
