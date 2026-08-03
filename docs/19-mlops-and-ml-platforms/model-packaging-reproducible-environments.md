@@ -235,3 +235,11 @@ Alias v prvom commande je pohodlný control-plane reference, ale build record mu
 - [MLflow Model Serving](https://mlflow.org/docs/latest/deployment/)
 
 Reproducible package je necessary bridge medzi experimentom a serving-om. Produkčný verdict však vznikne až po loaded digest, request parity, policy/action a mature outcome evidence.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Artifact stores](artifact-stores.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Model Registry, versions, stages a aliases →](model-registry-versions-stages-aliases.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

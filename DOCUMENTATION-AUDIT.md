@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **381**
-- Audited conceptual sections: **8088**
-- Total words: **781,134**
-- Findings: **7672** (critical 658, high 871, medium 475, low 5668)
-- File grades: A 148, B 130, C 42, D 61
+- Audited authoritative articles: **385**
+- Audited conceptual sections: **8152**
+- Total words: **788,725**
+- Findings: **7729** (critical 658, high 871, medium 475, low 5725)
+- File grades: A 149, B 133, C 42, D 61
 
 ## Interpretation
 
@@ -143,7 +143,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 27 | 0 | 0 | 0 | 20 | 2317 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
 | B | 26 | 0 | 0 | 0 | 16 | 2190 | `docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md` |
-| B | 26 | 0 | 0 | 0 | 21 | 2036 | `docs/19-mlops-and-ml-platforms/experiment-tracking.md` |
+| B | 26 | 0 | 0 | 0 | 21 | 2037 | `docs/19-mlops-and-ml-platforms/experiment-tracking.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 25 | 0 | 0 | 0 | 20 | 2559 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
@@ -219,6 +219,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 12 | 1821 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 2272 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
 | B | 17 | 0 | 0 | 1 | 12 | 2417 | `docs/17-keycloak-and-identity-platform/identity-brokering.md` |
+| B | 17 | 0 | 0 | 0 | 15 | 1965 | `docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2220 | `docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1588 | `docs/06-gitlab/artifacts-and-cache.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1711 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md` |
@@ -238,6 +239,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 16 | 0 | 0 | 0 | 15 | 1682 | `docs/16-gitops-and-platform-engineering/internal-developer-platform.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 1511 | `docs/16-gitops-and-platform-engineering/platform-as-a-product.md` |
 | B | 16 | 0 | 0 | 0 | 10 | 2399 | `docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md` |
+| B | 16 | 0 | 0 | 0 | 14 | 1888 | `docs/19-mlops-and-ml-platforms/artifact-stores.md` |
+| B | 16 | 0 | 0 | 0 | 16 | 1900 | `docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1401 | `docs/03-git-and-automation/git-object-model.md` |
 | B | 15 | 0 | 0 | 0 | 10 | 1429 | `docs/09-kubernetes/cluster-installation-lifecycle.md` |
 | B | 15 | 0 | 0 | 0 | 13 | 1367 | `docs/09-kubernetes/kubernetes-architecture.md` |
@@ -306,6 +309,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 12 | 0 | 0 | 0 | 10 | 3045 | `docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 2220 | `docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md` |
 | A | 12 | 0 | 0 | 0 | 8 | 2252 | `docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md` |
+| A | 12 | 0 | 0 | 0 | 12 | 1837 | `docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 980 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | A | 11 | 0 | 0 | 0 | 8 | 1243 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1716 | `docs/06-gitlab/container-and-package-registry.md` |
@@ -2172,9 +2176,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2558 | 2558 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1646 | 1646 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1464 | 1464 |
+| `example-not-explicit` | 0 | 0 | 0 | 2587 | 2587 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1650 | 1650 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1488 | 1488 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

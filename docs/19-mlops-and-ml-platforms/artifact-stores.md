@@ -197,3 +197,11 @@ Prvý command je organizačný verification surface; jeho implementácia musí r
 - [MLflow Models](https://mlflow.org/docs/latest/ml/model)
 
 Artifact store je data-plane authority pre bytes, nie celý production verdict. Jeho guarantees musia byť spojené s lineage, Registry, packaging, serving read-backom a business evidence.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Experiment tracking](experiment-tracking.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Model packaging a reproducible environments →](model-packaging-reproducible-environments.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -251,3 +251,11 @@ python verify_feature_parity.py \
 - [Feast quickstart](https://docs.feast.dev/getting-started)
 
 Feature store znižuje duplication a skew iba vtedy, keď definitions, timestamps, materialization, online state, model interface a request evidence zostávajú v jednom versionovanom lifecycle.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Model Registry, versions, stages a aliases](model-registry-versions-stages-aliases.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

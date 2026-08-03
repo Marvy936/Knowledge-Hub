@@ -5279,6 +5279,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "title": "Artifact stores",
+      "words": 1888,
+      "headings": 15,
+      "sections": 15,
+      "findings": 14,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 14,
+      "score": 16,
+      "grade": "B"
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
       "title": "Data, code, environment a model lineage",
       "words": 2026,
@@ -5309,7 +5323,7 @@
     {
       "path": "docs/19-mlops-and-ml-platforms/experiment-tracking.md",
       "title": "Experiment tracking",
-      "words": 2036,
+      "words": 2037,
       "headings": 17,
       "sections": 17,
       "findings": 21,
@@ -5318,6 +5332,20 @@
       "medium": 0,
       "low": 21,
       "score": 26,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "title": "Feature stores a online/offline consistency",
+      "words": 1965,
+      "headings": 17,
+      "sections": 17,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 17,
       "grade": "B"
     },
     {
@@ -5333,6 +5361,34 @@
       "low": 13,
       "score": 17,
       "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "title": "Model packaging a reproducible environments",
+      "words": 1900,
+      "headings": 16,
+      "sections": 16,
+      "findings": 16,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 16,
+      "score": 16,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "title": "Model Registry, versions, stages a aliases",
+      "words": 1837,
+      "headings": 16,
+      "sections": 16,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 12,
+      "grade": "A"
     }
   ],
   "findings": [
@@ -73773,6 +73829,132 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "1. Dominantný artifact lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "1. Dominantný artifact lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "2. Backend store oproti artifact store",
+      "line": 25,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "4. Artifact types a ich rozdielne guarantees",
+      "line": 70,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "4. Artifact types a ich rozdielne guarantees",
+      "line": 70,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "6. Proxied a direct artifact access",
+      "line": 86,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "6. Proxied a direct artifact access",
+      "line": 86,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "8. Checksums, integrity a authenticity",
+      "line": 118,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "8. Checksums, integrity a authenticity",
+      "line": 118,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "9. Encryption, identity a tenant isolation",
+      "line": 126,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "9. Encryption, identity a tenant isolation",
+      "line": 126,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "9. Encryption, identity a tenant isolation",
+      "line": 126,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "11. Backup, replication a disaster recovery",
+      "line": 150,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
+      "section": "13. Recovery a acceptance",
+      "line": 164,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
       "section": "1. Lineage ako graf príčin, nie zoznam tagov",
       "line": 7,
@@ -74268,6 +74450,141 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "1. Dominantný feature lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "1. Dominantný feature lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "2. Exact feature subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "2. Exact feature subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "3. Feast object model",
+      "line": 56,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "3. Feast object model",
+      "line": 56,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "4. Offline store",
+      "line": 64,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "6. Online store",
+      "line": 96,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "7. Materialization",
+      "line": 114,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "7. Materialization",
+      "line": 114,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "8. Stream a push paths",
+      "line": 131,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "11. Freshness, TTL a missing values",
+      "line": 176,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "13. Monitoring a parity testing",
+      "line": 192,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "14. Failure walkthrough incidentu MLOPS-PAY-91",
+      "line": 210,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
+      "section": "15. Recovery a acceptance",
+      "line": 218,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
       "section": "1. Dominantný ML lifecycle",
       "line": 7,
@@ -74379,6 +74696,258 @@
       "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
       "section": "12. Acceptance model",
       "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "1. Dominantný packaging lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "2. Exact model package subject",
+      "line": 25,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "3. MLflow Model format a flavors",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "3. MLflow Model format a flavors",
+      "line": 57,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "4. Serialization a code boundary",
+      "line": 75,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "5. Dependency inference oproti dependency locking",
+      "line": 95,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "6. Input example, signature a schema enforcement",
+      "line": 108,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "7. Preprocessing a post-processing v package",
+      "line": 116,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "8. Reproducible environment layers",
+      "line": 122,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "9. Container packaging",
+      "line": 147,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "11. Export a optimized runtime",
+      "line": 172,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "12. Supply-chain a serialization security",
+      "line": 187,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "12. Supply-chain a serialization security",
+      "line": 187,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "13. Failure walkthrough incidentu MLOPS-PAY-91",
+      "line": 195,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "14. Recovery a acceptance",
+      "line": 203,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
+      "section": "14. Recovery a acceptance",
+      "line": 203,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "1. Dominantný Registry lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "1. Dominantný Registry lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "5. Model stages a ich deprecation",
+      "line": 86,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "6. Environment promotion",
+      "line": 96,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "7. Tags, annotations a validation status",
+      "line": 114,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "8. Promotion gate a evidence snapshot",
+      "line": 131,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "10. Concurrency a unknown outcomes",
+      "line": 163,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "12. Registry permissions a governance",
+      "line": 177,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "12. Registry permissions a governance",
+      "line": 177,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "13. Failure walkthrough incidentu MLOPS-PAY-91",
+      "line": 185,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "13. Failure walkthrough incidentu MLOPS-PAY-91",
+      "line": 185,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
+      "section": "14. Recovery a acceptance",
+      "line": 193,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

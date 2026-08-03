@@ -227,5 +227,5 @@ Experiment tracker je evidence service, nie oracle kvality. Jeho hodnota závis�
 
 **Navigácia**
 
-[← Predchádzajúca: Dataset versioning](dataset-versioning.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Dataset versioning](dataset-versioning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Artifact stores →](artifact-stores.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

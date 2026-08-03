@@ -228,3 +228,11 @@ Tento read-back dokazuje Registry metadata. Neoveruje artifact bytes, loaded run
 - [MLflow Tracking API](https://mlflow.org/docs/latest/ml/tracking/tracking-api)
 
 Registry organizuje lifecycle a governance modelov. Produkčný truth však vzniká až spojením immutable artifactu, release manifestu, loaded runtime, request cohortu a business evidence.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Model packaging a reproducible environments](model-packaging-reproducible-environments.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Feature stores a online/offline consistency →](feature-stores-online-offline-consistency.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
