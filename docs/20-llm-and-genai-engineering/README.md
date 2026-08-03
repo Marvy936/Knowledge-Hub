@@ -18,15 +18,15 @@ Odporúčané predchádzajúce oblasti:
 2. [Transformer architecture na praktickej úrovni](transformer-architecture-practical.md)
 3. [Tokens, tokenization a context window](tokens-tokenization-context-window.md)
 4. [Embeddings a semantic similarity](embeddings-semantic-similarity.md)
+5. [Inference parameters, sampling a determinism](inference-parameters-sampling-determinism.md)
+6. [Prompt roles, instructions, context a examples](prompt-roles-instructions-context-examples.md)
+7. [Zero-shot, one-shot a few-shot prompting](zero-one-few-shot-prompting.md)
+8. [Prompt templates, variables a versioning](prompt-templates-variables-versioning.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-5. Inference parameters, sampling a determinism
-6. Prompt roles, instructions, context a examples
-7. Zero-shot, one-shot a few-shot prompting
-8. Prompt templates, variables a versioning
 9. Prompt decomposition a chain-of-thought boundaries
 10. Structured Outputs a schema validation
 11. Function calling a tool calling
@@ -86,4 +86,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **4/37 · In progress**. Prvý authoritative blok aktivuje kapitoly 1–4 a incident `GENAI-SUPPORT-01`. Základná kapitola oddeľuje generative AI, foundation model, LLM a celú application chain a viaže model snapshot, tokenizer, prompt, retrieval, tools, policy a evals do exact request subjectu. Transformer kapitola vysvetľuje encoder/decoder families, token embeddings, positional information, Q/K/V self-attention, masks, feed-forward a residual blocks, logits, autoregressive generation, prefill/decode a KV cache. Tokenization kapitola viaže vocabulary, subword segmentation, special tokens, chat serialization, total context budget, truncation priority, segment manifest, finish reason a token/cost telemetry. Embeddings kapitola oddeľuje vectors, pooling, normalization, cosine/dot-product compatibility, similarity/relevance/identity, ANN index generation, multilingual evaluation, reindexing a access boundaries. Kapitoly 1–4 prešli substantial prose, executable/model surface a subject/evidence/failure/recovery/acceptance gate-om. Reálna inference, provider snapshot verification, tokenizer parity, embedding index build a business outcome neboli vykonané; sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 5–8: inference parameters/sampling, prompt roles, zero/one/few-shot prompting a prompt templates/versioning.
+Aktuálny authoritative stav sekcie je **8/37 · In progress**. Druhý authoritative blok aktivuje kapitoly 5–8 a incident `GENAI-SUPPORT-02`. Inference kapitola viaže model/tokenizer/prompt generation na greedy alebo sampled decoding, temperature, top-k/top-p, penalties, stop reasons, output budget, seed, provider translation, runtime/batch generation a repeated-run acceptance a oddeľuje reprodukovateľnosť od correctness. Prompt-role kapitola oddeľuje trusted instructions, user goal, retrieved context, model-generated history, examples a tool outputs a používa provider-specific role hierarchy iba ako serialization contract, nie ako bezpečnostný sandbox. Zero/one/few-shot kapitola definuje versioned example sets, provenance, representative decision-boundary coverage, ordering, dynamic selection, label leakage, context budget a paired evals. Prompt-template kapitola modeluje template, typed variables, trusted/untrusted interpolation, strict rendering, branches, semantic/content-addressed versions, compatibility, cache, canary a rollback ako prompt release lifecycle. Kapitoly 5–8 sú pripravené na repository closeout; reálna inference, provider parity, adversarial prompt execution, prompt registry mutation a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 9–12: prompt decomposition a chain-of-thought boundaries, Structured Outputs, function/tool calling a model selection.
