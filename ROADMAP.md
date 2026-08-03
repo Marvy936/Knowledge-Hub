@@ -435,8 +435,8 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Explainability a feature importance](docs/18-machine-learning-fundamentals/explainability-feature-importance.md)
 - [x] [Data quality, bias a responsible AI](docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md)
 - [x] [Reproducibility a random seeds](docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md)
-- [ ] Offline evaluation oproti production outcome
-- [ ] ML troubleshooting mental model
+- [x] [Offline evaluation oproti production outcome](docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md)
+- [x] [ML troubleshooting mental model](docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md)
 
 ### MLOps and ML Platforms
 

@@ -11,9 +11,7 @@ Odporúčané predchádzajúce oblasti:
 - Observability
 - Security and Identity
 
-## Plánované authoritative poradie
-
-Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
+## Authoritative poradie — aktívne kapitoly
 
 1. [Artificial intelligence, machine learning, deep learning a generative AI](artificial-intelligence-machine-learning-deep-learning-generative-ai.md)
 2. [Dataset, sample, feature, label a target](dataset-sample-feature-label-target.md)
@@ -39,12 +37,12 @@ Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktív
 22. [Explainability a feature importance](explainability-feature-importance.md)
 23. [Data quality, bias a responsible AI](data-quality-bias-responsible-ai.md)
 24. [Reproducibility a random seeds](reproducibility-random-seeds.md)
-25. Offline evaluation oproti production outcome
-26. ML troubleshooting mental model
+25. [Offline evaluation oproti production outcome](offline-evaluation-production-outcome.md)
+26. [ML troubleshooting mental model](ml-troubleshooting-mental-model.md)
 
 ## Authoring a evidence štandard
 
-Každá kapitola bude používať rovnaký prose-first štandard ako sekcie 00–17:
+Každá kapitola používa rovnaký prose-first štandard ako sekcie 00–17:
 
 ```text
 business alebo user outcome
@@ -57,7 +55,7 @@ business alebo user outcome
 → positive, forbidden a second-operation acceptance
 ```
 
-Rýchlo sa meniace produkty, API a protokoly sa pri každom bloku znovu overia proti aktuálnym primárnym zdrojom. Dokumentácia nesmie zamieňať offline eval, control-plane status alebo úspešný tool call za produkčný business outcome.
+Rýchlo sa meniace produkty, API a protokoly sa pri každom bloku znovu overujú proti aktuálnym primárnym zdrojom. Dokumentácia nesmie zamieňať offline eval, control-plane status alebo úspešný tool call za produkčný business outcome.
 
 ## Praktická vrstva
 
@@ -71,4 +69,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **24/26 · In progress**. Šiesty blok uzatvára probability calibration a uncertainty boundaries, model inspection a explanation scope, end-to-end data-quality/bias/responsible-AI risk lifecycle a reproducibility od immutable inputs po RNG, determinism, checkpoint a multi-seed evidence. Záverečný authoritative blok tvoria offline evaluation oproti production outcome a ML troubleshooting mental model. Kapitoly 25–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
+Aktuálny authoritative stav sekcie je **26/26 · Ready for user review**. Všetkých dvadsaťšesť authoritative kapitol pokrýva complete Machine Learning Fundamentals lifecycle z pohľadu DevOps, platform a operations roly: AI/ML taxonómiu, dataset/feature/label/target, learning paradigms a tasky, splits, preprocessing, feature engineering, leakage a skew, klasické a neural modely, loss/optimization/convergence, generalization/regularization/HPO, classification a regression metrics, imbalance/threshold/CV, calibration/uncertainty, explainability, data quality/bias/responsible AI, reproducibility, offline-to-production outcome a evidence-first troubleshooting. Repository validation nepredstavuje runtime `Verified`, production `Stable` ani user `Accepted`; reálne datasety, training runs, HPO studies, calibration, inference, rollouts, human workflows, impact evaluation a business journeys zostávajú samostatnou acceptance hranicou. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
