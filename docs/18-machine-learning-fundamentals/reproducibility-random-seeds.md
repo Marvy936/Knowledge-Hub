@@ -480,3 +480,11 @@ Relevantné pojmy: reproducibility, repeatability, bitwise reproducibility, nume
 - [scikit-learn — Common pitfalls and recommended practices](https://scikit-learn.org/stable/common_pitfalls.html)
 - [scikit-learn — Glossary: `random_state`](https://scikit-learn.org/stable/glossary.html#term-random_state)
 - [NumPy — Random sampling](https://numpy.org/doc/stable/reference/random/index.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Data quality, bias a responsible AI](data-quality-bias-responsible-ai.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

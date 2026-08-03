@@ -413,3 +413,11 @@ Relevantné pojmy: explainability, interpretability, explanation subject, intrin
 - [scikit-learn — Partial dependence](https://scikit-learn.org/stable/modules/generated/sklearn.inspection.partial_dependence.html)
 - [scikit-learn — `PartialDependenceDisplay`](https://scikit-learn.org/stable/modules/generated/sklearn.inspection.PartialDependenceDisplay.html)
 - [SHAP documentation](https://shap.readthedocs.io/en/latest/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Calibration a uncertainty](calibration-uncertainty.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Data quality, bias a responsible AI →](data-quality-bias-responsible-ai.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

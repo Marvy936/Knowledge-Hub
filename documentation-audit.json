@@ -4929,6 +4929,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "title": "Calibration a uncertainty",
+      "words": 3174,
+      "headings": 25,
+      "sections": 25,
+      "findings": 35,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 35,
+      "score": 46,
+      "grade": "C"
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
       "title": "Classification metrics",
       "words": 3025,
@@ -4945,7 +4959,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
       "title": "Cross-validation",
-      "words": 3360,
+      "words": 3362,
       "headings": 29,
       "sections": 29,
       "findings": 35,
@@ -4985,6 +4999,20 @@
       "grade": "C"
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "title": "Data quality, bias a responsible AI",
+      "words": 3104,
+      "headings": 28,
+      "sections": 28,
+      "findings": 40,
+      "critical": 1,
+      "high": 3,
+      "medium": 3,
+      "low": 33,
+      "score": 91,
+      "grade": "D"
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md",
       "title": "Dataset, sample, feature, label a target",
       "words": 2554,
@@ -5010,6 +5038,20 @@
       "medium": 0,
       "low": 32,
       "score": 43,
+      "grade": "C"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "title": "Explainability a feature importance",
+      "words": 3016,
+      "headings": 26,
+      "sections": 26,
+      "findings": 28,
+      "critical": 0,
+      "high": 2,
+      "medium": 1,
+      "low": 25,
+      "score": 52,
       "grade": "C"
     },
     {
@@ -5164,6 +5206,20 @@
       "medium": 0,
       "low": 34,
       "score": 52,
+      "grade": "C"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "title": "Reproducibility a random seeds",
+      "words": 2849,
+      "headings": 27,
+      "sections": 27,
+      "findings": 26,
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 24,
+      "score": 44,
       "grade": "C"
     },
     {
@@ -66838,6 +66894,321 @@
       "score": 1
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "1. Dominantný calibration a uncertainty lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "1. Dominantný calibration a uncertainty lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "1. Dominantný calibration a uncertainty lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "2. Exact calibration subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "3. Ranking score oproti probability",
+      "line": 57,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "3. Ranking score oproti probability",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "3. Ranking score oproti probability",
+      "line": 57,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "4. Empirical calibration a reliability diagram",
+      "line": 68,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "4. Empirical calibration a reliability diagram",
+      "line": 68,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "4. Empirical calibration a reliability diagram",
+      "line": 68,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "5. Calibration error summaries a ich hranice",
+      "line": 88,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "6. Brier score a log loss",
+      "line": 101,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "7. Sigmoid calibration",
+      "line": 124,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "7. Sigmoid calibration",
+      "line": 124,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "8. Isotonic calibration",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "8. Isotonic calibration",
+      "line": 138,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "9. Temperature scaling a multiclass calibration",
+      "line": 158,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "9. Temperature scaling a multiclass calibration",
+      "line": 158,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "10. Cross-validated calibration a ensemble semantics",
+      "line": 170,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "12. Prevalence a prior shift",
+      "line": 216,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "12. Prevalence a prior shift",
+      "line": 216,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "13. Aleatoric a epistemic uncertainty",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "13. Aleatoric a epistemic uncertainty",
+      "line": 231,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "14. Prediction intervals a quantiles",
+      "line": 244,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "14. Prediction intervals a quantiles",
+      "line": 244,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "15. Conformal prediction ako procedure-level uncertainty",
+      "line": 259,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "15. Conformal prediction ako procedure-level uncertainty",
+      "line": 259,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "16. Ensembles a stochastic uncertainty proxies",
+      "line": 277,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "17. Out-of-distribution a abstention",
+      "line": 293,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "17. Out-of-distribution a abstention",
+      "line": 293,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "18. Uncertainty a decision policy",
+      "line": 310,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "20. Competing failure hypotheses",
+      "line": 344,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "20. Competing failure hypotheses",
+      "line": 344,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "22. Acceptance contract",
+      "line": 381,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/calibration-uncertainty.md",
+      "section": "22. Acceptance contract",
+      "line": 381,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
       "section": "1. Dominantný classification-evaluation lifecycle",
       "line": 7,
@@ -67855,6 +68226,366 @@
       "score": 1
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "1. Dominantný responsible-ML lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "1. Dominantný responsible-ML lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "2. Exact responsible-AI subject",
+      "line": 25,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "3. Data quality ako fitness for purpose",
+      "line": 58,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 43 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "3. Data quality ako fitness for purpose",
+      "line": 58,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "3. Data quality ako fitness for purpose",
+      "line": 58,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "3. Data quality ako fitness for purpose",
+      "line": 58,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "4. Population, sampling frame a coverage",
+      "line": 73,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "4. Population, sampling frame a coverage",
+      "line": 73,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "6. Label quality a target validity",
+      "line": 106,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "7 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "6. Label quality a target validity",
+      "line": 106,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "7 z 7 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `source authority a adjudication process;`, `maturity delay a censoring;`, `inter-annotator agreement a guideline version;`, `positive/negative/unknown semantics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "6. Label quality a target validity",
+      "line": 106,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "6. Label quality a target validity",
+      "line": 106,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "6. Label quality a target validity",
+      "line": 106,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "6. Label quality a target validity",
+      "line": 106,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "6. Label quality a target validity",
+      "line": 106,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "7. Historical a societal bias",
+      "line": 129,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "7. Historical a societal bias",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "8. Representation bias a subgroup support",
+      "line": 144,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "8. Representation bias a subgroup support",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "8. Representation bias a subgroup support",
+      "line": 144,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "9. Proxy features",
+      "line": 156,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "9. Proxy features",
+      "line": 156,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "9. Proxy features",
+      "line": 156,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "11. Demographic parity a selection rates",
+      "line": 185,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "14. Individual, counterfactual a causal fairness boundaries",
+      "line": 221,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "14. Individual, counterfactual a causal fairness boundaries",
+      "line": 221,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "15. Quality gates pred model fitom",
+      "line": 229,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "17. NIST AI RMF ako risk-management rámec",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "18. Human oversight a automation bias",
+      "line": 278,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "18. Human oversight a automation bias",
+      "line": 278,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "19. Appeals, correction a contestability",
+      "line": 296,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "20. Privacy a data minimization",
+      "line": 311,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "20. Privacy a data minimization",
+      "line": 311,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "21. Security, misuse a abuse cases",
+      "line": 317,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "22. Worked incident ML-PAY-88",
+      "line": 331,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "23. Competing failure hypotheses",
+      "line": 348,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 62 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "24. Evidence-preserving containment a recovery",
+      "line": 367,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "24. Evidence-preserving containment a recovery",
+      "line": 367,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md",
+      "section": "25. Acceptance contract",
+      "line": 384,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md",
       "section": "1. Dominantný data-to-learning lifecycle",
       "line": 7,
@@ -68374,6 +69105,258 @@
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "1. Dominantný explainability lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "2. Exact explanation subject",
+      "line": 25,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "3. Explanation question a audience",
+      "line": 56,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "3. Explanation question a audience",
+      "line": 56,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "3. Explanation question a audience",
+      "line": 56,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "4. Intrinsic a post-hoc explainability",
+      "line": 69,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "5. Linear coefficients",
+      "line": 83,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "5. Linear coefficients",
+      "line": 83,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "5. Linear coefficients",
+      "line": 83,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "6. Tree impurity-based feature importance",
+      "line": 98,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "7. Permutation feature importance",
+      "line": 112,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "8. Correlated features a grouped permutation",
+      "line": 135,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "9. Drop-column a retraining importance",
+      "line": 150,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "9. Drop-column a retraining importance",
+      "line": 150,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "10. Partial dependence",
+      "line": 164,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "11. Individual conditional expectation",
+      "line": 184,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "12. Local surrogate explanations",
+      "line": 200,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "13. Additive attributions a SHAP-like semantics",
+      "line": 217,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "13. Additive attributions a SHAP-like semantics",
+      "line": 217,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "14. Global summary z local attributions",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "15. Feature interactions",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "17. Explanation stability",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "18. Fidelity, plausibility a usefulness",
+      "line": 286,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "19. Explainability, leakage a proxies",
+      "line": 299,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "20. Worked incident ML-PAY-88",
+      "line": 314,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "21. Competing failure hypotheses",
+      "line": 330,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 66 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "23. Acceptance contract",
+      "line": 366,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/explainability-feature-importance.md",
+      "section": "23. Acceptance contract",
+      "line": 366,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
@@ -71758,6 +72741,240 @@
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "1. Dominantný reproducibility lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "1. Dominantný reproducibility lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "2. Úrovne reproducibility",
+      "line": 25,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "6 odrážok a iba 39 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "2. Úrovne reproducibility",
+      "line": 25,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "2. Úrovne reproducibility",
+      "line": 25,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "2. Úrovne reproducibility",
+      "line": 25,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "2. Úrovne reproducibility",
+      "line": 25,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "4. Pseudo-random generators a streams",
+      "line": 76,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "4. Pseudo-random generators a streams",
+      "line": 76,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "5. Python a NumPy randomness",
+      "line": 101,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "6. scikit-learn random state semantics",
+      "line": 120,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "6. scikit-learn random state semantics",
+      "line": 120,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "7. Dataset identity a stable ordering",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "7. Dataset identity a stable ordering",
+      "line": 138,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "8. Split a sampling reproducibility",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "12. cuDNN benchmarking a determinism",
+      "line": 234,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "12. cuDNN benchmarking a determinism",
+      "line": 234,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "13. Floating-point a reduction order",
+      "line": 245,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "13. Floating-point a reduction order",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "14. Parallelism a scheduler effects",
+      "line": 257,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "15. Distributed training",
+      "line": 273,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "15. Distributed training",
+      "line": 273,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "23. Evidence-preserving containment a recovery",
+      "line": 414,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "24. Acceptance contract",
+      "line": 432,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "24. Acceptance contract",
+      "line": 432,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
+      "section": "24. Acceptance contract",
+      "line": 432,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {

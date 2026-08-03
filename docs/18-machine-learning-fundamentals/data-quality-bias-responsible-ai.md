@@ -430,3 +430,11 @@ Relevantné pojmy: fitness for purpose, data quality, validity, completeness, ac
 - [NIST — Generative AI Profile](https://doi.org/10.6028/NIST.AI.600-1)
 - [Datasheets for Datasets](https://arxiv.org/abs/1803.09010)
 - [Model Cards for Model Reporting](https://arxiv.org/abs/1810.03993)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Explainability a feature importance](explainability-feature-importance.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Reproducibility a random seeds →](reproducibility-random-seeds.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

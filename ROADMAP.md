@@ -431,10 +431,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Regression metrics](docs/18-machine-learning-fundamentals/regression-metrics.md)
 - [x] [Imbalanced datasets a threshold selection](docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md)
 - [x] [Cross-validation](docs/18-machine-learning-fundamentals/cross-validation.md)
-- [ ] Calibration a uncertainty
-- [ ] Explainability a feature importance
-- [ ] Data quality, bias a responsible AI
-- [ ] Reproducibility a random seeds
+- [x] [Calibration a uncertainty](docs/18-machine-learning-fundamentals/calibration-uncertainty.md)
+- [x] [Explainability a feature importance](docs/18-machine-learning-fundamentals/explainability-feature-importance.md)
+- [x] [Data quality, bias a responsible AI](docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md)
+- [x] [Reproducibility a random seeds](docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md)
 - [ ] Offline evaluation oproti production outcome
 - [ ] ML troubleshooting mental model
 

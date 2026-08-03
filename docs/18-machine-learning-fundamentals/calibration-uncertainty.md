@@ -428,3 +428,11 @@ Relevantné pojmy: calibration, calibrated probability, raw score, reliability d
 - [scikit-learn — `calibration_curve`](https://scikit-learn.org/stable/modules/generated/sklearn.calibration.calibration_curve.html)
 - [scikit-learn — `brier_score_loss`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.brier_score_loss.html)
 - [scikit-learn — Metrics and scoring](https://scikit-learn.org/stable/modules/model_evaluation.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Cross-validation](cross-validation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Explainability a feature importance →](explainability-feature-importance.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
