@@ -30,15 +30,15 @@ Odporúčané predchádzajúce oblasti:
 14. [Model validation a promotion gates](model-validation-promotion-gates.md)
 15. [Batch, online a streaming inference](batch-online-streaming-inference.md)
 16. [Shadow, canary a A/B model deployment](shadow-canary-ab-model-deployment.md)
+17. [Model serving a autoscaling](model-serving-autoscaling.md)
+18. [GPU scheduling, utilization a capacity](gpu-scheduling-utilization-capacity.md)
+19. [Model monitoring](model-monitoring.md)
+20. [Data drift, concept drift a prediction drift](data-drift-concept-drift-prediction-drift.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-17. Model serving a autoscaling
-18. GPU scheduling, utilization a capacity
-19. Model monitoring
-20. Data drift, concept drift a prediction drift
 21. Performance, latency, throughput a cost monitoring
 22. Feedback loops a ground-truth delay
 23. Model rollback a recovery
@@ -83,4 +83,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **16/34 · In progress**. Štvrtý blok uzatvára trigger-to-exposure chain: Continuous Training validuje a deduplikuje potrebu nového candidate-u bez obídenia delivery gates; model validation viaže candidate, baseline, evaluation dataset, evaluator, metric/segment/capacity policy a package evidence do reprodukovateľného promotion verdictu; inference kapitola oddeľuje batch interval, online request a streaming event/offset semantics; a rollout kapitola rozlišuje zero-side-effect shadow, bounded-risk canary a causal A/B experiment. Incident `MLOPS-PAY-93` spája immature/selective labels, duplicate retraining triggers, aggregate-only gate s chybnou business capacity, processing-time batch skew, online fallback mismatch, duplicate stream action a contaminated rollout so shared queue interference. Ďalší authoritative blok sú kapitoly 17–20: model serving a autoscaling, GPU scheduling/capacity, model monitoring a drift. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
+Aktuálny authoritative stav sekcie je **20/34 · In progress**. Piaty blok uzatvára serving-to-drift diagnostic chain. Model serving oddeľuje KServe desired state, resolved workload, loaded release, exercised capacity a business deadline; GPU kapitola oddeľuje Kubernetes extended resource, exclusive device, MIG a time-slicing vrátane memory/fault isolation a attribution limitov; monitoring kapitola viaže platform, service, ML a business evidence cez request-correlated release identity, result classes, denominators a telemetry coverage; drift kapitola formálne oddeľuje zmeny `P(X)`, `P(Y)`, `P(Ŷ)` a `P(Y|X)` a zakazuje automatický retrain bez population, label a competing-hypothesis evidence. Incident `MLOPS-PAY-94` spája scale-to-zero cold path, nepravdivý concurrency capacity target, GPU time-slicing interference, fallback skrytý v HTTP 200 a drift report nad selektívnou population. Ďalší authoritative blok sú kapitoly 21–24: performance/latency/throughput/cost monitoring, feedback loops a ground-truth delay, model rollback/recovery a governance/approvals/audit. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
