@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **415**
-- Audited conceptual sections: **8560**
-- Total words: **833,483**
-- Findings: **8124** (critical 658, high 871, medium 475, low 6120)
-- File grades: A 163, B 149, C 42, D 61
+- Audited authoritative articles: **419**
+- Audited conceptual sections: **8622**
+- Total words: **840,848**
+- Findings: **8175** (critical 658, high 871, medium 475, low 6171)
+- File grades: A 165, B 151, C 42, D 61
 
 ## Interpretation
 
@@ -191,6 +191,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 14 | 2468 | `docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md` |
 | B | 20 | 0 | 0 | 0 | 18 | 2026 | `docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md` |
 | B | 20 | 0 | 0 | 0 | 16 | 1835 | `docs/19-mlops-and-ml-platforms/dataset-versioning.md` |
+| B | 20 | 0 | 0 | 0 | 15 | 1871 | `docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1797 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1774 | `docs/06-gitlab/runners-and-executors.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1622 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
@@ -275,6 +276,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 11 | 2220 | `docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 2878 | `docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md` |
 | B | 15 | 0 | 0 | 0 | 15 | 1577 | `docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md` |
+| B | 15 | 0 | 0 | 0 | 12 | 1891 | `docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md` |
 | A | 14 | 0 | 0 | 1 | 8 | 2356 | `docs/03-git-and-automation/bash-automation.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 2498 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1538 | `docs/08-container-fundamentals-and-docker/registries.md` |
@@ -287,6 +289,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 14 | 0 | 0 | 0 | 12 | 1741 | `docs/16-gitops-and-platform-engineering/flux.md` |
 | A | 14 | 0 | 0 | 0 | 14 | 1698 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 952 | `docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md` |
+| A | 14 | 0 | 0 | 0 | 12 | 1820 | `docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 888 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | A | 13 | 0 | 0 | 0 | 8 | 1412 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1600 | `docs/06-gitlab/protected-branches-and-environments.md` |
@@ -318,7 +321,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 11 | 1779 | `docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1580 | `docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1607 | `docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md` |
-| A | 13 | 0 | 0 | 0 | 11 | 1257 | `docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md` |
+| A | 13 | 0 | 0 | 0 | 11 | 1261 | `docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md` |
+| A | 13 | 0 | 0 | 0 | 12 | 1779 | `docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | A | 12 | 0 | 0 | 0 | 7 | 1255 | `docs/09-kubernetes/cluster-dns.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2416 | `docs/10-helm-and-cka/helm-chart-template-values-release.md` |
@@ -2206,9 +2210,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2787 | 2787 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1722 | 1722 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1611 | 1611 |
+| `example-not-explicit` | 0 | 0 | 0 | 2803 | 2803 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1733 | 1733 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1635 | 1635 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

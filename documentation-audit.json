@@ -5757,7 +5757,7 @@
     {
       "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
       "title": "Embeddings a semantic similarity",
-      "words": 1257,
+      "words": 1261,
       "headings": 16,
       "sections": 16,
       "findings": 11,
@@ -5781,6 +5781,48 @@
       "low": 9,
       "score": 10,
       "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "title": "Inference parameters, sampling a determinism",
+      "words": 1779,
+      "headings": 14,
+      "sections": 14,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 13,
+      "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "title": "Prompt roles, instructions, context a examples",
+      "words": 1871,
+      "headings": 15,
+      "sections": 15,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 20,
+      "grade": "B"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "title": "Prompt templates, variables a versioning",
+      "words": 1891,
+      "headings": 17,
+      "sections": 17,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 15,
+      "grade": "B"
     },
     {
       "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
@@ -5809,6 +5851,20 @@
       "low": 15,
       "score": 19,
       "grade": "B"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "title": "Zero-shot, one-shot a few-shot prompting",
+      "words": 1820,
+      "headings": 16,
+      "sections": 16,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 14,
+      "grade": "A"
     }
   ],
   "findings": [
@@ -78713,6 +78769,357 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "2. Od logits k ďalšiemu tokenu",
+      "line": 42,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "3. Greedy decoding a jeho hranice",
+      "line": 56,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "4. Top-k a nucleus sampling",
+      "line": 64,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "5. Penalties, constraints a stopping rules",
+      "line": 83,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "5. Penalties, constraints a stopping rules",
+      "line": 83,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "6. Maximum output a total budget",
+      "line": 99,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "8. Seed a reprodukovateľnosť",
+      "line": 115,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "9. Determinism nie je correctness",
+      "line": 134,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "10. Provider gateway a parameter translation",
+      "line": 155,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "11. Batch composition a serving runtime",
+      "line": 172,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "13. Failure hypotheses a containment",
+      "line": 188,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
+      "section": "14. Recovery a acceptance",
+      "line": 196,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "3. Trusted instructions",
+      "line": 59,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "5. Context nie je automaticky pravda",
+      "line": 97,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "5. Context nie je automaticky pravda",
+      "line": 97,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "7. Examples sú behavior hints",
+      "line": 136,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "8. Instruction conflicts",
+      "line": 144,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "8. Instruction conflicts",
+      "line": 144,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "9. Instruction placement a recency",
+      "line": 162,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "11. Tool outputs a external mutations",
+      "line": 206,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "11. Tool outputs a external mutations",
+      "line": 206,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "12. Prompt assembly implementation",
+      "line": 222,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "13. Observability a privacy",
+      "line": 269,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "14. Failure hypotheses a containment",
+      "line": 277,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "15. Recovery a acceptance",
+      "line": 285,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "15. Recovery a acceptance",
+      "line": 285,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
+      "section": "15. Recovery a acceptance",
+      "line": 285,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "1. Template, rendered prompt a request nie sú to isté",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "4. Trusted a untrusted interpolation",
+      "line": 89,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "6. Optional segments a branching",
+      "line": 161,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "8. Content-addressed identity",
+      "line": 194,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "9. Prompt registry a ownership",
+      "line": 210,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "10. Render snapshots a golden tests",
+      "line": 233,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "13. Secrets a sensitive variables",
+      "line": 284,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "14. Deployment a canary",
+      "line": 292,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "15. Observability",
+      "line": 309,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "16. Failure hypotheses a containment",
+      "line": 317,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "17. Recovery a acceptance",
+      "line": 325,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
+      "section": "17. Recovery a acceptance",
+      "line": 325,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
       "section": "2. Prečo subword tokenization",
       "line": 22,
@@ -78926,6 +79333,114 @@
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "1. Tri režimy a ich presný význam",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "4. One-shot a riziko prehnanej generalizácie",
+      "line": 74,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "4. One-shot a riziko prehnanej generalizácie",
+      "line": 74,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "5. Few-shot ako dočasná behavior specification",
+      "line": 97,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "6. Reprezentatívnosť a selection bias",
+      "line": 111,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "7. Example ordering",
+      "line": 129,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "8. Similarity-based dynamic selection",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "8. Similarity-based dynamic selection",
+      "line": 137,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "11. Label leakage a hidden metadata",
+      "line": 212,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "14. Examples ako supply-chain input",
+      "line": 263,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "16. Recovery a acceptance",
+      "line": 279,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md",
+      "section": "16. Recovery a acceptance",
+      "line": 279,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     }
   ]
