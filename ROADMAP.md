@@ -444,10 +444,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Data, code, environment a model lineage](docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md)
 - [x] [Dataset versioning](docs/19-mlops-and-ml-platforms/dataset-versioning.md)
 - [x] [Experiment tracking](docs/19-mlops-and-ml-platforms/experiment-tracking.md)
-- [ ] Artifact stores
-- [ ] Model packaging a reproducible environments
-- [ ] Model Registry, versions, stages a aliases
-- [ ] Feature stores a online/offline consistency
+- [x] [Artifact stores](docs/19-mlops-and-ml-platforms/artifact-stores.md)
+- [x] [Model packaging a reproducible environments](docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md)
+- [x] [Model Registry, versions, stages a aliases](docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md)
+- [x] [Feature stores a online/offline consistency](docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md)
 - [ ] ML pipeline orchestration
 - [ ] Training pipelines a distributed training
 - [ ] CI pre ML code, data a pipelines

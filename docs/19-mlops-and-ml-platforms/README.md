@@ -18,15 +18,15 @@ Odporúčané predchádzajúce oblasti:
 2. [Data, code, environment a model lineage](data-code-environment-model-lineage.md)
 3. [Dataset versioning](dataset-versioning.md)
 4. [Experiment tracking](experiment-tracking.md)
+5. [Artifact stores](artifact-stores.md)
+6. [Model packaging a reproducible environments](model-packaging-reproducible-environments.md)
+7. [Model Registry, versions, stages a aliases](model-registry-versions-stages-aliases.md)
+8. [Feature stores a online/offline consistency](feature-stores-online-offline-consistency.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-5. Artifact stores
-6. Model packaging a reproducible environments
-7. Model Registry, versions, stages a aliases
-8. Feature stores a online/offline consistency
 9. ML pipeline orchestration
 10. Training pipelines a distributed training
 11. CI pre ML code, data a pipelines
@@ -83,4 +83,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **4/34 · In progress**. Prvý blok vytvára základný MLOps lifecycle, oddeľuje DevOps software release od data/model/feedback variability, zavádza traversable data-code-environment-model lineage, immutable dataset versioning a experiment tracking ako evidence service. Connected incident `MLOPS-PAY-90` ukazuje, prečo zelená CI pipeline, úspešný training job, tracker leaderboard ani ready model server samy nepreukazujú správny composite production generation. Ďalší authoritative blok sú kapitoly 5–8: artifact stores, model packaging a reproducible environments, Model Registry a feature stores. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
+Aktuálny authoritative stav sekcie je **8/34 · In progress**. Druhý blok rozširuje lifecycle od experiment metadata k durable artifact bytes, complete model package, governed Registry promotion a exact online feature values. Incident `MLOPS-PAY-91` spája partial multi-file upload zakrytý local cache, neúplné dependency inference, mutable Registry alias použitý ako runtime identity a stale online features po chybnom materialization watermarku. Kapitoly oddeľujú backend store od artifact store, package digest od serving image, Registry version/alias od loaded modelu a feature definition od request-correlated online value. Ďalší authoritative blok sú kapitoly 9–12: ML pipeline orchestration, training pipelines a distributed training, CI pre ML a Continuous Delivery pre modely. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
