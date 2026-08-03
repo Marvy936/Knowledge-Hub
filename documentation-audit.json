@@ -5293,6 +5293,34 @@
       "grade": "B"
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "title": "CI pre ML code, data a pipelines",
+      "words": 1985,
+      "headings": 19,
+      "sections": 19,
+      "findings": 18,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 18,
+      "score": 22,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "title": "Continuous Delivery pre modely",
+      "words": 2054,
+      "headings": 18,
+      "sections": 18,
+      "findings": 22,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 22,
+      "score": 27,
+      "grade": "B"
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
       "title": "Data, code, environment a model lineage",
       "words": 2026,
@@ -5337,7 +5365,7 @@
     {
       "path": "docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md",
       "title": "Feature stores a online/offline consistency",
-      "words": 1965,
+      "words": 1967,
       "headings": 17,
       "sections": 17,
       "findings": 15,
@@ -5360,6 +5388,20 @@
       "medium": 0,
       "low": 13,
       "score": 17,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "title": "ML pipeline orchestration",
+      "words": 2059,
+      "headings": 16,
+      "sections": 16,
+      "findings": 18,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 18,
+      "score": 18,
       "grade": "B"
     },
     {
@@ -5389,6 +5431,20 @@
       "low": 12,
       "score": 12,
       "grade": "A"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "title": "Training pipelines a distributed training",
+      "words": 2032,
+      "headings": 16,
+      "sections": 16,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 16,
+      "grade": "B"
     }
   ],
   "findings": [
@@ -73955,6 +74011,366 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "1. Dominantný ML CI lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "2. Exact CI subject",
+      "line": 27,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "3. Change classification a test selection",
+      "line": 55,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "3. Change classification a test selection",
+      "line": 55,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "4. Source a static checks",
+      "line": 71,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "5. Data contract CI",
+      "line": 84,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "6. Feature logic a parity fixtures",
+      "line": 100,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "7. Pipeline compilation a graph checks",
+      "line": 120,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "8. Component container contract",
+      "line": 132,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "9. Tiny training smoke",
+      "line": 149,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "9. Tiny training smoke",
+      "line": 149,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "9. Tiny training smoke",
+      "line": 149,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "11. Evaluation boundary v CI",
+      "line": 177,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "11. Evaluation boundary v CI",
+      "line": 177,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "13. Secrets, identity a permissions",
+      "line": 210,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "15. Flakiness a nondeterminism",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "15. Flakiness a nondeterminism",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
+      "section": "18. Acceptance contract",
+      "line": 251,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "1. Dominantný model-delivery lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "1. Dominantný model-delivery lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "2. Exact release subject",
+      "line": 28,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "3. Promotion nie je deployment",
+      "line": 56,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "4. Environment-specific registered models a config",
+      "line": 73,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "4. Environment-specific registered models a config",
+      "line": 73,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "5. Immutable deployment manifest",
+      "line": 93,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "5. Immutable deployment manifest",
+      "line": 93,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "5. Immutable deployment manifest",
+      "line": 93,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "6. Configured, resolved, loaded a serving state",
+      "line": 118,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "6. Configured, resolved, loaded a serving state",
+      "line": 118,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "6. Configured, resolved, loaded a serving state",
+      "line": 118,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "7. Shadow, canary a explicit test routing",
+      "line": 145,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "8. Technical, model a business guardrails",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "9. Deployment orchestration a GitOps",
+      "line": 170,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "9. Deployment orchestration a GitOps",
+      "line": 170,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "11. Credentials a approval boundary",
+      "line": 193,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "14. Competing failure hypotheses",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "15. Recovery a acceptance layers",
+      "line": 237,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "15. Recovery a acceptance layers",
+      "line": 237,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "16. CD oproti Continuous Training",
+      "line": 243,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
+      "section": "17. Acceptance contract",
+      "line": 249,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
       "section": "1. Lineage ako graf príčin, nie zoznam tagov",
       "line": 7,
@@ -74702,6 +75118,168 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "1. Dominantný orchestration lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "1. Dominantný orchestration lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "2. Exact pipeline subject",
+      "line": 28,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "3. Pipeline, component, task a attempt",
+      "line": 53,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "4. Control flow a data flow",
+      "line": 68,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "4. Control flow a data flow",
+      "line": 68,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "5. Compilation a resolved graph",
+      "line": 90,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "5. Compilation a resolved graph",
+      "line": 90,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "6. Caching nie je iba optimalizácia",
+      "line": 102,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "9. Scheduling, resources a isolation",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "11. Evidence hierarchy",
+      "line": 162,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "11. Evidence hierarchy",
+      "line": 162,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "12. Competing failure hypotheses",
+      "line": 181,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "12. Competing failure hypotheses",
+      "line": 181,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "13. Recovery model",
+      "line": 187,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "13. Recovery model",
+      "line": 187,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "15. Praktický acceptance contract",
+      "line": 201,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md",
+      "section": "15. Praktický acceptance contract",
+      "line": 201,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md",
       "section": "1. Dominantný packaging lifecycle",
       "line": 7,
@@ -74948,6 +75526,123 @@
       "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
       "section": "14. Recovery a acceptance",
       "line": 193,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "1. Dominantný training lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "2. Exact distributed-training subject",
+      "line": 29,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "3. Single-process, data parallel a model parallel",
+      "line": 56,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "7. Global batch, learning rate a equivalence",
+      "line": 136,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "8. Checkpoint ako kompletný resume subject",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "8. Checkpoint ako kompletný resume subject",
+      "line": 151,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "10. Kubeflow Trainer V2 boundary",
+      "line": 185,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "11. Resource a network dependencies",
+      "line": 208,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "11. Resource a network dependencies",
+      "line": 208,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "13. Evidence hierarchy",
+      "line": 227,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "13. Evidence hierarchy",
+      "line": 227,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "14. Competing failure hypotheses",
+      "line": 239,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
+      "section": "14. Competing failure hypotheses",
+      "line": 239,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

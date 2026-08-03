@@ -260,3 +260,11 @@ Taká CI skracuje feedback bez predstierania, že lacný smoke nahrádza drahú 
 - [GitHub Actions — Workflow artifacts](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts)
 - [GitHub Actions — Reusing workflow configurations](https://docs.github.com/en/actions/reference/workflows-and-actions/reusing-workflow-configurations)
 - [Kubeflow Pipelines — Pipeline concepts](https://www.kubeflow.org/docs/components/pipelines/concepts/pipeline/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Training pipelines a distributed training](training-pipelines-distributed-training.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Continuous Delivery pre modely →](continuous-delivery-for-models.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

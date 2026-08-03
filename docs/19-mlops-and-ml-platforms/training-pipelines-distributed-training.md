@@ -256,3 +256,11 @@ Training pipeline je uzavretá, keď sa dá vysvetliť každý optimizer step, c
 - [PyTorch — torchrun](https://docs.pytorch.org/docs/stable/elastic/run)
 - [Kubeflow Trainer — Overview](https://www.kubeflow.org/docs/components/trainer/overview/)
 - [Kubeflow Trainer — Getting started](https://www.kubeflow.org/docs/components/trainer/getting-started/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ML pipeline orchestration](ml-pipeline-orchestration.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: CI pre ML code, data a pipelines →](ci-for-ml-code-data-pipelines.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

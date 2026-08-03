@@ -257,5 +257,5 @@ Feature store znižuje duplication a skew iba vtedy, keď definitions, timestamp
 
 **Navigácia**
 
-[← Predchádzajúca: Model Registry, versions, stages a aliases](model-registry-versions-stages-aliases.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Model Registry, versions, stages a aliases](model-registry-versions-stages-aliases.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ML pipeline orchestration →](ml-pipeline-orchestration.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -258,3 +258,11 @@ Delivery systém musí vedieť odpovedať: čo presne bolo schválené, čo bolo
 - [MLflow — Model Registry](https://mlflow.org/docs/latest/ml/model-registry/)
 - [KServe — Canary rollout strategy](https://kserve.github.io/website/docs/0.17/model-serving/predictive-inference/rollout-strategies/canary)
 - [KServe — Canary rollout example](https://kserve.github.io/website/docs/0.17/model-serving/predictive-inference/rollout-strategies/canary-example)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: CI pre ML code, data a pipelines](ci-for-ml-code-data-pipelines.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -209,3 +209,11 @@ Acceptance sa uzavrie až vtedy, keď druhé spustenie rovnakého subjectu nepro
 - [Kubeflow Pipelines — Pipeline concepts](https://www.kubeflow.org/docs/components/pipelines/concepts/pipeline/)
 - [Kubeflow Pipelines — Caching](https://www.kubeflow.org/docs/components/pipelines/user-guides/core-functions/caching/)
 - [Kubeflow Pipelines — ML Metadata](https://www.kubeflow.org/docs/components/pipelines/concepts/metadata/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Feature stores a online/offline consistency](feature-stores-online-offline-consistency.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Training pipelines a distributed training →](training-pipelines-distributed-training.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
