@@ -23,20 +23,11 @@ Každý box môže implementovať open-source, cloud alebo interný systém. Nah
 
 ## 2. Domény a bounded contexts
 
-Praktická platforma sa rozdeľuje na bounded contexts s jasným ownershipom:
+Praktická platforma sa rozdeľuje na bounded contexts podľa authority, ktorú musí každý tím vlastniť a vedieť obnoviť. Source a CI context vlastní reviewed code, build definition a provenance; data a feature context vlastní snapshoty, schemas, event-time hranice, feature definitions a materialization state. Pipeline a training context vlastní orchestration operation, task attempts, distributed topology a checkpoint lifecycle, zatiaľ čo tracking, artifact a Registry context vlastní experiment metadata, immutable bytes, candidate versions a promotion pointers.
 
-- source a CI authority,
-- data a feature authority,
-- pipeline a training orchestration,
-- tracking, artifact a Registry authority,
-- evaluation a governance,
-- release a deployment control,
-- online, batch a streaming inference,
-- observability, feedback a cost,
-- security, privacy a supply chain,
-- backup, recovery a retirement.
+Evaluation a governance context rozhoduje nad presne označeným evidence bundle-om a nesmie meniť model artifacts. Release a deployment context skladá schválené generácie do composite release a vlastní rollout, routing a rollback intent. Online, batch a streaming inference context vlastní runtime execution a side-effect semantics; observability, feedback a cost context vlastní meranie actual exposure, result classes, label maturity a useful-work denominators.
 
-Hranica nie je iba organizačná. Každý context vlastní konkrétne objects a nesmie implicitne prepisovať authority iného contextu. Registry napríklad eviduje candidate/version a promotion control, ale serving platforma vlastní loaded runtime a traffic. Feature store vlastní feature definitions a values, nie business label.
+Security, privacy a supply-chain context presadzuje identity, integrity, minimization a trust policies naprieč ostatnými doménami. Backup, recovery a retirement context vlastní obnoviteľnosť authoritative stores, poradie restore a bezpečné ukončenie modelu aj jeho dátových a prevádzkových závislostí. Tieto hranice nie sú iba organizačné: každý context vlastní konkrétne objects a nesmie implicitne prepisovať authority iného contextu. Registry napríklad eviduje candidate/version a promotion control, ale serving platforma vlastní loaded runtime a traffic. Feature store vlastní feature definitions a values, nie business label.
 
 ## 3. Control planes a data planes
 
@@ -201,3 +192,11 @@ Architecture review prechádza jednu konkrétnu journey a incident, nie iba box 
 Pozitívna acceptance vyžaduje jasné bounded contexts, immutable release identity, oddelené control/data planes, least-privilege identities, idempotent events, authoritative stores, cross-platform lineage, monitoring coverage a tested recovery. Recovery acceptance vyžaduje restore/failover drill a druhú operation bez duplicate side effects.
 
 Forbidden acceptance je diagram produktov, zelené statusy jednotlivých služieb, central dashboard bez source identity alebo managed-service SLA ako dôkaz business journey. Second-operation test zopakuje candidate-to-deployment journey s rovnakým subjectom. Všetky pure operations musia byť reprodukovateľné a mutation operations no-op alebo deterministicky reconciled.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Amazon SageMaker a cloud MLOps mapping](amazon-sagemaker-cloud-mlops-mapping.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: MLOps troubleshooting →](mlops-troubleshooting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -472,8 +472,8 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Kubeflow Trainer a distributed training](docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md)
 - [x] [KServe alebo ekvivalentný Kubernetes model serving](docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md)
 - [x] [Amazon SageMaker a cloud MLOps mapping](docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md)
-- [ ] MLOps platform architecture
-- [ ] MLOps troubleshooting
+- [x] [MLOps platform architecture](docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md)
+- [x] [MLOps troubleshooting](docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md)
 
 ## Fáza 8 — LLM, GenAI a agentická automatizácia
 

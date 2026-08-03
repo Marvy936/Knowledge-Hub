@@ -65,19 +65,11 @@ Preskakovanie rovno na outcome alebo restart skrýva first divergence.
 
 ## 4. Evidence preservation a change freeze
 
-Pred restartom, retry alebo rollbackom sa zachytí:
+Pred restartom, retry alebo rollbackom sa vytvorí evidence bundle, ktorý zachováva každú vrstvu state ladderu. Source commit a release manifest ukazujú intended generation. API objects vrátane `generation`, `observedGeneration`, conditions a resolved specs dokazujú configured a controller-resolved stav. Task a job attempts, Kubernetes events, Pod specs, image digests a node/device assignment vysvetľujú, čo orchestrátor skutočne spustil a kde.
 
-- source a release manifest,
-- API objects vrátane generations a conditions,
-- task/job attempts a events,
-- Pod specs, images, node/device assignment,
-- logs a traces s time range,
-- artifact manifests a digests,
-- cache hit/miss evidence,
-- monitoring query a denominator,
-- external side-effect state.
+Logs a traces sa ukladajú s presným time rangeom, clock contextom a release identity, aby sa dali spojiť s requestmi a attempts. Artifact manifests, object versions a digests dokazujú, aké bytes vznikli alebo boli načítané; cache hit/miss evidence vysvetľuje, či sa výpočet vykonal alebo znovu použil starší output. Monitoring query sa archivuje spolu s filtrom, denominatorom, samplingom a dashboard transformáciou, pretože samotný screenshot neumožňuje reprodukciu alarmu. External side-effect state sa číta priamo z Registry, deployment targetu, databázy alebo queue, aby timeout nebol nesprávne interpretovaný ako neúspech.
 
-Change freeze neznamená úplné zastavenie businessu. Znamená zákaz nekorelovaných mutations. Emergency containment sa loguje ako nová operation s jasným subjectom.
+Change freeze neznamená úplné zastavenie businessu. Znamená zákaz nekorelovaných mutations, ktoré by zmenili viac hypotheses naraz alebo prepísali dôkaz. Emergency containment sa loguje ako nová operation s jasným subjectom, actorom, dôvodom a expected effectom.
 
 ## 5. Unknown outcome a read-before-retry
 
@@ -225,3 +217,11 @@ Incident examples sa prenášajú do chaos/game-day a second-operation testov. P
 Pozitívna troubleshooting acceptance znamená exact subject, preserved evidence, explicit competing hypotheses, potvrdenú first divergence, bounded containment, composite recovery a mature outcome verification. Recovery acceptance vyžaduje druhú operation a reconciliation všetkých nejasných side effects.
 
 Forbidden acceptance je „po reštarte je to zelené“, alias rollback bez loaded parity, rerun so zmenenými inputs ako reprodukcia alebo zmiznutý alert po prepise baseline-u. Troubleshooting je ukončený až vtedy, keď je vysvetlený mechanizmus, obnovený known-good state a preventívny control prešiel acceptance testom.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: MLOps platform architecture](mlops-platform-architecture.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

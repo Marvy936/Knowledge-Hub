@@ -153,5 +153,5 @@ Second-operation test znovu spustí rovnaký immutable pipeline subject alebo no
 
 **Navigácia**
 
-[← Predchádzajúca: KServe alebo ekvivalentný Kubernetes model serving](kserve-kubernetes-model-serving.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: KServe alebo ekvivalentný Kubernetes model serving](kserve-kubernetes-model-serving.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: MLOps platform architecture →](mlops-platform-architecture.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
