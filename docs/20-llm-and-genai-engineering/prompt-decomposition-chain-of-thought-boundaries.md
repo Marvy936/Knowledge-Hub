@@ -188,3 +188,11 @@ Pozitívna acceptance vyžaduje explicitný task graph, exact generations, typed
 Recovery acceptance vyžaduje zachovanie pôvodného failed subjectu, identifikáciu prvej divergence, opravenie konkrétneho kroku a second-operation test bez duplicate side effectu.
 
 Forbidden acceptance je fluent chain of thought ako dôkaz correctness, raw reasoning uložený bez privacy boundary, „mysli krok za krokom“ ako náhrada orchestration designu alebo finálny answer bez väzby na evidence a vykonané kroky.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Prompt templates, variables a versioning](prompt-templates-variables-versioning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Structured Outputs a schema validation →](structured-outputs-schema-validation.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

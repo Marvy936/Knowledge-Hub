@@ -193,3 +193,11 @@ Pozitívna acceptance vyžaduje workload-specific capability matrix, representat
 Recovery acceptance vyžaduje identifikáciu regression segmentu, návrat na známu compatible route, replay a canary validation a second-operation test vrátane fallbacku.
 
 Forbidden acceptance je výber iba podľa token price, leaderboard score bez workload eval, maximum context ako dôkaz long-context reliability alebo fallback model bez schema/tool a governance parity.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Function calling a tool calling](function-calling-tool-calling.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

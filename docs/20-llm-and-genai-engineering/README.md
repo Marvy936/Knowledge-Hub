@@ -22,15 +22,15 @@ Odporúčané predchádzajúce oblasti:
 6. [Prompt roles, instructions, context a examples](prompt-roles-instructions-context-examples.md)
 7. [Zero-shot, one-shot a few-shot prompting](zero-one-few-shot-prompting.md)
 8. [Prompt templates, variables a versioning](prompt-templates-variables-versioning.md)
+9. [Prompt decomposition a chain-of-thought boundaries](prompt-decomposition-chain-of-thought-boundaries.md)
+10. [Structured Outputs a schema validation](structured-outputs-schema-validation.md)
+11. [Function calling a tool calling](function-calling-tool-calling.md)
+12. [Model selection a capability/cost trade-offs](model-selection-capability-cost-tradeoffs.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-9. Prompt decomposition a chain-of-thought boundaries
-10. Structured Outputs a schema validation
-11. Function calling a tool calling
-12. Model selection a capability/cost trade-offs
 13. Model version pinning a compatibility
 14. Retrieval-Augmented Generation architecture
 15. Chunking, metadata a document processing
@@ -86,4 +86,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **8/37 · In progress**. Druhý authoritative blok aktivuje kapitoly 5–8 a incident `GENAI-SUPPORT-02`. Inference kapitola viaže model/tokenizer/prompt generation na greedy alebo sampled decoding, temperature, top-k/top-p, penalties, stop reasons, output budget, seed, provider translation, runtime/batch generation a repeated-run acceptance a oddeľuje reprodukovateľnosť od correctness. Prompt-role kapitola oddeľuje trusted instructions, user goal, retrieved context, model-generated history, examples a tool outputs a používa provider-specific role hierarchy iba ako serialization contract, nie ako bezpečnostný sandbox. Zero/one/few-shot kapitola definuje versioned example sets, provenance, representative decision-boundary coverage, ordering, dynamic selection, label leakage, context budget a paired evals. Prompt-template kapitola modeluje template, typed variables, trusted/untrusted interpolation, strict rendering, branches, semantic/content-addressed versions, compatibility, cache, canary a rollback ako prompt release lifecycle. Kapitoly 5–8 sú pripravené na repository closeout; reálna inference, provider parity, adversarial prompt execution, prompt registry mutation a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 9–12: prompt decomposition a chain-of-thought boundaries, Structured Outputs, function/tool calling a model selection.
+Aktuálny authoritative stav sekcie je **12/37 · In progress**. Tretí authoritative blok aktivuje kapitoly 9–12 a incident `GENAI-SUPPORT-03`. Prompt-decomposition kapitola oddeľuje explicitný task graph, typed intermediate artifacts, evidence-linked decision records a checkpoint recovery od raw chain-of-thought textu, ktorý nie je authority ani automaticky faithful explanation. Structured Outputs kapitola rozlišuje plain JSON, JSON mode, strict schema conformance, semantic/domain validation, authority read-back, refusal/incomplete handling, streaming a schema evolution. Function/tool-calling kapitola modeluje návrh tool callu, strict arguments, principal/tenant authorization, business preconditions, idempotency, unknown-outcome read-before-retry, bounded tool results a journey acceptance. Model-selection kapitola používa workload segmentation, capability matrix, task-specific evals, schema/tool compatibility, data governance, latency/capacity, routing/fallback a total cost per accepted outcome namiesto samotnej ceny tokenu. Kapitoly 9–12 sú pripravené na repository closeout; reálne reasoning executions, strict-schema provider parity, tool side effects, model canary a business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 13–16: model version pinning, RAG architecture, chunking/document processing a vector stores/indexing.

@@ -247,3 +247,11 @@ Pozitívna acceptance vyžaduje pinned schema a model support, strict structural
 Recovery acceptance vyžaduje reprodukovanie pôvodného invalid subjectu, opravu konkrétnej contract alebo semantic vrstvy, replay eval a second-operation test s kompatibilným consumerom.
 
 Forbidden acceptance je „valid JSON“ ako dôkaz correctness, schema-conformant amount bez authority read-back, default approve/deny pri incomplete response alebo model-generated fields odoslané priamo do privileged sinku.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Prompt decomposition a chain-of-thought boundaries](prompt-decomposition-chain-of-thought-boundaries.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Function calling a tool calling →](function-calling-tool-calling.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

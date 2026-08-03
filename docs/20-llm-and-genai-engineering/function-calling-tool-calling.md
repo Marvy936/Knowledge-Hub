@@ -201,3 +201,11 @@ Pozitívna acceptance vyžaduje versioned tool catalog, strict argument validati
 Recovery acceptance vyžaduje určenie outcome pôvodného callu, odstránenie duplicate risku, opakovanie s rovnakou business operation identity a second-operation test na inom requeste.
 
 Forbidden acceptance je tool availability ako authorization, valid JSON arguments ako business approval, HTTP timeout ako dôkaz neúspechu alebo model-generated success text bez target read-back.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Structured Outputs a schema validation](structured-outputs-schema-validation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Model selection a capability/cost trade-offs →](model-selection-capability-cost-tradeoffs.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
