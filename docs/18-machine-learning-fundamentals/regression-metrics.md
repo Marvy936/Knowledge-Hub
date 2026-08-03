@@ -403,3 +403,11 @@ Relevantné pojmy: regression evaluation subject, target unit, target maturity, 
 - [scikit-learn — `r2_score`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html)
 - [scikit-learn — `mean_pinball_loss`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_pinball_loss.html)
 - [scikit-learn — `d2_pinball_score`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.d2_pinball_score.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Classification metrics](classification-metrics.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Imbalanced datasets a threshold selection →](imbalanced-datasets-threshold-selection.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

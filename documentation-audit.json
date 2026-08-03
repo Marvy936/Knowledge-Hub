@@ -4929,6 +4929,34 @@
       "grade": "A"
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "title": "Classification metrics",
+      "words": 2920,
+      "headings": 23,
+      "sections": 23,
+      "findings": 34,
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 33,
+      "score": 49,
+      "grade": "C"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "title": "Cross-validation",
+      "words": 3250,
+      "headings": 29,
+      "sections": 29,
+      "findings": 39,
+      "critical": 0,
+      "high": 1,
+      "medium": 2,
+      "low": 36,
+      "score": 60,
+      "grade": "C"
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
       "title": "Data leakage a train-serving skew",
       "words": 2927,
@@ -5015,7 +5043,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
       "title": "Hyperparameters a hyperparameter optimization",
-      "words": 2087,
+      "words": 2088,
       "headings": 18,
       "sections": 18,
       "findings": 22,
@@ -5025,6 +5053,20 @@
       "low": 22,
       "score": 30,
       "grade": "B"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "title": "Imbalanced datasets a threshold selection",
+      "words": 3014,
+      "headings": 26,
+      "sections": 26,
+      "findings": 30,
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 29,
+      "score": 42,
+      "grade": "C"
     },
     {
       "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
@@ -5094,6 +5136,20 @@
       "medium": 0,
       "low": 27,
       "score": 37,
+      "grade": "C"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "title": "Regression metrics",
+      "words": 2816,
+      "headings": 25,
+      "sections": 25,
+      "findings": 32,
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 30,
+      "score": 52,
       "grade": "C"
     },
     {
@@ -66782,6 +66838,663 @@
       "score": 1
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "1. Dominantný classification-evaluation lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "1. Dominantný classification-evaluation lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "2. Exact evaluation subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "3. Score, probability, class a action",
+      "line": 59,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "3. Score, probability, class a action",
+      "line": 59,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "4. Confusion matrix ako count authority",
+      "line": 72,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "4. Confusion matrix ako count authority",
+      "line": 72,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "5. Accuracy, error rate a balanced accuracy",
+      "line": 96,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "6. Precision, recall, specificity a negative predictive value",
+      "line": 107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "6. Precision, recall, specificity a negative predictive value",
+      "line": 107,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "7. F1 a všeobecný F-beta score",
+      "line": 122,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "7. F1 a všeobecný F-beta score",
+      "line": 122,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "7. F1 a všeobecný F-beta score",
+      "line": 122,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "8. ROC curve a ROC AUC",
+      "line": 140,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "9. Precision-recall curve a average precision",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "10. Log loss a probability quality",
+      "line": 170,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "10. Log loss a probability quality",
+      "line": 170,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "11. Multiclass confusion a averaging",
+      "line": 184,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "12. Multilabel metrics a sample identity",
+      "line": 216,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "12. Multilabel metrics a sample identity",
+      "line": 216,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "13. Top-K, lift a capacity-constrained metrics",
+      "line": 227,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "13. Top-K, lift a capacity-constrained metrics",
+      "line": 227,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "14. Sample weights, support a denominator integrity",
+      "line": 242,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "14. Sample weights, support a denominator integrity",
+      "line": 242,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "14. Sample weights, support a denominator integrity",
+      "line": 242,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "15. Uncertainty, slices a paired comparison",
+      "line": 260,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "15. Uncertainty, slices a paired comparison",
+      "line": 260,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "16. Metric selection ako decision contract",
+      "line": 275,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "18. Competing failure hypotheses",
+      "line": 297,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "8 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "18. Competing failure hypotheses",
+      "line": 297,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "18. Competing failure hypotheses",
+      "line": 297,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "18. Competing failure hypotheses",
+      "line": 297,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "19. Evidence-preserving containment a recovery",
+      "line": 312,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/classification-metrics.md",
+      "section": "20. Acceptance contract",
+      "line": 329,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "1. Dominantný cross-validation lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "1. Dominantný cross-validation lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "2. Exact cross-validation subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "3. Čo cross-validation odhaduje",
+      "line": 61,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "4. KFold",
+      "line": 73,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "5. StratifiedKFold",
+      "line": 91,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "6. GroupKFold",
+      "line": 109,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "7. StratifiedGroupKFold",
+      "line": 125,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "8. TimeSeriesSplit a temporal evaluation",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "8. TimeSeriesSplit a temporal evaluation",
+      "line": 143,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "10. ShuffleSplit a repeated splits",
+      "line": 178,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "12. Pipeline fit boundary",
+      "line": 206,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "12. Pipeline fit boundary",
+      "line": 206,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "13. cross validate a multi-metric evidence",
+      "line": 224,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "14. Out-of-fold predictions",
+      "line": 250,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "14. Out-of-fold predictions",
+      "line": 250,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "14. Out-of-fold predictions",
+      "line": 250,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "15. Hyperparameter search a CV reuse",
+      "line": 272,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "16. Nested cross-validation",
+      "line": 287,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "16. Nested cross-validation",
+      "line": 287,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "17. Multiple metrics a selection rule",
+      "line": 304,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "17. Multiple metrics a selection rule",
+      "line": 304,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "18. Fold aggregation a unequal sizes",
+      "line": 322,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "18. Fold aggregation a unequal sizes",
+      "line": 322,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "18. Fold aggregation a unequal sizes",
+      "line": 322,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "19. Variance, uncertainty a correlated folds",
+      "line": 335,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "20. Parallel execution a resource semantics",
+      "line": 349,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "20. Parallel execution a resource semantics",
+      "line": 349,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "21. Failure handling a partial folds",
+      "line": 364,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "22. Final refit a independent acceptance",
+      "line": 378,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "22. Final refit a independent acceptance",
+      "line": 378,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "23. Worked incident ML-PAY-87",
+      "line": 393,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "24. Competing failure hypotheses",
+      "line": 408,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "12 odrážok a iba 44 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "24. Competing failure hypotheses",
+      "line": 408,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "24. Competing failure hypotheses",
+      "line": 408,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "24. Competing failure hypotheses",
+      "line": 408,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "24. Competing failure hypotheses",
+      "line": 408,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `OOF`, `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "25. Evidence-preserving containment a recovery",
+      "line": 427,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/cross-validation.md",
+      "section": "26. Acceptance contract",
+      "line": 445,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md",
       "section": "1. Dominantný leakage/skew lifecycle",
       "line": 9,
@@ -68450,6 +69163,276 @@
       "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
       "section": "Zhrnutie",
       "line": 304,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "1. Dominantný imbalance-to-decision lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "1. Dominantný imbalance-to-decision lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "3. Natural prevalence a sampled prevalence",
+      "line": 64,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "3. Natural prevalence a sampled prevalence",
+      "line": 64,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "4. Imbalance nie je jediná minority difficulty",
+      "line": 78,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "4. Imbalance nie je jediná minority difficulty",
+      "line": 78,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "5. Stratification a jej hranice",
+      "line": 92,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "6. Class weights a sample weights",
+      "line": 110,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "7. Random undersampling",
+      "line": 127,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "8. Random oversampling",
+      "line": 143,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "8. Random oversampling",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "9. Synthetic oversampling a SMOTE-like assumptions",
+      "line": 160,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "9. Synthetic oversampling a SMOTE-like assumptions",
+      "line": 160,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "11. Ensemble a algorithm-level alternatives",
+      "line": 193,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "12. Metric portfolio pre imbalanced classification",
+      "line": 199,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "12. Metric portfolio pre imbalanced classification",
+      "line": 199,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "13. Threshold ako samostatný policy artifact",
+      "line": 222,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "14. Threshold tuning bez evaluation leakage",
+      "line": 245,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "18. Multiclass a multilabel imbalance",
+      "line": 299,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "18. Multiclass a multilabel imbalance",
+      "line": 299,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "18. Multiclass a multilabel imbalance",
+      "line": 299,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "19. Feedback loops a selective labels",
+      "line": 320,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "19. Feedback loops a selective labels",
+      "line": 320,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "19. Feedback loops a selective labels",
+      "line": 320,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "20. Worked incident ML-PAY-87",
+      "line": 334,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "21. Competing failure hypotheses",
+      "line": 351,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 47 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "21. Competing failure hypotheses",
+      "line": 351,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "21. Competing failure hypotheses",
+      "line": 351,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "23. Acceptance contract",
+      "line": 385,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md",
+      "section": "23. Acceptance contract",
+      "line": 385,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -70304,6 +71287,294 @@
       "path": "docs/18-machine-learning-fundamentals/regression-classification-ranking-clustering.md",
       "section": "19. Task-specific acceptance contract",
       "line": 313,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "1. Dominantný regression-evaluation lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "2. Exact regression-evaluation subject",
+      "line": 26,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "3. Residual ako základný evidence artifact",
+      "line": 63,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "4. Mean absolute error",
+      "line": 75,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "4. Mean absolute error",
+      "line": 75,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "4. Mean absolute error",
+      "line": 75,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "5. Mean squared error a root mean squared error",
+      "line": 93,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "6. Median absolute error a robustný center",
+      "line": 113,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "7. R-squared a baseline-relative evidence",
+      "line": 125,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "7. R-squared a baseline-relative evidence",
+      "line": 125,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "8. Explained variance a mean bias",
+      "line": 143,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "8. Explained variance a mean bias",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "9. Percentage errors a denominator failure",
+      "line": 157,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "10. Logarithmic errors",
+      "line": 169,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "11. Poisson, Gamma a Tweedie deviance",
+      "line": 181,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "11. Poisson, Gamma a Tweedie deviance",
+      "line": 181,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "14. Multioutput regression a aggregation",
+      "line": 219,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "14. Multioutput regression a aggregation",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "15. Sample weights, exposure a business cost",
+      "line": 240,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "16. Tail, cohort a temporal evaluation",
+      "line": 256,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "18. Paired comparison a uncertainty",
+      "line": 293,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "18. Paired comparison a uncertainty",
+      "line": 293,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "19. Worked incident ML-PAY-87",
+      "line": 307,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "19. Worked incident ML-PAY-87",
+      "line": 307,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "20. Competing failure hypotheses",
+      "line": 323,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "10 odrážok a iba 41 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "20. Competing failure hypotheses",
+      "line": 323,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "20. Competing failure hypotheses",
+      "line": 323,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "20. Competing failure hypotheses",
+      "line": 323,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "20. Competing failure hypotheses",
+      "line": 323,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "21. Evidence-preserving containment a recovery",
+      "line": 340,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "22. Acceptance contract",
+      "line": 357,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/regression-metrics.md",
+      "section": "22. Acceptance contract",
+      "line": 357,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",

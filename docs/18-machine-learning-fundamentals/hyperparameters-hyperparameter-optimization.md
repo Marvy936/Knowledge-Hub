@@ -316,5 +316,5 @@ Hyperparameter optimization je experimentálna selection procedure nad presným 
 
 **Navigácia**
 
-[← Predchádzajúca: Regularization a early stopping](regularization-early-stopping.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Regularization a early stopping](regularization-early-stopping.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Classification metrics →](classification-metrics.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

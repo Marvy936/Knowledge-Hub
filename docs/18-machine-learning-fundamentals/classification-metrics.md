@@ -376,3 +376,11 @@ Relevantné pojmy: classification evaluation subject, positive class, raw score,
 - [scikit-learn — `precision_recall_curve`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_curve.html)
 - [scikit-learn — `average_precision_score`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html)
 - [scikit-learn — `log_loss`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.log_loss.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Hyperparameters a hyperparameter optimization](hyperparameters-hyperparameter-optimization.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Regression metrics →](regression-metrics.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

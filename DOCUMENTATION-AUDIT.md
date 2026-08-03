@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **367**
-- Audited conceptual sections: **7757**
-- Total words: **741,946**
-- Findings: **7325** (critical 654, high 866, medium 470, low 5335)
-- File grades: A 148, B 123, C 36, D 60
+- Audited authoritative articles: **371**
+- Audited conceptual sections: **7860**
+- Total words: **753,947**
+- Findings: **7460** (critical 654, high 870, medium 473, low 5463)
+- File grades: A 148, B 123, C 40, D 60
 
 ## Interpretation
 
@@ -90,17 +90,20 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 64 | 0 | 7 | 0 | 5 | 1468 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | C | 63 | 0 | 7 | 0 | 6 | 1655 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | C | 60 | 0 | 6 | 0 | 9 | 1682 | `docs/05-ci-cd-and-release/rolling-update.md` |
+| C | 60 | 0 | 1 | 2 | 36 | 3250 | `docs/18-machine-learning-fundamentals/cross-validation.md` |
 | C | 60 | 0 | 0 | 0 | 43 | 2654 | `docs/18-machine-learning-fundamentals/neural-network-fundamentals.md` |
 | C | 57 | 0 | 5 | 0 | 14 | 1949 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | C | 53 | 0 | 0 | 6 | 22 | 2531 | `docs/00-foundations/desired-state-and-reconciliation.md` |
+| C | 52 | 0 | 1 | 1 | 30 | 2816 | `docs/18-machine-learning-fundamentals/regression-metrics.md` |
 | C | 52 | 0 | 0 | 0 | 34 | 2114 | `docs/18-machine-learning-fundamentals/regularization-early-stopping.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 2059 | `docs/05-ci-cd-and-release/continuous-integration.md` |
 | C | 50 | 0 | 0 | 0 | 33 | 2342 | `docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md` |
 | C | 49 | 0 | 0 | 0 | 35 | 3321 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
+| C | 49 | 0 | 1 | 0 | 33 | 2920 | `docs/18-machine-learning-fundamentals/classification-metrics.md` |
 | C | 48 | 0 | 0 | 0 | 37 | 2819 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | C | 48 | 0 | 0 | 0 | 34 | 3799 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
@@ -108,6 +111,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
+| C | 42 | 0 | 1 | 0 | 29 | 3014 | `docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md` |
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | C | 41 | 0 | 0 | 0 | 29 | 2315 | `docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
@@ -126,7 +130,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 32 | 0 | 0 | 0 | 21 | 3105 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
 | B | 31 | 0 | 0 | 0 | 25 | 2872 | `docs/18-machine-learning-fundamentals/train-validation-test-split.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
-| B | 30 | 0 | 0 | 0 | 22 | 2087 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
+| B | 30 | 0 | 0 | 0 | 22 | 2088 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 28 | 0 | 1 | 0 | 13 | 3923 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
@@ -2139,21 +2143,37 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **HIGH** line 719, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
+### `docs/18-machine-learning-fundamentals/classification-metrics.md`
+
+- **HIGH** line 297, `list-heavy-section` — **18. Competing failure hypotheses**: 8 odrážok a iba 47 slov súvislého vysvetlenia.
+
+### `docs/18-machine-learning-fundamentals/cross-validation.md`
+
+- **HIGH** line 408, `list-heavy-section` — **24. Competing failure hypotheses**: 12 odrážok a iba 44 slov súvislého vysvetlenia.
+
+### `docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md`
+
+- **HIGH** line 351, `list-heavy-section` — **21. Competing failure hypotheses**: 10 odrážok a iba 47 slov súvislého vysvetlenia.
+
+### `docs/18-machine-learning-fundamentals/regression-metrics.md`
+
+- **HIGH** line 323, `list-heavy-section` — **20. Competing failure hypotheses**: 10 odrážok a iba 41 slov súvislého vysvetlenia.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2424 | 2424 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1554 | 1554 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1357 | 1357 |
-| `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
+| `example-not-explicit` | 0 | 0 | 0 | 2478 | 2478 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1585 | 1585 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1400 | 1400 |
+| `term-before-explanation` | 0 | 54 | 322 | 0 | 376 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
 | `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
 | `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
-| `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
+| `short-concept-section` | 0 | 0 | 151 | 0 | 151 |
 | `list-first-introduction` | 0 | 124 | 0 | 0 | 124 |
-| `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
+| `list-heavy-section` | 0 | 71 | 0 | 0 | 71 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |
 

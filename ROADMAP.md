@@ -427,10 +427,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Overfitting, underfitting, bias a variance](docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md)
 - [x] [Regularization a early stopping](docs/18-machine-learning-fundamentals/regularization-early-stopping.md)
 - [x] [Hyperparameters a hyperparameter optimization](docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md)
-- [ ] Classification metrics
-- [ ] Regression metrics
-- [ ] Imbalanced datasets a threshold selection
-- [ ] Cross-validation
+- [x] [Classification metrics](docs/18-machine-learning-fundamentals/classification-metrics.md)
+- [x] [Regression metrics](docs/18-machine-learning-fundamentals/regression-metrics.md)
+- [x] [Imbalanced datasets a threshold selection](docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md)
+- [x] [Cross-validation](docs/18-machine-learning-fundamentals/cross-validation.md)
 - [ ] Calibration a uncertainty
 - [ ] Explainability a feature importance
 - [ ] Data quality, bias a responsible AI

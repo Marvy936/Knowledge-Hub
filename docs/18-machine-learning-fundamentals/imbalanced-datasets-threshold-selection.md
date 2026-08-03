@@ -432,3 +432,11 @@ Relevantné pojmy: class imbalance, natural prevalence, sampled prevalence, mino
 - [scikit-learn — `StratifiedGroupKFold`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedGroupKFold.html)
 - [imbalanced-learn — User guide and API](https://imbalanced-learn.org/stable/user_guide.html)
 - [imbalanced-learn — Pipeline](https://imbalanced-learn.org/stable/references/generated/imblearn.pipeline.Pipeline.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Regression metrics](regression-metrics.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Cross-validation →](cross-validation.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
