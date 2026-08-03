@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **363**
-- Audited conceptual sections: **7657**
-- Total words: **733,083**
-- Findings: **7207** (critical 654, high 866, medium 470, low 5217)
-- File grades: A 148, B 122, C 33, D 60
+- Audited authoritative articles: **367**
+- Audited conceptual sections: **7757**
+- Total words: **741,517**
+- Findings: **7332** (critical 657, high 871, medium 471, low 5333)
+- File grades: A 148, B 122, C 36, D 61
 
 ## Interpretation
 
@@ -72,7 +72,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 101 | 2 | 2 | 7 | 28 | 2185 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 100 | 4 | 3 | 3 | 15 | 2584 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 100 | 3 | 4 | 1 | 23 | 2469 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
-| D | 98 | 0 | 0 | 0 | 72 | 3838 | `docs/18-machine-learning-fundamentals/loss-functions-optimization.md` |
+| D | 98 | 0 | 0 | 0 | 72 | 3843 | `docs/18-machine-learning-fundamentals/loss-functions-optimization.md` |
 | D | 96 | 2 | 6 | 2 | 12 | 1951 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
 | D | 95 | 1 | 10 | 0 | 4 | 1505 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 93 | 3 | 2 | 3 | 22 | 2801 | `docs/00-foundations/sdlc.md` |
@@ -81,16 +81,19 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 85 | 0 | 8 | 1 | 12 | 1689 | `docs/05-ci-cd-and-release/semantic-versioning.md` |
 | D | 80 | 0 | 9 | 0 | 6 | 1554 | `docs/05-ci-cd-and-release/blue-green-deployment.md` |
 | D | 76 | 0 | 8 | 0 | 9 | 1840 | `docs/05-ci-cd-and-release/database-compatibility-during-deployment.md` |
+| D | 76 | 1 | 2 | 0 | 32 | 2189 | `docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md` |
 | D | 72 | 0 | 8 | 0 | 5 | 1475 | `docs/05-ci-cd-and-release/a-b-testing.md` |
 | D | 71 | 1 | 6 | 0 | 11 | 1903 | `docs/05-ci-cd-and-release/pipeline-as-code.md` |
 | C | 69 | 0 | 8 | 0 | 3 | 1616 | `docs/05-ci-cd-and-release/feature-flags.md` |
 | C | 69 | 0 | 8 | 0 | 4 | 1476 | `docs/05-ci-cd-and-release/ring-deployment.md` |
 | C | 67 | 0 | 7 | 0 | 9 | 1757 | `docs/05-ci-cd-and-release/reusable-and-parallel-pipelines.md` |
 | C | 67 | 0 | 7 | 0 | 9 | 1869 | `docs/05-ci-cd-and-release/trigger-artifact-cache.md` |
+| C | 67 | 2 | 1 | 1 | 24 | 1929 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
 | C | 64 | 0 | 7 | 0 | 5 | 1468 | `docs/05-ci-cd-and-release/shadow-deployment.md` |
 | C | 63 | 0 | 7 | 0 | 6 | 1655 | `docs/05-ci-cd-and-release/artifact-versioning.md` |
 | C | 60 | 0 | 6 | 0 | 9 | 1682 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | C | 60 | 0 | 0 | 0 | 43 | 2654 | `docs/18-machine-learning-fundamentals/neural-network-fundamentals.md` |
+| C | 59 | 0 | 1 | 0 | 33 | 2056 | `docs/18-machine-learning-fundamentals/regularization-early-stopping.md` |
 | C | 57 | 0 | 5 | 0 | 14 | 1949 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
@@ -102,6 +105,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 48 | 0 | 0 | 0 | 37 | 2819 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | C | 48 | 0 | 0 | 0 | 34 | 3799 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
+| C | 47 | 0 | 1 | 0 | 27 | 2255 | `docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md` |
 | C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
@@ -1971,6 +1975,18 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 259, `single-sentence-concept` — **Roll-forward cez live patch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 263, `single-sentence-concept` — **Health green ako recovery closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md`
+
+- **CRITICAL** line 228, `bare-bullet-items` — **13. Failure hypotheses**: 10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `search space neobsahuje použiteľnú konfiguráciu;`, `objective nereprezentuje business outcome;`, `split alebo CV porušuje time/entity boundary;`, `sampler nemal dostatočný budget;`.
+- **CRITICAL** line 228, `outline-instead-of-explanation` — **13. Failure hypotheses**: 10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.
+- **HIGH** line 228, `thin-concept-section` — **13. Failure hypotheses**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
+### `docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md`
+
+- **CRITICAL** line 171, `outline-instead-of-explanation` — **11. Approximation, estimation a optimization error**: 4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.
+- **HIGH** line 25, `list-first-introduction` — **2. Exact generalization subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+- **HIGH** line 171, `thin-concept-section` — **11. Approximation, estimation a optimization error**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/00-foundations/value-stream-mapping.md`
 
 - **HIGH** line 33, `list-first-introduction` — **3. Základný model toku**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
@@ -2135,20 +2151,28 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **HIGH** line 719, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
+### `docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md`
+
+- **HIGH** line 249, `list-first-introduction` — **18. Early stopping a checkpoint authority**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
+### `docs/18-machine-learning-fundamentals/regularization-early-stopping.md`
+
+- **HIGH** line 25, `list-first-introduction` — **2. Exact regularization subject**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2379 | 2379 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1499 | 1499 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1339 | 1339 |
-| `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
+| `example-not-explicit` | 0 | 0 | 0 | 2423 | 2423 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1554 | 1554 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1356 | 1356 |
+| `term-before-explanation` | 0 | 54 | 322 | 0 | 376 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
-| `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
-| `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
-| `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
+| `outline-instead-of-explanation` | 316 | 0 | 0 | 0 | 316 |
+| `bare-bullet-items` | 237 | 33 | 0 | 0 | 270 |
+| `thin-concept-section` | 0 | 245 | 0 | 0 | 245 |
 | `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
-| `list-first-introduction` | 0 | 124 | 0 | 0 | 124 |
+| `list-first-introduction` | 0 | 127 | 0 | 0 | 127 |
 | `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |

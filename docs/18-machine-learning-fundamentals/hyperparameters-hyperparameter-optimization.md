@@ -310,3 +310,11 @@ Hyperparameter optimization je experimentálna selection procedure nad presným 
 - scikit-learn, *Tuning the hyper-parameters of an estimator* a model-selection dokumentácia.
 - scikit-learn, *Nested versus non-nested cross-validation*.
 - Optuna, sampler a pruning dokumentácia pre current stable release.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Regularization a early stopping](regularization-early-stopping.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

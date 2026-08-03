@@ -423,10 +423,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Decision trees, random forests a gradient boosting](docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md)
 - [x] [Neural network fundamentals](docs/18-machine-learning-fundamentals/neural-network-fundamentals.md)
 - [x] [Loss functions a optimization](docs/18-machine-learning-fundamentals/loss-functions-optimization.md)
-- [ ] Gradient descent, learning rate a convergence
-- [ ] Overfitting, underfitting, bias a variance
-- [ ] Regularization a early stopping
-- [ ] Hyperparameters a hyperparameter optimization
+- [x] [Gradient descent, learning rate a convergence](docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md)
+- [x] [Overfitting, underfitting, bias a variance](docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md)
+- [x] [Regularization a early stopping](docs/18-machine-learning-fundamentals/regularization-early-stopping.md)
+- [x] [Hyperparameters a hyperparameter optimization](docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md)
 - [ ] Classification metrics
 - [ ] Regression metrics
 - [ ] Imbalanced datasets a threshold selection
