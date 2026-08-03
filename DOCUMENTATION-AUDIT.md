@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **371**
-- Audited conceptual sections: **7860**
-- Total words: **754,404**
-- Findings: **7446** (critical 654, high 866, medium 470, low 5456)
-- File grades: A 148, B 124, C 39, D 60
+- Audited authoritative articles: **375**
+- Audited conceptual sections: **7966**
+- Total words: **767,207**
+- Findings: **7557** (critical 654, high 866, medium 470, low 5567)
+- File grades: A 148, B 126, C 41, D 60
 
 ## Interpretation
 
@@ -104,11 +104,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 48 | 0 | 0 | 0 | 37 | 2819 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | C | 48 | 0 | 0 | 0 | 34 | 3799 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
+| C | 46 | 0 | 0 | 0 | 35 | 3174 | `docs/18-machine-learning-fundamentals/calibration-uncertainty.md` |
 | C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
-| C | 42 | 0 | 0 | 0 | 35 | 3360 | `docs/18-machine-learning-fundamentals/cross-validation.md` |
+| C | 42 | 0 | 0 | 0 | 35 | 3362 | `docs/18-machine-learning-fundamentals/cross-validation.md` |
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | C | 41 | 0 | 0 | 0 | 29 | 2315 | `docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
@@ -118,6 +119,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
 | C | 37 | 0 | 0 | 0 | 30 | 3025 | `docs/18-machine-learning-fundamentals/classification-metrics.md` |
+| C | 37 | 0 | 0 | 0 | 29 | 3480 | `docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2673 | `docs/18-machine-learning-fundamentals/regression-classification-ranking-clustering.md` |
 | C | 37 | 0 | 0 | 0 | 28 | 2914 | `docs/18-machine-learning-fundamentals/regression-metrics.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
@@ -128,6 +130,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 33 | 0 | 0 | 0 | 25 | 2463 | `docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md` |
 | B | 32 | 0 | 0 | 0 | 21 | 3105 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
 | B | 32 | 0 | 0 | 0 | 28 | 3158 | `docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md` |
+| B | 31 | 0 | 0 | 0 | 24 | 3202 | `docs/18-machine-learning-fundamentals/explainability-feature-importance.md` |
+| B | 31 | 0 | 0 | 0 | 23 | 2945 | `docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md` |
 | B | 31 | 0 | 0 | 0 | 25 | 2872 | `docs/18-machine-learning-fundamentals/train-validation-test-split.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 30 | 0 | 0 | 0 | 22 | 2088 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
@@ -2147,9 +2151,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2476 | 2476 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1581 | 1581 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1399 | 1399 |
+| `example-not-explicit` | 0 | 0 | 0 | 2524 | 2524 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1615 | 1615 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1428 | 1428 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |

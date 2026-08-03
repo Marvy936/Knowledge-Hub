@@ -505,5 +505,5 @@ Relevantné pojmy: cross-validation, resampling procedure, fold, splitter, KFold
 
 **Navigácia**
 
-[← Predchádzajúca: Imbalanced datasets a threshold selection](imbalanced-datasets-threshold-selection.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Imbalanced datasets a threshold selection](imbalanced-datasets-threshold-selection.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Calibration a uncertainty →](calibration-uncertainty.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
