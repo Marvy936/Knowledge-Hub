@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **367**
-- Audited conceptual sections: **7757**
-- Total words: **741,946**
-- Findings: **7325** (critical 654, high 866, medium 470, low 5335)
-- File grades: A 148, B 123, C 36, D 60
+- Audited authoritative articles: **371**
+- Audited conceptual sections: **7860**
+- Total words: **754,404**
+- Findings: **7446** (critical 654, high 866, medium 470, low 5456)
+- File grades: A 148, B 124, C 39, D 60
 
 ## Interpretation
 
@@ -108,6 +108,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
+| C | 42 | 0 | 0 | 0 | 35 | 3360 | `docs/18-machine-learning-fundamentals/cross-validation.md` |
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | C | 41 | 0 | 0 | 0 | 29 | 2315 | `docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
@@ -116,7 +117,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
+| C | 37 | 0 | 0 | 0 | 30 | 3025 | `docs/18-machine-learning-fundamentals/classification-metrics.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2673 | `docs/18-machine-learning-fundamentals/regression-classification-ranking-clustering.md` |
+| C | 37 | 0 | 0 | 0 | 28 | 2914 | `docs/18-machine-learning-fundamentals/regression-metrics.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2652 | `docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
@@ -124,9 +127,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 33 | 0 | 0 | 0 | 26 | 2554 | `docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md` |
 | B | 33 | 0 | 0 | 0 | 25 | 2463 | `docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md` |
 | B | 32 | 0 | 0 | 0 | 21 | 3105 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
+| B | 32 | 0 | 0 | 0 | 28 | 3158 | `docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md` |
 | B | 31 | 0 | 0 | 0 | 25 | 2872 | `docs/18-machine-learning-fundamentals/train-validation-test-split.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
-| B | 30 | 0 | 0 | 0 | 22 | 2087 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
+| B | 30 | 0 | 0 | 0 | 22 | 2088 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 28 | 0 | 1 | 0 | 13 | 3923 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
@@ -2143,9 +2147,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2424 | 2424 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1554 | 1554 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1357 | 1357 |
+| `example-not-explicit` | 0 | 0 | 0 | 2476 | 2476 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1581 | 1581 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1399 | 1399 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
