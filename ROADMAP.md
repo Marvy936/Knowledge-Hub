@@ -460,10 +460,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [GPU scheduling, utilization a capacity](docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md)
 - [x] [Model monitoring](docs/19-mlops-and-ml-platforms/model-monitoring.md)
 - [x] [Data drift, concept drift a prediction drift](docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md)
-- [ ] Performance, latency, throughput a cost monitoring
-- [ ] Feedback loops a ground-truth delay
-- [ ] Model rollback a recovery
-- [ ] Governance, approvals a audit
+- [x] [Performance, latency, throughput a cost monitoring](docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md)
+- [x] [Feedback loops a ground-truth delay](docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md)
+- [x] [Model rollback a recovery](docs/19-mlops-and-ml-platforms/model-rollback-recovery.md)
+- [x] [Governance, approvals a audit](docs/19-mlops-and-ml-platforms/governance-approvals-audit.md)
 - [ ] Privacy, security a adversarial ML
 - [ ] ML supply-chain security
 - [ ] MLflow experiment tracking a Model Registry

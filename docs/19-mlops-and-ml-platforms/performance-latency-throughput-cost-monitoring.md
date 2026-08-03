@@ -144,3 +144,11 @@ Containment môže zvýšiť warm capacity, znížiť batch wait, oddeliť noisy
 Pozitívna acceptance vyžaduje warm aj cold latency, useful throughput, saturation, fallback a cost na správny denominator. Recovery acceptance vyžaduje ďalšie complete window bez ručnej korekcie. Forbidden acceptance je priemer, raw QPS, cluster utilization alebo cena za HTTP response bez business deadline a result-class evidence.
 
 Second-operation test zopakuje load a cost window s rovnakým immutable subjectom. Ak výsledok závisí od warmed cache, jednorazového idle allocation alebo zmeneného traffic mixu, benchmark nie je reprodukovateľný.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Data drift, concept drift a prediction drift](data-drift-concept-drift-prediction-drift.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Feedback loops a ground-truth delay →](feedback-loops-ground-truth-delay.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

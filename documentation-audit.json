@@ -5365,7 +5365,7 @@
     {
       "path": "docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md",
       "title": "Data drift, concept drift a prediction drift",
-      "words": 1532,
+      "words": 1537,
       "headings": 11,
       "sections": 11,
       "findings": 13,
@@ -5417,6 +5417,34 @@
       "low": 15,
       "score": 17,
       "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "title": "Feedback loops a ground-truth delay",
+      "words": 952,
+      "headings": 10,
+      "sections": 10,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 11,
+      "score": 14,
+      "grade": "A"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/governance-approvals-audit.md",
+      "title": "Governance, approvals a audit",
+      "words": 982,
+      "headings": 13,
+      "sections": 13,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 12,
+      "grade": "A"
     },
     {
       "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
@@ -5503,6 +5531,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/model-rollback-recovery.md",
+      "title": "Model rollback a recovery",
+      "words": 865,
+      "headings": 11,
+      "sections": 11,
+      "findings": 6,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 6,
+      "score": 9,
+      "grade": "A"
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/model-serving-autoscaling.md",
       "title": "Model serving a autoscaling",
       "words": 1756,
@@ -5528,6 +5570,20 @@
       "medium": 0,
       "low": 11,
       "score": 13,
+      "grade": "A"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md",
+      "title": "Performance, latency, throughput a cost monitoring",
+      "words": 1056,
+      "headings": 8,
+      "sections": 8,
+      "findings": 9,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 9,
+      "score": 12,
       "grade": "A"
     },
     {
@@ -75491,6 +75547,177 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "3. Ground-truth delay a maturity",
+      "line": 48,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "4. Coverage a censoring",
+      "line": 63,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "4. Coverage a censoring",
+      "line": 63,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "5. Human-in-the-loop feedback",
+      "line": 79,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "5. Human-in-the-loop feedback",
+      "line": 79,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "6. Self-reinforcing loops",
+      "line": 87,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "7. Proxies a performance estimation",
+      "line": 102,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "8. Join, deduplication a event time",
+      "line": 108,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "8. Join, deduplication a event time",
+      "line": 108,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "9. Monitoring a retraining triggers",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md",
+      "section": "10. Recovery a acceptance",
+      "line": 149,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/governance-approvals-audit.md",
+      "section": "4. Risk-based gates",
+      "line": 56,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/governance-approvals-audit.md",
+      "section": "6. Policy as code a manual judgment",
+      "line": 80,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/governance-approvals-audit.md",
+      "section": "6. Policy as code a manual judgment",
+      "line": 80,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/governance-approvals-audit.md",
+      "section": "8. Regulatory a standards mapping",
+      "line": 105,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/governance-approvals-audit.md",
+      "section": "8. Regulatory a standards mapping",
+      "line": 105,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/governance-approvals-audit.md",
+      "section": "9. Human oversight",
+      "line": 111,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/governance-approvals-audit.md",
+      "section": "10. Change management a substantial modification",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/governance-approvals-audit.md",
+      "section": "13. Acceptance boundaries",
+      "line": 133,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md",
       "section": "1. Device lifecycle a authority",
       "line": 7,
@@ -76193,6 +76420,60 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/model-rollback-recovery.md",
+      "section": "2. Failure detection a rollback decision",
+      "line": 24,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-rollback-recovery.md",
+      "section": "2. Failure detection a rollback decision",
+      "line": 24,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-rollback-recovery.md",
+      "section": "4. Compatibility a state",
+      "line": 47,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-rollback-recovery.md",
+      "section": "8. Recovery vrstvy",
+      "line": 85,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-rollback-recovery.md",
+      "section": "11. Acceptance boundaries",
+      "line": 112,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-rollback-recovery.md",
+      "section": "11. Acceptance boundaries",
+      "line": 112,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/model-serving-autoscaling.md",
       "section": "1. Serving lifecycle a authoritative subject",
       "line": 7,
@@ -76326,6 +76607,87 @@
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md",
+      "section": "1. Exact performance subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md",
+      "section": "1. Exact performance subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md",
+      "section": "2. Latency decomposition",
+      "line": 35,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md",
+      "section": "3. Throughput a useful work",
+      "line": 54,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md",
+      "section": "4. Saturation a queueing",
+      "line": 72,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md",
+      "section": "5. Cost model a allocation",
+      "line": 80,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md",
+      "section": "6. Capacity a cost trade-offs",
+      "line": 107,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md",
+      "section": "7. Monitoring contract a PromQL",
+      "line": 115,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md",
+      "section": "8. Failure hypotheses a recovery",
+      "line": 138,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",

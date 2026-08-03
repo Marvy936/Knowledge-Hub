@@ -135,3 +135,11 @@ Governance končí bezpečným retirementom. Model sa odoberie z trafficu, crede
 Pozitívna acceptance vyžaduje presný approval subject, risk-based required roles, immutable evidence, policy results, runtime conformity a audit trail. Recovery acceptance vyžaduje zdokumentovaný emergency decision, obnovenie normal controls a review side effects. Forbidden acceptance je všeobecný ticket „approved“, self-approval pri chránenom subjecte, permanent override alebo dashboard bez immutable evidence.
 
 Second-operation test zopakuje rovnakú promotion alebo no-op approval. Ak sa rozhodnutie zmení pre mutable evidence, chýbajúci approver alebo expirovaný waiver, governance nie je deterministická. Audit musí vedieť spätne zostaviť celý decision chain bez osobnej pamäte tímu.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Model rollback a recovery](model-rollback-recovery.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

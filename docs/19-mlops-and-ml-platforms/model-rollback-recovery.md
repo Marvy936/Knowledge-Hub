@@ -114,3 +114,11 @@ Second-operation test vykoná ďalší rollback alebo no-op apply. Odhalí one-t
 Pozitívna acceptance vyžaduje immutable target, exact first divergence, approved decision, loaded parity všetkých replík, synthetic journey a stable window. Recovery acceptance pridáva reconciliation a mature outcome. Forbidden acceptance je Registry alias, Git commit, `Ready=True` alebo pokles alertu bez data-plane a business evidence.
 
 Post-incident RCA musí oddeliť trigger, contributing conditions a detection gaps. Rollback success nie je dôkaz, že pôvodná príčina bola model; je iba potvrdenie, že known-good composite generation obnovila outcome.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Feedback loops a ground-truth delay](feedback-loops-ground-truth-delay.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Governance, approvals a audit →](governance-approvals-audit.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -191,5 +191,5 @@ Second-operation test spracuje ďalšie kompletné window rovnakým contractom. 
 
 **Navigácia**
 
-[← Predchádzajúca: Model monitoring](model-monitoring.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Model monitoring](model-monitoring.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Performance, latency, throughput a cost monitoring →](performance-latency-throughput-cost-monitoring.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

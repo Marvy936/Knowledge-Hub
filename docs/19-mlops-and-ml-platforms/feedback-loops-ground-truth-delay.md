@@ -153,3 +153,11 @@ Pri apparent performance zmene sa najprv overí label freshness, coverage, defin
 Pozitívna acceptance vyžaduje versioned label contract, maturity cutoff, coverage denominators, action-conditioned segmenty a reprodukovateľný join. Recovery acceptance vyžaduje backfill aj ďalšie prirodzene dozreté window. Forbidden acceptance je accuracy na `label IS NOT NULL`, proxy označená ako truth alebo automatic retraining z nekompletného feedbacku.
 
 Second-operation test zostaví ďalší snapshot rovnakou policy. Ak prvý výsledok vyžadoval ručný backfill alebo nezdokumentované exclusions, feedback loop nie je authoritative.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Performance, latency, throughput a cost monitoring](performance-latency-throughput-cost-monitoring.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Model rollback a recovery →](model-rollback-recovery.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
