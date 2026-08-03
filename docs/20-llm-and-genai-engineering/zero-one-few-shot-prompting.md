@@ -283,3 +283,11 @@ Component recovery overí example registry, selector, filters, ordering a render
 Pozitívna acceptance vyžaduje versioned example set, explicitnú provenance a labels, separation od eval datasetu, representative boundary coverage, prompt render read-back a paired variant evaluation. Recovery acceptance zahŕňa druhý request s iným segmentom, aby sa ukázalo, že one-shot alebo selected examples neboli prehnane generalizované.
 
 Forbidden acceptance je „few-shot je vždy lepší“, production transcript bez review ako example, exception bez označenia, eval overlap, similarity-only dynamic selection alebo manuálne hodnotenie jedného pekného outputu. Examples sú riadený behavior input, nie náhrada policy a testov.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Prompt roles, instructions, context a examples](prompt-roles-instructions-context-examples.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Prompt templates, variables a versioning →](prompt-templates-variables-versioning.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

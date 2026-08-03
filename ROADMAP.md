@@ -483,10 +483,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Transformer architecture na praktickej úrovni](docs/20-llm-and-genai-engineering/transformer-architecture-practical.md)
 - [x] [Tokens, tokenization a context window](docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md)
 - [x] [Embeddings a semantic similarity](docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md)
-- [ ] Inference parameters, sampling a determinism
-- [ ] Prompt roles, instructions, context a examples
-- [ ] Zero-shot, one-shot a few-shot prompting
-- [ ] Prompt templates, variables a versioning
+- [x] [Inference parameters, sampling a determinism](docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md)
+- [x] [Prompt roles, instructions, context a examples](docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md)
+- [x] [Zero-shot, one-shot a few-shot prompting](docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md)
+- [x] [Prompt templates, variables a versioning](docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md)
 - [ ] Prompt decomposition a chain-of-thought boundaries
 - [ ] Structured Outputs a schema validation
 - [ ] Function calling a tool calling

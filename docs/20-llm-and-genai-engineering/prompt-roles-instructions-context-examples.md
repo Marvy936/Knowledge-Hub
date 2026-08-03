@@ -289,3 +289,11 @@ Component recovery overí renderer, role mapping, escaping, provider serializati
 Pozitívna acceptance vyžaduje explicitnú trust klasifikáciu všetkých segments, immutable prompt assembly manifest, provider-specific role parity, konflikt testy, injection-like content testy a downstream authorization. Recovery acceptance vyžaduje druhý turn, v ktorom sa history a nový context opäť správne klasifikujú.
 
 Forbidden acceptance je tvrdenie „system role je bezpečnostná hranica“, vkladanie user alebo retrieved textu do trusted instruction, transcript ako authoritative state, example ako policy alebo tool success bez backend read-backu. Prompt roles organizujú authority; nenahrádzajú ju.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Inference parameters, sampling a determinism](inference-parameters-sampling-determinism.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Zero-shot, one-shot a few-shot prompting →](zero-one-few-shot-prompting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

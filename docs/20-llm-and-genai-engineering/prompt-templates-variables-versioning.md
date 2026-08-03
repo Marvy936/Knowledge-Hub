@@ -329,3 +329,11 @@ Component recovery overí registry resolution, strict variable validation, rende
 Pozitívna acceptance vyžaduje immutable template a variable schema, typed trust-aware interpolation, render snapshots, compatibility matrix, eval evidence, promoted alias read-back a request-level resolved identity. Recovery acceptance zahŕňa rollback aj druhú promotion operáciu s novou patch version.
 
 Forbidden acceptance je `support-latest` bez resolution, silent undefined variables, user text v trusted instruction placeholderi, prompt source diff bez behavior eval, cache hit ako correctness proof alebo manuálne prepísanie production promptu bez audit chainu. Prompt template je release artifact, nie textové nastavenie.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Zero-shot, one-shot a few-shot prompting](zero-one-few-shot-prompting.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

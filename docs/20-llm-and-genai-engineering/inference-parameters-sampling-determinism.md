@@ -200,3 +200,11 @@ Component recovery potvrdzuje, že gateway rešpektuje requested parameters, run
 Pozitívna acceptance vyžaduje pinned model/runtime, explicitnú decoding strategy, effective parameter read-back, output a finish validation, repeated-run test a eval výsledky nad relevantnou population. Recovery acceptance vyžaduje druhú operáciu s rovnakým manifestom a samostatný alternate-scenario test, napríklad dlhý output alebo fallback route.
 
 Forbidden acceptance je tvrdenie „temperature je nula, teda deterministické“, seed bez runtime identity, HTTP 200 bez finish reason, manuálne porovnanie dvoch odpovedí alebo tichý provider downgrade. Sampling parameter je súčasť inference contractu, nie estetický slider.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Embeddings a semantic similarity](embeddings-semantic-similarity.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Prompt roles, instructions, context a examples →](prompt-roles-instructions-context-examples.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
