@@ -121,3 +121,11 @@ Containment môže vypnúť auto-actions, route-nuť high-risk requests na human
 Pozitívna acceptance vyžaduje jasné rozlíšenie GAI/foundation model/LLM/application, exact release subject, versioned eval dataset, grounded source behavior, structured validation a business metric. Forbidden acceptance je „novší model je lepší“, fluent demo, temperature `0` ako determinism proof alebo provider status ako business proof.
 
 Second-operation test zopakuje uložené eval cases s rovnakým subjectom a následne s jednou vedome zmenenou generation. Rozdiel musí byť vysvetliteľný. Ak tím nevie určiť, čo sa zmenilo, application lifecycle nie je riadený.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: MLOps troubleshooting](../19-mlops-and-ml-platforms/mlops-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Transformer architecture na praktickej úrovni →](transformer-architecture-practical.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

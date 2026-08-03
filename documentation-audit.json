@@ -5603,7 +5603,7 @@
     {
       "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
       "title": "MLOps troubleshooting",
-      "words": 1772,
+      "words": 1779,
       "headings": 20,
       "sections": 20,
       "findings": 11,
@@ -5752,6 +5752,62 @@
       "medium": 0,
       "low": 13,
       "score": 16,
+      "grade": "B"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "title": "Embeddings a semantic similarity",
+      "words": 1257,
+      "headings": 16,
+      "sections": 16,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 11,
+      "score": 13,
+      "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
+      "title": "Generative AI, foundation model a large language model",
+      "words": 1194,
+      "headings": 11,
+      "sections": 11,
+      "findings": 9,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 9,
+      "score": 10,
+      "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
+      "title": "Tokens, tokenization a context window",
+      "words": 1217,
+      "headings": 15,
+      "sections": 15,
+      "findings": 9,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 9,
+      "score": 9,
+      "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "title": "Transformer architecture na praktickej úrovni",
+      "words": 1249,
+      "headings": 15,
+      "sections": 15,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 19,
       "grade": "B"
     }
   ],
@@ -78471,6 +78527,402 @@
       "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
       "section": "14. Competing failure hypotheses",
       "line": 239,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "1. Čo embedding reprezentuje",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "2. Word, token, sentence a document embeddings",
+      "line": 22,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "2. Word, token, sentence a document embeddings",
+      "line": 22,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "4. Cosine similarity",
+      "line": 48,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "5. Similarity, relevance a identity",
+      "line": 60,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "9. Indexing a approximate search",
+      "line": 109,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "11. Multilingual a domain behavior",
+      "line": 121,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "13. Security a privacy",
+      "line": 133,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "14. Evaluation",
+      "line": 139,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "15. Failure hypotheses",
+      "line": 145,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
+      "section": "16. Recovery a acceptance",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
+      "section": "1. Tri rozdielne pojmy",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
+      "section": "2. Model nie je aplikácia",
+      "line": 15,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
+      "section": "2. Model nie je aplikácia",
+      "line": 15,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
+      "section": "3. Training, adaptation a inference",
+      "line": 34,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
+      "section": "6. Capabilities a limitations",
+      "line": 80,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
+      "section": "7. Foundation model risk propagation",
+      "line": 86,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
+      "section": "8. Open, closed a hosted boundaries",
+      "line": 92,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
+      "section": "9. Evaluation boundary",
+      "line": 98,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md",
+      "section": "11. Recovery a acceptance",
+      "line": 117,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
+      "section": "2. Prečo subword tokenization",
+      "line": 22,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
+      "section": "3. Token count nie je word count",
+      "line": 28,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
+      "section": "4. Special tokens a chat serialization",
+      "line": 34,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
+      "section": "6. Truncation je policy decision",
+      "line": 62,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
+      "section": "8. Padding, batching a masks",
+      "line": 95,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
+      "section": "10. Long documents a chunking boundary",
+      "line": 127,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
+      "section": "11. Output token budget a stop behavior",
+      "line": 133,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
+      "section": "15. Recovery a acceptance",
+      "line": 157,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
+      "section": "15. Recovery a acceptance",
+      "line": 157,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "1. Rodiny Transformerov",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "2. Od textu po hidden states",
+      "line": 19,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "3. Self-attention ako content-dependent mixing",
+      "line": 36,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "3. Self-attention ako content-dependent mixing",
+      "line": 36,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "4. Multi-head attention",
+      "line": 48,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "4. Multi-head attention",
+      "line": 48,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "5. Masky",
+      "line": 54,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "6. Feed-forward, residual a normalization",
+      "line": 60,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "6. Feed-forward, residual a normalization",
+      "line": 60,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "10. KV cache",
+      "line": 100,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "10. KV cache",
+      "line": 100,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "11. Context position a long-context limits",
+      "line": 108,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "11. Context position a long-context limits",
+      "line": 108,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "13. Numerical a runtime boundaries",
+      "line": 140,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
+      "section": "15. Recovery a acceptance",
+      "line": 152,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

@@ -12,14 +12,17 @@ Odporúčané predchádzajúce oblasti:
 - Observability
 - Keycloak and Identity Platform
 
+## Authoritative poradie — aktívne kapitoly
+
+1. [Generative AI, foundation model a large language model](generative-ai-foundation-model-llm.md)
+2. [Transformer architecture na praktickej úrovni](transformer-architecture-practical.md)
+3. [Tokens, tokenization a context window](tokens-tokenization-context-window.md)
+4. [Embeddings a semantic similarity](embeddings-semantic-similarity.md)
+
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-1. Generative AI, foundation model a large language model
-2. Transformer architecture na praktickej úrovni
-3. Tokens, tokenization a context window
-4. Embeddings a semantic similarity
 5. Inference parameters, sampling a determinism
 6. Prompt roles, instructions, context a examples
 7. Zero-shot, one-shot a few-shot prompting
@@ -83,4 +86,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **0/37 · In progress**. Inventory a dependencies sú aktivované; prvé kapitoly ešte nie sú označené ako spracované. Po tejto sekcii nasleduje **AI Agents and Intelligent Automation**.
+Aktuálny authoritative stav sekcie je **4/37 · In progress**. Prvý authoritative blok aktivuje kapitoly 1–4 a incident `GENAI-SUPPORT-01`. Základná kapitola oddeľuje generative AI, foundation model, LLM a celú application chain a viaže model snapshot, tokenizer, prompt, retrieval, tools, policy a evals do exact request subjectu. Transformer kapitola vysvetľuje encoder/decoder families, token embeddings, positional information, Q/K/V self-attention, masks, feed-forward a residual blocks, logits, autoregressive generation, prefill/decode a KV cache. Tokenization kapitola viaže vocabulary, subword segmentation, special tokens, chat serialization, total context budget, truncation priority, segment manifest, finish reason a token/cost telemetry. Embeddings kapitola oddeľuje vectors, pooling, normalization, cosine/dot-product compatibility, similarity/relevance/identity, ANN index generation, multilingual evaluation, reindexing a access boundaries. Kapitoly 1–4 prešli substantial prose, executable/model surface a subject/evidence/failure/recovery/acceptance gate-om. Reálna inference, provider snapshot verification, tokenizer parity, embedding index build a business outcome neboli vykonané; sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 5–8: inference parameters/sampling, prompt roles, zero/one/few-shot prompting a prompt templates/versioning.

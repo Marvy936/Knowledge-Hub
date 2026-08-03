@@ -161,3 +161,11 @@ Containment zníži retrieved count, vypne nebounded tool schemas, zachová requ
 Pozitívna acceptance vyžaduje exact tokenizer generation, token-aware budgets, explicit truncation, output reservation, finish-reason handling a traceable segment manifest. Forbidden acceptance je word count, advertised context number alebo HTTP success po odrezanom outpute.
 
 Second-operation test zakóduje rovnaké segments rovnakým tokenizerom a očakáva rovnaké IDs/digest. Potom zmení tokenizer alebo jeden segment a overí, že application subject a eval result vytvoria novú generation.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Transformer architecture na praktickej úrovni](transformer-architecture-practical.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Embeddings a semantic similarity →](embeddings-semantic-similarity.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

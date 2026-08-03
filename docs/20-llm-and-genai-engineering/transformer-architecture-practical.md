@@ -156,3 +156,11 @@ Containment zníži context, output budget alebo concurrency, vypne problematick
 Pozitívna acceptance vyžaduje správny architecture mental model, token-to-logit flow, causal masking, prefill/decode a KV cache capacity evidence. Forbidden acceptance je parameter count, context limit alebo attention heatmap ako dôkaz correctness.
 
 Second-operation test opakuje golden requests s rovnakým subjectom a potom kontrolovane mení iba context position alebo length. Quality a latency zmena musí byť merateľná a vysvetliteľná, nie pripísaná neurčitému „model sa rozhodol“.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Generative AI, foundation model a large language model](generative-ai-foundation-model-llm.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Tokens, tokenization a context window →](tokens-tokenization-context-window.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -155,3 +155,11 @@ Containment môže zvýšiť human verification, obmedziť corpus na authoritati
 Pozitívna acceptance vyžaduje pinned embedding subject, metric compatibility, calibrated retrieval evaluation, metadata authorization, index manifest a end-to-end grounding. Forbidden acceptance je vysoký cosine score, pekná 2D visualization alebo úspešný vector DB query ako proof relevance či truth.
 
 Second-operation test znovu zakóduje golden inputs a overí vector parity a neighbors. Potom vykoná blue/green reindex s novou generation a preukáže, že routing, rollback a delete semantics sú deterministické.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Tokens, tokenization a context window](tokens-tokenization-context-window.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
