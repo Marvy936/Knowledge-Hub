@@ -452,10 +452,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Training pipelines a distributed training](docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md)
 - [x] [CI pre ML code, data a pipelines](docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md)
 - [x] [Continuous Delivery pre modely](docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md)
-- [ ] Continuous Training a retraining triggers
-- [ ] Model validation a promotion gates
-- [ ] Batch, online a streaming inference
-- [ ] Shadow, canary a A/B model deployment
+- [x] [Continuous Training a retraining triggers](docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md)
+- [x] [Model validation a promotion gates](docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md)
+- [x] [Batch, online a streaming inference](docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md)
+- [x] [Shadow, canary a A/B model deployment](docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md)
 - [ ] Model serving a autoscaling
 - [ ] GPU scheduling, utilization a capacity
 - [ ] Model monitoring
