@@ -27,6 +27,8 @@ Gate môže skončiť ako pass, fail, blocked alebo manual-review-required. Miss
 
 ## 2. Exact validation subject
 
+Validation subject spája všetky authority, ktoré môžu zmeniť verdict. Candidate a baseline určujú porovnávané artifacts, evaluation dataset určuje population a labels, evaluator určuje výpočet a policy určuje rozhodnutie. Ak čo i len jedna z týchto generácií zostane implicitná, rovnaké modely môžu pri ďalšom spustení dostať iný výsledok bez vysvetliteľnej príčiny. Manifest preto nie je administratívny zoznam; je to reprodukčný contract, podľa ktorého sa dajú znovu zostaviť predictions, metrics aj promotion decision.
+
 ```yaml
 validation_subject: MLOPS-PAY-VAL-2026-08-03-141
 candidate:
@@ -226,3 +228,11 @@ Validation je prijatá, keď každý pass má reprodukovateľný dôkaz, každý
 
 - [MLflow — Model evaluation](https://mlflow.org/docs/latest/ml/evaluation)
 - [MLflow — Model API and MetricThreshold](https://mlflow.org/docs/latest/api_reference/python_api/mlflow.models.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Continuous Training a retraining triggers](continuous-training-retraining-triggers.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Batch, online a streaming inference →](batch-online-streaming-inference.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

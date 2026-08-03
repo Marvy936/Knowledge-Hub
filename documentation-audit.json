@@ -5293,6 +5293,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "title": "Batch, online a streaming inference",
+      "words": 1612,
+      "headings": 16,
+      "sections": 16,
+      "findings": 19,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 19,
+      "score": 24,
+      "grade": "B"
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
       "title": "CI pre ML code, data a pipelines",
       "words": 1985,
@@ -5309,7 +5323,7 @@
     {
       "path": "docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md",
       "title": "Continuous Delivery pre modely",
-      "words": 2054,
+      "words": 2058,
       "headings": 18,
       "sections": 18,
       "findings": 22,
@@ -5319,6 +5333,20 @@
       "low": 22,
       "score": 27,
       "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "title": "Continuous Training a retraining triggers",
+      "words": 1515,
+      "headings": 15,
+      "sections": 15,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md",
@@ -5431,6 +5459,34 @@
       "low": 12,
       "score": 12,
       "grade": "A"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "title": "Model validation a promotion gates",
+      "words": 1580,
+      "headings": 16,
+      "sections": 16,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 11,
+      "score": 13,
+      "grade": "A"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "title": "Shadow, canary a A/B model deployment",
+      "words": 1815,
+      "headings": 17,
+      "sections": 17,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 18,
+      "grade": "B"
     },
     {
       "path": "docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md",
@@ -74011,6 +74067,177 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "2. Exact inference subject",
+      "line": 24,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "2. Exact inference subject",
+      "line": 24,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "3. Batch inference",
+      "line": 43,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "3. Batch inference",
+      "line": 43,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "4. Online inference",
+      "line": 62,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "5. Online fallback a degradation",
+      "line": 77,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "6. Streaming inference",
+      "line": 93,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "6. Streaming inference",
+      "line": 93,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "7. Event time, processing time a late events",
+      "line": 109,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "8. Micro-batching",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "9. Schema a protocol compatibility",
+      "line": 123,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "9. Schema a protocol compatibility",
+      "line": 123,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "9. Schema a protocol compatibility",
+      "line": 123,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "10. Consistency medzi modes",
+      "line": 131,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "11. Capacity a backpressure",
+      "line": 144,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "12. Security a privacy",
+      "line": 152,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "14. Competing failure hypotheses",
+      "line": 170,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "15. Recovery a acceptance",
+      "line": 176,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md",
+      "section": "15. Recovery a acceptance",
+      "line": 176,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md",
       "section": "1. Dominantný ML CI lifecycle",
       "line": 9,
@@ -74368,6 +74595,96 @@
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "section": "4. Data a label readiness",
+      "line": 57,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "section": "5. Watermark a logical interval",
+      "line": 74,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "section": "6. Trigger validation a persistence",
+      "line": 89,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "section": "10. Feedback loops a selective labels",
+      "line": 135,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "section": "11. Poisoning a security boundary",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "section": "12. Evidence hierarchy",
+      "line": 149,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "section": "12. Evidence hierarchy",
+      "line": 149,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "section": "13. Competing failure hypotheses",
+      "line": 167,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "section": "14. Recovery a acceptance",
+      "line": 173,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md",
+      "section": "14. Recovery a acceptance",
+      "line": 173,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
@@ -75526,6 +75843,240 @@
       "path": "docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md",
       "section": "14. Recovery a acceptance",
       "line": 193,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "2. Exact validation subject",
+      "line": 28,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "4. Dataset a evaluation estimand",
+      "line": 64,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "6. Aggregate metric oproti decision metric",
+      "line": 114,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "7. Segment a harm guardrails",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "8. Calibration, uncertainty a stability",
+      "line": 146,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "11. Policy a gate generations",
+      "line": 177,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "12. Human approval a separation of duties",
+      "line": 192,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "12. Human approval a separation of duties",
+      "line": 192,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "14. Competing failure hypotheses",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "15. Recovery a acceptance",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md",
+      "section": "15. Recovery a acceptance",
+      "line": 219,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "1. Spoločný deployment lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "1. Spoločný deployment lifecycle",
+      "line": 9,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "2. Exact rollout subject",
+      "line": 27,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "4. Shadow evidence a limity",
+      "line": 63,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "5. Canary deployment",
+      "line": 71,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "5. Canary deployment",
+      "line": 71,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "7. Tag a explicit routing",
+      "line": 106,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "8. A/B experiment",
+      "line": 114,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "9. Assignment unit a contamination",
+      "line": 134,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "11. Metrics, maturity a sequential peeking",
+      "line": 150,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "14. Rollback a experiment termination",
+      "line": 192,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "14. Rollback a experiment termination",
+      "line": 192,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "15. Competing failure hypotheses",
+      "line": 200,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "15. Competing failure hypotheses",
+      "line": 200,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",
+      "section": "16. Recovery a acceptance",
+      "line": 206,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

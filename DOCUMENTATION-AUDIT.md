@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **389**
-- Audited conceptual sections: **8221**
-- Total words: **796,857**
-- Findings: **7800** (critical 658, high 871, medium 475, low 5796)
-- File grades: A 149, B 137, C 42, D 61
+- Audited authoritative articles: **393**
+- Audited conceptual sections: **8285**
+- Total words: **803,383**
+- Findings: **7855** (critical 658, high 871, medium 475, low 5851)
+- File grades: A 151, B 139, C 42, D 61
 
 ## Interpretation
 
@@ -142,7 +142,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 28 | 0 | 1 | 0 | 13 | 3923 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 27 | 0 | 0 | 0 | 20 | 2317 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
-| B | 27 | 0 | 0 | 0 | 22 | 2054 | `docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md` |
+| B | 27 | 0 | 0 | 0 | 22 | 2058 | `docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md` |
 | B | 26 | 0 | 0 | 0 | 16 | 2190 | `docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md` |
 | B | 26 | 0 | 0 | 0 | 21 | 2037 | `docs/19-mlops-and-ml-platforms/experiment-tracking.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
@@ -156,6 +156,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 24 | 0 | 0 | 0 | 17 | 2623 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 2060 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
 | B | 24 | 0 | 0 | 0 | 23 | 2787 | `docs/17-keycloak-and-identity-platform/admin-console-admin-rest-api-automation.md` |
+| B | 24 | 0 | 0 | 0 | 19 | 1612 | `docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md` |
 | B | 23 | 0 | 0 | 0 | 17 | 1717 | `docs/06-gitlab/environments-deployments-releases.md` |
 | B | 23 | 0 | 0 | 0 | 20 | 2657 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
 | B | 23 | 0 | 0 | 0 | 19 | 1927 | `docs/08-container-fundamentals-and-docker/container-storage.md` |
@@ -207,6 +208,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 17 | 1549 | `docs/16-gitops-and-platform-engineering/self-service.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 1451 | `docs/16-gitops-and-platform-engineering/service-catalog.md` |
 | B | 18 | 0 | 0 | 0 | 18 | 2059 | `docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md` |
+| B | 18 | 0 | 0 | 0 | 15 | 1815 | `docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -300,6 +302,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 12 | 2786 | `docs/17-keycloak-and-identity-platform/oidc-clients-redirect-uris-scopes-pkce.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1717 | `docs/17-keycloak-and-identity-platform/public-confidential-and-bearer-only-clients.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 2587 | `docs/18-machine-learning-fundamentals/artificial-intelligence-machine-learning-deep-learning-generative-ai.md` |
+| A | 13 | 0 | 0 | 0 | 10 | 1515 | `docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md` |
+| A | 13 | 0 | 0 | 0 | 11 | 1580 | `docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | A | 12 | 0 | 0 | 0 | 7 | 1255 | `docs/09-kubernetes/cluster-dns.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2416 | `docs/10-helm-and-cka/helm-chart-template-values-release.md` |
@@ -2180,9 +2184,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2622 | 2622 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1662 | 1662 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1512 | 1512 |
+| `example-not-explicit` | 0 | 0 | 0 | 2650 | 2650 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1675 | 1675 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1526 | 1526 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

@@ -182,3 +182,11 @@ CT je prijatá, keď nový candidate vzniká iba z nového a dôveryhodného inf
 
 - [Kubeflow Pipelines — Run and recurring run](https://www.kubeflow.org/docs/components/pipelines/concepts/run/)
 - [Kubeflow Pipelines — Run trigger](https://www.kubeflow.org/docs/components/pipelines/concepts/run-trigger/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Continuous Delivery pre modely](continuous-delivery-for-models.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Model validation a promotion gates →](model-validation-promotion-gates.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -23,6 +23,8 @@ Inference mode mení spôsob, akým observation vstupuje do lifecycle-u. Batch p
 
 ## 2. Exact inference subject
 
+Inference subject musí určiť nielen model, ale aj spôsob spracovania observation a hranicu následného side effectu. Batch run vlastní interval a collection, online request vlastní deadline a request identity a streaming path vlastní event, partition a offset. Spoločný release fingerprint následne viaže model, features, runtime a policy. Bez tejto zloženej identity sa rovnaký model digest môže objaviť v troch paths s odlišným input cutoffom, fallbackom alebo retry semantics a ich výsledky sa nedajú korektne porovnať ani reconciliovať.
+
 ```yaml
 inference_subject: MLOPS-PAY-INF-2026-08-r31
 model_digest: sha256:6a11...90fd
@@ -184,3 +186,11 @@ Inference mode je prijatý až vtedy, keď execution, prediction, action a outco
 - [Kubernetes — Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/)
 - [KServe — Data plane](https://kserve.github.io/website/docs/0.17/concepts/architecture/data-plane)
 - [KServe — Inference Protocol V1 and V2 guidance](https://kserve.github.io/website/docs/concepts/architecture/data-plane/v1-protocol)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Model validation a promotion gates](model-validation-promotion-gates.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Shadow, canary a A/B model deployment →](shadow-canary-ab-model-deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

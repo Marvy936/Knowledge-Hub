@@ -8,6 +8,8 @@ Incident `MLOPS-PAY-93` pokračuje rolloutom candidate 141. Shadow path omylom v
 
 ## 1. Spoločný deployment lifecycle
 
+Všetky tri patterns zdieľajú technický prechod od immutable release k request exposure, ale rozchádzajú sa pri authority nad action a pri type dôkazu. Shadow zastaví lifecycle pred autoritatívnym side effectom, canary dovolí bounded live action a A/B pridá stable randomization a causal outcome analysis. Preto sa pattern neurčuje iba routing percentom. Najprv sa pomenúva otázka, eligibility population, assignment unit, actual exposure a action boundary; až potom sa vyberie traffic mechanizmus a acceptance verdict.
+
 ```text
 immutable candidate release
 → deployment pattern a hypothesis
@@ -23,6 +25,8 @@ immutable candidate release
 Pattern sa vyberá podľa otázky. Shadow overuje technical a prediction behavior na live population. Canary overuje, či je bezpečné rozšíriť live exposure. A/B test overuje, či treatment spôsobuje lepší business outcome než control.
 
 ## 2. Exact rollout subject
+
+Rollout subject uzatvára všetky generácie, ktoré rozhodujú, kto candidate skutočne uvidí a aký následok môže vzniknúť. Candidate a control release určujú composite behavior, eligibility a assignment určujú population, router určuje actual exposure a guardrail policy určuje, či rollout pokračuje. Samotné číslo 5 % nevysvetľuje request distribution, stable entity assignment ani shared-capacity interference. Manifest preto slúži ako authority pre reprodukciu routing decisionu, exposure denominátorov, rollback targetu a druhého no-op apply.
 
 ```yaml
 rollout_subject: MLOPS-PAY-ROLLOUT-2026-08-141
@@ -212,3 +216,11 @@ Second-operation test znovu aplikuje rovnaký routing subject a očakáva no-op.
 - [KServe — Canary rollout strategy](https://kserve.github.io/website/docs/0.17/model-serving/predictive-inference/rollout-strategies/canary)
 - [KServe — Canary rollout example and tag routing](https://kserve.github.io/website/docs/0.17/model-serving/predictive-inference/rollout-strategies/canary-example)
 - [KServe — InferenceGraph routing resources](https://kserve.github.io/website/docs/0.17/reference/crd-api)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Batch, online a streaming inference](batch-online-streaming-inference.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

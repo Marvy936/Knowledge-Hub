@@ -264,5 +264,5 @@ Delivery systém musí vedieť odpovedať: čo presne bolo schválené, čo bolo
 
 **Navigácia**
 
-[← Predchádzajúca: CI pre ML code, data a pipelines](ci-for-ml-code-data-pipelines.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: CI pre ML code, data a pipelines](ci-for-ml-code-data-pipelines.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Continuous Training a retraining triggers →](continuous-training-retraining-triggers.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
