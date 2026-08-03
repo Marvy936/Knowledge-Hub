@@ -26,15 +26,15 @@ Odporúčané predchádzajúce oblasti:
 10. [Training pipelines a distributed training](training-pipelines-distributed-training.md)
 11. [CI pre ML code, data a pipelines](ci-for-ml-code-data-pipelines.md)
 12. [Continuous Delivery pre modely](continuous-delivery-for-models.md)
+13. [Continuous Training a retraining triggers](continuous-training-retraining-triggers.md)
+14. [Model validation a promotion gates](model-validation-promotion-gates.md)
+15. [Batch, online a streaming inference](batch-online-streaming-inference.md)
+16. [Shadow, canary a A/B model deployment](shadow-canary-ab-model-deployment.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-13. Continuous Training a retraining triggers
-14. Model validation a promotion gates
-15. Batch, online a streaming inference
-16. Shadow, canary a A/B model deployment
 17. Model serving a autoscaling
 18. GPU scheduling, utilization a capacity
 19. Model monitoring
@@ -83,4 +83,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **12/34 · In progress**. Tretí blok vytvára execution a delivery chain od pipeline source cez compiled IR, run, task attempts, cache/retry semantics a complete distributed checkpoint až po ML CI evidence bundle a immutable model release manifest. Incident `MLOPS-PAY-92` spája stale cache po neúplnom key contracte, duplicate Registry mutation po unknown outcome, nesprávne distributed sample partitioning, weights-only elastic resume, CI bez compiled graphu a mixed runtime generations po nasadení mutable aliasu. Kapitoly explicitne oddeľujú orchestrator status od artifact truth, TrainJob od framework process group, green CI od model promotion a Registry alias od loaded composite release. Ďalší authoritative blok sú kapitoly 13–16: Continuous Training, model validation a promotion gates, inference modes a shadow/canary/A-B deployment. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
+Aktuálny authoritative stav sekcie je **16/34 · In progress**. Štvrtý blok uzatvára trigger-to-exposure chain: Continuous Training validuje a deduplikuje potrebu nového candidate-u bez obídenia delivery gates; model validation viaže candidate, baseline, evaluation dataset, evaluator, metric/segment/capacity policy a package evidence do reprodukovateľného promotion verdictu; inference kapitola oddeľuje batch interval, online request a streaming event/offset semantics; a rollout kapitola rozlišuje zero-side-effect shadow, bounded-risk canary a causal A/B experiment. Incident `MLOPS-PAY-93` spája immature/selective labels, duplicate retraining triggers, aggregate-only gate s chybnou business capacity, processing-time batch skew, online fallback mismatch, duplicate stream action a contaminated rollout so shared queue interference. Ďalší authoritative blok sú kapitoly 17–20: model serving a autoscaling, GPU scheduling/capacity, model monitoring a drift. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
