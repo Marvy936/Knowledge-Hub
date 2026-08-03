@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  remediate:
+  correct-api:
     if: github.actor != 'github-actions[bot]'
     runs-on: [self-hosted, Linux, X64]
 
@@ -34,7 +34,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Expand diagnostic models and validate
+      - name: Correct API example and validate
         shell: bash
         run: |
           set -euo pipefail
@@ -42,37 +42,55 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
-          def replace_once(filename: str, old: str, new: str) -> None:
-              path = Path("docs/18-machine-learning-fundamentals") / filename
-              text = path.read_text(encoding="utf-8")
-              count = text.count(old)
-              if count != 1:
-                  raise SystemExit(f"{filename}: expected one replacement target, found {count}")
-              path.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
+          path = Path("docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md")
+          text = path.read_text(encoding="utf-8")
 
-          replace_once(
-              "classification-metrics.md",
-              "## 18. Competing failure hypotheses\n\nPri zhoršenej classification metrike treba pred mutáciou rozlíšiť aspoň tieto mechanisms:\n",
-              "## 18. Competing failure hypotheses\n\nClassification metric môže klesnúť aj bez zmeny model weights a naopak môže zostať stabilná, hoci production decision path už zlyháva. Diagnostika preto najprv porovná exact model digest, raw prediction artifact, label/population manifest a policy generation. Následne hľadá, či sa zmena objavila už v score rankingu, až v probability semantics, pri threshold/top-K transformácii alebo až v denominatoroch a downstream coverage. Tieto vrstvy produkujú odlišné signatures a musia sa testovať oddelene.\n\nHypotéza je použiteľná iba vtedy, keď určuje podporujúci aj falzifikačný signál. Napríklad calibration regression očakáva približne stabilné ordering/ROC evidence, ale zhoršený log loss a threshold volume; policy regression očakáva identické raw predictions, no inú confusion matrix alebo queue membership. Pred akoukoľvek mutation sa preto rozlišujú tieto mechanisms:\n",
-          )
+          old = '''```python
+from sklearn.model_selection import TunedThresholdClassifierCV
 
-          replace_once(
-              "regression-metrics.md",
-              "## 20. Competing failure hypotheses\n\nPri zhoršení regression metricu treba rozlíšiť:\n",
-              "## 20. Competing failure hypotheses\n\nRegression verdict môže zmeniť target pipeline, unit conversion, postprocessing alebo aggregation bez toho, aby sa zmenil fitted estimator. Prvý diagnostický krok preto porovná raw targets a predictions v training/report scale, inverse-transform output, clipping/rounding policy, residual distribution a per-output/per-cohort denominators. Až potom sa rozhoduje, či ide o model regression, evaluation bug alebo population shift.\n\nKaždá hypotéza musí vysvetliť konkrétny residual pattern. Tail-composition shift typicky zmení RMSE viac než MAE; unit alebo transform mismatch posunie široké spektrum errors systematicky; postprocessing regression vytvorí rozdiel medzi raw a served predictions; multioutput masking ukáže zhoršenie v per-target reporte pri stabilnom aggregate score. Pred retrainingom sa preto rozlišujú tieto mechanisms:\n",
-          )
+thresholded = TunedThresholdClassifierCV(
+    estimator=base_classifier,
+    scoring="f1",
+    cv=group_aware_cv,
+)
+thresholded.fit(X_train, y_train, groups=merchant_id_train)
+```
 
-          replace_once(
-              "imbalanced-datasets-threshold-selection.md",
-              "## 21. Competing failure hypotheses\n\nPri zlyhaní imbalanced classifiera alebo threshold policy treba rozlíšiť:\n",
-              "## 21. Competing failure hypotheses\n\nImbalanced-classification incident môže vzniknúť v extraction a label prior, vo fold-local training procedure, v score/probability generation, v threshold policy alebo až v queue capacity a feedback loop. Aggregate precision či recall tieto vrstvy nerozlíši. Diagnostika preto rekonštruuje natural a sampled populations, fold membership, sampler/weight contributions, representative raw scores, selected policy a skutočnú production admission queue.\n\nHypotézy sa porovnávajú cez odlišné signatures. Split leakage vytvorí neprimeraný CV gain, ktorý zmizne pri group/time-safe procedure; double weighting mení optimization a často probability scale; threshold overfit zlepší selection data bez prenosu na nový window; capacity mismatch ponechá offline confusion counts stabilné, ale zhorší effective recall po queue truncation. Pred zmenou sampleru, modelu alebo threshold-u treba rozlíšiť tieto mechanisms:\n",
-          )
+Presný metadata-routing a `groups` support závisí od current API/configuration, preto production code musí byť overený proti pinned scikit-learn version. Conceptual boundary zostáva: fit/tune authority je training domain; untouched test iba akceptuje locked procedure.'''
 
-          replace_once(
-              "cross-validation.md",
-              "## 24. Competing failure hypotheses\n\nPri nestabilnom alebo prekvapivo dobrom CV výsledku treba rozlíšiť:\n",
-              "## 24. Competing failure hypotheses\n\nPrekvapivo dobrý alebo nestabilný CV výsledok môže byť vlastnosťou model-building procedure, ale rovnako môže vzniknúť chybným estimandom, splitom, fit boundary, fold aggregation alebo execution policy. Diagnostika preto nezačína zmenou `random_state`; najprv overí exact fold indices, ID/group disjointness, time order, label maturity, fold-local fitted state, všetky planned fold statuses a OOF artifact generation.\n\nKaždá hypotéza musí meniť inú časť evidence. Entity leakage sa prejaví shared groups alebo near-duplicates naprieč folds; preprocessing leakage zmizne po presunutí fitu do pipeline pri rovnakých indices; aggregation masking sa ukáže v fold table oproti OOF aggregate; failed-fit masking zmení candidate ranking po fail-closed pravidle. Deployment mismatch môže prežiť všetky technické checks, ale zlyhá na future/unseen-group windowe. Pred novým CV runom treba rozlíšiť tieto mechanisms:\n",
-          )
+          new = '''```python
+from sklearn.model_selection import (
+    StratifiedGroupKFold,
+    TunedThresholdClassifierCV,
+)
+
+splitter = StratifiedGroupKFold(
+    n_splits=5,
+    shuffle=True,
+    random_state=17,
+)
+group_splits = list(
+    splitter.split(
+        X_train,
+        y_train,
+        groups=merchant_id_train,
+    )
+)
+
+thresholded = TunedThresholdClassifierCV(
+    estimator=base_classifier,
+    scoring="f1",
+    cv=group_splits,
+)
+thresholded.fit(X_train, y_train)
+```
+
+Current `TunedThresholdClassifierCV` akceptuje cez `cv` iterable explicitných train/validation indexov. Precomputed splits preto zachovajú group boundary bez odovzdania `groups` do `fit()`, kde by `**params` smerovali k underlying classifieru. Exact API a metadata-routing behavior sa aj tak overujú proti pinned scikit-learn version. Conceptual boundary zostáva: fit/tune authority je training domain; untouched test iba akceptuje locked procedure.'''
+
+          count = text.count(old)
+          if count != 1:
+              raise SystemExit(f"Expected one threshold example, found {count}")
+          path.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
           PY
 
           python scripts/update_glossary.py --write
@@ -94,7 +112,6 @@ jobs:
           remaining = [name for name in files if f"### `docs/18-machine-learning-fundamentals/{name}`" in audit]
           if remaining:
               raise SystemExit(f"Block-local critical/high findings remain: {remaining}")
-          print("Section 18 block 17-20 has no critical/high audit entries.")
           PY
 
           git diff --check
@@ -103,9 +120,9 @@ jobs:
           git add docs/18-machine-learning-fundamentals DOCUMENTATION-AUDIT.md documentation-audit.json GLOSSARY.md ROADMAP.md
 
           if git diff --cached --quiet; then
-            echo "No remediation changes required."
+            echo "No API correction changes required."
             exit 0
           fi
 
-          git commit -m "docs: remediate Machine Learning block 17-20 findings"
+          git commit -m "docs: correct threshold tuning group-split example"
           git push origin HEAD:agent/section-18-ml-fundamentals-block-17-20
