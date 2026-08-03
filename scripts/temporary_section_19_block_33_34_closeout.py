@@ -18,7 +18,65 @@ def replace_once_or_present(path: Path, old: str, new: str) -> None:
     path.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
 
 
-section_readme = ROOT / "docs/19-mlops-and-ml-platforms/README.md"
+section = ROOT / "docs/19-mlops-and-ml-platforms"
+replace_once_or_present(
+    section / "mlops-platform-architecture.md",
+    """## 2. Domény a bounded contexts
+
+Praktická platforma sa rozdeľuje na bounded contexts s jasným ownershipom:
+
+- source a CI authority,
+- data a feature authority,
+- pipeline a training orchestration,
+- tracking, artifact a Registry authority,
+- evaluation a governance,
+- release a deployment control,
+- online, batch a streaming inference,
+- observability, feedback a cost,
+- security, privacy a supply chain,
+- backup, recovery a retirement.
+
+Hranica nie je iba organizačná. Každý context vlastní konkrétne objects a nesmie implicitne prepisovať authority iného contextu. Registry napríklad eviduje candidate/version a promotion control, ale serving platforma vlastní loaded runtime a traffic. Feature store vlastní feature definitions a values, nie business label.
+""",
+    """## 2. Domény a bounded contexts
+
+Praktická platforma sa rozdeľuje na bounded contexts podľa authority, ktorú musí každý tím vlastniť a vedieť obnoviť. Source a CI context vlastní reviewed code, build definition a provenance; data a feature context vlastní snapshoty, schemas, event-time hranice, feature definitions a materialization state. Pipeline a training context vlastní orchestration operation, task attempts, distributed topology a checkpoint lifecycle, zatiaľ čo tracking, artifact a Registry context vlastní experiment metadata, immutable bytes, candidate versions a promotion pointers.
+
+Evaluation a governance context rozhoduje nad presne označeným evidence bundle-om a nesmie meniť model artifacts. Release a deployment context skladá schválené generácie do composite release a vlastní rollout, routing a rollback intent. Online, batch a streaming inference context vlastní runtime execution a side-effect semantics; observability, feedback a cost context vlastní meranie actual exposure, result classes, label maturity a useful-work denominators.
+
+Security, privacy a supply-chain context presadzuje identity, integrity, minimization a trust policies naprieč ostatnými doménami. Backup, recovery a retirement context vlastní obnoviteľnosť authoritative stores, poradie restore a bezpečné ukončenie modelu aj jeho dátových a prevádzkových závislostí. Tieto hranice nie sú iba organizačné: každý context vlastní konkrétne objects a nesmie implicitne prepisovať authority iného contextu. Registry napríklad eviduje candidate/version a promotion control, ale serving platforma vlastní loaded runtime a traffic. Feature store vlastní feature definitions a values, nie business label.
+""",
+)
+
+replace_once_or_present(
+    section / "mlops-troubleshooting.md",
+    """## 4. Evidence preservation a change freeze
+
+Pred restartom, retry alebo rollbackom sa zachytí:
+
+- source a release manifest,
+- API objects vrátane generations a conditions,
+- task/job attempts a events,
+- Pod specs, images, node/device assignment,
+- logs a traces s time range,
+- artifact manifests a digests,
+- cache hit/miss evidence,
+- monitoring query a denominator,
+- external side-effect state.
+
+Change freeze neznamená úplné zastavenie businessu. Znamená zákaz nekorelovaných mutations. Emergency containment sa loguje ako nová operation s jasným subjectom.
+""",
+    """## 4. Evidence preservation a change freeze
+
+Pred restartom, retry alebo rollbackom sa vytvorí evidence bundle, ktorý zachováva každú vrstvu state ladderu. Source commit a release manifest ukazujú intended generation. API objects vrátane `generation`, `observedGeneration`, conditions a resolved specs dokazujú configured a controller-resolved stav. Task a job attempts, Kubernetes events, Pod specs, image digests a node/device assignment vysvetľujú, čo orchestrátor skutočne spustil a kde.
+
+Logs a traces sa ukladajú s presným time rangeom, clock contextom a release identity, aby sa dali spojiť s requestmi a attempts. Artifact manifests, object versions a digests dokazujú, aké bytes vznikli alebo boli načítané; cache hit/miss evidence vysvetľuje, či sa výpočet vykonal alebo znovu použil starší output. Monitoring query sa archivuje spolu s filtrom, denominatorom, samplingom a dashboard transformáciou, pretože samotný screenshot neumožňuje reprodukciu alarmu. External side-effect state sa číta priamo z Registry, deployment targetu, databázy alebo queue, aby timeout nebol nesprávne interpretovaný ako neúspech.
+
+Change freeze neznamená úplné zastavenie businessu. Znamená zákaz nekorelovaných mutations, ktoré by zmenili viac hypotheses naraz alebo prepísali dôkaz. Emergency containment sa loguje ako nová operation s jasným subjectom, actorom, dôvodom a expected effectom.
+""",
+)
+
+section_readme = section / "README.md"
 text = section_readme.read_text(encoding="utf-8")
 active_anchor = "32. [Amazon SageMaker a cloud MLOps mapping](amazon-sagemaker-cloud-mlops-mapping.md)"
 active_final = (
