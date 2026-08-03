@@ -322,7 +322,9 @@ Global RMSE v eurách zlepšilo niekoľko extreme recoveries, ale p95 underpredi
 
 ## 20. Competing failure hypotheses
 
-Pri zhoršení regression metricu treba rozlíšiť:
+Regression verdict môže zmeniť target pipeline, unit conversion, postprocessing alebo aggregation bez toho, aby sa zmenil fitted estimator. Prvý diagnostický krok preto porovná raw targets a predictions v training/report scale, inverse-transform output, clipping/rounding policy, residual distribution a per-output/per-cohort denominators. Až potom sa rozhoduje, či ide o model regression, evaluation bug alebo population shift.
+
+Každá hypotéza musí vysvetliť konkrétny residual pattern. Tail-composition shift typicky zmení RMSE viac než MAE; unit alebo transform mismatch posunie široké spektrum errors systematicky; postprocessing regression vytvorí rozdiel medzi raw a served predictions; multioutput masking ukáže zhoršenie v per-target reporte pri stabilnom aggregate score. Pred retrainingom sa preto rozlišujú tieto mechanisms:
 
 - target-definition drift — maturity, currency conversion alebo inclusion rules sa zmenili;
 - unit/transform mismatch — metric sa počíta v log scale, normalized scale alebo nesprávnej mene;

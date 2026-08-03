@@ -350,7 +350,9 @@ Offline F2 sa zlepšil, ale cases nad thresholdom prekračovali capacity. Queue 
 
 ## 21. Competing failure hypotheses
 
-Pri zlyhaní imbalanced classifiera alebo threshold policy treba rozlíšiť:
+Imbalanced-classification incident môže vzniknúť v extraction a label prior, vo fold-local training procedure, v score/probability generation, v threshold policy alebo až v queue capacity a feedback loop. Aggregate precision či recall tieto vrstvy nerozlíši. Diagnostika preto rekonštruuje natural a sampled populations, fold membership, sampler/weight contributions, representative raw scores, selected policy a skutočnú production admission queue.
+
+Hypotézy sa porovnávajú cez odlišné signatures. Split leakage vytvorí neprimeraný CV gain, ktorý zmizne pri group/time-safe procedure; double weighting mení optimization a často probability scale; threshold overfit zlepší selection data bez prenosu na nový window; capacity mismatch ponechá offline confusion counts stabilné, ale zhorší effective recall po queue truncation. Pred zmenou sampleru, modelu alebo threshold-u treba rozlíšiť tieto mechanisms:
 
 - label/prevalence drift — mature positive rate alebo class definition sa zmenila;
 - split leakage — duplicates, groups alebo time relations prešli medzi partitions;

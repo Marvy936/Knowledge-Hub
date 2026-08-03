@@ -407,7 +407,9 @@ Po zavedení grouped-temporal splitu, fold-local pipeline a fail-closed behavior
 
 ## 24. Competing failure hypotheses
 
-Pri nestabilnom alebo prekvapivo dobrom CV výsledku treba rozlíšiť:
+Prekvapivo dobrý alebo nestabilný CV výsledok môže byť vlastnosťou model-building procedure, ale rovnako môže vzniknúť chybným estimandom, splitom, fit boundary, fold aggregation alebo execution policy. Diagnostika preto nezačína zmenou `random_state`; najprv overí exact fold indices, ID/group disjointness, time order, label maturity, fold-local fitted state, všetky planned fold statuses a OOF artifact generation.
+
+Každá hypotéza musí meniť inú časť evidence. Entity leakage sa prejaví shared groups alebo near-duplicates naprieč folds; preprocessing leakage zmizne po presunutí fitu do pipeline pri rovnakých indices; aggregation masking sa ukáže v fold table oproti OOF aggregate; failed-fit masking zmení candidate ranking po fail-closed pravidle. Deployment mismatch môže prežiť všetky technické checks, ale zlyhá na future/unseen-group windowe. Pred novým CV runom treba rozlíšiť tieto mechanisms:
 
 - row-order artifact — non-shuffled KFold kopíruje source ordering;
 - entity leakage — dependent groups sa rozdelili medzi train a validation;

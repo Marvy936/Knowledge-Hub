@@ -296,7 +296,9 @@ Root cause nebola „zlá accuracy“ sama osebe. Root cause bol neidentifikovan
 
 ## 18. Competing failure hypotheses
 
-Pri zhoršenej classification metrike treba pred mutáciou rozlíšiť aspoň tieto mechanisms:
+Classification metric môže klesnúť aj bez zmeny model weights a naopak môže zostať stabilná, hoci production decision path už zlyháva. Diagnostika preto najprv porovná exact model digest, raw prediction artifact, label/population manifest a policy generation. Následne hľadá, či sa zmena objavila už v score rankingu, až v probability semantics, pri threshold/top-K transformácii alebo až v denominatoroch a downstream coverage. Tieto vrstvy produkujú odlišné signatures a musia sa testovať oddelene.
+
+Hypotéza je použiteľná iba vtedy, keď určuje podporujúci aj falzifikačný signál. Napríklad calibration regression očakáva približne stabilné ordering/ROC evidence, ale zhoršený log loss a threshold volume; policy regression očakáva identické raw predictions, no inú confusion matrix alebo queue membership. Pred akoukoľvek mutation sa preto rozlišujú tieto mechanisms:
 
 - label-generation failure — positive labels sú oneskorené, neúplné alebo zmenili definíciu;
 - population shift — prevalence alebo conditional feature distribution sa zmenila v čase či cohort-e;
