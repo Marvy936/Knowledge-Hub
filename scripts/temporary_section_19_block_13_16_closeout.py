@@ -18,6 +18,32 @@ def replace_once_or_present(path: Path, old: str, new: str) -> None:
     path.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
 
 
+section = ROOT / "docs/19-mlops-and-ml-platforms"
+
+replace_once_or_present(
+    section / "model-validation-promotion-gates.md",
+    "## 2. Exact validation subject\n\n```yaml",
+    "## 2. Exact validation subject\n\nValidation subject spája všetky authority, ktoré môžu zmeniť verdict. Candidate a baseline určujú porovnávané artifacts, evaluation dataset určuje population a labels, evaluator určuje výpočet a policy určuje rozhodnutie. Ak čo i len jedna z týchto generácií zostane implicitná, rovnaké modely môžu pri ďalšom spustení dostať iný výsledok bez vysvetliteľnej príčiny. Manifest preto nie je administratívny zoznam; je to reprodukčný contract, podľa ktorého sa dajú znovu zostaviť predictions, metrics aj promotion decision.\n\n```yaml",
+)
+
+replace_once_or_present(
+    section / "batch-online-streaming-inference.md",
+    "## 2. Exact inference subject\n\n```yaml",
+    "## 2. Exact inference subject\n\nInference subject musí určiť nielen model, ale aj spôsob spracovania observation a hranicu následného side effectu. Batch run vlastní interval a collection, online request vlastní deadline a request identity a streaming path vlastní event, partition a offset. Spoločný release fingerprint následne viaže model, features, runtime a policy. Bez tejto zloženej identity sa rovnaký model digest môže objaviť v troch paths s odlišným input cutoffom, fallbackom alebo retry semantics a ich výsledky sa nedajú korektne porovnať ani reconciliovať.\n\n```yaml",
+)
+
+replace_once_or_present(
+    section / "shadow-canary-ab-model-deployment.md",
+    "## 1. Spoločný deployment lifecycle\n\n```text",
+    "## 1. Spoločný deployment lifecycle\n\nVšetky tri patterns zdieľajú technický prechod od immutable release k request exposure, ale rozchádzajú sa pri authority nad action a pri type dôkazu. Shadow zastaví lifecycle pred autoritatívnym side effectom, canary dovolí bounded live action a A/B pridá stable randomization a causal outcome analysis. Preto sa pattern neurčuje iba routing percentom. Najprv sa pomenúva otázka, eligibility population, assignment unit, actual exposure a action boundary; až potom sa vyberie traffic mechanizmus a acceptance verdict.\n\n```text",
+)
+
+replace_once_or_present(
+    section / "shadow-canary-ab-model-deployment.md",
+    "## 2. Exact rollout subject\n\n```yaml",
+    "## 2. Exact rollout subject\n\nRollout subject uzatvára všetky generácie, ktoré rozhodujú, kto candidate skutočne uvidí a aký následok môže vzniknúť. Candidate a control release určujú composite behavior, eligibility a assignment určujú population, router určuje actual exposure a guardrail policy určuje, či rollout pokračuje. Samotné číslo 5 % nevysvetľuje request distribution, stable entity assignment ani shared-capacity interference. Manifest preto slúži ako authority pre reprodukciu routing decisionu, exposure denominátorov, rollback targetu a druhého no-op apply.\n\n```yaml",
+)
+
 roadmap = ROOT / "ROADMAP.md"
 replacements = {
     "- [ ] Continuous Training a retraining triggers":
