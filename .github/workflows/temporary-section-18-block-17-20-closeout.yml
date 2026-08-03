@@ -1,11 +1,15 @@
 name: Temporary Section 18 block 17-20 closeout
 
 on:
-  push:
+  pull_request:
     branches:
-      - agent/section-18-ml-fundamentals-block-17-20
+      - main
+    types: [opened, synchronize, reopened]
     paths:
       - "docs/18-machine-learning-fundamentals/**"
+      - "ROADMAP.md"
+      - "GLOSSARY.md"
+      - "DOCUMENTATION-REVIEW-STATUS.md"
       - "DOCUMENTATION-AUDIT.md"
       - "documentation-audit.json"
       - ".github/workflows/temporary-section-18-block-17-20-closeout.yml"
@@ -14,16 +18,16 @@ permissions:
   contents: write
 
 concurrency:
-  group: temporary-section-18-block-17-20-closeout-${{ github.ref }}
+  group: temporary-section-18-block-17-20-closeout-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
-  correct-api:
+  synchronize:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout branch
+      - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -34,64 +38,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Correct API example and validate
+      - name: Synchronize generated documentation
         shell: bash
         run: |
           set -euo pipefail
-
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path("docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md")
-          text = path.read_text(encoding="utf-8")
-
-          old = '''```python
-from sklearn.model_selection import TunedThresholdClassifierCV
-
-thresholded = TunedThresholdClassifierCV(
-    estimator=base_classifier,
-    scoring="f1",
-    cv=group_aware_cv,
-)
-thresholded.fit(X_train, y_train, groups=merchant_id_train)
-```
-
-Presný metadata-routing a `groups` support závisí od current API/configuration, preto production code musí byť overený proti pinned scikit-learn version. Conceptual boundary zostáva: fit/tune authority je training domain; untouched test iba akceptuje locked procedure.'''
-
-          new = '''```python
-from sklearn.model_selection import (
-    StratifiedGroupKFold,
-    TunedThresholdClassifierCV,
-)
-
-splitter = StratifiedGroupKFold(
-    n_splits=5,
-    shuffle=True,
-    random_state=17,
-)
-group_splits = list(
-    splitter.split(
-        X_train,
-        y_train,
-        groups=merchant_id_train,
-    )
-)
-
-thresholded = TunedThresholdClassifierCV(
-    estimator=base_classifier,
-    scoring="f1",
-    cv=group_splits,
-)
-thresholded.fit(X_train, y_train)
-```
-
-Current `TunedThresholdClassifierCV` akceptuje cez `cv` iterable explicitných train/validation indexov. Precomputed splits preto zachovajú group boundary bez odovzdania `groups` do `fit()`, kde by `**params` smerovali k underlying classifieru. Exact API a metadata-routing behavior sa aj tak overujú proti pinned scikit-learn version. Conceptual boundary zostáva: fit/tune authority je training domain; untouched test iba akceptuje locked procedure.'''
-
-          count = text.count(old)
-          if count != 1:
-              raise SystemExit(f"Expected one threshold example, found {count}")
-          path.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
-          PY
 
           python scripts/update_glossary.py --write
           python scripts/update_navigation.py --write
@@ -109,20 +59,33 @@ Current `TunedThresholdClassifierCV` akceptuje cez `cv` iterable explicitných t
               "imbalanced-datasets-threshold-selection.md",
               "cross-validation.md",
           ]
-          remaining = [name for name in files if f"### `docs/18-machine-learning-fundamentals/{name}`" in audit]
+          remaining = [
+              name
+              for name in files
+              if f"### `docs/18-machine-learning-fundamentals/{name}`" in audit
+          ]
           if remaining:
-              raise SystemExit(f"Block-local critical/high findings remain: {remaining}")
+              raise SystemExit(
+                  f"Block-local critical/high findings remain: {remaining}"
+              )
+          print("Section 18 block 17-20 has no critical/high audit entries.")
           PY
 
           git diff --check
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/18-machine-learning-fundamentals DOCUMENTATION-AUDIT.md documentation-audit.json GLOSSARY.md ROADMAP.md
+          git add \
+            ROADMAP.md \
+            GLOSSARY.md \
+            docs \
+            DOCUMENTATION-REVIEW-STATUS.md \
+            DOCUMENTATION-AUDIT.md \
+            documentation-audit.json
 
           if git diff --cached --quiet; then
-            echo "No API correction changes required."
+            echo "Generated documentation is already synchronized."
             exit 0
           fi
 
-          git commit -m "docs: correct threshold tuning group-split example"
+          git commit -m "docs: synchronize Machine Learning block 17-20 audit"
           git push origin HEAD:agent/section-18-ml-fundamentals-block-17-20
