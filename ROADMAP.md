@@ -440,10 +440,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### MLOps and ML Platforms
 
-- [ ] ML lifecycle a rozdiel medzi DevOps a MLOps
-- [ ] Data, code, environment a model lineage
-- [ ] Dataset versioning
-- [ ] Experiment tracking
+- [x] [ML lifecycle a rozdiel medzi DevOps a MLOps](docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md)
+- [x] [Data, code, environment a model lineage](docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md)
+- [x] [Dataset versioning](docs/19-mlops-and-ml-platforms/dataset-versioning.md)
+- [x] [Experiment tracking](docs/19-mlops-and-ml-platforms/experiment-tracking.md)
 - [ ] Artifact stores
 - [ ] Model packaging a reproducible environments
 - [ ] Model Registry, versions, stages a aliases

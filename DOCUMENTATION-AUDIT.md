@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **377**
-- Audited conceptual sections: **8028**
-- Total words: **773,010**
-- Findings: **7604** (critical 658, high 871, medium 475, low 5600)
-- File grades: A 148, B 126, C 42, D 61
+- Audited authoritative articles: **381**
+- Audited conceptual sections: **8088**
+- Total words: **781,134**
+- Findings: **7672** (critical 658, high 871, medium 475, low 5668)
+- File grades: A 148, B 130, C 42, D 61
 
 ## Interpretation
 
@@ -67,7 +67,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 117 | 2 | 5 | 7 | 22 | 2840 | `docs/00-foundations/automation-mindset.md` |
 | D | 117 | 3 | 3 | 6 | 24 | 2035 | `docs/01-linux-and-systems/package-management.md` |
 | D | 114 | 2 | 4 | 7 | 29 | 3111 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
-| D | 110 | 4 | 4 | 4 | 12 | 2901 | `docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md` |
+| D | 110 | 4 | 4 | 4 | 12 | 2908 | `docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md` |
 | D | 105 | 1 | 10 | 2 | 3 | 1513 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
 | D | 102 | 2 | 7 | 2 | 10 | 1736 | `docs/05-ci-cd-and-release/release-management.md` |
 | D | 101 | 2 | 2 | 7 | 28 | 2185 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
@@ -143,6 +143,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 27 | 0 | 0 | 0 | 20 | 2317 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
 | B | 26 | 0 | 0 | 0 | 16 | 2190 | `docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md` |
+| B | 26 | 0 | 0 | 0 | 21 | 2036 | `docs/19-mlops-and-ml-platforms/experiment-tracking.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 25 | 0 | 0 | 0 | 20 | 2559 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
@@ -183,6 +184,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 15 | 1894 | `docs/11-cloud-and-aws/iam.md` |
 | B | 20 | 0 | 0 | 0 | 16 | 1538 | `docs/13-security-and-identity/zero-trust.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 2468 | `docs/17-keycloak-and-identity-platform/tls-truststores-cookies-headers-production-hardening.md` |
+| B | 20 | 0 | 0 | 0 | 18 | 2026 | `docs/19-mlops-and-ml-platforms/data-code-environment-model-lineage.md` |
+| B | 20 | 0 | 0 | 0 | 16 | 1835 | `docs/19-mlops-and-ml-platforms/dataset-versioning.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1797 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1774 | `docs/06-gitlab/runners-and-executors.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1622 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
@@ -216,6 +219,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 12 | 1821 | `docs/15-databases-and-distributed-systems/replication-and-high-availability.md` |
 | B | 17 | 0 | 0 | 0 | 15 | 2272 | `docs/15-databases-and-distributed-systems/transactions-and-acid.md` |
 | B | 17 | 0 | 0 | 1 | 12 | 2417 | `docs/17-keycloak-and-identity-platform/identity-brokering.md` |
+| B | 17 | 0 | 0 | 0 | 13 | 2220 | `docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1588 | `docs/06-gitlab/artifacts-and-cache.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1711 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md` |
 | B | 16 | 0 | 0 | 0 | 12 | 2628 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
@@ -2168,9 +2172,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2537 | 2537 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1631 | 1631 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1432 | 1432 |
+| `example-not-explicit` | 0 | 0 | 0 | 2558 | 2558 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1646 | 1646 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1464 | 1464 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

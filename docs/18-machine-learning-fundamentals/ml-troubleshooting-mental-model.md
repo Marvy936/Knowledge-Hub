@@ -587,5 +587,5 @@ Relevantné pojmy: ML troubleshooting, incident subject, symptom taxonomy, first
 
 **Navigácia**
 
-[← Predchádzajúca: Offline evaluation oproti production outcome](offline-evaluation-production-outcome.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Offline evaluation oproti production outcome](offline-evaluation-production-outcome.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ML lifecycle a rozdiel medzi DevOps a MLOps →](../19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

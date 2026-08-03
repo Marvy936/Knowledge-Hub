@@ -12,14 +12,17 @@ Odporúčané predchádzajúce oblasti:
 - Observability
 - GitOps and Platform Engineering
 
+## Authoritative poradie — aktívne kapitoly
+
+1. [ML lifecycle a rozdiel medzi DevOps a MLOps](ml-lifecycle-devops-vs-mlops.md)
+2. [Data, code, environment a model lineage](data-code-environment-model-lineage.md)
+3. [Dataset versioning](dataset-versioning.md)
+4. [Experiment tracking](experiment-tracking.md)
+
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-1. ML lifecycle a rozdiel medzi DevOps a MLOps
-2. Data, code, environment a model lineage
-3. Dataset versioning
-4. Experiment tracking
 5. Artifact stores
 6. Model packaging a reproducible environments
 7. Model Registry, versions, stages a aliases
@@ -53,7 +56,7 @@ Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktív
 
 ## Authoring a evidence štandard
 
-Každá kapitola bude používať rovnaký prose-first štandard ako sekcie 00–17:
+Každá kapitola používa rovnaký prose-first štandard ako predchádzajúce sekcie:
 
 ```text
 business alebo user outcome
@@ -66,7 +69,7 @@ business alebo user outcome
 → positive, forbidden a second-operation acceptance
 ```
 
-Rýchlo sa meniace produkty, API a protokoly sa pri každom bloku znovu overia proti aktuálnym primárnym zdrojom. Dokumentácia nesmie zamieňať offline eval, control-plane status alebo úspešný tool call za produkčný business outcome.
+Rýchlo sa meniace produkty, API a protokoly sa pri každom bloku znovu overujú proti aktuálnym primárnym zdrojom. Dokumentácia nesmie zamieňať offline eval, control-plane status alebo úspešný tool call za produkčný business outcome.
 
 ## Praktická vrstva
 
@@ -80,4 +83,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **0/34 · In progress**. Inventory a dependencies sú aktivované; prvé kapitoly ešte nie sú označené ako spracované. Po tejto sekcii nasleduje **LLM and GenAI Engineering**.
+Aktuálny authoritative stav sekcie je **4/34 · In progress**. Prvý blok vytvára základný MLOps lifecycle, oddeľuje DevOps software release od data/model/feedback variability, zavádza traversable data-code-environment-model lineage, immutable dataset versioning a experiment tracking ako evidence service. Connected incident `MLOPS-PAY-90` ukazuje, prečo zelená CI pipeline, úspešný training job, tracker leaderboard ani ready model server samy nepreukazujú správny composite production generation. Ďalší authoritative blok sú kapitoly 5–8: artifact stores, model packaging a reproducible environments, Model Registry a feature stores. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
