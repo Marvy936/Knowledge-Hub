@@ -67,7 +67,7 @@ jobs:
           "$python_bin" --version
           echo "PYTHON_BIN=$python_bin" >> "$GITHUB_ENV"
 
-      - name: Remediate Section 18 block 21-24
+      - name: Regenerate Section 18 block 21-24 audit
         if: github.event_name == 'pull_request' && github.head_ref == 'agent/section-18-ml-fundamentals-block-21-24' && github.actor != 'github-actions[bot]'
         shell: bash
         run: |
@@ -77,7 +77,6 @@ jobs:
           git fetch origin "$branch"
           git checkout -B "$branch" "origin/$branch"
 
-          "$PYTHON_BIN" scripts/temporary_section_18_block_21_24_remediate.py
           "$PYTHON_BIN" scripts/update_glossary.py --write
           "$PYTHON_BIN" scripts/update_navigation.py --write
           "$PYTHON_BIN" scripts/audit_learning_depth.py --all-docs
@@ -115,7 +114,7 @@ jobs:
             documentation-audit.json \
             GLOSSARY.md \
             ROADMAP.md
-          git commit -m "docs: remediate Machine Learning block 21-24 findings"
+          git commit -m "docs: regenerate Machine Learning block 21-24 audit"
           git push origin "HEAD:$branch"
 
       - name: Synchronize and commit generated documentation
