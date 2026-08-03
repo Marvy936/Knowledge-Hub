@@ -222,5 +222,5 @@ Second-operation test znovu aplikuje rovnaký routing subject a očakáva no-op.
 
 **Navigácia**
 
-[← Predchádzajúca: Batch, online a streaming inference](batch-online-streaming-inference.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Batch, online a streaming inference](batch-online-streaming-inference.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Model serving a autoscaling →](model-serving-autoscaling.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
