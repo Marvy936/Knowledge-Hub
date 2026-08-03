@@ -22,15 +22,15 @@ Odporúčané predchádzajúce oblasti:
 6. [Model packaging a reproducible environments](model-packaging-reproducible-environments.md)
 7. [Model Registry, versions, stages a aliases](model-registry-versions-stages-aliases.md)
 8. [Feature stores a online/offline consistency](feature-stores-online-offline-consistency.md)
+9. [ML pipeline orchestration](ml-pipeline-orchestration.md)
+10. [Training pipelines a distributed training](training-pipelines-distributed-training.md)
+11. [CI pre ML code, data a pipelines](ci-for-ml-code-data-pipelines.md)
+12. [Continuous Delivery pre modely](continuous-delivery-for-models.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-9. ML pipeline orchestration
-10. Training pipelines a distributed training
-11. CI pre ML code, data a pipelines
-12. Continuous Delivery pre modely
 13. Continuous Training a retraining triggers
 14. Model validation a promotion gates
 15. Batch, online a streaming inference
@@ -83,4 +83,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **8/34 · In progress**. Druhý blok rozširuje lifecycle od experiment metadata k durable artifact bytes, complete model package, governed Registry promotion a exact online feature values. Incident `MLOPS-PAY-91` spája partial multi-file upload zakrytý local cache, neúplné dependency inference, mutable Registry alias použitý ako runtime identity a stale online features po chybnom materialization watermarku. Kapitoly oddeľujú backend store od artifact store, package digest od serving image, Registry version/alias od loaded modelu a feature definition od request-correlated online value. Ďalší authoritative blok sú kapitoly 9–12: ML pipeline orchestration, training pipelines a distributed training, CI pre ML a Continuous Delivery pre modely. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
+Aktuálny authoritative stav sekcie je **12/34 · In progress**. Tretí blok vytvára execution a delivery chain od pipeline source cez compiled IR, run, task attempts, cache/retry semantics a complete distributed checkpoint až po ML CI evidence bundle a immutable model release manifest. Incident `MLOPS-PAY-92` spája stale cache po neúplnom key contracte, duplicate Registry mutation po unknown outcome, nesprávne distributed sample partitioning, weights-only elastic resume, CI bez compiled graphu a mixed runtime generations po nasadení mutable aliasu. Kapitoly explicitne oddeľujú orchestrator status od artifact truth, TrainJob od framework process group, green CI od model promotion a Registry alias od loaded composite release. Ďalší authoritative blok sú kapitoly 13–16: Continuous Training, model validation a promotion gates, inference modes a shadow/canary/A-B deployment. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.

@@ -448,10 +448,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Model packaging a reproducible environments](docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md)
 - [x] [Model Registry, versions, stages a aliases](docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md)
 - [x] [Feature stores a online/offline consistency](docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md)
-- [ ] ML pipeline orchestration
-- [ ] Training pipelines a distributed training
-- [ ] CI pre ML code, data a pipelines
-- [ ] Continuous Delivery pre modely
+- [x] [ML pipeline orchestration](docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md)
+- [x] [Training pipelines a distributed training](docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md)
+- [x] [CI pre ML code, data a pipelines](docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md)
+- [x] [Continuous Delivery pre modely](docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md)
 - [ ] Continuous Training a retraining triggers
 - [ ] Model validation a promotion gates
 - [ ] Batch, online a streaming inference
