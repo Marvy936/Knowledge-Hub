@@ -249,17 +249,33 @@ Threshold sa nesmie vybrať na untouched test sete. Ak hyperparameters aj thresh
 Current scikit-learn poskytuje `TunedThresholdClassifierCV`, ktorý post-tunes decision threshold cez cross-validation podľa zvoleného scoreru. Tool nemení potrebu správneho splitteru a independent acceptance.
 
 ```python
-from sklearn.model_selection import TunedThresholdClassifierCV
+from sklearn.model_selection import (
+    StratifiedGroupKFold,
+    TunedThresholdClassifierCV,
+)
+
+splitter = StratifiedGroupKFold(
+    n_splits=5,
+    shuffle=True,
+    random_state=17,
+)
+group_splits = list(
+    splitter.split(
+        X_train,
+        y_train,
+        groups=merchant_id_train,
+    )
+)
 
 thresholded = TunedThresholdClassifierCV(
     estimator=base_classifier,
     scoring="f1",
-    cv=group_aware_cv,
+    cv=group_splits,
 )
-thresholded.fit(X_train, y_train, groups=merchant_id_train)
+thresholded.fit(X_train, y_train)
 ```
 
-Presný metadata-routing a `groups` support závisí od current API/configuration, preto production code musí byť overený proti pinned scikit-learn version. Conceptual boundary zostáva: fit/tune authority je training domain; untouched test iba akceptuje locked procedure.
+Current `TunedThresholdClassifierCV` akceptuje cez `cv` iterable explicitných train/validation indexov. Precomputed splits preto zachovajú group boundary bez odovzdania `groups` do `fit()`, kde by `**params` smerovali k underlying classifieru. Exact API a metadata-routing behavior sa aj tak overujú proti pinned scikit-learn version. Conceptual boundary zostáva: fit/tune authority je training domain; untouched test iba akceptuje locked procedure.
 
 ## 15. Cost-sensitive threshold
 
