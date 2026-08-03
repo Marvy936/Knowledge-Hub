@@ -227,20 +227,20 @@ Nie je správne označiť trial checkpoint za finálny artifact bez deklarácie.
 
 ## 13. Failure hypotheses
 
-Pri sklamaní searchu treba odlíšiť aspoň tieto hypotézy:
+Sklamanie hyperparameter searchu nemá jednu univerzálnu príčinu. Pred ďalším spustením treba rozlíšiť coverage problémy search space-u, chybnú evaluation authority, scheduler alebo pruner bias, systematické execution failures a selection overfit. Každá hypotéza musí predpovedať odlišný trial-state, metric, timing alebo cohort pattern; iba zvýšenie počtu trialov nevyrieši zlý objective, leakage ani nekompatibilný refit.
 
-- search space neobsahuje použiteľnú konfiguráciu;
-- objective nereprezentuje business outcome;
-- split alebo CV porušuje time/entity boundary;
-- sampler nemal dostatočný budget;
-- pruner odstránil kandidátov príliš skoro;
-- trial failures systematicky zasahujú určitú časť space-u;
-- parallel scheduler zvýhodňuje krátke trialy;
-- selected configuration bola refitovaná iným pipeline contractom;
-- validation set bol opakovaným tuningom preťažený;
-- apparent gain je seed alebo fold variance.
+- search-space coverage — povolený priestor neobsahuje použiteľnú konfiguráciu alebo constraints vylúčili relevantný región;
+- objective mismatch — optimalizovaná metrika nereprezentuje business outcome alebo ignoruje povinné guardrails;
+- split/CV violation — foldy porušujú time alebo entity boundary a vracajú optimistický selection signal;
+- insufficient sampler budget — sampler nemal dosť observations na preskúmanie dôležitých regiónov space-u;
+- premature pruning — pruner odstránil pomaly sa zlepšujúcich kandidátov skôr, než ich intermediate metric bola porovnateľná;
+- systematic trial failures — konkrétna časť space-u zlyháva pre OOM, invalid combinations alebo infrastructure limits a preto sa javí horšia bez validného score;
+- parallel scheduling bias — scheduler zvýhodňuje krátke trialy alebo pracuje so stale observations pri vysokej concurrency;
+- refit contract drift — selected configuration bola refitovaná s iným preprocessing, dataset alebo training procedure než trial;
+- validation selection overfit — opakované rozhodnutia spotrebovali ten istý validation set a apparent gain sa neprenáša na independent test;
+- seed/fold variance — rozdiel medzi kandidátmi je menší než variabilita spôsobená sample composition alebo stochastic trainingom.
 
-Každá hypotéza musí predpovedať odlišný evidence pattern. Viac trialov samo osebe nevyrieši zlý objective alebo leakage.
+Evidence review má pre každú hypotézu uviesť očakávaný a falzifikačný signál. Napríklad viac failed trialov v high-memory regióne podporuje execution-capacity hypothesis, kým stabilné trial completion s gainom iba na jednom fold-e skôr ukazuje selection variance alebo split problém.
 
 ## 14. Containment a recovery
 

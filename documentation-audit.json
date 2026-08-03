@@ -5001,30 +5001,30 @@
     {
       "path": "docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md",
       "title": "Gradient descent, learning rate a convergence",
-      "words": 2255,
+      "words": 2315,
       "headings": 28,
       "sections": 28,
-      "findings": 28,
+      "findings": 29,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 27,
-      "score": 47,
+      "low": 29,
+      "score": 41,
       "grade": "C"
     },
     {
       "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
       "title": "Hyperparameters a hyperparameter optimization",
-      "words": 1929,
+      "words": 2087,
       "headings": 18,
       "sections": 18,
-      "findings": 28,
-      "critical": 2,
-      "high": 1,
-      "medium": 1,
-      "low": 24,
-      "score": 67,
-      "grade": "C"
+      "findings": 22,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 22,
+      "score": 30,
+      "grade": "B"
     },
     {
       "path": "docs/18-machine-learning-fundamentals/linear-logistic-regression.md",
@@ -5071,16 +5071,16 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "title": "Overfitting, underfitting, bias a variance",
-      "words": 2189,
+      "words": 2342,
       "headings": 27,
       "sections": 27,
-      "findings": 35,
-      "critical": 1,
-      "high": 2,
+      "findings": 33,
+      "critical": 0,
+      "high": 0,
       "medium": 0,
-      "low": 32,
-      "score": 76,
-      "grade": "D"
+      "low": 33,
+      "score": 50,
+      "grade": "C"
     },
     {
       "path": "docs/18-machine-learning-fundamentals/regression-classification-ranking-clustering.md",
@@ -5099,15 +5099,15 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "title": "Regularization a early stopping",
-      "words": 2056,
+      "words": 2114,
       "headings": 27,
       "sections": 27,
       "findings": 34,
       "critical": 0,
-      "high": 1,
+      "high": 0,
       "medium": 0,
-      "low": 33,
-      "score": 59,
+      "low": 34,
+      "score": 52,
       "grade": "C"
     },
     {
@@ -68180,15 +68180,24 @@
       "path": "docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md",
       "section": "18. Early stopping a checkpoint authority",
       "line": 249,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md",
+      "section": "18. Early stopping a checkpoint authority",
+      "line": 249,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md",
       "section": "23. Worked incident ML-PAY-86",
-      "line": 312,
+      "line": 314,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -68197,7 +68206,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md",
       "section": "23. Worked incident ML-PAY-86",
-      "line": 312,
+      "line": 314,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -68206,7 +68215,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md",
       "section": "23. Worked incident ML-PAY-86",
-      "line": 312,
+      "line": 314,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -68215,7 +68224,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md",
       "section": "24. Evidence-preserving containment a recovery",
-      "line": 326,
+      "line": 328,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -68224,7 +68233,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md",
       "section": "24. Evidence-preserving containment a recovery",
-      "line": 326,
+      "line": 328,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -68233,7 +68242,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md",
       "section": "25. Acceptance contract",
-      "line": 342,
+      "line": 344,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -68242,7 +68251,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md",
       "section": "25. Acceptance contract",
-      "line": 342,
+      "line": 344,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -68360,64 +68369,10 @@
       "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
       "section": "13. Failure hypotheses",
       "line": 228,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "10 odrážok je podopretých iba 24 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
-      "section": "13. Failure hypotheses",
-      "line": 228,
-      "severity": "critical",
-      "rule": "bare-bullet-items",
-      "detail": "10 z 10 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `search space neobsahuje použiteľnú konfiguráciu;`, `objective nereprezentuje business outcome;`, `split alebo CV porušuje time/entity boundary;`, `sampler nemal dostatočný budget;`.",
-      "score": 12
-    },
-    {
-      "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
-      "section": "13. Failure hypotheses",
-      "line": 228,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
-      "section": "13. Failure hypotheses",
-      "line": 228,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
-    },
-    {
-      "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
-      "section": "13. Failure hypotheses",
-      "line": 228,
-      "severity": "low",
-      "rule": "example-not-explicit",
-      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
-      "score": 1
-    },
-    {
-      "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
-      "section": "13. Failure hypotheses",
-      "line": 228,
-      "severity": "low",
-      "rule": "failure-mode-not-explicit",
-      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
-      "score": 1
-    },
-    {
-      "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
-      "section": "13. Failure hypotheses",
-      "line": 228,
-      "severity": "medium",
-      "rule": "term-before-explanation",
-      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `CV`",
-      "score": 4
     },
     {
       "path": "docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md",
@@ -69845,15 +69800,6 @@
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "2. Exact generalization subject",
       "line": 25,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
-    },
-    {
-      "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
-      "section": "3. Underfitting",
-      "line": 53,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -69861,8 +69807,8 @@
     },
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
-      "section": "3. Underfitting",
-      "line": 53,
+      "section": "2. Exact generalization subject",
+      "line": 25,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69871,7 +69817,25 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "3. Underfitting",
-      "line": 53,
+      "line": 55,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
+      "section": "3. Underfitting",
+      "line": 55,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
+      "section": "3. Underfitting",
+      "line": 55,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -69880,7 +69844,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "4. Overfitting",
-      "line": 67,
+      "line": 69,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -69889,7 +69853,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "4. Overfitting",
-      "line": 67,
+      "line": 69,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69898,7 +69862,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "4. Overfitting",
-      "line": 67,
+      "line": 69,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -69907,7 +69871,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "5. Bias as systematic approximation/procedure error",
-      "line": 81,
+      "line": 83,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -69916,7 +69880,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "5. Bias as systematic approximation/procedure error",
-      "line": 81,
+      "line": 83,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69925,7 +69889,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "5. Bias as systematic approximation/procedure error",
-      "line": 81,
+      "line": 83,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -69934,7 +69898,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "6. Variance as training-sample sensitivity",
-      "line": 95,
+      "line": 97,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -69943,7 +69907,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "7. Bias-variance-noise decomposition",
-      "line": 107,
+      "line": 109,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -69952,7 +69916,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "7. Bias-variance-noise decomposition",
-      "line": 107,
+      "line": 109,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69961,7 +69925,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "7. Bias-variance-noise decomposition",
-      "line": 107,
+      "line": 109,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -69970,7 +69934,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "8. Model capacity",
-      "line": 119,
+      "line": 121,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -69979,7 +69943,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "9. Training size a learning curves",
-      "line": 130,
+      "line": 132,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -69988,7 +69952,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "9. Training size a learning curves",
-      "line": 130,
+      "line": 132,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -69997,34 +69961,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "11. Approximation, estimation a optimization error",
-      "line": 171,
-      "severity": "critical",
-      "rule": "outline-instead-of-explanation",
-      "detail": "4 odrážok je podopretých iba 27 slovami súvislého vysvetlenia.",
-      "score": 12
-    },
-    {
-      "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
-      "section": "11. Approximation, estimation a optimization error",
-      "line": 171,
-      "severity": "high",
-      "rule": "thin-concept-section",
-      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
-      "score": 7
-    },
-    {
-      "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
-      "section": "11. Approximation, estimation a optimization error",
-      "line": 171,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
-      "section": "11. Approximation, estimation a optimization error",
-      "line": 171,
+      "line": 173,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70033,7 +69970,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "12. Label noise",
-      "line": 182,
+      "line": 184,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70042,7 +69979,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "13. Distribution shift oproti overfitting",
-      "line": 193,
+      "line": 195,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70051,7 +69988,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "16. Cohort-specific under/overfit",
-      "line": 230,
+      "line": 232,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70060,7 +69997,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "17. Feature count and dimensionality",
-      "line": 242,
+      "line": 244,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70069,7 +70006,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "18. Data augmentation",
-      "line": 248,
+      "line": 250,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70078,7 +70015,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "20. Double descent boundary",
-      "line": 264,
+      "line": 266,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70087,7 +70024,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "22. Worked incident ML-PAY-86",
-      "line": 283,
+      "line": 285,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70096,7 +70033,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "22. Worked incident ML-PAY-86",
-      "line": 283,
+      "line": 285,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -70105,7 +70042,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "23. Evidence-preserving containment a recovery",
-      "line": 297,
+      "line": 299,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70114,7 +70051,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "23. Evidence-preserving containment a recovery",
-      "line": 297,
+      "line": 299,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70123,7 +70060,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md",
       "section": "24. Acceptance contract",
-      "line": 313,
+      "line": 315,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70385,15 +70322,15 @@
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "2. Exact regularization subject",
       "line": 25,
-      "severity": "high",
-      "rule": "list-first-introduction",
-      "detail": "Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.",
-      "score": 8
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "3. L2 regularization",
-      "line": 55,
+      "line": 57,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70402,7 +70339,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "3. L2 regularization",
-      "line": 55,
+      "line": 57,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70411,7 +70348,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "3. L2 regularization",
-      "line": 55,
+      "line": 57,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -70420,7 +70357,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "4. L1 a sparsity",
-      "line": 79,
+      "line": 81,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70429,7 +70366,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "5. Elastic Net",
-      "line": 95,
+      "line": 97,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70438,7 +70375,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "6. Weight decay oproti L2",
-      "line": 107,
+      "line": 109,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70447,7 +70384,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "6. Weight decay oproti L2",
-      "line": 107,
+      "line": 109,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70456,7 +70393,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "7. Constraints",
-      "line": 121,
+      "line": 123,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70465,7 +70402,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "7. Constraints",
-      "line": 121,
+      "line": 123,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70474,7 +70411,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "8. Dropout",
-      "line": 136,
+      "line": 138,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70483,7 +70420,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "8. Dropout",
-      "line": 136,
+      "line": 138,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70492,7 +70429,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "9. Noise injection",
-      "line": 150,
+      "line": 152,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70501,7 +70438,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "9. Noise injection",
-      "line": 150,
+      "line": 152,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70510,7 +70447,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "10. Data augmentation",
-      "line": 162,
+      "line": 164,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70519,7 +70456,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "10. Data augmentation",
-      "line": 162,
+      "line": 164,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70528,7 +70465,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "11. Batch normalization as implicit regularization",
-      "line": 170,
+      "line": 172,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70537,7 +70474,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "12. Early stopping mechanism",
-      "line": 176,
+      "line": 178,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70546,7 +70483,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "13. Early stopping as implicit regularization",
-      "line": 192,
+      "line": 194,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70555,7 +70492,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "13. Early stopping as implicit regularization",
-      "line": 192,
+      "line": 194,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70564,7 +70501,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "14. Monitor selection",
-      "line": 200,
+      "line": 202,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70573,7 +70510,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "15. Patience a min delta",
-      "line": 216,
+      "line": 218,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70582,7 +70519,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "15. Patience a min delta",
-      "line": 216,
+      "line": 218,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70591,7 +70528,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "16. Restore best weights and optimizer mismatch",
-      "line": 224,
+      "line": 226,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70600,7 +70537,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "16. Restore best weights and optimizer mismatch",
-      "line": 224,
+      "line": 226,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70609,7 +70546,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "21. Regularization and serving cost",
-      "line": 270,
+      "line": 272,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70618,7 +70555,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "22. Worked incident ML-PAY-86",
-      "line": 276,
+      "line": 278,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70627,7 +70564,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "22. Worked incident ML-PAY-86",
-      "line": 276,
+      "line": 278,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70636,7 +70573,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "22. Worked incident ML-PAY-86",
-      "line": 276,
+      "line": 278,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -70645,7 +70582,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "23. Evidence-preserving containment a recovery",
-      "line": 290,
+      "line": 292,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70654,7 +70591,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "23. Evidence-preserving containment a recovery",
-      "line": 290,
+      "line": 292,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -70663,7 +70600,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "24. Acceptance contract",
-      "line": 308,
+      "line": 310,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -70672,7 +70609,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/regularization-early-stopping.md",
       "section": "24. Acceptance contract",
-      "line": 308,
+      "line": 310,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

@@ -248,6 +248,8 @@ Plateau hypotheses include learning rate too small after decay, insufficient rep
 
 ## 18. Early stopping a checkpoint authority
 
+Early stopping kombinuje validation-based selection so zastavením optimization trajectory. Autoritatívny výsledok preto nie je automaticky posledný epoch ani posledný zapísaný checkpoint, ale presne označený step, ktorého monitorovaná validation metric splnila selection rule. Workflow musí oddeliť weights určené pre inference export od complete training checkpointu potrebného na exact resume, pretože callback môže obnoviť best weights bez zodpovedajúceho optimizer a schedule state.
+
 ```python
 callback = tf.keras.callbacks.EarlyStopping(
     monitor="val_average_precision",

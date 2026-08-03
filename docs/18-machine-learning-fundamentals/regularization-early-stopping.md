@@ -24,6 +24,8 @@ Regularization nie je one-dimensional knob. Multiple techniques interact; contro
 
 ## 2. Exact regularization subject
 
+Regularization subject musí zachytiť všetky mechanizmy, ktoré menia objective, update alebo selected checkpoint, nie iba jeden spoločný názov experimentu. Manifest preto oddeľuje parameter penalties, optimizer decay, stochastic layers, data transformations a stopping policy vrátane scope-u a selection authority. Dve konfigurácie s rovnakým číselným koeficientom nie sú ekvivalentné, ak zasahujú iné variables alebo vstupujú do training lifecycle iným spôsobom.
+
 ```yaml
 regularization_subject: ML-PAY-REG-2026-08-v3
 model_subject: ML-PAY-DNN-2026-08-v2

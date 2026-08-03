@@ -24,6 +24,8 @@ Overfitting je property procedure relative to data and evaluation scenario, not 
 
 ## 2. Exact generalization subject
 
+Generalization verdict má význam iba pre presne identifikovanú kombináciu tasku, population, splitu, feature/model procedure, regularization a evaluation cohorts. Manifest nižšie preto nie je administratívna metadata: určuje, ktoré training a validation výsledky možno porovnať a ktoré patria k inej experimentálnej generácii. Bez tohto contractu sa rozdiel skóre môže nesprávne pripísať capacity alebo variance, hoci sa medzi runmi zmenili dáta, features alebo policy.
+
 ```yaml
 generalization_subject: ML-PAY-GEN-2026-08-v2
 task: operation-level loss-risk ranking
@@ -170,14 +172,14 @@ Low depth may underfit; high depth may increase train score and gap. One-dimensi
 
 ## 11. Approximation, estimation a optimization error
 
-Observed error can be separated conceptually:
+Observed error nie je jedna homogénna veličina. Diagnostika musí určiť, či limit vzniká v reprezentácii model class, v konečnom a noisy training sample, v samotnom optimization procedure alebo v evaluation contracte. Každý typ chyby predpovedá iný evidence pattern a vyžaduje inú zmenu; bez tohto rozdelenia tím ľahko zvýši capacity, predĺži training alebo pridá dáta bez zásahu do skutočnej príčiny.
 
-- approximation error — model class cannot represent desired function;
-- estimation error — finite/noisy data means fitted function differs from best in class;
-- optimization error — training failed to find sufficiently good parameters for empirical objective;
-- evaluation error — metric/split/implementation does not estimate intended scenario.
+- approximation error — model class nedokáže reprezentovať požadovanú funkciu ani pri ideálnom fitnutí v rámci danej class;
+- estimation error — finite alebo noisy data spôsobia, že fitted function sa odlišuje od najlepšej funkcie dostupnej v zvolenej class;
+- optimization error — training procedure nenašla dostatočne dobré parameters pre deklarovaný empirical objective;
+- evaluation error — metric, split alebo implementation neodhaduje scenár, podľa ktorého sa bude rozhodovať v produkcii.
 
-Increasing model capacity addresses approximation but may worsen estimation. Training longer addresses optimization, not wrong target/split. This taxonomy prevents random fixes.
+Increasing model capacity môže znížiť approximation error, ale zároveň zvýšiť estimation variance. Training longer rieši iba optimization error a nepomôže pri wrong targete, leakage alebo chybnom splite. Taxonómia preto viaže každú remediation na falzifikovateľnú hypotézu namiesto náhodného tuningu.
 
 ## 12. Label noise
 
