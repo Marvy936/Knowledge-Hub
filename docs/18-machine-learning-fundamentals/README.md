@@ -35,10 +35,10 @@ Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktív
 18. [Regression metrics](regression-metrics.md)
 19. [Imbalanced datasets a threshold selection](imbalanced-datasets-threshold-selection.md)
 20. [Cross-validation](cross-validation.md)
-21. Calibration a uncertainty
-22. Explainability a feature importance
-23. Data quality, bias a responsible AI
-24. Reproducibility a random seeds
+21. [Calibration a uncertainty](calibration-uncertainty.md)
+22. [Explainability a feature importance](explainability-feature-importance.md)
+23. [Data quality, bias a responsible AI](data-quality-bias-responsible-ai.md)
+24. [Reproducibility a random seeds](reproducibility-random-seeds.md)
 25. Offline evaluation oproti production outcome
 26. ML troubleshooting mental model
 
@@ -71,4 +71,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **20/26 · In progress**. Piaty blok uzatvára classification a regression evaluation, class-imbalance/sampling/threshold policy a deployment-aligned cross-validation lifecycle. Nasledujúci authoritative blok tvoria calibration a uncertainty, explainability a feature importance, data quality/bias/responsible AI a reproducibility/random seeds. Kapitoly 21–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
+Aktuálny authoritative stav sekcie je **24/26 · In progress**. Šiesty blok uzatvára probability calibration a uncertainty boundaries, model inspection a explanation scope, end-to-end data-quality/bias/responsible-AI risk lifecycle a reproducibility od immutable inputs po RNG, determinism, checkpoint a multi-seed evidence. Záverečný authoritative blok tvoria offline evaluation oproti production outcome a ML troubleshooting mental model. Kapitoly 25–26 zostávajú plánovaným inventorym a nesmú sa interpretovať ako hotová dokumentácia. Po tejto sekcii nasleduje **MLOps and ML Platforms**.
