@@ -1,0 +1,144 @@
+name: Temporary Section 18 block 21-24 closeout
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+    paths:
+      - "docs/18-machine-learning-fundamentals/**"
+      - "ROADMAP.md"
+      - "GLOSSARY.md"
+      - "DOCUMENTATION-REVIEW-STATUS.md"
+      - "DOCUMENTATION-AUDIT.md"
+      - "documentation-audit.json"
+      - ".github/workflows/temporary-section-18-block-21-24-closeout.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section-18-block-21-24-closeout-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  closeout:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/section-18-ml-fundamentals-block-21-24
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate block and synchronize documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          section = Path("docs/18-machine-learning-fundamentals")
+          chapters = {
+              "calibration-uncertainty.md": [
+                  "calibration", "uncertainty", "brier", "coverage", "ML-PAY-88"
+              ],
+              "explainability-feature-importance.md": [
+                  "explainability", "permutation", "partial dependence", "fidelity", "ML-PAY-88"
+              ],
+              "data-quality-bias-responsible-ai.md": [
+                  "data quality", "bias", "fairness", "NIST", "ML-PAY-88"
+              ],
+              "reproducibility-random-seeds.md": [
+                  "reproducibility", "random", "checkpoint", "deterministic", "ML-PAY-88"
+              ],
+          }
+
+          for filename, required in chapters.items():
+              path = section / filename
+              text = path.read_text(encoding="utf-8")
+              words = re.findall(r"\b[\w'-]+\b", text, flags=re.UNICODE)
+              if len(words) < 1600:
+                  raise SystemExit(f"{filename}: only {len(words)} words")
+              if text.count("```") < 8:
+                  raise SystemExit(f"{filename}: insufficient executable/model surface")
+              lower = text.lower()
+              missing = [term for term in required if term.lower() not in lower]
+              if missing:
+                  raise SystemExit(f"{filename}: missing {missing}")
+              semantic_groups = {
+                  "subject": ("subject", "predmet"),
+                  "evidence": ("evidence", "dôkaz", "artifact"),
+                  "failure": ("failure", "zlyhan", "incident"),
+                  "recovery": ("recovery", "obnov", "rollback"),
+                  "acceptance": ("acceptance", "positive", "forbidden"),
+              }
+              for group, alternatives in semantic_groups.items():
+                  if not any(token in lower for token in alternatives):
+                      raise SystemExit(f"{filename}: missing {group} semantics")
+
+          readme = section / "README.md"
+          readme_text = readme.read_text(encoding="utf-8")
+          for token in [
+              "**24/26 · In progress**",
+              "[Calibration a uncertainty](calibration-uncertainty.md)",
+              "[Explainability a feature importance](explainability-feature-importance.md)",
+              "[Data quality, bias a responsible AI](data-quality-bias-responsible-ai.md)",
+              "[Reproducibility a random seeds](reproducibility-random-seeds.md)",
+          ]:
+              if token not in readme_text:
+                  raise SystemExit(f"README missing {token}")
+          PY
+
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          lines = path.read_text(encoding="utf-8").splitlines()
+          prefix = "| `18-machine-learning-fundamentals` — Machine Learning Fundamentals |"
+          replacement = (
+              "| `18-machine-learning-fundamentals` — Machine Learning Fundamentals | "
+              "24/26 authoritative drafting | In progress | 2026-08-03 | "
+              "Dvadsaťštyri authoritative kapitol je aktívnych. Blok 21–24 oddeľuje ranking od probability calibration a uncertainty procedure; reliability bins, proper scores, sigmoid/isotonic/temperature calibration, coverage/sharpness, conformal/ensemble/OOD a abstention boundaries; intrinsic/post-hoc, global/local, coefficient/impurity/permutation/PDP/ICE/surrogate/additive attribution a final-policy reason-code scope; fitness-for-purpose data quality, population/measurement/label/historical/representation/proxy bias, fairness metric subjects, NIST AI RMF governance, human oversight, privacy/security a contestability; a reproducibility od immutable data/code/config/environment cez independent RNG streams, split/sampler artifacts, deterministic operations, distributed/checkpoint exact resume a multi-seed stability. Incident `ML-PAY-88` prepája in-sample overconfidence, sparse reliability evidence, causal overclaim explanations, selective labels/proxies/queue impact a false single-seed reproducibility. Kapitoly 25–26 zostávajú plánované. Reálne calibration, uncertainty, explainer, fairness, deterministic/resume ani impact experiments neboli vykonané. |"
+          )
+          matches = [i for i, line in enumerate(lines) if line.startswith(prefix)]
+          if len(matches) != 1:
+              raise SystemExit(f"Expected one Section 18 row, found {len(matches)}")
+          lines[matches[0]] = replacement
+          path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8", newline="\n")
+          PY
+
+          python scripts/audit_learning_depth.py --all-docs
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
+          git diff --check
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            ROADMAP.md \
+            GLOSSARY.md \
+            docs \
+            DOCUMENTATION-REVIEW-STATUS.md \
+            DOCUMENTATION-AUDIT.md \
+            documentation-audit.json
+
+          if git diff --cached --quiet; then
+            echo "No synchronized documentation changes required."
+            exit 0
+          fi
+
+          git commit -m "docs: close Machine Learning Fundamentals block 21-24"
+          git push origin HEAD:agent/section-18-ml-fundamentals-block-21-24
