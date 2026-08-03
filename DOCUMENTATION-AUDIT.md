@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **409**
-- Audited conceptual sections: **8466**
-- Total words: **825,018**
-- Findings: **8051** (critical 658, high 871, medium 475, low 6047)
-- File grades: A 159, B 147, C 42, D 61
+- Audited authoritative articles: **411**
+- Audited conceptual sections: **8503**
+- Total words: **828,559**
+- Findings: **8080** (critical 658, high 871, medium 475, low 6076)
+- File grades: A 160, B 148, C 42, D 61
 
 ## Interpretation
 
@@ -156,7 +156,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 24 | 0 | 0 | 0 | 17 | 2623 | `docs/08-container-fundamentals-and-docker/docker-troubleshooting.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 2060 | `docs/11-cloud-and-aws/elastic-load-balancing.md` |
 | B | 24 | 0 | 0 | 0 | 23 | 2787 | `docs/17-keycloak-and-identity-platform/admin-console-admin-rest-api-automation.md` |
-| B | 24 | 0 | 0 | 0 | 21 | 1507 | `docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md` |
+| B | 24 | 0 | 0 | 0 | 21 | 1509 | `docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md` |
 | B | 24 | 0 | 0 | 0 | 19 | 1612 | `docs/19-mlops-and-ml-platforms/batch-online-streaming-inference.md` |
 | B | 23 | 0 | 0 | 0 | 17 | 1717 | `docs/06-gitlab/environments-deployments-releases.md` |
 | B | 23 | 0 | 0 | 0 | 20 | 2657 | `docs/07-infrastructure-as-code-and-configuration-management/modules-tasks-plays-playbooks.md` |
@@ -178,6 +178,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 21 | 0 | 0 | 0 | 16 | 2087 | `docs/14-sre-and-operations/operational-readiness.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 1424 | `docs/16-gitops-and-platform-engineering/guardrails.md` |
 | B | 21 | 0 | 0 | 0 | 17 | 3231 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
+| B | 21 | 0 | 0 | 0 | 18 | 1767 | `docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1220 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | B | 20 | 0 | 0 | 0 | 18 | 3585 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1635 | `docs/06-gitlab/merge-requests-and-approvals.md` |
@@ -313,6 +314,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 12 | 2587 | `docs/18-machine-learning-fundamentals/artificial-intelligence-machine-learning-deep-learning-generative-ai.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 1515 | `docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 1133 | `docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md` |
+| A | 13 | 0 | 0 | 0 | 11 | 1772 | `docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1580 | `docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md` |
 | A | 13 | 0 | 0 | 0 | 13 | 1607 | `docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
@@ -2200,9 +2202,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2741 | 2741 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1710 | 1710 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1596 | 1596 |
+| `example-not-explicit` | 0 | 0 | 0 | 2758 | 2758 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1715 | 1715 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1603 | 1603 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

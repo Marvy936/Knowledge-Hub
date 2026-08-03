@@ -46,17 +46,8 @@ Odporúčané predchádzajúce oblasti:
 30. [Kubeflow Trainer a distributed training](kubeflow-trainer-distributed-training.md)
 31. [KServe alebo ekvivalentný Kubernetes model serving](kserve-kubernetes-model-serving.md)
 32. [Amazon SageMaker a cloud MLOps mapping](amazon-sagemaker-cloud-mlops-mapping.md)
-
-## Plánované authoritative poradie
-
-Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
-
-29. Kubeflow Pipelines
-30. Kubeflow Trainer a distributed training
-31. KServe alebo ekvivalentný Kubernetes model serving
-32. Amazon SageMaker a cloud MLOps mapping
-33. MLOps platform architecture
-34. MLOps troubleshooting
+33. [MLOps platform architecture](mlops-platform-architecture.md)
+34. [MLOps troubleshooting](mlops-troubleshooting.md)
 
 ## Authoring a evidence štandard
 
@@ -87,4 +78,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **32/34 · In progress**. Ôsmy blok uzatvára platform-implementation mapping cez incident `MLOPS-PAY-97`. Kubeflow Pipelines kapitola viaže Python DSL, compiled IR alebo Kubernetes Native manifest, run/task/attempt, cache provenance, pipeline root, artifacts, ML Metadata a external mutation read-back do jedného reproducible orchestration subjectu. Kubeflow Trainer kapitola používa aktuálny V2 model `TrainJob` + Runtime, rozlišuje requested a resolved workload, rank/world-size a data partitioning, scheduler admission, complete checkpoints, elastic restart generations a downstream model acceptance. KServe kapitola oddeľuje `InferenceService` desired state, `ServingRuntime`, Standard a Knative deployment modes, resolved Kubernetes resources, loaded model fingerprint, protocol/schema, warmup, useful capacity, actual exposure a composite rollback. SageMaker kapitola mapuje platform-neutral experiments, pipelines, training, Registry, deployment, monitoring a CI/CD subjects na SageMaker AI resources, S3/ECR digests, ARNs, account/Region a AWS control/data-plane evidence bez zamieňania `Succeeded`, `Approved` alebo `InService` za business outcome. Kapitoly 29–32 prešli substantial prose, executable/model surface a subject/evidence/failure/recovery/acceptance gate-om. Reálne KFP runs, TrainJobs, KServe serving, SageMaker jobs/endpoints, recovery a business outcomes neboli vykonané; sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší a posledný authoritative blok sekcie sú kapitoly 33–34: MLOps platform architecture a MLOps troubleshooting.
+Aktuálny authoritative stav sekcie je **34/34 · Ready for user review**. Deviaty a záverečný authoritative blok uzatvára sekciu incidentom `MLOPS-PAY-98`. Platform architecture kapitola spája business capabilities, bounded contexts, control a data planes, authoritative stores, immutable release manifest, event identities, tenancy a trust zones, paved roads, build/train/serve planes, cross-platform lineage, observability, governance, DR a platform SLO do jedného implementačného modelu. Troubleshooting kapitola používa jednotný intended → configured → resolved → loaded → exercised → outcome ladder, evidence preservation, read-before-retry, cross-system timeline, competing hypotheses a first-divergence analysis naprieč pipelines, distributed trainingom, artifacts/Registry, features, servingom, monitoringom, feedbackom, security a cost/capacity. Všetkých 34 kapitol sekcie má authoritative prose-first obsah a synchronizovaný repository evidence model. Dokumentačné kontroly nepreukazujú vykonanie reálnych pipelines, training jobs, serving trafficu, restores ani mature business outcomes; sekcia je preto `Ready for user review`, nie runtime `Verified`, production `Stable` ani user `Accepted`.

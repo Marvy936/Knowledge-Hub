@@ -5281,7 +5281,7 @@
     {
       "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
       "title": "Amazon SageMaker a cloud MLOps mapping",
-      "words": 1507,
+      "words": 1509,
       "headings": 15,
       "sections": 15,
       "findings": 21,
@@ -5585,6 +5585,34 @@
       "low": 15,
       "score": 15,
       "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "title": "MLOps platform architecture",
+      "words": 1767,
+      "headings": 17,
+      "sections": 17,
+      "findings": 18,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 18,
+      "score": 21,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "title": "MLOps troubleshooting",
+      "words": 1772,
+      "headings": 20,
+      "sections": 20,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 11,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
@@ -77213,6 +77241,267 @@
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "3. Control planes a data planes",
+      "line": 32,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "4. Authoritative stores",
+      "line": 49,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "4. Authoritative stores",
+      "line": 49,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "5. Globálna subject identity",
+      "line": 66,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "5. Globálna subject identity",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "7. Identity, tenancy a trust zones",
+      "line": 105,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "8. Platform APIs a paved roads",
+      "line": 113,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "8. Platform APIs a paved roads",
+      "line": 113,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "9. Build, train a serve planes",
+      "line": 121,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "10. Metadata a lineage plane",
+      "line": 129,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "11. Observability a feedback architecture",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "12. Governance ako runtime capability",
+      "line": 145,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "13. Availability, backup a disaster recovery",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "15. Platform SLO a product model",
+      "line": 178,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "16. Failure hypotheses a architecture review",
+      "line": 184,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "17. Acceptance",
+      "line": 190,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "17. Acceptance",
+      "line": 190,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md",
+      "section": "17. Acceptance",
+      "line": 190,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "4. Evidence preservation a change freeze",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "5. Unknown outcome a read-before-retry",
+      "line": 74,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "6. Pipeline troubleshooting",
+      "line": 89,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "7. Training troubleshooting",
+      "line": 97,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "7. Training troubleshooting",
+      "line": 97,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "9. Feature a data troubleshooting",
+      "line": 113,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "11. Monitoring a drift troubleshooting",
+      "line": 129,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "13. Security a supply-chain troubleshooting",
+      "line": 143,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "13. Security a supply-chain troubleshooting",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "14. Cost a capacity troubleshooting",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlops-troubleshooting.md",
+      "section": "20. Acceptance",
+      "line": 215,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
