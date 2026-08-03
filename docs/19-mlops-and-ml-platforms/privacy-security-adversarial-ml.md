@@ -147,3 +147,11 @@ Containment môže zrušiť credentials, obmedziť output, freeze retraining, qu
 Pozitívna acceptance vyžaduje explicitný threat model, least privilege, privacy/data contract, artifact verification, abuse monitoring, adversarial/robustness tests a incident runbook. Recovery acceptance vyžaduje odstránenie kompromitovanej generácie, credential rotation, data/artifact lineage review, downstream reconciliation a ďalší clean operation. Forbidden acceptance je „endpoint je interný“, encryption-at-rest bez access control alebo adversarial accuracy bez attacker assumptions.
 
 Second-operation test zopakuje inference, retraining snapshot alebo artifact load po containment-e. Ak starý token, cache alebo mutable alias stále umožní prístup ku kompromitovanej generácii, recovery nie je uzavretá.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Governance, approvals a audit](governance-approvals-audit.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ML supply-chain security →](ml-supply-chain-security.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

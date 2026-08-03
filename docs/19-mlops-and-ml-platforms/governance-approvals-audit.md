@@ -141,5 +141,5 @@ Second-operation test zopakuje rovnakú promotion alebo no-op approval. Ak sa ro
 
 **Navigácia**
 
-[← Predchádzajúca: Model rollback a recovery](model-rollback-recovery.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Model rollback a recovery](model-rollback-recovery.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Privacy, security a adversarial ML →](privacy-security-adversarial-ml.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

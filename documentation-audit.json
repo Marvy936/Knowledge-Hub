@@ -5435,7 +5435,7 @@
     {
       "path": "docs/19-mlops-and-ml-platforms/governance-approvals-audit.md",
       "title": "Governance, approvals a audit",
-      "words": 982,
+      "words": 986,
       "headings": 13,
       "sections": 13,
       "findings": 8,
@@ -5486,6 +5486,48 @@
       "medium": 0,
       "low": 18,
       "score": 18,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "title": "ML supply-chain security",
+      "words": 1409,
+      "headings": 13,
+      "sections": 13,
+      "findings": 16,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 16,
+      "score": 19,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "title": "MLflow evaluation, tracing a deployment",
+      "words": 1587,
+      "headings": 14,
+      "sections": 14,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 16,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "title": "MLflow experiment tracking a Model Registry",
+      "words": 1577,
+      "headings": 12,
+      "sections": 12,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 15,
       "grade": "B"
     },
     {
@@ -5584,6 +5626,20 @@
       "medium": 0,
       "low": 9,
       "score": 12,
+      "grade": "A"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "title": "Privacy, security a adversarial ML",
+      "words": 1607,
+      "headings": 12,
+      "sections": 12,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 13,
       "grade": "A"
     },
     {
@@ -76087,6 +76143,420 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "2. Threats naprieč lifecycle",
+      "line": 38,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "3. Hermetic a reproducible inputs",
+      "line": 44,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "3. Hermetic a reproducible inputs",
+      "line": 44,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "4. Dependency locking a secure install",
+      "line": 52,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "4. Dependency locking a secure install",
+      "line": 52,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "5. SLSA provenance a build trust",
+      "line": 70,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "5. SLSA provenance a build trust",
+      "line": 70,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "5. SLSA provenance a build trust",
+      "line": 70,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "6. SBOM, model BOM a dataset manifest",
+      "line": 88,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "6. SBOM, model BOM a dataset manifest",
+      "line": 88,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "7. Signing, Sigstore a attestations",
+      "line": 96,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "8. Artifact immutability a retention",
+      "line": 121,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "9. Serialization a model loading",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "10. CI/CD identity a secret boundary",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "12. Vulnerability a incident response",
+      "line": 161,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md",
+      "section": "13. Acceptance boundaries",
+      "line": 169,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "1. Rozdelenie surface a authority",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "3. Validation thresholds",
+      "line": 69,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "3. Validation thresholds",
+      "line": 69,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "4. Custom metrics a evaluator code",
+      "line": 98,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "4. Custom metrics a evaluator code",
+      "line": 98,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "7. Production tracing reliability",
+      "line": 142,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "7. Production tracing reliability",
+      "line": 142,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "8. Evaluating production traces",
+      "line": 150,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "10. Docker build a supply-chain handoff",
+      "line": 175,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "10. Docker build a supply-chain handoff",
+      "line": 175,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "11. Deployment target a external control plane",
+      "line": 189,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "12. Linking traces, models a releases",
+      "line": 206,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "12. Linking traces, models a releases",
+      "line": 206,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "13. Failure hypotheses a troubleshooting",
+      "line": 214,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
+      "section": "14. Recovery a acceptance",
+      "line": 222,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "1. Architecture a stores",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "1. Architecture a stores",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "2. Secure a pinned environment",
+      "line": 23,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "3. Experiment, run a dataset lineage",
+      "line": 46,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "4. Logging modelu a complete package",
+      "line": 84,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "4. Logging modelu a complete package",
+      "line": 84,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "6. Registrácia a exact read-back",
+      "line": 134,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "7. Aliases, tags a promotion",
+      "line": 173,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "7. Aliases, tags a promotion",
+      "line": 173,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "8. Environment separation",
+      "line": 206,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "9. Search, discovery a leaderboard boundary",
+      "line": 214,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "10. Artifact download, load a serving smoke test",
+      "line": 222,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "10. Artifact download, load a serving smoke test",
+      "line": 222,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "12. Backup, restore a acceptance",
+      "line": 263,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md",
+      "section": "12. Backup, restore a acceptance",
+      "line": 263,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/model-monitoring.md",
       "section": "1. Monitoring lifecycle a observation subject",
       "line": 7,
@@ -76688,6 +77158,123 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "1. Security a privacy subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "2. Threat actors, capability a lifecycle stage",
+      "line": 39,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "3. Data minimization, purpose a retention",
+      "line": 59,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "3. Data minimization, purpose a retention",
+      "line": 59,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "4. Privacy attacks a model leakage",
+      "line": 67,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "5. Evasion a robust input boundary",
+      "line": 75,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "5. Evasion a robust input boundary",
+      "line": 75,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "6. Poisoning, backdoor a feedback integrity",
+      "line": 83,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "6. Poisoning, backdoor a feedback integrity",
+      "line": 83,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "7. Model, artifact a serialization security",
+      "line": 101,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "7. Model, artifact a serialization security",
+      "line": 101,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "10. Privacy-safe telemetry a incident evidence",
+      "line": 125,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md",
+      "section": "11. Security testing a red teaming",
+      "line": 133,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md",

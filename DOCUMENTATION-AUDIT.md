@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **401**
-- Audited conceptual sections: **8362**
-- Total words: **813,179**
-- Findings: **7925** (critical 658, high 871, medium 475, low 5921)
-- File grades: A 158, B 140, C 42, D 61
+- Audited authoritative articles: **405**
+- Audited conceptual sections: **8413**
+- Total words: **819,363**
+- Findings: **7984** (critical 658, high 871, medium 475, low 5980)
+- File grades: A 159, B 143, C 42, D 61
 
 ## Interpretation
 
@@ -197,6 +197,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 19 | 0 | 0 | 0 | 14 | 1885 | `docs/14-sre-and-operations/rpo-and-rto.md` |
 | B | 19 | 0 | 0 | 0 | 15 | 1517 | `docs/16-gitops-and-platform-engineering/developer-experience.md` |
 | B | 19 | 0 | 0 | 0 | 15 | 2032 | `docs/17-keycloak-and-identity-platform/keycloak-server-configuration-hostname-reverse-proxy.md` |
+| B | 19 | 0 | 0 | 0 | 16 | 1409 | `docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md` |
 | B | 18 | 0 | 0 | 0 | 13 | 1113 | `docs/02-networking-and-web/load-balancing.md` |
 | B | 18 | 0 | 0 | 0 | 16 | 2147 | `docs/03-git-and-automation/python-for-automation.md` |
 | B | 18 | 0 | 0 | 0 | 15 | 1951 | `docs/06-gitlab/variables-and-secrets.md` |
@@ -246,6 +247,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 16 | 0 | 0 | 0 | 10 | 2399 | `docs/17-keycloak-and-identity-platform/user-storage-synchronization-cache-semantics.md` |
 | B | 16 | 0 | 0 | 0 | 14 | 1888 | `docs/19-mlops-and-ml-platforms/artifact-stores.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 1537 | `docs/19-mlops-and-ml-platforms/data-drift-concept-drift-prediction-drift.md` |
+| B | 16 | 0 | 0 | 0 | 15 | 1587 | `docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md` |
 | B | 16 | 0 | 0 | 0 | 16 | 1900 | `docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 2032 | `docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1401 | `docs/03-git-and-automation/git-object-model.md` |
@@ -266,6 +268,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 13 | 1477 | `docs/16-gitops-and-platform-engineering/golden-paths-and-paved-road.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 2220 | `docs/17-keycloak-and-identity-platform/infinispan-caches-clustering-session-behavior.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 2878 | `docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md` |
+| B | 15 | 0 | 0 | 0 | 15 | 1577 | `docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md` |
 | A | 14 | 0 | 0 | 1 | 8 | 2356 | `docs/03-git-and-automation/bash-automation.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 2498 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1538 | `docs/08-container-fundamentals-and-docker/registries.md` |
@@ -307,6 +310,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 10 | 1515 | `docs/19-mlops-and-ml-platforms/continuous-training-retraining-triggers.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 1133 | `docs/19-mlops-and-ml-platforms/gpu-scheduling-utilization-capacity.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1580 | `docs/19-mlops-and-ml-platforms/model-validation-promotion-gates.md` |
+| A | 13 | 0 | 0 | 0 | 13 | 1607 | `docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | A | 12 | 0 | 0 | 0 | 7 | 1255 | `docs/09-kubernetes/cluster-dns.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2416 | `docs/10-helm-and-cka/helm-chart-template-values-release.md` |
@@ -320,7 +324,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 12 | 0 | 0 | 0 | 10 | 3045 | `docs/17-keycloak-and-identity-platform/ldap-active-directory-federation.md` |
 | A | 12 | 0 | 0 | 0 | 10 | 2220 | `docs/17-keycloak-and-identity-platform/password-policies-brute-force-protection-account-recovery.md` |
 | A | 12 | 0 | 0 | 0 | 8 | 2252 | `docs/17-keycloak-and-identity-platform/upgrades-migration-guides-rollback-boundaries.md` |
-| A | 12 | 0 | 0 | 0 | 8 | 982 | `docs/19-mlops-and-ml-platforms/governance-approvals-audit.md` |
+| A | 12 | 0 | 0 | 0 | 8 | 986 | `docs/19-mlops-and-ml-platforms/governance-approvals-audit.md` |
 | A | 12 | 0 | 0 | 0 | 12 | 1837 | `docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md` |
 | A | 12 | 0 | 0 | 0 | 9 | 1056 | `docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 980 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
@@ -2192,9 +2196,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2677 | 2677 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1696 | 1696 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1548 | 1548 |
+| `example-not-explicit` | 0 | 0 | 0 | 2709 | 2709 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1700 | 1700 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1571 | 1571 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

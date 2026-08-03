@@ -267,3 +267,11 @@ Backup zahŕňa database/backend, artifact store, authentication config, trusted
 Pozitívna acceptance vyžaduje pinned client/server version, immutable dataset reference, explicit run/model identity, complete package, evaluation evidence, exact registered version, alias read-back a immutable deployment resolution. Recovery acceptance vyžaduje restore oboch stores a druhú register/load operáciu. Forbidden acceptance je „run je zelený“, UI model card, alias alebo Registry version bez artifact digest a loaded-runtime proof.
 
 Second-operation test zopakuje logging alebo promotion s rovnakým subjectom. Idempotentný workflow rozpozná existujúci model/evidence alebo vytvorí jasne novú generation; nesmie potichu vytvoriť duplicate version po unknown outcome.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: ML supply-chain security](ml-supply-chain-security.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: MLflow evaluation, tracing a deployment →](mlflow-evaluation-tracing-deployment.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

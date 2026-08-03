@@ -226,3 +226,11 @@ Component recovery potvrdzuje tracking/evaluation API, trace export, model load 
 Pozitívna acceptance vyžaduje oddelené classic/GenAI subjects, versioned datasets a evaluators/scorers, explicit validation verdict, trace coverage/privacy controls, immutable model/image resolution a target data-plane verification. Recovery acceptance vyžaduje backfill alebo označenie lost traces, repeatable evaluation a second deployment operation. Forbidden acceptance je spoločný `quality_passed` tag, judge score bez population, local serve success ako production proof alebo Registry alias bez loaded-runtime evidence.
 
 Second-operation test znovu evaluuje uložený dataset/traces a vykoná no-op alebo ďalší deployment s rovnakým immutable release. Ak výsledky závisia od mutable scorer, alias, sampled query alebo local cache, workflow nie je reprodukovateľný.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: MLflow experiment tracking a Model Registry](mlflow-experiment-tracking-model-registry.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -171,3 +171,11 @@ Incident review overí source, builder, provenance, transparency log, Registry m
 Pozitívna acceptance vyžaduje pinned inputs, locked/hashed dependencies, trusted isolated builder, artifact digests, signed provenance/attestations, independent verification, least-privilege promotion a runtime loaded fingerprint. Recovery acceptance vyžaduje nové trusted build, revocation/quarantine starých subjects, complete impact inventory a second deployment.
 
 Forbidden acceptance je signed `latest` tag, SBOM bez väzby na digest, provenance generovaná neovereným artifactom, alebo image verification pri neoverenom remote modeli. Second-operation test vytvorí ďalší build z rovnakého immutable subjectu a overí provenance aj deployment. Ak potrebuje mutable package index, long-lived secret alebo manuálne dopísaný digest, chain of custody nie je reprodukovateľný.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Privacy, security a adversarial ML](privacy-security-adversarial-ml.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: MLflow experiment tracking a Model Registry →](mlflow-experiment-tracking-model-registry.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
