@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **363**
-- Audited conceptual sections: **7657**
-- Total words: **733,083**
-- Findings: **7207** (critical 654, high 866, medium 470, low 5217)
-- File grades: A 148, B 122, C 33, D 60
+- Audited authoritative articles: **367**
+- Audited conceptual sections: **7757**
+- Total words: **741,946**
+- Findings: **7325** (critical 654, high 866, medium 470, low 5335)
+- File grades: A 148, B 123, C 36, D 60
 
 ## Interpretation
 
@@ -72,7 +72,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 101 | 2 | 2 | 7 | 28 | 2185 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
 | D | 100 | 4 | 3 | 3 | 15 | 2584 | `docs/00-foundations/devops-anti-patterns.md` |
 | D | 100 | 3 | 4 | 1 | 23 | 2469 | `docs/01-linux-and-systems/systemd-services-daemons.md` |
-| D | 98 | 0 | 0 | 0 | 72 | 3838 | `docs/18-machine-learning-fundamentals/loss-functions-optimization.md` |
+| D | 98 | 0 | 0 | 0 | 72 | 3843 | `docs/18-machine-learning-fundamentals/loss-functions-optimization.md` |
 | D | 96 | 2 | 6 | 2 | 12 | 1951 | `docs/05-ci-cd-and-release/continuous-deployment.md` |
 | D | 95 | 1 | 10 | 0 | 4 | 1505 | `docs/05-ci-cd-and-release/progressive-delivery.md` |
 | D | 93 | 3 | 2 | 3 | 22 | 2801 | `docs/00-foundations/sdlc.md` |
@@ -96,8 +96,10 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
 | C | 53 | 0 | 0 | 6 | 22 | 2531 | `docs/00-foundations/desired-state-and-reconciliation.md` |
+| C | 52 | 0 | 0 | 0 | 34 | 2114 | `docs/18-machine-learning-fundamentals/regularization-early-stopping.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
 | C | 51 | 0 | 4 | 0 | 16 | 2059 | `docs/05-ci-cd-and-release/continuous-integration.md` |
+| C | 50 | 0 | 0 | 0 | 33 | 2342 | `docs/18-machine-learning-fundamentals/overfitting-underfitting-bias-variance.md` |
 | C | 49 | 0 | 0 | 0 | 35 | 3321 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-vs-ansible.md` |
 | C | 48 | 0 | 0 | 0 | 37 | 2819 | `docs/07-infrastructure-as-code-and-configuration-management/roles-and-collections.md` |
 | C | 48 | 0 | 0 | 0 | 34 | 3799 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
@@ -107,6 +109,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
+| C | 41 | 0 | 0 | 0 | 29 | 2315 | `docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
 | C | 40 | 0 | 0 | 0 | 29 | 2595 | `docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md` |
 | C | 39 | 0 | 0 | 0 | 31 | 2510 | `docs/18-machine-learning-fundamentals/linear-logistic-regression.md` |
@@ -123,6 +126,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 32 | 0 | 0 | 0 | 21 | 3105 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
 | B | 31 | 0 | 0 | 0 | 25 | 2872 | `docs/18-machine-learning-fundamentals/train-validation-test-split.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
+| B | 30 | 0 | 0 | 0 | 22 | 2087 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 28 | 0 | 1 | 0 | 13 | 3923 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
@@ -2139,9 +2143,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2379 | 2379 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1499 | 1499 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1339 | 1339 |
+| `example-not-explicit` | 0 | 0 | 0 | 2424 | 2424 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1554 | 1554 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1357 | 1357 |
 | `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
