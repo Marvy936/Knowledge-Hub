@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **375**
-- Audited conceptual sections: **7966**
-- Total words: **767,207**
-- Findings: **7557** (critical 654, high 866, medium 470, low 5567)
-- File grades: A 148, B 126, C 41, D 60
+- Audited authoritative articles: **377**
+- Audited conceptual sections: **8028**
+- Total words: **773,010**
+- Findings: **7604** (critical 658, high 871, medium 475, low 5600)
+- File grades: A 148, B 126, C 42, D 61
 
 ## Interpretation
 
@@ -67,6 +67,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | D | 117 | 2 | 5 | 7 | 22 | 2840 | `docs/00-foundations/automation-mindset.md` |
 | D | 117 | 3 | 3 | 6 | 24 | 2035 | `docs/01-linux-and-systems/package-management.md` |
 | D | 114 | 2 | 4 | 7 | 29 | 3111 | `docs/01-linux-and-systems/kernel-and-user-space.md` |
+| D | 110 | 4 | 4 | 4 | 12 | 2901 | `docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md` |
 | D | 105 | 1 | 10 | 2 | 3 | 1513 | `docs/05-ci-cd-and-release/rollback-and-roll-forward.md` |
 | D | 102 | 2 | 7 | 2 | 10 | 1736 | `docs/05-ci-cd-and-release/release-management.md` |
 | D | 101 | 2 | 2 | 7 | 28 | 2185 | `docs/01-linux-and-systems/storage-mounts-and-filesystems.md` |
@@ -108,6 +109,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
+| C | 43 | 0 | 1 | 1 | 21 | 2898 | `docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
 | C | 42 | 0 | 0 | 0 | 35 | 3362 | `docs/18-machine-learning-fundamentals/cross-validation.md` |
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
@@ -131,7 +133,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 32 | 0 | 0 | 0 | 21 | 3105 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
 | B | 32 | 0 | 0 | 0 | 28 | 3158 | `docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md` |
 | B | 31 | 0 | 0 | 0 | 24 | 3202 | `docs/18-machine-learning-fundamentals/explainability-feature-importance.md` |
-| B | 31 | 0 | 0 | 0 | 23 | 2945 | `docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md` |
+| B | 31 | 0 | 0 | 0 | 23 | 2949 | `docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md` |
 | B | 31 | 0 | 0 | 0 | 25 | 2872 | `docs/18-machine-learning-fundamentals/train-validation-test-split.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 30 | 0 | 0 | 0 | 22 | 2088 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
@@ -1983,6 +1985,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 - **HIGH** line 259, `single-sentence-concept` — **Roll-forward cez live patch**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 - **HIGH** line 263, `single-sentence-concept` — **Health green ako recovery closure**: Bežná konceptuálna sekcia má iba jednu vysvetľovaciu vetu. Musí obsahovať viacvetový výklad významu, mechanizmu alebo dôsledku.
 
+### `docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md`
+
+- **CRITICAL** line 59, `outline-instead-of-explanation` — **3. Symptom taxonomy**: 9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.
+- **CRITICAL** line 108, `bare-bullet-items` — **6. Evidence preservation**: 8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `affected a healthy request IDs;`, `raw inputs, feature vectors a timestamps;`, `model, preprocessing, calibration a policy digests;`, `serving logs, errors, fallback a resource metrics;`.
+- **CRITICAL** line 108, `outline-instead-of-explanation` — **6. Evidence preservation**: 8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.
+- **CRITICAL** line 446, `outline-instead-of-explanation` — **27. Competing failure hypotheses**: 12 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.
+- **HIGH** line 59, `term-before-explanation` — **3. Symptom taxonomy**: Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `availability`, `resource`, `policy`
+- **HIGH** line 59, `thin-concept-section` — **3. Symptom taxonomy**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 108, `thin-concept-section` — **6. Evidence preservation**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+- **HIGH** line 375, `thin-concept-section` — **22. Recovery layers**: Konceptuálna sekcia má menej než 28 slov súvislého výkladu.
+
 ### `docs/00-foundations/value-stream-mapping.md`
 
 - **HIGH** line 33, `list-first-introduction` — **3. Základný model toku**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
@@ -2147,21 +2160,25 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 - **HIGH** line 719, `list-first-introduction` — **38. Bounded experiment design**: Sekcia začína zoznamom alebo kódom bez dostatočného úvodného mentálneho modelu.
 
+### `docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md`
+
+- **HIGH** line 380, `list-heavy-section` — **23. Competing failure hypotheses**: 14 odrážok a iba 56 slov súvislého vysvetlenia.
+
 ## All findings by rule
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2524 | 2524 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1615 | 1615 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1428 | 1428 |
-| `term-before-explanation` | 0 | 54 | 321 | 0 | 375 |
+| `example-not-explicit` | 0 | 0 | 0 | 2537 | 2537 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1631 | 1631 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1432 | 1432 |
+| `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
-| `outline-instead-of-explanation` | 314 | 0 | 0 | 0 | 314 |
-| `bare-bullet-items` | 236 | 33 | 0 | 0 | 269 |
-| `thin-concept-section` | 0 | 243 | 0 | 0 | 243 |
-| `short-concept-section` | 0 | 0 | 149 | 0 | 149 |
+| `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |
+| `bare-bullet-items` | 237 | 33 | 0 | 0 | 270 |
+| `thin-concept-section` | 0 | 246 | 0 | 0 | 246 |
+| `short-concept-section` | 0 | 0 | 150 | 0 | 150 |
 | `list-first-introduction` | 0 | 124 | 0 | 0 | 124 |
-| `list-heavy-section` | 0 | 67 | 0 | 0 | 67 |
+| `list-heavy-section` | 0 | 68 | 0 | 0 | 68 |
 | `no-prose-concept` | 56 | 0 | 0 | 0 | 56 |
 | `empty-section` | 48 | 0 | 0 | 0 | 48 |
 

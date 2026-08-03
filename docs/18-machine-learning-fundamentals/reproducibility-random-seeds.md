@@ -488,5 +488,5 @@ Relevantné pojmy: reproducibility, repeatability, bitwise reproducibility, nume
 
 **Navigácia**
 
-[← Predchádzajúca: Data quality, bias a responsible AI](data-quality-bias-responsible-ai.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Data quality, bias a responsible AI](data-quality-bias-responsible-ai.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Offline evaluation oproti production outcome →](offline-evaluation-production-outcome.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

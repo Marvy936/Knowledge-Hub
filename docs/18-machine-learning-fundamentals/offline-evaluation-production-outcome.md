@@ -466,3 +466,11 @@ Relevantné pojmy: offline evaluation, production outcome, replay, counterfactua
 - [Hidden Technical Debt in Machine Learning Systems](https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems)
 - [The ML Test Score](https://research.google/pubs/the-ml-test-score-a-rubric-for-ml-production-readiness-and-technical-debt-reduction/)
 - [scikit-learn — Common pitfalls and recommended practices](https://scikit-learn.org/stable/common_pitfalls.html)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Reproducibility a random seeds](reproducibility-random-seeds.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: ML troubleshooting mental model →](ml-troubleshooting-mental-model.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -5139,6 +5139,20 @@
       "grade": "D"
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "title": "ML troubleshooting mental model",
+      "words": 2901,
+      "headings": 34,
+      "sections": 34,
+      "findings": 24,
+      "critical": 4,
+      "high": 4,
+      "medium": 4,
+      "low": 12,
+      "score": 110,
+      "grade": "D"
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
       "title": "Neural network fundamentals",
       "words": 2654,
@@ -5150,6 +5164,20 @@
       "medium": 0,
       "low": 43,
       "score": 60,
+      "grade": "C"
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "title": "Offline evaluation oproti production outcome",
+      "words": 2898,
+      "headings": 28,
+      "sections": 28,
+      "findings": 23,
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 21,
+      "score": 43,
       "grade": "C"
     },
     {
@@ -5211,7 +5239,7 @@
     {
       "path": "docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md",
       "title": "Reproducibility a random seeds",
-      "words": 2945,
+      "words": 2949,
       "headings": 27,
       "sections": 27,
       "findings": 23,
@@ -71124,6 +71152,222 @@
       "score": 1
     },
     {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "3. Symptom taxonomy",
+      "line": 59,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "9 odrážok je podopretých iba 23 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "3. Symptom taxonomy",
+      "line": 59,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "3. Symptom taxonomy",
+      "line": 59,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "3. Symptom taxonomy",
+      "line": 59,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "3. Symptom taxonomy",
+      "line": 59,
+      "severity": "high",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `availability`, `resource`, `policy`",
+      "score": 7
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "6. Evidence preservation",
+      "line": 108,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "8 odrážok je podopretých iba 26 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "6. Evidence preservation",
+      "line": 108,
+      "severity": "critical",
+      "rule": "bare-bullet-items",
+      "detail": "8 z 8 odrážok iba pomenúva položky bez kontextového vysvetlenia. Príklady: `affected a healthy request IDs;`, `raw inputs, feature vectors a timestamps;`, `model, preprocessing, calibration a policy digests;`, `serving logs, errors, fallback a resource metrics;`.",
+      "score": 12
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "6. Evidence preservation",
+      "line": 108,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "6. Evidence preservation",
+      "line": 108,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "6. Evidence preservation",
+      "line": 108,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "6. Evidence preservation",
+      "line": 108,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `resource`",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "9. Data a label troubleshooting",
+      "line": 150,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "10. Feature troubleshooting",
+      "line": 168,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "22. Recovery layers",
+      "line": 375,
+      "severity": "high",
+      "rule": "thin-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 28 slov súvislého výkladu.",
+      "score": 7
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "22. Recovery layers",
+      "line": 375,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "22. Recovery layers",
+      "line": 375,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "26. Worked incident ML-PAY-89",
+      "line": 428,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "26. Worked incident ML-PAY-89",
+      "line": 428,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "27. Competing failure hypotheses",
+      "line": 446,
+      "severity": "critical",
+      "rule": "outline-instead-of-explanation",
+      "detail": "12 odrážok je podopretých iba 28 slovami súvislého vysvetlenia.",
+      "score": 12
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "27. Competing failure hypotheses",
+      "line": 446,
+      "severity": "medium",
+      "rule": "short-concept-section",
+      "detail": "Konceptuálna sekcia má menej než 45 slov súvislého výkladu.",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "27. Competing failure hypotheses",
+      "line": 446,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "27. Competing failure hypotheses",
+      "line": 446,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "27. Competing failure hypotheses",
+      "line": 446,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`, `resource`, `policy`",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/ml-troubleshooting-mental-model.md",
+      "section": "31. Acceptance contract",
+      "line": 531,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
       "section": "2. Exact neural model subject",
       "line": 26,
@@ -71505,6 +71749,213 @@
       "path": "docs/18-machine-learning-fundamentals/neural-network-fundamentals.md",
       "section": "25. Acceptance contract",
       "line": 386,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "1. Dominantný offline-to-production lifecycle",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "3. Offline metric ako estimand",
+      "line": 62,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "3. Offline metric ako estimand",
+      "line": 62,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "4. Replay a counterfactual boundary",
+      "line": 78,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "5. Feature parity a point-in-time correctness",
+      "line": 93,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "6. Serving metrics oproti model metrics",
+      "line": 108,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "6. Serving metrics oproti model metrics",
+      "line": 108,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "8. Canary rollout",
+      "line": 144,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "9. A/B experiment a experimentálna jednotka",
+      "line": 161,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "11. Policy compliance a action rate",
+      "line": 193,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "14. Selective labels a feedback",
+      "line": 252,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "15. Distribution a concept drift",
+      "line": 265,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "15. Distribution a concept drift",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "17. Fallbacks a degraded modes",
+      "line": 294,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "18. Human workflow a operational adoption",
+      "line": 308,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "18. Human workflow a operational adoption",
+      "line": 308,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "21. Rollback a roll-forward authority",
+      "line": 346,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "23. Competing failure hypotheses",
+      "line": 380,
+      "severity": "high",
+      "rule": "list-heavy-section",
+      "detail": "14 odrážok a iba 56 slov súvislého vysvetlenia.",
+      "score": 8
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "23. Competing failure hypotheses",
+      "line": 380,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "23. Competing failure hypotheses",
+      "line": 380,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "23. Competing failure hypotheses",
+      "line": 380,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "23. Competing failure hypotheses",
+      "line": 380,
+      "severity": "medium",
+      "rule": "term-before-explanation",
+      "detail": "Pojmy sa objavujú najmä v odrážkach bez lokálneho vysvetlenia: `freshness`",
+      "score": 4
+    },
+    {
+      "path": "docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md",
+      "section": "25. Acceptance contract",
+      "line": 420,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
