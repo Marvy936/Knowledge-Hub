@@ -1,0 +1,73 @@
+name: Temporary Section 20 block 05-08 closeout
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+    paths:
+      - "docs/20-llm-and-genai-engineering/**"
+      - "ROADMAP.md"
+      - "GLOSSARY.md"
+      - "DOCUMENTATION-REVIEW-STATUS.md"
+      - "DOCUMENTATION-AUDIT.md"
+      - "documentation-audit.json"
+      - "scripts/temporary_section_20_block_05_08_closeout.py"
+      - "scripts/temporary_section_20_block_05_08_verify.py"
+      - ".github/workflows/temporary-section-20-block-05-08-closeout.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section-20-block-05-08-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  closeout:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/section-20-llm-genai-block-05-08
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Synchronize Section 20 block 05-08 documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python scripts/temporary_section_20_block_05_08_closeout.py
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/audit_learning_depth.py --all-docs
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
+          python scripts/temporary_section_20_block_05_08_verify.py
+
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            ROADMAP.md \
+            GLOSSARY.md \
+            docs \
+            DOCUMENTATION-REVIEW-STATUS.md \
+            DOCUMENTATION-AUDIT.md \
+            documentation-audit.json
+
+          if git diff --cached --quiet; then
+            echo "No closeout changes required."
+            exit 0
+          fi
+
+          git commit -m "docs: synchronize LLM and GenAI chapters 05-08"
+          git push origin "HEAD:agent/section-20-llm-genai-block-05-08"
