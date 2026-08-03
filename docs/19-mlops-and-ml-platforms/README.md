@@ -34,15 +34,15 @@ Odporúčané predchádzajúce oblasti:
 18. [GPU scheduling, utilization a capacity](gpu-scheduling-utilization-capacity.md)
 19. [Model monitoring](model-monitoring.md)
 20. [Data drift, concept drift a prediction drift](data-drift-concept-drift-prediction-drift.md)
+21. [Performance, latency, throughput a cost monitoring](performance-latency-throughput-cost-monitoring.md)
+22. [Feedback loops a ground-truth delay](feedback-loops-ground-truth-delay.md)
+23. [Model rollback a recovery](model-rollback-recovery.md)
+24. [Governance, approvals a audit](governance-approvals-audit.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-21. Performance, latency, throughput a cost monitoring
-22. Feedback loops a ground-truth delay
-23. Model rollback a recovery
-24. Governance, approvals a audit
 25. Privacy, security a adversarial ML
 26. ML supply-chain security
 27. MLflow experiment tracking a Model Registry
@@ -83,4 +83,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **20/34 · In progress**. Piaty blok uzatvára serving-to-drift diagnostic chain. Model serving oddeľuje KServe desired state, resolved workload, loaded release, exercised capacity a business deadline; GPU kapitola oddeľuje Kubernetes extended resource, exclusive device, MIG a time-slicing vrátane memory/fault isolation a attribution limitov; monitoring kapitola viaže platform, service, ML a business evidence cez request-correlated release identity, result classes, denominators a telemetry coverage; drift kapitola formálne oddeľuje zmeny `P(X)`, `P(Y)`, `P(Ŷ)` a `P(Y|X)` a zakazuje automatický retrain bez population, label a competing-hypothesis evidence. Incident `MLOPS-PAY-94` spája scale-to-zero cold path, nepravdivý concurrency capacity target, GPU time-slicing interference, fallback skrytý v HTTP 200 a drift report nad selektívnou population. Ďalší authoritative blok sú kapitoly 21–24: performance/latency/throughput/cost monitoring, feedback loops a ground-truth delay, model rollback/recovery a governance/approvals/audit. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
+Aktuálny authoritative stav sekcie je **24/34 · In progress**. Šiesty blok uzatvára performance-to-governance control chain. Performance kapitola oddeľuje raw throughput od useful deadline-successful work a viaže latency, saturation a OpenCost allocation na správny result-class a business denominator; feedback kapitola modeluje prediction-action-environment-label slučku, ground-truth maturity, right censoring, selective labels a human-review bias; rollback kapitola vracia celý known-good composite release a overuje configured, resolved, loaded, exercised a mature business recovery vrátane reconciliation side effects; governance kapitola viaže intended use, risk classification, evidence, approvals, waivery, human oversight, runtime conformity a retirement do auditovateľného decision lifecycle. Incident `MLOPS-PAY-95` spája lacnejší fallback skrytý v HTTP success, action-conditioned labels, alias-only rollback s mixed runtime a emergency override bez expiry alebo úplného approval subjectu. Ďalší authoritative blok sú kapitoly 25–28: privacy/security/adversarial ML, ML supply-chain security, MLflow experiment tracking a Model Registry a MLflow evaluation/tracing/deployment. Sekcia nie je runtime `Verified`, production `Stable` ani user `Accepted`.
