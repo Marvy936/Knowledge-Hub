@@ -223,5 +223,5 @@ Forbidden acceptance je „po reštarte je to zelené“, alias rollback bez loa
 
 **Navigácia**
 
-[← Predchádzajúca: MLOps platform architecture](mlops-platform-architecture.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: MLOps platform architecture](mlops-platform-architecture.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Generative AI, foundation model a large language model →](../20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

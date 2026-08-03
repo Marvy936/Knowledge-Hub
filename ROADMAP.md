@@ -479,10 +479,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### LLM and GenAI Engineering
 
-- [ ] Generative AI, foundation model a large language model
-- [ ] Transformer architecture na praktickej úrovni
-- [ ] Tokens, tokenization a context window
-- [ ] Embeddings a semantic similarity
+- [x] [Generative AI, foundation model a large language model](docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md)
+- [x] [Transformer architecture na praktickej úrovni](docs/20-llm-and-genai-engineering/transformer-architecture-practical.md)
+- [x] [Tokens, tokenization a context window](docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md)
+- [x] [Embeddings a semantic similarity](docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md)
 - [ ] Inference parameters, sampling a determinism
 - [ ] Prompt roles, instructions, context a examples
 - [ ] Zero-shot, one-shot a few-shot prompting
