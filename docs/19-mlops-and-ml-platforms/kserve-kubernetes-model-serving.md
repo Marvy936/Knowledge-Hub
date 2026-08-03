@@ -145,3 +145,11 @@ Containment zastaví traffic increase, zachová failed Pod/log evidence a môže
 Pozitívna acceptance vyžaduje mode-specific control-plane convergence, loaded parity, protocol/schema test, capacity a autoscaling evidence, actual exposure, result classes a business verification. Forbidden acceptance je CRD `Ready`, existence Service, HTTP 200 health alebo configured canary percent bez loaded a request evidence.
 
 Second-operation test opakovane aplikuje rovnaký release manifest. Reconciliation musí byť no-op a všetky Pods musia zostať na rovnakých digests. Druhý synthetic/load test nesmie závisieť od starej local cache alebo prepisovaného model URI.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Kubeflow Trainer a distributed training](kubeflow-trainer-distributed-training.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Amazon SageMaker a cloud MLOps mapping →](amazon-sagemaker-cloud-mlops-mapping.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

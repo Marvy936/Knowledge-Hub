@@ -5279,6 +5279,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "title": "Amazon SageMaker a cloud MLOps mapping",
+      "words": 1507,
+      "headings": 15,
+      "sections": 15,
+      "findings": 21,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 21,
+      "score": 24,
+      "grade": "B"
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
       "title": "Artifact stores",
       "words": 1888,
@@ -5461,6 +5475,48 @@
       "grade": "A"
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "title": "KServe alebo ekvivalentný Kubernetes model serving",
+      "words": 1352,
+      "headings": 14,
+      "sections": 14,
+      "findings": 14,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 14,
+      "score": 18,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "title": "Kubeflow Pipelines",
+      "words": 1438,
+      "headings": 11,
+      "sections": 11,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 16,
+      "grade": "B"
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "title": "Kubeflow Trainer a distributed training",
+      "words": 1357,
+      "headings": 13,
+      "sections": 13,
+      "findings": 17,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 17,
+      "score": 19,
+      "grade": "B"
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",
       "title": "ML lifecycle a rozdiel medzi DevOps a MLOps",
       "words": 2220,
@@ -5505,7 +5561,7 @@
     {
       "path": "docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md",
       "title": "MLflow evaluation, tracing a deployment",
-      "words": 1587,
+      "words": 1588,
       "headings": 14,
       "sections": 14,
       "findings": 15,
@@ -74109,6 +74165,195 @@
       "score": 1
     },
     {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "1. Mapping, nie premenovanie",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "2. Account, Region a identity boundary",
+      "line": 27,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "2. Account, Region a identity boundary",
+      "line": 27,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "3. SageMaker Pipelines",
+      "line": 33,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "3. SageMaker Pipelines",
+      "line": 33,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "4. Training Jobs",
+      "line": 62,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "4. Training Jobs",
+      "line": 62,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "5. Experiments a lineage",
+      "line": 70,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "5. Experiments a lineage",
+      "line": 70,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "6. Model Registry",
+      "line": 76,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "6. Model Registry",
+      "line": 76,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "7. Model, Endpoint Configuration a Endpoint",
+      "line": 91,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "8. Batch a asynchronous paths",
+      "line": 99,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "9. Model Monitor",
+      "line": 105,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "11. Storage, encryption a network",
+      "line": 119,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "11. Storage, encryption a network",
+      "line": 119,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "12. Observability a cost",
+      "line": 125,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "12. Observability a cost",
+      "line": 125,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "13. Kubernetes a SageMaker hybrid mapping",
+      "line": 131,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "14. Failure hypotheses",
+      "line": 137,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md",
+      "section": "14. Failure hypotheses",
+      "line": 137,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/19-mlops-and-ml-platforms/artifact-stores.md",
       "section": "1. Dominantný artifact lifecycle",
       "line": 7,
@@ -75862,6 +76107,420 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "1. Composite serving subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "1. Composite serving subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "4. InferenceService a immutable model load",
+      "line": 53,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "5. ServingRuntime authority",
+      "line": 85,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "5. ServingRuntime authority",
+      "line": 85,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "6. Protocol a schema",
+      "line": 93,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "7. Readiness, startup a warmup",
+      "line": 99,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "10. Transformer, explainer a InferenceGraph",
+      "line": 117,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "11. Observability",
+      "line": 123,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "11. Observability",
+      "line": 123,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "12. Rollout a rollback",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "13. Failure hypotheses",
+      "line": 135,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "14. Recovery a acceptance",
+      "line": 141,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md",
+      "section": "14. Recovery a acceptance",
+      "line": 141,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "1. Presný pipeline subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "1. Presný pipeline subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "2. DSL, component a pipeline graph",
+      "line": 31,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "2. DSL, component a pipeline graph",
+      "line": 31,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "3. Compile boundary a IR YAML",
+      "line": 71,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "3. Compile boundary a IR YAML",
+      "line": 71,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "4. Run, task a attempt",
+      "line": 88,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "5. Caching semantics",
+      "line": 104,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "6. Pipeline root, artifacts a metadata",
+      "line": 124,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "6. Pipeline root, artifacts a metadata",
+      "line": 124,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "7. Multi-user isolation a identity",
+      "line": 130,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "7. Multi-user isolation a identity",
+      "line": 130,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "9. Praktický submission a read-back",
+      "line": 142,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "10. Failure hypotheses",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md",
+      "section": "11. Recovery a acceptance",
+      "line": 172,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "1. TrainJob subject a Runtime authority",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "2. Kubeflow Trainer V2, nie legacy Training Operator",
+      "line": 28,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "2. Kubeflow Trainer V2, nie legacy Training Operator",
+      "line": 28,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "5. Dataset partitioning a global batch",
+      "line": 95,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "6. Collectives a failure model",
+      "line": 110,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "6. Collectives a failure model",
+      "line": 110,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "7. Runtime, JobSet a scheduling",
+      "line": 116,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "8. Checkpoint completeness",
+      "line": 124,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "9. Elasticity a restart generation",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "9. Elasticity a restart generation",
+      "line": 130,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "10. Metrics a model acceptance",
+      "line": 136,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "10. Metrics a model acceptance",
+      "line": 136,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "11. Security a multi-tenancy",
+      "line": 142,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "11. Security a multi-tenancy",
+      "line": 142,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "12. Failure hypotheses a recovery",
+      "line": 148,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "13. Acceptance",
+      "line": 154,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md",
+      "section": "13. Acceptance",
+      "line": 154,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md",

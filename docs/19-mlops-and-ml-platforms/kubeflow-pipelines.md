@@ -176,3 +176,11 @@ Containment môže vypnúť recurring run, zablokovať promotion task, deaktivov
 Pozitívna acceptance vyžaduje pinned IR digest, immutable component images, explicitné inputs, valid artifact reads, task/attempt evidence, cache provenance a read-back každej mutation. Recovery acceptance vyžaduje fresh-run parity, žiadny duplicate side effect a second-operation test. Forbidden acceptance je zelený graph v UI, samotný compile success, cache hit bez dependency proof alebo run phase bez overenia artifacts a business resultu.
 
 Second-operation test opakovane submitne rovnaký immutable subject. Pure tasks môžu bezpečne použiť rovnaké cache outputs; mutation tasks musia byť no-op alebo deterministicky reconciled. Ak druhý run vytvorí nový model version, prepíše artifact alebo zmení verdict bez novej generation, pipeline nie je idempotentná ani reprodukovateľná.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: MLflow evaluation, tracing a deployment](mlflow-evaluation-tracing-deployment.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kubeflow Trainer a distributed training →](kubeflow-trainer-distributed-training.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

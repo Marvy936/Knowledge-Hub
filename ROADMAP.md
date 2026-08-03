@@ -468,10 +468,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [ML supply-chain security](docs/19-mlops-and-ml-platforms/ml-supply-chain-security.md)
 - [x] [MLflow experiment tracking a Model Registry](docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md)
 - [x] [MLflow evaluation, tracing a deployment](docs/19-mlops-and-ml-platforms/mlflow-evaluation-tracing-deployment.md)
-- [ ] Kubeflow Pipelines
-- [ ] Kubeflow Trainer a distributed training
-- [ ] KServe alebo ekvivalentný Kubernetes model serving
-- [ ] Amazon SageMaker a cloud MLOps mapping
+- [x] [Kubeflow Pipelines](docs/19-mlops-and-ml-platforms/kubeflow-pipelines.md)
+- [x] [Kubeflow Trainer a distributed training](docs/19-mlops-and-ml-platforms/kubeflow-trainer-distributed-training.md)
+- [x] [KServe alebo ekvivalentný Kubernetes model serving](docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md)
+- [x] [Amazon SageMaker a cloud MLOps mapping](docs/19-mlops-and-ml-platforms/amazon-sagemaker-cloud-mlops-mapping.md)
 - [ ] MLOps platform architecture
 - [ ] MLOps troubleshooting
 

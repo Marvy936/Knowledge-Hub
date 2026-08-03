@@ -232,5 +232,5 @@ Second-operation test znovu evaluuje uložený dataset/traces a vykoná no-op al
 
 **Navigácia**
 
-[← Predchádzajúca: MLflow experiment tracking a Model Registry](mlflow-experiment-tracking-model-registry.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: MLflow experiment tracking a Model Registry](mlflow-experiment-tracking-model-registry.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Kubeflow Pipelines →](kubeflow-pipelines.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

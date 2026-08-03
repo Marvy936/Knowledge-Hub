@@ -156,3 +156,11 @@ Containment zastaví retries, uchová failed Pods/logs a zmrazí Runtime mutatio
 Pozitívna acceptance vyžaduje exact TrainJob a resolved Runtime, správnu worker/device topology, non-overlapping data partition, valid collectives, complete checkpoint, model artifact digest a downstream evaluation. Recovery acceptance vyžaduje čistý restore, ďalší committed checkpoint a parity v počte processed samples a metrics.
 
 Forbidden acceptance je `Succeeded` status, všetky Pods `Completed`, viditeľné GPU requesty alebo existujúci weights file bez optimizer/sampler/RNG state. Second-operation test spustí rovnaký immutable subject druhýkrát alebo resume z committed checkpointu. Rozdiely musia byť vysvetliteľné povolenou stochasticitou; duplicate samples, artifacts alebo Registry mutations znamenajú chybnú idempotency alebo lineage.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Kubeflow Pipelines](kubeflow-pipelines.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: KServe alebo ekvivalentný Kubernetes model serving →](kserve-kubernetes-model-serving.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

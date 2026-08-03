@@ -147,3 +147,11 @@ Containment zastaví pipeline triggers alebo endpoint rollout, zachová CloudTra
 Pozitívna acceptance vyžaduje immutable S3/ECR inputs, exact Pipeline/Training/Model Package/Endpoint identities, approval evidence, loaded data-plane test, monitoring coverage a business outcome. Forbidden acceptance je `Succeeded`, `Approved` alebo `InService` bez artifact a runtime read-back.
 
 Second-operation test znovu spustí rovnaký immutable pipeline subject alebo no-op deploy. Step cache musí byť vysvetliteľná, duplicate Model Packages a endpoint mutations sa nesmú vytvoriť pri unknown-outcome retry a cloud mapping musí zachovať rovnaké lineage a acceptance semantics ako Kubernetes implementation.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: KServe alebo ekvivalentný Kubernetes model serving](kserve-kubernetes-model-serving.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
