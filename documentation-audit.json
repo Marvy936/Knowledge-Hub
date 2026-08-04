@@ -5769,6 +5769,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "title": "Context assembly a citation grounding",
+      "words": 2092,
+      "headings": 24,
+      "sections": 24,
+      "findings": 16,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 16,
+      "score": 21,
+      "grade": "B"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
       "title": "Embeddings a semantic similarity",
       "words": 1261,
@@ -5781,6 +5795,20 @@
       "low": 11,
       "score": 13,
       "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "title": "Fine-tuning, instruction tuning a preference tuning",
+      "words": 2371,
+      "headings": 31,
+      "sections": 31,
+      "findings": 19,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 19,
+      "score": 31,
+      "grade": "B"
     },
     {
       "path": "docs/20-llm-and-genai-engineering/function-calling-tool-calling.md",
@@ -5895,6 +5923,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "title": "RAG evaluation a retrieval diagnostics",
+      "words": 2262,
+      "headings": 26,
+      "sections": 26,
+      "findings": 24,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 24,
+      "score": 34,
+      "grade": "B"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
       "title": "Retrieval-Augmented Generation architecture",
       "words": 1640,
@@ -5906,6 +5948,20 @@
       "medium": 0,
       "low": 11,
       "score": 16,
+      "grade": "B"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "title": "Retrieval, hybrid search a reranking",
+      "words": 2181,
+      "headings": 19,
+      "sections": 19,
+      "findings": 23,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 23,
+      "score": 30,
       "grade": "B"
     },
     {
@@ -5953,7 +6009,7 @@
     {
       "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
       "title": "Vector stores a indexing",
-      "words": 1766,
+      "words": 1770,
       "headings": 22,
       "sections": 22,
       "findings": 12,
@@ -78800,6 +78856,150 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "3. Trust a instruction boundary",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "5. Packing ako constrained optimization",
+      "line": 87,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "6. Evidence coverage",
+      "line": 103,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "7. Ordering",
+      "line": 124,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "10. Truncation",
+      "line": 167,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "11. Compression a summarization",
+      "line": 182,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "13. Citation labels",
+      "line": 216,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "14. Claim-level grounding",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "15. Citation precision a recall",
+      "line": 253,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "18. History a conversational context",
+      "line": 310,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "19. Streaming a commit boundary",
+      "line": 316,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "22. Failure hypotheses a diagnostics",
+      "line": 354,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "23. Containment a recovery",
+      "line": 372,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "23. Containment a recovery",
+      "line": 372,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "24. Acceptance",
+      "line": 378,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md",
+      "section": "24. Acceptance",
+      "line": 378,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
       "section": "1. Čo embedding reprezentuje",
       "line": 7,
@@ -78893,6 +79093,177 @@
       "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
       "section": "16. Recovery a acceptance",
       "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "2. Kedy fine-tuning dáva zmysel",
+      "line": 31,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "2. Kedy fine-tuning dáva zmysel",
+      "line": 31,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "4. Supervised fine-tuning",
+      "line": 59,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "5. Instruction tuning",
+      "line": 73,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "8. Direct Preference Optimization",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "10. Data authority",
+      "line": 162,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "11. Label generation",
+      "line": 180,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "12. Dataset cleaning a deduplication",
+      "line": 195,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "13. Temporal validity",
+      "line": 201,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "15. Full fine-tuning a parameter-efficient methods",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "16. Hyperparameters",
+      "line": 249,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "17. Train/validation/test split",
+      "line": 255,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "17. Train/validation/test split",
+      "line": 255,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "21. Catastrophic forgetting a regressions",
+      "line": 298,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "22. Knowledge injection versus behavior tuning",
+      "line": 304,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "27. Deployment a compatibility",
+      "line": 366,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "29. Failure hypotheses",
+      "line": 378,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "30. Containment a recovery",
+      "line": 384,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
+      "section": "31. Acceptance",
+      "line": 390,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -79646,6 +80017,222 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "2. Evaluation contract",
+      "line": 30,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "4. Dataset construction",
+      "line": 76,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "5. Splits a leakage",
+      "line": 82,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "6. Relevance judgments",
+      "line": 94,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "7. Retrieval metrics",
+      "line": 111,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "8. Stage-wise retrieval diagnostics",
+      "line": 152,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "8. Stage-wise retrieval diagnostics",
+      "line": 152,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "9. Context metrics",
+      "line": 171,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "10. Answer correctness",
+      "line": 179,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "11. Faithfulness a groundedness",
+      "line": 196,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "11. Faithfulness a groundedness",
+      "line": 196,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "15. LLM-as-a-judge",
+      "line": 245,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "15. LLM-as-a-judge",
+      "line": 245,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "15. LLM-as-a-judge",
+      "line": 245,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "16. Human evaluation",
+      "line": 262,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "18. Offline, shadow a online evaluation",
+      "line": 283,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "20. Regression corpus",
+      "line": 314,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "21. Diagnostic workflow",
+      "line": 320,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "23. Observability a result registry",
+      "line": 364,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "23. Observability a result registry",
+      "line": 364,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "24. Failure hypotheses",
+      "line": 370,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "25. Containment a recovery",
+      "line": 376,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "26. Acceptance",
+      "line": 382,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
+      "section": "26. Acceptance",
+      "line": 382,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
       "section": "4. Parametric a non-parametric knowledge",
       "line": 83,
@@ -79739,6 +80326,213 @@
       "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
       "section": "19. Acceptance",
       "line": 312,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "1. Retrieval subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "2. Query understanding a rewrite",
+      "line": 30,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "2. Query understanding a rewrite",
+      "line": 30,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "3. Sparse a lexical retrieval",
+      "line": 50,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "4. Dense retrieval",
+      "line": 77,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "5. Structured retrieval",
+      "line": 85,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "6. Hybrid retrieval",
+      "line": 100,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "8. Mandatory filtering a authorization",
+      "line": 143,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "8. Mandatory filtering a authorization",
+      "line": 143,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "9. Deduplication a canonical identity",
+      "line": 157,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "11. Reranker training data a bias",
+      "line": 214,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "12. Diversity a coverage",
+      "line": 235,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "12. Diversity a coverage",
+      "line": 235,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "14. Thresholds a sufficient-evidence verdict",
+      "line": 265,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "14. Thresholds a sufficient-evidence verdict",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "15. Latency a cost",
+      "line": 284,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "15. Latency a cost",
+      "line": 284,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "16. Observability",
+      "line": 290,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "18. Containment a recovery",
+      "line": 327,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "18. Containment a recovery",
+      "line": 327,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "19. Acceptance",
+      "line": 333,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "19. Acceptance",
+      "line": 333,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md",
+      "section": "19. Acceptance",
+      "line": 333,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",

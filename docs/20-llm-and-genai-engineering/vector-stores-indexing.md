@@ -338,5 +338,5 @@ Forbidden acceptance je úspešný insert ako dôkaz compatibility, rovnaký dim
 
 **Navigácia**
 
-[← Predchádzajúca: Chunking, metadata a document processing](chunking-metadata-document-processing.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Chunking, metadata a document processing](chunking-metadata-document-processing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Retrieval, hybrid search a reranking →](retrieval-hybrid-search-reranking.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -30,15 +30,15 @@ Odporúčané predchádzajúce oblasti:
 14. [Retrieval-Augmented Generation architecture](retrieval-augmented-generation-architecture.md)
 15. [Chunking, metadata a document processing](chunking-metadata-document-processing.md)
 16. [Vector stores a indexing](vector-stores-indexing.md)
+17. [Retrieval, hybrid search a reranking](retrieval-hybrid-search-reranking.md)
+18. [Context assembly a citation grounding](context-assembly-citation-grounding.md)
+19. [RAG evaluation a retrieval diagnostics](rag-evaluation-retrieval-diagnostics.md)
+20. [Fine-tuning, instruction tuning a preference tuning](fine-tuning-instruction-preference-tuning.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-17. Retrieval, hybrid search a reranking
-18. Context assembly a citation grounding
-19. RAG evaluation a retrieval diagnostics
-20. Fine-tuning, instruction tuning a preference tuning
 21. PEFT, adapters a LoRA
 22. Quantization a local inference
 23. GPU memory, batching a serving performance
@@ -86,4 +86,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **16/37 · In progress**. Štvrtý authoritative blok aktivuje kapitoly 13–16 a incident `GENAI-SUPPORT-04`. Model-versioning kapitola oddeľuje family, mutable alias, pinned snapshot, regional deployment, provider API/SDK a celý dependent application release manifest; pinning znižuje jednu os variability, ale nie je determinism ani outcome guarantee. RAG architecture kapitola modeluje authoritative source, ingestion, corpus/index generation, query transformation, access-controlled retrieval, filtering/reranking, context assembly, grounded generation, citation support a no-answer/conflict states ako jeden evidence path. Chunking kapitola zavádza source snapshot, parser/OCR/normalizer/chunker generation, stable chunk identity, layout/table preservation, metadata provenance, ACL inheritance a update/delete lifecycle. Vector-store kapitola oddeľuje compatible embedding space, metric, exact baseline, ANN index a search parameters, metadata filtering, multi-tenant isolation, re-embedding migration, alias promotion a exact-versus-ANN recall. Kapitoly 13–16 prešli repository closeout; reálna provider migration, corpus ingestion, parser/OCR execution, index build, retrieval traffic a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 17–20: retrieval/hybrid search/reranking, context assembly/citation grounding, RAG evaluation/diagnostics a fine-tuning/instruction/preference tuning.
+Aktuálny authoritative stav sekcie je **20/37 · In progress**. Piaty authoritative blok aktivuje kapitoly 17–20 a incident `GENAI-SUPPORT-05`. Retrieval kapitola oddeľuje query planning, sparse/dense/structured candidate generation, authorization filtering, rank fusion, deduplication, cross-encoder reranking, evidence coverage a sufficient-evidence verdict. Context-assembly kapitola modeluje tokenizer-aware budget, authority a facet coverage, version-aware deduplication, semantic-safe truncation, conflict resolution, stable citation labels, claim-level support a provisional-versus-committed streaming boundary. RAG-evaluation kapitola zavádza versioned case a judgment subject, retrieval/context/answer/citation/security metrics, leakage-safe splits, calibrated model graders, human adjudication, ablations, stage traces a offline-to-online promotion evidence. Fine-tuning kapitola oddeľuje SFT a instruction tuning, preference data, RLHF, DPO a grader-driven optimization od retrieval, authorization a mutable knowledge; vyžaduje governed data, reproducible lineage, adjacent capability evals, privacy gates a full-release rollout/rollback. Kapitoly 17–20 prešli repository closeout; reálny retrieval/reranking traffic, context generation, expert eval, training job, deployment canary a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 21–24: PEFT/adapters/LoRA, quantization/local inference, GPU memory/batching/serving performance a prompt/semantic/response caching.
