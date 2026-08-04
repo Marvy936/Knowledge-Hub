@@ -320,3 +320,11 @@ Runtime stav `Verified` vyžaduje vykonané workflow a agent evals na exact rele
 3. Aký je najnižší autonomy level, ktorý dosiahne požadovaný business outcome?
 4. Sú invariants a side-effect boundaries enforce-nuté mimo promptu?
 5. Porovnáva acceptance agenta s jednoduchšou workflow baseline?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: LLM application troubleshooting](../20-llm-and-genai-engineering/llm-application-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Agent loop, state, observation, action a termination →](agent-loop-state-observation-action-termination.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

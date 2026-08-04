@@ -342,3 +342,11 @@ Runtime `Verified` vyžaduje executed failure injection, resume a duplicate test
 3. Ako loop odlíši technical timeout od unknown durable outcome?
 4. Ktoré deterministic conditions povoľujú `completed` terminal state?
 5. Vie run bezpečne pause-núť, resume-núť a reconciliovať pending side effects?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Deterministic workflow, probabilistic component a autonomous agent](deterministic-workflow-probabilistic-component-autonomous-agent.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Tool calling a tool contracts →](tool-calling-tool-contracts.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

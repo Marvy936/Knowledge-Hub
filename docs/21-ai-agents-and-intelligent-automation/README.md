@@ -12,14 +12,17 @@ Odporúčané predchádzajúce oblasti:
 - SRE and Operations
 - Keycloak and Identity Platform
 
+## Authoritative poradie — aktívne kapitoly
+
+1. [Deterministic workflow, probabilistic component a autonomous agent](deterministic-workflow-probabilistic-component-autonomous-agent.md)
+2. [Agent loop, state, observation, action a termination](agent-loop-state-observation-action-termination.md)
+3. [Tool calling a tool contracts](tool-calling-tool-contracts.md)
+4. [Planning, decomposition a replanning](planning-decomposition-replanning.md)
+
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-1. Deterministic workflow, probabilistic component a autonomous agent
-2. Agent loop, state, observation, action a termination
-3. Tool calling a tool contracts
-4. Planning, decomposition a replanning
 5. Short-term state, long-term memory a external memory
 6. Single-agent a multi-agent architecture
 7. Supervisor, router a specialist patterns
@@ -108,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **0/62 · In progress**. Inventory a dependencies sú aktivované; prvé kapitoly ešte nie sú označené ako spracované. Po tejto sekcii nasleduje **Learning Roadmap**.
+Aktuálny authoritative stav sekcie je **4/62 · In progress**. Prvý authoritative blok aktivuje kapitoly 1–4 a incident `AGENT-OPS-01`. Architecture kapitola oddeľuje deterministic workflow, bounded probabilistic component a autonomous agent cez control-flow authority, autonomy dimensions, business invariants, complexity budget a architecture ladder. Agent-loop kapitola definuje exact run a operation identity, typed state, observation provenance a freshness, action outcomes, interruptions, budgets, cycle detection a deterministic termination. Tool-contract kapitola oddeľuje model proposal od schema a semantic validation, canonical resource resolution, authorization, approval, idempotency, timeout a retry semantics, postconditions, trust a versioned catalog. Planning kapitola zavádza explicitný versioned operational plan bez private chain-of-thought, evidence-first decomposition, dependencies, feasibility, risk ordering, observation-driven replanning, unknown-outcome reconciliation a trajectory acceptance. Kapitoly 1–4 sú pripravené na repository closeout; reálne agent runs, production tools, approvals, side effects, failure injection, recovery drills ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 5–8: memory, single/multi-agent architecture, supervisor/router/specialist patterns a human approval gates.

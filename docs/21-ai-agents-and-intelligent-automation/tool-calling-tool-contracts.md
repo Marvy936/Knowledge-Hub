@@ -359,3 +359,11 @@ Runtime `Verified` vyžaduje executed contract, authorization, failure-injection
 3. Ako contract rieši canonical target, preconditions, idempotency a unknown-after-submit timeout?
 4. Sú credentials, data minimization a tool-result trust enforce-nuté mimo promptu?
 5. Vie rollback obnoviť code, schema, catalog, policy aj loaded runtime generation?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Agent loop, state, observation, action a termination](agent-loop-state-observation-action-termination.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Planning, decomposition a replanning →](planning-decomposition-replanning.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

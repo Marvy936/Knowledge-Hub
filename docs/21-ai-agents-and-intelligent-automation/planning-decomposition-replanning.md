@@ -362,3 +362,11 @@ Runtime `Verified` vyžaduje executed trajectory evals, dynamic-state tests a fa
 3. Ktoré observations, errors alebo policy changes spúšťajú replanning?
 4. Ako sa unknown side-effect outcome reconciliuje pred zmenou planu?
 5. Overuje acceptance execution trajectory a business outcome, nie iba kvalitu plan textu?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Tool calling a tool contracts](tool-calling-tool-contracts.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
