@@ -355,3 +355,11 @@ Tým sa overí, že identity lifecycle je operation-scoped a že úspech jednéh
 Agent identity je chain medzi human alebo business subjectom, agent definition, attested workloadom, runom, tool callerom a downstream actorom. Authentication overuje credential a sendera; authorization rozhoduje o presnej action nad presným resource v aktuálnom contexte.
 
 Bezpečný systém používa canonical identities, krátkodobé a sender-constrained credentials, explicitnú delegation semantics, narrow token exchange, per-action policy, revocation graph a complete audit chain. Najdôležitejšia otázka nie je „má agent token?“, ale „ktorý subject a actor, pod ktorou release a policy generation, smú vykonať túto exact action práve teraz?“
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Agent interoperability a protocol evolution](agent-interoperability-protocol-evolution.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Least privilege pre tools a credentials →](least-privilege-tools-credentials.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

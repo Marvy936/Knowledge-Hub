@@ -364,3 +364,11 @@ Adversarial source zostáva untrusted aj po tom, čo predchádzajúci run skonč
 Prompt injection cez tools a retrieved content je information-integrity problém, ktorý sa prejaví ako zmena plánu, tool misuse, data exfiltration alebo persistent poisoning. Detekcia a defensive prompts sú užitočné, ale probabilistické a neúplné.
 
 Bezpečný systém označuje source authority, zachováva provenance a taint, oddeľuje untrusted analysis, monitoruje plan drift a tool chains, používa least privilege, sandbox, deterministic authorization a digest-bound human endorsement. Najdôležitejšia otázka nie je „rozpoznal model injection?“, ale „môže ľubovoľný untrusted text ovplyvniť sensitive action alebo data flow bez nezávislého trusted controlu?“
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Sandboxing a code execution](sandboxing-code-execution.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

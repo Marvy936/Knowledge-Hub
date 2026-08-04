@@ -371,3 +371,11 @@ Tým sa overí, že JIT privilege je viazané na jednu operáciu a nestáva sa s
 Least privilege pre agentické tools je kombinácia minimálneho catalogu, narrow contracts, exact resources, argument bounds, environment isolation, JIT credentials, sender constraint, one-shot use, egress policy a úplného cleanupu. Menší OAuth scope bez kontroly tool exposure a descendants nestačí.
 
 Najbezpečnejší agent nevlastní permanentnú production authority. Dokáže zbierať bounded evidence, navrhnúť action a po explicitných gates získať krátkodobú capability pre jeden presný side effect, ktorého technický, business aj cleanup outcome sa dá authoritative overiť.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Agent identity, authentication a authorization](agent-identity-authentication-authorization.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Sandboxing a code execution →](sandboxing-code-execution.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **460**
-- Audited conceptual sections: **9958**
-- Total words: **938,006**
-- Findings: **8790** (critical 658, high 871, medium 475, low 6786)
-- File grades: A 180, B 172, C 47, D 61
+- Audited authoritative articles: **464**
+- Audited conceptual sections: **10128**
+- Total words: **950,269**
+- Findings: **8909** (critical 658, high 871, medium 475, low 6905)
+- File grades: A 180, B 173, C 50, D 61
 
 ## Interpretation
 
@@ -97,6 +97,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
+| C | 54 | 0 | 0 | 0 | 39 | 3406 | `docs/21-ai-agents-and-intelligent-automation/prompt-injection-tools-retrieved-content.md` |
 | C | 53 | 0 | 0 | 6 | 22 | 2531 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | C | 52 | 0 | 0 | 0 | 34 | 2114 | `docs/18-machine-learning-fundamentals/regularization-early-stopping.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
@@ -108,9 +109,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | C | 46 | 0 | 0 | 0 | 35 | 3174 | `docs/18-machine-learning-fundamentals/calibration-uncertainty.md` |
 | C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
+| C | 45 | 0 | 0 | 0 | 29 | 3111 | `docs/21-ai-agents-and-intelligent-automation/sandboxing-code-execution.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
 | C | 43 | 0 | 1 | 1 | 21 | 2898 | `docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md` |
+| C | 43 | 0 | 0 | 0 | 29 | 2887 | `docs/21-ai-agents-and-intelligent-automation/least-privilege-tools-credentials.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
 | C | 42 | 0 | 0 | 0 | 35 | 3362 | `docs/18-machine-learning-fundamentals/cross-validation.md` |
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
@@ -134,7 +137,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 34 | 0 | 0 | 0 | 28 | 2468 | `docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md` |
 | B | 34 | 0 | 0 | 0 | 24 | 2262 | `docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md` |
-| B | 34 | 0 | 0 | 0 | 21 | 3156 | `docs/21-ai-agents-and-intelligent-automation/agent-interoperability-protocol-evolution.md` |
+| B | 34 | 0 | 0 | 0 | 21 | 3160 | `docs/21-ai-agents-and-intelligent-automation/agent-interoperability-protocol-evolution.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | B | 33 | 0 | 0 | 0 | 26 | 2554 | `docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md` |
 | B | 33 | 0 | 0 | 0 | 25 | 2463 | `docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md` |
@@ -162,6 +165,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 27 | 0 | 0 | 0 | 15 | 2541 | `docs/20-llm-and-genai-engineering/multimodal-models.md` |
 | B | 26 | 0 | 0 | 0 | 16 | 2190 | `docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md` |
 | B | 26 | 0 | 0 | 0 | 21 | 2037 | `docs/19-mlops-and-ml-platforms/experiment-tracking.md` |
+| B | 26 | 0 | 0 | 0 | 22 | 2855 | `docs/21-ai-agents-and-intelligent-automation/agent-identity-authentication-authorization.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 25 | 0 | 0 | 0 | 20 | 2559 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
@@ -2251,9 +2255,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3075 | 3075 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2027 | 2027 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1684 | 1684 |
+| `example-not-explicit` | 0 | 0 | 0 | 3135 | 3135 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2076 | 2076 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1694 | 1694 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

@@ -531,10 +531,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Idempotency a side-effect control](docs/21-ai-agents-and-intelligent-automation/idempotency-side-effect-control.md)
 - [x] [Model Context Protocol](docs/21-ai-agents-and-intelligent-automation/model-context-protocol.md)
 - [x] [Agent interoperability a protocol evolution](docs/21-ai-agents-and-intelligent-automation/agent-interoperability-protocol-evolution.md)
-- [ ] Agent identity, authentication a authorization
-- [ ] Least privilege pre tools a credentials
-- [ ] Sandboxing a code execution
-- [ ] Prompt injection cez tools a retrieved content
+- [x] [Agent identity, authentication a authorization](docs/21-ai-agents-and-intelligent-automation/agent-identity-authentication-authorization.md)
+- [x] [Least privilege pre tools a credentials](docs/21-ai-agents-and-intelligent-automation/least-privilege-tools-credentials.md)
+- [x] [Sandboxing a code execution](docs/21-ai-agents-and-intelligent-automation/sandboxing-code-execution.md)
+- [x] [Prompt injection cez tools a retrieved content](docs/21-ai-agents-and-intelligent-automation/prompt-injection-tools-retrieved-content.md)
 - [ ] Tool poisoning, confused deputy a data exfiltration
 - [ ] Agent evaluation
 - [ ] Trajectory, tool-selection a outcome evaluation

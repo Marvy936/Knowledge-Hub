@@ -374,3 +374,11 @@ Tým sa overí tenant a operation isolation aj pri pooling alebo snapshot optimi
 Sandboxing je vrstvený control nad runtime, kernel boundary, user/capabilities, syscalls, MAC, mounts, devices, network, credentials, resources, outputs a teardownom. Žiadna jedna technológia neodstraňuje potrebu ostatných vrstiev.
 
 Najdôležitejšia otázka nie je „bežal kód v containery?“, ale „ktorý exact code a runtime generation, s akým loaded isolation manifestom, mal prístup ku ktorým resources a dokázal po execution exportovať alebo zanechať aký state?“
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Least privilege pre tools a credentials](least-privilege-tools-credentials.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Prompt injection cez tools a retrieved content →](prompt-injection-tools-retrieved-content.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
