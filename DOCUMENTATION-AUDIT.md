@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **464**
-- Audited conceptual sections: **10128**
-- Total words: **950,269**
-- Findings: **8909** (critical 658, high 871, medium 475, low 6905)
-- File grades: A 180, B 173, C 50, D 61
+- Audited authoritative articles: **468**
+- Audited conceptual sections: **10317**
+- Total words: **963,281**
+- Findings: **9012** (critical 658, high 871, medium 475, low 7008)
+- File grades: A 180, B 175, C 52, D 61
 
 ## Interpretation
 
@@ -97,7 +97,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
-| C | 54 | 0 | 0 | 0 | 39 | 3406 | `docs/21-ai-agents-and-intelligent-automation/prompt-injection-tools-retrieved-content.md` |
+| C | 54 | 0 | 0 | 0 | 39 | 3412 | `docs/21-ai-agents-and-intelligent-automation/prompt-injection-tools-retrieved-content.md` |
 | C | 53 | 0 | 0 | 6 | 22 | 2531 | `docs/00-foundations/desired-state-and-reconciliation.md` |
 | C | 52 | 0 | 0 | 0 | 34 | 2114 | `docs/18-machine-learning-fundamentals/regularization-early-stopping.md` |
 | C | 51 | 0 | 0 | 3 | 29 | 2368 | `docs/00-foundations/idempotency.md` |
@@ -108,6 +108,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 48 | 0 | 0 | 0 | 34 | 3799 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | C | 46 | 0 | 0 | 0 | 35 | 3174 | `docs/18-machine-learning-fundamentals/calibration-uncertainty.md` |
+| C | 46 | 0 | 0 | 0 | 29 | 3556 | `docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md` |
 | C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
 | C | 45 | 0 | 0 | 0 | 29 | 3111 | `docs/21-ai-agents-and-intelligent-automation/sandboxing-code-execution.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
@@ -121,6 +122,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
 | C | 40 | 0 | 0 | 0 | 29 | 2595 | `docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md` |
 | C | 39 | 0 | 0 | 0 | 31 | 2510 | `docs/18-machine-learning-fundamentals/linear-logistic-regression.md` |
+| C | 39 | 0 | 0 | 0 | 25 | 3178 | `docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md` |
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 38 | 0 | 0 | 0 | 27 | 2747 | `docs/20-llm-and-genai-engineering/guardrails-moderation-output-validation.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
@@ -138,6 +140,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 34 | 0 | 0 | 0 | 28 | 2468 | `docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md` |
 | B | 34 | 0 | 0 | 0 | 24 | 2262 | `docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md` |
 | B | 34 | 0 | 0 | 0 | 21 | 3160 | `docs/21-ai-agents-and-intelligent-automation/agent-interoperability-protocol-evolution.md` |
+| B | 34 | 0 | 0 | 0 | 28 | 3387 | `docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md` |
+| B | 34 | 0 | 0 | 0 | 21 | 2885 | `docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | B | 33 | 0 | 0 | 0 | 26 | 2554 | `docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md` |
 | B | 33 | 0 | 0 | 0 | 25 | 2463 | `docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md` |
@@ -2255,9 +2259,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3135 | 3135 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2076 | 2076 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1694 | 1694 |
+| `example-not-explicit` | 0 | 0 | 0 | 3179 | 3179 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2126 | 2126 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1703 | 1703 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

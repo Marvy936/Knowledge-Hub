@@ -535,10 +535,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Least privilege pre tools a credentials](docs/21-ai-agents-and-intelligent-automation/least-privilege-tools-credentials.md)
 - [x] [Sandboxing a code execution](docs/21-ai-agents-and-intelligent-automation/sandboxing-code-execution.md)
 - [x] [Prompt injection cez tools a retrieved content](docs/21-ai-agents-and-intelligent-automation/prompt-injection-tools-retrieved-content.md)
-- [ ] Tool poisoning, confused deputy a data exfiltration
-- [ ] Agent evaluation
-- [ ] Trajectory, tool-selection a outcome evaluation
-- [ ] Agent tracing, replay a debugging
+- [x] [Tool poisoning, confused deputy a data exfiltration](docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md)
+- [x] [Agent evaluation](docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md)
+- [x] [Trajectory, tool-selection a outcome evaluation](docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md)
+- [x] [Agent tracing, replay a debugging](docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md)
 - [ ] Cost, latency a token budgets
 - [ ] Agent reliability, fallback a kill switch
 - [ ] Multi-tenant isolation

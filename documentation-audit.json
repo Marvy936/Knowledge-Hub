@@ -6273,6 +6273,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "title": "Agent evaluation",
+      "words": 3178,
+      "headings": 48,
+      "sections": 48,
+      "findings": 25,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 25,
+      "score": 39,
+      "grade": "C"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/agent-identity-authentication-authorization.md",
       "title": "Agent identity, authentication a authorization",
       "words": 2855,
@@ -6313,6 +6327,20 @@
       "low": 6,
       "score": 11,
       "grade": "A"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "title": "Agent tracing, replay a debugging",
+      "words": 3556,
+      "headings": 53,
+      "sections": 53,
+      "findings": 29,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 29,
+      "score": 46,
+      "grade": "C"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/deterministic-workflow-probabilistic-component-autonomous-agent.md",
@@ -6415,7 +6443,7 @@
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/prompt-injection-tools-retrieved-content.md",
       "title": "Prompt injection cez tools a retrieved content",
-      "words": 3406,
+      "words": 3412,
       "headings": 47,
       "sections": 47,
       "findings": 39,
@@ -6495,6 +6523,34 @@
       "low": 3,
       "score": 5,
       "grade": "A"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "title": "Tool poisoning, confused deputy a data exfiltration",
+      "words": 3387,
+      "headings": 43,
+      "sections": 43,
+      "findings": 28,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 28,
+      "score": 34,
+      "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "title": "Trajectory, tool-selection a outcome evaluation",
+      "words": 2885,
+      "headings": 45,
+      "sections": 45,
+      "findings": 21,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 21,
+      "score": 34,
+      "grade": "B"
     }
   ],
   "findings": [
@@ -84232,6 +84288,231 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "1. Čo je evaluation subject",
+      "line": 22,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "4. Final answer nie je celý systém",
+      "line": 53,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "4. Final answer nie je celý systém",
+      "line": 53,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "5. Eval vrstvy",
+      "line": 59,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "6. Offline, simulation, shadow a canary",
+      "line": 65,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "8. Production representativeness",
+      "line": 91,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "12. Adversarial cases",
+      "line": 115,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "12. Adversarial cases",
+      "line": 115,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "13. Synthetic data",
+      "line": 121,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "16. Golden set a holdout",
+      "line": 139,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "19. Model-based graders",
+      "line": 157,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "20. Human evaluation",
+      "line": 163,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "22. Grader calibration",
+      "line": 175,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "23. Grader leakage a manipulation",
+      "line": 181,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "24. Repeated runs a variability",
+      "line": 187,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "26. Flaky evals",
+      "line": 199,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "27. Environment fidelity",
+      "line": 205,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "29. State reset a isolation",
+      "line": 217,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "38. Eval-to-production gap",
+      "line": 292,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "38. Eval-to-production gap",
+      "line": 292,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "39. Incident AGENT-EVAL-05",
+      "line": 298,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "41. Containment",
+      "line": 323,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "42. Recovery",
+      "line": 329,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "45. Recovery acceptance",
+      "line": 347,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md",
+      "section": "48. Zhrnutie",
+      "line": 370,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/agent-identity-authentication-authorization.md",
       "section": "1. Identity je tvrdenie o subjekte",
       "line": 23,
@@ -84671,6 +84952,267 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "1. Trace nie je iba log",
+      "line": 22,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "3. Spans",
+      "line": 48,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "3. Spans",
+      "line": 48,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "5. Context propagation",
+      "line": 60,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "6. Operation context verzus observability baggage",
+      "line": 66,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "7. Core agent spans",
+      "line": 72,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "9. Tool span",
+      "line": 84,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "9. Tool span",
+      "line": 84,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "10. Policy a guardrail span",
+      "line": 90,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "11. Approval span",
+      "line": 96,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "12. State a memory spans",
+      "line": 102,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "15. Secure evidence references",
+      "line": 120,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "16. Sampling",
+      "line": 126,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "28. Model re-execution replay",
+      "line": 213,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "29. Tool re-execution",
+      "line": 219,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "33. Replay manifest",
+      "line": 243,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "33. Replay manifest",
+      "line": 243,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "35. Evidence freeze",
+      "line": 273,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "37. First divergence",
+      "line": 285,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "41. Debug mode risks",
+      "line": 309,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "42. Incident AGENT-EVAL-05",
+      "line": 315,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "42. Incident AGENT-EVAL-05",
+      "line": 315,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "44. Failure hypotheses",
+      "line": 327,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "45. Containment",
+      "line": 346,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "46. Recovery",
+      "line": 352,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "47. Positive acceptance",
+      "line": 358,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "51. Praktický tracing pseudocode",
+      "line": 382,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "53. Zhrnutie",
+      "line": 434,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "section": "53. Zhrnutie",
+      "line": 434,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/deterministic-workflow-probabilistic-component-autonomous-agent.md",
@@ -86678,6 +87220,447 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "1. Tool poisoning nie je iba zlý opis",
+      "line": 22,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "2. Tool metadata sú vstup, nie autorita",
+      "line": 28,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "3. Exact tool subject",
+      "line": 34,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "4. Publisher a distribution trust",
+      "line": 53,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "4. Publisher a distribution trust",
+      "line": 53,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "5. Catalog drift",
+      "line": 59,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "6. Schema poisoning",
+      "line": 65,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "7. Description a example poisoning",
+      "line": 71,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "8. Output poisoning",
+      "line": 77,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "10. Confused deputy",
+      "line": 89,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "11. Token audience a resource separation",
+      "line": 95,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "13. Per-client consent",
+      "line": 107,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "15. Data exfiltration ako flow, nie iba network request",
+      "line": 119,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "15. Data exfiltration ako flow, nie iba network request",
+      "line": 119,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "16. Source a sink inventory",
+      "line": 125,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "20. SSRF a metadata endpoints",
+      "line": 149,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "21. Covert channels",
+      "line": 155,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "24. Tool search a dynamic exposure",
+      "line": 173,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "25. Remote agents ako deputies",
+      "line": 179,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "26. Logs a traces ako exfiltration sink",
+      "line": 185,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "26. Logs a traces ako exfiltration sink",
+      "line": 185,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "27. Output validation",
+      "line": 191,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "30. Worked incident AGENT-EVAL-05",
+      "line": 226,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "32. Evidence model",
+      "line": 238,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "34. Containment",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "35. Recovery",
+      "line": 271,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "40. Praktický policy pseudocode",
+      "line": 301,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md",
+      "section": "43. Zhrnutie",
+      "line": 359,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "4. Sequence verzus graph",
+      "line": 55,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "6. Transition evaluation",
+      "line": 67,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "7. Tool selection",
+      "line": 73,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "7. Tool selection",
+      "line": 73,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "8. Tool availability context",
+      "line": 79,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "9. Tool-selection oracle",
+      "line": 85,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "10. Tool arguments",
+      "line": 91,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "12. Handoff evaluation",
+      "line": 103,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "13. Planning artifacts",
+      "line": 109,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "14. Replanning",
+      "line": 115,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "22. Outcome vrstvy",
+      "line": 163,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "23. Authoritative technical outcome",
+      "line": 169,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "29. Minimal sufficient trajectory",
+      "line": 205,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "30. Counterfactual evaluation",
+      "line": 211,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "32. Trajectory graders",
+      "line": 223,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "34. Sampling trajectories",
+      "line": 235,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "35. Incident AGENT-EVAL-05",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "36. Failure hypotheses",
+      "line": 247,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "43. Praktický trajectory rubric",
+      "line": 302,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "45. Zhrnutie",
+      "line": 344,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
+      "section": "45. Zhrnutie",
+      "line": 344,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     }
   ]
 }
