@@ -25,24 +25,17 @@ for target in TARGETS:
         raise SystemExit(f"Section 21 README does not link {name}")
 
 data = json.loads((ROOT / "documentation-audit.json").read_text(encoding="utf-8"))
-files = data.get("files", []) if isinstance(data, dict) else []
-if isinstance(files, dict):
-    normalized = []
-    for path, value in files.items():
-        if isinstance(value, dict):
-            normalized.append({"path": path, **value})
-    files = normalized
+raw_findings = data.get("findings", []) if isinstance(data, dict) else []
+if not isinstance(raw_findings, list):
+    raise SystemExit("documentation-audit.json top-level findings is not a list")
 
-findings = []
-for entry in files:
-    if not isinstance(entry, dict):
-        continue
-    path = entry.get("path")
-    if path not in TARGETS:
-        continue
-    for finding in entry.get("findings", []):
-        if isinstance(finding, dict) and str(finding.get("severity", "")).lower() in {"critical", "high"}:
-            findings.append(finding)
+findings = [
+    finding
+    for finding in raw_findings
+    if isinstance(finding, dict)
+    and finding.get("path") in TARGETS
+    and str(finding.get("severity", "")).lower() in {"critical", "high"}
+]
 
 if findings:
     print(f"Section 21 block 17-20 critical/high findings remain: {len(findings)}")
