@@ -401,5 +401,5 @@ Bezpečná evolúcia vyžaduje pinned revisions, compatibility matrix, conforman
 
 **Navigácia**
 
-[← Predchádzajúca: Model Context Protocol](model-context-protocol.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Model Context Protocol](model-context-protocol.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Agent identity, authentication a authorization →](agent-identity-authentication-authorization.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
