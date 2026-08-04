@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **468**
-- Audited conceptual sections: **10317**
-- Total words: **963,281**
-- Findings: **9012** (critical 658, high 871, medium 475, low 7008)
-- File grades: A 180, B 175, C 52, D 61
+- Audited authoritative articles: **472**
+- Audited conceptual sections: **10508**
+- Total words: **975,502**
+- Findings: **9112** (critical 658, high 871, medium 475, low 7108)
+- File grades: A 180, B 176, C 55, D 61
 
 ## Interpretation
 
@@ -108,15 +108,17 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 48 | 0 | 0 | 0 | 34 | 3799 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-testing-and-policy.md` |
 | C | 47 | 0 | 0 | 3 | 27 | 2786 | `docs/00-foundations/immutable-vs-mutable-infrastructure.md` |
 | C | 46 | 0 | 0 | 0 | 35 | 3174 | `docs/18-machine-learning-fundamentals/calibration-uncertainty.md` |
-| C | 46 | 0 | 0 | 0 | 29 | 3556 | `docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md` |
 | C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
+| C | 45 | 0 | 0 | 0 | 28 | 3560 | `docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md` |
 | C | 45 | 0 | 0 | 0 | 29 | 3111 | `docs/21-ai-agents-and-intelligent-automation/sandboxing-code-execution.md` |
+| C | 44 | 0 | 0 | 0 | 27 | 3043 | `docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
 | C | 43 | 0 | 1 | 1 | 21 | 2898 | `docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md` |
 | C | 43 | 0 | 0 | 0 | 29 | 2887 | `docs/21-ai-agents-and-intelligent-automation/least-privilege-tools-credentials.md` |
 | C | 42 | 1 | 0 | 2 | 19 | 1840 | `docs/01-linux-and-systems/environment-variables.md` |
 | C | 42 | 0 | 0 | 0 | 35 | 3362 | `docs/18-machine-learning-fundamentals/cross-validation.md` |
+| C | 42 | 0 | 0 | 0 | 30 | 3223 | `docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md` |
 | C | 41 | 0 | 0 | 0 | 30 | 2980 | `docs/07-infrastructure-as-code-and-configuration-management/terraform-state.md` |
 | C | 41 | 0 | 0 | 0 | 29 | 2315 | `docs/18-machine-learning-fundamentals/gradient-descent-learning-rate-convergence.md` |
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
@@ -125,6 +127,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 39 | 0 | 0 | 0 | 25 | 3178 | `docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md` |
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 38 | 0 | 0 | 0 | 27 | 2747 | `docs/20-llm-and-genai-engineering/guardrails-moderation-output-validation.md` |
+| C | 38 | 0 | 0 | 0 | 22 | 3010 | `docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
 | C | 37 | 0 | 0 | 0 | 30 | 3025 | `docs/18-machine-learning-fundamentals/classification-metrics.md` |
@@ -140,6 +143,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 34 | 0 | 0 | 0 | 28 | 2468 | `docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md` |
 | B | 34 | 0 | 0 | 0 | 24 | 2262 | `docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md` |
 | B | 34 | 0 | 0 | 0 | 21 | 3160 | `docs/21-ai-agents-and-intelligent-automation/agent-interoperability-protocol-evolution.md` |
+| B | 34 | 0 | 0 | 0 | 22 | 2941 | `docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md` |
 | B | 34 | 0 | 0 | 0 | 28 | 3387 | `docs/21-ai-agents-and-intelligent-automation/tool-poisoning-confused-deputy-data-exfiltration.md` |
 | B | 34 | 0 | 0 | 0 | 21 | 2885 | `docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
@@ -2259,9 +2263,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3179 | 3179 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2126 | 2126 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1703 | 1703 |
+| `example-not-explicit` | 0 | 0 | 0 | 3221 | 3221 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2183 | 2183 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1704 | 1704 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

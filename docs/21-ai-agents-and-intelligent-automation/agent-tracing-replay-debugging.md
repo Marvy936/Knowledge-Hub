@@ -442,5 +442,5 @@ Replay musí pomenovať svoj typ, pinovať historical dependencies, izolovať si
 
 **Navigácia**
 
-[← Predchádzajúca: Trajectory, tool-selection a outcome evaluation](trajectory-tool-selection-outcome-evaluation.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Trajectory, tool-selection a outcome evaluation](trajectory-tool-selection-outcome-evaluation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Cost, latency a token budgets →](cost-latency-token-budgets.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
