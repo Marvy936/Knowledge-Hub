@@ -309,7 +309,9 @@ Prvý diagnostický experiment často porovná exact search a ANN nad rovnakými
 
 ## 21. Containment a recovery
 
-Containment môže prepnúť na exact search pre kritický menší corpus, zvýšiť ANN search breadth, vrátiť known-good index alias alebo vypnúť affected tenant/language route.
+Containment sa vyberá podľa toho, či je podozrivý embedding space, ANN structure, filtering alebo alias/replica generation. Pre kritický menší corpus možno dočasne prepnúť na exact search, pri izolovanom ANN recall probléme zvýšiť search breadth, pri chybnej generácii vrátiť known-good alias a pri možnom cross-tenant úniku vypnúť affected route úplne.
+
+Recovery musí porovnať rovnakú query, vectors, metric a filters cez exact aj approximate path. Rebuild sa nepovýši iba po úspešnom create-index jobe; musí prejsť recall, latency, ACL, deletion a replica-generation gates a následne second-query testom.
 
 Recovery:
 
@@ -330,3 +332,11 @@ Pozitívna acceptance vyžaduje exact embedding/index subject, compatible vector
 Recovery acceptance vyžaduje identifikáciu či zlyhal data, embedding, exact similarity, ANN, filter alebo routing stage; obnovenie known-good generation; paired queries a second-operation/delete verification.
 
 Forbidden acceptance je úspešný insert ako dôkaz compatibility, rovnaký dimension ako dôkaz rovnakého vector space, vysoký similarity score ako correctness, HNSW/IVF default bez recall evaluation alebo alias promotion iba podľa record countu.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Chunking, metadata a document processing](chunking-metadata-document-processing.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

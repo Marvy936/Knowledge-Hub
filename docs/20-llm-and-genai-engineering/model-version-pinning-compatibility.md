@@ -45,17 +45,11 @@ Family vyjadruje produktovú líniu. Alias môže smerovať na meniaci sa snapsh
 
 Pinned snapshot obmedzuje jednu významnú os variability: zmenu modelovej generácie. Uľahčuje reprodukciu evalov, rollback a compatibility testing. Nerobí však inference absolútne deterministickou a nezamŕza celý systém.
 
-Aj pri rovnakom snapshot-e sa môžu meniť:
+Aj pri rovnakom snapshot-e môže provider meniť runtime scheduling, batching alebo numerical execution. Tieto zmeny môžu ovplyvniť latency a pri stochastickom decodingu aj konkrétny output, hoci modelová identity zostáva rovnaká. Safety a abuse filters môžu navyše rozhodnúť, či request prejde, bude odmietnutý alebo dostane odlišný response envelope.
 
-- provider runtime, batching a numerical execution,
-- safety a abuse filters,
-- API serialization alebo SDK behavior,
-- prompt, examples a decoding parameters,
-- retrieval corpus, chunking a index,
-- tool implementation a authoritative data,
-- application postprocessing.
+Application vrstva má vlastné nezávislé generácie. SDK alebo API serialization môžu zmeniť request shape; prompt, examples a decoding parameters menia behavior; retrieval corpus, chunking a index menia dostupné evidence; tool implementation a authoritative data menia side effect; postprocessing môže zmeniť alebo zahodiť správny model output. Rovnaký pinned model preto neznamená rovnaký end-to-end request subject.
 
-Preto sa pinning používa ako súčasť release manifestu, nie ako samostatný acceptance dôkaz.
+Pinning sa používa ako jedna položka release manifestu, nie ako samostatný acceptance dôkaz. Jeho úlohou je zmenšiť search space pri reprodukcii a migrácii, zatiaľ čo zvyšné závislosti musia mať vlastnú identity, compatibility a read-back.
 
 ## 4. Application compatibility contract
 
@@ -72,7 +66,11 @@ Transport compatibility neznamená behavior compatibility. Request môže dosta�
 
 ## 5. Versioned release manifest
 
-Model sa propaguje spolu so závislosťami:
+Model sa propaguje spolu so závislosťami, pretože production behavior vzniká až z ich resolved kombinácie. Manifest vytvára immutable alebo časovo presnú boundary, ktorú možno použiť pri evale, canary, incidente aj rollbacku. Bez nej sa zmena modelu mieša so zmenou promptu, retrievalu alebo tool contractu a výsledok sa nedá korektne priradiť jednej príčine.
+
+Manifest zároveň definuje promotion unit. Release sa nepovažuje za nasadený iba preto, že provider prijal model string; platforma musí vedieť prečítať späť, ktoré components boli pre request skutočne resolved.
+
+Príklad manifestu:
 
 ```yaml
 llm_release: support-answer-v27
@@ -258,3 +256,11 @@ Pozitívna acceptance vyžaduje explicitnú model identity policy, versioned rel
 Recovery acceptance vyžaduje reprodukovateľný baseline, rollback celého dependent release graphu, replay kritických segmentov a potvrdenie druhej operácie po návrate.
 
 Forbidden acceptance je tvrdenie, že rovnaký family name znamená rovnaké správanie, že pinned snapshot garantuje deterministický outcome, že HTTP compatibility znamená application compatibility alebo že model alias možno meniť bez evalov a trace boundary.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Model selection a capability/cost trade-offs](model-selection-capability-cost-tradeoffs.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Retrieval-Augmented Generation architecture →](retrieval-augmented-generation-architecture.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

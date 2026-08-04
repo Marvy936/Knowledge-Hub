@@ -8,7 +8,9 @@ V incidente `GENAI-SUPPORT-04` parser extrahoval refund policy z PDF po riadkoch
 
 ## 1. Processing subject a generation
 
-Každý derived document a chunk musí byť spätne dohľadateľný:
+Document-processing output je derived artifact, ktorého význam závisí od source snapshotu a každej transformačnej generácie. Rovnaký source file môže po zmene layout parsera alebo chunkera vytvoriť odlišné boundaries, metadata a embeddings, preto sa výsledok nesmie identifikovať iba source názvom.
+
+Spätná dohľadateľnosť umožňuje vysvetliť, prečo sa konkrétny chunk dostal do indexu, znovu ho vytvoriť a odstrániť všetky jeho derivácie pri update alebo revoke. Každý derived document a chunk preto musí niesť processing subject:
 
 ```yaml
 document_processing:
@@ -99,6 +101,10 @@ chunk:
 Pri zmene contentu vznikne nová generation alebo digest. Stable structural locator pomáha mapovať changed/unchanged chunks, ale nesmie zakryť semantic zmenu.
 
 ## 7. Chunking strategies
+
+Chunking strategy určuje retrieval unit a tým aj to, aký evidence fragment môže retriever nájsť a generator interpretovať. Výber sa robí podľa document structure, typických queries, požadovanej citation granularity a context budgetu; samotný priemerný počet tokenov nie je dostatočný návrhový parameter.
+
+Stratégie sa často kombinujú. Pipeline môže najprv zachovať sections a tables, potom použiť tokenový limit vnútri veľkého semantic blocku a nakoniec vytvoriť parent-child mapping. Každá kombinácia je versioned policy a testuje sa na retrieval cases, pretože vizuálne pekný chunk nemusí zachovať rozhodujúcu podmienku.
 
 ### Fixed-size chunking
 
@@ -298,3 +304,11 @@ Pozitívna acceptance vyžaduje immutable source snapshot alebo identitu, versio
 Recovery acceptance vyžaduje replay failing source cez candidate pipeline, diff derived document tree a chunks, rebuild candidate index, retrieval/citation test a second-document operation.
 
 Forbidden acceptance je počet vytvorených chunks ako dôkaz kvality, plain-text extraction ako univerzálne správny parsing, OCR confidence ako correctness, overlap ako náhrada semantic boundaries alebo soft delete bez retrieval verification.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Retrieval-Augmented Generation architecture](retrieval-augmented-generation-architecture.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Vector stores a indexing →](vector-stores-indexing.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

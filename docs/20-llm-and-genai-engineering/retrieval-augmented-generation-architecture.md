@@ -58,7 +58,9 @@ Každá šípka môže meniť výsledok. Preto sa „RAG version“ nerozumie ak
 
 ## 3. Exact RAG subject
 
-Request trace potrebuje rozbaliteľný manifest:
+RAG request je composite subject. Rovnaká user otázka môže dostať iný evidence set po zmene parsera, embedding modelu, index generation, filters alebo rerankera, aj keď generator model a prompt zostanú rovnaké. Incident a eval preto musia vedieť rekonštruovať každú resolved generation, nie iba finálnu odpoveď.
+
+Manifest slúži aj ako boundary pre cache, rollout a rollback. Ak dva requesty nemajú rovnaký corpus/index/retrieval/context subject, nemožno ich považovať za čistý model A/B test. Request trace preto potrebuje rozbaliteľný manifest:
 
 ```yaml
 rag_request:
@@ -290,7 +292,9 @@ Najprv sa identifikuje prvý stage, kde expected evidence zmizlo alebo sa zmenil
 
 ## 18. Containment a recovery
 
-Containment môže vypnúť affected corpus alias, prepnúť na known-good index generation, obmedziť workload na read-only lookup alebo vynútiť escalation pri insufficient evidence.
+Containment znižuje business a security dopad skôr, než je potvrdený root cause. Môže vypnúť affected corpus alias, prepnúť na known-good index generation, obmedziť workload na read-only lookup alebo vynútiť escalation pri insufficient evidence. Voľba containmentu sa viaže na prvý podozrivý stage; plošné vypnutie generatora nepomôže, ak unauthorized dokument už uniká v retrieval výsledkoch.
+
+Recovery obnovuje celý evidence path, nie iba jeden component. Known-good index sa najprv read-backne, potom sa replayom overí source authority, ingestion, exact a ANN retrieval, filters, reranking, context a generation. Až po bounded canary a druhej odlišnej query sa potvrdzuje, že oprava nie je iba sample-specific.
 
 Recovery postup:
 
@@ -312,3 +316,11 @@ Pozitívna acceptance vyžaduje versioned corpus/index/pipeline manifest, author
 Recovery acceptance vyžaduje identifikáciu stage-level root cause, obnovu known-good generation, replay affected a control queries, deletion/freshness verification a druhú operáciu po oprave.
 
 Forbidden acceptance je tvrdenie, že vector query success znamená správny retrieval, že citácia znamená grounded claim, že RAG eliminuje hallucinations alebo že index alias bez corpus a embedding identity je reprodukovateľný release.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Model version pinning a compatibility](model-version-pinning-compatibility.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Chunking, metadata a document processing →](chunking-metadata-document-processing.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

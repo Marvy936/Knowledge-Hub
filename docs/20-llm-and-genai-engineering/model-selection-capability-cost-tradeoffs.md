@@ -199,5 +199,5 @@ Forbidden acceptance je výber iba podľa token price, leaderboard score bez wor
 
 **Navigácia**
 
-[← Predchádzajúca: Function calling a tool calling](function-calling-tool-calling.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Function calling a tool calling](function-calling-tool-calling.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Model version pinning a compatibility →](model-version-pinning-compatibility.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
