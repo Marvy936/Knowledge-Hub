@@ -427,5 +427,5 @@ Runtime `Verified` vyžaduje vykonané gates a read-back pre exact release. Prod
 
 **Navigácia**
 
-[← Predchádzajúca: Multimodal models](multimodal-models.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Multimodal models](multimodal-models.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: LLM application troubleshooting →](llm-application-troubleshooting.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -515,7 +515,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Privacy, retention a provider data controls](docs/20-llm-and-genai-engineering/privacy-retention-provider-data-controls.md)
 - [x] [Multimodal models](docs/20-llm-and-genai-engineering/multimodal-models.md)
 - [x] [LLMOps a production readiness](docs/20-llm-and-genai-engineering/llmops-production-readiness.md)
-- [ ] LLM application troubleshooting
+- [x] [LLM application troubleshooting](docs/20-llm-and-genai-engineering/llm-application-troubleshooting.md)
 
 ### AI Agents and Intelligent Automation
 

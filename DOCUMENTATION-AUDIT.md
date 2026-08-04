@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **447**
-- Audited conceptual sections: **9410**
-- Total words: **899,593**
-- Findings: **8594** (critical 658, high 871, medium 475, low 6590)
-- File grades: A 175, B 165, C 46, D 61
+- Audited authoritative articles: **448**
+- Audited conceptual sections: **9463**
+- Total words: **904,937**
+- Findings: **8637** (critical 658, high 871, medium 475, low 6633)
+- File grades: A 175, B 165, C 47, D 61
 
 ## Interpretation
 
@@ -93,6 +93,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 60 | 0 | 6 | 0 | 9 | 1682 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | C | 60 | 0 | 0 | 0 | 43 | 2654 | `docs/18-machine-learning-fundamentals/neural-network-fundamentals.md` |
 | C | 57 | 0 | 5 | 0 | 14 | 1949 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
+| C | 57 | 0 | 0 | 0 | 43 | 5342 | `docs/20-llm-and-genai-engineering/llm-application-troubleshooting.md` |
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
@@ -128,7 +129,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 37 | 0 | 0 | 0 | 21 | 2684 | `docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2652 | `docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md` |
-| C | 36 | 0 | 0 | 0 | 22 | 2970 | `docs/20-llm-and-genai-engineering/llmops-production-readiness.md` |
+| C | 36 | 0 | 0 | 0 | 22 | 2972 | `docs/20-llm-and-genai-engineering/llmops-production-readiness.md` |
 | C | 36 | 0 | 0 | 0 | 23 | 2689 | `docs/20-llm-and-genai-engineering/privacy-retention-provider-data-controls.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 34 | 0 | 0 | 0 | 28 | 2468 | `docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md` |
@@ -2238,9 +2239,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2985 | 2985 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1932 | 1932 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1673 | 1673 |
+| `example-not-explicit` | 0 | 0 | 0 | 3013 | 3013 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1946 | 1946 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1674 | 1674 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

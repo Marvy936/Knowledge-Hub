@@ -50,12 +50,7 @@ Odporúčané predchádzajúce oblasti:
 34. [Privacy, retention a provider data controls](privacy-retention-provider-data-controls.md)
 35. [Multimodal models](multimodal-models.md)
 36. [LLMOps a production readiness](llmops-production-readiness.md)
-
-## Plánované authoritative poradie
-
-Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
-
-37. LLM application troubleshooting
+37. [LLM application troubleshooting](llm-application-troubleshooting.md)
 
 ## Authoring a evidence štandard
 
@@ -86,4 +81,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **36/37 · In progress**. Deviaty authoritative blok aktivuje kapitoly 33–36 a incident `GENAI-SUPPORT-09`. Guardrails kapitola oddeľuje detector signal, policy decision a enforcement cez input, context, model output, tool call/response a egress; zavádza schema a business validation, calibration, fail modes, streaming, multimodálne controls, human review, adversarial evals a complete rollback. Privacy kapitola modeluje exact provider/product/endpoint/region/feature subject, training usage versus abuse logs versus application state, files/caches/memory/tools/telemetry/evals/customization, data residency, minimization, encryption, deletion graph, backups, policy as code a runtime read-back. Multimodálna kapitola viaže raw media digest na image/audio/video/document preprocessing, OCR/STT, spatial/temporal/speaker evidence, context budget, cost, safety/privacy, task-specific metrics, cross-modal consistency a recovery. LLMOps kapitola definuje immutable composed release cez model, prompt, corpus/index, tools/schemas, guardrails, privacy, preprocessing, caches, evals, infra a code; pokrýva lifecycle, registries, CI/eval gates, shadow/canary, SLOs, drift, incident containment, rollback, fallback, continuous improvement a decommissioning. Kapitoly 33–36 sú pripravené na repository closeout; reálna moderation/guardrail calibration, provider retention/deletion verification, multimodálne evals, load/canary, rollback drill a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Posledná kapitola sekcie je 37: LLM application troubleshooting.
+Aktuálny authoritative stav sekcie je **37/37 · Ready for user review**. Desiaty a záverečný authoritative blok uzatvára sekciu kapitolou 37 a incidentom `GENAI-SUPPORT-10`. Troubleshooting kapitola používa exact business-operation a technical-attempt identity, symptom a invariant framing, privacy-safe evidence preservation, jednotný evidence envelope, desired/resolved/loaded/effective-state comparison, causal operation graph, competing hypotheses a first-divergence analysis. Diagnostika pokrýva provider/API errors, request IDs, retryability a unknown outcomes, quotas a overload, latency a streaming, model/route/prompt/context resolution, RAG a citations, factuality, structured outputs, tools a durable side effects, guardrails, prompt injection, privacy, multimodal preprocessing, caches, cost a segment regressions aj measurement defects. Recovery model zahŕňa safe replay, counterfactual tests, composed-release bisect, change correlation, impact-driven containment, complete rollback, business/security/privacy reconciliation a positive, forbidden, recovery, second-operation a alternate-scenario acceptance. Všetkých 37 kapitol sekcie má authoritative prose-first obsah a synchronizovaný repository evidence model. Dokumentačné kontroly nepreukazujú complete production traces, provider behavior, reálne tool side effects, incident response, rollback drills ani business outcomes; sekcia je preto `Ready for user review`, nie runtime `Verified`, production `Stable` ani user `Accepted`.
