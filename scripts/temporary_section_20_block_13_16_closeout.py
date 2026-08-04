@@ -7,6 +7,10 @@ ROOT = Path(__file__).resolve().parents[1]
 SECTION = ROOT / "docs/20-llm-and-genai-engineering/README.md"
 ROADMAP = ROOT / "ROADMAP.md"
 LEDGER = ROOT / "DOCUMENTATION-REVIEW-STATUS.md"
+MODEL_VERSION = ROOT / "docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md"
+RAG = ROOT / "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md"
+CHUNKING = ROOT / "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md"
+VECTOR = ROOT / "docs/20-llm-and-genai-engineering/vector-stores-indexing.md"
 
 
 def replace_exact(path: Path, old: str, new: str) -> None:
@@ -15,6 +19,52 @@ def replace_exact(path: Path, old: str, new: str) -> None:
         raise SystemExit(f"Expected text not found in {path}: {old[:120]!r}")
     path.write_text(text.replace(old, new, 1), encoding="utf-8")
 
+
+replace_exact(
+    MODEL_VERSION,
+    "Aj pri rovnakom snapshot-e sa môžu meniť:\n\n"
+    "- provider runtime, batching a numerical execution,\n"
+    "- safety a abuse filters,\n"
+    "- API serialization alebo SDK behavior,\n"
+    "- prompt, examples a decoding parameters,\n"
+    "- retrieval corpus, chunking a index,\n"
+    "- tool implementation a authoritative data,\n"
+    "- application postprocessing.\n\n"
+    "Preto sa pinning používa ako súčasť release manifestu, nie ako samostatný acceptance dôkaz.\n",
+    "Aj pri rovnakom snapshot-e môže provider meniť runtime scheduling, batching alebo numerical execution. Tieto zmeny môžu ovplyvniť latency a pri stochastickom decodingu aj konkrétny output, hoci modelová identity zostáva rovnaká. Safety a abuse filters môžu navyše rozhodnúť, či request prejde, bude odmietnutý alebo dostane odlišný response envelope.\n\n"
+    "Application vrstva má vlastné nezávislé generácie. SDK alebo API serialization môžu zmeniť request shape; prompt, examples a decoding parameters menia behavior; retrieval corpus, chunking a index menia dostupné evidence; tool implementation a authoritative data menia side effect; postprocessing môže zmeniť alebo zahodiť správny model output. Rovnaký pinned model preto neznamená rovnaký end-to-end request subject.\n\n"
+    "Pinning sa používa ako jedna položka release manifestu, nie ako samostatný acceptance dôkaz. Jeho úlohou je zmenšiť search space pri reprodukcii a migrácii, zatiaľ čo zvyšné závislosti musia mať vlastnú identity, compatibility a read-back.\n",
+)
+replace_exact(
+    MODEL_VERSION,
+    "## 5. Versioned release manifest\n\nModel sa propaguje spolu so závislosťami:\n",
+    "## 5. Versioned release manifest\n\nModel sa propaguje spolu so závislosťami, pretože production behavior vzniká až z ich resolved kombinácie. Manifest vytvára immutable alebo časovo presnú boundary, ktorú možno použiť pri evale, canary, incidente aj rollbacku. Bez nej sa zmena modelu mieša so zmenou promptu, retrievalu alebo tool contractu a výsledok sa nedá korektne priradiť jednej príčine.\n\nManifest zároveň definuje promotion unit. Release sa nepovažuje za nasadený iba preto, že provider prijal model string; platforma musí vedieť prečítať späť, ktoré components boli pre request skutočne resolved.\n\nPríklad manifestu:\n",
+)
+replace_exact(
+    RAG,
+    "## 3. Exact RAG subject\n\nRequest trace potrebuje rozbaliteľný manifest:\n",
+    "## 3. Exact RAG subject\n\nRAG request je composite subject. Rovnaká user otázka môže dostať iný evidence set po zmene parsera, embedding modelu, index generation, filters alebo rerankera, aj keď generator model a prompt zostanú rovnaké. Incident a eval preto musia vedieť rekonštruovať každú resolved generation, nie iba finálnu odpoveď.\n\nManifest slúži aj ako boundary pre cache, rollout a rollback. Ak dva requesty nemajú rovnaký corpus/index/retrieval/context subject, nemožno ich považovať za čistý model A/B test. Request trace preto potrebuje rozbaliteľný manifest:\n",
+)
+replace_exact(
+    RAG,
+    "## 18. Containment a recovery\n\nContainment môže vypnúť affected corpus alias, prepnúť na known-good index generation, obmedziť workload na read-only lookup alebo vynútiť escalation pri insufficient evidence.\n\nRecovery postup:\n",
+    "## 18. Containment a recovery\n\nContainment znižuje business a security dopad skôr, než je potvrdený root cause. Môže vypnúť affected corpus alias, prepnúť na known-good index generation, obmedziť workload na read-only lookup alebo vynútiť escalation pri insufficient evidence. Voľba containmentu sa viaže na prvý podozrivý stage; plošné vypnutie generatora nepomôže, ak unauthorized dokument už uniká v retrieval výsledkoch.\n\nRecovery obnovuje celý evidence path, nie iba jeden component. Known-good index sa najprv read-backne, potom sa replayom overí source authority, ingestion, exact a ANN retrieval, filters, reranking, context a generation. Až po bounded canary a druhej odlišnej query sa potvrdzuje, že oprava nie je iba sample-specific.\n\nRecovery postup:\n",
+)
+replace_exact(
+    CHUNKING,
+    "## 1. Processing subject a generation\n\nKaždý derived document a chunk musí byť spätne dohľadateľný:\n",
+    "## 1. Processing subject a generation\n\nDocument-processing output je derived artifact, ktorého význam závisí od source snapshotu a každej transformačnej generácie. Rovnaký source file môže po zmene layout parsera alebo chunkera vytvoriť odlišné boundaries, metadata a embeddings, preto sa výsledok nesmie identifikovať iba source názvom.\n\nSpätná dohľadateľnosť umožňuje vysvetliť, prečo sa konkrétny chunk dostal do indexu, znovu ho vytvoriť a odstrániť všetky jeho derivácie pri update alebo revoke. Každý derived document a chunk preto musí niesť processing subject:\n",
+)
+replace_exact(
+    CHUNKING,
+    "## 7. Chunking strategies\n\n### Fixed-size chunking\n",
+    "## 7. Chunking strategies\n\nChunking strategy určuje retrieval unit a tým aj to, aký evidence fragment môže retriever nájsť a generator interpretovať. Výber sa robí podľa document structure, typických queries, požadovanej citation granularity a context budgetu; samotný priemerný počet tokenov nie je dostatočný návrhový parameter.\n\nStratégie sa často kombinujú. Pipeline môže najprv zachovať sections a tables, potom použiť tokenový limit vnútri veľkého semantic blocku a nakoniec vytvoriť parent-child mapping. Každá kombinácia je versioned policy a testuje sa na retrieval cases, pretože vizuálne pekný chunk nemusí zachovať rozhodujúcu podmienku.\n\n### Fixed-size chunking\n",
+)
+replace_exact(
+    VECTOR,
+    "## 21. Containment a recovery\n\nContainment môže prepnúť na exact search pre kritický menší corpus, zvýšiť ANN search breadth, vrátiť known-good index alias alebo vypnúť affected tenant/language route.\n\nRecovery:\n",
+    "## 21. Containment a recovery\n\nContainment sa vyberá podľa toho, či je podozrivý embedding space, ANN structure, filtering alebo alias/replica generation. Pre kritický menší corpus možno dočasne prepnúť na exact search, pri izolovanom ANN recall probléme zvýšiť search breadth, pri chybnej generácii vrátiť known-good alias a pri možnom cross-tenant úniku vypnúť affected route úplne.\n\nRecovery musí porovnať rovnakú query, vectors, metric a filters cez exact aj approximate path. Rebuild sa nepovýši iba po úspešnom create-index jobe; musí prejsť recall, latency, ACL, deletion a replica-generation gates a následne second-query testom.\n\nRecovery:\n",
+)
 
 replace_exact(
     SECTION,
