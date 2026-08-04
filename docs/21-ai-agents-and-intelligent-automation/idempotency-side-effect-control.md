@@ -311,7 +311,11 @@ stable operation-scoped key
 
 ## 33. Failure hypotheses
 
-Pri duplicate side effecte sa hypotézy zoradia podľa identity a commit boundaries. „API ignorovalo key“ je iba jedna možnosť; chyba môže vzniknúť ešte pred API alebo v descendant systéme.
+Pri duplicate side effecte sa diagnostika nezačína posledným HTTP requestom, ale deriváciou business operation identity. Tím najprv dokáže, že všetky technické attempts mali patriť k jednej operácii, a potom porovná idempotency key, canonical argument digest a tenant/environment scope. Ak sa niektorá z týchto hodnôt zmenila, downstream systém nemal dostatok informácií na deduplikáciu, aj keby jeho implementation fungovala presne podľa contractu.
+
+Druhá vrstva sleduje ownership od atomic claimu cez lease a fencing až po downstream commit. Dve úspešné claims ukazujú storage alebo transaction race; jedna claim s dvoma commitmi ukazuje chýbajúce fencing alebo descendant deduplication. Samostatne sa spočítajú retries v clientovi, proxy, service meshi a workflow engine, pretože lokálne limity sa môžu násobiť do retry amplification.
+
+Posledná vrstva overí effective outcome graph. Primary write môže byť vykonaný iba raz, ale duplicate event, email, job alebo compensation stále porušuje business invariant. Nasledujúce hypotézy preto pomenúvajú presné divergence v identity, ownership, delivery a read-backu:
 
 - **Key regeneration** — framework vytvoril nový key pri každom attempt-e; porovnajú sa operation a request records.
 - **Scope collision** — key neobsahoval tenant, environment alebo side-effect kind a zablokoval inú legitímnu operáciu.
@@ -324,7 +328,7 @@ Pri duplicate side effecte sa hypotézy zoradia podľa identity a commit boundar
 - **Wrong reconciliation source** — eventually consistent index tvrdil `not found`, hoci authoritative ledger už obsahoval commit.
 - **False success** — duplicate sa nevytvoril, ale existing result nepatril current canonical subject alebo business postcondition neplatila.
 
-Každá hypotéza sa overuje cez key lineage, digest, claim generation, downstream ledger a effective-state read-back. Modelové vysvetlenie bez týchto artifactov nie je root cause.
+Každá hypotéza sa overuje cez key lineage, digest, claim generation, downstream ledger a effective-state read-back. Modelové vysvetlenie bez týchto artifactov nie je root cause a samotný pokles duplicate countu nepreukazuje opravu descendant side effectov.
 
 ## 34. Containment
 
@@ -367,3 +371,11 @@ Tým sa overí správny scope: deduplication chráni retry jednej operácie, ale
 Idempotency je end-to-end business contract opretý o stable identity, canonical arguments, atomic claim, downstream deduplication, fencing a authoritative read-back. Retry bez tohto contractu je iba opakované riziko.
 
 Agent môže bezpečne používať mutation tool až vtedy, keď executor dokáže odpovedať: „ktorú presnú operation vykonávam, ako rozlíšim retry od novej požiadavky, kde je jeden side-effect owner a ako po timeoute zistím skutočný outcome?“
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Durable execution, retries a resumability](durable-execution-retries-resumability.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Model Context Protocol →](model-context-protocol.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

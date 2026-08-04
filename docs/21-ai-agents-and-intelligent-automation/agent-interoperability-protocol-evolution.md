@@ -337,7 +337,11 @@ refresh and verify Agent Card
 
 ## 42. Failure hypotheses
 
-Interoperability incident sa analyzuje od discovery po local business interpretation. Wire success je začiatok diagnostiky, nie koniec.
+Interoperability incident sa analyzuje od discovery po local business interpretation. Najprv sa overí, ktorú Agent Card generation a skill contract local router skutočne načítal a ktorú interface/protocol combination použil. Ak served a cached manifest nesedia, ďalšie task alebo artifact závery sa nesmú interpretovať podľa aktuálnej dokumentácie, ale podľa generation platnej pri vytvorení delegácie.
+
+Druhá vrstva zostaví task timeline z local delegation ID, client message ID, remote context/task ID a všetkých status transitions. Tým sa rozlíši duplicate initial send od legitímneho pokračovania existujúceho tasku a zistí sa, či adapter nezamenil interrupted stavy `input_required` alebo `auth_required` za terminal failure či completion. Binding adapter musí zachovať rovnakú semantics bez ohľadu na HTTP, gRPC alebo JSON-RPC wire formu.
+
+Napokon sa raw artifact parts a schema interpretujú oddelene od remote prose summary. Local `completed` je iba remote task state; positive business evidence vzniká až vtedy, keď expected contract, media type, source references a status field prejdú local validation. Nasledujúce hypotézy preto pokrývajú discovery, negotiation, task identity, state mapping, artifacts a authority propagation:
 
 - **Stale Agent Card** — client routoval podľa starej skill/interface generation; porovná sa cached a served digest.
 - **Version downgrade** — negotiation alebo gateway použili staršiu protocol semantics bez required controlu.
@@ -350,7 +354,7 @@ Interoperability incident sa analyzuje od discovery po local business interpreta
 - **Identity propagation gap** — remote agent vykonal task pod nesprávnym user/tenant authority.
 - **False semantic success** — remote completed artifact bol inconclusive alebo negative, ale local synthesis ho interpretoval ako úspech.
 
-Každá hypotéza sa testuje cez served card, registry cache, wire/task trace, adapter mapping, artifact bytes/schema a local decision record. Prose summary remote agenta sa nepoužíva ako jediný dôkaz.
+Každá hypotéza sa testuje cez served card, registry cache, wire/task trace, adapter mapping, artifact bytes/schema a local decision record. Prose summary remote agenta sa nepoužíva ako jediný dôkaz a protocol conformance bez domain-contract read-backu neuzatvára semantic incident.
 
 ## 43. Containment
 
@@ -391,3 +395,11 @@ Tým sa overí, že migration opravila nové operations bez prepisu histórie pr
 Agent interoperability je viacvrstvový contract: identity, discovery, version, binding, security, message/task lifecycle, artifacts a local semantic validation. Protocol umožňuje spoluprácu opaque agents, ale neprenáša automaticky dôveru ani business correctness.
 
 Bezpečná evolúcia vyžaduje pinned revisions, compatibility matrix, conformance tests, explicitné deprecation a migration pravidlá a loaded-state telemetry. Najdôležitejšia otázka nie je „vedia sa agenti rozprávať?“, ale „vedia obe strany pre rovnakú task identity rovnako interpretovať state, artifacts, authority a outcome aj počas upgradeu, retry a recovery?“
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Model Context Protocol](model-context-protocol.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

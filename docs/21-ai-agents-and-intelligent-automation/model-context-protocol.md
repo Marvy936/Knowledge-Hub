@@ -301,7 +301,11 @@ pin server and protocol revision
 
 ## 34. Failure hypotheses
 
-MCP incident sa diagnostikuje po vrstvách. „Server vrátil chybu“ alebo „model vybral zlý tool“ nevysvetľuje version, transport, auth, catalog, schema ani business outcome.
+MCP incident sa diagnostikuje od connection subjectu k business outcome-u. Connection manifest najprv určí presnú server identity, endpoint alebo executable digest, transport a loaded protocol revision. **URI** je v tomto modeli canonical identifikátor remote resource alebo servera, nie iba textová adresa; zmena URI alebo token audience môže znamenať inú trust a authorization boundary aj pri rovnakom display name.
+
+Druhá vrstva rekonštruuje **JSON-RPC** exchange. JSON-RPC request ID koreluje jednu wire request/response dvojicu, ale nie je business operation identity ani idempotency key. Wire trace preto musí spojiť request ID s catalog/tool schema generation, canonical arguments digestom, authorization subjectom a prípadným remote taskom. Ak sa client a server nezhodli na protocol era alebo capability set-e, rovnaký JSON payload môže mať inú lifecycle alebo extension semantics.
+
+Tretia vrstva oddeľuje **resource** a **scope**. Resource je chránený server alebo domain object, pre ktorý bol token a tool call určený; scope je povolený rozsah operácií, nie dôkaz user consentu či business policy. JSON Schema môže potvrdiť syntaktický tvar arguments, ale neoverí tenant ownership, current generation ani zamýšľaný outcome. Nasledujúce hypotézy preto sumarizujú konkrétne prvé divergence naprieč identity, protocolom, authorization, catalogom, execution a read-backom:
 
 - **Wrong server identity** — host sa pripojil k endpointu alebo subprocessu inej generation; overí sa endpoint, executable digest a server metadata.
 - **Protocol-era mismatch** — client a server interpretovali lifecycle, sessions alebo extensions rozdielne; dôkazom sú wire headers a loaded revision.
@@ -314,7 +318,7 @@ MCP incident sa diagnostikuje po vrstvách. „Server vrátil chybu“ alebo „
 - **Task duplication** — client po reconnecte vytvoril nový tool call namiesto pollingu pôvodného tasku.
 - **False protocol success** — JSON-RPC response bol success, ale effective resource alebo business outcome sa nezmenil správne.
 
-Každá hypotéza sa testuje proti connection manifestu, wire trace, auth metadata, catalog generation, tool contract, executor ledger a business read-backu. Model transcript je iba jedna časť evidence.
+Každá hypotéza sa testuje proti connection manifestu, wire trace, auth metadata, catalog generation, tool contract, executor ledger a business read-backu. Model transcript je iba jedna časť evidence; validný JSON-RPC success bez local postcondition je stále neuzavretý incident.
 
 ## 35. Containment
 
@@ -349,3 +353,11 @@ Nová legitímna operation použije current catalog a nový business operation I
 MCP štandardizuje agent-to-tool a host-to-context wire contract. Neprenáša automaticky trust, authorization, idempotency ani business correctness.
 
 Produkčný MCP integration je prijateľný až vtedy, keď tím vie pre každý call pomenovať exact server a protocol revision, loaded capability/catalog generation, disclosed data, current identity, approved command, stable side-effect identity, remote outcome a nezávislý business read-back.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Idempotency a side-effect control](idempotency-side-effect-control.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Agent interoperability a protocol evolution →](agent-interoperability-protocol-evolution.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

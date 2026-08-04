@@ -259,7 +259,11 @@ recover operation checkout-recovery-021
 
 ## 27. Failure hypotheses
 
-Pri zlyhaní durable runu nie je dostatočné povedať „retry ho vykonal dvakrát“. First divergence môže byť v identity, persistence, replay determinism, timeout classification, activity contract, downstream deduplication alebo recovery read-backu.
+Pri zlyhaní durable runu nie je dostatočné povedať „retry ho vykonal dvakrát“. Diagnostika najprv zostaví časovú os jednej business operation a oddelí orchestration transition, activity scheduling, remote acknowledgement, external commit a durable result persistence. Až táto chain of custody ukáže, či druhý efekt vznikol preto, že systém stratil history, zmenil identity alebo nesprávne vyhodnotil neznámy outcome.
+
+Druhá vrstva porovná loaded workflow a state generation s generation, ktorá vytvorila pôvodný command. Ak replay zvolil inú vetvu, nový tool alebo iný argument digest, ide o determinism alebo compatibility failure; ak replay zvolil rovnaký command, ale executor mu pridelil nový operation key, ide o side-effect identity failure. Tieto prípady majú odlišný containment aj recovery.
+
+Napokon sa overí terminal proof boundary. Stav `completed` v orchestration store je platný iba vtedy, keď executor ledger a downstream idempotency record vysvetľujú každý attempt a authoritative technical aj business read-back potvrdí zamýšľaný outcome. Nasledujúca taxonómia preto sumarizuje konkrétne miesta, kde môže táto evidence chain prvýkrát divergovat:
 
 - **History gap** — command bol odoslaný, ale durable store neobsahuje scheduling alebo acknowledgement event; treba porovnať executor request log a workflow history.
 - **Operation-key drift** — retry vytvoril nový business key namiesto nového attempt ID; downstream dedup store preto prijal druhý side effect.
@@ -272,7 +276,7 @@ Pri zlyhaní durable runu nie je dostatočné povedať „retry ho vykonal dvakr
 - **Compensation loop** — recovery action zlyhala a bola opakovaná bez vlastnej idempotency identity.
 - **False terminal success** — orchestration skončila `completed`, ale chýbal authoritative technical a business postcondition.
 
-Každá hypotéza sa testuje proti exact operation/run/attempt IDs, persisted history, executor ledger, downstream idempotency record a business telemetry. Log posledného workera nie je úplný causal record.
+Každá hypotéza sa testuje proti exact operation/run/attempt IDs, persisted history, executor ledger, downstream idempotency record a business telemetry. Log posledného workera nie je úplný causal record; bez prepojenia týchto artifactov sa incident nesmie uzavrieť ako „transient retry issue“.
 
 ## 28. Containment
 
@@ -319,3 +323,11 @@ Ak tím nevie vysvetliť rozdiel medzi worker retry, activity retry a novou busi
 Durable execution externalizuje operation state a umožňuje pokračovať po páde, ale neodstraňuje distribuované transaction boundaries. Replay chráni orchestration decision history; idempotency a reconciliation chránia externé side effects.
 
 Správna otázka preto nie je „obnovil sa agent?“, ale „obnovila sa rovnaká operation z authoritative state, bez duplicate side effectu, s potvrdeným business outcome-om a reprodukovateľnou causal history?“
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Human-in-the-loop a approval gates](human-in-the-loop-approval-gates.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Idempotency a side-effect control →](idempotency-side-effect-control.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

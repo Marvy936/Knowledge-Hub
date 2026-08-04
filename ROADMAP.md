@@ -527,10 +527,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Single-agent a multi-agent architecture](docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md)
 - [x] [Supervisor, router a specialist patterns](docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md)
 - [x] [Human-in-the-loop a approval gates](docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md)
-- [ ] Durable execution, retries a resumability
-- [ ] Idempotency a side-effect control
-- [ ] Model Context Protocol
-- [ ] Agent interoperability a protocol evolution
+- [x] [Durable execution, retries a resumability](docs/21-ai-agents-and-intelligent-automation/durable-execution-retries-resumability.md)
+- [x] [Idempotency a side-effect control](docs/21-ai-agents-and-intelligent-automation/idempotency-side-effect-control.md)
+- [x] [Model Context Protocol](docs/21-ai-agents-and-intelligent-automation/model-context-protocol.md)
+- [x] [Agent interoperability a protocol evolution](docs/21-ai-agents-and-intelligent-automation/agent-interoperability-protocol-evolution.md)
 - [ ] Agent identity, authentication a authorization
 - [ ] Least privilege pre tools a credentials
 - [ ] Sandboxing a code execution
