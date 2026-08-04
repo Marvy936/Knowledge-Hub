@@ -382,3 +382,11 @@ Pozitívna acceptance vyžaduje exact assembly manifest, tokenizer-aware budget,
 Recovery acceptance vyžaduje rekonštrukciu candidate a context generations, identifikovaný first divergence, replay baseline/candidate, citation integrity a semantic support check, negative unauthorized-source test a druhú odlišnú query po promotion.
 
 Forbidden acceptance je vloženie top-k textu ako hotový context bez authority a budget modelu, citation URL ako dôkaz supportu, abstractive summary ako source truth, truncation bez completeness flagu alebo odpoveď publikovaná pred validáciou citations.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Retrieval, hybrid search a reranking](retrieval-hybrid-search-reranking.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: RAG evaluation a retrieval diagnostics →](rag-evaluation-retrieval-diagnostics.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

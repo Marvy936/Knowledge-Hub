@@ -337,3 +337,11 @@ Pozitívna acceptance vyžaduje versioned query plan, sparse/dense/structured ca
 Recovery acceptance vyžaduje identifikovaný first-divergence stage, known-good policy alebo cielenú opravu, paired replay, negative authorization test, multi-segment canary a druhú odlišnú query po promotion.
 
 Forbidden acceptance je úspešný search request ako dôkaz relevance, raw score fusion bez calibration, click data ako ground truth bez bias correction, reranker score ako authority alebo top-k bez explicitného no-answer verdictu.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Vector stores a indexing](vector-stores-indexing.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Context assembly a citation grounding →](context-assembly-citation-grounding.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

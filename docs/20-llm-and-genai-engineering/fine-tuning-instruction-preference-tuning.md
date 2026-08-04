@@ -394,3 +394,11 @@ Pozitívna acceptance vyžaduje správny use-case boundary, authoritative a gove
 Recovery acceptance vyžaduje identifikovaný failure stage, known-good rollback, zachované training a runtime evidence, opravený dataset/method alebo application-layer fix, fresh holdout a druhý odlišný production journey.
 
 Forbidden acceptance je fine-tuning ako náhrada current knowledge alebo authorization, closed tickets ako implicitný ground truth, training loss ako production verdict, provider job completion ako promotion, preference pair ako absolútna truth alebo ďalší training run bez first-divergence diagnosis.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: RAG evaluation a retrieval diagnostics](rag-evaluation-retrieval-diagnostics.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

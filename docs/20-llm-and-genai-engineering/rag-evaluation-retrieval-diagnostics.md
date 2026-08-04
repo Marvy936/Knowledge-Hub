@@ -386,3 +386,11 @@ Pozitívna acceptance vyžaduje versioned representative dataset, source/facet j
 Recovery acceptance vyžaduje identifikovanú evaluation chybu alebo system first divergence, opravené labels/scorer/manifests, rerun baseline a candidate, fresh holdout a potvrdenie, že forbidden failure rate ostáva nulová.
 
 Forbidden acceptance je answer-only semantic score ako dôkaz RAG kvality, synthetic questions z indexovaných chunks bez leakage kontroly, LLM judge bez expert calibration, aggregate average zakrývajúci security failure alebo promotion podľa jedného benchmarku bez stage diagnostics.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Context assembly a citation grounding](context-assembly-citation-grounding.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Fine-tuning, instruction tuning a preference tuning →](fine-tuning-instruction-preference-tuning.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

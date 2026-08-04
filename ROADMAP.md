@@ -495,10 +495,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Retrieval-Augmented Generation architecture](docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md)
 - [x] [Chunking, metadata a document processing](docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md)
 - [x] [Vector stores a indexing](docs/20-llm-and-genai-engineering/vector-stores-indexing.md)
-- [ ] Retrieval, hybrid search a reranking
-- [ ] Context assembly a citation grounding
-- [ ] RAG evaluation a retrieval diagnostics
-- [ ] Fine-tuning, instruction tuning a preference tuning
+- [x] [Retrieval, hybrid search a reranking](docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md)
+- [x] [Context assembly a citation grounding](docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md)
+- [x] [RAG evaluation a retrieval diagnostics](docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md)
+- [x] [Fine-tuning, instruction tuning a preference tuning](docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md)
 - [ ] PEFT, adapters a LoRA
 - [ ] Quantization a local inference
 - [ ] GPU memory, batching a serving performance
