@@ -35,11 +35,27 @@ for finding in payload.get("findings", []):
 if remaining:
     print(f"Section 21 block 5-8 critical/high findings remain: {len(remaining)}")
     for finding in remaining:
+        path = finding.get("path") or finding.get("file") or "unknown-path"
+        heading = (
+            finding.get("heading")
+            or finding.get("section")
+            or finding.get("title")
+            or finding.get("context")
+            or "unknown-heading"
+        )
+        detail = (
+            finding.get("message")
+            or finding.get("description")
+            or finding.get("detail")
+            or finding.get("reason")
+            or ""
+        )
         print(
             f"- **{str(finding.get('severity', '')).upper()}** "
-            f"line {finding.get('line', '?')}, `{finding.get('rule', 'unknown')}` — "
-            f"{finding.get('message', finding.get('description', ''))}"
+            f"`{path}` line {finding.get('line', '?')}, "
+            f"`{finding.get('rule', 'unknown')}` — **{heading}**: {detail}"
         )
+        print("  raw=" + json.dumps(finding, ensure_ascii=False, sort_keys=True))
     raise SystemExit(1)
 
 print("Section 21 chapters 5-8 have no critical/high audit findings.")
