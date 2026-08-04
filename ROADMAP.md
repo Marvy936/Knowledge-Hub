@@ -499,10 +499,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Context assembly a citation grounding](docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md)
 - [x] [RAG evaluation a retrieval diagnostics](docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md)
 - [x] [Fine-tuning, instruction tuning a preference tuning](docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md)
-- [ ] PEFT, adapters a LoRA
-- [ ] Quantization a local inference
-- [ ] GPU memory, batching a serving performance
-- [ ] Prompt caching, semantic caching a response caching
+- [x] [PEFT, adapters a LoRA](docs/20-llm-and-genai-engineering/peft-adapters-lora.md)
+- [x] [Quantization a local inference](docs/20-llm-and-genai-engineering/quantization-local-inference.md)
+- [x] [GPU memory, batching a serving performance](docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md)
+- [x] [Prompt caching, semantic caching a response caching](docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md)
 - [ ] LLM gateways, routing, fallback a rate limiting
 - [ ] Prompt Registry a lifecycle
 - [ ] LLM evaluation datasets a graders

@@ -34,15 +34,15 @@ Odporúčané predchádzajúce oblasti:
 18. [Context assembly a citation grounding](context-assembly-citation-grounding.md)
 19. [RAG evaluation a retrieval diagnostics](rag-evaluation-retrieval-diagnostics.md)
 20. [Fine-tuning, instruction tuning a preference tuning](fine-tuning-instruction-preference-tuning.md)
+21. [PEFT, adapters a LoRA](peft-adapters-lora.md)
+22. [Quantization a local inference](quantization-local-inference.md)
+23. [GPU memory, batching a serving performance](gpu-memory-batching-serving-performance.md)
+24. [Prompt caching, semantic caching a response caching](prompt-semantic-response-caching.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-21. PEFT, adapters a LoRA
-22. Quantization a local inference
-23. GPU memory, batching a serving performance
-24. Prompt caching, semantic caching a response caching
 25. LLM gateways, routing, fallback a rate limiting
 26. Prompt Registry a lifecycle
 27. LLM evaluation datasets a graders
@@ -86,4 +86,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **20/37 · In progress**. Piaty authoritative blok aktivuje kapitoly 17–20 a incident `GENAI-SUPPORT-05`. Retrieval kapitola oddeľuje query planning, sparse/dense/structured candidate generation, authorization filtering, rank fusion, deduplication, cross-encoder reranking, evidence coverage a sufficient-evidence verdict. Context-assembly kapitola modeluje tokenizer-aware budget, authority a facet coverage, version-aware deduplication, semantic-safe truncation, conflict resolution, stable citation labels, claim-level support a provisional-versus-committed streaming boundary. RAG-evaluation kapitola zavádza versioned case a judgment subject, retrieval/context/answer/citation/security metrics, leakage-safe splits, calibrated model graders, human adjudication, ablations, stage traces a offline-to-online promotion evidence. Fine-tuning kapitola oddeľuje SFT a instruction tuning, preference data, RLHF, DPO a grader-driven optimization od retrieval, authorization a mutable knowledge; vyžaduje governed data, reproducible lineage, adjacent capability evals, privacy gates a full-release rollout/rollback. Kapitoly 17–20 prešli repository closeout; reálny retrieval/reranking traffic, context generation, expert eval, training job, deployment canary a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 21–24: PEFT/adapters/LoRA, quantization/local inference, GPU memory/batching/serving performance a prompt/semantic/response caching.
+Aktuálny authoritative stav sekcie je **24/37 · In progress**. Šiesty authoritative blok aktivuje kapitoly 21–24 a incident `GENAI-SUPPORT-06`. PEFT kapitola oddeľuje base model, tokenizer/chat template, adapter config/weights, target modules, training data a composed serving release; vysvetľuje LoRA low-rank delta, QLoRA boundary, multi-adapter routing, merge/hot-swap, tenant isolation a behavior compatibility. Quantization kapitola modeluje weight/activation/compute/KV precision, PTQ/calibration, outliers, artifact/runtime/kernel/hardware identity, local serving a supply-chain/privacy boundary a oddeľuje memory fit od workload parity. Serving-performance kapitola rozkladá weights, KV cache, activations, paging, prefill/decode, static a continuous batching, admission/backpressure, fairness, parallelism, TTFT/ITL/end-to-end latency, open-loop capacity, autoscaling a OOM recovery. Caching kapitola striktne oddeľuje prefix/KV compute reuse, approximate semantic result reuse a exact response reuse a vyžaduje model/adapter/prompt/corpus/security-scoped keys, authorization pred lookupom, freshness/invalidation, atomic publish, privacy, false-hit telemetry a forbidden-hit tests. Kapitoly 21–24 sú pripravené na repository closeout; reálny adapter training, quantized export/inference, GPU load test, provider/self-hosted prompt cache, semantic/response cache traffic a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 25–28: LLM gateways/routing/fallback/rate limiting, Prompt Registry, LLM evaluation datasets/graders a human evaluation/expert feedback.

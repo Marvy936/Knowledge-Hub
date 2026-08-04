@@ -33,7 +33,7 @@ serving_slo:
 
 ## 2. Exact serving subject
 
-Performance result je platný iba pre konkrétny subject:
+Performance result je platný iba pre konkrétny subject. Model a runtime určujú kernel a memory behavior, kým scheduler, token limits, adapter mix, cache policy a workload distribution určujú, aký work sa v rovnakom čase nachádza na zariadení. Benchmark bez týchto identities sa nedá porovnať s produkciou ani reprodukovať po upgrade.
 
 ```yaml
 serving_subject:
@@ -389,6 +389,8 @@ Multi-GPU replica môže zlyhať ako celok pri jednom device/process fault. Faul
 
 ## 30. Observability
 
+Serving telemetry musí spojiť arrival, scheduler a accelerator evidence s konkrétnym modelovým a business requestom. Samotná GPU utilization nevysvetľuje, či worker produktívne dekóduje, čaká na communication, blokuje sa na KV capacity alebo iba spracúva requesty, ktoré neskôr zlyhajú validation. Stage timestamps a generation identities preto umožňujú nájsť prvú divergence medzi prijatím requestu, prefillom, decode, tool/validation pathom a accepted outcome.
+
 Serving telemetry zahŕňa:
 
 ```text
@@ -446,3 +448,11 @@ Pozitívna acceptance vyžaduje exact serving subject, explicitný memory model,
 Recovery acceptance vyžaduje identifikovaný bottleneck, known-good rollback, mixed workload replay, burst/failure test, canary a druhú odlišnú journey po obnovení.
 
 Forbidden acceptance je peak tokens/s bez latency distribution, loader fit ako capacity proof, maximum batch size bez token budgetu, GPU utilization ako jediný autoscaling signal, continuous batching ako automatická SLO výhra alebo worker readiness pred model warm-upom.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Quantization a local inference](quantization-local-inference.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Prompt caching, semantic caching a response caching →](prompt-semantic-response-caching.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

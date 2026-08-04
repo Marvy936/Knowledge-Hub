@@ -347,20 +347,11 @@ Adapter-level metrics odhaľujú, že rovnaký base model môže mať rozdielnu 
 
 ## 24. Failure hypotheses
 
-Pri regresii sa skúma:
+Pri regresii sa najprv rekonštruuje composed release, pretože rovnaký adapter digest môže mať odlišný effective behavior nad iným base snapshotom, tokenizerom, chat template alebo target-module mappingom. Shape-compatible load preto nevylučuje identity defect; read-back base a adapter digests, rendered token boundaries a matched modules určí, či sa chyba objavila ešte pred inference.
 
-- wrong base snapshot alebo tokenizer,
-- target module mismatch,
-- adapter config/weights mismatch,
-- stale alebo biased training data,
-- overfitting a hyperparameters,
-- wrong chat template alebo loss mask,
-- unintended adapter composition,
-- merge alebo quantization error,
-- replica s neaktuálnym adapterom,
-- cache reuse naprieč incompatible adapter generation.
+Ak identity sedí, ďalšia vetva skúma training subject. Stale alebo biased dáta, chybná loss mask, agresívny rank či learning rate a overfitting môžu zlepšiť training metric, ale zhoršiť policy conflicts, structured output alebo adjacent capabilities. Dataset lineage, split, checkpoint metrics a paired eval s base release rozlišujú training defect od application-layer problému.
 
-First-divergence analysis začína od composed release identity, nie od všeobecného tvrdenia „LoRA nefunguje“.
+Serving vetva následne overuje unintended adapter composition, nesprávny merge alebo quantization order, repliku s neaktuálnym adapterom a cache reuse naprieč incompatible adapter generations. First-divergence analysis teda nezačína všeobecným tvrdením „LoRA nefunguje“, ale porovnaním requested, loaded a exercised base/adapter generation a prvého requestu, pri ktorom sa ich behavior rozišiel.
 
 ## 25. Containment
 
@@ -390,3 +381,11 @@ Pozitívna acceptance vyžaduje jasný adaptation use case, pinned base/tokenize
 Recovery acceptance vyžaduje identifikovaný incompatible alebo chybný component, known-good rollback, nový immutable candidate, fresh replay, canary a druhú odlišnú operáciu po obnovení.
 
 Forbidden acceptance je adapter načítaný bez exact base revision, training loss ako quality verdict, frozen base ako dôkaz nulovej regression, shape-compatible load ako behavior compatibility, per-tenant adapter bez authorization boundary alebo LoRA použitá na uloženie mutable policy knowledge.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Fine-tuning, instruction tuning a preference tuning](fine-tuning-instruction-preference-tuning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Quantization a local inference →](quantization-local-inference.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

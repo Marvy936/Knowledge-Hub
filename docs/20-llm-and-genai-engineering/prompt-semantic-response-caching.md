@@ -21,6 +21,8 @@ Cache hit je optimization event, nie acceptance verdict. Correctness sa hodnotí
 
 ## 2. Tri odlišné cache contracts
 
+Cache vrstvy sa rozlišujú podľa toho, čo presne sa reuse-uje a ktorý computation alebo business contract sa tým preskakuje. Prefix cache zachováva iba modelový medzivýpočet, semantic cache robí approximate rozhodnutie o ekvivalencii requestov a response cache vracia už vytvorený application result. Čím viac vrstiev sa preskočí, tým silnejší musí byť key, authorization, freshness a validation gate.
+
 ```text
 prompt/prefix cache
 → reuse model prefill computation pre identický prefix
@@ -38,6 +40,8 @@ response cache
 Názov „LLM cache“ bez typu je diagnosticky nepoužiteľný. Každá vrstva má vlastný key, scope, TTL, invalidation, privacy a observability.
 
 ## 3. Exact cache subject
+
+Cache entry manifest identifikuje nielen uložené bytes, ale aj podmienky, za ktorých je ich reuse semanticky a bezpečnostne platný. Model, adapter, prompt, tools, corpus, locale a authorization scope patria do subjectu, pretože zmena ktorejkoľvek z týchto vrstiev môže pri rovnakom user texte vytvoriť iný správny výsledok. Entry age a TTL dopĺňajú generation identity, ale nenahrádzajú ju.
 
 Cache entry manifest obsahuje:
 
@@ -507,3 +511,11 @@ Pozitívna acceptance vyžaduje explicitne oddelené prefix, semantic a response
 Recovery acceptance vyžaduje identifikovanú cache layer a bad key generation, bezpečný disable/rollback, novú version, positive aj forbidden replay, canary a druhú odlišnú operation po obnovení.
 
 Forbidden acceptance je `cache_hit=true` bez typu a subjectu, semantic similarity ako business equivalence, shared cache bez tenant/authorization scope, TTL ako jediná freshness guarantee, partial stream uložený ako complete answer, cached tool side effect alebo hit-rate zvýšenie prezentované ako quality improvement.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: GPU memory, batching a serving performance](gpu-memory-batching-serving-performance.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

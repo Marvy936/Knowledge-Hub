@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **431**
-- Audited conceptual sections: **8861**
-- Total words: **861,436**
-- Findings: **8333** (critical 658, high 871, medium 475, low 6329)
-- File grades: A 170, B 158, C 42, D 61
+- Audited authoritative articles: **435**
+- Audited conceptual sections: **8989**
+- Total words: **870,574**
+- Findings: **8390** (critical 658, high 871, medium 475, low 6386)
+- File grades: A 172, B 160, C 42, D 61
 
 ## Interpretation
 
@@ -136,11 +136,13 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 31 | 0 | 0 | 0 | 24 | 3202 | `docs/18-machine-learning-fundamentals/explainability-feature-importance.md` |
 | B | 31 | 0 | 0 | 0 | 23 | 2949 | `docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md` |
 | B | 31 | 0 | 0 | 0 | 25 | 2872 | `docs/18-machine-learning-fundamentals/train-validation-test-split.md` |
-| B | 31 | 0 | 0 | 0 | 19 | 2371 | `docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md` |
+| B | 31 | 0 | 0 | 0 | 19 | 2374 | `docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 30 | 0 | 0 | 0 | 22 | 2088 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 2181 | `docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
+| B | 29 | 0 | 0 | 0 | 19 | 2098 | `docs/20-llm-and-genai-engineering/peft-adapters-lora.md` |
+| B | 29 | 0 | 0 | 0 | 20 | 2573 | `docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 28 | 0 | 1 | 0 | 13 | 3923 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
@@ -297,6 +299,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 14 | 0 | 0 | 0 | 14 | 1698 | `docs/16-gitops-and-platform-engineering/multi-tenancy.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 952 | `docs/19-mlops-and-ml-platforms/feedback-loops-ground-truth-delay.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 1642 | `docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md` |
+| A | 14 | 0 | 0 | 0 | 10 | 2366 | `docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md` |
 | A | 14 | 0 | 0 | 0 | 12 | 1820 | `docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 888 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | A | 13 | 0 | 0 | 0 | 8 | 1412 | `docs/03-git-and-automation/reset-revert-restore.md` |
@@ -347,6 +350,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 12 | 0 | 0 | 0 | 8 | 986 | `docs/19-mlops-and-ml-platforms/governance-approvals-audit.md` |
 | A | 12 | 0 | 0 | 0 | 12 | 1837 | `docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md` |
 | A | 12 | 0 | 0 | 0 | 9 | 1056 | `docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md` |
+| A | 12 | 0 | 0 | 0 | 8 | 2098 | `docs/20-llm-and-genai-engineering/quantization-local-inference.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 980 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | A | 11 | 0 | 0 | 0 | 8 | 1243 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1716 | `docs/06-gitlab/container-and-package-registry.md` |
@@ -2222,9 +2226,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2869 | 2869 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1799 | 1799 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1661 | 1661 |
+| `example-not-explicit` | 0 | 0 | 0 | 2893 | 2893 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1826 | 1826 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1667 | 1667 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

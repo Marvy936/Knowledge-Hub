@@ -5799,7 +5799,7 @@
     {
       "path": "docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md",
       "title": "Fine-tuning, instruction tuning a preference tuning",
-      "words": 2371,
+      "words": 2374,
       "headings": 31,
       "sections": 31,
       "findings": 19,
@@ -5836,6 +5836,20 @@
       "medium": 0,
       "low": 9,
       "score": 10,
+      "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "title": "GPU memory, batching a serving performance",
+      "words": 2366,
+      "headings": 35,
+      "sections": 35,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 14,
       "grade": "A"
     },
     {
@@ -5881,6 +5895,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "title": "PEFT, adapters a LoRA",
+      "words": 2098,
+      "headings": 27,
+      "sections": 27,
+      "findings": 19,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 19,
+      "score": 29,
+      "grade": "B"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
       "title": "Prompt decomposition a chain-of-thought boundaries",
       "words": 1401,
@@ -5909,6 +5937,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "title": "Prompt caching, semantic caching a response caching",
+      "words": 2573,
+      "headings": 37,
+      "sections": 37,
+      "findings": 20,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 20,
+      "score": 29,
+      "grade": "B"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
       "title": "Prompt templates, variables a versioning",
       "words": 1895,
@@ -5921,6 +5963,20 @@
       "low": 12,
       "score": 15,
       "grade": "B"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/quantization-local-inference.md",
+      "title": "Quantization a local inference",
+      "words": 2098,
+      "headings": 29,
+      "sections": 29,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 12,
+      "grade": "A"
     },
     {
       "path": "docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md",
@@ -79468,6 +79524,96 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "section": "2. Exact serving subject",
+      "line": 34,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "section": "4. Weight memory",
+      "line": 75,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "section": "6. KV cache",
+      "line": 104,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "section": "8. Static batching",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "section": "11. Fragmentation a allocator behavior",
+      "line": 170,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "section": "28. Autoscaling",
+      "line": 378,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "section": "29. Fault domains a recovery",
+      "line": 384,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "section": "30. Observability",
+      "line": 390,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "section": "30. Observability",
+      "line": 390,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md",
+      "section": "34. Recovery",
+      "line": 438,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
       "section": "2. Od logits k ďalšiemu tokenu",
       "line": 42,
@@ -79711,6 +79857,177 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "1. Business outcome a boundary",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "3. Full fine-tuning verzus PEFT",
+      "line": 52,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "3. Full fine-tuning verzus PEFT",
+      "line": 52,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "3. Full fine-tuning verzus PEFT",
+      "line": 52,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "5. Mechanizmus LoRA",
+      "line": 87,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "9. Dataset a intended adaptation",
+      "line": 155,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "10. Rank, alpha a dropout",
+      "line": 163,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "11. Training memory",
+      "line": 187,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "12. QLoRA boundary",
+      "line": 203,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "12. QLoRA boundary",
+      "line": 203,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "15. Merged verzus unmerged adapter",
+      "line": 242,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "15. Merged verzus unmerged adapter",
+      "line": 242,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "15. Merged verzus unmerged adapter",
+      "line": 242,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "16. Adapter artifact format a supply chain",
+      "line": 255,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "19. Catastrophic a adjacent regression",
+      "line": 296,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "23. Observability",
+      "line": 340,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "23. Observability",
+      "line": 340,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "25. Containment",
+      "line": 356,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/peft-adapters-lora.md",
+      "section": "27. Acceptance",
+      "line": 377,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
       "section": "1. Decomposition subject",
       "line": 7,
@@ -79909,6 +80226,186 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "2. Tri odlišné cache contracts",
+      "line": 22,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "2. Tri odlišné cache contracts",
+      "line": 22,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "3. Exact cache subject",
+      "line": 42,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "7. Provider prompt cache verzus self-hosted prefix cache",
+      "line": 110,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "8. Prompt cache economics",
+      "line": 116,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "16. Determinism a response cache",
+      "line": 232,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "18. Authorization pred cache lookupom",
+      "line": 262,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "25. Tool calls a side effects",
+      "line": 360,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "26. RAG caching layers",
+      "line": 366,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "26. RAG caching layers",
+      "line": 366,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "29. Privacy a retention",
+      "line": 407,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "29. Privacy a retention",
+      "line": 407,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "29. Privacy a retention",
+      "line": 407,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "30. Poisoning a untrusted content",
+      "line": 415,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "30. Poisoning a untrusted content",
+      "line": 415,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "34. Failure hypotheses",
+      "line": 480,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "35. Containment",
+      "line": 486,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "35. Containment",
+      "line": 486,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "37. Acceptance",
+      "line": 507,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
+      "section": "37. Acceptance",
+      "line": 507,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
       "section": "1. Template, rendered prompt a request nie sú to isté",
       "line": 7,
@@ -80011,6 +80508,78 @@
       "path": "docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md",
       "section": "17. Recovery a acceptance",
       "line": 325,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/quantization-local-inference.md",
+      "section": "7. Scaling, zero point a group size",
+      "line": 96,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/quantization-local-inference.md",
+      "section": "15. Determinism a kernels",
+      "line": 230,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/quantization-local-inference.md",
+      "section": "19. Throughput a kernel support",
+      "line": 279,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/quantization-local-inference.md",
+      "section": "22. Data privacy a local boundary",
+      "line": 316,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/quantization-local-inference.md",
+      "section": "26. Failure hypotheses",
+      "line": 360,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/quantization-local-inference.md",
+      "section": "27. Containment",
+      "line": 368,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/quantization-local-inference.md",
+      "section": "28. Recovery",
+      "line": 374,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/quantization-local-inference.md",
+      "section": "29. Acceptance",
+      "line": 380,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

@@ -235,7 +235,7 @@ Preto parity nie je definovaná iba token-identical outputom. Používa task cor
 
 ## 16. Workload parity eval
 
-Quantized candidate sa porovnáva s pinned reference release na rovnakých cases:
+Quantized candidate sa porovnáva s pinned reference release na rovnakých cases. Porovnanie musí zachovať rovnaký tokenizer, chat template, prompt/RAG release, decoding policy a output validator, inak sa quantization effect zmieša s inou zmenou application contractu. Segmentovaný verdict ukazuje, či memory alebo latency gain nebol kúpený regresiou na číslach, identifiers, dlhom kontexte, strict schema alebo tool arguments.
 
 ```yaml
 segments:
@@ -359,18 +359,11 @@ Node-level metrics zahŕňajú GPU memory allocated/reserved, utilization, power
 
 ## 26. Failure hypotheses
 
-Pri quality regresii sa skúma:
+Quality regresia sa najprv rozdelí na identity, transformation a execution hypotheses. Identity vetva overuje base revision, tokenizer, chat template a prípadný adapter/merge order; transformation vetva porovnáva quantization method, calibration generation, group/scaling parameters a modules ponechané vo vyššej precision. Tým sa odlíši artifact vytvorený z nesprávneho subjectu od korektného subjectu poškodeného príliš agresívnou approximation.
 
-- wrong base revision/tokenizer/template,
-- quantization method a calibration mismatch,
-- citlivé layers quantized príliš agresívne,
-- unsupported alebo fallback kernels,
-- adapter merge order,
-- context/truncation difference,
-- runtime sampling defaults,
-- corrupt alebo untrusted artifact.
+Execution vetva kontroluje, či runtime skutočne použil očakávané kernels a compute dtype alebo potichu prešiel na fallback, či context/truncation a sampling defaults zodpovedajú reference release a či artifact digest a loader provenance ostali dôveryhodné. Layer-error, deterministic probe a workload-segment replay lokalizujú prvý rozdiel skôr než tím zmení ďalší quantization parameter.
 
-Pri latency alebo OOM probléme sa oddelí weight memory, KV cache, activations, fragmentation, offload transfer, queue a thermal/power throttling.
+Pri latency alebo OOM probléme sa samostatne vyčísli weight memory, KV cache, activations, allocator fragmentation, CPU/GPU offload transfer, queue a thermal alebo power throttling. Tento rozklad zabraňuje nesprávnemu záveru, že ďalšie zníženie bit width vyrieši incident, ktorý v skutočnosti vzniká z dlhého contextu, unsupported kernelu alebo preťaženého scheduleru.
 
 ## 27. Containment
 
@@ -391,3 +384,11 @@ Pozitívna acceptance vyžaduje pinned base/tokenizer/template, explicitnú quan
 Recovery acceptance vyžaduje identifikovanú degradation vrstvu, known-good rollback, nový artifact digest, replay, stress/canary a druhý odlišný production journey.
 
 Forbidden acceptance je „zmestí sa do VRAM“, loader success, jeden plynulý prompt, generic benchmark bez workload segments, bit width bez method/config identity, mutable community artifact, `trust_remote_code` bez review alebo tvrdenie, že local inference automaticky garantuje privacy.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: PEFT, adapters a LoRA](peft-adapters-lora.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: GPU memory, batching a serving performance →](gpu-memory-batching-serving-performance.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

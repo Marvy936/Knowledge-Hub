@@ -400,5 +400,5 @@ Forbidden acceptance je fine-tuning ako náhrada current knowledge alebo authori
 
 **Navigácia**
 
-[← Predchádzajúca: RAG evaluation a retrieval diagnostics](rag-evaluation-retrieval-diagnostics.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: RAG evaluation a retrieval diagnostics](rag-evaluation-retrieval-diagnostics.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: PEFT, adapters a LoRA →](peft-adapters-lora.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
