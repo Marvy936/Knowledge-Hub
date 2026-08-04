@@ -370,5 +370,5 @@ Bezpečný systém označuje source authority, zachováva provenance a taint, od
 
 **Navigácia**
 
-[← Predchádzajúca: Sandboxing a code execution](sandboxing-code-execution.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Sandboxing a code execution](sandboxing-code-execution.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Tool poisoning, confused deputy a data exfiltration →](tool-poisoning-confused-deputy-data-exfiltration.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

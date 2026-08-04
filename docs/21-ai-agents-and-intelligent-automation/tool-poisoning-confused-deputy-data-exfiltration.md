@@ -300,6 +300,10 @@ Tým sa overí, že oprava nezablokovala celý business workflow a zároveň neo
 
 ## 40. Praktický policy pseudocode
 
+Policy path musí zmeniť modelom navrhnutý tool call na exact, lokálne autorizovateľnú operáciu ešte pred vydaním credentialu alebo network dispatchom. Registry najprv pinne server, catalog, tool a schema generation, canonicalizácia odstráni nejasné defaults, identity vrstva určí attested caller-a a klasifikácia spojí argumenty s inherited taintom a effective destinations. Až tieto authoritative vstupy umožnia policy rozhodnúť o tenant-e, action, resources, data flow a current approvale.
+
+Credential broker je posledný krok, nie zdroj oprávnenia. Vydaný handle je audience-, operation- a argument-bound a krátkodobý, takže model ani poisoned tool description nemôžu rozšíriť jeho použitie; samotný pseudocode však nepreukazuje atomic claim, downstream enforcement, revocation alebo absence descendant effects. Tie sa dokazujú executor ledgerom, gateway auditom a authoritative sink read-backom.
+
 ```python
 def authorize_tool_call(run, tool, args, taint):
     manifest = registry.require_exact(
@@ -363,5 +367,5 @@ Bezpečný agentický systém pinne exact tool generation, drží local reviewed
 
 **Navigácia**
 
-[← Predchádzajúca: Prompt injection cez tools a retrieved content](prompt-injection-tools-retrieved-content.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Prompt injection cez tools a retrieved content](prompt-injection-tools-retrieved-content.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Agent evaluation →](agent-evaluation.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

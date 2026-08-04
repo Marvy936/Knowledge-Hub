@@ -378,5 +378,5 @@ Dobrý eval program kombinuje component a end-to-end tests, production a adversa
 
 **Navigácia**
 
-[← Predchádzajúca: Tool poisoning, confused deputy a data exfiltration](tool-poisoning-confused-deputy-data-exfiltration.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Tool poisoning, confused deputy a data exfiltration](tool-poisoning-confused-deputy-data-exfiltration.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Trajectory, tool-selection a outcome evaluation →](trajectory-tool-selection-outcome-evaluation.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

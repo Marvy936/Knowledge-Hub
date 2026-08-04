@@ -301,6 +301,10 @@ Tým sa overí generalizácia trajectory controlu, isolation a recovery behavior
 
 ## 43. Praktický trajectory rubric
 
+Trajectory rubric prekladá capability a safety invarianty do constraints nad normalized observable event graphom. `required` položky dokazujú, že run načítal approved catalog, dostal explicitné policy povolenie a ukončil sa authoritative read-backom; `forbidden` položky blokujú unsafe action alebo data flow bez ohľadu na kvalitu finálnej odpovede a `partial_order` vyjadruje causal guards, ktoré musia platiť aj pri paralelných spans.
+
+Rubric nie je presný script jednej ideálnej sequence. Agent môže použiť alternatívne read-only kroky, ak zachová required events, neporuší forbidden invariants a zmestí sa do risk-aware budgetov; evaluator preto mapuje vendor-specific trace do versioned internal taxonomy a pri missing alebo ambiguous evente vráti `inconclusive`, nie automatický pass. Quality grader môže posúdiť rozumnosť zvolenej cesty, ale nemôže prebiť deterministic violation.
+
 ```yaml
 trajectory_rubric:
   required:
@@ -348,5 +352,5 @@ Outcome evaluation potom číta authoritative technical, business, security a pr
 
 **Navigácia**
 
-[← Predchádzajúca: Agent evaluation](agent-evaluation.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Agent evaluation](agent-evaluation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Agent tracing, replay a debugging →](agent-tracing-replay-debugging.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -242,6 +242,10 @@ Network, filesystem, credentials a queues sú default deny. Explicitný manifest
 
 ## 33. Replay manifest
 
+Replay manifest je immutable experiment contract, ktorý oddeľuje pôvodný production subject od bezpečného znovuvykonania. Pred spustením viaže original operation a trace na exact agent, catalog, policy a state generations, zvolený replay režim, povolené dependencies, side-effect controls a diagnostický objective; replay runner tento manifest presadzuje namiesto toho, aby dôveroval aktuálnemu workspace alebo modelom odvodenému plánu.
+
+Manifest zároveň určuje proof boundary výsledku. `network: deny` a `mutations: stub` dokazujú, že replay nemal vytvoriť live side effect, nie že production integrácia funguje; `recorded-model-and-tool-responses` reprodukuje orchestration path, ale neoveruje aktuálny model ani remote service. Porovnateľnosť vzniká až vtedy, keď výsledok, trace diff a všetky deviations od manifestu zostanú uložené spolu.
+
 ```yaml
 replay:
   original_operation: op_checkout_8f2
@@ -376,6 +380,10 @@ Nový independent run vytvorí fresh trace/operation IDs, current manifests a co
 Dashboard, trajectory grader a incident tooling musia nový run interpretovať podľa current schema, zatiaľ čo historical trace zostáva čitateľný pod pôvodnou generation.
 
 ## 51. Praktický tracing pseudocode
+
+Nasledujúci príklad ukazuje minimálnu instrumentation boundary, nie kompletný audit systém. Root trace nesie operation a composed-release references, custom span preukazuje, ktorú konfiguráciu proces načítal, framework spans zachytávajú observable agent/tool lifecycle a samostatný outcome span číta authoritative business source; policy decisions, durable mutation ledger a secure payload store musia zostať samostatnými authoritative komponentmi.
+
+Dôležité je aj poradie enforcementu. Metadata sa validujú pred runnerom, sensitive content capture je vypnutý a nahradený bezpečnými references alebo digestmi a outcome read-back sa vykoná pred uzavretím trace-u. Úspešné vykonanie pseudokódu však samo nepreukazuje, že exporter prijal všetky spans, že remote context bol propagovaný alebo že business outcome je produkčne stabilný; tieto tvrdenia potrebujú completeness a external-ledger evidence.
 
 ```python
 from agents import Runner, RunConfig, trace, custom_span, flush_traces
