@@ -376,5 +376,5 @@ Bezpečný systém používa exact subject, versionovaný price a budget catalog
 
 **Navigácia**
 
-[← Predchádzajúca: Agent tracing, replay a debugging](agent-tracing-replay-debugging.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Agent tracing, replay a debugging](agent-tracing-replay-debugging.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Agent reliability, fallback a kill switch →](agent-reliability-fallback-kill-switch.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -539,10 +539,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Agent evaluation](docs/21-ai-agents-and-intelligent-automation/agent-evaluation.md)
 - [x] [Trajectory, tool-selection a outcome evaluation](docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md)
 - [x] [Agent tracing, replay a debugging](docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md)
-- [ ] Cost, latency a token budgets
-- [ ] Agent reliability, fallback a kill switch
-- [ ] Multi-tenant isolation
-- [ ] Agent governance a audit
+- [x] [Cost, latency a token budgets](docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md)
+- [x] [Agent reliability, fallback a kill switch](docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md)
+- [x] [Multi-tenant isolation](docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md)
+- [x] [Agent governance a audit](docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md)
 - [ ] n8n architecture a execution model
 - [ ] Triggers, nodes, expressions a data mapping
 - [ ] Webhooks a API integrations

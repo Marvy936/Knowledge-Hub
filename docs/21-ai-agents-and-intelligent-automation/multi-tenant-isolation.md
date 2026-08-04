@@ -379,5 +379,5 @@ Bezpečná agent platforma propaguje verified tenant context mimo modelového te
 
 **Navigácia**
 
-[← Predchádzajúca: Agent reliability, fallback a kill switch](agent-reliability-fallback-kill-switch.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Agent reliability, fallback a kill switch](agent-reliability-fallback-kill-switch.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Agent governance a audit →](agent-governance-audit.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

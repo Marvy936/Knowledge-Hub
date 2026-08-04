@@ -356,5 +356,5 @@ Bezpečný systém používa klasifikované failures, bounded retries, versionov
 
 **Navigácia**
 
-[← Predchádzajúca: Cost, latency a token budgets](cost-latency-token-budgets.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Cost, latency a token budgets](cost-latency-token-budgets.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Multi-tenant isolation →](multi-tenant-isolation.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

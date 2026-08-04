@@ -6287,6 +6287,20 @@
       "grade": "C"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "title": "Agent governance a audit",
+      "words": 3043,
+      "headings": 49,
+      "sections": 49,
+      "findings": 27,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 27,
+      "score": 44,
+      "grade": "C"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/agent-identity-authentication-authorization.md",
       "title": "Agent identity, authentication a authorization",
       "words": 2855,
@@ -6329,17 +6343,45 @@
       "grade": "A"
     },
     {
-      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
-      "title": "Agent tracing, replay a debugging",
-      "words": 3556,
-      "headings": 53,
-      "sections": 53,
-      "findings": 29,
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "title": "Agent reliability, fallback a kill switch",
+      "words": 2941,
+      "headings": 47,
+      "sections": 47,
+      "findings": 22,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 29,
-      "score": 46,
+      "low": 22,
+      "score": 34,
+      "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
+      "title": "Agent tracing, replay a debugging",
+      "words": 3560,
+      "headings": 53,
+      "sections": 53,
+      "findings": 28,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 28,
+      "score": 45,
+      "grade": "C"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "title": "Cost, latency a token budgets",
+      "words": 3223,
+      "headings": 48,
+      "sections": 48,
+      "findings": 30,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 30,
+      "score": 42,
       "grade": "C"
     },
     {
@@ -6425,6 +6467,20 @@
       "low": 16,
       "score": 23,
       "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "title": "Multi-tenant isolation",
+      "words": 3010,
+      "headings": 47,
+      "sections": 47,
+      "findings": 22,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 22,
+      "score": 38,
+      "grade": "C"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md",
@@ -84513,6 +84569,249 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "1. Governance nie je iba dokument",
+      "line": 22,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "3. Accountable owner",
+      "line": 34,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "10. EU AI Act boundaries",
+      "line": 91,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "13. Change classification",
+      "line": 109,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "14. Pre-deployment evidence",
+      "line": 115,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "19. Data governance",
+      "line": 145,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "20. Human oversight",
+      "line": 151,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "21. Operational constraints",
+      "line": 157,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "22. Audit trail verzus trace",
+      "line": 163,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "22. Audit trail verzus trace",
+      "line": 163,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "23. Audit event schema",
+      "line": 169,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "25. Time a ordering",
+      "line": 181,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "26. Retention",
+      "line": 187,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "29. Metrics pre governance",
+      "line": 205,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "29. Metrics pre governance",
+      "line": 205,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "30. Incident management",
+      "line": 211,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "37. Incident AGENT-GOV-06",
+      "line": 253,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "37. Incident AGENT-GOV-06",
+      "line": 253,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "38. Konkurenčné hypotézy",
+      "line": 259,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "39. Containment",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "40. Recovery",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "40. Recovery",
+      "line": 271,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "42. Forbidden acceptance",
+      "line": 283,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "43. Recovery acceptance",
+      "line": 289,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "47. Prevádzkové metriky",
+      "line": 364,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "47. Prevádzkové metriky",
+      "line": 364,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
+      "section": "49. Zhrnutie",
+      "line": 379,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/agent-identity-authentication-authorization.md",
       "section": "1. Identity je tvrdenie o subjekte",
       "line": 23,
@@ -84954,6 +85253,204 @@
       "score": 2
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "1. Reliability subject",
+      "line": 22,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "2. Reliability dimensions",
+      "line": 28,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "3. Failure taxonomy",
+      "line": 34,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "6. Backoff a jitter",
+      "line": 52,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "12. Provider fallback",
+      "line": 88,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "13. Tool fallback",
+      "line": 94,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "14. Retrieval fallback",
+      "line": 100,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "16. Human fallback",
+      "line": 112,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "17. Fallback compatibility manifest",
+      "line": 118,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "19. Approval revalidation",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "19. Approval revalidation",
+      "line": 130,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "21. Kill switch",
+      "line": 142,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "21. Kill switch",
+      "line": 142,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "25. Pre-dispatch enforcement",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "26. In-flight cancellation",
+      "line": 172,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "33. Incident AGENT-GOV-06",
+      "line": 214,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "36. Recovery",
+      "line": 232,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "38. Forbidden acceptance",
+      "line": 244,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "39. Recovery acceptance",
+      "line": 250,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "42. Praktický pre-dispatch pseudocode",
+      "line": 290,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "45. Change management",
+      "line": 334,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md",
+      "section": "47. Zhrnutie",
+      "line": 348,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
       "section": "1. Trace nie je iba log",
       "line": 22,
@@ -85206,12 +85703,273 @@
       "score": 1
     },
     {
-      "path": "docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md",
-      "section": "53. Zhrnutie",
-      "line": 434,
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "1. Budget nie je iba limit",
+      "line": 22,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "1. Budget nie je iba limit",
+      "line": 22,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "2. Exact budget subject",
+      "line": 28,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "3. Hierarchia budgetov",
+      "line": 46,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "4. Hard, soft a forecast hranice",
+      "line": 52,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "5. Cost dimensions",
+      "line": 58,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "6. Token accounting",
+      "line": 64,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "9. Output budget",
+      "line": 82,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "10. Latency nie je jedno číslo",
+      "line": 88,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "13. Queueing a concurrency",
+      "line": 106,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "15. Preflight estimation",
+      "line": 118,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "18. Budget-aware planning",
+      "line": 136,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "20. Tool budgets",
+      "line": 148,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "20. Tool budgets",
+      "line": 148,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "22. Human-review budget",
+      "line": 160,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "24. Budget exhaustion state machine",
+      "line": 172,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "25. Graceful degradation",
+      "line": 178,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "32. Abuse a denial of wallet",
+      "line": 220,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "33. Incident AGENT-GOV-06",
+      "line": 226,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "34. Konkurenčné hypotézy",
+      "line": 232,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "34. Konkurenčné hypotézy",
+      "line": 232,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "37. Positive acceptance",
+      "line": 250,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "39. Recovery acceptance",
+      "line": 262,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "39. Recovery acceptance",
+      "line": 262,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "40. Second-operation acceptance",
+      "line": 268,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "41. Praktický budget manifest",
+      "line": 274,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "42. Praktický enforcement pseudocode",
+      "line": 304,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "43. Prevádzkové metriky",
+      "line": 336,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "44. Alerting",
+      "line": 342,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
+      "section": "48. Zhrnutie",
+      "line": 368,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
@@ -86085,6 +86843,204 @@
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "1. Tenant je security subject",
+      "line": 22,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "2. Tenant identity chain",
+      "line": 28,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "5. Pool, silo a bridge model",
+      "line": 57,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "6. Isolation domain inventory",
+      "line": 63,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "9. Scoped credentials",
+      "line": 81,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "10. Database isolation",
+      "line": 87,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "14. Prompt a context isolation",
+      "line": 111,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "15. Tool catalog isolation",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "22. Encryption a keys",
+      "line": 159,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "23. Tracing isolation",
+      "line": 165,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "26. Multi-agent isolation",
+      "line": 183,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "29. Tenant policy evolution",
+      "line": 201,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "30. Noisy neighbor",
+      "line": 207,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "32. Cross-tenant tool poisoning",
+      "line": 219,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "34. Incident AGENT-GOV-06",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "35. Konkurenčné hypotézy",
+      "line": 237,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "38. Positive acceptance",
+      "line": 255,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "40. Recovery acceptance",
+      "line": 267,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "43. Praktický authorization pseudocode",
+      "line": 309,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "44. Prevádzkové metriky",
+      "line": 350,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "47. Zhrnutie",
+      "line": 371,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
+      "section": "47. Zhrnutie",
+      "line": 371,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {
