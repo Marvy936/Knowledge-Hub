@@ -26,15 +26,15 @@ Odporúčané predchádzajúce oblasti:
 10. [Structured Outputs a schema validation](structured-outputs-schema-validation.md)
 11. [Function calling a tool calling](function-calling-tool-calling.md)
 12. [Model selection a capability/cost trade-offs](model-selection-capability-cost-tradeoffs.md)
+13. [Model version pinning a compatibility](model-version-pinning-compatibility.md)
+14. [Retrieval-Augmented Generation architecture](retrieval-augmented-generation-architecture.md)
+15. [Chunking, metadata a document processing](chunking-metadata-document-processing.md)
+16. [Vector stores a indexing](vector-stores-indexing.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-13. Model version pinning a compatibility
-14. Retrieval-Augmented Generation architecture
-15. Chunking, metadata a document processing
-16. Vector stores a indexing
 17. Retrieval, hybrid search a reranking
 18. Context assembly a citation grounding
 19. RAG evaluation a retrieval diagnostics
@@ -86,4 +86,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **12/37 · In progress**. Tretí authoritative blok aktivuje kapitoly 9–12 a incident `GENAI-SUPPORT-03`. Prompt-decomposition kapitola oddeľuje explicitný task graph, typed intermediate artifacts, evidence-linked decision records a checkpoint recovery od raw chain-of-thought textu, ktorý nie je authority ani automaticky faithful explanation. Structured Outputs kapitola rozlišuje plain JSON, JSON mode, strict schema conformance, semantic/domain validation, authority read-back, refusal/incomplete handling, streaming a schema evolution. Function/tool-calling kapitola modeluje návrh tool callu, strict arguments, principal/tenant authorization, business preconditions, idempotency, unknown-outcome read-before-retry, bounded tool results a journey acceptance. Model-selection kapitola používa workload segmentation, capability matrix, task-specific evals, schema/tool compatibility, data governance, latency/capacity, routing/fallback a total cost per accepted outcome namiesto samotnej ceny tokenu. Kapitoly 9–12 sú pripravené na repository closeout; reálne reasoning executions, strict-schema provider parity, tool side effects, model canary a business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 13–16: model version pinning, RAG architecture, chunking/document processing a vector stores/indexing.
+Aktuálny authoritative stav sekcie je **16/37 · In progress**. Štvrtý authoritative blok aktivuje kapitoly 13–16 a incident `GENAI-SUPPORT-04`. Model-versioning kapitola oddeľuje family, mutable alias, pinned snapshot, regional deployment, provider API/SDK a celý dependent application release manifest; pinning znižuje jednu os variability, ale nie je determinism ani outcome guarantee. RAG architecture kapitola modeluje authoritative source, ingestion, corpus/index generation, query transformation, access-controlled retrieval, filtering/reranking, context assembly, grounded generation, citation support a no-answer/conflict states ako jeden evidence path. Chunking kapitola zavádza source snapshot, parser/OCR/normalizer/chunker generation, stable chunk identity, layout/table preservation, metadata provenance, ACL inheritance a update/delete lifecycle. Vector-store kapitola oddeľuje compatible embedding space, metric, exact baseline, ANN index a search parameters, metadata filtering, multi-tenant isolation, re-embedding migration, alias promotion a exact-versus-ANN recall. Kapitoly 13–16 prešli repository closeout; reálna provider migration, corpus ingestion, parser/OCR execution, index build, retrieval traffic a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 17–20: retrieval/hybrid search/reranking, context assembly/citation grounding, RAG evaluation/diagnostics a fine-tuning/instruction/preference tuning.

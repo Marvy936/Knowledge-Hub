@@ -5755,6 +5755,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "title": "Chunking, metadata a document processing",
+      "words": 1642,
+      "headings": 24,
+      "sections": 24,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 11,
+      "score": 14,
+      "grade": "A"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
       "title": "Embeddings a semantic similarity",
       "words": 1261,
@@ -5813,7 +5827,7 @@
     {
       "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
       "title": "Model selection a capability/cost trade-offs",
-      "words": 1220,
+      "words": 1224,
       "headings": 16,
       "sections": 16,
       "findings": 8,
@@ -5822,6 +5836,20 @@
       "medium": 0,
       "low": 8,
       "score": 11,
+      "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md",
+      "title": "Model version pinning a compatibility",
+      "words": 1478,
+      "headings": 16,
+      "sections": 16,
+      "findings": 7,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 7,
+      "score": 10,
       "grade": "A"
     },
     {
@@ -5867,6 +5895,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "title": "Retrieval-Augmented Generation architecture",
+      "words": 1640,
+      "headings": 19,
+      "sections": 19,
+      "findings": 11,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 11,
+      "score": 16,
+      "grade": "B"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md",
       "title": "Structured Outputs a schema validation",
       "words": 1255,
@@ -5906,6 +5948,20 @@
       "medium": 0,
       "low": 15,
       "score": 19,
+      "grade": "B"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "title": "Vector stores a indexing",
+      "words": 1766,
+      "headings": 22,
+      "sections": 22,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 17,
       "grade": "B"
     },
     {
@@ -78645,6 +78701,105 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "1. Processing subject a generation",
+      "line": 9,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "1. Processing subject a generation",
+      "line": 9,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "2. Source acquisition",
+      "line": 31,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "3. Parsing a layout recovery",
+      "line": 44,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "3. Parsing a layout recovery",
+      "line": 44,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "6. Chunk identity",
+      "line": 88,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "7. Chunking strategies",
+      "line": 103,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "16. Quality evaluation",
+      "line": 255,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "18. Failure hypotheses a troubleshooting",
+      "line": 292,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "19. Acceptance",
+      "line": 300,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md",
+      "section": "19. Acceptance",
+      "line": 300,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
       "section": "1. Čo embedding reprezentuje",
       "line": 7,
@@ -79122,6 +79277,69 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md",
+      "section": "1. Exact runtime subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md",
+      "section": "2. Alias, family, snapshot a deployment",
+      "line": 29,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md",
+      "section": "4. Application compatibility contract",
+      "line": 54,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md",
+      "section": "6. Model a tokenizer compatibility",
+      "line": 99,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md",
+      "section": "6. Model a tokenizer compatibility",
+      "line": 99,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md",
+      "section": "12. Provider API versioning",
+      "line": 195,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md",
+      "section": "16. Acceptance",
+      "line": 252,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md",
       "section": "1. Decomposition subject",
       "line": 7,
@@ -79428,6 +79646,105 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "4. Parametric a non-parametric knowledge",
+      "line": 83,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "5. Corpus architecture",
+      "line": 98,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "8. Candidate generation, filtering a reranking",
+      "line": 145,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "8. Candidate generation, filtering a reranking",
+      "line": 145,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "10. Grounding a citations",
+      "line": 180,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "16. Observability",
+      "line": 267,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "16. Observability",
+      "line": 267,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "18. Containment a recovery",
+      "line": 293,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "19. Acceptance",
+      "line": 312,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "19. Acceptance",
+      "line": 312,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md",
+      "section": "19. Acceptance",
+      "line": 312,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md",
       "section": "2. JSON text, JSON mode a Structured Outputs",
       "line": 24,
@@ -79701,6 +80018,114 @@
       "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
       "section": "15. Recovery a acceptance",
       "line": 152,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "3. Distance a similarity metrics",
+      "line": 47,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "6. HNSW",
+      "line": 84,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "7. IVF a quantization",
+      "line": 101,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "9. Metadata filtering",
+      "line": 130,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "9. Metadata filtering",
+      "line": 130,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "15. Score calibration a thresholds",
+      "line": 220,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "17. Sharding, replicas a capacity",
+      "line": 250,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "17. Sharding, replicas a capacity",
+      "line": 250,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "18. Backup a recovery",
+      "line": 256,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "21. Containment a recovery",
+      "line": 310,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "22. Acceptance",
+      "line": 328,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/vector-stores-indexing.md",
+      "section": "22. Acceptance",
+      "line": 328,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",

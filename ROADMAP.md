@@ -491,10 +491,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Structured Outputs a schema validation](docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md)
 - [x] [Function calling a tool calling](docs/20-llm-and-genai-engineering/function-calling-tool-calling.md)
 - [x] [Model selection a capability/cost trade-offs](docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md)
-- [ ] Model version pinning a compatibility
-- [ ] Retrieval-Augmented Generation architecture
-- [ ] Chunking, metadata a document processing
-- [ ] Vector stores a indexing
+- [x] [Model version pinning a compatibility](docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md)
+- [x] [Retrieval-Augmented Generation architecture](docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md)
+- [x] [Chunking, metadata a document processing](docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md)
+- [x] [Vector stores a indexing](docs/20-llm-and-genai-engineering/vector-stores-indexing.md)
 - [ ] Retrieval, hybrid search a reranking
 - [ ] Context assembly a citation grounding
 - [ ] RAG evaluation a retrieval diagnostics
