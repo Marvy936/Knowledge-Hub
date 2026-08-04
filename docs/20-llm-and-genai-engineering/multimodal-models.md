@@ -299,7 +299,7 @@ Conflict test vloží nesúlad medzi OCR a database alebo subtitle a audio. Expe
 
 ## 32. Failure hypotheses
 
-Pri multimodálnom incidente sa overujú competing hypotheses od raw artifactu po business decision.
+Pri multimodálnom incidente sa overujú competing hypotheses v poradí od immutable raw artifactu cez preprocessing a extraction až po context assembly, model reasoning, validation a business decision. Diagnostika musí najprv dokázať, že replay používa rovnaký digest, image/audio/video parameters a preprocessing generation; inak porovnáva iný subject. Potom sa oddelí information loss pri resize, crop, downmix alebo frame sampling od OCR, transcription a diarization erroru a od neskoršej modelovej interpretácie. Bounding boxes, speaker timestamps, sampled-frame list a context-assembly trace sú authority evidence pre jednotlivé vrstvy. Nasledujúce body preto nie sú opis jedného failure chainu, ale alternatívne first-divergence hypotheses s odlišnou opravou a acceptance testom.
 
 - **Wrong raw artifact** — mutable URL, upload race alebo dedup collision priradili iný media object; overí sa digest a object version.
 - **Preprocessing loss** — resize, crop, downmix, resample alebo frame sampling odstránili relevantný detail; porovná sa raw a processed artifact.
@@ -353,3 +353,11 @@ Runtime `Verified` vyžaduje vykonané task-specific evals na exact preprocessin
 - Predchádzajúca kapitola: [Privacy, retention a provider data controls](privacy-retention-provider-data-controls.md)
 - Späť na sekciu: [LLM and GenAI Engineering](README.md)
 - Nasledujúca kapitola: [LLMOps a production readiness](llmops-production-readiness.md)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Privacy, retention a provider data controls](privacy-retention-provider-data-controls.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: LLMOps a production readiness →](llmops-production-readiness.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

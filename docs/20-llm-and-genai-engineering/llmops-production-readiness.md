@@ -367,7 +367,7 @@ readiness_verdict:
 
 ## 40. Failure hypotheses
 
-Pri produkčnom regresse sa drží viacero hypotheses, pretože LLM behavior vzniká z composed systemu.
+Pri produkčnom regresse sa drží viacero competing hypotheses, pretože user-visible LLM behavior vzniká z composed release-u a nie z jedného model endpointu. Diagnostika najprv porovná intended manifest, resolved dependencies a loaded state na každej instance; tým odlíši wrong resolution, partial deployment a configuration drift. Následne sa operation trace spojí s corpus/index generation, tool business state, provider request IDs, privacy profile, capacity signals a delayed outcome-om. Segment regression sa nevyvracia stabilným global average a provider-side change sa nevyvracia absenciou customer deploymentu. Nasledujúce body sú alternatívne root-cause paths, ktoré zostávajú otvorené, kým replay a authoritative business read-back neurčia first divergence.
 
 - **Wrong release resolution** — alias alebo dependency sa resolve-li na neočakávaný model, prompt, corpus alebo policy.
 - **Partial deployment** — niektoré instances používajú starú generation alebo stale cache, čo vytvára bimodal behavior.
@@ -421,3 +421,11 @@ Runtime `Verified` vyžaduje vykonané gates a read-back pre exact release. Prod
 - Predchádzajúca kapitola: [Multimodal models](multimodal-models.md)
 - Späť na sekciu: [LLM and GenAI Engineering](README.md)
 - Nasledujúca kapitola: [LLM application troubleshooting](llm-application-troubleshooting.md)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Multimodal models](multimodal-models.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

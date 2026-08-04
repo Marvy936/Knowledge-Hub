@@ -303,7 +303,7 @@ Po rollbacku sa vykoná loaded-state read-back a replay incident cases. Ak už v
 
 ## 30. Failure hypotheses
 
-Pri escaped unsafe outpute sa paralelne overujú aspoň tieto hypotézy. Každá má inú evidence a recovery path.
+Pri escaped unsafe outpute sa paralelne overujú competing hypotheses, pretože rovnaký user-visible výsledok môže vzniknúť na inom intervention pointe alebo v inej authority vrstve. Diagnostika najprv rekonštruuje exact artifact a transform chain vrátane OCR, teda optického rozpoznania textu z image alebo dokumentu, potom porovná loaded policy a detector generations s intended release. Policy je pravidlo, ktoré zo signálu vytvorí rozhodnutie; enforcement je mechanizmus, ktorý toto rozhodnutie skutočne vykoná v gateway, tool executore alebo output pipeline. Human-review SLA je dohodnutý čas a authority pre manuálne rozhodnutie, nie náhrada za chýbajúci runtime control. Nasledujúce body sú competing hypotheses s odlišnou evidence a recovery path, nie lineárny checklist ani hotový root cause.
 
 - **Wrong intervention point** — detector kontroloval final text, ale riziko vzniklo v tool proposal alebo retrieved documente; trace musí ukázať celý flow.
 - **Wrong subject generation** — runtime načítal starý threshold, detector alebo schema; loaded-state digest sa porovná s intended release.
@@ -356,3 +356,11 @@ Runtime status `Verified` vyžaduje vykonaný eval dataset, adversarial exercise
 - Predchádzajúca kapitola: [Data exfiltration, tool abuse a excessive agency](data-exfiltration-tool-abuse-excessive-agency.md)
 - Späť na sekciu: [LLM and GenAI Engineering](README.md)
 - Nasledujúca kapitola: [Privacy, retention a provider data controls](privacy-retention-provider-data-controls.md)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Data exfiltration, tool abuse a excessive agency](data-exfiltration-tool-abuse-excessive-agency.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Privacy, retention a provider data controls →](privacy-retention-provider-data-controls.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

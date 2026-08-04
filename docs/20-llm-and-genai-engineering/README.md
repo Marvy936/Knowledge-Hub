@@ -46,15 +46,15 @@ Odporúčané predchádzajúce oblasti:
 30. [Hallucination, faithfulness a factuality](hallucination-faithfulness-factuality.md)
 31. [Prompt injection a indirect prompt injection](prompt-injection-indirect-prompt-injection.md)
 32. [Data exfiltration, tool abuse a excessive agency](data-exfiltration-tool-abuse-excessive-agency.md)
+33. [Guardrails, moderation a output validation](guardrails-moderation-output-validation.md)
+34. [Privacy, retention a provider data controls](privacy-retention-provider-data-controls.md)
+35. [Multimodal models](multimodal-models.md)
+36. [LLMOps a production readiness](llmops-production-readiness.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-33. Guardrails, moderation a output validation
-34. Privacy, retention a provider data controls
-35. Multimodal models
-36. LLMOps a production readiness
 37. LLM application troubleshooting
 
 ## Authoring a evidence štandard
@@ -86,4 +86,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **32/37 · In progress**. Ôsmy authoritative blok aktivuje kapitoly 29–32 a incident `GENAI-SUPPORT-08`. Observability kapitola definuje durable business-operation a technical-attempt identity, end-to-end span graph, provider/request/retrieval/tool correlation, privacy-safe content capture, token a pricing lineage, provisional-versus-reconciled cost, latency decomposition, sampling/completeness a cost per accepted outcome. Factuality kapitola oddeľuje factual correctness, faithfulness, citation correctness/completeness, temporal a entity scope, claim-level evidence, open-versus-closed domain, abstention, calibration, atomic-fact evaluation a first-divergence retrieval/context/generation diagnosis. Prompt-injection kapitola modeluje direct a indirect injection, instruction hierarchy, typed untrusted-content provenance, goal integrity, memory/tool-output attacks, least privilege, argument/egress policy, consequential confirmation, adversarial a benign-hard-negative evals a side-effect read-back. Excessive-agency kapitola rozkladá functionality, permission a autonomy; zavádza task-scoped capability contracts, small typed tools, delegated short-lived identity, resource a information-flow authorization, data classification, destination policy, approval tiers, idempotency, budgets, sandboxing, durable audit a multi-agent delegation limits. Kapitoly 29–32 sú pripravené na repository closeout; reálny production tracing/cost reconciliation, factuality study, prompt-injection penetration test, tool/egress exercise, incident containment a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 33–36: guardrails/moderation/output validation, privacy/retention/provider data controls, multimodal models a LLMOps/production readiness.
+Aktuálny authoritative stav sekcie je **36/37 · In progress**. Deviaty authoritative blok aktivuje kapitoly 33–36 a incident `GENAI-SUPPORT-09`. Guardrails kapitola oddeľuje detector signal, policy decision a enforcement cez input, context, model output, tool call/response a egress; zavádza schema a business validation, calibration, fail modes, streaming, multimodálne controls, human review, adversarial evals a complete rollback. Privacy kapitola modeluje exact provider/product/endpoint/region/feature subject, training usage versus abuse logs versus application state, files/caches/memory/tools/telemetry/evals/customization, data residency, minimization, encryption, deletion graph, backups, policy as code a runtime read-back. Multimodálna kapitola viaže raw media digest na image/audio/video/document preprocessing, OCR/STT, spatial/temporal/speaker evidence, context budget, cost, safety/privacy, task-specific metrics, cross-modal consistency a recovery. LLMOps kapitola definuje immutable composed release cez model, prompt, corpus/index, tools/schemas, guardrails, privacy, preprocessing, caches, evals, infra a code; pokrýva lifecycle, registries, CI/eval gates, shadow/canary, SLOs, drift, incident containment, rollback, fallback, continuous improvement a decommissioning. Kapitoly 33–36 sú pripravené na repository closeout; reálna moderation/guardrail calibration, provider retention/deletion verification, multimodálne evals, load/canary, rollback drill a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Posledná kapitola sekcie je 37: LLM application troubleshooting.

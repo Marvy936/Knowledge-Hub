@@ -288,7 +288,7 @@ Zmena sa neposúva priamo do production. Najprv sa aktualizuje capability matrix
 
 ## 31. Failure hypotheses
 
-Pri privacy incidente sa paralelne overuje viacero competing hypotheses. Každá sa viaže na konkrétny store a authority.
+Pri privacy incidente sa paralelne overuje viacero competing hypotheses, pretože rovnaký exposed record môže pochádzať z provider storage, application telemetry, cache, derived artifactu alebo restore pathu. API je konkrétny programový product surface a jeho endpoint/feature matrix môže mať inú retention než consumer UI alebo cloud marketplace. ZDR, teda Zero Data Retention, sa interpretuje iba podľa exact contracted productu a effective runtime mode; nie je synonymom pre training restriction ani request parameter `store=false`. Workload označuje celý spracovateľský graph aplikácie a policy je vynútiteľný súbor pravidiel pre data class, region, feature a retention. Nasledujúce body sa viažu na konkrétny store, authority a read-back evidence a zostávajú otvorené, kým object graph a loaded configuration neukážu first divergence.
 
 - **Wrong provider product** — workload používal consumer alebo beta surface namiesto contracted API; overí sa endpoint, credential a billing project.
 - **Feature incompatibility** — background mode, file storage, prompt caching alebo tool vyžadovali persistence napriek ZDR expectation.
@@ -342,3 +342,11 @@ Runtime `Verified` vyžaduje control-plane evidence, request probes, storage inv
 - Predchádzajúca kapitola: [Guardrails, moderation a output validation](guardrails-moderation-output-validation.md)
 - Späť na sekciu: [LLM and GenAI Engineering](README.md)
 - Nasledujúca kapitola: [Multimodal models](multimodal-models.md)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Guardrails, moderation a output validation](guardrails-moderation-output-validation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Multimodal models →](multimodal-models.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
