@@ -503,10 +503,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Quantization a local inference](docs/20-llm-and-genai-engineering/quantization-local-inference.md)
 - [x] [GPU memory, batching a serving performance](docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md)
 - [x] [Prompt caching, semantic caching a response caching](docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md)
-- [ ] LLM gateways, routing, fallback a rate limiting
-- [ ] Prompt Registry a lifecycle
-- [ ] LLM evaluation datasets a graders
-- [ ] Human evaluation a expert feedback
+- [x] [LLM gateways, routing, fallback a rate limiting](docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md)
+- [x] [Prompt Registry a lifecycle](docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md)
+- [x] [LLM evaluation datasets a graders](docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md)
+- [x] [Human evaluation a expert feedback](docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md)
 - [ ] Tracing, token usage a cost observability
 - [ ] Hallucination, faithfulness a factuality
 - [ ] Prompt injection a indirect prompt injection

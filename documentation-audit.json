@@ -5853,6 +5853,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "title": "Human evaluation a expert feedback",
+      "words": 2679,
+      "headings": 43,
+      "sections": 43,
+      "findings": 22,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 22,
+      "score": 39,
+      "grade": "C"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
       "title": "Inference parameters, sampling a determinism",
       "words": 1779,
@@ -5865,6 +5879,34 @@
       "low": 12,
       "score": 13,
       "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "title": "LLM evaluation datasets a graders",
+      "words": 2540,
+      "headings": 36,
+      "sections": 36,
+      "findings": 18,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 18,
+      "score": 29,
+      "grade": "B"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "title": "LLM gateways, routing, fallback a rate limiting",
+      "words": 2468,
+      "headings": 28,
+      "sections": 28,
+      "findings": 28,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 28,
+      "score": 34,
+      "grade": "B"
     },
     {
       "path": "docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md",
@@ -5923,6 +5965,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "title": "Prompt Registry a lifecycle",
+      "words": 2277,
+      "headings": 31,
+      "sections": 31,
+      "findings": 20,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 20,
+      "score": 30,
+      "grade": "B"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md",
       "title": "Prompt roles, instructions, context a examples",
       "words": 1871,
@@ -5939,7 +5995,7 @@
     {
       "path": "docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md",
       "title": "Prompt caching, semantic caching a response caching",
-      "words": 2573,
+      "words": 2579,
       "headings": 37,
       "sections": 37,
       "findings": 20,
@@ -79614,6 +79670,204 @@
       "score": 2
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "2. Evaluation question",
+      "line": 29,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "4. Authority matrix",
+      "line": 55,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "6. Representativeness",
+      "line": 75,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "9. Rubric design",
+      "line": 102,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "13. Ranking",
+      "line": 140,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "13. Ranking",
+      "line": 140,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "15. Rationale a evidence",
+      "line": 166,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "16. Blindness",
+      "line": 172,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "19. Inter-annotator agreement",
+      "line": 190,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "25. Fatigue a workload",
+      "line": 235,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "26. Interface design",
+      "line": 241,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "27. Model-assisted review",
+      "line": 247,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "28. Expert feedback loop",
+      "line": 253,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "30. User feedback",
+      "line": 273,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "35. Statistical analysis",
+      "line": 303,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "36. Segment reporting",
+      "line": 309,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "39. Observability a lineage",
+      "line": 338,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "40. Failure hypotheses",
+      "line": 344,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "41. Containment",
+      "line": 350,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "43. Acceptance",
+      "line": 362,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "43. Acceptance",
+      "line": 362,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "section": "43. Acceptance",
+      "line": 362,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md",
       "section": "2. Od logits k ďalšiemu tokenu",
       "line": 42,
@@ -79719,6 +79973,420 @@
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "1. Eval question a estimand",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "3. Eval dataset artifact",
+      "line": 57,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "5. Dataset sources",
+      "line": 107,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "5. Dataset sources",
+      "line": 107,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "8. Leakage",
+      "line": 132,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "9. Split strategy",
+      "line": 138,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "11. Labels a judgments",
+      "line": 150,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "13. Deterministic graders",
+      "line": 194,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "14. Text similarity metrics",
+      "line": 212,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "16. Grader prompt design",
+      "line": 238,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "21. Grader validation",
+      "line": 287,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "24. Segment analysis",
+      "line": 313,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "24. Segment analysis",
+      "line": 313,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "27. Online correlation",
+      "line": 339,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "28. Eval-driven development",
+      "line": 345,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "34. Containment",
+      "line": 392,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "36. Acceptance",
+      "line": 404,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md",
+      "section": "36. Acceptance",
+      "line": 404,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "1. Exact gateway subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "1. Exact gateway subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "2. Control plane a data plane",
+      "line": 40,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "4. Internal request contract",
+      "line": 63,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "5. Static routing",
+      "line": 87,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "6. Dynamic routing",
+      "line": 103,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "6. Dynamic routing",
+      "line": 103,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "7. Capability-aware routing",
+      "line": 125,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "8. Load balancing",
+      "line": 148,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "9. Fallback contract",
+      "line": 162,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "10. Failure classification",
+      "line": 183,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "12. Idempotency a deduplication",
+      "line": 219,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "13. Time budgets a hedging",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "15. Token preflight",
+      "line": 253,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "16. Backpressure",
+      "line": 259,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "17. Fairness a priority",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "18. Circuit breaker",
+      "line": 271,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "18. Circuit breaker",
+      "line": 271,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "19. Request a response transformation",
+      "line": 277,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "20. Authentication a credentials",
+      "line": 283,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "23. Observability",
+      "line": 311,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "23. Observability",
+      "line": 311,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "24. Deployment a rollout",
+      "line": 332,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "25. Failure hypotheses",
+      "line": 338,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "26. Containment",
+      "line": 344,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "26. Containment",
+      "line": 344,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "27. Recovery",
+      "line": 350,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md",
+      "section": "28. Acceptance",
+      "line": 356,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
@@ -80088,6 +80756,186 @@
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "1. Prompt artifact",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "4. Template a typed variables",
+      "line": 53,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "4. Template a typed variables",
+      "line": 53,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "5. Rendered prompt instance",
+      "line": 76,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "6. Role a message layout",
+      "line": 92,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "6. Role a message layout",
+      "line": 92,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "8. Response schema a tools",
+      "line": 113,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "9. Model compatibility",
+      "line": 119,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "14. Evaluation gate",
+      "line": 194,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "18. Runtime resolution",
+      "line": 246,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "22. Deprecation a retirement",
+      "line": 280,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "23. Access control",
+      "line": 286,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "24. Secrets a sensitive data",
+      "line": 292,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "26. Observability",
+      "line": 313,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "27. Drift a out-of-band changes",
+      "line": 319,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "27. Drift a out-of-band changes",
+      "line": 319,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "29. Containment",
+      "line": 331,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "30. Recovery",
+      "line": 337,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "31. Acceptance",
+      "line": 343,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md",
+      "section": "31. Acceptance",
+      "line": 343,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
