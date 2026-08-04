@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **443**
-- Audited conceptual sections: **9253**
-- Total words: **888,642**
-- Findings: **8507** (critical 658, high 871, medium 475, low 6503)
-- File grades: A 175, B 164, C 43, D 61
+- Audited authoritative articles: **447**
+- Audited conceptual sections: **9410**
+- Total words: **899,593**
+- Findings: **8594** (critical 658, high 871, medium 475, low 6590)
+- File grades: A 175, B 165, C 46, D 61
 
 ## Interpretation
 
@@ -118,6 +118,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 40 | 0 | 0 | 0 | 29 | 2595 | `docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md` |
 | C | 39 | 0 | 0 | 0 | 31 | 2510 | `docs/18-machine-learning-fundamentals/linear-logistic-regression.md` |
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
+| C | 38 | 0 | 0 | 0 | 27 | 2747 | `docs/20-llm-and-genai-engineering/guardrails-moderation-output-validation.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
 | C | 37 | 0 | 0 | 0 | 30 | 3025 | `docs/18-machine-learning-fundamentals/classification-metrics.md` |
@@ -127,6 +128,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 37 | 0 | 0 | 0 | 21 | 2684 | `docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2652 | `docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md` |
+| C | 36 | 0 | 0 | 0 | 22 | 2970 | `docs/20-llm-and-genai-engineering/llmops-production-readiness.md` |
+| C | 36 | 0 | 0 | 0 | 23 | 2689 | `docs/20-llm-and-genai-engineering/privacy-retention-provider-data-controls.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 34 | 0 | 0 | 0 | 28 | 2468 | `docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md` |
 | B | 34 | 0 | 0 | 0 | 24 | 2262 | `docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md` |
@@ -152,6 +155,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
 | B | 27 | 0 | 0 | 0 | 20 | 2317 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
 | B | 27 | 0 | 0 | 0 | 22 | 2058 | `docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md` |
+| B | 27 | 0 | 0 | 0 | 15 | 2541 | `docs/20-llm-and-genai-engineering/multimodal-models.md` |
 | B | 26 | 0 | 0 | 0 | 16 | 2190 | `docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md` |
 | B | 26 | 0 | 0 | 0 | 21 | 2037 | `docs/19-mlops-and-ml-platforms/experiment-tracking.md` |
 | B | 25 | 0 | 1 | 0 | 11 | 1634 | `docs/00-foundations/value-stream-mapping.md` |
@@ -444,7 +448,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 7 | 0 | 0 | 0 | 5 | 1656 | `docs/11-cloud-and-aws/vpc-subnets-route-tables.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1405 | `docs/13-security-and-identity/cia-triad.md` |
 | A | 7 | 0 | 0 | 0 | 5 | 1277 | `docs/15-databases-and-distributed-systems/cap-theorem.md` |
-| A | 7 | 0 | 0 | 0 | 5 | 2085 | `docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md` |
+| A | 7 | 0 | 0 | 0 | 5 | 2089 | `docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 967 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
 | A | 6 | 0 | 0 | 0 | 4 | 1285 | `docs/09-kubernetes/scheduling.md` |
 | A | 6 | 0 | 0 | 0 | 6 | 1724 | `docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md` |
@@ -2234,9 +2238,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2951 | 2951 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1882 | 1882 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1670 | 1670 |
+| `example-not-explicit` | 0 | 0 | 0 | 2985 | 2985 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1932 | 1932 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1673 | 1673 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

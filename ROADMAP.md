@@ -511,10 +511,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Hallucination, faithfulness a factuality](docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md)
 - [x] [Prompt injection a indirect prompt injection](docs/20-llm-and-genai-engineering/prompt-injection-indirect-prompt-injection.md)
 - [x] [Data exfiltration, tool abuse a excessive agency](docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md)
-- [ ] Guardrails, moderation a output validation
-- [ ] Privacy, retention a provider data controls
-- [ ] Multimodal models
-- [ ] LLMOps a production readiness
+- [x] [Guardrails, moderation a output validation](docs/20-llm-and-genai-engineering/guardrails-moderation-output-validation.md)
+- [x] [Privacy, retention a provider data controls](docs/20-llm-and-genai-engineering/privacy-retention-provider-data-controls.md)
+- [x] [Multimodal models](docs/20-llm-and-genai-engineering/multimodal-models.md)
+- [x] [LLMOps a production readiness](docs/20-llm-and-genai-engineering/llmops-production-readiness.md)
 - [ ] LLM application troubleshooting
 
 ### AI Agents and Intelligent Automation

@@ -433,5 +433,5 @@ Forbidden acceptance je broad user permission ako agent permission, schema-valid
 
 **Navigácia**
 
-[← Predchádzajúca: Prompt injection a indirect prompt injection](prompt-injection-indirect-prompt-injection.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Prompt injection a indirect prompt injection](prompt-injection-indirect-prompt-injection.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Guardrails, moderation a output validation →](guardrails-moderation-output-validation.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
