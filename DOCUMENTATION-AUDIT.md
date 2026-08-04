@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **439**
-- Audited conceptual sections: **9127**
-- Total words: **880,544**
-- Findings: **8478** (critical 658, high 871, medium 475, low 6474)
-- File grades: A 172, B 163, C 43, D 61
+- Audited authoritative articles: **443**
+- Audited conceptual sections: **9253**
+- Total words: **888,642**
+- Findings: **8507** (critical 658, high 871, medium 475, low 6503)
+- File grades: A 175, B 164, C 43, D 61
 
 ## Interpretation
 
@@ -117,7 +117,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
 | C | 40 | 0 | 0 | 0 | 29 | 2595 | `docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md` |
 | C | 39 | 0 | 0 | 0 | 31 | 2510 | `docs/18-machine-learning-fundamentals/linear-logistic-regression.md` |
-| C | 39 | 0 | 0 | 0 | 22 | 2679 | `docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md` |
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
@@ -125,6 +124,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 37 | 0 | 0 | 0 | 29 | 3480 | `docs/18-machine-learning-fundamentals/data-quality-bias-responsible-ai.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2673 | `docs/18-machine-learning-fundamentals/regression-classification-ranking-clustering.md` |
 | C | 37 | 0 | 0 | 0 | 28 | 2914 | `docs/18-machine-learning-fundamentals/regression-metrics.md` |
+| C | 37 | 0 | 0 | 0 | 21 | 2684 | `docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2652 | `docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
@@ -227,6 +227,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 14 | 1352 | `docs/19-mlops-and-ml-platforms/kserve-kubernetes-model-serving.md` |
 | B | 18 | 0 | 0 | 0 | 18 | 2059 | `docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md` |
 | B | 18 | 0 | 0 | 0 | 15 | 1818 | `docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md` |
+| B | 18 | 0 | 0 | 0 | 14 | 2145 | `docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -397,6 +398,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 10 | 0 | 0 | 0 | 9 | 1512 | `docs/19-mlops-and-ml-platforms/model-monitoring.md` |
 | A | 10 | 0 | 0 | 0 | 9 | 1194 | `docs/20-llm-and-genai-engineering/generative-ai-foundation-model-llm.md` |
 | A | 10 | 0 | 0 | 0 | 7 | 1478 | `docs/20-llm-and-genai-engineering/model-version-pinning-compatibility.md` |
+| A | 10 | 0 | 0 | 0 | 6 | 1998 | `docs/20-llm-and-genai-engineering/prompt-injection-indirect-prompt-injection.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 874 | `docs/02-networking-and-web/dhcp.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 825 | `docs/02-networking-and-web/ports-and-sockets.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 1189 | `docs/03-git-and-automation/branching-strategies.md` |
@@ -432,6 +434,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 8 | 0 | 0 | 0 | 7 | 1136 | `docs/16-gitops-and-platform-engineering/pull-based-deployment.md` |
 | A | 8 | 0 | 0 | 0 | 7 | 1281 | `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md` |
 | A | 8 | 0 | 0 | 0 | 8 | 2211 | `docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md` |
+| A | 8 | 0 | 0 | 0 | 5 | 1865 | `docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 3162 | `docs/02-networking-and-web/networking-practical-walkthrough.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 953 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1963 | `docs/06-gitlab/projects-groups-permissions.md` |
@@ -441,6 +444,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 7 | 0 | 0 | 0 | 5 | 1656 | `docs/11-cloud-and-aws/vpc-subnets-route-tables.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1405 | `docs/13-security-and-identity/cia-triad.md` |
 | A | 7 | 0 | 0 | 0 | 5 | 1277 | `docs/15-databases-and-distributed-systems/cap-theorem.md` |
+| A | 7 | 0 | 0 | 0 | 5 | 2085 | `docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 967 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
 | A | 6 | 0 | 0 | 0 | 4 | 1285 | `docs/09-kubernetes/scheduling.md` |
 | A | 6 | 0 | 0 | 0 | 6 | 1724 | `docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md` |
@@ -2230,9 +2234,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2935 | 2935 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1870 | 1870 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1669 | 1669 |
+| `example-not-explicit` | 0 | 0 | 0 | 2951 | 2951 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1882 | 1882 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1670 | 1670 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |
