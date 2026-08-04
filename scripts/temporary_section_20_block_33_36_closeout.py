@@ -14,6 +14,38 @@ def replace_exact(path: Path, old: str, new: str) -> None:
     path.write_text(text.replace(old, new, 1), encoding="utf-8")
 
 
+replace_exact(
+    SECTION / "guardrails-moderation-output-validation.md",
+    "## 30. Failure hypotheses\n\n"
+    "Pri escaped unsafe outpute sa paralelne overujú aspoň tieto hypotézy. Každá má inú evidence a recovery path.\n",
+    "## 30. Failure hypotheses\n\n"
+    "Pri escaped unsafe outpute sa paralelne overujú competing hypotheses, pretože rovnaký user-visible výsledok môže vzniknúť na inom intervention pointe alebo v inej authority vrstve. Diagnostika najprv rekonštruuje exact artifact a transform chain vrátane OCR, teda optického rozpoznania textu z image alebo dokumentu, potom porovná loaded policy a detector generations s intended release. Policy je pravidlo, ktoré zo signálu vytvorí rozhodnutie; enforcement je mechanizmus, ktorý toto rozhodnutie skutočne vykoná v gateway, tool executore alebo output pipeline. Human-review SLA je dohodnutý čas a authority pre manuálne rozhodnutie, nie náhrada za chýbajúci runtime control. Nasledujúce body sú competing hypotheses s odlišnou evidence a recovery path, nie lineárny checklist ani hotový root cause.\n",
+)
+
+replace_exact(
+    SECTION / "privacy-retention-provider-data-controls.md",
+    "## 31. Failure hypotheses\n\n"
+    "Pri privacy incidente sa paralelne overuje viacero competing hypotheses. Každá sa viaže na konkrétny store a authority.\n",
+    "## 31. Failure hypotheses\n\n"
+    "Pri privacy incidente sa paralelne overuje viacero competing hypotheses, pretože rovnaký exposed record môže pochádzať z provider storage, application telemetry, cache, derived artifactu alebo restore pathu. API je konkrétny programový product surface a jeho endpoint/feature matrix môže mať inú retention než consumer UI alebo cloud marketplace. ZDR, teda Zero Data Retention, sa interpretuje iba podľa exact contracted productu a effective runtime mode; nie je synonymom pre training restriction ani request parameter `store=false`. Workload označuje celý spracovateľský graph aplikácie a policy je vynútiteľný súbor pravidiel pre data class, region, feature a retention. Nasledujúce body sa viažu na konkrétny store, authority a read-back evidence a zostávajú otvorené, kým object graph a loaded configuration neukážu first divergence.\n",
+)
+
+replace_exact(
+    SECTION / "multimodal-models.md",
+    "## 32. Failure hypotheses\n\n"
+    "Pri multimodálnom incidente sa overujú competing hypotheses od raw artifactu po business decision.\n",
+    "## 32. Failure hypotheses\n\n"
+    "Pri multimodálnom incidente sa overujú competing hypotheses v poradí od immutable raw artifactu cez preprocessing a extraction až po context assembly, model reasoning, validation a business decision. Diagnostika musí najprv dokázať, že replay používa rovnaký digest, image/audio/video parameters a preprocessing generation; inak porovnáva iný subject. Potom sa oddelí information loss pri resize, crop, downmix alebo frame sampling od OCR, transcription a diarization erroru a od neskoršej modelovej interpretácie. Bounding boxes, speaker timestamps, sampled-frame list a context-assembly trace sú authority evidence pre jednotlivé vrstvy. Nasledujúce body preto nie sú opis jedného failure chainu, ale alternatívne first-divergence hypotheses s odlišnou opravou a acceptance testom.\n",
+)
+
+replace_exact(
+    SECTION / "llmops-production-readiness.md",
+    "## 40. Failure hypotheses\n\n"
+    "Pri produkčnom regresse sa drží viacero hypotheses, pretože LLM behavior vzniká z composed systemu.\n",
+    "## 40. Failure hypotheses\n\n"
+    "Pri produkčnom regresse sa drží viacero competing hypotheses, pretože user-visible LLM behavior vzniká z composed release-u a nie z jedného model endpointu. Diagnostika najprv porovná intended manifest, resolved dependencies a loaded state na každej instance; tým odlíši wrong resolution, partial deployment a configuration drift. Následne sa operation trace spojí s corpus/index generation, tool business state, provider request IDs, privacy profile, capacity signals a delayed outcome-om. Segment regression sa nevyvracia stabilným global average a provider-side change sa nevyvracia absenciou customer deploymentu. Nasledujúce body sú alternatívne root-cause paths, ktoré zostávajú otvorené, kým replay a authoritative business read-back neurčia first divergence.\n",
+)
+
 readme = SECTION / "README.md"
 text = readme.read_text(encoding="utf-8")
 active_anchor = "32. [Data exfiltration, tool abuse a excessive agency](data-exfiltration-tool-abuse-excessive-agency.md)\n"
