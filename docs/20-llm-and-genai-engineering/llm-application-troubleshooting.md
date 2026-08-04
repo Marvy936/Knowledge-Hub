@@ -514,22 +514,24 @@ Verdict sa môže aktualizovať, keď pribudne evidence. Postmortem nemá predst
 
 ## 46. Troubleshooting playbook
 
-Praktický playbook drží vyšetrovanie v konzistentnom poradí. Každý krok vytvára artifact alebo rozhodnutie, ktoré možno review-nuť a zopakovať.
+Praktický playbook drží vyšetrovanie v konzistentnom poradí, pretože neskorší krok závisí od artifacts vytvorených skôr. Bez exact subjectu sa timeline skladá z cudzích attempts; bez zachovanej evidence môže containment zničiť root-cause proof; bez first divergence sa recovery mení na náhodné editovanie promptu alebo retry policy. Každý krok preto vytvára reviewable výstup, určuje authoritative evidence a explicitne rozhoduje, či možno pokračovať do ďalšej fázy.
 
-1. Zapíš exact symptom, business impact a porušený invariant.
-2. Identifikuj business operation, technical attempts, tenant, time window a release manifest.
-3. Zastav ďalší high-impact harm a zachovaj evidence.
-4. Zostav timeline a operation graph vrátane retries, fallbacks, tools a durable outcomes.
-5. Porovnaj desired, resolved, loaded a effective state.
-6. Vytvor competing hypotheses s potvrdzujúcim a vyraďujúcim dôkazom.
-7. Nájdi first divergence pre každý material outcome.
-8. Reprodukuj bezpečne s immutable fixture a dry-run tools.
-9. Aplikuj complete rollback alebo reviewed forward fix.
-10. Over loaded state, positive, forbidden, recovery a second-operation acceptance.
-11. Reconcile-ni business, security, privacy a cost následky.
-12. Zaznamenaj verdict, detection gaps, owners a follow-up controls.
+Poradie zároveň oddeľuje investigation od remediation. Tím môže kvôli impactu vykonať skorý containment, ale nesmie ho spätne prezentovať ako root-cause dôkaz. Rollback alebo forward fix sa považuje za technickú hypotézu, kým loaded-state read-back, incident replay a durable business outcome nepotvrdia recovery. Nasledujúce kroky sú operation-level workflow, nie iba názvy aktivít:
 
-Playbook nie je mechanický checklist, ktorý nahrádza expert judgment. Udržiava však evidence discipline a zabraňuje preskakovaniu business recovery alebo acceptance krokov.
+1. **Zarámuj symptom a invariant** — zapíš exact observed-versus-expected rozdiel, business impact, affected segment a pravidlo, ktoré malo nežiaducemu outcome-u zabrániť.
+2. **Uzamkni troubleshooting subject** — identifikuj business operation, všetky technical attempts, tenant, časové okno a immutable release manifest, aby každý ďalší dôkaz patril rovnakému incidentu.
+3. **Contain-ni ďalší harm a zachovaj evidence** — vypni alebo izoluj high-impact path, no pred cache flushom či redeployom ulož loaded generations, request IDs, operation IDs a authoritative state.
+4. **Zostav causal timeline a operation graph** — spoj retries, fallbacks, retrieval, streaming, guardrails, tools a durable outcomes tak, aby sa nestratil attempt pred posledným úspešným requestom.
+5. **Porovnaj desired, resolved, loaded a effective state** — preukáž, čo malo byť nasadené, čo sa resolve-lo, čo instances skutočne načítali a aký behavior vytvorili provider controls, caches a overrides.
+6. **Formuluj falzifikovateľné competing hypotheses** — ku každej možnej príčine priraď potvrdzujúci aj vyraďujúci dôkaz a ponechaj ju otvorenú, kým authoritative evidence nerozhodne.
+7. **Urči first divergence pre každý material outcome** — oddeľ prvú odchýlku answer pathu, side-effect pathu, privacy pathu alebo cost pathu namiesto hľadania jednej univerzálnej príčiny.
+8. **Reprodukuj v bezpečnom a vernom prostredí** — použi immutable incident fixture, synthetic alebo controlled data a dry-run tools; zároveň dokumentuj, ktoré produkčné conditions replay nedokázal zachovať.
+9. **Vyber complete rollback alebo reviewed forward fix** — zmeň compatible composed release, nie iba model alias, a uveď prečo zvolená recovery cesta znižuje riziko oproti ostatným možnostiam.
+10. **Over runtime aj acceptance vrstvy** — potvrď loaded state a vykonaj positive, forbidden, recovery a second-operation tests nad exact recovered manifestom a dotknutými segmentmi.
+11. **Reconcile-ni durable následky** — skontroluj a naprav business transakcie, security permissions, privacy copies, invoices a customer impact, ktoré technický rollback sám nevráti.
+12. **Uzavri evidence-based verdict a prevention** — zaznamenaj symptom, first divergence, root causes, contributing factors, detection gaps, owners a follow-up controls s vlastnou acceptance a deadline-om.
+
+Playbook nie je mechanický checklist, ktorý nahrádza expert judgment. Udržiava však evidence discipline, chráni causal chain pred predčasnou mutáciou a zabraňuje tomu, aby sa incident uzavrel po jednom úspešnom replayi bez business recovery a second-operation dôkazu.
 
 ## 47. Example troubleshooting query model
 
@@ -599,3 +601,11 @@ Runtime `Verified` vyžaduje vykonaný troubleshooting drill nad exact release a
 10. Vracia rollback celý compatible manifest vrátane caches, guardrails, privacy a preprocessing?
 11. Dokazujú positive, forbidden, recovery a second-operation tests správny durable business outcome?
 12. Ktoré telemetry, policy, eval alebo runbook gaps sa po incidente stanú preventívnym controlom?
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: LLMOps a production readiness](llmops-production-readiness.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
