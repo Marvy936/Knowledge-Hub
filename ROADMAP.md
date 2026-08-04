@@ -507,10 +507,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Prompt Registry a lifecycle](docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md)
 - [x] [LLM evaluation datasets a graders](docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md)
 - [x] [Human evaluation a expert feedback](docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md)
-- [ ] Tracing, token usage a cost observability
-- [ ] Hallucination, faithfulness a factuality
-- [ ] Prompt injection a indirect prompt injection
-- [ ] Data exfiltration, tool abuse a excessive agency
+- [x] [Tracing, token usage a cost observability](docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md)
+- [x] [Hallucination, faithfulness a factuality](docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md)
+- [x] [Prompt injection a indirect prompt injection](docs/20-llm-and-genai-engineering/prompt-injection-indirect-prompt-injection.md)
+- [x] [Data exfiltration, tool abuse a excessive agency](docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md)
 - [ ] Guardrails, moderation a output validation
 - [ ] Privacy, retention a provider data controls
 - [ ] Multimodal models

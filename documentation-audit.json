@@ -5783,6 +5783,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md",
+      "title": "Data exfiltration, tool abuse a excessive agency",
+      "words": 2085,
+      "headings": 37,
+      "sections": 37,
+      "findings": 5,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 5,
+      "score": 7,
+      "grade": "A"
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
       "title": "Embeddings a semantic similarity",
       "words": 1261,
@@ -5853,17 +5867,31 @@
       "grade": "A"
     },
     {
-      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
-      "title": "Human evaluation a expert feedback",
-      "words": 2679,
-      "headings": 43,
-      "sections": 43,
-      "findings": 22,
+      "path": "docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md",
+      "title": "Hallucination, faithfulness a factuality",
+      "words": 1865,
+      "headings": 30,
+      "sections": 30,
+      "findings": 5,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 22,
-      "score": 39,
+      "low": 5,
+      "score": 8,
+      "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
+      "title": "Human evaluation a expert feedback",
+      "words": 2684,
+      "headings": 43,
+      "sections": 43,
+      "findings": 21,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 21,
+      "score": 37,
       "grade": "C"
     },
     {
@@ -5962,6 +5990,20 @@
       "medium": 0,
       "low": 7,
       "score": 9,
+      "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-injection-indirect-prompt-injection.md",
+      "title": "Prompt injection a indirect prompt injection",
+      "words": 1998,
+      "headings": 32,
+      "sections": 32,
+      "findings": 6,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 6,
+      "score": 10,
       "grade": "A"
     },
     {
@@ -6103,6 +6145,20 @@
       "low": 9,
       "score": 9,
       "grade": "A"
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "title": "Tracing, token usage a cost observability",
+      "words": 2145,
+      "headings": 27,
+      "sections": 27,
+      "findings": 14,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 14,
+      "score": 18,
+      "grade": "B"
     },
     {
       "path": "docs/20-llm-and-genai-engineering/transformer-architecture-practical.md",
@@ -79112,6 +79168,51 @@
       "score": 1
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md",
+      "section": "35. Failure hypotheses",
+      "line": 411,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md",
+      "section": "35. Failure hypotheses",
+      "line": 411,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md",
+      "section": "36. Containment a recovery",
+      "line": 417,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md",
+      "section": "37. Acceptance",
+      "line": 423,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md",
+      "section": "37. Acceptance",
+      "line": 423,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md",
       "section": "1. Čo embedding reprezentuje",
       "line": 7,
@@ -79670,6 +79771,51 @@
       "score": 2
     },
     {
+      "path": "docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md",
+      "section": "16. Uncertainty",
+      "line": 229,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md",
+      "section": "28. Failure hypotheses",
+      "line": 356,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md",
+      "section": "29. Containment a recovery",
+      "line": 362,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md",
+      "section": "29. Containment a recovery",
+      "line": 362,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md",
+      "section": "30. Acceptance",
+      "line": 368,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
       "section": "2. Evaluation question",
       "line": 29,
@@ -79835,15 +79981,6 @@
       "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
       "section": "41. Containment",
       "line": 350,
-      "severity": "low",
-      "rule": "mechanism-not-explicit",
-      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
-      "score": 2
-    },
-    {
-      "path": "docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md",
-      "section": "43. Acceptance",
-      "line": 362,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
@@ -80756,6 +80893,60 @@
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-injection-indirect-prompt-injection.md",
+      "section": "4. Data nie sú instructions",
+      "line": 59,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-injection-indirect-prompt-injection.md",
+      "section": "8. System prompt secrecy",
+      "line": 118,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-injection-indirect-prompt-injection.md",
+      "section": "9. Input sanitization boundary",
+      "line": 124,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-injection-indirect-prompt-injection.md",
+      "section": "21. Sandboxing",
+      "line": 251,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-injection-indirect-prompt-injection.md",
+      "section": "31. Containment a recovery",
+      "line": 331,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/prompt-injection-indirect-prompt-injection.md",
+      "section": "32. Acceptance",
+      "line": 337,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
     },
     {
@@ -82094,6 +82285,132 @@
       "path": "docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md",
       "section": "15. Recovery a acceptance",
       "line": 157,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "1. Exact observability subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "1. Exact observability subject",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "3. Trace boundaries",
+      "line": 51,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "4. Stable semantic model",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "8. Tool a side-effect telemetry",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "13. Streaming observability",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "15. Sampling",
+      "line": 225,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "18. SLO a budget",
+      "line": 269,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "20. Outcome join",
+      "line": 292,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "21. Security events",
+      "line": 298,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "26. Containment a recovery",
+      "line": 346,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "26. Containment a recovery",
+      "line": 346,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "27. Acceptance",
+      "line": 352,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md",
+      "section": "27. Acceptance",
+      "line": 352,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",

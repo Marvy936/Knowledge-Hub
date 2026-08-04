@@ -372,5 +372,5 @@ Forbidden acceptance je majority vote naprieč neporovnateľnými kompetenciami,
 
 **Navigácia**
 
-[← Predchádzajúca: LLM evaluation datasets a graders](llm-evaluation-datasets-graders.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: LLM evaluation datasets a graders](llm-evaluation-datasets-graders.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Tracing, token usage a cost observability →](tracing-token-usage-cost-observability.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

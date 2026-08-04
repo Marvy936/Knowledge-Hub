@@ -42,15 +42,15 @@ Odporúčané predchádzajúce oblasti:
 26. [Prompt Registry a lifecycle](prompt-registry-lifecycle.md)
 27. [LLM evaluation datasets a graders](llm-evaluation-datasets-graders.md)
 28. [Human evaluation a expert feedback](human-evaluation-expert-feedback.md)
+29. [Tracing, token usage a cost observability](tracing-token-usage-cost-observability.md)
+30. [Hallucination, faithfulness a factuality](hallucination-faithfulness-factuality.md)
+31. [Prompt injection a indirect prompt injection](prompt-injection-indirect-prompt-injection.md)
+32. [Data exfiltration, tool abuse a excessive agency](data-exfiltration-tool-abuse-excessive-agency.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-29. Tracing, token usage a cost observability
-30. Hallucination, faithfulness a factuality
-31. Prompt injection a indirect prompt injection
-32. Data exfiltration, tool abuse a excessive agency
 33. Guardrails, moderation a output validation
 34. Privacy, retention a provider data controls
 35. Multimodal models
@@ -86,4 +86,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **28/37 · In progress**. Siedmy authoritative blok aktivuje kapitoly 25–28 a incident `GENAI-SUPPORT-07`. Gateway kapitola modeluje caller a operation identity, control/data plane generations, capability-aware routing, behavior-compatible load balancing a fallback, failure classification, read-before-retry, quotas, backpressure, fairness, circuit breakers, region/data policy a attempt-versus-business telemetry. Prompt Registry kapitola oddeľuje immutable prompt version, mutable alias, rendered instance a composed application release; zavádza typed variables, role/examples/schema/tool dependencies, semantic diff, eval/approval gates, compare-and-swap promotion, runtime loaded-generation read-back, rollback, lineage a access control. LLM-evaluation kapitola definuje estimand, immutable dataset/case manifests, temporal validity, leakage-safe splits, deterministic a model graders, calibration, position/self-preference bias, multi-grader hard gates, repetitions, segment uncertainty, online correlation a grader-gaming recovery. Human-evaluation kapitola zavádza authority matrix, reprezentatívne a kvalifikované cohorts, versioned rubric/UI, blindness/randomization/overlap, inter-annotator agreement, disagreement analysis, expert adjudication, model-assisted review boundaries, ethics/privacy a authority-specific promotion evidence. Kapitoly 25–28 sú pripravené na repository closeout; reálny gateway traffic/failover/rate-limit exercise, prompt-registry promotion, provider eval execution, human annotation study, expert adjudication a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 29–32: tracing/token usage/cost observability, hallucination/faithfulness/factuality, prompt injection a indirect prompt injection a data exfiltration/tool abuse/excessive agency.
+Aktuálny authoritative stav sekcie je **32/37 · In progress**. Ôsmy authoritative blok aktivuje kapitoly 29–32 a incident `GENAI-SUPPORT-08`. Observability kapitola definuje durable business-operation a technical-attempt identity, end-to-end span graph, provider/request/retrieval/tool correlation, privacy-safe content capture, token a pricing lineage, provisional-versus-reconciled cost, latency decomposition, sampling/completeness a cost per accepted outcome. Factuality kapitola oddeľuje factual correctness, faithfulness, citation correctness/completeness, temporal a entity scope, claim-level evidence, open-versus-closed domain, abstention, calibration, atomic-fact evaluation a first-divergence retrieval/context/generation diagnosis. Prompt-injection kapitola modeluje direct a indirect injection, instruction hierarchy, typed untrusted-content provenance, goal integrity, memory/tool-output attacks, least privilege, argument/egress policy, consequential confirmation, adversarial a benign-hard-negative evals a side-effect read-back. Excessive-agency kapitola rozkladá functionality, permission a autonomy; zavádza task-scoped capability contracts, small typed tools, delegated short-lived identity, resource a information-flow authorization, data classification, destination policy, approval tiers, idempotency, budgets, sandboxing, durable audit a multi-agent delegation limits. Kapitoly 29–32 sú pripravené na repository closeout; reálny production tracing/cost reconciliation, factuality study, prompt-injection penetration test, tool/egress exercise, incident containment a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 33–36: guardrails/moderation/output validation, privacy/retention/provider data controls, multimodal models a LLMOps/production readiness.
