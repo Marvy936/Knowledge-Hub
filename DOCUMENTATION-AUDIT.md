@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **456**
-- Audited conceptual sections: **9793**
-- Total words: **926,620**
-- Findings: **8722** (critical 658, high 871, medium 475, low 6718)
-- File grades: A 179, B 169, C 47, D 61
+- Audited authoritative articles: **460**
+- Audited conceptual sections: **9958**
+- Total words: **938,006**
+- Findings: **8790** (critical 658, high 871, medium 475, low 6786)
+- File grades: A 180, B 172, C 47, D 61
 
 ## Interpretation
 
@@ -134,6 +134,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
 | B | 34 | 0 | 0 | 0 | 28 | 2468 | `docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md` |
 | B | 34 | 0 | 0 | 0 | 24 | 2262 | `docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md` |
+| B | 34 | 0 | 0 | 0 | 21 | 3156 | `docs/21-ai-agents-and-intelligent-automation/agent-interoperability-protocol-evolution.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | B | 33 | 0 | 0 | 0 | 26 | 2554 | `docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md` |
 | B | 33 | 0 | 0 | 0 | 25 | 2463 | `docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md` |
@@ -148,6 +149,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 30 | 0 | 0 | 0 | 22 | 2088 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
 | B | 30 | 0 | 0 | 0 | 20 | 2277 | `docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 2181 | `docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md` |
+| B | 30 | 0 | 0 | 0 | 22 | 2759 | `docs/21-ai-agents-and-intelligent-automation/durable-execution-retries-resumability.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
 | B | 29 | 0 | 0 | 0 | 18 | 2540 | `docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md` |
 | B | 29 | 0 | 0 | 0 | 19 | 2098 | `docs/20-llm-and-genai-engineering/peft-adapters-lora.md` |
@@ -180,6 +182,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 23 | 0 | 0 | 0 | 18 | 3437 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | B | 23 | 0 | 0 | 0 | 18 | 2027 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
 | B | 23 | 0 | 0 | 0 | 16 | 1832 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
+| B | 23 | 0 | 0 | 0 | 16 | 2768 | `docs/21-ai-agents-and-intelligent-automation/model-context-protocol.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 2044 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 1688 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | B | 22 | 0 | 0 | 0 | 13 | 2934 | `docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md` |
@@ -196,7 +199,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 21 | 0 | 0 | 0 | 17 | 3231 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
 | B | 21 | 0 | 0 | 0 | 18 | 1767 | `docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2092 | `docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md` |
-| B | 21 | 0 | 0 | 0 | 12 | 3302 | `docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md` |
+| B | 21 | 0 | 0 | 0 | 12 | 3306 | `docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1220 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | B | 20 | 0 | 0 | 0 | 18 | 3585 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1635 | `docs/06-gitlab/merge-requests-and-approvals.md` |
@@ -315,6 +318,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 14 | 0 | 0 | 0 | 11 | 1642 | `docs/20-llm-and-genai-engineering/chunking-metadata-document-processing.md` |
 | A | 14 | 0 | 0 | 0 | 10 | 2366 | `docs/20-llm-and-genai-engineering/gpu-memory-batching-serving-performance.md` |
 | A | 14 | 0 | 0 | 0 | 12 | 1820 | `docs/20-llm-and-genai-engineering/zero-one-few-shot-prompting.md` |
+| A | 14 | 0 | 0 | 0 | 9 | 2699 | `docs/21-ai-agents-and-intelligent-automation/idempotency-side-effect-control.md` |
 | A | 13 | 0 | 0 | 0 | 10 | 888 | `docs/02-networking-and-web/proxy-and-reverse-proxy.md` |
 | A | 13 | 0 | 0 | 0 | 8 | 1412 | `docs/03-git-and-automation/reset-revert-restore.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1600 | `docs/06-gitlab/protected-branches-and-environments.md` |
@@ -2247,9 +2251,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3047 | 3047 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1994 | 1994 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1677 | 1677 |
+| `example-not-explicit` | 0 | 0 | 0 | 3075 | 3075 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2027 | 2027 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1684 | 1684 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

@@ -465,5 +465,5 @@ Tieto framework mechanizmy poskytujú pause/resume primitives. Neimplementujú a
 
 **Navigácia**
 
-[← Predchádzajúca: Supervisor, router a specialist patterns](supervisor-router-specialist-patterns.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Supervisor, router a specialist patterns](supervisor-router-specialist-patterns.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Durable execution, retries a resumability →](durable-execution-retries-resumability.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
