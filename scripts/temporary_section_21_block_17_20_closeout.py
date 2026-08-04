@@ -14,6 +14,27 @@ def replace_exact(path: Path, old: str, new: str) -> None:
     path.write_text(text.replace(old, new, 1), encoding="utf-8")
 
 
+replace_exact(
+    SECTION / "agent-tracing-replay-debugging.md",
+    "## 33. Replay manifest\n\n```yaml",
+    "## 33. Replay manifest\n\nReplay manifest je immutable experiment contract, ktorý oddeľuje pôvodný production subject od bezpečného znovuvykonania. Pred spustením viaže original operation a trace na exact agent, catalog, policy a state generations, zvolený replay režim, povolené dependencies, side-effect controls a diagnostický objective; replay runner tento manifest presadzuje namiesto toho, aby dôveroval aktuálnemu workspace alebo modelom odvodenému plánu.\n\nManifest zároveň určuje proof boundary výsledku. `network: deny` a `mutations: stub` dokazujú, že replay nemal vytvoriť live side effect, nie že production integrácia funguje; `recorded-model-and-tool-responses` reprodukuje orchestration path, ale neoveruje aktuálny model ani remote service. Porovnateľnosť vzniká až vtedy, keď výsledok, trace diff a všetky deviations od manifestu zostanú uložené spolu.\n\n```yaml",
+)
+replace_exact(
+    SECTION / "agent-tracing-replay-debugging.md",
+    "## 51. Praktický tracing pseudocode\n\n```python",
+    "## 51. Praktický tracing pseudocode\n\nNasledujúci príklad ukazuje minimálnu instrumentation boundary, nie kompletný audit systém. Root trace nesie operation a composed-release references, custom span preukazuje, ktorú konfiguráciu proces načítal, framework spans zachytávajú observable agent/tool lifecycle a samostatný outcome span číta authoritative business source; policy decisions, durable mutation ledger a secure payload store musia zostať samostatnými authoritative komponentmi.\n\nDôležité je aj poradie enforcementu. Metadata sa validujú pred runnerom, sensitive content capture je vypnutý a nahradený bezpečnými references alebo digestmi a outcome read-back sa vykoná pred uzavretím trace-u. Úspešné vykonanie pseudokódu však samo nepreukazuje, že exporter prijal všetky spans, že remote context bol propagovaný alebo že business outcome je produkčne stabilný; tieto tvrdenia potrebujú completeness a external-ledger evidence.\n\n```python",
+)
+replace_exact(
+    SECTION / "tool-poisoning-confused-deputy-data-exfiltration.md",
+    "## 40. Praktický policy pseudocode\n\n```python",
+    "## 40. Praktický policy pseudocode\n\nPolicy path musí zmeniť modelom navrhnutý tool call na exact, lokálne autorizovateľnú operáciu ešte pred vydaním credentialu alebo network dispatchom. Registry najprv pinne server, catalog, tool a schema generation, canonicalizácia odstráni nejasné defaults, identity vrstva určí attested caller-a a klasifikácia spojí argumenty s inherited taintom a effective destinations. Až tieto authoritative vstupy umožnia policy rozhodnúť o tenant-e, action, resources, data flow a current approvale.\n\nCredential broker je posledný krok, nie zdroj oprávnenia. Vydaný handle je audience-, operation- a argument-bound a krátkodobý, takže model ani poisoned tool description nemôžu rozšíriť jeho použitie; samotný pseudocode však nepreukazuje atomic claim, downstream enforcement, revocation alebo absence descendant effects. Tie sa dokazujú executor ledgerom, gateway auditom a authoritative sink read-backom.\n\n```python",
+)
+replace_exact(
+    SECTION / "trajectory-tool-selection-outcome-evaluation.md",
+    "## 43. Praktický trajectory rubric\n\n```yaml",
+    "## 43. Praktický trajectory rubric\n\nTrajectory rubric prekladá capability a safety invarianty do constraints nad normalized observable event graphom. `required` položky dokazujú, že run načítal approved catalog, dostal explicitné policy povolenie a ukončil sa authoritative read-backom; `forbidden` položky blokujú unsafe action alebo data flow bez ohľadu na kvalitu finálnej odpovede a `partial_order` vyjadruje causal guards, ktoré musia platiť aj pri paralelných spans.\n\nRubric nie je presný script jednej ideálnej sequence. Agent môže použiť alternatívne read-only kroky, ak zachová required events, neporuší forbidden invariants a zmestí sa do risk-aware budgetov; evaluator preto mapuje vendor-specific trace do versioned internal taxonomy a pri missing alebo ambiguous evente vráti `inconclusive`, nie automatický pass. Quality grader môže posúdiť rozumnosť zvolenej cesty, ale nemôže prebiť deterministic violation.\n\n```yaml",
+)
+
 readme = SECTION / "README.md"
 text = readme.read_text(encoding="utf-8")
 active_anchor = "16. [Prompt injection cez tools a retrieved content](prompt-injection-tools-retrieved-content.md)\n"
