@@ -387,5 +387,5 @@ Bezpečná organizácia oddeľuje interný risk tier od právnej applicability, 
 
 **Navigácia**
 
-[← Predchádzajúca: Multi-tenant isolation](multi-tenant-isolation.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Multi-tenant isolation](multi-tenant-isolation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: n8n architecture a execution model →](n8n-architecture-execution-model.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

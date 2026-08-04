@@ -249,3 +249,11 @@ Aggregate success rate môže skryť tenant-specific alebo branch-specific incid
 n8n production outcome vzniká cez composed runtime: saved a published workflow, trigger registration, main alebo webhook process, queue, worker, task runner, database, binary storage, credentials a downstream system. Žiadna jednotlivá control-plane obrazovka nepreukazuje celý chain.
 
 Spoľahlivý návrh viaže každý event na exact execution subject, oddeľuje workflow durability od external side-effect safety a uzatvára recovery authoritative business read-backom. Queue scaling je bezpečné až vtedy, keď všetky execution paths načítajú kompatibilnú generation a druhý event preukáže absence duplication a residue.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Agent governance a audit](agent-governance-audit.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Triggers, nodes, expressions a data mapping →](triggers-nodes-expressions-data-mapping.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

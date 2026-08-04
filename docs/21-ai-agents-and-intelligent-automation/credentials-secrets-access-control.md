@@ -292,3 +292,11 @@ Nulové authorization denials môžu znamenať clean traffic alebo príliš šir
 n8n credential je executable capability, nie iba skrytý secret. Encryption chráni persistence, no effective safety vzniká až kombináciou scoped provider identity, project/RBAC policy, controlled workflow editing, runtime isolation, redaction, rotation a provider-side audit.
 
 Bezpečný lifecycle viaže credential na exact tenant, resource, operation, workflow a generation a testuje aj forbidden access. Masked UI, successful authentication alebo external secret reference sú čiastkové controls; accepted stav vyžaduje negative authorization, revocation, restore a second-workflow isolation proof.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Webhooks a API integrations](webhooks-api-integrations.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

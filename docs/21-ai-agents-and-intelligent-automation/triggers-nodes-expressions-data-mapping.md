@@ -279,3 +279,11 @@ Náhly pokles output count môže byť validná zmena trafficu alebo silent filt
 Trigger vytvára execution, nodes menia alebo používajú items a expressions riešia dynamic parameter mapping. Bez explicitnej entity identity, cardinality a item provenance môže technicky validný graph vykonať side effect nad nesprávnymi data.
 
 Bezpečný workflow odlišuje mapping od transformation, testuje multi-item a branch scenarios, zachováva item linking a odmieta critical missing fields. Acceptance končí downstream business reconciliation a druhým batchom s iným orderingom, nie editor previewom alebo single-item manual runom.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: n8n architecture a execution model](n8n-architecture-execution-model.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Webhooks a API integrations →](webhooks-api-integrations.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

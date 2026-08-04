@@ -6289,7 +6289,7 @@
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md",
       "title": "Agent governance a audit",
-      "words": 3043,
+      "words": 3047,
       "headings": 49,
       "sections": 49,
       "findings": 27,
@@ -6383,6 +6383,20 @@
       "low": 30,
       "score": 42,
       "grade": "C"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "title": "Credentials, secrets a access control",
+      "words": 2362,
+      "headings": 42,
+      "sections": 42,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/deterministic-workflow-probabilistic-component-autonomous-agent.md",
@@ -6480,6 +6494,20 @@
       "medium": 0,
       "low": 22,
       "score": 38,
+      "grade": "C"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "title": "n8n architecture a execution model",
+      "words": 2294,
+      "headings": 34,
+      "sections": 34,
+      "findings": 28,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 28,
+      "score": 37,
       "grade": "C"
     },
     {
@@ -6607,6 +6635,34 @@
       "low": 21,
       "score": 34,
       "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "title": "Triggers, nodes, expressions a data mapping",
+      "words": 2348,
+      "headings": 40,
+      "sections": 40,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 17,
+      "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md",
+      "title": "Webhooks a API integrations",
+      "words": 2291,
+      "headings": 40,
+      "sections": 40,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 11,
+      "grade": "A"
     }
   ],
   "findings": [
@@ -85973,6 +86029,96 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "section": "9. Key rotation",
+      "line": 69,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "section": "12. Credential sharing",
+      "line": 87,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "section": "13. Workflow sharing interaction",
+      "line": 93,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "section": "15. Custom roles a plan dependencies",
+      "line": 105,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "section": "30. Shared incident AGENT-N8N-07",
+      "line": 195,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "section": "37. Recovery acceptance",
+      "line": 237,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "section": "40. Prevádzkové metriky",
+      "line": 272,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "section": "40. Prevádzkové metriky",
+      "line": 272,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "section": "42. Zhrnutie",
+      "line": 290,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
+      "section": "42. Zhrnutie",
+      "line": 290,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/deterministic-workflow-probabilistic-component-autonomous-agent.md",
       "section": "1. Exact architecture subject",
       "line": 7,
@@ -87038,6 +87184,258 @@
       "path": "docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md",
       "section": "47. Zhrnutie",
       "line": 371,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "1. Workflow engine verzus agent",
+      "line": 22,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "2. Control plane a execution plane",
+      "line": 28,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "3. Exact execution subject",
+      "line": 34,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "4. Workflow definition",
+      "line": 40,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "5. Saved, published a active state",
+      "line": 46,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "10. Database ako authoritative store",
+      "line": 76,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "13. Execution status",
+      "line": 94,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "13. Execution status",
+      "line": 94,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "14. Manual a production execution",
+      "line": 100,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "15. Node execution order",
+      "line": 106,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "15. Node execution order",
+      "line": 106,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "16. Execution data",
+      "line": 112,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "18. Concurrency a backpressure",
+      "line": 124,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "21. Configuration generation",
+      "line": 142,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "22. Shared incident AGENT-N8N-07",
+      "line": 148,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "22. Shared incident AGENT-N8N-07",
+      "line": 148,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "23. Competing failure hypotheses",
+      "line": 154,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "23. Competing failure hypotheses",
+      "line": 154,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "24. Evidence preservation",
+      "line": 160,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "25. Containment",
+      "line": 166,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "25. Containment",
+      "line": 166,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "26. Recovery",
+      "line": 172,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "28. Forbidden acceptance",
+      "line": 184,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "29. Recovery acceptance",
+      "line": 190,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "30. Second-event acceptance",
+      "line": 196,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "32. Prevádzkové metriky",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "34. Zhrnutie",
+      "line": 247,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md",
+      "section": "34. Zhrnutie",
+      "line": 247,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
@@ -88613,6 +89011,195 @@
       "path": "docs/21-ai-agents-and-intelligent-automation/trajectory-tool-selection-outcome-evaluation.md",
       "section": "45. Zhrnutie",
       "line": 344,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "2. Trigger classes",
+      "line": 27,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "8. Connections a graph",
+      "line": 63,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "9. Node parameter resolution",
+      "line": 69,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "16. One-to-one, one-to-many a many-to-one",
+      "line": 111,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "17. Multiple inputs",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "21. Missing, null a empty",
+      "line": 141,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "22. Type coercion",
+      "line": 147,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "23. Dates a timezone",
+      "line": 153,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "29. Competing failure hypotheses",
+      "line": 189,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "29. Competing failure hypotheses",
+      "line": 189,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "32. Recovery",
+      "line": 207,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "38. Prevádzkové metriky",
+      "line": 261,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md",
+      "section": "40. Zhrnutie",
+      "line": 277,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md",
+      "section": "3. HTTP method a path identity",
+      "line": 33,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md",
+      "section": "19. Request identity",
+      "line": 129,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md",
+      "section": "28. Shared incident AGENT-N8N-07",
+      "line": 183,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md",
+      "section": "29. Competing failure hypotheses",
+      "line": 189,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md",
+      "section": "36. Second-integration acceptance",
+      "line": 231,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md",
+      "section": "38. Prevádzkové metriky",
+      "line": 267,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md",
+      "section": "40. Zhrnutie",
+      "line": 283,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md",
+      "section": "40. Zhrnutie",
+      "line": 283,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",

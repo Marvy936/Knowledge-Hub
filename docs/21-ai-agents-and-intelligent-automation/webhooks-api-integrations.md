@@ -285,3 +285,11 @@ Low failed-execution rate môže koexistovať s vysokým dedupe alebo cross-tena
 Webhook a API integration je distributed protocol, nie iba spojená dvojica nodes. Caller timeout, provider retry, proxy, n8n execution, credential, remote API a business ledger majú samostatné states a authorities.
 
 Bezpečný návrh overuje signature a schema, durably prijíma event, používa stable event a operation identities, koordinuje timeouts/retries a read-backom uzatvára mutation. `2xx`, green node alebo successful execution sú čiastkové dôkazy; accepted outcome vyžaduje no-duplicate, no-cross-tenant a second-delivery proof.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Triggers, nodes, expressions a data mapping](triggers-nodes-expressions-data-mapping.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Credentials, secrets a access control →](credentials-secrets-access-control.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

@@ -38,15 +38,15 @@ Odporúčané predchádzajúce oblasti:
 22. [Agent reliability, fallback a kill switch](agent-reliability-fallback-kill-switch.md)
 23. [Multi-tenant isolation](multi-tenant-isolation.md)
 24. [Agent governance a audit](agent-governance-audit.md)
+25. [n8n architecture a execution model](n8n-architecture-execution-model.md)
+26. [Triggers, nodes, expressions a data mapping](triggers-nodes-expressions-data-mapping.md)
+27. [Webhooks a API integrations](webhooks-api-integrations.md)
+28. [Credentials, secrets a access control](credentials-secrets-access-control.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-25. n8n architecture a execution model
-26. Triggers, nodes, expressions a data mapping
-27. Webhooks a API integrations
-28. Credentials, secrets a access control
 29. Error workflows, retries a partial execution
 30. Idempotency a duplicate-event handling
 31. Sub-workflows a reusable workflow contracts
@@ -111,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **24/62 · In progress**. Šiesty authoritative blok aktivuje kapitoly 21–24 a incident `AGENT-GOV-06`. Cost/latency kapitola zavádza exact budget subject, price-catalog generation, organization/tenant/workflow/operation/turn/tool hierarchy, hard/soft/forecast hranice, input/output/cached/reasoning token accounting, context amplification, deadlines, critical path, queue/rate-limit pressure, reservations, in-flight reconciliation, graceful degradation a cost-per-accepted-outcome acceptance. Reliability kapitola oddeľuje retry od semantického fallbacku, používa failure taxonomy, retry budgets, circuit breakers, bulkheads, model/provider/tool/retrieval compatibility manifests, state a approval revalidation, single-writer side effects, out-of-band scoped kill switch, loaded-generation proof, in-flight cancellation, re-enable canary a pravidelné drilly. Multi-tenant isolation kapitola viaže verified tenant identity na data, memory, vector retrieval, caches, context, tool catalogs, credentials, sandboxes, network, queues, provider usage, tracing, audit, evals, backup/restore a noisy-neighbor fairness; pool/silo/bridge modely sú hodnotené ako end-to-end controls a nie ako samotný dôkaz isolation. Governance kapitola definuje accountable owners, system inventory, intended use, internal risk classification, samostatnú legal applicability analýzu, NIST Govern/Map/Measure/Manage mapping, composed-release change control, segregation of duties, expiring exceptions, supplier/data governance, human oversight, audit-event schema/integrity/retention/access, incident/corrective action a retirement. Kapitoly 21–24 sú pripravené na repository closeout; reálne provider usage, budgets, fallbacky, kill-switch propagation, tenant isolation, governance decisions, audit storage, incident drilly ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 25–28: n8n architecture/execution model, triggers/nodes/expressions/data mapping, webhooks/API integrations a credentials/secrets/access control.
+Aktuálny authoritative stav sekcie je **28/62 · In progress**. Siedmy authoritative blok aktivuje kapitoly 25–28 a incident `AGENT-N8N-07`. Architecture kapitola oddeľuje saved, published a effective workflow state, control a execution plane, main/webhook/worker/task-runner paths, database, Redis queue, binary storage, concurrency, durability a exact execution subject. Trigger/data kapitola vysvetľuje items, node parameter resolution, expressions, item linking, `pairedItem`, cardinality, branches, merges, schema contracts a multi-item acceptance. Webhook/API kapitola pokrýva production endpoint, signatures, replay protection, acknowledgement, provider retries, event idempotency, API contracts, timeouts, rate limits, partial success, SSRF a authoritative resource read-back. Credential kapitola viaže secret a executable capability na ownera, project/RBAC, tenant, scopes, encryption key, external secret generation, workflow binding, rotation, revocation, redaction, backup/restore a negative authorization. Reálne n8n executions, provider retries, API mutations, credential rotation, restore, tenant isolation ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 29–32: error workflows/retries/partial execution, idempotency/duplicate-event handling, sub-workflows/reusable contracts a source control/environments.
