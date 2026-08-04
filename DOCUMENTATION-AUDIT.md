@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **448**
-- Audited conceptual sections: **9463**
-- Total words: **904,937**
-- Findings: **8637** (critical 658, high 871, medium 475, low 6633)
-- File grades: A 175, B 165, C 47, D 61
+- Audited authoritative articles: **452**
+- Audited conceptual sections: **9630**
+- Total words: **913,562**
+- Findings: **8660** (critical 658, high 871, medium 475, low 6656)
+- File grades: A 179, B 165, C 47, D 61
 
 ## Interpretation
 
@@ -93,7 +93,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 60 | 0 | 6 | 0 | 9 | 1682 | `docs/05-ci-cd-and-release/rolling-update.md` |
 | C | 60 | 0 | 0 | 0 | 43 | 2654 | `docs/18-machine-learning-fundamentals/neural-network-fundamentals.md` |
 | C | 57 | 0 | 5 | 0 | 14 | 1949 | `docs/05-ci-cd-and-release/continuous-delivery.md` |
-| C | 57 | 0 | 0 | 0 | 43 | 5342 | `docs/20-llm-and-genai-engineering/llm-application-troubleshooting.md` |
+| C | 57 | 0 | 0 | 0 | 43 | 5348 | `docs/20-llm-and-genai-engineering/llm-application-troubleshooting.md` |
 | C | 55 | 0 | 5 | 0 | 12 | 2047 | `docs/05-ci-cd-and-release/pipeline-stage-job-runner.md` |
 | C | 55 | 0 | 6 | 0 | 6 | 1553 | `docs/05-ci-cd-and-release/recreate-deployment.md` |
 | C | 54 | 0 | 5 | 0 | 11 | 1818 | `docs/05-ci-cd-and-release/environment-and-promotion.md` |
@@ -361,6 +361,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 12 | 0 | 0 | 0 | 12 | 1837 | `docs/19-mlops-and-ml-platforms/model-registry-versions-stages-aliases.md` |
 | A | 12 | 0 | 0 | 0 | 9 | 1056 | `docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md` |
 | A | 12 | 0 | 0 | 0 | 8 | 2098 | `docs/20-llm-and-genai-engineering/quantization-local-inference.md` |
+| A | 12 | 0 | 0 | 0 | 9 | 2248 | `docs/21-ai-agents-and-intelligent-automation/deterministic-workflow-probabilistic-component-autonomous-agent.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 980 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | A | 11 | 0 | 0 | 0 | 8 | 1243 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1716 | `docs/06-gitlab/container-and-package-registry.md` |
@@ -382,6 +383,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 11 | 0 | 0 | 0 | 10 | 1690 | `docs/17-keycloak-and-identity-platform/themes-email-templates-localization.md` |
 | A | 11 | 0 | 0 | 0 | 8 | 1224 | `docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md` |
 | A | 11 | 0 | 0 | 0 | 7 | 1255 | `docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md` |
+| A | 11 | 0 | 0 | 0 | 6 | 2040 | `docs/21-ai-agents-and-intelligent-automation/agent-loop-state-observation-action-termination.md` |
 | A | 10 | 0 | 0 | 0 | 8 | 978 | `docs/02-networking-and-web/http.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 1184 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | A | 10 | 0 | 0 | 0 | 6 | 1264 | `docs/03-git-and-automation/merge-conflicts.md` |
@@ -423,6 +425,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 9 | 0 | 0 | 0 | 6 | 865 | `docs/19-mlops-and-ml-platforms/model-rollback-recovery.md` |
 | A | 9 | 0 | 0 | 0 | 7 | 1401 | `docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md` |
 | A | 9 | 0 | 0 | 0 | 9 | 1217 | `docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md` |
+| A | 9 | 0 | 0 | 0 | 5 | 2267 | `docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 968 | `docs/02-networking-and-web/dns.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 990 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
 | A | 8 | 0 | 0 | 0 | 5 | 1201 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
@@ -463,6 +466,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 5 | 0 | 0 | 0 | 4 | 1218 | `docs/03-git-and-automation/working-tree-staging-repository.md` |
 | A | 5 | 0 | 0 | 0 | 4 | 1330 | `docs/13-security-and-identity/authentication-authorization-auditing.md` |
 | A | 5 | 0 | 0 | 0 | 4 | 1756 | `docs/19-mlops-and-ml-platforms/model-serving-autoscaling.md` |
+| A | 5 | 0 | 0 | 0 | 3 | 2064 | `docs/21-ai-agents-and-intelligent-automation/tool-calling-tool-contracts.md` |
 | A | 4 | 0 | 0 | 0 | 4 | 866 | `docs/02-networking-and-web/nat.md` |
 | A | 4 | 0 | 0 | 0 | 4 | 1248 | `docs/03-git-and-automation/commit-branch-tag-head.md` |
 | A | 4 | 0 | 0 | 0 | 3 | 800 | `docs/09-kubernetes/replicaset.md` |
@@ -2239,8 +2243,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3013 | 3013 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1946 | 1946 |
+| `example-not-explicit` | 0 | 0 | 0 | 3022 | 3022 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1960 | 1960 |
 | `failure-mode-not-explicit` | 0 | 0 | 0 | 1674 | 1674 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |

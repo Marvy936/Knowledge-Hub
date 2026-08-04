@@ -607,5 +607,5 @@ Runtime `Verified` vyžaduje vykonaný troubleshooting drill nad exact release a
 
 **Navigácia**
 
-[← Predchádzajúca: LLMOps a production readiness](llmops-production-readiness.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: LLMOps a production readiness](llmops-production-readiness.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Deterministic workflow, probabilistic component a autonomous agent →](../21-ai-agents-and-intelligent-automation/deterministic-workflow-probabilistic-component-autonomous-agent.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

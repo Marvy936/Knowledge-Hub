@@ -519,10 +519,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 
 ### AI Agents and Intelligent Automation
 
-- [ ] Deterministic workflow, probabilistic component a autonomous agent
-- [ ] Agent loop, state, observation, action a termination
-- [ ] Tool calling a tool contracts
-- [ ] Planning, decomposition a replanning
+- [x] [Deterministic workflow, probabilistic component a autonomous agent](docs/21-ai-agents-and-intelligent-automation/deterministic-workflow-probabilistic-component-autonomous-agent.md)
+- [x] [Agent loop, state, observation, action a termination](docs/21-ai-agents-and-intelligent-automation/agent-loop-state-observation-action-termination.md)
+- [x] [Tool calling a tool contracts](docs/21-ai-agents-and-intelligent-automation/tool-calling-tool-contracts.md)
+- [x] [Planning, decomposition a replanning](docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md)
 - [ ] Short-term state, long-term memory a external memory
 - [ ] Single-agent a multi-agent architecture
 - [ ] Supervisor, router a specialist patterns
