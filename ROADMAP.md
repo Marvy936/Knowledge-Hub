@@ -543,10 +543,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Agent reliability, fallback a kill switch](docs/21-ai-agents-and-intelligent-automation/agent-reliability-fallback-kill-switch.md)
 - [x] [Multi-tenant isolation](docs/21-ai-agents-and-intelligent-automation/multi-tenant-isolation.md)
 - [x] [Agent governance a audit](docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md)
-- [ ] n8n architecture a execution model
-- [ ] Triggers, nodes, expressions a data mapping
-- [ ] Webhooks a API integrations
-- [ ] Credentials, secrets a access control
+- [x] [n8n architecture a execution model](docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md)
+- [x] [Triggers, nodes, expressions a data mapping](docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md)
+- [x] [Webhooks a API integrations](docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md)
+- [x] [Credentials, secrets a access control](docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md)
 - [ ] Error workflows, retries a partial execution
 - [ ] Idempotency a duplicate-event handling
 - [ ] Sub-workflows a reusable workflow contracts

@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **472**
-- Audited conceptual sections: **10508**
-- Total words: **975,502**
-- Findings: **9112** (critical 658, high 871, medium 475, low 7108)
-- File grades: A 180, B 176, C 55, D 61
+- Audited authoritative articles: **476**
+- Audited conceptual sections: **10664**
+- Total words: **984,801**
+- Findings: **9171** (critical 658, high 871, medium 475, low 7167)
+- File grades: A 182, B 177, C 56, D 61
 
 ## Interpretation
 
@@ -111,7 +111,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 45 | 0 | 0 | 0 | 31 | 3201 | `docs/07-infrastructure-as-code-and-configuration-management/lifecycle-import-moved-blocks.md` |
 | C | 45 | 0 | 0 | 0 | 28 | 3560 | `docs/21-ai-agents-and-intelligent-automation/agent-tracing-replay-debugging.md` |
 | C | 45 | 0 | 0 | 0 | 29 | 3111 | `docs/21-ai-agents-and-intelligent-automation/sandboxing-code-execution.md` |
-| C | 44 | 0 | 0 | 0 | 27 | 3043 | `docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md` |
+| C | 44 | 0 | 0 | 0 | 27 | 3047 | `docs/21-ai-agents-and-intelligent-automation/agent-governance-audit.md` |
 | C | 43 | 0 | 0 | 0 | 31 | 2788 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-idempotency.md` |
 | C | 43 | 0 | 0 | 0 | 32 | 2548 | `docs/18-machine-learning-fundamentals/decision-trees-random-forests-gradient-boosting.md` |
 | C | 43 | 0 | 1 | 1 | 21 | 2898 | `docs/18-machine-learning-fundamentals/offline-evaluation-production-outcome.md` |
@@ -135,6 +135,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 37 | 0 | 0 | 0 | 27 | 2673 | `docs/18-machine-learning-fundamentals/regression-classification-ranking-clustering.md` |
 | C | 37 | 0 | 0 | 0 | 28 | 2914 | `docs/18-machine-learning-fundamentals/regression-metrics.md` |
 | C | 37 | 0 | 0 | 0 | 21 | 2684 | `docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md` |
+| C | 37 | 0 | 0 | 0 | 28 | 2294 | `docs/21-ai-agents-and-intelligent-automation/n8n-architecture-execution-model.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2652 | `docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md` |
 | C | 36 | 0 | 0 | 0 | 22 | 2972 | `docs/20-llm-and-genai-engineering/llmops-production-readiness.md` |
@@ -270,6 +271,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 15 | 1967 | `docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2220 | `docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1770 | `docs/20-llm-and-genai-engineering/vector-stores-indexing.md` |
+| B | 17 | 0 | 0 | 0 | 13 | 2348 | `docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1588 | `docs/06-gitlab/artifacts-and-cache.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1711 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md` |
 | B | 16 | 0 | 0 | 0 | 12 | 2628 | `docs/07-infrastructure-as-code-and-configuration-management/infrastructure-as-code-principles.md` |
@@ -364,6 +366,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 13 | 0 | 0 | 0 | 13 | 1607 | `docs/19-mlops-and-ml-platforms/privacy-security-adversarial-ml.md` |
 | A | 13 | 0 | 0 | 0 | 11 | 1261 | `docs/20-llm-and-genai-engineering/embeddings-semantic-similarity.md` |
 | A | 13 | 0 | 0 | 0 | 12 | 1779 | `docs/20-llm-and-genai-engineering/inference-parameters-sampling-determinism.md` |
+| A | 13 | 0 | 0 | 0 | 10 | 2362 | `docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2024 | `docs/08-container-fundamentals-and-docker/containers-vs-virtual-machines.md` |
 | A | 12 | 0 | 0 | 0 | 7 | 1255 | `docs/09-kubernetes/cluster-dns.md` |
 | A | 12 | 0 | 0 | 0 | 11 | 2416 | `docs/10-helm-and-cka/helm-chart-template-values-release.md` |
@@ -404,6 +407,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 11 | 0 | 0 | 0 | 8 | 1224 | `docs/20-llm-and-genai-engineering/model-selection-capability-cost-tradeoffs.md` |
 | A | 11 | 0 | 0 | 0 | 7 | 1255 | `docs/20-llm-and-genai-engineering/structured-outputs-schema-validation.md` |
 | A | 11 | 0 | 0 | 0 | 6 | 2040 | `docs/21-ai-agents-and-intelligent-automation/agent-loop-state-observation-action-termination.md` |
+| A | 11 | 0 | 0 | 0 | 8 | 2291 | `docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md` |
 | A | 10 | 0 | 0 | 0 | 8 | 978 | `docs/02-networking-and-web/http.md` |
 | A | 10 | 0 | 0 | 0 | 10 | 1184 | `docs/02-networking-and-web/osi-and-tcp-ip-model.md` |
 | A | 10 | 0 | 0 | 0 | 6 | 1264 | `docs/03-git-and-automation/merge-conflicts.md` |
@@ -2263,9 +2267,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3221 | 3221 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2183 | 2183 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1704 | 1704 |
+| `example-not-explicit` | 0 | 0 | 0 | 3257 | 3257 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2202 | 2202 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1708 | 1708 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |
