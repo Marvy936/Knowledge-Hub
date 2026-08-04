@@ -6301,9 +6301,23 @@
       "grade": "A"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "title": "Human-in-the-loop a approval gates",
+      "words": 3302,
+      "headings": 47,
+      "sections": 47,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 21,
+      "grade": "B"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md",
       "title": "Planning, decomposition a replanning",
-      "words": 2267,
+      "words": 2273,
       "headings": 47,
       "sections": 47,
       "findings": 5,
@@ -6313,6 +6327,48 @@
       "low": 5,
       "score": 9,
       "grade": "A"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "title": "Short-term state, long-term memory a external memory",
+      "words": 3455,
+      "headings": 34,
+      "sections": 34,
+      "findings": 23,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 23,
+      "score": 33,
+      "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "title": "Single-agent a multi-agent architecture",
+      "words": 3209,
+      "headings": 40,
+      "sections": 40,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 22,
+      "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "title": "Supervisor, router a specialist patterns",
+      "words": 3086,
+      "headings": 42,
+      "sections": 42,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 20,
+      "grade": "B"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/tool-calling-tool-contracts.md",
@@ -84199,6 +84255,114 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "7. Approve, edit, reject a escalate",
+      "line": 113,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "7. Approve, edit, reject a escalate",
+      "line": 113,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "11. Approval TTL",
+      "line": 150,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "16. Preview",
+      "line": 210,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "18. Inaccessible evidence",
+      "line": 233,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "19. Approval batching",
+      "line": 239,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "22. Approval fatigue",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "29. Nested agents a approvals",
+      "line": 323,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "29. Nested agents a approvals",
+      "line": 323,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "31. Audit trail",
+      "line": 335,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "33. Approval UI",
+      "line": 347,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
+      "section": "38. Failure hypotheses",
+      "line": 390,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md",
       "section": "14. Information value",
       "line": 150,
@@ -84238,6 +84402,456 @@
       "path": "docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md",
       "section": "41. Recovery",
       "line": 321,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "1. Memory nie je context window",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "1. Memory nie je context window",
+      "line": 7,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "3. Conversation history je iba časť state",
+      "line": 41,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "3. Conversation history je iba časť state",
+      "line": 41,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "4. Checkpoint nie je business commit",
+      "line": 78,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "5. Long-term memory",
+      "line": 92,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "7. Namespace a tenant isolation",
+      "line": 135,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "8. External memory",
+      "line": 160,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "9. Cache, index a memory nie sú synonymá",
+      "line": 176,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "11. Provenance a evidence",
+      "line": 197,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "12. Freshness, TTL a invalidation",
+      "line": 213,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "15. Hot-path a offline memory updates",
+      "line": 268,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "15. Hot-path a offline memory updates",
+      "line": 268,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "18. Memory poisoning",
+      "line": 311,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "20. Security a encryption",
+      "line": 335,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "20. Security a encryption",
+      "line": 335,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "23. Incident AGENT-OPS-02",
+      "line": 362,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "24. Failure hypotheses",
+      "line": 379,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "26. Containment",
+      "line": 427,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "27. Recovery",
+      "line": 433,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "27. Recovery",
+      "line": 433,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "33. Prevádzkový checklist",
+      "line": 459,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
+      "section": "33. Prevádzkový checklist",
+      "line": 459,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "1. Single-agent architektúra",
+      "line": 7,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "2. Multi-agent architektúra",
+      "line": 23,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "6. Kedy multi-agent prináša hodnotu",
+      "line": 110,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "6. Kedy multi-agent prináša hodnotu",
+      "line": 110,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "7. Context-window scaling",
+      "line": 116,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "9. Cost model",
+      "line": 136,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "11. Centralizované ownership",
+      "line": 172,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "13. Agents as tools",
+      "line": 194,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "17. Memory ownership",
+      "line": 235,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "23. Router a supervisor sú rozdielne role",
+      "line": 326,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "26. Retry a duplicate specialist runs",
+      "line": 367,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "29. Incident AGENT-OPS-02",
+      "line": 399,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "30. Failure hypotheses",
+      "line": 417,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "32. Containment",
+      "line": 454,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md",
+      "section": "33. Recovery",
+      "line": 460,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "4. Router verzus supervisor",
+      "line": 41,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "5. Exact routing subject",
+      "line": 47,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "7. Probabilistický router",
+      "line": 95,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "16. Specialist independence",
+      "line": 230,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "20. Majority vote nie je default",
+      "line": 281,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "25. Supervisor-as-manager pattern",
+      "line": 334,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "27. Hybrid pattern",
+      "line": 346,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "27. Hybrid pattern",
+      "line": 346,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "31. Security boundaries",
+      "line": 386,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "32. Observability",
+      "line": 392,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "34. Failure hypotheses",
+      "line": 430,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
+      "section": "36. Recovery",
+      "line": 455,
       "severity": "low",
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",

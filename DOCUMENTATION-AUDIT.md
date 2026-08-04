@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **452**
-- Audited conceptual sections: **9630**
-- Total words: **913,562**
-- Findings: **8660** (critical 658, high 871, medium 475, low 6656)
-- File grades: A 179, B 165, C 47, D 61
+- Audited authoritative articles: **456**
+- Audited conceptual sections: **9793**
+- Total words: **926,620**
+- Findings: **8722** (critical 658, high 871, medium 475, low 6718)
+- File grades: A 179, B 169, C 47, D 61
 
 ## Interpretation
 
@@ -137,6 +137,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | B | 33 | 0 | 0 | 0 | 26 | 2554 | `docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md` |
 | B | 33 | 0 | 0 | 0 | 25 | 2463 | `docs/18-machine-learning-fundamentals/supervised-unsupervised-reinforcement-learning.md` |
+| B | 33 | 0 | 0 | 0 | 23 | 3455 | `docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md` |
 | B | 32 | 0 | 0 | 0 | 21 | 3105 | `docs/17-keycloak-and-identity-platform/high-availability-multi-az-multi-cluster-trade-offs.md` |
 | B | 32 | 0 | 0 | 0 | 28 | 3158 | `docs/18-machine-learning-fundamentals/imbalanced-datasets-threshold-selection.md` |
 | B | 31 | 0 | 0 | 0 | 24 | 3202 | `docs/18-machine-learning-fundamentals/explainability-feature-importance.md` |
@@ -183,6 +184,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 22 | 0 | 0 | 0 | 18 | 1688 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | B | 22 | 0 | 0 | 0 | 13 | 2934 | `docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 1985 | `docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md` |
+| B | 22 | 0 | 0 | 0 | 15 | 3209 | `docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2736 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | B | 21 | 0 | 0 | 0 | 14 | 1821 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2662 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-architecture.md` |
@@ -194,6 +196,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 21 | 0 | 0 | 0 | 17 | 3231 | `docs/17-keycloak-and-identity-platform/saml-clients-metadata-assertions-bindings.md` |
 | B | 21 | 0 | 0 | 0 | 18 | 1767 | `docs/19-mlops-and-ml-platforms/mlops-platform-architecture.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2092 | `docs/20-llm-and-genai-engineering/context-assembly-citation-grounding.md` |
+| B | 21 | 0 | 0 | 0 | 12 | 3302 | `docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1220 | `docs/02-networking-and-web/rest-apis-and-websockets.md` |
 | B | 20 | 0 | 0 | 0 | 18 | 3585 | `docs/03-git-and-automation/git-automation-practical-walkthrough.md` |
 | B | 20 | 0 | 0 | 0 | 14 | 1635 | `docs/06-gitlab/merge-requests-and-approvals.md` |
@@ -208,6 +211,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 20 | 0 | 0 | 0 | 16 | 1835 | `docs/19-mlops-and-ml-platforms/dataset-versioning.md` |
 | B | 20 | 0 | 0 | 0 | 13 | 1268 | `docs/20-llm-and-genai-engineering/function-calling-tool-calling.md` |
 | B | 20 | 0 | 0 | 0 | 15 | 1871 | `docs/20-llm-and-genai-engineering/prompt-roles-instructions-context-examples.md` |
+| B | 20 | 0 | 0 | 0 | 12 | 3086 | `docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1797 | `docs/03-git-and-automation/powershell-fundamentals.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1774 | `docs/06-gitlab/runners-and-executors.md` |
 | B | 19 | 0 | 0 | 0 | 14 | 1622 | `docs/08-container-fundamentals-and-docker/volumes-bind-mounts.md` |
@@ -425,7 +429,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 9 | 0 | 0 | 0 | 6 | 865 | `docs/19-mlops-and-ml-platforms/model-rollback-recovery.md` |
 | A | 9 | 0 | 0 | 0 | 7 | 1401 | `docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md` |
 | A | 9 | 0 | 0 | 0 | 9 | 1217 | `docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md` |
-| A | 9 | 0 | 0 | 0 | 5 | 2267 | `docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md` |
+| A | 9 | 0 | 0 | 0 | 5 | 2273 | `docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 968 | `docs/02-networking-and-web/dns.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 990 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
 | A | 8 | 0 | 0 | 0 | 5 | 1201 | `docs/03-git-and-automation/cherry-pick-and-stash.md` |
@@ -2243,9 +2247,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3022 | 3022 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1960 | 1960 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1674 | 1674 |
+| `example-not-explicit` | 0 | 0 | 0 | 3047 | 3047 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1994 | 1994 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1677 | 1677 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

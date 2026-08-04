@@ -112,14 +112,14 @@ Modelový text „approved“ nie je validný decision artifact.
 
 ## 7. Approve, edit, reject a escalate
 
-Approval UI môže podporovať viac rozhodnutí:
+Rozhodnutia v approval UI nie sú štyri textové odpovede na jednu otázku. Každé z nich vykonáva odlišný state transition nad presným `approval_request_id`, proposal generation a action digestom. Approval service preto nesmie previesť voľný komentár modelu alebo reviewera priamo na execution permission; najprv musí validovať, ktorý transition je povolený z aktuálneho stavu a či rozhodujúci principal má preň authority.
 
-- **Approve** — povoľuje presne zobrazený action digest.
-- **Edit** — vytvorí novú proposal generation s novými arguments a digestom; pôvodný approval sa nepoužije.
-- **Reject** — zastaví action a môže pridať bounded feedback pre replanning.
-- **Escalate** — odovzdá rozhodnutie reviewerovi s vyššou authority alebo inej roli.
+- **Approve** — povoľuje výhradne zobrazený action digest a zachováva pôvodné canonical subjects, arguments, preconditions, tool contract a expiry. Ak sa ktorýkoľvek execution-relevant field zmení, tento verdict sa už nesmie použiť.
+- **Edit** — nevykonáva pôvodnú akciu s ručne prepísaným parametrom. Vytvorí novú proposal generation, znovu canonicalizuje subject, prepočíta digest a spustí novú policy evaluation, aby reviewer videl presný efekt upravenej akcie.
+- **Reject** — uzavrie aktuálnu proposal ako nepovolenú a môže pridať bounded reason code alebo feedback pre replanning. Agent nesmie rejection obísť kozmetickým preformulovaním rovnakej akcie pod novým technical attempt ID.
+- **Escalate** — nemení proposal ani ju dočasne neschvaľuje. Presunie decision ownership na principal alebo rolu s vyššou authority a zachová rovnaký digest, evidence envelope a audit lineage.
 
-Edit nie je approval pôvodnej akcie. Po zmene resource, amount alebo parameter sa musí spustiť nová policy evaluation.
+Tieto transitions majú rozdielne recovery dôsledky. Po `edit` alebo zmene subjectu sa predchádzajúce approvals invalidujú; po `reject` sa musí objaviť nový diskriminačný dôkaz alebo odlišná bounded action; po `escalate` zostáva execution blokovaný, kým oprávnený reviewer nevydá nový verdict. UI tak nevytvára všeobecný súhlas „pokračovať“, ale presne auditovateľnú zmenu stavu jednej action proposal.
 
 ## 8. Reviewer identity
 
@@ -161,6 +161,8 @@ Resume nesmie znovu prehrať nodes pred interruptom, ak obsahujú ne-idempotent 
 
 ## 13. Revalidation po resume
 
+Durable checkpoint dokáže obnoviť to, čo agent a approval service vedeli v okamihu prerušenia, ale nezaručuje, že svet zostal nezmenený. Medzi approvalom a resume sa môže zmeniť resource UID alebo generation, policy, reviewerova rola, credential, incident ownership aj downstream business state. Executor preto nepoužíva uložený verdict ako trvalý token; používa ho iba ako dôkaz, že konkrétny digest bol schválený za konkrétnych preconditions.
+
 Pred execution sa porovná current state so schváleným envelope:
 
 ```text
@@ -174,7 +176,9 @@ preconditions still true?
 no equivalent action already committed?
 ```
 
-Pri zmene sa request označí `stale` a agent musí replanovať alebo vytvoriť nový approval request.
+Kontrola musí prebehnúť v trusted executor alebo policy vrstve nad authoritative read-backmi, nie modelovým odhadom podobnosti. Povolený drift musí byť explicitne opísaný v tool contracte alebo policy; napríklad nový observation timestamp môže byť kompatibilný, zatiaľ čo iný deployment UID alebo refund amount nie je.
+
+Pri akejkoľvek nekompatibilnej zmene sa request označí `stale`, execution zostane blokovaný a agent musí replanovať alebo vytvoriť nový approval request. Tým sa oddeľuje bezpečné pokračovanie rovnakého subjectu od replayu starého súhlasu na novú realitu.
 
 ## 14. Approval drift
 
@@ -385,20 +389,22 @@ Pôvodný approval sa po generation change mal označiť `stale` a vyžiadať no
 
 ## 38. Failure hypotheses
 
-Pri incidente po ľudskom schválení nie je správny záver „človek to povolil“. Failure môže vzniknúť v proposal, UI, identity, policy, persistence, resume, execution alebo outcome verification.
+Pri incidente po ľudskom schválení nie je správny záver „človek to povolil“. Approval je reťaz proposal → policy → presentation → identity decision → resume → execution → outcome, takže first divergence môže vzniknúť pred kliknutím aj po ňom. Diagnostika najprv zmrazí štyri časové línie: všetky proposal generations a ich digests, reviewerovu autentifikáciu a entitlement snapshots, execution attempts s provider alebo target request IDs a authoritative business state. Až ich korelácia ukáže, či človek schválil nesprávne zobrazený subject, či executor vykonal inú generation alebo či bola správna akcia zopakovaná po unknown outcome.
 
-- **Ambiguous subject** — karta nezobrazila exact resource, recipient, amount alebo environment.
-- **Digest mismatch** — vykonané arguments sa líšili od schváleného envelope.
-- **Stale approval** — resource, policy, identity alebo evidence sa zmenili počas čakania.
-- **Authorization drift** — reviewer už pri execution nemal required role.
-- **Duplicate proposal** — viac agentov vytvorilo ekvivalentné approval requests.
-- **Replay** — starý decision artifact sa použil na nový action attempt alebo operation.
-- **Unknown outcome retry** — timeout viedol k opakovaniu už commitnutej akcie.
-- **UI omission** — critical field alebo alternative bol skrytý.
-- **Approval fatigue** — reviewer schvaľoval bez primeranej kontroly pre vysoký volume.
-- **Audit gap** — chýbal displayed evidence digest alebo execution request ID.
+Competing hypotheses sa nevyvracajú tým, že audit log obsahuje `approved=true`. Ambiguous UI sa testuje proti presnému payloadu, ktorý reviewer reálne videl; stale approval proti resource a policy generations pri resume; replay a duplicate proposal proti stabilnému business operation a action ID; approval fatigue proti decision timing, edit/reject patterns a reviewer workloadu. Business ledger alebo runtime resource read-back zostáva authority pre skutočný side effect, aj keď approval service hlási úspešný transition.
 
-Každá hypotéza sa testuje proti approval, identity, execution a business records.
+- **Ambiguous subject** — karta nezobrazila exact resource, recipient, amount alebo environment, takže verdict nemožno jednoznačne priradiť k vykonanému side effectu.
+- **Digest mismatch** — vykonané arguments alebo tool defaults sa líšili od canonical envelope, ktorý reviewer schválil.
+- **Stale approval** — resource, policy, identity alebo supporting evidence sa zmenili počas čakania a resume nevyžiadal nový verdict.
+- **Authorization drift** — reviewer už pri decisione alebo execution nemal required role, incident assignment alebo authentication freshness.
+- **Duplicate proposal** — viac agentov vytvorilo ekvivalentné approval requests pre jeden business operation a deduplication ich nerozpoznala.
+- **Replay** — starý decision artifact sa použil na nový action attempt, proposal generation, tenant alebo operation.
+- **Unknown outcome retry** — timeout po možnom commitnutí viedol k opakovaniu akcie bez authoritative reconciliation.
+- **UI omission** — critical field, competing hypothesis, rollback boundary alebo alternative bol skrytý a reviewer nemal informed evidence.
+- **Approval fatigue** — vysoký volume a slabé risk tiering viedli k mechanickému schvaľovaniu bez primeranej kontroly.
+- **Audit gap** — chýbal displayed evidence digest, identity snapshot, execution request ID alebo business read-back, takže causal chain nemožno uzavrieť.
+
+Root cause verdict musí pomenovať prvý chybný transition a jeho dôkaz, nie iba posledného človeka v reťazci. Incident sa uzavrie až po containment-e pending a replayable requests, oprave konkrétnej generation, replayi incidentu aj benign controlu a potvrdení, že druhá nezávislá operácia nevie zdediť pôvodný approval.
 
 ## 39. Containment
 
@@ -453,3 +459,11 @@ Runbook musí mať safe manual fallback a audit procedure.
 OpenAI Agents SDK Human-in-the-loop dokumentuje tool-level approval, interruptions, serializovaný `RunState` a resume pre top-level aj nested agent runs. LangGraph a LangChain dokumentácia opisuje interrupts, persistent checkpointing a rozhodnutia approve, edit alebo reject; zároveň upozorňuje, že side effects pred interruptom musia byť idempotentné.
 
 Tieto framework mechanizmy poskytujú pause/resume primitives. Neimplementujú automaticky organization-specific identity, authorization, separation of duties, canonical business subject, approval digest, idempotency alebo business outcome validation. Repository validácia kapitoly nevykonáva reálnu approval session, role revocation, duplicate delivery, tool side effect ani recovery drill.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Supervisor, router a specialist patterns](supervisor-router-specialist-patterns.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

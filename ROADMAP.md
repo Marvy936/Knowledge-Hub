@@ -523,10 +523,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Agent loop, state, observation, action a termination](docs/21-ai-agents-and-intelligent-automation/agent-loop-state-observation-action-termination.md)
 - [x] [Tool calling a tool contracts](docs/21-ai-agents-and-intelligent-automation/tool-calling-tool-contracts.md)
 - [x] [Planning, decomposition a replanning](docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md)
-- [ ] Short-term state, long-term memory a external memory
-- [ ] Single-agent a multi-agent architecture
-- [ ] Supervisor, router a specialist patterns
-- [ ] Human-in-the-loop a approval gates
+- [x] [Short-term state, long-term memory a external memory](docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md)
+- [x] [Single-agent a multi-agent architecture](docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md)
+- [x] [Supervisor, router a specialist patterns](docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md)
+- [x] [Human-in-the-loop a approval gates](docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md)
 - [ ] Durable execution, retries a resumability
 - [ ] Idempotency a side-effect control
 - [ ] Model Context Protocol

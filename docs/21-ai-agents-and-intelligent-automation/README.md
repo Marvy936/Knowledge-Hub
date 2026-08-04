@@ -18,15 +18,15 @@ Odporúčané predchádzajúce oblasti:
 2. [Agent loop, state, observation, action a termination](agent-loop-state-observation-action-termination.md)
 3. [Tool calling a tool contracts](tool-calling-tool-contracts.md)
 4. [Planning, decomposition a replanning](planning-decomposition-replanning.md)
+5. [Short-term state, long-term memory a external memory](short-term-state-long-term-external-memory.md)
+6. [Single-agent a multi-agent architecture](single-agent-multi-agent-architecture.md)
+7. [Supervisor, router a specialist patterns](supervisor-router-specialist-patterns.md)
+8. [Human-in-the-loop a approval gates](human-in-the-loop-approval-gates.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-5. Short-term state, long-term memory a external memory
-6. Single-agent a multi-agent architecture
-7. Supervisor, router a specialist patterns
-8. Human-in-the-loop a approval gates
 9. Durable execution, retries a resumability
 10. Idempotency a side-effect control
 11. Model Context Protocol
@@ -111,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **4/62 · In progress**. Prvý authoritative blok aktivuje kapitoly 1–4 a incident `AGENT-OPS-01`. Architecture kapitola oddeľuje deterministic workflow, bounded probabilistic component a autonomous agent cez control-flow authority, autonomy dimensions, business invariants, complexity budget a architecture ladder. Agent-loop kapitola definuje exact run a operation identity, typed state, observation provenance a freshness, action outcomes, interruptions, budgets, cycle detection a deterministic termination. Tool-contract kapitola oddeľuje model proposal od schema a semantic validation, canonical resource resolution, authorization, approval, idempotency, timeout a retry semantics, postconditions, trust a versioned catalog. Planning kapitola zavádza explicitný versioned operational plan bez private chain-of-thought, evidence-first decomposition, dependencies, feasibility, risk ordering, observation-driven replanning, unknown-outcome reconciliation a trajectory acceptance. Kapitoly 1–4 sú pripravené na repository closeout; reálne agent runs, production tools, approvals, side effects, failure injection, recovery drills ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 5–8: memory, single/multi-agent architecture, supervisor/router/specialist patterns a human approval gates.
+Aktuálny authoritative stav sekcie je **8/62 · In progress**. Druhý authoritative blok aktivuje kapitoly 5–8 a incident `AGENT-OPS-02`. Memory kapitola oddeľuje thread-scoped typed state, reviewed cross-session semantic/episodic/procedural memory a external authoritative systems; zavádza exact namespace a identity, provenance, authority hierarchy, freshness, TTL a event-driven invalidation, compaction lineage, conflict resolution, poisoning controls, privacy/deletion graph a tenant-isolated second-operation acceptance. Architecture kapitola používa single-agent návrh ako default baseline a povoľuje multi-agent topológiu iba pri preukázanej potrebe context isolation, paralelizácie alebo privilege separation; definuje versioned topology manifest, state a memory ownership, delegation/output contracts, join/cancellation policy, single-writer side-effect ownera a topology-wide cost/latency budget. Pattern kapitola oddeľuje bounded router decision, stateful supervisor orchestration a specialist contract cez route taxonomy, abstain, single/multi-route fan-out, capability registry, context packaging, independent evidence, authority-aware synthesis, false-consensus detection, recursion a nested-approval propagation. Approval kapitola modeluje immutable action envelope s canonical subjectom, proposal/tool/policy generations, argument digestom, preview a evidence, reviewer identity a current authorization, separation of duties, TTL, edit/reject/escalate semantics, durable interruption, resume revalidation, duplicate-proposal control, idempotency, unknown-outcome reconciliation a business read-back. Kapitoly 5–8 sú pripravené na repository closeout; reálne memory stores, multi-agent runs, routing, approvals, identity systems, side effects, recovery drills ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 9–12: durable execution, idempotency, Model Context Protocol a agent interoperability.

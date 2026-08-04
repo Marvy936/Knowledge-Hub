@@ -46,6 +46,8 @@ Pri jasných kategóriách je router lacnejší a predvídateľnejší. Supervis
 
 ## 5. Exact routing subject
 
+Route decision musí byť replayable nad presným business a security subjectom, nie iba nad textom, ktorý model náhodne dostal. Input digest bez canonical features nestačí, pretože dva rovnaké alert titles môžu patriť inému tenantovi, environmentu, dependency graphu alebo risk tieru. Decision artifact preto viaže operation identity, autentifikovaný context, router a taxonomy generations, extracted features, selected destinations, confidence alebo abstain a policy reason codes.
+
 Route decision musí byť viazaný na presný input, taxonomy generation a policy state:
 
 ```yaml
@@ -70,7 +72,7 @@ reason_codes:
   - PAYMENT_DEPENDENCY_PRESENT
 ```
 
-Bez taxonomy generation nemožno vyhodnotiť route drift po zmene kategórií alebo descriptions.
+Runtime navyše musí zaznamenať, ktorú capability-registry generation skutočne resolve-oval pre každú route. Bez taxonomy a loaded specialist generations nemožno vyhodnotiť route drift po zmene kategórií, descriptions alebo deploymentu. Takýto artifact umožní rozlíšiť chybný feature enrichment od správneho route decisionu, ktorý neskôr zlyhal v specialistovi.
 
 ## 6. Deterministický router
 
@@ -343,7 +345,7 @@ Pri cross-domain requeste môže router fan-outnúť viac specialists a determin
 
 ## 27. Hybrid pattern
 
-Praktický systém často kombinuje deterministic policy router, bounded LLM router a supervisora:
+Praktický systém často kombinuje viac orchestration vrstiev, ale každá musí mať odlišnú authority. Deterministický policy router najprv vynúti tenant, data-classification a forbidden-route hranice, ktoré sa nesmú meniť podľa modelového reasoning-u. Bounded LLM router potom rieši iba nejednoznačnú domain klasifikáciu a môže abstain-núť. Stateful supervisor sa aktivuje až pri multi-hop alebo cross-domain prípadoch, kde nové observations skutočne menia ďalší plán.
 
 ```text
 security and tenant policy routing
@@ -353,7 +355,7 @@ security and tenant policy routing
 → approval-bound executor
 ```
 
-Každá vrstva rieši inú neistotu a má vlastné telemetry.
+Toto poradie zabraňuje tomu, aby všeobecný supervisor získal širšie oprávnenia iba preto, že classifier nepoznal route. Specialists zostávajú read-only evidence producers a mutation authority sa objaví až v samostatnom executor contracte po syntéze a approvale. Každá vrstva má vlastnú release generation, latency a cost contribution, failure modes a telemetry, takže incident možno lokalizovať na policy enforcement, classification, planning, specialist execution alebo side-effect path namiesto neurčitého „agent zlyhal“.
 
 ## 28. Specialist recursion
 
@@ -389,6 +391,8 @@ Route decision je untrusted proposal, kým policy engine nepotvrdí, že caller 
 
 ## 32. Observability
 
+Observability musí zobraziť orchestration ako jeden causal graph, nie ako neprepojený zoznam model calls. Parent-child identity viaže router decision, supervisor plan, specialist attempts, joins a synthesis k jednému business operation ID; loaded generations a contract digests ukazujú, čo runtime skutočne vykonal. Trace sampling nesmie zahodiť failed alebo cancelled specialist attempts, pretože finálny úspešný synthesis span by potom vytvoril falošne zdravý obraz.
+
 Trace zachytáva:
 
 ```text
@@ -403,7 +407,7 @@ synthesis evidence graph
 final action proposal and business outcome
 ```
 
-Bez týchto údajov nemožno odlíšiť wrong route od specialist failure alebo synthesis loss.
+Každý specialist finding má source lineage a observation timestamp, aby dve summaries z rovnakého upstream evidence nevyzerali ako nezávislý konsenzus. Action proposal a business outcome zostávajú samostatné spans alebo linked records: úspešná syntéza ani HTTP 200 z executor toolu nepreukazujú obnovenú checkout konverziu. Bez týchto údajov nemožno odlíšiť wrong route od specialist failure, join omission, synthesis loss alebo downstream business failure.
 
 ## 33. Incident `AGENT-OPS-02`
 
@@ -425,20 +429,22 @@ Route taxonomy sa doplnila o dependency a business-impact features a specialists
 
 ## 34. Failure hypotheses
 
-Pri nesprávnom supervisor outcome zostáva otvorených viacero failure paths. First divergence sa hľadá od input enrichmentu cez route decision, capability resolution, context packaging, specialist execution, join až po synthesis.
+Pri nesprávnom supervisor outcome zostáva otvorených viacero failure paths. Diagnostika prechádza rovnaké lifecycle poradie ako produkčný request: authoritative enrichment → route artifact → capability resolution → context package → specialist execution → join → synthesis → action. V každom bode porovná desired manifest s loaded generation a zachová technical attempts aj cancelled alebo failed branches. Tým sa first divergence nehľadá podľa najhlasnejšieho specialist summary, ale podľa prvého rozdielu medzi očakávaným a skutočným state transitionom.
 
-- **Feature omission** — router nedostal dependency, tenant, environment alebo risk signal.
-- **Taxonomy overlap** — route descriptions boli nejednoznačné alebo nekompatibilné.
-- **Forced classification** — router nemal abstain a zvolil nesprávnu destination.
-- **Capability drift** — registry resolve-ovala inú specialist generation než release manifest.
-- **Context leakage** — specialist dostal cudzie alebo leading údaje.
-- **Contract violation** — specialist prekročil tools, scope, time window alebo output schema.
-- **Join error** — supervisor pokračoval bez required resultu alebo čakal na nepotrebnú vetvu.
-- **False consensus** — viac outputs pochádzalo z jedného upstream source alebo zdieľanej hypotézy.
-- **Synthesis omission** — conflict alebo uncertainty sa stratili vo finálnom summary.
-- **Hidden nested approval** — citlivá akcia zostala v specialist run-e bez parent policy.
+Falsifikácia musí rešpektovať source correlation. Dva specialists môžu opakovať rovnakú leading hypotézu zo shared contextu, router môže vybrať správnu route, ale registry resolve-ovať stale specialist generation, a validný specialist output sa môže stratiť až pri synthesis. Preto sa porovnávajú feature provenance, route reason codes, registry read-back, context a contract digests, specialist source refs, join policy a finálny evidence graph.
 
-Hypotézy sa falsifikujú loaded-state read-backom a causal trace, nie podľa posledného model outputu.
+- **Feature omission** — router nedostal dependency, tenant, environment alebo risk signal; enrichment record ukáže, či pole chýbalo už pred modelovým dispatchom.
+- **Taxonomy overlap** — route descriptions boli nejednoznačné alebo nekompatibilné; route-level eval a taxonomy generation odhalia systematický conflict.
+- **Forced classification** — router nemal abstain alebo confidence policy a zvolil destination pri nedostatočnom evidence.
+- **Capability drift** — registry resolve-ovala inú specialist generation než release manifest; loaded registry a nested run metadata určia effective version.
+- **Context leakage** — specialist dostal cudzie tenant dáta, irelevantné instructions alebo leading hypotézu; context package digest a access logs určia contaminating edge.
+- **Contract violation** — specialist prekročil allowed tools, subject, time window alebo output schema; runtime tool trace má prednosť pred self-reportom.
+- **Join error** — supervisor pokračoval bez required resultu, čakal na optional vetvu alebo nesprávne interpretoval cancellation; join artifact ukáže rozhodujúci stav.
+- **False consensus** — viac outputs pochádzalo z jedného upstream source, shared memory alebo zdieľanej hypotézy; evidence graph odhalí common-source lineage.
+- **Synthesis omission** — conflict, uncertainty alebo source refs sa stratili vo finálnom summary; diff typed findings proti synthesis artifactu lokalizuje stratu.
+- **Hidden nested approval** — citlivá akcia zostala v specialist run-e bez parent policy a operation owner nevidel interruption ani action digest.
+
+Root cause sa prijme iba s exact operation, route, specialist a contract generations a diskriminačným dôkazom, ktorý vyradí hlavné konkurujúce hypotézy. Recovery potom replay-ne incident aj single-domain control, overí safe fallback a potvrdí, že druhá operácia nepoužije stale route, context ani approval.
 
 ## 35. Containment
 
@@ -477,3 +483,11 @@ Alternate scenario je jasná single-domain otázka. Router má zvoliť jedného 
 LangChain dokumentácia rozlišuje router ako klasifikačný dispatch od stateful supervisora, ktorý dynamicky koordinuje subagentov. OpenAI Agents SDK dokumentuje agents-as-tools a handoff patterns s rozdielnym ownershipom konverzácie. Anthropic produkčný research systém používa orchestrator-worker pattern a zdôrazňuje potrebu presných delegation tasks, parallelism budgetu a evaluation.
 
 Tieto zdroje sú implementačné príklady, nie dôkaz vhodnosti konkrétneho patternu. Repository validácia nevykonáva reálny routing, specialist isolation, nested approval, parallel failure, synthesis ani business outcome.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Single-agent a multi-agent architecture](single-agent-multi-agent-architecture.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Human-in-the-loop a approval gates →](human-in-the-loop-approval-gates.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

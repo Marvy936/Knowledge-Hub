@@ -368,5 +368,5 @@ Runtime `Verified` vyžaduje executed trajectory evals, dynamic-state tests a fa
 
 **Navigácia**
 
-[← Predchádzajúca: Tool calling a tool contracts](tool-calling-tool-contracts.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Tool calling a tool contracts](tool-calling-tool-contracts.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Short-term state, long-term memory a external memory →](short-term-state-long-term-external-memory.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

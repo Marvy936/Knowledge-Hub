@@ -212,19 +212,19 @@ Memory record nemá tvrdiť viac než jeho source. Ak postmortem hovorí „rest
 
 ## 12. Freshness, TTL a invalidation
 
-Každá memory class potrebuje freshness policy. Krátkodobý observation môže expirovať po sekundách, entitlement snapshot po minútach a schválený runbook až po novej verzii. TTL však nie je jediný invalidation trigger.
+Každá memory class potrebuje freshness policy odvodenú od volatility a authority jej subjectu. Krátkodobý observation môže expirovať po sekundách, entitlement snapshot po minútach a schválený runbook až po novej verzii. TTL však modeluje iba plynutie času; nevie zachytiť udalosti, ktoré okamžite menia význam záznamu. Memory lifecycle preto kombinuje časovú platnosť s event-driven invalidation a explicitnou supersession lineage.
 
-Záznam sa invaliduje aj pri:
+Záznam sa invaliduje aj pri nasledujúcich udalostiach:
 
-- zmene architecture generation;
-- zmene ownera alebo policy;
-- odvolaní súhlasu používateľa;
-- oprave pôvodného incidentu;
-- zmene identity alebo tenancy scope;
-- explicitnom supersede novším záznamom;
-- zistení poisoning alebo nesprávnej generalizácie.
+- **Architecture generation change** — memory opisujúca staré komponenty, dependency graph alebo rollout mechanizmus sa nesmie použiť na novú generation bez compatibility review.
+- **Owner alebo policy change** — zmena service ownera, approval policy alebo procedural authority môže znížiť trust recordu aj pred jeho časovým expiry.
+- **Odvolanie súhlasu používateľa** — personal preference alebo profilový údaj musí prestať vstupovať do retrievalu podľa consent a purpose policy, nie až po všeobecnom TTL.
+- **Oprava pôvodného incidentu** — corrigendum alebo nový postmortem môže vyvrátiť predchádzajúcu interpretáciu; record sa označí superseded alebo quarantined, aby starý záver neprežil source opravu.
+- **Identity alebo tenancy transition** — account merge, role change, tenant migration alebo canonical-ID oprava môže zmeniť, komu record patrí a kto ho smie načítať.
+- **Explicitné supersede novšou generation** — nový reviewed record vytvorí lineage k staršiemu záznamu, aby retrieval vedel vybrať aktuálnu authority a audit vedel vysvetliť prechod.
+- **Poisoning alebo chybná generalizácia** — záznam, ktorého source, transformation alebo scope bol kompromitovaný, sa okamžite quarantinuje bez čakania na expiry.
 
-Retrieval musí filtrovať neplatné záznamy predtým, než sa dostanú do model contextu.
+Invalidation event musí aktualizovať authoritative store aj všetky serving vrstvy: retrieval index, caches, summaries a precomputed context packs. Retrieval potom filtruje neplatné records pred rankingom a model dostane iba records, ktorých scope, authority a validity boli overené pre aktuálny operation subject. Úspešný delete alebo update v primary store nie je postačujúci, kým stale index alebo cache stále môže record vrátiť.
 
 ## 13. Write path
 
@@ -378,20 +378,24 @@ Starý memory record sa po incidente quarantinoval a postmortem pipeline vytvori
 
 ## 24. Failure hypotheses
 
-Keď agent použije nesprávnu informáciu, „model si zle zapamätal“ je iba jedna hypotéza. Failure môže vzniknúť pri scope resolution, retrieval, compaction, stale cache, identity mapping, source transformation alebo authority selection. Diagnostika preto zachováva viacero alternatív, kým evidence neurčí first divergence.
+Keď agent použije nesprávnu informáciu, „model si zle zapamätal“ je iba jedna hypotéza. Memory decision vzniká cez write lineage, namespace resolution, authoritative store read, index a cache serving, ranking, compaction a finálnu context assembly. Diagnostika preto rekonštruuje, ktorý exact record bol v každej vrstve dostupný, ktorý bol vybraný a aké metadata model skutočne videl. Store truth, index truth a prompt context môžu byť v rovnakom čase rozdielne states.
 
-- **Wrong namespace** — retrieval použil nesprávny tenant, user, service alebo environment scope.
-- **Stale memory** — záznam expiroval alebo mal byť invalidovaný novou architecture generation.
-- **Authority inversion** — unreviewed summary prebil aktuálny external read-back.
-- **Compaction loss** — summary odstránil pending action, approval digest alebo unresolved hypothesis.
-- **Poisoned write** — nedôveryhodný observation sa uložil ako procedural fact.
-- **Identity drift** — záznam sa priradil k nesprávnej canonical identity.
-- **Index lag** — store obsahoval opravu, ale retrieval index ešte vracal starý record.
-- **Deletion gap** — primary record bol odstránený, no derived summary alebo index entry zostal dostupný.
+First divergence sa hľadá porovnaním memory query subjectu s autentifikovaným tenantom a identity mappingom, record generation s invalidation events, source authority s external read-backom a selected-context digestom s model trace. Napríklad správny record v store nevyvracia `index lag`; správny record v prompt capture nevyvracia `authority inversion`; úspešné primary deletion nevyvracia derived-copy gap. Každá hypotéza potrebuje dôkaz, ktorý ju vie potvrdiť aj konkrétny observation, ktorý ju vyradí.
 
-Každá hypotéza potrebuje potvrdzujúci a vyraďujúci dôkaz. Pri high-impact akcii sa memory nepoužije ako jediná authority.
+- **Wrong namespace** — retrieval použil nesprávny tenant, user, service alebo environment scope; falsifikáciou je storage-enforced query a returned-record lineage s aktuálnym canonical auth contextom.
+- **Stale memory** — záznam expiroval alebo mal byť invalidovaný novou architecture generation; rozhoduje validity metadata a doručenie invalidation eventu do serving vrstiev.
+- **Authority inversion** — unreviewed summary alebo episodic record prebil aktuálny external read-back; porovnáva sa authority policy a evidence, ktoré context curator použil.
+- **Compaction loss** — summary odstránil pending action, approval digest alebo unresolved hypothesis; raw event archive a compaction coverage ukážu prvý stratený invariant.
+- **Poisoned write** — nedôveryhodný observation sa uložil ako procedural fact; write producer, source refs, review transition a namespace propagation určia blast radius.
+- **Identity drift** — záznam sa priradil k nesprávnej canonical identity po merge, role alebo tenancy zmene; identity mapping history potvrdí alebo vyvráti chybný scope.
+- **Index lag** — authoritative store obsahoval opravu, ale retrieval index alebo cache ešte vracali starú generation; index watermark a serving trace určia oneskorenie.
+- **Deletion gap** — primary record bol odstránený, no derived summary, embedding, eval copy alebo backup zostal dostupný; deletion graph a reachability query ukážu chýbajúcu vetvu.
+
+Pri high-impact akcii sa memory nepoužije ako jediná authority ani po identifikovaní pravdepodobnej príčiny. Recovery verdict vyžaduje opravený record alebo serving generation, incident replay s rovnakým query subjectom, benign control pre relevantnú memory a druhú tenant-isolated operáciu bez preneseného state-u.
 
 ## 25. Evidence envelope
+
+Evidence envelope zmrazí vstupy a rozhodnutia context curation pre jednu exact business operation. Nie je náhradou samotnej memory store ani dôkazom, že vybraný record je pravdivý; je to auditovateľná väzba medzi query subjectom, returned generations, authority rozhodnutím, external read-backmi, konfliktmi a contextom, ktorý model skutočne dostal. Bez envelope môže tím vidieť dnešný opravený index a nesprávne predpokladať, že rovnaký result bol dostupný aj počas incidentu.
 
 Troubleshooting záznam pre memory decision môže mať tento tvar:
 
@@ -418,7 +422,7 @@ conflicts:
 selected_context_digest: sha256:...
 ```
 
-Envelope umožňuje spätne vysvetliť, prečo sa konkrétna memory dostala do kontextu a ktorá external authority ju potvrdila alebo vyvrátila.
+Envelope umožňuje spätne vysvetliť, prečo sa konkrétna memory dostala do kontextu a ktorá external authority ju potvrdila alebo vyvrátila. Pri replayi sa používa na rozlíšenie dvoch testov: reprodukcie pôvodného incidentu s historickými inputs a validácie recovery s novou store/index generation. Ak chýba query subject, record generation alebo selected-context digest, evidence nedokáže lokalizovať first divergence a incident zostáva iba pravdepodobnou interpretáciou.
 
 ## 26. Containment
 
@@ -465,3 +469,11 @@ OpenAI Agents SDK Sessions dokumentuje session-scoped conversation history, viac
 LangGraph a LangChain dokumentácia rozlišuje thread-scoped short-term memory v graph state od long-term memory v namespaces a uvádza checkpointer ako základ pre resume, human-in-the-loop a fault tolerance. Anthropic pri context engineering zdôrazňuje, že agentický loop priebežne generuje viac možného kontextu, než sa zmestí do jedného model turnu, takže obsah treba cielene kurátorovať.
 
 Repository validácia tejto kapitoly overuje syntax, odkazy, navigation a learning-depth pravidlá. Nevykonáva reálny database checkpoint, cross-tenant isolation, retention, deletion, poisoning, restore ani produkčný agent outcome.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Planning, decomposition a replanning](planning-decomposition-replanning.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Single-agent a multi-agent architecture →](single-agent-multi-agent-architecture.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

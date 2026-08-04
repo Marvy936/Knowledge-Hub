@@ -94,18 +94,18 @@ Bez topology generation nemožno porovnať dva runs ani zistiť, či sa zmenil s
 
 ## 5. Prečo začať single-agent návrhom
 
-Single-agent návrh má menšiu coordination surface, jednoduchší trace, nižšiu latency a nižší token cost. Ak jeden agent s dobre navrhnutými tools a contextom spoľahlivo plní úlohu, pridanie agentov je zbytočný complexity tax.
+Single-agent návrh má menšiu coordination surface, jednoduchší trace, nižšiu latency a nižší token cost. Ak jeden agent s dobre navrhnutými tools a contextom spoľahlivo plní úlohu, pridanie agentov je zbytočný complexity tax. Baseline nie je iba lacnejší prototyp; poskytuje porovnávací outcome, voči ktorému sa musí preukázať hodnota samostatných context windows, delegation alebo privilege separation.
 
-Single-agent je vhodný najmä vtedy, keď:
+Single-agent je vhodný najmä v nasledujúcich situáciách:
 
-- úloha používa jeden koherentný context;
-- kroky sú silno závislé a ťažko paralelizovateľné;
-- jeden owner má formulovať finálnu odpoveď;
-- tools sa dajú bezpečne obmedziť v jednom contracte;
-- latency alebo cost sú kritické;
-- evals neukazujú významný benefit špecializácie.
+- **Jeden koherentný context** — všetky rozhodujúce facts a constraints patria do jedného task subjectu, takže rozdelenie by vytvorilo compression a handoff loss bez reálnej izolácie.
+- **Silné sekvenčné dependencies** — každý krok potrebuje authoritative outcome predchádzajúceho kroku, preto paralelní specialists nemajú nezávislú prácu a iba duplikujú assumptions.
+- **Jeden outcome owner** — jedna rola musí formulovať finálnu odpoveď, udržiavať unresolved hypotheses a niesť zodpovednosť za business postcondition; ďalší agent by rozmazal ownership.
+- **Jedna bezpečnostná contract boundary** — tools a credentials možno obmedziť jedným catalogom a policy contextom, takže ďalšie agent identities neprinášajú privilege separation.
+- **Prísna latency alebo cost hranica** — route, nested inference, specialist queue a synthesis by prekročili SLO alebo ekonomický budget bez primeranej kvalitatívnej návratnosti.
+- **Evals nepreukazujú benefit špecializácie** — multi-agent candidate nezlepšuje business accuracy, unsupported-action rate, recovery alebo segment outcomes oproti jednoduchšiemu baseline-u.
 
-Toto nie je zákaz multi-agent architektúry. Je to requirement, aby zložitosť mala merateľný dôvod.
+Toto nie je zákaz multi-agent architektúry. Je to requirement, aby zložitosť mala merateľný dôvod a jasný failure, ktorý rieši. Architecture review má pomenovať očakávaný benefit, experiment, cost a rollback path; ak multi-agent variant neprinesie lepší authoritative outcome, systém zostáva pri single-agent alebo deterministic workflow návrhu.
 
 ## 6. Kedy multi-agent prináša hodnotu
 
@@ -416,20 +416,22 @@ Po incidente sa mutation tools odstránili zo specialist roles a topology manife
 
 ## 30. Failure hypotheses
 
-Pri zlyhaní multi-agent systému netreba automaticky obviniť „coordination“. First divergence môže byť v routing, context packaging, specialist contracte, state merge, model route, tool authorization alebo synthesis. Hypotézy zostávajú otvorené, kým trace a loaded topology neurčia presnú vrstvu.
+Pri zlyhaní multi-agent systému netreba automaticky obviniť „coordination“. Najprv sa načíta composed topology manifest a effective registry state, potom sa rekonštruuje causal task graph od jedného business operation ID cez routing, subtask IDs, technical attempts, context packages, specialist outputs, state merges a synthesis. Tým sa odlíši nesprávna architektúra od správnej topológie s jedným chybným route rozhodnutím alebo nekompatibilnou specialist generation.
 
-- **Wrong routing** — input bol poslaný nesprávnemu alebo nedostatočnému specialistovi.
-- **Missing specialist** — required domain vetva sa vôbec nespustila.
-- **Duplicate delegation** — rovnaký business subtask dostal viac technical task IDs.
-- **Context contamination** — specialist dostal instructions alebo data z iného domainu alebo tenanta.
-- **State race** — paralelní writers prepísali shared field bez merge rule.
-- **Privilege overlap** — viac agentov mohlo vykonať rovnaký side effect.
-- **Synthesis loss** — supervisor odstránil conflict, uncertainty alebo source refs.
-- **Cycle** — delegation graph opakoval rovnakú prácu bez nového evidence.
-- **Budget fragmentation** — každý agent bol pod lokálnym limitom, ale topology prekročila global cost alebo latency budget.
-- **Version skew** — supervisor a specialist používali nekompatibilné contract generations.
+Dôležité je rozlišovať počet agentov od nezávislosti dôkazov. Dva specialist outputs môžu pochádzať z rovnakého shared memory recordu, rovnakého metric query alebo leading hypothesis, takže ich zhoda nie je konsenzus. Rovnako dva technical task IDs môžu predstavovať duplicate attempts jedného business subtasku. Falsifikácia preto používa contract a context digests, source lineage, writer ownership a downstream side-effect records, nie iba finálne prose summaries.
 
-Každá hypotéza sa testuje proti exact run, task, agent a topology generations.
+- **Wrong routing** — input bol poslaný nesprávnemu alebo nedostatočnému specialistovi; route features a taxonomy generation ukážu, či chyba vznikla pred specialist runom.
+- **Missing specialist** — required domain vetva sa vôbec nespustila; topology plan a join policy určia, či išlo o omission, timeout alebo nesprávne označenie optionality.
+- **Duplicate delegation** — rovnaký business subtask dostal viac technical task IDs; objective a contract digests odhalia duplikát aj pri rozdielnom wording-u.
+- **Context contamination** — specialist dostal instructions alebo dáta z iného domainu alebo tenanta; context package digest a storage access log určia prvý leak.
+- **State race** — paralelní writers prepísali shared field bez merge rule; checkpoint generations a writer ownership odhalia stratený update.
+- **Privilege overlap** — viac agentov mohlo vykonať rovnaký side effect; loaded tool catalogs, credentials a action ledger určia skutočný mutation surface.
+- **Synthesis loss** — supervisor odstránil conflict, uncertainty alebo source refs; porovnanie typed specialist outputs so synthesis artifactom ukáže stratený evidence.
+- **Cycle** — delegation graph opakoval rovnakú prácu bez nového evidence; repeated task digest a absence nových observations potvrdia stagnáciu.
+- **Budget fragmentation** — každý agent bol pod lokálnym limitom, ale topology prekročila global cost alebo latency budget; parent budget ledger musí zahrnúť všetky nested attempts.
+- **Version skew** — supervisor a specialist používali nekompatibilné contract generations; loaded-state read-back a schema validation určia prvú nekompatibilnú edge.
+
+Root cause verdict pomenúva exact run, task, agent a topology generation aj prvý chybný transition. Recovery sa prijme až po replayi incidentného task graphu, benign single-agent control-e, overení jedného side-effect ownera a druhej operácii bez preneseného state-u alebo duplicate delegation.
 
 ## 31. Observability
 
@@ -499,3 +501,11 @@ Bez odpovede je vhodnejší jednoduchší návrh.
 OpenAI Agents SDK rozlišuje manager pattern s agents-as-tools od handoffov, pri ktorých specialist prevezme aktívnu konverzáciu. LangChain dokumentácia odlišuje subagent supervisor pattern od routera a uvádza, že nie každá komplexná úloha vyžaduje multi-agent systém. Anthropic opisuje orchestrator-worker multi-agent research architektúru, jej výhody pri paralelných breadth-first tasks aj významný token a coordination cost.
 
 Tieto zdroje poskytujú implementačné a architektonické príklady. Nepreukazujú, že konkrétna topológia je vhodná pre checkout remediation alebo že multi-agent systém dosiahol produkčný business outcome. Repository validácia kapitoly nevykonáva reálne specialist runs, parallel failure, approval, side effect, recovery ani cost measurement.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Short-term state, long-term memory a external memory](short-term-state-long-term-external-memory.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Supervisor, router a specialist patterns →](supervisor-router-specialist-patterns.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
