@@ -38,15 +38,15 @@ Odporúčané predchádzajúce oblasti:
 22. [Quantization a local inference](quantization-local-inference.md)
 23. [GPU memory, batching a serving performance](gpu-memory-batching-serving-performance.md)
 24. [Prompt caching, semantic caching a response caching](prompt-semantic-response-caching.md)
+25. [LLM gateways, routing, fallback a rate limiting](llm-gateways-routing-fallback-rate-limiting.md)
+26. [Prompt Registry a lifecycle](prompt-registry-lifecycle.md)
+27. [LLM evaluation datasets a graders](llm-evaluation-datasets-graders.md)
+28. [Human evaluation a expert feedback](human-evaluation-expert-feedback.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-25. LLM gateways, routing, fallback a rate limiting
-26. Prompt Registry a lifecycle
-27. LLM evaluation datasets a graders
-28. Human evaluation a expert feedback
 29. Tracing, token usage a cost observability
 30. Hallucination, faithfulness a factuality
 31. Prompt injection a indirect prompt injection
@@ -86,4 +86,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **24/37 · In progress**. Šiesty authoritative blok aktivuje kapitoly 21–24 a incident `GENAI-SUPPORT-06`. PEFT kapitola oddeľuje base model, tokenizer/chat template, adapter config/weights, target modules, training data a composed serving release; vysvetľuje LoRA low-rank delta, QLoRA boundary, multi-adapter routing, merge/hot-swap, tenant isolation a behavior compatibility. Quantization kapitola modeluje weight/activation/compute/KV precision, PTQ/calibration, outliers, artifact/runtime/kernel/hardware identity, local serving a supply-chain/privacy boundary a oddeľuje memory fit od workload parity. Serving-performance kapitola rozkladá weights, KV cache, activations, paging, prefill/decode, static a continuous batching, admission/backpressure, fairness, parallelism, TTFT/ITL/end-to-end latency, open-loop capacity, autoscaling a OOM recovery. Caching kapitola striktne oddeľuje prefix/KV compute reuse, approximate semantic result reuse a exact response reuse a vyžaduje model/adapter/prompt/corpus/security-scoped keys, authorization pred lookupom, freshness/invalidation, atomic publish, privacy, false-hit telemetry a forbidden-hit tests. Kapitoly 21–24 sú pripravené na repository closeout; reálny adapter training, quantized export/inference, GPU load test, provider/self-hosted prompt cache, semantic/response cache traffic a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 25–28: LLM gateways/routing/fallback/rate limiting, Prompt Registry, LLM evaluation datasets/graders a human evaluation/expert feedback.
+Aktuálny authoritative stav sekcie je **28/37 · In progress**. Siedmy authoritative blok aktivuje kapitoly 25–28 a incident `GENAI-SUPPORT-07`. Gateway kapitola modeluje caller a operation identity, control/data plane generations, capability-aware routing, behavior-compatible load balancing a fallback, failure classification, read-before-retry, quotas, backpressure, fairness, circuit breakers, region/data policy a attempt-versus-business telemetry. Prompt Registry kapitola oddeľuje immutable prompt version, mutable alias, rendered instance a composed application release; zavádza typed variables, role/examples/schema/tool dependencies, semantic diff, eval/approval gates, compare-and-swap promotion, runtime loaded-generation read-back, rollback, lineage a access control. LLM-evaluation kapitola definuje estimand, immutable dataset/case manifests, temporal validity, leakage-safe splits, deterministic a model graders, calibration, position/self-preference bias, multi-grader hard gates, repetitions, segment uncertainty, online correlation a grader-gaming recovery. Human-evaluation kapitola zavádza authority matrix, reprezentatívne a kvalifikované cohorts, versioned rubric/UI, blindness/randomization/overlap, inter-annotator agreement, disagreement analysis, expert adjudication, model-assisted review boundaries, ethics/privacy a authority-specific promotion evidence. Kapitoly 25–28 sú pripravené na repository closeout; reálny gateway traffic/failover/rate-limit exercise, prompt-registry promotion, provider eval execution, human annotation study, expert adjudication a business outcome neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 29–32: tracing/token usage/cost observability, hallucination/faithfulness/factuality, prompt injection a indirect prompt injection a data exfiltration/tool abuse/excessive agency.

@@ -366,5 +366,5 @@ Forbidden acceptance je HTTP `200` ako dôkaz kompatibility, fallback na ľubovo
 
 **Navigácia**
 
-[← Predchádzajúca: Prompt caching, semantic caching a response caching](prompt-semantic-response-caching.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Prompt caching, semantic caching a response caching](prompt-semantic-response-caching.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Prompt Registry a lifecycle →](prompt-registry-lifecycle.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

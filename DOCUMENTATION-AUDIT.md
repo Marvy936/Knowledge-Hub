@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **435**
-- Audited conceptual sections: **8989**
-- Total words: **870,574**
-- Findings: **8390** (critical 658, high 871, medium 475, low 6386)
-- File grades: A 172, B 160, C 42, D 61
+- Audited authoritative articles: **439**
+- Audited conceptual sections: **9127**
+- Total words: **880,544**
+- Findings: **8478** (critical 658, high 871, medium 475, low 6474)
+- File grades: A 172, B 163, C 43, D 61
 
 ## Interpretation
 
@@ -117,6 +117,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 40 | 1 | 1 | 0 | 13 | 1940 | `docs/00-foundations/dora-metrics.md` |
 | C | 40 | 0 | 0 | 0 | 29 | 2595 | `docs/18-machine-learning-fundamentals/feature-engineering-feature-selection.md` |
 | C | 39 | 0 | 0 | 0 | 31 | 2510 | `docs/18-machine-learning-fundamentals/linear-logistic-regression.md` |
+| C | 39 | 0 | 0 | 0 | 22 | 2679 | `docs/20-llm-and-genai-engineering/human-evaluation-expert-feedback.md` |
 | C | 38 | 0 | 0 | 0 | 28 | 2905 | `docs/07-infrastructure-as-code-and-configuration-management/handlers-loops-conditionals.md` |
 | C | 37 | 0 | 0 | 0 | 27 | 2858 | `docs/07-infrastructure-as-code-and-configuration-management/modules.md` |
 | C | 37 | 0 | 0 | 0 | 25 | 2591 | `docs/07-infrastructure-as-code-and-configuration-management/vault.md` |
@@ -127,6 +128,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | C | 36 | 0 | 0 | 0 | 28 | 2753 | `docs/07-infrastructure-as-code-and-configuration-management/variables-facts-templates.md` |
 | C | 36 | 0 | 0 | 0 | 28 | 2652 | `docs/18-machine-learning-fundamentals/data-preprocessing-normalization-encoding.md` |
 | B | 34 | 0 | 0 | 0 | 25 | 2546 | `docs/07-infrastructure-as-code-and-configuration-management/remote-backend-and-state-locking.md` |
+| B | 34 | 0 | 0 | 0 | 28 | 2468 | `docs/20-llm-and-genai-engineering/llm-gateways-routing-fallback-rate-limiting.md` |
 | B | 34 | 0 | 0 | 0 | 24 | 2262 | `docs/20-llm-and-genai-engineering/rag-evaluation-retrieval-diagnostics.md` |
 | B | 33 | 0 | 0 | 0 | 27 | 2590 | `docs/07-infrastructure-as-code-and-configuration-management/inventory.md` |
 | B | 33 | 0 | 0 | 0 | 26 | 2554 | `docs/18-machine-learning-fundamentals/dataset-sample-feature-label-target.md` |
@@ -139,10 +141,12 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 31 | 0 | 0 | 0 | 19 | 2374 | `docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 30 | 0 | 0 | 0 | 22 | 2088 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
+| B | 30 | 0 | 0 | 0 | 20 | 2277 | `docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 2181 | `docs/20-llm-and-genai-engineering/retrieval-hybrid-search-reranking.md` |
 | B | 29 | 0 | 0 | 0 | 24 | 2454 | `docs/11-cloud-and-aws/route53-cloudfront.md` |
+| B | 29 | 0 | 0 | 0 | 18 | 2540 | `docs/20-llm-and-genai-engineering/llm-evaluation-datasets-graders.md` |
 | B | 29 | 0 | 0 | 0 | 19 | 2098 | `docs/20-llm-and-genai-engineering/peft-adapters-lora.md` |
-| B | 29 | 0 | 0 | 0 | 20 | 2573 | `docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md` |
+| B | 29 | 0 | 0 | 0 | 20 | 2579 | `docs/20-llm-and-genai-engineering/prompt-semantic-response-caching.md` |
 | B | 28 | 0 | 0 | 0 | 21 | 2096 | `docs/10-helm-and-cka/cka-timed-labs.md` |
 | B | 28 | 0 | 1 | 0 | 13 | 3923 | `docs/17-keycloak-and-identity-platform/keycloak-troubleshooting.md` |
 | B | 27 | 0 | 0 | 0 | 24 | 2208 | `docs/08-container-fundamentals-and-docker/buildkit-buildx.md` |
@@ -2226,9 +2230,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 2893 | 2893 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 1826 | 1826 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1667 | 1667 |
+| `example-not-explicit` | 0 | 0 | 0 | 2935 | 2935 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 1870 | 1870 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1669 | 1669 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

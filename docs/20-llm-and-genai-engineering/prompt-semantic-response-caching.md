@@ -517,5 +517,5 @@ Forbidden acceptance je `cache_hit=true` bez typu a subjectu, semantic similarit
 
 **Navigácia**
 
-[← Predchádzajúca: GPU memory, batching a serving performance](gpu-memory-batching-serving-performance.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: GPU memory, batching a serving performance](gpu-memory-batching-serving-performance.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: LLM gateways, routing, fallback a rate limiting →](llm-gateways-routing-fallback-rate-limiting.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

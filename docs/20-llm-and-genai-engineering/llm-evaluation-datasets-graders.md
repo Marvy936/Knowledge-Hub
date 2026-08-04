@@ -414,5 +414,5 @@ Forbidden acceptance je leaderboard alebo aggregate score bez workload datasetu,
 
 **Navigácia**
 
-[← Predchádzajúca: Prompt Registry a lifecycle](prompt-registry-lifecycle.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Prompt Registry a lifecycle](prompt-registry-lifecycle.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Human evaluation a expert feedback →](human-evaluation-expert-feedback.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

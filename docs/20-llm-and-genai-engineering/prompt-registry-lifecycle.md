@@ -353,5 +353,5 @@ Forbidden acceptance je mutable prompt text pod rovnakou verziou, production ali
 
 **Navigácia**
 
-[← Predchádzajúca: LLM gateways, routing, fallback a rate limiting](llm-gateways-routing-fallback-rate-limiting.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: LLM gateways, routing, fallback a rate limiting](llm-gateways-routing-fallback-rate-limiting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: LLM evaluation datasets a graders →](llm-evaluation-datasets-graders.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
