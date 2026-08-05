@@ -41,7 +41,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Package management](docs/01-linux-and-systems/package-management.md)
 - [x] [journald a logging](docs/01-linux-and-systems/journald-and-logging.md)
 - [x] [Storage, mounty a filesystems](docs/01-linux-and-systems/storage-mounts-and-filesystems.md)
-- [ ] Memory a CPU fundamentals
+- [x] [CPU a memory fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md)
 - [x] [Linux networking](docs/01-linux-and-systems/linux-networking.md)
 - [x] [SSH](docs/01-linux-and-systems/ssh.md)
 - [x] [Cron a systemd timers](docs/01-linux-and-systems/cron-and-systemd-timers.md)
@@ -58,7 +58,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [IPv4, IPv6 a subnetting](docs/02-networking-and-web/ipv4-ipv6-subnetting.md)
 - [x] [Routing a default gateway](docs/02-networking-and-web/routing-and-default-gateway.md)
 - [x] [TCP a UDP](docs/02-networking-and-web/tcp-and-udp.md)
-- [ ] Ports a sockets
+- [x] [Porty a sockety](docs/02-networking-and-web/ports-and-sockets.md)
 - [x] [DNS](docs/02-networking-and-web/dns.md)
 - [x] [DHCP](docs/02-networking-and-web/dhcp.md)
 - [x] [NAT](docs/02-networking-and-web/nat.md)
@@ -66,8 +66,8 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Proxy a reverse proxy](docs/02-networking-and-web/proxy-and-reverse-proxy.md)
 - [x] [Load balancing](docs/02-networking-and-web/load-balancing.md)
 - [x] [HTTP](docs/02-networking-and-web/http.md)
-- [ ] HTTPS, TLS, certificates a PKI
-- [ ] REST APIs a WebSockets
+- [x] [HTTPS, TLS, certifikáty a PKI](docs/02-networking-and-web/https-tls-certificates-pki.md)
+- [x] [REST API a WebSockety](docs/02-networking-and-web/rest-apis-and-websockets.md)
 - [x] [Network troubleshooting](docs/02-networking-and-web/network-troubleshooting.md)
 
 ### Git and Automation Basics
