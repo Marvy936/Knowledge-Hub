@@ -66,15 +66,15 @@ Odporúčané predchádzajúce oblasti:
 50. [Human approval, audit a rollback](human-approval-audit-rollback.md)
 51. [Vendor lock-in a portability agentických workflowov](vendor-lock-in-portability-agentic-workflows.md)
 52. [Workflow engine oproti agent frameworku](workflow-engine-vs-agent-framework.md)
+53. [n8n oproti Temporal, Airflow a Prefect use cases](n8n-temporal-airflow-prefect-use-cases.md)
+54. [Event-driven automation](event-driven-automation.md)
+55. [AI-assisted CI/CD](ai-assisted-ci-cd.md)
+56. [AI-assisted observability a incident response](ai-assisted-observability-incident-response.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-53. n8n oproti Temporal, Airflow a Prefect use cases
-54. Event-driven automation
-55. AI-assisted CI/CD
-56. AI-assisted observability a incident response
 57. AI-assisted security operations
 58. Knowledge assistants a enterprise search
 59. Ticket, email a chat automation
@@ -111,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **52/62 · In progress**. Trinásty authoritative blok aktivuje kapitoly 49–52 a incident `AGENT-GOV-13`. Policy kapitola oddeľuje control objective, exact input/event contract, AI proposal, Rego semantics, positive/negative/mutation tests, policy-set scope/action, immutable bundle a runtime decision evidence. Approval kapitola viaže exact subject, quorum, separation of duties, expiry, pre-execution revalidation, audit completeness, rollback, compensating actions a business reconciliation. Portability kapitola rozkladá vendor lock-in na API, state, checkpoint, memory, identity, approval, audit a operational vrstvy a vyžaduje canonical contracts, conformance suite a reálny exit drill. Workflow-engine kapitola prideľuje durable state, timers, retries, approvals a operation IDs deterministic engine-u a probabilistické reasoning, memory a tool trajectory agent frameworku. Reálne policy evaluations, approvals, audit exports, rollbacks, migrations, crash/replay drilly ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 53–56: n8n oproti Temporal/Airflow/Prefect use cases, event-driven automation, AI-assisted CI/CD a AI-assisted observability/incident response.
+Aktuálny authoritative stav sekcie je **56/62 · In progress**. Štrnásty authoritative blok aktivuje kapitoly 53–56 a incident `AGENT-AUTO-14`. Runtime-selection kapitola oddeľuje integration workflow, durable application orchestration, batch/data Dag a Python-first flow a viaže výber na state authority, retries, versioning, operability a exit strategy. Event-driven kapitola zavádza CloudEvents envelope, event/command boundary, outbox/inbox, ordering, backpressure, replay, security a business idempotency. AI-assisted CI/CD kapitola viaže exact SHA, untrusted context, test integrity, permissions, OIDC, runner isolation, artifact provenance a independent deployment verification. Observability kapitola oddeľuje traces, metrics, logs, change events, no-data, sampling, hypotheses, runbook approval a technical aj business recovery. Reálne runtime migrations, event replays, AI-authored pipeline changes, deployments, incident actions ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 57–60: AI-assisted security operations, knowledge assistants a enterprise search, ticket/email/chat automation a autonomous remediation boundaries.

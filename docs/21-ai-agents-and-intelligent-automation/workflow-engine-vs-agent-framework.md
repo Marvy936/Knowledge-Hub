@@ -291,5 +291,5 @@ Workflow engine má vlastniť durable process state, timers, retries, concurrenc
 
 **Navigácia**
 
-[← Predchádzajúca: Vendor lock-in a portability agentických workflowov](vendor-lock-in-portability-agentic-workflows.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Vendor lock-in a portability agentických workflowov](vendor-lock-in-portability-agentic-workflows.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: n8n oproti Temporal, Airflow a Prefect use cases →](n8n-temporal-airflow-prefect-use-cases.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
