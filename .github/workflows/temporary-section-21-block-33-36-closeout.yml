@@ -1,0 +1,151 @@
+name: Temporary Section 21 block 33-36 closeout
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+    paths:
+      - "docs/21-ai-agents-and-intelligent-automation/**"
+      - "ROADMAP.md"
+      - "GLOSSARY.md"
+      - "DOCUMENTATION-REVIEW-STATUS.md"
+      - "DOCUMENTATION-AUDIT.md"
+      - "documentation-audit.json"
+      - ".github/workflows/temporary-section-21-block-33-36-closeout.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section-21-block-33-36-closeout-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  closeout:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/section-21-ai-agents-block-33-36
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Synchronize section and run learning-depth closeout
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path: Path, old: str, new: str) -> None:
+              text = path.read_text(encoding="utf-8")
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f"{path}: expected one replacement target, found {count}")
+              path.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
+
+          readme = Path("docs/21-ai-agents-and-intelligent-automation/README.md")
+          replace_once(
+              readme,
+              "32. [Source control a environments](source-control-environments.md)\n\n## Plánované authoritative poradie",
+              "32. [Source control a environments](source-control-environments.md)\n"
+              "33. [Self-hosting s PostgreSQL](self-hosting-postgresql.md)\n"
+              "34. [Queue mode, Redis, workers a scaling](queue-mode-redis-workers-scaling.md)\n"
+              "35. [Binary data, storage a execution retention](binary-data-storage-execution-retention.md)\n"
+              "36. [n8n monitoring, logs a security audit](n8n-monitoring-logs-security-audit.md)\n\n"
+              "## Plánované authoritative poradie",
+          )
+          for planned in (
+              "33. Self-hosting s PostgreSQL\n",
+              "34. Queue mode, Redis, workers a scaling\n",
+              "35. Binary data, storage a execution retention\n",
+              "36. n8n monitoring, logs a security audit\n",
+          ):
+              replace_once(readme, planned, "")
+
+          text = readme.read_text(encoding="utf-8")
+          marker = "## Stav\n\n"
+          if text.count(marker) != 1:
+              raise SystemExit("README: expected one status marker")
+          prefix, _ = text.split(marker, 1)
+          status = (
+              "Aktuálny authoritative stav sekcie je **36/62 · In progress**. Deviaty authoritative blok aktivuje kapitoly 33–36 a incident `AGENT-N8N-09`. PostgreSQL kapitola chápe databázu ako shared durable authority a viaže n8n/schema/encryption-key generation, TLS, connection budget, migrations, backup, WAL/PITR a application restore proof. Queue kapitola spája main/webhook/worker roles, Redis broker, PostgreSQL, readiness, concurrency, dependency-aware autoscaling, graceful shutdown, binary visibility a business reconciliation. Storage kapitola oddeľuje execution metadata, execution bundles a binary objects, vysvetľuje memory/database/filesystem/external modes, cross-process access, age/count pruning, object lifecycle, privacy a coordinated restore. Monitoring kapitola prepája health, Prometheus metrics, structured logs, per-process event files, log streaming, OpenTelemetry traces, execution evidence, security audit a business outcomes bez zamieňania telemetry za audit alebo correctness proof. Reálne n8n deploymenty, PostgreSQL migrations/failover/restore, Redis recovery, autoscaling, binary-storage migration, pruning, telemetry failure drilly, security audits ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 37–40: AI Agent nodes/tools/memory, human approval pre citlivé tool calls, RAG/knowledge workflows a production hardening/troubleshooting.\n"
+          )
+          readme.write_text(prefix + marker + status, encoding="utf-8", newline="\n")
+
+          roadmap = Path("ROADMAP.md")
+          roadmap_updates = {
+              "- [ ] Self-hosting s PostgreSQL": "- [x] [Self-hosting s PostgreSQL](docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md)",
+              "- [ ] Queue mode, Redis, workers a scaling": "- [x] [Queue mode, Redis, workers a scaling](docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md)",
+              "- [ ] Binary data, storage a execution retention": "- [x] [Binary data, storage a execution retention](docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md)",
+              "- [ ] n8n monitoring, logs a security audit": "- [x] [n8n monitoring, logs a security audit](docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md)",
+          }
+          for old, new in roadmap_updates.items():
+              replace_once(roadmap, old, new)
+
+          review = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          lines = review.read_text(encoding="utf-8").splitlines()
+          row_prefix = "| `21-ai-agents-and-intelligent-automation` — AI Agents and Intelligent Automation |"
+          matches = [index for index, line in enumerate(lines) if line.startswith(row_prefix)]
+          if len(matches) != 1:
+              raise SystemExit(f"Review status: expected one Section 21 row, found {len(matches)}")
+          lines[matches[0]] = (
+              "| `21-ai-agents-and-intelligent-automation` — AI Agents and Intelligent Automation | 36/62 authoritative drafting | In progress | 2026-08-05 | "
+              "Deviaty authoritative blok aktivuje kapitoly 33–36 a incident `AGENT-N8N-09`. PostgreSQL kapitola definuje shared database authority, exact application/schema/key subject, TLS a network trust, per-process connection multiplication, migration ordering, HA/PITR a restore-to-usable-workflow proof. Queue kapitola oddeľuje Redis coordination od PostgreSQL durability, live process od ready capacity a replica count od throughputu; pokrýva workers, webhook processors, concurrency, backpressure, dependency-aware scaling, graceful shutdown a unknown outcomes. Storage kapitola viaže execution metadata, binary references, supported shared modes, retention/pruning, S3/Azure lifecycle, privacy, backup a cross-process/tenant-negative tests. Monitoring kapitola spája process-role health, internal Prometheus, structured/per-process logs, event streaming, OpenTelemetry, execution evidence, security audit a business SLI a explicitne zachováva telemetry, audit a outcome boundaries. Reálne deployments, database/Redis/storage failover, migrations, restores, scaling, pruning, observability drilly, security remediation a business outcomes neboli vykonané; stav zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. |"
+          )
+          review.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+          PY
+
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/audit_learning_depth.py --all-docs
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
+
+          python - <<'PY'
+          from pathlib import Path
+
+          audit = Path("DOCUMENTATION-AUDIT.md").read_text(encoding="utf-8")
+          files = [
+              "self-hosting-postgresql.md",
+              "queue-mode-redis-workers-scaling.md",
+              "binary-data-storage-execution-retention.md",
+              "n8n-monitoring-logs-security-audit.md",
+          ]
+          remaining = [
+              name
+              for name in files
+              if f"### `docs/21-ai-agents-and-intelligent-automation/{name}`" in audit
+          ]
+          if remaining:
+              raise SystemExit(f"Section 21 block 33-36 critical/high findings remain: {remaining}")
+          print("Section 21 block 33-36 has no critical/high audit entries.")
+          PY
+
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            ROADMAP.md \
+            GLOSSARY.md \
+            DOCUMENTATION-REVIEW-STATUS.md \
+            DOCUMENTATION-AUDIT.md \
+            documentation-audit.json \
+            docs/21-ai-agents-and-intelligent-automation
+
+          if git diff --cached --quiet; then
+            echo "No closeout changes required."
+            exit 0
+          fi
+
+          git commit -m "docs: synchronize n8n infrastructure block closeout"
+          git push origin HEAD:agent/section-21-ai-agents-block-33-36
