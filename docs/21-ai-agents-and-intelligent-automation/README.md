@@ -62,15 +62,15 @@ Odporúčané predchádzajúce oblasti:
 46. [Agentický code review, testing a remediation](agentic-code-review-testing-remediation.md)
 47. [GitOps a release agents](gitops-release-agents.md)
 48. [Incident triage a evidence collection](incident-triage-evidence-collection.md)
+49. [Policy generation a policy validation](policy-generation-policy-validation.md)
+50. [Human approval, audit a rollback](human-approval-audit-rollback.md)
+51. [Vendor lock-in a portability agentických workflowov](vendor-lock-in-portability-agentic-workflows.md)
+52. [Workflow engine oproti agent frameworku](workflow-engine-vs-agent-framework.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-49. Policy generation a policy validation
-50. Human approval, audit a rollback
-51. Vendor lock-in a portability agentických workflowov
-52. Workflow engine oproti agent frameworku
 53. n8n oproti Temporal, Airflow a Prefect use cases
 54. Event-driven automation
 55. AI-assisted CI/CD
@@ -111,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **48/62 · In progress**. Dvanásty authoritative blok aktivuje kapitoly 45–48 a incident `AGENT-DELIVERY-12`. Pipeline kapitola oddeľuje intent, proposal, schema/policy/semantic validation, accepted diff, exact execution, artifact identity a business verification a chápe Error Analyzer ako hypothesis generator. Code review kapitola viaže exact PR SHA, agent generation, test integrity, independent checks, protected approval a post-merge outcome. GitOps kapitola oddeľuje Git desired state, render, live state, `Synced`, `Healthy` a user outcome a pinne artifact provenance, ownership, sync plan a recovery. Incident kapitola zavádza evidence classes, completeness, chain of custody, competing hypotheses, read-only diagnostics, approved containment, idempotent runbooks a technical aj business reconciliation. Reálne agent runs, code changes, releases, GitOps syncy, incident remediations ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 49–52: policy generation/validation, human approval/audit/rollback, vendor lock-in/portability a workflow engine oproti agent frameworku.
+Aktuálny authoritative stav sekcie je **52/62 · In progress**. Trinásty authoritative blok aktivuje kapitoly 49–52 a incident `AGENT-GOV-13`. Policy kapitola oddeľuje control objective, exact input/event contract, AI proposal, Rego semantics, positive/negative/mutation tests, policy-set scope/action, immutable bundle a runtime decision evidence. Approval kapitola viaže exact subject, quorum, separation of duties, expiry, pre-execution revalidation, audit completeness, rollback, compensating actions a business reconciliation. Portability kapitola rozkladá vendor lock-in na API, state, checkpoint, memory, identity, approval, audit a operational vrstvy a vyžaduje canonical contracts, conformance suite a reálny exit drill. Workflow-engine kapitola prideľuje durable state, timers, retries, approvals a operation IDs deterministic engine-u a probabilistické reasoning, memory a tool trajectory agent frameworku. Reálne policy evaluations, approvals, audit exports, rollbacks, migrations, crash/replay drilly ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 53–56: n8n oproti Temporal/Airflow/Prefect use cases, event-driven automation, AI-assisted CI/CD a AI-assisted observability/incident response.

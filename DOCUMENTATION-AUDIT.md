@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **496**
-- Audited conceptual sections: **11453**
-- Total words: **1,028,707**
-- Findings: **9397** (critical 658, high 871, medium 475, low 7393)
-- File grades: A 189, B 190, C 56, D 61
+- Audited authoritative articles: **500**
+- Audited conceptual sections: **11604**
+- Total words: **1,036,179**
+- Findings: **9412** (critical 658, high 871, medium 475, low 7408)
+- File grades: A 192, B 191, C 56, D 61
 
 ## Interpretation
 
@@ -262,7 +262,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 18 | 2059 | `docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md` |
 | B | 18 | 0 | 0 | 0 | 15 | 1818 | `docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 2145 | `docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md` |
-| B | 18 | 0 | 0 | 0 | 9 | 1950 | `docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md` |
+| B | 18 | 0 | 0 | 0 | 9 | 1954 | `docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -330,6 +330,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 15 | 1577 | `docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1895 | `docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md` |
 | B | 15 | 0 | 0 | 0 | 10 | 2026 | `docs/21-ai-agents-and-intelligent-automation/human-approval-sensitive-tool-calls.md` |
+| B | 15 | 0 | 0 | 0 | 9 | 1932 | `docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md` |
 | A | 14 | 0 | 0 | 1 | 8 | 2356 | `docs/03-git-and-automation/bash-automation.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 2498 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1538 | `docs/08-container-fundamentals-and-docker/registries.md` |
@@ -484,6 +485,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 8 | 0 | 0 | 0 | 8 | 2211 | `docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md` |
 | A | 8 | 0 | 0 | 0 | 5 | 1865 | `docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md` |
 | A | 8 | 0 | 0 | 0 | 5 | 1919 | `docs/21-ai-agents-and-intelligent-automation/ai-assisted-pipeline-creation-failure-analysis.md` |
+| A | 8 | 0 | 0 | 0 | 5 | 1777 | `docs/21-ai-agents-and-intelligent-automation/human-approval-audit-rollback.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 3162 | `docs/02-networking-and-web/networking-practical-walkthrough.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 953 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1963 | `docs/06-gitlab/projects-groups-permissions.md` |
@@ -519,6 +521,8 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 2 | 0 | 0 | 0 | 2 | 871 | `docs/02-networking-and-web/firewalls.md` |
 | A | 2 | 0 | 0 | 0 | 2 | 1860 | `docs/11-cloud-and-aws/well-architected-framework.md` |
 | A | 2 | 0 | 0 | 0 | 1 | 1956 | `docs/21-ai-agents-and-intelligent-automation/mcp-connectors-external-tools.md` |
+| A | 1 | 0 | 0 | 0 | 1 | 1854 | `docs/21-ai-agents-and-intelligent-automation/vendor-lock-in-portability-agentic-workflows.md` |
+| A | 0 | 0 | 0 | 0 | 0 | 1905 | `docs/21-ai-agents-and-intelligent-automation/workflow-engine-vs-agent-framework.md` |
 
 ## Critical and high findings
 
@@ -2287,9 +2291,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3352 | 3352 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2325 | 2325 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1716 | 1716 |
+| `example-not-explicit` | 0 | 0 | 0 | 3356 | 3356 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2334 | 2334 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1718 | 1718 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

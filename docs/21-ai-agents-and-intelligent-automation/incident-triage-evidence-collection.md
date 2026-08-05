@@ -283,5 +283,5 @@ Incident `AGENT-DELIVERY-12` ukazuje nebezpečenstvo zelených control-plane sig
 
 **Navigácia**
 
-[← Predchádzajúca: GitOps a release agents](gitops-release-agents.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: GitOps a release agents](gitops-release-agents.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Policy generation a policy validation →](policy-generation-policy-validation.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

@@ -567,10 +567,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Agentický code review, testing a remediation](docs/21-ai-agents-and-intelligent-automation/agentic-code-review-testing-remediation.md)
 - [x] [GitOps a release agents](docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md)
 - [x] [Incident triage a evidence collection](docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md)
-- [ ] Policy generation a policy validation
-- [ ] Human approval, audit a rollback
-- [ ] Vendor lock-in a portability agentických workflowov
-- [ ] Workflow engine oproti agent frameworku
+- [x] [Policy generation a policy validation](docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md)
+- [x] [Human approval, audit a rollback](docs/21-ai-agents-and-intelligent-automation/human-approval-audit-rollback.md)
+- [x] [Vendor lock-in a portability agentických workflowov](docs/21-ai-agents-and-intelligent-automation/vendor-lock-in-portability-agentic-workflows.md)
+- [x] [Workflow engine oproti agent frameworku](docs/21-ai-agents-and-intelligent-automation/workflow-engine-vs-agent-framework.md)
 - [ ] n8n oproti Temporal, Airflow a Prefect use cases
 - [ ] Event-driven automation
 - [ ] AI-assisted CI/CD
