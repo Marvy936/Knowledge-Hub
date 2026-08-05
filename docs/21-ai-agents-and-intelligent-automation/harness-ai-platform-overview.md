@@ -191,3 +191,11 @@ Kapitola ukazuje, že harness ai platform overview sa nesmie redukovať na dostu
 
 - Predchádzajúca kapitola: [Production hardening a troubleshooting](production-hardening-troubleshooting.md)
 - Nasledujúca kapitola: [DevOps Agent pre pipeline a resource operations](devops-agent-pipeline-resource-operations.md)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Production hardening a troubleshooting](production-hardening-troubleshooting.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: DevOps Agent pre pipeline a resource operations →](devops-agent-pipeline-resource-operations.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

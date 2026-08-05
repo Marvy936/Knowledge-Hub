@@ -245,3 +245,11 @@ Kapitola ukazuje, že worker agents v pipelines sa nesmie redukovať na dostupno
 
 - Predchádzajúca kapitola: [DevOps Agent pre pipeline a resource operations](devops-agent-pipeline-resource-operations.md)
 - Nasledujúca kapitola: [MCP connectors a external tools](mcp-connectors-external-tools.md)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: DevOps Agent pre pipeline a resource operations](devops-agent-pipeline-resource-operations.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: MCP connectors a external tools →](mcp-connectors-external-tools.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

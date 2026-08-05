@@ -559,10 +559,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Human approval pre citlivé tool calls](docs/21-ai-agents-and-intelligent-automation/human-approval-sensitive-tool-calls.md)
 - [x] [RAG a knowledge workflows v n8n](docs/21-ai-agents-and-intelligent-automation/rag-knowledge-workflows-n8n.md)
 - [x] [Production hardening a troubleshooting](docs/21-ai-agents-and-intelligent-automation/production-hardening-troubleshooting.md)
-- [ ] Harness AI platform overview
-- [ ] DevOps Agent pre pipeline a resource operations
-- [ ] Worker Agents v pipelines
-- [ ] MCP connectors a external tools
+- [x] [Harness AI platform overview](docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md)
+- [x] [DevOps Agent pre pipeline a resource operations](docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md)
+- [x] [Worker Agents v pipelines](docs/21-ai-agents-and-intelligent-automation/worker-agents-pipelines.md)
+- [x] [MCP connectors a external tools](docs/21-ai-agents-and-intelligent-automation/mcp-connectors-external-tools.md)
 - [ ] AI-assisted pipeline creation a failure analysis
 - [ ] Agentický code review, testing a remediation
 - [ ] GitOps a release agents

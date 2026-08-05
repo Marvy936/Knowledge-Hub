@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **488**
-- Audited conceptual sections: **11166**
-- Total words: **1,013,758**
-- Findings: **9343** (critical 658, high 871, medium 475, low 7339)
-- File grades: A 184, B 187, C 56, D 61
+- Audited authoritative articles: **492**
+- Audited conceptual sections: **11313**
+- Total words: **1,021,050**
+- Findings: **9374** (critical 658, high 871, medium 475, low 7370)
+- File grades: A 186, B 189, C 56, D 61
 
 ## Interpretation
 
@@ -183,6 +183,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 25 | 0 | 0 | 0 | 18 | 3260 | `docs/06-gitlab/gitlab-pipeline-practical-walkthrough.md` |
 | B | 25 | 0 | 0 | 0 | 20 | 2559 | `docs/11-cloud-and-aws/aws-troubleshooting.md` |
 | B | 25 | 0 | 0 | 0 | 20 | 2927 | `docs/18-machine-learning-fundamentals/data-leakage-train-serving-skew.md` |
+| B | 25 | 0 | 0 | 0 | 18 | 1724 | `docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md` |
 | B | 24 | 0 | 0 | 0 | 16 | 1669 | `docs/06-gitlab/security-scanning.md` |
 | B | 24 | 0 | 0 | 0 | 17 | 2890 | `docs/07-infrastructure-as-code-and-configuration-management/drift.md` |
 | B | 24 | 0 | 0 | 0 | 20 | 2129 | `docs/08-container-fundamentals-and-docker/container-security.md` |
@@ -279,7 +280,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 15 | 1967 | `docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2220 | `docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1770 | `docs/20-llm-and-genai-engineering/vector-stores-indexing.md` |
-| B | 17 | 0 | 0 | 0 | 13 | 2400 | `docs/21-ai-agents-and-intelligent-automation/production-hardening-troubleshooting.md` |
+| B | 17 | 0 | 0 | 0 | 13 | 2403 | `docs/21-ai-agents-and-intelligent-automation/production-hardening-troubleshooting.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2348 | `docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1588 | `docs/06-gitlab/artifacts-and-cache.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1711 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md` |
@@ -306,6 +307,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 16 | 0 | 0 | 0 | 16 | 1900 | `docs/19-mlops-and-ml-platforms/model-packaging-reproducible-environments.md` |
 | B | 16 | 0 | 0 | 0 | 13 | 2032 | `docs/19-mlops-and-ml-platforms/training-pipelines-distributed-training.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1640 | `docs/20-llm-and-genai-engineering/retrieval-augmented-generation-architecture.md` |
+| B | 16 | 0 | 0 | 0 | 8 | 1766 | `docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md` |
 | B | 15 | 0 | 0 | 0 | 11 | 1401 | `docs/03-git-and-automation/git-object-model.md` |
 | B | 15 | 0 | 0 | 0 | 10 | 1429 | `docs/09-kubernetes/cluster-installation-lifecycle.md` |
 | B | 15 | 0 | 0 | 0 | 13 | 1367 | `docs/09-kubernetes/kubernetes-architecture.md` |
@@ -489,6 +491,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 7 | 0 | 0 | 0 | 6 | 1405 | `docs/13-security-and-identity/cia-triad.md` |
 | A | 7 | 0 | 0 | 0 | 5 | 1277 | `docs/15-databases-and-distributed-systems/cap-theorem.md` |
 | A | 7 | 0 | 0 | 0 | 5 | 2089 | `docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md` |
+| A | 7 | 0 | 0 | 0 | 4 | 1848 | `docs/21-ai-agents-and-intelligent-automation/worker-agents-pipelines.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 967 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
 | A | 6 | 0 | 0 | 0 | 4 | 1285 | `docs/09-kubernetes/scheduling.md` |
 | A | 6 | 0 | 0 | 0 | 6 | 1724 | `docs/11-cloud-and-aws/cloudops-engineer-associate-soa-c03.md` |
@@ -511,6 +514,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 3 | 0 | 0 | 0 | 3 | 1928 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
 | A | 2 | 0 | 0 | 0 | 2 | 871 | `docs/02-networking-and-web/firewalls.md` |
 | A | 2 | 0 | 0 | 0 | 2 | 1860 | `docs/11-cloud-and-aws/well-architected-framework.md` |
+| A | 2 | 0 | 0 | 0 | 1 | 1951 | `docs/21-ai-agents-and-intelligent-automation/mcp-connectors-external-tools.md` |
 
 ## Critical and high findings
 
@@ -2279,9 +2283,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3336 | 3336 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2290 | 2290 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1713 | 1713 |
+| `example-not-explicit` | 0 | 0 | 0 | 3347 | 3347 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2309 | 2309 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1714 | 1714 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

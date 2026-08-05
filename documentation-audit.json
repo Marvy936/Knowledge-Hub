@@ -6441,6 +6441,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md",
+      "title": "DevOps Agent pre pipeline a resource operations",
+      "words": 1766,
+      "headings": 37,
+      "sections": 37,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 16,
+      "grade": "B"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/durable-execution-retries-resumability.md",
       "title": "Durable execution, retries a resumability",
       "words": 2759,
@@ -6466,6 +6480,20 @@
       "medium": 0,
       "low": 15,
       "score": 20,
+      "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "title": "Harness AI platform overview",
+      "words": 1724,
+      "headings": 29,
+      "sections": 29,
+      "findings": 18,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 18,
+      "score": 25,
       "grade": "B"
     },
     {
@@ -6537,6 +6565,20 @@
       "low": 29,
       "score": 43,
       "grade": "C"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/mcp-connectors-external-tools.md",
+      "title": "MCP connectors a external tools",
+      "words": 1951,
+      "headings": 43,
+      "sections": 43,
+      "findings": 1,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1,
+      "score": 2,
+      "grade": "A"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/model-context-protocol.md",
@@ -6611,7 +6653,7 @@
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/production-hardening-troubleshooting.md",
       "title": "Production hardening a troubleshooting",
-      "words": 2400,
+      "words": 2403,
       "headings": 41,
       "sections": 41,
       "findings": 13,
@@ -6830,6 +6872,20 @@
       "medium": 0,
       "low": 8,
       "score": 11,
+      "grade": "A"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/worker-agents-pipelines.md",
+      "title": "Worker Agents v pipelines",
+      "words": 1848,
+      "headings": 38,
+      "sections": 38,
+      "findings": 4,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 4,
+      "score": 7,
       "grade": "A"
     }
   ],
@@ -86737,6 +86793,78 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md",
+      "section": "1. DevOps Agent boundary",
+      "line": 21,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md",
+      "section": "5. Step a stage generation",
+      "line": 45,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md",
+      "section": "6. Pipeline orchestration",
+      "line": 51,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md",
+      "section": "8. AI Rules",
+      "line": 63,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md",
+      "section": "9. OPA Rego generation",
+      "line": 69,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md",
+      "section": "14. GitOps operations",
+      "line": 99,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md",
+      "section": "29. Competing hypotheses",
+      "line": 189,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md",
+      "section": "Zhrnutie",
+      "line": 234,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/durable-execution-retries-resumability.md",
       "section": "1. Business outcome",
       "line": 23,
@@ -87068,6 +87196,168 @@
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "1. Harness AI nie je jedna funkcia",
+      "line": 21,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "1. Harness AI nie je jedna funkcia",
+      "line": 21,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "1. Harness AI nie je jedna funkcia",
+      "line": 21,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "2. Exact platform subject",
+      "line": 27,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "3. Account enablement a scope",
+      "line": 33,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "4. Tri capability areas",
+      "line": 39,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "7. RBAC zostáva rozhodujúci",
+      "line": 57,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "8. AI Rules verzus policy enforcement",
+      "line": 63,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "9. Prompt context a provenance",
+      "line": 69,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "12. Secrets boundary",
+      "line": 87,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "14. Resource lifecycle",
+      "line": 99,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "15. Audit trail",
+      "line": 105,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "15. Audit trail",
+      "line": 105,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "16. Observability",
+      "line": 111,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "19. Shared incident AGENT-HARNESS-11",
+      "line": 129,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "23. Forbidden acceptance",
+      "line": 153,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "24. Recovery acceptance",
+      "line": 159,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
+      "section": "25. Prevádzkový ownership",
+      "line": 165,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/human-approval-sensitive-tool-calls.md",
@@ -87725,6 +88015,15 @@
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/mcp-connectors-external-tools.md",
+      "section": "2. Host, client a server",
+      "line": 27,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/model-context-protocol.md",
@@ -90920,6 +91219,42 @@
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/worker-agents-pipelines.md",
+      "section": "1. Worker Agent definition",
+      "line": 21,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/worker-agents-pipelines.md",
+      "section": "4. Instructions authority",
+      "line": 39,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/worker-agents-pipelines.md",
+      "section": "17. Outputs",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/worker-agents-pipelines.md",
+      "section": "27. Observability",
+      "line": 177,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     }
   ]
 }

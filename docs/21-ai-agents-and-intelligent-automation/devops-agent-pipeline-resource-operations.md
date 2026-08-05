@@ -239,3 +239,11 @@ Kapitola ukazuje, že devops agent pre pipeline a resource operations sa nesmie 
 
 - Predchádzajúca kapitola: [Harness AI platform overview](harness-ai-platform-overview.md)
 - Nasledujúca kapitola: [Worker Agents v pipelines](worker-agents-pipelines.md)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Harness AI platform overview](harness-ai-platform-overview.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Worker Agents v pipelines →](worker-agents-pipelines.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

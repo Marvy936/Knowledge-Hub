@@ -276,3 +276,11 @@ Kapitola ukazuje, že mcp connectors a external tools sa nesmie redukovať na do
 
 - Predchádzajúca kapitola: [Worker Agents v pipelines](worker-agents-pipelines.md)
 - Nasledujúca kapitola: [AI-assisted pipeline creation a failure analysis](ai-assisted-pipeline-creation-failure-analysis.md)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Worker Agents v pipelines](worker-agents-pipelines.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
