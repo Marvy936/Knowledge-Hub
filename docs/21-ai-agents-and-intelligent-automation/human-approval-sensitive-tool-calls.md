@@ -223,3 +223,11 @@ Forbidden test skúša zmeniť parameters po approval, použiť token po expiry 
 - [Human-in-the-loop for AI tool calls](https://docs.n8n.io/build/integrate-ai/ai-examples/human-in-the-loop-for-tools/)
 - [Wait node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.wait/)
 - [AI Agent node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: AI Agent nodes, tools a memory](ai-agent-nodes-tools-memory.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: RAG a knowledge workflows v n8n →](rag-knowledge-workflows-n8n.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

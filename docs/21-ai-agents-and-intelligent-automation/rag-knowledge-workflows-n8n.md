@@ -242,3 +242,11 @@ Forbidden test skúša cross-tenant semantic twin, chýbajúcu metadata a retrie
 - [RAG in n8n](https://docs.n8n.io/build/integrate-ai/understand-ai-components/retrieve-relevant-context/)
 - [Vector Store Retriever](https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.retrievervectorstore/)
 - [Default Data Loader](https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.documentdefaultdataloader/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Human approval pre citlivé tool calls](human-approval-sensitive-tool-calls.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Production hardening a troubleshooting →](production-hardening-troubleshooting.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

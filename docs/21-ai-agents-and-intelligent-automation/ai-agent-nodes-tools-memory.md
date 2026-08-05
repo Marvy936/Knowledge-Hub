@@ -242,3 +242,11 @@ Forbidden test skúša modelom zmeniť tenant ID, credential selector, idempoten
 - [AI Agent node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/)
 - [Tools Agent](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/tools-agent/)
 - [Human-in-the-loop for AI tool calls](https://docs.n8n.io/build/integrate-ai/ai-examples/human-in-the-loop-for-tools/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: n8n monitoring, logs a security audit](n8n-monitoring-logs-security-audit.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Human approval pre citlivé tool calls →](human-approval-sensitive-tool-calls.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

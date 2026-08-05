@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **484**
-- Audited conceptual sections: **11017**
-- Total words: **1,004,716**
-- Findings: **9279** (critical 658, high 871, medium 475, low 7275)
-- File grades: A 184, B 183, C 56, D 61
+- Audited authoritative articles: **488**
+- Audited conceptual sections: **11166**
+- Total words: **1,013,758**
+- Findings: **9343** (critical 658, high 871, medium 475, low 7339)
+- File grades: A 184, B 187, C 56, D 61
 
 ## Interpretation
 
@@ -158,6 +158,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 31 | 0 | 0 | 0 | 23 | 2949 | `docs/18-machine-learning-fundamentals/reproducibility-random-seeds.md` |
 | B | 31 | 0 | 0 | 0 | 25 | 2872 | `docs/18-machine-learning-fundamentals/train-validation-test-split.md` |
 | B | 31 | 0 | 0 | 0 | 19 | 2374 | `docs/20-llm-and-genai-engineering/fine-tuning-instruction-preference-tuning.md` |
+| B | 31 | 0 | 0 | 0 | 25 | 2511 | `docs/21-ai-agents-and-intelligent-automation/ai-agent-nodes-tools-memory.md` |
 | B | 30 | 0 | 0 | 0 | 23 | 1824 | `docs/08-container-fundamentals-and-docker/container-networking.md` |
 | B | 30 | 0 | 0 | 0 | 22 | 2088 | `docs/18-machine-learning-fundamentals/hyperparameters-hyperparameter-optimization.md` |
 | B | 30 | 0 | 0 | 0 | 20 | 2277 | `docs/20-llm-and-genai-engineering/prompt-registry-lifecycle.md` |
@@ -173,6 +174,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 27 | 0 | 0 | 0 | 20 | 2317 | `docs/17-keycloak-and-identity-platform/keycloak-operator-kubernetes-deployment.md` |
 | B | 27 | 0 | 0 | 0 | 22 | 2058 | `docs/19-mlops-and-ml-platforms/continuous-delivery-for-models.md` |
 | B | 27 | 0 | 0 | 0 | 15 | 2541 | `docs/20-llm-and-genai-engineering/multimodal-models.md` |
+| B | 27 | 0 | 0 | 0 | 16 | 2100 | `docs/21-ai-agents-and-intelligent-automation/rag-knowledge-workflows-n8n.md` |
 | B | 26 | 0 | 0 | 0 | 16 | 2190 | `docs/17-keycloak-and-identity-platform/backup-restore-realm-import-export-disaster-recovery.md` |
 | B | 26 | 0 | 0 | 0 | 21 | 2037 | `docs/19-mlops-and-ml-platforms/experiment-tracking.md` |
 | B | 26 | 0 | 0 | 0 | 22 | 2855 | `docs/21-ai-agents-and-intelligent-automation/agent-identity-authentication-authorization.md` |
@@ -202,7 +204,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 22 | 0 | 0 | 0 | 18 | 1688 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
 | B | 22 | 0 | 0 | 0 | 13 | 2934 | `docs/17-keycloak-and-identity-platform/keycloak-performance-sizing-load-testing.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 1985 | `docs/19-mlops-and-ml-platforms/ci-for-ml-code-data-pipelines.md` |
-| B | 22 | 0 | 0 | 0 | 12 | 2597 | `docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md` |
+| B | 22 | 0 | 0 | 0 | 12 | 2602 | `docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md` |
 | B | 22 | 0 | 0 | 0 | 15 | 3209 | `docs/21-ai-agents-and-intelligent-automation/single-agent-multi-agent-architecture.md` |
 | B | 21 | 0 | 0 | 0 | 16 | 2736 | `docs/02-networking-and-web/network-troubleshooting.md` |
 | B | 21 | 0 | 0 | 0 | 14 | 1821 | `docs/03-git-and-automation/yaml-json-regular-expressions.md` |
@@ -277,6 +279,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 17 | 0 | 0 | 0 | 15 | 1967 | `docs/19-mlops-and-ml-platforms/feature-stores-online-offline-consistency.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2220 | `docs/19-mlops-and-ml-platforms/ml-lifecycle-devops-vs-mlops.md` |
 | B | 17 | 0 | 0 | 0 | 12 | 1770 | `docs/20-llm-and-genai-engineering/vector-stores-indexing.md` |
+| B | 17 | 0 | 0 | 0 | 13 | 2400 | `docs/21-ai-agents-and-intelligent-automation/production-hardening-troubleshooting.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2348 | `docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1588 | `docs/06-gitlab/artifacts-and-cache.md` |
 | B | 16 | 0 | 0 | 0 | 11 | 1711 | `docs/07-infrastructure-as-code-and-configuration-management/ansible-troubleshooting.md` |
@@ -323,6 +326,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 12 | 2878 | `docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md` |
 | B | 15 | 0 | 0 | 0 | 15 | 1577 | `docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1895 | `docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md` |
+| B | 15 | 0 | 0 | 0 | 10 | 2026 | `docs/21-ai-agents-and-intelligent-automation/human-approval-sensitive-tool-calls.md` |
 | A | 14 | 0 | 0 | 1 | 8 | 2356 | `docs/03-git-and-automation/bash-automation.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 2498 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
 | A | 14 | 0 | 0 | 0 | 13 | 1538 | `docs/08-container-fundamentals-and-docker/registries.md` |
@@ -2275,9 +2279,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3299 | 3299 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2264 | 2264 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1712 | 1712 |
+| `example-not-explicit` | 0 | 0 | 0 | 3336 | 3336 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2290 | 2290 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1713 | 1713 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

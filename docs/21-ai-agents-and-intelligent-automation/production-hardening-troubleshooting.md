@@ -268,3 +268,11 @@ Forbidden test skúša SSRF, blocked node, cross-tenant memory/RAG, approval rep
 - [SSRF protection](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/enable-ssrf-protection/)
 - [Security audit](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/run-security-audits/)
 - [OpenTelemetry tracing](https://docs.n8n.io/deploy/host-n8n/keep-n8n-running/trace-executions-with-opentelemetry/)
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: RAG a knowledge workflows v n8n](rag-knowledge-workflows-n8n.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
