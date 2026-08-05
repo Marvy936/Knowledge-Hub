@@ -4,6 +4,8 @@ Roadmap určuje odporúčané poradie učenia. Poradie sleduje závislosti medzi
 
 Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň zvládnutia a potreba opakovania sa sledujú samostatne v [REVIEW.md](REVIEW.md).
 
+Aktuálny authoritative documentation inventory je uzavretý: všetky témy uvedené v tejto roadmape majú aktívny dokumentačný odkaz a zaškrtnutý stav. Section-level prijatie sa eviduje v [DOCUMENTATION-REVIEW-STATUS.md](DOCUMENTATION-REVIEW-STATUS.md), zatiaľ čo praktické laby, runtime verifikácia a zvládnutie učiva zostávajú samostatnými vrstvami.
+
 ## Fáza 1 — DevOps a systémové fundamenty
 
 ### DevOps Foundations
