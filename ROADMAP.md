@@ -571,10 +571,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Human approval, audit a rollback](docs/21-ai-agents-and-intelligent-automation/human-approval-audit-rollback.md)
 - [x] [Vendor lock-in a portability agentických workflowov](docs/21-ai-agents-and-intelligent-automation/vendor-lock-in-portability-agentic-workflows.md)
 - [x] [Workflow engine oproti agent frameworku](docs/21-ai-agents-and-intelligent-automation/workflow-engine-vs-agent-framework.md)
-- [ ] n8n oproti Temporal, Airflow a Prefect use cases
-- [ ] Event-driven automation
-- [ ] AI-assisted CI/CD
-- [ ] AI-assisted observability a incident response
+- [x] [n8n oproti Temporal, Airflow a Prefect use cases](docs/21-ai-agents-and-intelligent-automation/n8n-temporal-airflow-prefect-use-cases.md)
+- [x] [Event-driven automation](docs/21-ai-agents-and-intelligent-automation/event-driven-automation.md)
+- [x] [AI-assisted CI/CD](docs/21-ai-agents-and-intelligent-automation/ai-assisted-ci-cd.md)
+- [x] [AI-assisted observability a incident response](docs/21-ai-agents-and-intelligent-automation/ai-assisted-observability-incident-response.md)
 - [ ] AI-assisted security operations
 - [ ] Knowledge assistants a enterprise search
 - [ ] Ticket, email a chat automation
