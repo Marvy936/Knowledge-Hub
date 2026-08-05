@@ -50,15 +50,15 @@ Odporúčané predchádzajúce oblasti:
 34. [Queue mode, Redis, workers a scaling](queue-mode-redis-workers-scaling.md)
 35. [Binary data, storage a execution retention](binary-data-storage-execution-retention.md)
 36. [n8n monitoring, logs a security audit](n8n-monitoring-logs-security-audit.md)
+37. [AI Agent nodes, tools a memory](ai-agent-nodes-tools-memory.md)
+38. [Human approval pre citlivé tool calls](human-approval-sensitive-tool-calls.md)
+39. [RAG a knowledge workflows v n8n](rag-knowledge-workflows-n8n.md)
+40. [Production hardening a troubleshooting](production-hardening-troubleshooting.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-37. AI Agent nodes, tools a memory
-38. Human approval pre citlivé tool calls
-39. RAG a knowledge workflows v n8n
-40. Production hardening a troubleshooting
 41. Harness AI platform overview
 42. DevOps Agent pre pipeline a resource operations
 43. Worker Agents v pipelines
@@ -111,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **36/62 · In progress**. Deviaty authoritative blok aktivuje kapitoly 33–36 a incident `AGENT-N8N-09`. PostgreSQL kapitola chápe databázu ako shared durable authority a viaže n8n/schema/encryption-key generation, TLS, connection budget, migrations, backup, WAL/PITR a application restore proof. Queue kapitola spája main/webhook/worker roles, Redis broker, PostgreSQL, readiness, concurrency, dependency-aware autoscaling, graceful shutdown, binary visibility a business reconciliation. Storage kapitola oddeľuje execution metadata, execution bundles a binary objects, vysvetľuje memory/database/filesystem/external modes, cross-process access, age/count pruning, object lifecycle, privacy a coordinated restore. Monitoring kapitola prepája health, Prometheus metrics, structured logs, per-process event files, log streaming, OpenTelemetry traces, execution evidence, security audit a business outcomes bez zamieňania telemetry za audit alebo correctness proof. Reálne n8n deploymenty, PostgreSQL migrations/failover/restore, Redis recovery, autoscaling, binary-storage migration, pruning, telemetry failure drilly, security audits ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 37–40: AI Agent nodes/tools/memory, human approval pre citlivé tool calls, RAG/knowledge workflows a production hardening/troubleshooting.
+Aktuálny authoritative stav sekcie je **40/62 · In progress**. Desiaty authoritative blok aktivuje kapitoly 37–40 a incident `AGENT-N8N-10`. AI Agent kapitola viaže exact workflow/model/tool generation, bounded tool inventory, schema a deterministic authority parameters, read/draft/commit capability classes, typed tool results, iteration budget a tenant-safe memory. Approval kapitola chápe human review ako immutable, expiring decision nad exact tool callom s reviewer authorization, precondition revalidation, replay protection, idempotency a provider read-backom. RAG kapitola oddeľuje ingestion a query, pinne document/chunk/embedding/index generations, presadzuje tenant/ACL/effective-date filters, citations, abstention, deletion propagation a blue-green reindex. Production kapitola skladá node/network/task-runner hardening, model fallback contracts, tenant/idempotency/approval/RAG controls, canary, kill switch, observability a layer-by-layer troubleshooting. Reálne agent executions, human approvals, RAG ingestion/query, model fallbacks, side effects, incident recovery ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 41–44: Harness AI platform overview, DevOps Agent, Worker Agents a MCP connectors/external tools.

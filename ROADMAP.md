@@ -555,10 +555,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Queue mode, Redis, workers a scaling](docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md)
 - [x] [Binary data, storage a execution retention](docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md)
 - [x] [n8n monitoring, logs a security audit](docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md)
-- [ ] AI Agent nodes, tools a memory
-- [ ] Human approval pre citlivé tool calls
-- [ ] RAG a knowledge workflows v n8n
-- [ ] Production hardening a troubleshooting
+- [x] [AI Agent nodes, tools a memory](docs/21-ai-agents-and-intelligent-automation/ai-agent-nodes-tools-memory.md)
+- [x] [Human approval pre citlivé tool calls](docs/21-ai-agents-and-intelligent-automation/human-approval-sensitive-tool-calls.md)
+- [x] [RAG a knowledge workflows v n8n](docs/21-ai-agents-and-intelligent-automation/rag-knowledge-workflows-n8n.md)
+- [x] [Production hardening a troubleshooting](docs/21-ai-agents-and-intelligent-automation/production-hardening-troubleshooting.md)
 - [ ] Harness AI platform overview
 - [ ] DevOps Agent pre pipeline a resource operations
 - [ ] Worker Agents v pipelines

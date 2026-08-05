@@ -345,5 +345,5 @@ Security audit je užitočný point-in-time detector common risks, nie certifik�
 
 **Navigácia**
 
-[← Predchádzajúca: Binary data, storage a execution retention](binary-data-storage-execution-retention.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Binary data, storage a execution retention](binary-data-storage-execution-retention.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: AI Agent nodes, tools a memory →](ai-agent-nodes-tools-memory.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
