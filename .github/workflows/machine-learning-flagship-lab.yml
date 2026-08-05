@@ -127,16 +127,18 @@ jobs:
           rm -rf "$RUNTIME_DIR"
           test ! -e "$RUNTIME_DIR"
 
-  report-pr-evidence:
-    if: ${{ github.event_name == 'pull_request_target' && always() }}
+  report-runtime-evidence:
+    if: ${{ always() }}
     needs: test-runtime-lifecycle
     runs-on: ubuntu-latest
     permissions:
-      contents: none
-      pull-requests: write
+      contents: read
+      issues: write
+      pull-requests: read
     env:
+      EVENT_NAME: ${{ github.event_name }}
       RUNTIME_RESULT: ${{ needs.test-runtime-lifecycle.result }}
-      SUBJECT_SHA: ${{ github.event.pull_request.head.sha }}
+      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       SELECTED_MODEL: ${{ needs.test-runtime-lifecycle.outputs.selected_model }}
       DECISION_THRESHOLD: ${{ needs.test-runtime-lifecycle.outputs.decision_threshold }}
       TEST_F1: ${{ needs.test-runtime-lifecycle.outputs.test_f1 }}
@@ -153,15 +155,32 @@ jobs:
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const result = process.env.RUNTIME_RESULT;
             const icon = result === 'success' ? '✅' : '❌';
+            let issueNumber = context.payload.pull_request?.number;
+
+            if (!issueNumber) {
+              const associated = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: process.env.SUBJECT_SHA,
+              });
+              const pull = associated.data.find(item => item.merged_at) ?? associated.data[0];
+              issueNumber = pull?.number;
+            }
+
+            if (!issueNumber) {
+              core.notice(`No pull request is associated with ${process.env.SUBJECT_SHA}; evidence remains in run ${context.runId}.`);
+              return;
+            }
+
             const metrics = result === 'success'
               ? `\n- Tests: **5/5 passed**\n- Selected model: \`${process.env.SELECTED_MODEL}\`\n- Decision threshold: \`${process.env.DECISION_THRESHOLD}\`\n- Test F1: \`${process.env.TEST_F1}\`\n- Test recall: \`${process.env.TEST_RECALL}\`\n- Dataset SHA-256: \`${process.env.DATASET_SHA256}\`\n- Model SHA-256: \`${process.env.MODEL_SHA256}\`\n- Runtime: ${process.env.LIBRARY_VERSIONS}`
               : '\n- Metrics were not published because the runtime lifecycle did not complete successfully.';
-            const body = `${marker}\n### ${icon} Machine Learning flagship runtime evidence\n\n- Result: **${result}**\n- Exact subject revision: \`${process.env.SUBJECT_SHA}\`\n- Workflow run: [${context.runId}](${runUrl})${metrics}\n\nThis evidence covers the deterministic synthetic lab contract only. It does not establish production data quality, business impact or production readiness.`;
+            const body = `${marker}\n### ${icon} Machine Learning flagship runtime evidence\n\n- Result: **${result}**\n- Event: \`${process.env.EVENT_NAME}\`\n- Exact subject revision: \`${process.env.SUBJECT_SHA}\`\n- Workflow run: [${context.runId}](${runUrl})${metrics}\n\nThis evidence covers the deterministic synthetic lab contract only. It does not establish production data quality, business impact or production readiness.`;
 
             const comments = await github.paginate(github.rest.issues.listComments, {
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: issueNumber,
               per_page: 100,
             });
             const existing = comments.find(comment =>
@@ -178,7 +197,7 @@ jobs:
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: context.issue.number,
+                issue_number: issueNumber,
                 body,
               });
             }
