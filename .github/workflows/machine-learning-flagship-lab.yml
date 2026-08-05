@@ -1,0 +1,103 @@
+name: Machine Learning flagship lab
+
+on:
+  pull_request:
+    paths:
+      - "labs/machine-learning/**"
+      - "docs/18-machine-learning-fundamentals/README.md"
+      - "FUTURE-IDENTITY-AI-ROADMAP.md"
+      - ".github/workflows/machine-learning-flagship-lab.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "labs/machine-learning/**"
+      - "docs/18-machine-learning-fundamentals/README.md"
+      - "FUTURE-IDENTITY-AI-ROADMAP.md"
+      - ".github/workflows/machine-learning-flagship-lab.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test-runtime-lifecycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONHASHSEED: "0"
+      RUNTIME_DIR: "${{ runner.temp }}/knowledge-hub-ml-lab"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: labs/machine-learning/pyproject.toml
+
+      - name: Install lab
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e "labs/machine-learning[dev]"
+
+      - name: Run unit and integrity tests
+        run: pytest labs/machine-learning/tests -q
+
+      - name: Execute positive lifecycle
+        run: |
+          mkdir -p "$RUNTIME_DIR/data"
+          python -m ml_lab generate-data \
+            --output "$RUNTIME_DIR/data/customers.csv" \
+            --rows 1200 \
+            --seed 20260805
+          python -m ml_lab validate-data \
+            --input "$RUNTIME_DIR/data/customers.csv"
+          python -m ml_lab train \
+            --input "$RUNTIME_DIR/data/customers.csv" \
+            --output-dir "$RUNTIME_DIR/artifact" \
+            --seed 20260805
+          python -m ml_lab infer \
+            --artifact-dir "$RUNTIME_DIR/artifact" \
+            --input labs/machine-learning/data/sample-request.json
+
+      - name: Verify negative leakage path
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          import pandas as pd
+
+          runtime = Path(os.environ["RUNTIME_DIR"])
+          source = runtime / "data/customers.csv"
+          target = runtime / "data/customers-leaked.csv"
+          frame = pd.read_csv(source)
+          frame["future_refund_30d"] = frame["churned_next_30d"]
+          frame.to_csv(target, index=False)
+          PY
+
+          if python -m ml_lab validate-data \
+            --input "$RUNTIME_DIR/data/customers-leaked.csv"; then
+            echo "::error::Leakage validation unexpectedly succeeded."
+            exit 1
+          fi
+
+      - name: Verify artifact manifest and cleanup
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          runtime = Path(os.environ["RUNTIME_DIR"])
+          manifest = json.loads((runtime / "artifact/manifest.json").read_text())
+          assert manifest["selected_model"] != "dummy_most_frequent"
+          assert manifest["test_metrics"]["f1"] >= 0.55
+          assert manifest["test_metrics"]["recall"] >= 0.55
+          assert len(manifest["model_sha256"]) == 64
+          print("Manifest acceptance gates passed.")
+          PY
+          rm -rf "$RUNTIME_DIR"
+          test ! -e "$RUNTIME_DIR"
