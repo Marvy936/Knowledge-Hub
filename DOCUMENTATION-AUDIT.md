@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **508**
-- Audited conceptual sections: **11892**
-- Total words: **1,051,234**
-- Findings: **9512** (critical 658, high 871, medium 475, low 7508)
-- File grades: A 194, B 197, C 56, D 61
+- Audited authoritative articles: **510**
+- Audited conceptual sections: **11988**
+- Total words: **1,055,652**
+- Findings: **9529** (critical 658, high 871, medium 475, low 7525)
+- File grades: A 195, B 198, C 56, D 61
 
 ## Interpretation
 
@@ -334,6 +334,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 12 | 2878 | `docs/17-keycloak-and-identity-platform/securing-apis-microservices-mcp-servers.md` |
 | B | 15 | 0 | 0 | 0 | 15 | 1577 | `docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1895 | `docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md` |
+| B | 15 | 0 | 0 | 0 | 10 | 2255 | `docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md` |
 | B | 15 | 0 | 0 | 0 | 10 | 2026 | `docs/21-ai-agents-and-intelligent-automation/human-approval-sensitive-tool-calls.md` |
 | B | 15 | 0 | 0 | 0 | 10 | 1736 | `docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md` |
 | B | 15 | 0 | 0 | 0 | 9 | 1932 | `docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md` |
@@ -473,6 +474,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 9 | 0 | 0 | 0 | 7 | 1401 | `docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md` |
 | A | 9 | 0 | 0 | 0 | 9 | 1217 | `docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md` |
 | A | 9 | 0 | 0 | 0 | 6 | 1828 | `docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md` |
+| A | 9 | 0 | 0 | 0 | 6 | 2161 | `docs/21-ai-agents-and-intelligent-automation/intelligent-automation-troubleshooting.md` |
 | A | 9 | 0 | 0 | 0 | 5 | 2273 | `docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 968 | `docs/02-networking-and-web/dns.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 990 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
@@ -503,6 +505,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 7 | 0 | 0 | 0 | 6 | 1405 | `docs/13-security-and-identity/cia-triad.md` |
 | A | 7 | 0 | 0 | 0 | 5 | 1277 | `docs/15-databases-and-distributed-systems/cap-theorem.md` |
 | A | 7 | 0 | 0 | 0 | 5 | 2089 | `docs/20-llm-and-genai-engineering/data-exfiltration-tool-abuse-excessive-agency.md` |
+| A | 7 | 0 | 0 | 0 | 5 | 1718 | `docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md` |
 | A | 7 | 0 | 0 | 0 | 4 | 1848 | `docs/21-ai-agents-and-intelligent-automation/worker-agents-pipelines.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 967 | `docs/02-networking-and-web/https-tls-certificates-pki.md` |
 | A | 6 | 0 | 0 | 0 | 4 | 1285 | `docs/09-kubernetes/scheduling.md` |
@@ -511,7 +514,6 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 6 | 0 | 0 | 0 | 5 | 1424 | `docs/12-observability/monitoring-vs-observability.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 1273 | `docs/12-observability/use-method.md` |
 | A | 6 | 0 | 0 | 0 | 6 | 2514 | `docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md` |
-| A | 6 | 0 | 0 | 0 | 4 | 1716 | `docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md` |
 | A | 5 | 0 | 0 | 0 | 5 | 1047 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | A | 5 | 0 | 0 | 0 | 3 | 1255 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | A | 5 | 0 | 0 | 0 | 4 | 1159 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
@@ -2299,9 +2301,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3399 | 3399 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2382 | 2382 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1727 | 1727 |
+| `example-not-explicit` | 0 | 0 | 0 | 3406 | 3406 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2390 | 2390 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1729 | 1729 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

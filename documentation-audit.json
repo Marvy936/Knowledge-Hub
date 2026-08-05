@@ -6457,15 +6457,15 @@
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md",
       "title": "Autonomous remediation boundaries",
-      "words": 1716,
+      "words": 1718,
       "headings": 41,
       "sections": 41,
-      "findings": 4,
+      "findings": 5,
       "critical": 0,
       "high": 0,
       "medium": 0,
-      "low": 4,
-      "score": 6,
+      "low": 5,
+      "score": 7,
       "grade": "A"
     },
     {
@@ -6564,6 +6564,20 @@
       "medium": 0,
       "low": 15,
       "score": 20,
+      "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "title": "Evaluation-driven automation lifecycle",
+      "words": 2255,
+      "headings": 47,
+      "sections": 47,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 15,
       "grade": "B"
     },
     {
@@ -6691,6 +6705,20 @@
       "low": 9,
       "score": 18,
       "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/intelligent-automation-troubleshooting.md",
+      "title": "Intelligent automation troubleshooting",
+      "words": 2161,
+      "headings": 49,
+      "sections": 49,
+      "findings": 6,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 6,
+      "score": 9,
+      "grade": "A"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
@@ -86864,6 +86892,15 @@
       "score": 2
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md",
+      "section": "Zhrnutie",
+      "line": 269,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
       "section": "1. Execution data verzus binary data",
       "line": 21,
@@ -87854,6 +87891,96 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "section": "1. Business outcome",
+      "line": 5,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "section": "6. Dataset authority",
+      "line": 35,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "section": "35. Evaluator security",
+      "line": 209,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "section": "45. Practical evaluation manifest",
+      "line": 265,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "section": "45. Practical evaluation manifest",
+      "line": 265,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "section": "46. Primary sources",
+      "line": 305,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "section": "46. Primary sources",
+      "line": 305,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "section": "46. Primary sources",
+      "line": 305,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "section": "Zhrnutie",
+      "line": 311,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md",
+      "section": "Zhrnutie",
+      "line": 311,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/event-driven-automation.md",
       "section": "2. CloudEvents envelope",
       "line": 27,
@@ -88734,6 +88861,60 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/intelligent-automation-troubleshooting.md",
+      "section": "16. Retrieval path",
+      "line": 95,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/intelligent-automation-troubleshooting.md",
+      "section": "45. Troubleshooting decision tree",
+      "line": 304,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/intelligent-automation-troubleshooting.md",
+      "section": "48. Primary sources",
+      "line": 322,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/intelligent-automation-troubleshooting.md",
+      "section": "48. Primary sources",
+      "line": 322,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/intelligent-automation-troubleshooting.md",
+      "section": "Zhrnutie",
+      "line": 328,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/intelligent-automation-troubleshooting.md",
+      "section": "Zhrnutie",
+      "line": 328,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
