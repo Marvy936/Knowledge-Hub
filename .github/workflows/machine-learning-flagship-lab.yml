@@ -1,12 +1,12 @@
 name: Machine Learning flagship lab
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
     paths:
       - "labs/machine-learning/**"
       - "docs/18-machine-learning-fundamentals/README.md"
       - "FUTURE-IDENTITY-AI-ROADMAP.md"
-      - ".github/workflows/machine-learning-flagship-lab.yml"
   push:
     branches:
       - main
@@ -14,7 +14,6 @@ on:
       - "labs/machine-learning/**"
       - "docs/18-machine-learning-fundamentals/README.md"
       - "FUTURE-IDENTITY-AI-ROADMAP.md"
-      - ".github/workflows/machine-learning-flagship-lab.yml"
 
 permissions:
   contents: read
@@ -23,13 +22,24 @@ jobs:
   test-runtime-lifecycle:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    outputs:
+      selected_model: ${{ steps.evidence.outputs.selected_model }}
+      decision_threshold: ${{ steps.evidence.outputs.decision_threshold }}
+      test_f1: ${{ steps.evidence.outputs.test_f1 }}
+      test_recall: ${{ steps.evidence.outputs.test_recall }}
+      dataset_sha256: ${{ steps.evidence.outputs.dataset_sha256 }}
+      model_sha256: ${{ steps.evidence.outputs.model_sha256 }}
+      library_versions: ${{ steps.evidence.outputs.library_versions }}
     env:
       PYTHONHASHSEED: "0"
       RUNTIME_DIR: "${{ runner.temp }}/knowledge-hub-ml-lab"
 
     steps:
-      - name: Checkout repository
+      - name: Checkout exact subject revision
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -84,7 +94,8 @@ jobs:
             exit 1
           fi
 
-      - name: Verify artifact manifest and cleanup
+      - name: Verify artifact manifest and collect evidence
+        id: evidence
         run: |
           python - <<'PY'
           import json
@@ -97,7 +108,77 @@ jobs:
           assert manifest["test_metrics"]["f1"] >= 0.55
           assert manifest["test_metrics"]["recall"] >= 0.55
           assert len(manifest["model_sha256"]) == 64
-          print("Manifest acceptance gates passed.")
+
+          versions = ", ".join(
+              f"{name}={value}"
+              for name, value in sorted(manifest["library_versions"].items())
+          )
+          output = Path(os.environ["GITHUB_OUTPUT"])
+          with output.open("a", encoding="utf-8") as handle:
+              handle.write(f"selected_model={manifest['selected_model']}\n")
+              handle.write(f"decision_threshold={manifest['decision_threshold']}\n")
+              handle.write(f"test_f1={manifest['test_metrics']['f1']}\n")
+              handle.write(f"test_recall={manifest['test_metrics']['recall']}\n")
+              handle.write(f"dataset_sha256={manifest['dataset_sha256']}\n")
+              handle.write(f"model_sha256={manifest['model_sha256']}\n")
+              handle.write(f"library_versions={versions}\n")
+          print("Manifest acceptance gates passed and evidence was exported.")
           PY
           rm -rf "$RUNTIME_DIR"
           test ! -e "$RUNTIME_DIR"
+
+  report-pr-evidence:
+    if: ${{ github.event_name == 'pull_request_target' && always() }}
+    needs: test-runtime-lifecycle
+    runs-on: ubuntu-latest
+    permissions:
+      contents: none
+      pull-requests: write
+    env:
+      RUNTIME_RESULT: ${{ needs.test-runtime-lifecycle.result }}
+      SUBJECT_SHA: ${{ github.event.pull_request.head.sha }}
+      SELECTED_MODEL: ${{ needs.test-runtime-lifecycle.outputs.selected_model }}
+      DECISION_THRESHOLD: ${{ needs.test-runtime-lifecycle.outputs.decision_threshold }}
+      TEST_F1: ${{ needs.test-runtime-lifecycle.outputs.test_f1 }}
+      TEST_RECALL: ${{ needs.test-runtime-lifecycle.outputs.test_recall }}
+      DATASET_SHA256: ${{ needs.test-runtime-lifecycle.outputs.dataset_sha256 }}
+      MODEL_SHA256: ${{ needs.test-runtime-lifecycle.outputs.model_sha256 }}
+      LIBRARY_VERSIONS: ${{ needs.test-runtime-lifecycle.outputs.library_versions }}
+    steps:
+      - name: Publish structured runtime evidence
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const marker = '<!-- ml-flagship-runtime-evidence -->';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const result = process.env.RUNTIME_RESULT;
+            const icon = result === 'success' ? '✅' : '❌';
+            const metrics = result === 'success'
+              ? `\n- Tests: **5/5 passed**\n- Selected model: \`${process.env.SELECTED_MODEL}\`\n- Decision threshold: \`${process.env.DECISION_THRESHOLD}\`\n- Test F1: \`${process.env.TEST_F1}\`\n- Test recall: \`${process.env.TEST_RECALL}\`\n- Dataset SHA-256: \`${process.env.DATASET_SHA256}\`\n- Model SHA-256: \`${process.env.MODEL_SHA256}\`\n- Runtime: ${process.env.LIBRARY_VERSIONS}`
+              : '\n- Metrics were not published because the runtime lifecycle did not complete successfully.';
+            const body = `${marker}\n### ${icon} Machine Learning flagship runtime evidence\n\n- Result: **${result}**\n- Exact subject revision: \`${process.env.SUBJECT_SHA}\`\n- Workflow run: [${context.runId}](${runUrl})${metrics}\n\nThis evidence covers the deterministic synthetic lab contract only. It does not establish production data quality, business impact or production readiness.`;
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            });
+            const existing = comments.find(comment =>
+              comment.user?.type === 'Bot' && comment.body?.includes(marker)
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
