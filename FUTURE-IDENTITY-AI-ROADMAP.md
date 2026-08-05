@@ -1,17 +1,19 @@
 # Future Identity, ML, LLM and Intelligent Automation Roadmap
 
-Tento dokument zachytáva schválené rozhodnutia pre identity, ML, MLOps, LLM a agentickú automatizáciu. Keycloak and Identity Platform je dokončená ako sekcia 17 a používateľom schválená v aktuálnom rozsahu. Sekcie 18–21 sú od 2. augusta 2026 aktivované v hlavnej roadmape; tento súbor zostáva detailným planning inventorym pre ich kapitoly, laby, troubleshooting drilly a cross-section flagship projekty.
+Tento dokument zachytáva schválené rozhodnutia pre identity, ML, MLOps, LLM a agentickú automatizáciu. Keycloak and Identity Platform je dokončená ako sekcia 17 a používateľom schválená v aktuálnom rozsahu. Authoritative chapter inventory sekcií 18–21 je takisto dokončené a všetky štyri sekcie sú `Ready for user review`. Tento súbor zostáva future implementation inventorym pre praktické laby, troubleshooting drilly, cross-section flagship projekty a produktové tracky; už nie je backlogom pre chapter drafting.
 
 Aktívne poradie:
 
 ```text
 existujúca roadmapa
 → Keycloak and Identity Platform — 30/30 · User reviewed
-→ Machine Learning Fundamentals
-→ MLOps and ML Platforms
-→ LLM and GenAI Engineering
-→ AI Agents and Intelligent Automation
+→ Machine Learning Fundamentals — 26/26 · Ready for user review
+→ MLOps and ML Platforms — 34/34 · Ready for user review
+→ LLM and GenAI Engineering — 37/37 · Ready for user review
+→ AI Agents and Intelligent Automation — 62/62 · Ready for user review
 ```
+
+`Ready for user review` potvrdzuje uzavreté authoritative dokumentačné inventory. Neznamená vykonané laby, runtime `Verified`, production `Stable` ani user `Accepted`.
 
 Číslovanie je stabilizované: Keycloak používa sekciu `17` a nové oblasti pokračujú ako `18-machine-learning-fundamentals`, `19-mlops-and-ml-platforms`, `20-llm-and-genai-engineering` a `21-ai-agents-and-intelligent-automation`.
 

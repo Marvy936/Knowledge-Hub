@@ -69,7 +69,7 @@ Aktívne sekcie:
 21. [LLM and GenAI Engineering](docs/20-llm-and-genai-engineering/README.md)
 22. [AI Agents and Intelligent Automation](docs/21-ai-agents-and-intelligent-automation/README.md)
 
-Sekcie 00–17 boli používateľom schválené v aktuálnom rozsahu. Machine Learning Fundamentals, MLOps and ML Platforms, LLM and GenAI Engineering a AI Agents and Intelligent Automation sú aktivované ako sekcie 18–21 s plánovaným inventorym; ich kapitoly sa budú spracúvať po blokoch. Pôvodné rozhodnutia, flagship projekty a produktové tracky zostávajú v [FUTURE-IDENTITY-AI-ROADMAP.md](FUTURE-IDENTITY-AI-ROADMAP.md).
+Sekcie 00–17 boli používateľom schválené v aktuálnom rozsahu. Sekcie 18–21 majú dokončené authoritative inventory: Machine Learning Fundamentals **26/26**, MLOps and ML Platforms **34/34**, LLM and GenAI Engineering **37/37** a AI Agents and Intelligent Automation **62/62**. Všetky štyri sú `Ready for user review`; tento stav znamená dokončený dokumentačný pass, nie používateľské prijatie, runtime verifikáciu alebo production stability. Pôvodné rozhodnutia, plánované laby, troubleshooting drilly, flagship projekty a produktové tracky zostávajú v [FUTURE-IDENTITY-AI-ROADMAP.md](FUTURE-IDENTITY-AI-ROADMAP.md).
 
 Kompletné poradie a stav spracovania je v [ROADMAP.md](ROADMAP.md).
 
