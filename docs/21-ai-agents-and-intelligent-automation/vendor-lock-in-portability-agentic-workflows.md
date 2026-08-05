@@ -281,3 +281,11 @@ CloudEvents štandard a v1.0.2 release sú dostupné na https://cloudevents.io/.
 Portability vzniká explicitnými domain contracts, state ownershipom, stable operation IDs, exportovateľným auditom a pravidelne testovaným exit pathom. Open protocols ako MCP, CloudEvents, OpenTelemetry alebo OPA pomáhajú, ale vendor lock-in sa presúva do checkpointov, approvals, identity a hidden runtime defaults, ak sa tieto hranice nezdokumentujú.
 
 Ďalšia kapitola vysvetlí, kedy má orchestration vlastniť workflow engine a kedy agent framework.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Human approval, audit a rollback](human-approval-audit-rollback.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Workflow engine oproti agent frameworku →](workflow-engine-vs-agent-framework.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

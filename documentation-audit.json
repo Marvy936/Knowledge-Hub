@@ -6539,6 +6539,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-approval-audit-rollback.md",
+      "title": "Human approval, audit a rollback",
+      "words": 1777,
+      "headings": 36,
+      "sections": 36,
+      "findings": 5,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 5,
+      "score": 8,
+      "grade": "A"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/human-approval-sensitive-tool-calls.md",
       "title": "Human approval pre citlivé tool calls",
       "words": 2026,
@@ -6597,7 +6611,7 @@
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
       "title": "Incident triage a evidence collection",
-      "words": 1950,
+      "words": 1954,
       "headings": 37,
       "sections": 37,
       "findings": 9,
@@ -6705,6 +6719,20 @@
       "low": 5,
       "score": 9,
       "grade": "A"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md",
+      "title": "Policy generation a policy validation",
+      "words": 1932,
+      "headings": 37,
+      "sections": 37,
+      "findings": 9,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 9,
+      "score": 15,
+      "grade": "B"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/production-hardening-troubleshooting.md",
@@ -6917,6 +6945,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/vendor-lock-in-portability-agentic-workflows.md",
+      "title": "Vendor lock-in a portability agentických workflowov",
+      "words": 1854,
+      "headings": 39,
+      "sections": 39,
+      "findings": 1,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1,
+      "score": 1,
+      "grade": "A"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md",
       "title": "Webhooks a API integrations",
       "words": 2291,
@@ -6942,6 +6984,20 @@
       "medium": 0,
       "low": 4,
       "score": 7,
+      "grade": "A"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/workflow-engine-vs-agent-framework.md",
+      "title": "Workflow engine oproti agent frameworku",
+      "words": 1905,
+      "headings": 39,
+      "sections": 39,
+      "findings": 0,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "score": 0,
       "grade": "A"
     }
   ],
@@ -87542,6 +87598,51 @@
       "score": 2
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-approval-audit-rollback.md",
+      "section": "1. Approval subject",
+      "line": 23,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-approval-audit-rollback.md",
+      "section": "10. Previous waiting executions",
+      "line": 77,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-approval-audit-rollback.md",
+      "section": "17. Harness audit scope",
+      "line": 119,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-approval-audit-rollback.md",
+      "section": "35. Primary sources",
+      "line": 252,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/human-approval-audit-rollback.md",
+      "section": "Zhrnutie",
+      "line": 258,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/human-approval-sensitive-tool-calls.md",
       "section": "1. Approval ako policy gate",
       "line": 21,
@@ -89034,6 +89135,87 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md",
+      "section": "1. Control objective",
+      "line": 24,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md",
+      "section": "1. Control objective",
+      "line": 24,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md",
+      "section": "3. Event boundary",
+      "line": 36,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md",
+      "section": "4. Existing resources",
+      "line": 42,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md",
+      "section": "9. Default deny",
+      "line": 72,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md",
+      "section": "35. Practical policy envelope",
+      "line": 228,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md",
+      "section": "36. Primary sources",
+      "line": 262,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md",
+      "section": "Zhrnutie",
+      "line": 268,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md",
+      "section": "Zhrnutie",
+      "line": 268,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/production-hardening-troubleshooting.md",
@@ -91409,6 +91591,15 @@
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/vendor-lock-in-portability-agentic-workflows.md",
+      "section": "38. Primary sources",
+      "line": 273,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
       "score": 1
     },
     {

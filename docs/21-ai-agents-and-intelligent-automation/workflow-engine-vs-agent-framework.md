@@ -285,3 +285,11 @@ LangGraph persistence, replay a checkpoint semantics dokumentuje https://docs.la
 Workflow engine má vlastniť durable process state, timers, retries, concurrency a approval lifecycle. Agent framework má vlastniť probabilistické reasoning, memory a tool-selection trajectory v presne ohraničenom tasku. Najbezpečnejší pattern je deterministic shell s agentic islands, stable operation IDs a independent business verification.
 
 Ďalšia kapitola porovná konkrétne use cases n8n, Temporal, Airflow a Prefect.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Vendor lock-in a portability agentických workflowov](vendor-lock-in-portability-agentic-workflows.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

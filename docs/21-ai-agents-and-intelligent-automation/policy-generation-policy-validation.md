@@ -270,3 +270,11 @@ OPA policy testing je popísané na https://www.openpolicyagent.org/docs/policy-
 AI môže zrýchliť authoring policy, testov a vysvetlení, ale authority vzniká až z presného subjectu, input contractu, negatívnych testov, blocking policy-set bindingu a effective decision evidence. Najnebezpečnejší stav nie je syntax error, ale policy, ktorá vyzerá enforced a v skutočnosti hodnotí nesprávny input alebo iba varuje.
 
 Ďalšia kapitola rozšíri tento model o human approval, audit a rollback.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Incident triage a evidence collection](incident-triage-evidence-collection.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Human approval, audit a rollback →](human-approval-audit-rollback.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

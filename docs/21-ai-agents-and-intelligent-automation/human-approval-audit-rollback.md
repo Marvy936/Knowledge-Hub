@@ -260,3 +260,11 @@ Harness Audit Trail semantics, scope, fields, retention a potrebu explicitne zap
 Human approval je bezpečnostná hranica iba vtedy, keď schvaľuje exact immutable subject, overuje eligible independent identity a pred mutation prejde revalidation. Audit musí zachytiť proposal, decision, execution a recovery; rollback musí rozlišovať workload state od externých a dátových side effects.
 
 Ďalšia kapitola presunie pozornosť na vendor lock-in a portability agentických workflowov.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Policy generation a policy validation](policy-generation-policy-validation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Vendor lock-in a portability agentických workflowov →](vendor-lock-in-portability-agentic-workflows.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
