@@ -298,5 +298,5 @@ Bezpečný lifecycle viaže credential na exact tenant, resource, operation, wor
 
 **Navigácia**
 
-[← Predchádzajúca: Webhooks a API integrations](webhooks-api-integrations.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Webhooks a API integrations](webhooks-api-integrations.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Error workflows, retries a partial execution →](error-workflows-retries-partial-execution.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

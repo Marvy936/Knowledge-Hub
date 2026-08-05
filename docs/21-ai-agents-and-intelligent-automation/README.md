@@ -42,15 +42,15 @@ Odporúčané predchádzajúce oblasti:
 26. [Triggers, nodes, expressions a data mapping](triggers-nodes-expressions-data-mapping.md)
 27. [Webhooks a API integrations](webhooks-api-integrations.md)
 28. [Credentials, secrets a access control](credentials-secrets-access-control.md)
+29. [Error workflows, retries a partial execution](error-workflows-retries-partial-execution.md)
+30. [Idempotency a duplicate-event handling](idempotency-duplicate-event-handling.md)
+31. [Sub-workflows a reusable workflow contracts](sub-workflows-reusable-workflow-contracts.md)
+32. [Source control a environments](source-control-environments.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-29. Error workflows, retries a partial execution
-30. Idempotency a duplicate-event handling
-31. Sub-workflows a reusable workflow contracts
-32. Source control a environments
 33. Self-hosting s PostgreSQL
 34. Queue mode, Redis, workers a scaling
 35. Binary data, storage a execution retention
@@ -111,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **28/62 · In progress**. Siedmy authoritative blok aktivuje kapitoly 25–28 a incident `AGENT-N8N-07`. Architecture kapitola oddeľuje saved, published a effective workflow state, control a execution plane, main/webhook/worker/task-runner paths, database, Redis queue, binary storage, concurrency, durability a exact execution subject. Trigger/data kapitola vysvetľuje items, node parameter resolution, expressions, item linking, `pairedItem`, cardinality, branches, merges, schema contracts a multi-item acceptance. Webhook/API kapitola pokrýva production endpoint, signatures, replay protection, acknowledgement, provider retries, event idempotency, API contracts, timeouts, rate limits, partial success, SSRF a authoritative resource read-back. Credential kapitola viaže secret a executable capability na ownera, project/RBAC, tenant, scopes, encryption key, external secret generation, workflow binding, rotation, revocation, redaction, backup/restore a negative authorization. Reálne n8n executions, provider retries, API mutations, credential rotation, restore, tenant isolation ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 29–32: error workflows/retries/partial execution, idempotency/duplicate-event handling, sub-workflows/reusable contracts a source control/environments.
+Aktuálny authoritative stav sekcie je **32/62 · In progress**. Ôsmy authoritative blok aktivuje kapitoly 29–32 a incident `AGENT-N8N-08`. Error/retry kapitola oddeľuje node attempt, workflow execution, provider delivery a business outcome, používa per-item terminal state, unknown-outcome reconciliation, quarantine a error-handler isolation. Idempotency kapitola zavádza canonical tenant-scoped operation key, payload fingerprint, atomic claim, durable state machine, inbox/outbox boundary, provider-native enforcement a crash-after-commit recovery. Sub-workflow kapitola chápe reusable workflow ako versioned capability s input/output/error/cardinality contractom, item linkingom, bounded credentials, retry ownershipom, dependency graphom a coordinated promotion. Source-control kapitola oddeľuje Git desired state, saved definition, published workflow a effective runtime, viaže ich na credential/variable/sub-workflow/node generations a uzatvára promotion composed manifestom, loaded-state read-backom, drift detection a rollbackom. Reálne n8n failures, retries, duplicate deliveries, sub-workflow calls, Git promotions, credential mappings, rollbacky ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 33–36: self-hosting s PostgreSQL, queue mode/Redis/workers/scaling, binary data/storage/execution retention a n8n monitoring/logs/security audit.
