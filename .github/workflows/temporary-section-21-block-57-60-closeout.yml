@@ -1,0 +1,156 @@
+name: Temporary Section 21 block 57-60 closeout
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+    paths:
+      - "docs/21-ai-agents-and-intelligent-automation/**"
+      - "ROADMAP.md"
+      - "GLOSSARY.md"
+      - "DOCUMENTATION-REVIEW-STATUS.md"
+      - "DOCUMENTATION-AUDIT.md"
+      - "documentation-audit.json"
+      - ".github/workflows/temporary-section-21-block-57-60-closeout.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-section-21-block-57-60-closeout-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  closeout:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/section-21-ai-agents-block-57-60
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Synchronize section and run learning-depth closeout
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path: Path, old: str, new: str) -> None:
+              text = path.read_text(encoding="utf-8")
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f"{path}: expected one replacement target, found {count}")
+              path.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
+
+          root = Path("docs/21-ai-agents-and-intelligent-automation")
+          readme = root / "README.md"
+          replace_once(
+              readme,
+              "56. [AI-assisted observability a incident response](ai-assisted-observability-incident-response.md)\n\n## Plánované authoritative poradie",
+              "56. [AI-assisted observability a incident response](ai-assisted-observability-incident-response.md)\n"
+              "57. [AI-assisted security operations](ai-assisted-security-operations.md)\n"
+              "58. [Knowledge assistants a enterprise search](knowledge-assistants-enterprise-search.md)\n"
+              "59. [Ticket, email a chat automation](ticket-email-chat-automation.md)\n"
+              "60. [Autonomous remediation boundaries](autonomous-remediation-boundaries.md)\n\n"
+              "## Plánované authoritative poradie",
+          )
+          for planned in (
+              "57. AI-assisted security operations\n",
+              "58. Knowledge assistants a enterprise search\n",
+              "59. Ticket, email a chat automation\n",
+              "60. Autonomous remediation boundaries\n",
+          ):
+              replace_once(readme, planned, "")
+
+          text = readme.read_text(encoding="utf-8")
+          marker = "## Stav\n\n"
+          if text.count(marker) != 1:
+              raise SystemExit("README: expected one status marker")
+          prefix, _ = text.split(marker, 1)
+          status = (
+              "Aktuálny authoritative stav sekcie je **60/62 · In progress**. Pätnásty authoritative blok aktivuje kapitoly 57–60 a incident `AGENT-OPS-15`. Security-operations kapitola viaže alerty, incidents, evidence, identity, tool authority, containment a business impact. Knowledge-assistant kapitola zachováva source authority, query-time permissions, ACL freshness, citations, delete propagation a abstention. Communication kapitola oddeľuje ticket, e-mail a chat semantics, draft od send authority, recipient identity, durable approvals, outbox a SLA. Remediation kapitola povoľuje mutation iba v versioned deterministic envelope s exact targetom, policy, scoped identity, runbookom, canary, kill switchom, rollbackom alebo compensation a business read-backom. Reálne SOC investigations, permission sync tests, message delivery, remediation runs, recovery drilly ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Záverečný blok sú kapitoly 61–62: evaluation-driven automation lifecycle a intelligent automation troubleshooting.\n"
+          )
+          readme.write_text(prefix + marker + status, encoding="utf-8", newline="\n")
+
+          roadmap = Path("ROADMAP.md")
+          updates = {
+              "- [ ] AI-assisted security operations": "- [x] [AI-assisted security operations](docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md)",
+              "- [ ] Knowledge assistants a enterprise search": "- [x] [Knowledge assistants a enterprise search](docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md)",
+              "- [ ] Ticket, email a chat automation": "- [x] [Ticket, email a chat automation](docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md)",
+              "- [ ] Autonomous remediation boundaries": "- [x] [Autonomous remediation boundaries](docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md)",
+          }
+          for old, new in updates.items():
+              replace_once(roadmap, old, new)
+
+          review = Path("DOCUMENTATION-REVIEW-STATUS.md")
+          lines = review.read_text(encoding="utf-8").splitlines()
+          row_prefix = "| `21-ai-agents-and-intelligent-automation` — AI Agents and Intelligent Automation |"
+          matches = [i for i, line in enumerate(lines) if line.startswith(row_prefix)]
+          if len(matches) != 1:
+              raise SystemExit(f"Review status: expected one Section 21 row, found {len(matches)}")
+          lines[matches[0]] = (
+              "| `21-ai-agents-and-intelligent-automation` — AI Agents and Intelligent Automation | 60/62 authoritative drafting | In progress | 2026-08-05 | "
+              "Pätnásty authoritative blok aktivuje kapitoly 57–60 a incident `AGENT-OPS-15`. Security operations oddeľujú evidence acceleration od containment authority a vyžadujú exact identities, competing hypotheses, least privilege, approval, provider read-back a service impact. Enterprise search viaže source revision, ACL generation, ingestion, chunks, embeddings, query-time authorization, citations, caches a delete propagation. Ticket, e-mail a chat automation oddeľuje channel semantics, sender a recipient identity, draft/send, SLA, approvals, outbox, unknown delivery a business closure. Autonomous remediation používa versioned action catalog, preconditions, deterministic policy, scoped credentials, limits, canary, kill switch, stabilization window, rollback alebo compensation a domain verification. Reálne security investigations, ACL propagation tests, message sends, remediation executions a business outcomes neboli vykonané; stav zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. |"
+          )
+          review.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+          PY
+
+          python scripts/update_glossary.py --write
+          python scripts/update_navigation.py --write
+          python scripts/audit_learning_depth.py --all-docs
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
+
+          python - <<'PY'
+          from pathlib import Path
+
+          audit = Path("DOCUMENTATION-AUDIT.md").read_text(encoding="utf-8")
+          files = [
+              "ai-assisted-security-operations.md",
+              "knowledge-assistants-enterprise-search.md",
+              "ticket-email-chat-automation.md",
+              "autonomous-remediation-boundaries.md",
+          ]
+          remaining = [
+              name for name in files
+              if f"### `docs/21-ai-agents-and-intelligent-automation/{name}`" in audit
+          ]
+          if remaining:
+              for name in remaining:
+                  heading = f"### `docs/21-ai-agents-and-intelligent-automation/{name}`"
+                  start = audit.find(heading)
+                  end = audit.find("\n### `", start + len(heading))
+                  print(audit[start:end if end != -1 else len(audit)])
+              raise SystemExit(f"Section 21 block 57-60 critical/high findings remain: {remaining}")
+          print("Section 21 block 57-60 has no critical/high audit entries.")
+          PY
+
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            ROADMAP.md \
+            GLOSSARY.md \
+            DOCUMENTATION-REVIEW-STATUS.md \
+            DOCUMENTATION-AUDIT.md \
+            documentation-audit.json \
+            docs/21-ai-agents-and-intelligent-automation
+
+          if git diff --cached --quiet; then
+            echo "No closeout changes required."
+            exit 0
+          fi
+
+          git commit -m "docs: synchronize intelligent operations block closeout"
+          git push origin HEAD:agent/section-21-ai-agents-block-57-60
