@@ -58,15 +58,15 @@ Odporúčané predchádzajúce oblasti:
 42. [DevOps Agent pre pipeline a resource operations](devops-agent-pipeline-resource-operations.md)
 43. [Worker Agents v pipelines](worker-agents-pipelines.md)
 44. [MCP connectors a external tools](mcp-connectors-external-tools.md)
+45. [AI-assisted pipeline creation a failure analysis](ai-assisted-pipeline-creation-failure-analysis.md)
+46. [Agentický code review, testing a remediation](agentic-code-review-testing-remediation.md)
+47. [GitOps a release agents](gitops-release-agents.md)
+48. [Incident triage a evidence collection](incident-triage-evidence-collection.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-45. AI-assisted pipeline creation a failure analysis
-46. Agentický code review, testing a remediation
-47. GitOps a release agents
-48. Incident triage a evidence collection
 49. Policy generation a policy validation
 50. Human approval, audit a rollback
 51. Vendor lock-in a portability agentických workflowov
@@ -111,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **44/62 · In progress**. Jedenásty authoritative blok aktivuje kapitoly 41–44 a incident `AGENT-HARNESS-11`. Platform overview oddeľuje Harness UI, IDE/MCP a pipeline-agent surfaces a viaže account/org/project scope, RBAC, AI Rules, policies, privacy route, connectors, audit a business read-back. DevOps Agent kapitola chápe AI output ako bounded proposal nad exact resource generation, oddeľuje guidance Rules od OPA enforcementu a vyžaduje semantic diff, informed Accept, authorized save a effective-state proof. Worker Agents kapitola pinne immutable catalog definition, image, instructions, model, MCP set, typed inputs/outputs a scoped token a zavádza deterministic downstream gates, idempotency, reconciliation a kill switch. MCP kapitola používa current protocol `2025-11-25`, oddeľuje host/client/server, negotiated capabilities, tools/resources/prompts, OAuth audience a token boundaries, consent, schema drift a custom-server trust. Reálne Harness AI conversations, resource writes, Worker Agent executions, MCP calls, approvals, provider mutations, incident recovery ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 45–48: AI-assisted pipeline creation/failure analysis, agentický code review/testing/remediation, GitOps/release agents a incident triage/evidence collection.
+Aktuálny authoritative stav sekcie je **48/62 · In progress**. Dvanásty authoritative blok aktivuje kapitoly 45–48 a incident `AGENT-DELIVERY-12`. Pipeline kapitola oddeľuje intent, proposal, schema/policy/semantic validation, accepted diff, exact execution, artifact identity a business verification a chápe Error Analyzer ako hypothesis generator. Code review kapitola viaže exact PR SHA, agent generation, test integrity, independent checks, protected approval a post-merge outcome. GitOps kapitola oddeľuje Git desired state, render, live state, `Synced`, `Healthy` a user outcome a pinne artifact provenance, ownership, sync plan a recovery. Incident kapitola zavádza evidence classes, completeness, chain of custody, competing hypotheses, read-only diagnostics, approved containment, idempotent runbooks a technical aj business reconciliation. Reálne agent runs, code changes, releases, GitOps syncy, incident remediations ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 49–52: policy generation/validation, human approval/audit/rollback, vendor lock-in/portability a workflow engine oproti agent frameworku.

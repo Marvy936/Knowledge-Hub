@@ -226,6 +226,10 @@ Incident sa znovu overí na technical aj business layer a alternate scenario tes
 
 ## 35. Practical evidence index
 
+Evidence index je append-only mapa medzi incident subjectom, evidence cutoffom, source artifacts, completeness limits, hypotheses a resolution states. Udržiava rozdiel medzi technical mitigation a business reconciliation a umožňuje druhému responderovi reprodukovať záver bez spoliehania sa na modelový summary text.
+
+Nasledujúci príklad zámerne ponecháva `business_verified: false`, hoci technical verification prešla. Tým demonštruje, že incident nesmie byť uzavretý iba na základe zlepšených infra metrík alebo úspešného runbooku.
+
 ```yaml
 incident:
   id: AGENT-DELIVERY-12
@@ -264,18 +268,20 @@ Index zabraňuje, aby `technical_verified` automaticky znamenalo resolved. Busin
 
 Harness AI SRE dokumentácia opisuje acknowledgment, triage, impact assessment, timeline, runbooks, action items a incident review. Harness Continuous Verification dokumentácia opisuje log/metric analysis, no-data a retention. OpenTelemetry definuje correlation logs a traces cez execution a resource context.
 
-Primárne zdroje:
+Harness incident lifecycle, ownership, timelines, runbooks, actions a review je popísaný na https://developer.harness.io/docs/ai-sre/users/manage-incidents/. Acknowledge a triage semantics, vrátane review generated fields a impact assessment, rozvíja https://developer.harness.io/docs/ai-sre/users/manage-incidents/acknowledge-and-triage/, zatiaľ čo širší AI SRE incident model poskytuje https://developer.harness.io/docs/ai-sre/incidents/.
 
-- https://developer.harness.io/docs/ai-sre/users/manage-incidents/
-- https://developer.harness.io/docs/ai-sre/users/manage-incidents/acknowledge-and-triage/
-- https://developer.harness.io/docs/ai-sre/incidents/
-- https://developer.harness.io/docs/continuous-delivery/verify/continuous-verification-faqs/
-- https://developer.harness.io/docs/continuous-delivery/verify/cv-results/apm-logs/
-- https://developer.harness.io/docs/continuous-delivery/manage-deployments/deployment-logs-and-limitations/
-- https://opentelemetry.io/docs/specs/otel/logs/
+Verification, no-data a evidence limits sú oddelené v https://developer.harness.io/docs/continuous-delivery/verify/continuous-verification-faqs/ a log-analysis results na https://developer.harness.io/docs/continuous-delivery/verify/cv-results/apm-logs/. Truncation a deployment-log hranice dokumentuje https://developer.harness.io/docs/continuous-delivery/manage-deployments/deployment-logs-and-limitations/. OpenTelemetry authority pre log/trace correlation cez trace, span a resource context je https://opentelemetry.io/docs/specs/otel/logs/. Tieto sources definujú evidence mechanisms; incident root cause a business recovery musia vzniknúť z konkrétneho incident bundle-u.
 
 ## Zhrnutie
 
 Agentický incident responder je evidence indexer a bounded hypothesis engine. Authority pre severity, remediation, recovery a closure zostáva v explicitných policies, authorized responders a technical aj business read-backoch.
 
 Incident `AGENT-DELIVERY-12` ukazuje nebezpečenstvo zelených control-plane signals. Zelená pipeline, `Synced` GitOps application a znížená latency neuzatvárajú incident, ak nebola vykonaná authoritative reconciliation skutočného business harmu.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: GitOps a release agents](gitops-release-agents.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

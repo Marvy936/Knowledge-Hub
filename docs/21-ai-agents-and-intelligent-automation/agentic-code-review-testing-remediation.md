@@ -214,6 +214,10 @@ Recovery končí až po clean default-branch run, deployment/business verificati
 
 ## 33. Practical review envelope
 
+Practical review envelope je machine-readable väzba medzi exact pull-request subjectom, agent generation, findingmi, remediation commitom a nezávislými merge gates. Jeho účelom nie je reprodukovať celý chat, ale zabrániť tomu, aby sa review comment, patch a approval neskôr zamieňali za rovnakú authority.
+
+Nasledujúci record ukazuje minimálny evidence contract. Pole `agent_review_is_merge_approval` zostáva explicitne false, pretože úspešný agent run ani review comment nenahrádza protected-branch decision.
+
 ```yaml
 agent_review:
   repository: payments-api
@@ -242,17 +246,20 @@ Envelope oddeľuje agent output od merge authority. Neobsahuje tvrdenie o produk
 
 Aktuálna Harness dokumentácia opisuje Code Review, Code Coverage a AutoFix agents, ich PR a pipeline integration a explicitne upozorňuje na limity AI remediation. GitHub dokumentácia oddeľuje Copilot review comment od required approval a požaduje dôkladnú kontrolu agent-authored PR.
 
-Primárne zdroje:
+Harness Code Quality Agent documentation na https://developer.harness.io/3k-docs/platform/getting-started/agents/code-quality/ je authority pre Code Review, Code Coverage a AutoFix execution model. Pull-request integration a agent behavior dopĺňa https://developer.harness.io/docs/code-repository/pull-requests/ai-agents/, kým explicitné limity AI security remediation uvádza https://developer.harness.io/docs/security-testing-orchestration/remediations/ai-based-remediations/.
 
-- https://developer.harness.io/3k-docs/platform/getting-started/agents/code-quality/
-- https://developer.harness.io/docs/code-repository/pull-requests/ai-agents/
-- https://developer.harness.io/docs/security-testing-orchestration/remediations/ai-based-remediations/
-- https://docs.github.com/en/copilot/concepts/agents/code-review
-- https://docs.github.com/en/copilot/how-tos/copilot-on-github/use-copilot-agents/review-copilot-output
-- https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-runners
+GitHub semantics Copilot code review, vrátane toho, že ide o comment review a nie required merge approval, sú popísané na https://docs.github.com/en/copilot/concepts/agents/code-review. Povinnosť dôkladne overovať agent-authored output dokumentuje https://docs.github.com/en/copilot/how-tos/copilot-on-github/use-copilot-agents/review-copilot-output a supported runner boundary opisuje https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-runners. Tieto zdroje spolu podporujú proposal, runner a approval hranice, nie produkčnú správnosť konkrétneho patchu.
 
 ## Zhrnutie
 
 Agentický review a AutoFix sú bezpečné ako proposal a remediation machinery, nie ako samostatný merge authority. Validácia musí dokazovať, že relevantný test pred fixom zlyhá a po fix-e prejde bez oslabenia assertions alebo gates.
 
 Incident `AGENT-DELIVERY-12` ukazuje, že zelený build môže byť horší než explicitný failure, ak agent odstráni podmienku, ktorá chybu odhaľovala. Preto sa hodnotí trajectory, diff, test integrity a post-merge outcome.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: AI-assisted pipeline creation a failure analysis](ai-assisted-pipeline-creation-failure-analysis.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: GitOps a release agents →](gitops-release-agents.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

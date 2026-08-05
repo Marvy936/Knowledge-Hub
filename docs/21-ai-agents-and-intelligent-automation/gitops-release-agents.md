@@ -208,6 +208,10 @@ Health, business canary a provider read-back potvrdia obnovu. Následná druhá 
 
 ## 32. Practical release manifest
 
+Release manifest je composed identity release candidate-u: viaže source a manifest commit, immutable artifact, controller application generation a požadované verification gates. Bez tejto väzby sa `Synced`, image tag alebo pipeline execution nedajú spätne priradiť k jednému authoritative release subjectu.
+
+Nasledujúci príklad je deklarovaný release intent pred vykonaním. Neobsahuje tvrdenie `verified`; tento stav môže vzniknúť až po controller read-backu, resource health a business canary v konkrétnom environment-e.
+
 ```yaml
 release:
   application: payments-prod
@@ -236,18 +240,20 @@ Manifest je release intent. Stav `verified` sa doplní až z controller a busine
 
 Aktuálna Harness dokumentácia opisuje GitOps service a Agent architecture aj DevOps Agent operations nad GitOps resources. Argo CD dokumentácia definuje repository server, application controller, sync, health, auto-sync a destructive sync options; Flux dokumentácia dopĺňa reconciliation, suspension a Ready conditions.
 
-Primárne zdroje:
+Harness control-plane a in-cluster GitOps Agent boundary je popísaná na https://developer.harness.io/docs/continuous-delivery/gitops/get-started/gitops-architecture/ a installation, connectivity a scoped-agent requirements na https://developer.harness.io/docs/continuous-delivery/gitops/gitops-entities/agents/install-a-harness-git-ops-agent/.
 
-- https://developer.harness.io/docs/continuous-delivery/gitops/get-started/gitops-architecture/
-- https://developer.harness.io/docs/continuous-delivery/gitops/gitops-entities/agents/install-a-harness-git-ops-agent/
-- https://argo-cd.readthedocs.io/en/stable/operator-manual/architecture/
-- https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/
-- https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/
-- https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/
-- https://fluxcd.io/flux/components/kustomize/kustomizations/
+Argo CD component authority a continuous desired/live comparison dokumentuje https://argo-cd.readthedocs.io/en/stable/operator-manual/architecture/. Automated sync a rollback constraints sú na https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/, destructive a ownership-sensitive options na https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/ a explicitný sync/preview surface na https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/. Flux reconciliation, suspension a Ready conditions poskytujú porovnávací primary model na https://fluxcd.io/flux/components/kustomize/kustomizations/. Zdrojové statusy podporujú controller semantics, nie automatický business outcome.
 
 ## Zhrnutie
 
 Release agent nesmie nahradiť Git review, controller reconciliation ani business verification. Jeho hodnota je v konzistentnom návrhu, semantic diff-e, evidence assembly a bounded orchestration.
 
 Incident `AGENT-DELIVERY-12` vznikol preto, že mutable artifact reference, `Synced` status a rollback command boli nesprávne použité ako dôkazy. Správny model viaže immutable desired state na live read-back a user-facing outcome.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Agentický code review, testing a remediation](agentic-code-review-testing-remediation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Incident triage a evidence collection →](incident-triage-evidence-collection.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

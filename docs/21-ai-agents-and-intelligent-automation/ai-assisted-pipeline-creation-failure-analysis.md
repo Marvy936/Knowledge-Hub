@@ -232,16 +232,20 @@ Tento záznam môže preukázať dokumentovaný candidate a test intent. Neozna�
 
 Aktuálna Harness dokumentácia opisuje DevOps Agent pre tvorbu a editáciu pipelines, schema validation, Error Analyzer, change-impact correlation, prioritized recommendations, YAML preview a explicitný `Accept`. Harness dokumentácia zároveň opisuje failure strategies, pipeline logs a Continuous Verification.
 
-Primárne zdroje:
+Autoritatívny opis generovania a editácie pipeline resource, schema validation, Error Analyzer a explicitného `Accept` poskytuje Harness DevOps Agent documentation na https://developer.harness.io/3k-docs/ai/devops-agent/. CI troubleshooting semantics a AI-assisted diagnosis rozširuje https://developer.harness.io/docs/continuous-integration/troubleshoot-ci/ai/.
 
-- https://developer.harness.io/3k-docs/ai/devops-agent/
-- https://developer.harness.io/docs/continuous-integration/troubleshoot-ci/ai/
-- https://developer.harness.io/docs/platform/pipelines/failure-handling/define-a-failure-strategy-on-stages-and-steps/
-- https://developer.harness.io/docs/continuous-delivery/manage-deployments/deployment-logs-and-limitations/
-- https://developer.harness.io/docs/continuous-delivery/verify/continuous-verification-faqs/
+Failure-strategy authority vrátane step a stage scope je na https://developer.harness.io/docs/platform/pipelines/failure-handling/define-a-failure-strategy-on-stages-and-steps/. Prevádzkové hranice log completeness a truncation dokumentuje https://developer.harness.io/docs/continuous-delivery/manage-deployments/deployment-logs-and-limitations/, zatiaľ čo verification a no-data semantics sú popísané na https://developer.harness.io/docs/continuous-delivery/verify/continuous-verification-faqs/. Každý zdroj podporuje inú boundary kapitoly; žiadny samostatne nepreukazuje end-to-end business outcome.
 
 ## Zhrnutie
 
 AI-assisted pipeline creation je bezpečná iba vtedy, keď model proposal zostáva oddelený od deterministic validation, authorization a runtime proofu. Error analysis zrýchľuje hypotheses, no root cause vzniká až po reprodukcii a recovery acceptance.
 
 V incidente `AGENT-DELIVERY-12` nebola hlavnou chybou samotná AI oprava. Zlyhal control chain, ktorý dovolil, aby accepted YAML diff obišiel semantic path coverage a aby zelená pipeline nahradila chýbajúcu deployment verification.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: MCP connectors a external tools](mcp-connectors-external-tools.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Agentický code review, testing a remediation →](agentic-code-review-testing-remediation.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->
