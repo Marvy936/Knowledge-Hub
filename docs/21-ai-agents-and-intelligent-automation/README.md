@@ -46,15 +46,15 @@ Odporúčané predchádzajúce oblasti:
 30. [Idempotency a duplicate-event handling](idempotency-duplicate-event-handling.md)
 31. [Sub-workflows a reusable workflow contracts](sub-workflows-reusable-workflow-contracts.md)
 32. [Source control a environments](source-control-environments.md)
+33. [Self-hosting s PostgreSQL](self-hosting-postgresql.md)
+34. [Queue mode, Redis, workers a scaling](queue-mode-redis-workers-scaling.md)
+35. [Binary data, storage a execution retention](binary-data-storage-execution-retention.md)
+36. [n8n monitoring, logs a security audit](n8n-monitoring-logs-security-audit.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-33. Self-hosting s PostgreSQL
-34. Queue mode, Redis, workers a scaling
-35. Binary data, storage a execution retention
-36. n8n monitoring, logs a security audit
 37. AI Agent nodes, tools a memory
 38. Human approval pre citlivé tool calls
 39. RAG a knowledge workflows v n8n
@@ -111,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **32/62 · In progress**. Ôsmy authoritative blok aktivuje kapitoly 29–32 a incident `AGENT-N8N-08`. Error/retry kapitola oddeľuje node attempt, workflow execution, provider delivery a business outcome, používa per-item terminal state, unknown-outcome reconciliation, quarantine a error-handler isolation. Idempotency kapitola zavádza canonical tenant-scoped operation key, payload fingerprint, atomic claim, durable state machine, inbox/outbox boundary, provider-native enforcement a crash-after-commit recovery. Sub-workflow kapitola chápe reusable workflow ako versioned capability s input/output/error/cardinality contractom, item linkingom, bounded credentials, retry ownershipom, dependency graphom a coordinated promotion. Source-control kapitola oddeľuje Git desired state, saved definition, published workflow a effective runtime, viaže ich na credential/variable/sub-workflow/node generations a uzatvára promotion composed manifestom, loaded-state read-backom, drift detection a rollbackom. Reálne n8n failures, retries, duplicate deliveries, sub-workflow calls, Git promotions, credential mappings, rollbacky ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 33–36: self-hosting s PostgreSQL, queue mode/Redis/workers/scaling, binary data/storage/execution retention a n8n monitoring/logs/security audit.
+Aktuálny authoritative stav sekcie je **36/62 · In progress**. Deviaty authoritative blok aktivuje kapitoly 33–36 a incident `AGENT-N8N-09`. PostgreSQL kapitola chápe databázu ako shared durable authority a viaže n8n/schema/encryption-key generation, TLS, connection budget, migrations, backup, WAL/PITR a application restore proof. Queue kapitola spája main/webhook/worker roles, Redis broker, PostgreSQL, readiness, concurrency, dependency-aware autoscaling, graceful shutdown, binary visibility a business reconciliation. Storage kapitola oddeľuje execution metadata, execution bundles a binary objects, vysvetľuje memory/database/filesystem/external modes, cross-process access, age/count pruning, object lifecycle, privacy a coordinated restore. Monitoring kapitola prepája health, Prometheus metrics, structured logs, per-process event files, log streaming, OpenTelemetry traces, execution evidence, security audit a business outcomes bez zamieňania telemetry za audit alebo correctness proof. Reálne n8n deploymenty, PostgreSQL migrations/failover/restore, Redis recovery, autoscaling, binary-storage migration, pruning, telemetry failure drilly, security audits ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 37–40: AI Agent nodes/tools/memory, human approval pre citlivé tool calls, RAG/knowledge workflows a production hardening/troubleshooting.
