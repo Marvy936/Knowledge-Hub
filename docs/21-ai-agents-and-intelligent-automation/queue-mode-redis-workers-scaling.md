@@ -296,5 +296,5 @@ Bez dependency-aware scaling môže vyšší replica count znížiť throughput 
 
 **Navigácia**
 
-[← Predchádzajúca: Self-hosting s PostgreSQL](self-hosting-postgresql.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Self-hosting s PostgreSQL](self-hosting-postgresql.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Binary data, storage a execution retention →](binary-data-storage-execution-retention.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

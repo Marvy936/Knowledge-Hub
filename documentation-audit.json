@@ -6371,6 +6371,20 @@
       "grade": "C"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "title": "Binary data, storage a execution retention",
+      "words": 2476,
+      "headings": 45,
+      "sections": 45,
+      "findings": 16,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 16,
+      "score": 26,
+      "grade": "B"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
       "title": "Cost, latency a token budgets",
       "words": 3223,
@@ -6539,6 +6553,20 @@
       "grade": "C"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "title": "n8n monitoring, logs a security audit",
+      "words": 2597,
+      "headings": 50,
+      "sections": 50,
+      "findings": 12,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12,
+      "score": 22,
+      "grade": "B"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md",
       "title": "Planning, decomposition a replanning",
       "words": 2273,
@@ -6567,6 +6595,20 @@
       "grade": "C"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "title": "Queue mode, Redis, workers a scaling",
+      "words": 2318,
+      "headings": 42,
+      "sections": 42,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 21,
+      "grade": "B"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/sandboxing-code-execution.md",
       "title": "Sandboxing a code execution",
       "words": 3111,
@@ -6579,6 +6621,20 @@
       "low": 29,
       "score": 45,
       "grade": "C"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "title": "Self-hosting s PostgreSQL",
+      "words": 2627,
+      "headings": 44,
+      "sections": 44,
+      "findings": 22,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 22,
+      "score": 34,
+      "grade": "B"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/short-term-state-long-term-external-memory.md",
@@ -6611,7 +6667,7 @@
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/source-control-environments.md",
       "title": "Source control a environments",
-      "words": 2632,
+      "words": 2634,
       "headings": 47,
       "sections": 47,
       "findings": 8,
@@ -85815,6 +85871,150 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "1. Execution data verzus binary data",
+      "line": 21,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "5. Database mode",
+      "line": 45,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "12. Storage credentials",
+      "line": 87,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "14. Large webhook response offload",
+      "line": 99,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "19. Manual executions",
+      "line": 129,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "20. Age-based pruning",
+      "line": 135,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "21. Count-based pruning",
+      "line": 141,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "25. S3 binary lifecycle",
+      "line": 165,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "27. External execution data",
+      "line": 177,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "33. Shared incident AGENT-N8N-09",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "34. Competing failure hypotheses",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "35. Evidence preservation",
+      "line": 225,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "38. Positive acceptance",
+      "line": 243,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "39. Forbidden acceptance",
+      "line": 249,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "45. Zhrnutie",
+      "line": 304,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
+      "section": "45. Zhrnutie",
+      "line": 304,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/cost-latency-token-budgets.md",
       "section": "1. Budget nie je iba limit",
       "line": 22,
@@ -87750,6 +87950,114 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "2. Signal taxonomy",
+      "line": 27,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "21. Operational logs verzus audit events",
+      "line": 141,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "23. Queue-mode trace propagation",
+      "line": 153,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "38. Shared incident AGENT-N8N-09",
+      "line": 243,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "38. Shared incident AGENT-N8N-09",
+      "line": 243,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "39. Competing failure hypotheses",
+      "line": 249,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "40. Evidence preservation",
+      "line": 255,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "41. Containment",
+      "line": 261,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "42. Recovery",
+      "line": 267,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "44. Forbidden acceptance",
+      "line": 279,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "45. Recovery acceptance",
+      "line": 285,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md",
+      "section": "50. Zhrnutie",
+      "line": 337,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md",
       "section": "14. Information value",
       "line": 150,
@@ -88146,6 +88454,123 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "11. Queue depth",
+      "line": 82,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "16. Scale-in",
+      "line": 112,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "18. Redis availability",
+      "line": 124,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "19. Redis persistence a recovery",
+      "line": 130,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "20. Redis memory",
+      "line": 136,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "21. Large webhook responses",
+      "line": 142,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "28. Queue monitoring",
+      "line": 184,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "30. Shared incident AGENT-N8N-09",
+      "line": 196,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "32. Evidence preservation",
+      "line": 208,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "34. Recovery",
+      "line": 220,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "40. Prevádzkové metriky",
+      "line": 274,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "42. Zhrnutie",
+      "line": 288,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md",
+      "section": "42. Zhrnutie",
+      "line": 288,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/sandboxing-code-execution.md",
       "section": "1. Sandbox chráni boundary, nie correctness",
       "line": 23,
@@ -88401,6 +88826,204 @@
       "path": "docs/21-ai-agents-and-intelligent-automation/sandboxing-code-execution.md",
       "section": "46. Zhrnutie",
       "line": 372,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "2. Databáza ako authority",
+      "line": 27,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "3. Exact deployment subject",
+      "line": 33,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "4. PostgreSQL version policy",
+      "line": 39,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "5. Database configuration",
+      "line": 45,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "16. Schema migrations",
+      "line": 126,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "19. Database high availability",
+      "line": 144,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "24. Long-running transactions",
+      "line": 174,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "25. Backup scope",
+      "line": 180,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "26. Logical backup",
+      "line": 186,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "27. Physical backup a PITR",
+      "line": 192,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "30. Database monitoring",
+      "line": 210,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "30. Database monitoring",
+      "line": 210,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "31. Shared incident AGENT-N8N-09",
+      "line": 216,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "32. Competing failure hypotheses",
+      "line": 222,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "33. Evidence preservation",
+      "line": 228,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "34. Containment",
+      "line": 234,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "35. Recovery",
+      "line": 240,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "37. Forbidden acceptance",
+      "line": 252,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "42. Prevádzkové metriky",
+      "line": 312,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "42. Prevádzkové metriky",
+      "line": 312,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "44. Zhrnutie",
+      "line": 328,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md",
+      "section": "44. Zhrnutie",
+      "line": 328,
       "severity": "low",
       "rule": "failure-mode-not-explicit",
       "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",

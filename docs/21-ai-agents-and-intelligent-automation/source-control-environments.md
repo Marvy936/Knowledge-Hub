@@ -332,5 +332,5 @@ Bezpečný environment model používa jednosmerný flow, externý review, expli
 
 **Navigácia**
 
-[← Predchádzajúca: Sub-workflows a reusable workflow contracts](sub-workflows-reusable-workflow-contracts.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Sub-workflows a reusable workflow contracts](sub-workflows-reusable-workflow-contracts.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Self-hosting s PostgreSQL →](self-hosting-postgresql.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

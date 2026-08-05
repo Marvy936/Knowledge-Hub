@@ -551,10 +551,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Idempotency a duplicate-event handling](docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md)
 - [x] [Sub-workflows a reusable workflow contracts](docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md)
 - [x] [Source control a environments](docs/21-ai-agents-and-intelligent-automation/source-control-environments.md)
-- [ ] Self-hosting s PostgreSQL
-- [ ] Queue mode, Redis, workers a scaling
-- [ ] Binary data, storage a execution retention
-- [ ] n8n monitoring, logs a security audit
+- [x] [Self-hosting s PostgreSQL](docs/21-ai-agents-and-intelligent-automation/self-hosting-postgresql.md)
+- [x] [Queue mode, Redis, workers a scaling](docs/21-ai-agents-and-intelligent-automation/queue-mode-redis-workers-scaling.md)
+- [x] [Binary data, storage a execution retention](docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md)
+- [x] [n8n monitoring, logs a security audit](docs/21-ai-agents-and-intelligent-automation/n8n-monitoring-logs-security-audit.md)
 - [ ] AI Agent nodes, tools a memory
 - [ ] Human approval pre citlivé tool calls
 - [ ] RAG a knowledge workflows v n8n

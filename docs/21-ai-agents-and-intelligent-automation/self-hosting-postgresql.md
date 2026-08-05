@@ -336,5 +336,5 @@ Accepted deployment spája database health s execution a business outcome. Backu
 
 **Navigácia**
 
-[← Predchádzajúca: Source control a environments](source-control-environments.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Source control a environments](source-control-environments.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Queue mode, Redis, workers a scaling →](queue-mode-redis-workers-scaling.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

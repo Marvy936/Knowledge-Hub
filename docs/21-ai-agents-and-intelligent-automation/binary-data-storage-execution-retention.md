@@ -312,5 +312,5 @@ Accepted lifecycle preukazuje cross-process read, privacy, coordinated pruning, 
 
 **Navigácia**
 
-[← Predchádzajúca: Queue mode, Redis, workers a scaling](queue-mode-redis-workers-scaling.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Queue mode, Redis, workers a scaling](queue-mode-redis-workers-scaling.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: n8n monitoring, logs a security audit →](n8n-monitoring-logs-security-audit.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
