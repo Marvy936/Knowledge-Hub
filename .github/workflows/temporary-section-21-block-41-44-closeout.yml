@@ -12,7 +12,6 @@ on:
       - "DOCUMENTATION-REVIEW-STATUS.md"
       - "DOCUMENTATION-AUDIT.md"
       - "documentation-audit.json"
-      - ".github/temporary-section-21-block-41-44.tar.gz.b64"
       - ".github/workflows/temporary-section-21-block-41-44-closeout.yml"
 
 permissions:
@@ -39,14 +38,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Materialize chapters and run learning-depth closeout
+      - name: Synchronize section and run learning-depth closeout
         shell: bash
         run: |
           set -euo pipefail
-
-          base64 --decode .github/temporary-section-21-block-41-44.tar.gz.b64 \
-            | tar -xz -C docs/21-ai-agents-and-intelligent-automation
-          rm .github/temporary-section-21-block-41-44.tar.gz.b64
 
           python - <<'PY'
           from pathlib import Path
@@ -139,14 +134,13 @@ jobs:
           git diff --check
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A \
+          git add \
             ROADMAP.md \
             GLOSSARY.md \
             DOCUMENTATION-REVIEW-STATUS.md \
             DOCUMENTATION-AUDIT.md \
             documentation-audit.json \
-            docs/21-ai-agents-and-intelligent-automation \
-            .github/temporary-section-21-block-41-44.tar.gz.b64
+            docs/21-ai-agents-and-intelligent-automation
 
           if git diff --cached --quiet; then
             echo "No closeout changes required."
