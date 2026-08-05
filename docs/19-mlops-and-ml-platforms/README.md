@@ -74,7 +74,9 @@ Nosný end-to-end smer sekcie:
 Git + dataset version → pipeline validation → train a evaluate → MLflow tracking → registry promotion → containerized serving → canary deployment → monitoring a drift signal → controlled retraining
 ```
 
-Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom koncepčnom základe. Dokumentačný workflow môže overiť súbory, príkazy a konzistenciu modelu, ale nepreukazuje vykonanie tréningu, inference, agentického side effectu ani produkčného outcome-u.
+Aktívna implementácia je [MLOps and ML Platforms flagship lab](../../labs/mlops/README.md). Používa lokálny MLflow 3.14 tracking a SQLite Model Registry, `skops` model artifacts, digest-bound promotion requests, mutable `candidate`/`champion` aliases s exact-version read-backom, FastAPI serving contract, deterministic PSI drift signal, controlled retraining, 90/10 canary evidence, approval-bound promotion a alias rollback.
+
+Runtime validation tejto implementácie je samostatný gate. Kým nevznikne exact run evidence, repository prítomnosť kódu alebo zelený documentation workflow nepreukazuje, že MLflow migrations, model registration, alias mutation, serving, drift, retraining, canary ani rollback prebehli.
 
 ## Stav
 
