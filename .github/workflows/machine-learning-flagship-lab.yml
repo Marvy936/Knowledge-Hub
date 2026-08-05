@@ -1,12 +1,12 @@
 name: Machine Learning flagship lab
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
     paths:
       - "labs/machine-learning/**"
       - "docs/18-machine-learning-fundamentals/README.md"
       - "FUTURE-IDENTITY-AI-ROADMAP.md"
-      - ".github/workflows/machine-learning-flagship-lab.yml"
   push:
     branches:
       - main
@@ -14,7 +14,6 @@ on:
       - "labs/machine-learning/**"
       - "docs/18-machine-learning-fundamentals/README.md"
       - "FUTURE-IDENTITY-AI-ROADMAP.md"
-      - ".github/workflows/machine-learning-flagship-lab.yml"
 
 permissions:
   contents: read
@@ -28,8 +27,11 @@ jobs:
       RUNTIME_DIR: "${{ runner.temp }}/knowledge-hub-ml-lab"
 
     steps:
-      - name: Checkout repository
+      - name: Checkout exact subject revision
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v6
