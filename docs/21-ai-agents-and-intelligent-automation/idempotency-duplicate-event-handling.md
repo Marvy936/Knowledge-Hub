@@ -291,5 +291,5 @@ Bezpečný model používa tenant-scoped operation key, atomic claim, payload co
 
 **Navigácia**
 
-[← Predchádzajúca: Error workflows, retries a partial execution](error-workflows-retries-partial-execution.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Error workflows, retries a partial execution](error-workflows-retries-partial-execution.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Sub-workflows a reusable workflow contracts →](sub-workflows-reusable-workflow-contracts.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

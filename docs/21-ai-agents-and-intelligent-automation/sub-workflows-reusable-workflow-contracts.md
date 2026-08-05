@@ -310,5 +310,5 @@ Bezpečný reusable workflow zachováva item a tenant identity, explicitne vlast
 
 **Navigácia**
 
-[← Predchádzajúca: Idempotency a duplicate-event handling](idempotency-duplicate-event-handling.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Idempotency a duplicate-event handling](idempotency-duplicate-event-handling.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Source control a environments →](source-control-environments.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

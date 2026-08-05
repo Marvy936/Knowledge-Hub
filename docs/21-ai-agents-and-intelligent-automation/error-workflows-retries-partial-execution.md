@@ -284,5 +284,5 @@ Bezpečný model viaže každé zlyhanie na exact operation identity, rozlišuje
 
 **Navigácia**
 
-[← Predchádzajúca: Credentials, secrets a access control](credentials-secrets-access-control.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Credentials, secrets a access control](credentials-secrets-access-control.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Idempotency a duplicate-event handling →](idempotency-duplicate-event-handling.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

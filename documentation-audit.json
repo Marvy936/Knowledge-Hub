@@ -6387,7 +6387,7 @@
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md",
       "title": "Credentials, secrets a access control",
-      "words": 2362,
+      "words": 2367,
       "headings": 42,
       "sections": 42,
       "findings": 10,
@@ -6427,6 +6427,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "title": "Error workflows, retries a partial execution",
+      "words": 2500,
+      "headings": 40,
+      "sections": 40,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 20,
+      "grade": "B"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
       "title": "Human-in-the-loop a approval gates",
       "words": 3306,
@@ -6438,6 +6452,20 @@
       "medium": 0,
       "low": 12,
       "score": 21,
+      "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "title": "Idempotency a duplicate-event handling",
+      "words": 2340,
+      "headings": 41,
+      "sections": 41,
+      "findings": 13,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 13,
+      "score": 20,
       "grade": "B"
     },
     {
@@ -6579,6 +6607,34 @@
       "low": 15,
       "score": 22,
       "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/source-control-environments.md",
+      "title": "Source control a environments",
+      "words": 2632,
+      "headings": 47,
+      "sections": 47,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 14,
+      "grade": "A"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md",
+      "title": "Sub-workflows a reusable workflow contracts",
+      "words": 2418,
+      "headings": 44,
+      "sections": 44,
+      "findings": 9,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 9,
+      "score": 13,
+      "grade": "A"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",
@@ -86398,6 +86454,141 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "2. Failure subject",
+      "line": 27,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "3. Node-level on-error policy",
+      "line": 33,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "7. Retry on fail",
+      "line": 57,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "8. Retry taxonomy",
+      "line": 63,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "11. Error Trigger contract",
+      "line": 81,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "15. Partial execution",
+      "line": 105,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "16. Per-item outcome",
+      "line": 111,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "19. Unknown external outcome",
+      "line": 129,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "20. Retry failed execution",
+      "line": 135,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "22. Execution data a retention",
+      "line": 147,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "28. Shared incident AGENT-N8N-08",
+      "line": 183,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "32. Recovery",
+      "line": 207,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "36. Second-operation acceptance",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "38. Prevádzkové metriky",
+      "line": 260,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md",
+      "section": "40. Zhrnutie",
+      "line": 276,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/human-in-the-loop-approval-gates.md",
       "section": "7. Approve, edit, reject a escalate",
       "line": 113,
@@ -86504,6 +86695,123 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "1. Idempotent operation",
+      "line": 21,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "3. Identity hierarchy",
+      "line": 33,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "4. Canonical business subject",
+      "line": 39,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "5. Idempotency key",
+      "line": 45,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "7. Idempotency record",
+      "line": 57,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "10. Concurrency race",
+      "line": 75,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "18. Static workflow data",
+      "line": 123,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "20. Expiry semantics",
+      "line": 135,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "30. Competing failure hypotheses",
+      "line": 195,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "31. Evidence preservation",
+      "line": 201,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "31. Evidence preservation",
+      "line": 201,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "35. Forbidden acceptance",
+      "line": 225,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md",
+      "section": "41. Zhrnutie",
+      "line": 283,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/idempotency-side-effect-control.md",
@@ -88439,6 +88747,159 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/source-control-environments.md",
+      "section": "2. Environments",
+      "line": 27,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/source-control-environments.md",
+      "section": "4. Multi-instance, multi-branch pattern",
+      "line": 39,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/source-control-environments.md",
+      "section": "5. Multi-instance, single-branch pattern",
+      "line": 45,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/source-control-environments.md",
+      "section": "8. Published workflow state",
+      "line": 63,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/source-control-environments.md",
+      "section": "12. Pull conflict",
+      "line": 87,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/source-control-environments.md",
+      "section": "31. Activation a trigger registration",
+      "line": 201,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/source-control-environments.md",
+      "section": "37. Evidence preservation",
+      "line": 237,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/source-control-environments.md",
+      "section": "47. Zhrnutie",
+      "line": 324,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md",
+      "section": "17. Retry ownership",
+      "line": 117,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md",
+      "section": "21. Tenant context",
+      "line": 141,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md",
+      "section": "32. Shared incident AGENT-N8N-08",
+      "line": 207,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md",
+      "section": "33. Competing failure hypotheses",
+      "line": 213,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md",
+      "section": "34. Evidence preservation",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md",
+      "section": "37. Positive acceptance",
+      "line": 237,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md",
+      "section": "37. Positive acceptance",
+      "line": 237,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md",
+      "section": "44. Zhrnutie",
+      "line": 302,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md",
+      "section": "44. Zhrnutie",
+      "line": 302,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/supervisor-router-specialist-patterns.md",

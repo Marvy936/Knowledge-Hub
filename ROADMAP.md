@@ -547,10 +547,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Triggers, nodes, expressions a data mapping](docs/21-ai-agents-and-intelligent-automation/triggers-nodes-expressions-data-mapping.md)
 - [x] [Webhooks a API integrations](docs/21-ai-agents-and-intelligent-automation/webhooks-api-integrations.md)
 - [x] [Credentials, secrets a access control](docs/21-ai-agents-and-intelligent-automation/credentials-secrets-access-control.md)
-- [ ] Error workflows, retries a partial execution
-- [ ] Idempotency a duplicate-event handling
-- [ ] Sub-workflows a reusable workflow contracts
-- [ ] Source control a environments
+- [x] [Error workflows, retries a partial execution](docs/21-ai-agents-and-intelligent-automation/error-workflows-retries-partial-execution.md)
+- [x] [Idempotency a duplicate-event handling](docs/21-ai-agents-and-intelligent-automation/idempotency-duplicate-event-handling.md)
+- [x] [Sub-workflows a reusable workflow contracts](docs/21-ai-agents-and-intelligent-automation/sub-workflows-reusable-workflow-contracts.md)
+- [x] [Source control a environments](docs/21-ai-agents-and-intelligent-automation/source-control-environments.md)
 - [ ] Self-hosting s PostgreSQL
 - [ ] Queue mode, Redis, workers a scaling
 - [ ] Binary data, storage a execution retention
