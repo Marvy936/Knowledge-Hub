@@ -153,16 +153,19 @@ Hĺbka bude orientovaná na DevOps, platform a operations rolu. Cieľom nie je �
 labs/machine-learning/
 ```
 
-Flagship lab:
+Flagship lab je implementovaný v [Machine Learning Fundamentals flagship lab](labs/machine-learning/README.md). Jeho runtime contract bol vykonaný na presnom pull-request test merge subjecte `0e434e9cfa68173f3e3b76a61b93d08201474c81` v `Knowledge documentation` rune **1998** (`31037119011`). Gate potvrdil **5/5 passed with DeprecationWarning promoted to error**, deterministický dataset, schema a leakage refusal, validation-only threshold selection, test-set acceptance, checksum-bound packaging, strict inference a cleanup read-back.
 
 ```text
 raw dataset
 → validation a preprocessing
-→ baseline model
+→ dummy baseline + logistic regression + random forest
 → train/validation/test evaluation
-→ experiment comparison
-→ packaged inference artifact
+→ validation-only threshold selection
+→ accepted packaged inference artifact
+→ checksum a runtime-version verified inference
 ```
+
+Validated subject použil `logistic_regression` s thresholdom `0.72`, test F1 `0.630631` a test recall `0.57377`. Dataset SHA-256 je `08e795494731fa4c22f566769549240bf05413a918e34f9b0323091aa79cc3d6`. Detailný proof boundary a immutable evidence sú v [runtime evidence contracte](labs/machine-learning/RUNTIME-EVIDENCE.md). Tento closeout preukazuje iba syntetický Section 18 lab; reálne datasety, production train-serving consistency, drift, business impact a production readiness zostávajú samostatnou budúcou vrstvou.
 
 ## MLOps and ML Platforms
 
