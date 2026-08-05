@@ -6371,6 +6371,20 @@
       "grade": "C"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agentic-code-review-testing-remediation.md",
+      "title": "Agentický code review, testing a remediation",
+      "words": 1955,
+      "headings": 35,
+      "sections": 35,
+      "findings": 3,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 3,
+      "score": 4,
+      "grade": "A"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/ai-agent-nodes-tools-memory.md",
       "title": "AI Agent nodes, tools a memory",
       "words": 2511,
@@ -6383,6 +6397,20 @@
       "low": 25,
       "score": 31,
       "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-pipeline-creation-failure-analysis.md",
+      "title": "AI-assisted pipeline creation a failure analysis",
+      "words": 1919,
+      "headings": 34,
+      "sections": 34,
+      "findings": 5,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 5,
+      "score": 8,
+      "grade": "A"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
@@ -6483,6 +6511,20 @@
       "grade": "B"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md",
+      "title": "GitOps a release agents",
+      "words": 1828,
+      "headings": 34,
+      "sections": 34,
+      "findings": 6,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 6,
+      "score": 9,
+      "grade": "A"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
       "title": "Harness AI platform overview",
       "words": 1724,
@@ -6553,6 +6595,20 @@
       "grade": "A"
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
+      "title": "Incident triage a evidence collection",
+      "words": 1950,
+      "headings": 37,
+      "sections": 37,
+      "findings": 9,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 9,
+      "score": 18,
+      "grade": "B"
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/least-privilege-tools-credentials.md",
       "title": "Least privilege pre tools a credentials",
       "words": 2887,
@@ -6569,7 +6625,7 @@
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/mcp-connectors-external-tools.md",
       "title": "MCP connectors a external tools",
-      "words": 1951,
+      "words": 1956,
       "headings": 43,
       "sections": 43,
       "findings": 1,
@@ -85983,6 +86039,33 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agentic-code-review-testing-remediation.md",
+      "section": "32. Recovery acceptance",
+      "line": 209,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agentic-code-review-testing-remediation.md",
+      "section": "33. Practical review envelope",
+      "line": 215,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/agentic-code-review-testing-remediation.md",
+      "section": "33. Practical review envelope",
+      "line": 215,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/ai-agent-nodes-tools-memory.md",
       "section": "2. Tools Agent semantics",
       "line": 28,
@@ -86202,6 +86285,51 @@
       "path": "docs/21-ai-agents-and-intelligent-automation/ai-agent-nodes-tools-memory.md",
       "section": "35. Acceptance",
       "line": 226,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-pipeline-creation-failure-analysis.md",
+      "section": "1. Pipeline ako versioned program",
+      "line": 23,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-pipeline-creation-failure-analysis.md",
+      "section": "8. Policy enforcement",
+      "line": 65,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-pipeline-creation-failure-analysis.md",
+      "section": "33. Primary sources",
+      "line": 231,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-pipeline-creation-failure-analysis.md",
+      "section": "Zhrnutie",
+      "line": 239,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-pipeline-creation-failure-analysis.md",
+      "section": "Zhrnutie",
+      "line": 239,
       "severity": "low",
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
@@ -87198,6 +87326,60 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md",
+      "section": "3. Harness GitOps architecture",
+      "line": 35,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md",
+      "section": "12. Pull-request promotion",
+      "line": 89,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md",
+      "section": "28. Release evidence",
+      "line": 185,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md",
+      "section": "32. Practical release manifest",
+      "line": 209,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md",
+      "section": "33. Primary sources",
+      "line": 239,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md",
+      "section": "Zhrnutie",
+      "line": 247,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/harness-ai-platform-overview.md",
       "section": "1. Harness AI nie je jedna funkcia",
       "line": 21,
@@ -87754,6 +87936,87 @@
       "rule": "example-not-explicit",
       "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
       "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
+      "section": "1. Incident subject",
+      "line": 23,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
+      "section": "17. Chain of custody",
+      "line": 119,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
+      "section": "25. Severity changes",
+      "line": 167,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
+      "section": "28. Evidence freeze",
+      "line": 185,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
+      "section": "29. AI summary",
+      "line": 191,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
+      "section": "34. Recovery acceptance",
+      "line": 221,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
+      "section": "35. Practical evidence index",
+      "line": 227,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
+      "section": "36. Primary sources",
+      "line": 267,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md",
+      "section": "Zhrnutie",
+      "line": 275,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/least-privilege-tools-credentials.md",

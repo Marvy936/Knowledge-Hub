@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **492**
-- Audited conceptual sections: **11313**
-- Total words: **1,021,050**
-- Findings: **9374** (critical 658, high 871, medium 475, low 7370)
-- File grades: A 186, B 189, C 56, D 61
+- Audited authoritative articles: **496**
+- Audited conceptual sections: **11453**
+- Total words: **1,028,707**
+- Findings: **9397** (critical 658, high 871, medium 475, low 7393)
+- File grades: A 189, B 190, C 56, D 61
 
 ## Interpretation
 
@@ -262,6 +262,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 18 | 2059 | `docs/19-mlops-and-ml-platforms/ml-pipeline-orchestration.md` |
 | B | 18 | 0 | 0 | 0 | 15 | 1818 | `docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 2145 | `docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md` |
+| B | 18 | 0 | 0 | 0 | 9 | 1950 | `docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
 | B | 17 | 0 | 0 | 0 | 14 | 2273 | `docs/08-container-fundamentals-and-docker/namespaces-cgroups-capabilities.md` |
@@ -463,6 +464,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 9 | 0 | 0 | 0 | 6 | 865 | `docs/19-mlops-and-ml-platforms/model-rollback-recovery.md` |
 | A | 9 | 0 | 0 | 0 | 7 | 1401 | `docs/20-llm-and-genai-engineering/prompt-decomposition-chain-of-thought-boundaries.md` |
 | A | 9 | 0 | 0 | 0 | 9 | 1217 | `docs/20-llm-and-genai-engineering/tokens-tokenization-context-window.md` |
+| A | 9 | 0 | 0 | 0 | 6 | 1828 | `docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md` |
 | A | 9 | 0 | 0 | 0 | 5 | 2273 | `docs/21-ai-agents-and-intelligent-automation/planning-decomposition-replanning.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 968 | `docs/02-networking-and-web/dns.md` |
 | A | 8 | 0 | 0 | 0 | 6 | 990 | `docs/02-networking-and-web/routing-and-default-gateway.md` |
@@ -481,6 +483,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 8 | 0 | 0 | 0 | 7 | 1281 | `docs/16-gitops-and-platform-engineering/reconciliation-and-drift-detection.md` |
 | A | 8 | 0 | 0 | 0 | 8 | 2211 | `docs/17-keycloak-and-identity-platform/service-accounts-and-machine-to-machine-authentication.md` |
 | A | 8 | 0 | 0 | 0 | 5 | 1865 | `docs/20-llm-and-genai-engineering/hallucination-faithfulness-factuality.md` |
+| A | 8 | 0 | 0 | 0 | 5 | 1919 | `docs/21-ai-agents-and-intelligent-automation/ai-assisted-pipeline-creation-failure-analysis.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 3162 | `docs/02-networking-and-web/networking-practical-walkthrough.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 953 | `docs/02-networking-and-web/tcp-and-udp.md` |
 | A | 7 | 0 | 0 | 0 | 6 | 1963 | `docs/06-gitlab/projects-groups-permissions.md` |
@@ -511,10 +514,11 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 4 | 0 | 0 | 0 | 3 | 800 | `docs/09-kubernetes/replicaset.md` |
 | A | 4 | 0 | 0 | 0 | 3 | 1445 | `docs/12-observability/red-method.md` |
 | A | 4 | 0 | 0 | 0 | 4 | 1238 | `docs/13-security-and-identity/kerberos.md` |
+| A | 4 | 0 | 0 | 0 | 3 | 1955 | `docs/21-ai-agents-and-intelligent-automation/agentic-code-review-testing-remediation.md` |
 | A | 3 | 0 | 0 | 0 | 3 | 1928 | `docs/11-cloud-and-aws/cloudops-domain-review-timed-reasoning.md` |
 | A | 2 | 0 | 0 | 0 | 2 | 871 | `docs/02-networking-and-web/firewalls.md` |
 | A | 2 | 0 | 0 | 0 | 2 | 1860 | `docs/11-cloud-and-aws/well-architected-framework.md` |
-| A | 2 | 0 | 0 | 0 | 1 | 1951 | `docs/21-ai-agents-and-intelligent-automation/mcp-connectors-external-tools.md` |
+| A | 2 | 0 | 0 | 0 | 1 | 1956 | `docs/21-ai-agents-and-intelligent-automation/mcp-connectors-external-tools.md` |
 
 ## Critical and high findings
 
@@ -2283,9 +2287,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3347 | 3347 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2309 | 2309 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1714 | 1714 |
+| `example-not-explicit` | 0 | 0 | 0 | 3352 | 3352 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2325 | 2325 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1716 | 1716 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

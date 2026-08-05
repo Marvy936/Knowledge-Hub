@@ -563,10 +563,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [DevOps Agent pre pipeline a resource operations](docs/21-ai-agents-and-intelligent-automation/devops-agent-pipeline-resource-operations.md)
 - [x] [Worker Agents v pipelines](docs/21-ai-agents-and-intelligent-automation/worker-agents-pipelines.md)
 - [x] [MCP connectors a external tools](docs/21-ai-agents-and-intelligent-automation/mcp-connectors-external-tools.md)
-- [ ] AI-assisted pipeline creation a failure analysis
-- [ ] Agentický code review, testing a remediation
-- [ ] GitOps a release agents
-- [ ] Incident triage a evidence collection
+- [x] [AI-assisted pipeline creation a failure analysis](docs/21-ai-agents-and-intelligent-automation/ai-assisted-pipeline-creation-failure-analysis.md)
+- [x] [Agentický code review, testing a remediation](docs/21-ai-agents-and-intelligent-automation/agentic-code-review-testing-remediation.md)
+- [x] [GitOps a release agents](docs/21-ai-agents-and-intelligent-automation/gitops-release-agents.md)
+- [x] [Incident triage a evidence collection](docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md)
 - [ ] Policy generation a policy validation
 - [ ] Human approval, audit a rollback
 - [ ] Vendor lock-in a portability agentických workflowov
