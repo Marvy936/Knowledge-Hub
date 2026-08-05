@@ -54,15 +54,15 @@ Odporúčané predchádzajúce oblasti:
 38. [Human approval pre citlivé tool calls](human-approval-sensitive-tool-calls.md)
 39. [RAG a knowledge workflows v n8n](rag-knowledge-workflows-n8n.md)
 40. [Production hardening a troubleshooting](production-hardening-troubleshooting.md)
+41. [Harness AI platform overview](harness-ai-platform-overview.md)
+42. [DevOps Agent pre pipeline a resource operations](devops-agent-pipeline-resource-operations.md)
+43. [Worker Agents v pipelines](worker-agents-pipelines.md)
+44. [MCP connectors a external tools](mcp-connectors-external-tools.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-41. Harness AI platform overview
-42. DevOps Agent pre pipeline a resource operations
-43. Worker Agents v pipelines
-44. MCP connectors a external tools
 45. AI-assisted pipeline creation a failure analysis
 46. Agentický code review, testing a remediation
 47. GitOps a release agents
@@ -111,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **40/62 · In progress**. Desiaty authoritative blok aktivuje kapitoly 37–40 a incident `AGENT-N8N-10`. AI Agent kapitola viaže exact workflow/model/tool generation, bounded tool inventory, schema a deterministic authority parameters, read/draft/commit capability classes, typed tool results, iteration budget a tenant-safe memory. Approval kapitola chápe human review ako immutable, expiring decision nad exact tool callom s reviewer authorization, precondition revalidation, replay protection, idempotency a provider read-backom. RAG kapitola oddeľuje ingestion a query, pinne document/chunk/embedding/index generations, presadzuje tenant/ACL/effective-date filters, citations, abstention, deletion propagation a blue-green reindex. Production kapitola skladá node/network/task-runner hardening, model fallback contracts, tenant/idempotency/approval/RAG controls, canary, kill switch, observability a layer-by-layer troubleshooting. Reálne agent executions, human approvals, RAG ingestion/query, model fallbacks, side effects, incident recovery ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 41–44: Harness AI platform overview, DevOps Agent, Worker Agents a MCP connectors/external tools.
+Aktuálny authoritative stav sekcie je **44/62 · In progress**. Jedenásty authoritative blok aktivuje kapitoly 41–44 a incident `AGENT-HARNESS-11`. Platform overview oddeľuje Harness UI, IDE/MCP a pipeline-agent surfaces a viaže account/org/project scope, RBAC, AI Rules, policies, privacy route, connectors, audit a business read-back. DevOps Agent kapitola chápe AI output ako bounded proposal nad exact resource generation, oddeľuje guidance Rules od OPA enforcementu a vyžaduje semantic diff, informed Accept, authorized save a effective-state proof. Worker Agents kapitola pinne immutable catalog definition, image, instructions, model, MCP set, typed inputs/outputs a scoped token a zavádza deterministic downstream gates, idempotency, reconciliation a kill switch. MCP kapitola používa current protocol `2025-11-25`, oddeľuje host/client/server, negotiated capabilities, tools/resources/prompts, OAuth audience a token boundaries, consent, schema drift a custom-server trust. Reálne Harness AI conversations, resource writes, Worker Agent executions, MCP calls, approvals, provider mutations, incident recovery ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 45–48: AI-assisted pipeline creation/failure analysis, agentický code review/testing/remediation, GitOps/release agents a incident triage/evidence collection.

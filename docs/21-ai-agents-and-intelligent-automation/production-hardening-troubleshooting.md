@@ -274,5 +274,5 @@ Forbidden test skúša SSRF, blocked node, cross-tenant memory/RAG, approval rep
 
 **Navigácia**
 
-[← Predchádzajúca: RAG a knowledge workflows v n8n](rag-knowledge-workflows-n8n.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: RAG a knowledge workflows v n8n](rag-knowledge-workflows-n8n.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Harness AI platform overview →](harness-ai-platform-overview.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
