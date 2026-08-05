@@ -4,11 +4,11 @@
 
 ## Summary
 
-- Audited authoritative articles: **504**
-- Audited conceptual sections: **11734**
-- Total words: **1,044,115**
-- Findings: **9475** (critical 658, high 871, medium 475, low 7471)
-- File grades: A 192, B 195, C 56, D 61
+- Audited authoritative articles: **508**
+- Audited conceptual sections: **11892**
+- Total words: **1,051,234**
+- Findings: **9512** (critical 658, high 871, medium 475, low 7508)
+- File grades: A 194, B 197, C 56, D 61
 
 ## Interpretation
 
@@ -202,6 +202,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 23 | 0 | 0 | 0 | 18 | 3437 | `docs/11-cloud-and-aws/ecs-eks.md` |
 | B | 23 | 0 | 0 | 0 | 18 | 2027 | `docs/11-cloud-and-aws/s3-ebs-efs.md` |
 | B | 23 | 0 | 0 | 0 | 16 | 1832 | `docs/14-sre-and-operations/runbooks-and-playbooks.md` |
+| B | 23 | 0 | 0 | 0 | 15 | 1977 | `docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md` |
 | B | 23 | 0 | 0 | 0 | 16 | 2768 | `docs/21-ai-agents-and-intelligent-automation/model-context-protocol.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 2044 | `docs/08-container-fundamentals-and-docker/docker-architecture.md` |
 | B | 22 | 0 | 0 | 0 | 18 | 1688 | `docs/08-container-fundamentals-and-docker/images-layers-copy-on-write.md` |
@@ -265,7 +266,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 18 | 0 | 0 | 0 | 15 | 1818 | `docs/19-mlops-and-ml-platforms/shadow-canary-ab-model-deployment.md` |
 | B | 18 | 0 | 0 | 0 | 14 | 2145 | `docs/20-llm-and-genai-engineering/tracing-token-usage-cost-observability.md` |
 | B | 18 | 0 | 0 | 0 | 11 | 1929 | `docs/21-ai-agents-and-intelligent-automation/ai-assisted-ci-cd.md` |
-| B | 18 | 0 | 0 | 0 | 10 | 1927 | `docs/21-ai-agents-and-intelligent-automation/ai-assisted-observability-incident-response.md` |
+| B | 18 | 0 | 0 | 0 | 10 | 1929 | `docs/21-ai-agents-and-intelligent-automation/ai-assisted-observability-incident-response.md` |
 | B | 18 | 0 | 0 | 0 | 9 | 1954 | `docs/21-ai-agents-and-intelligent-automation/incident-triage-evidence-collection.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 2774 | `docs/07-infrastructure-as-code-and-configuration-management/variables-locals-outputs.md` |
 | B | 17 | 0 | 0 | 0 | 13 | 1721 | `docs/08-container-fundamentals-and-docker/multi-stage-builds.md` |
@@ -334,6 +335,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | B | 15 | 0 | 0 | 0 | 15 | 1577 | `docs/19-mlops-and-ml-platforms/mlflow-experiment-tracking-model-registry.md` |
 | B | 15 | 0 | 0 | 0 | 12 | 1895 | `docs/20-llm-and-genai-engineering/prompt-templates-variables-versioning.md` |
 | B | 15 | 0 | 0 | 0 | 10 | 2026 | `docs/21-ai-agents-and-intelligent-automation/human-approval-sensitive-tool-calls.md` |
+| B | 15 | 0 | 0 | 0 | 10 | 1736 | `docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md` |
 | B | 15 | 0 | 0 | 0 | 9 | 1932 | `docs/21-ai-agents-and-intelligent-automation/policy-generation-policy-validation.md` |
 | A | 14 | 0 | 0 | 1 | 8 | 2356 | `docs/03-git-and-automation/bash-automation.md` |
 | A | 14 | 0 | 0 | 0 | 11 | 2498 | `docs/07-infrastructure-as-code-and-configuration-management/expressions-and-dependency-graph.md` |
@@ -405,6 +407,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 12 | 0 | 0 | 0 | 9 | 1056 | `docs/19-mlops-and-ml-platforms/performance-latency-throughput-cost-monitoring.md` |
 | A | 12 | 0 | 0 | 0 | 8 | 2098 | `docs/20-llm-and-genai-engineering/quantization-local-inference.md` |
 | A | 12 | 0 | 0 | 0 | 9 | 2248 | `docs/21-ai-agents-and-intelligent-automation/deterministic-workflow-probabilistic-component-autonomous-agent.md` |
+| A | 12 | 0 | 0 | 0 | 8 | 1688 | `docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 980 | `docs/02-networking-and-web/ipv4-ipv6-subnetting.md` |
 | A | 11 | 0 | 0 | 0 | 8 | 1243 | `docs/03-git-and-automation/merge-and-rebase.md` |
 | A | 11 | 0 | 0 | 0 | 9 | 1716 | `docs/06-gitlab/container-and-package-registry.md` |
@@ -508,6 +511,7 @@ The target is not to remove lists. Every normal conceptual section must contain 
 | A | 6 | 0 | 0 | 0 | 5 | 1424 | `docs/12-observability/monitoring-vs-observability.md` |
 | A | 6 | 0 | 0 | 0 | 5 | 1273 | `docs/12-observability/use-method.md` |
 | A | 6 | 0 | 0 | 0 | 6 | 2514 | `docs/17-keycloak-and-identity-platform/keycloak-architecture-and-responsibility-boundary.md` |
+| A | 6 | 0 | 0 | 0 | 4 | 1716 | `docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md` |
 | A | 5 | 0 | 0 | 0 | 5 | 1047 | `docs/02-networking-and-web/ethernet-mac-arp.md` |
 | A | 5 | 0 | 0 | 0 | 3 | 1255 | `docs/03-git-and-automation/clone-fetch-pull-push.md` |
 | A | 5 | 0 | 0 | 0 | 4 | 1159 | `docs/03-git-and-automation/monorepo-vs-multirepo.md` |
@@ -2295,9 +2299,9 @@ The target is not to remove lists. Every normal conceptual section must contain 
 
 | Rule | Critical | High | Medium | Low | Total |
 |---|---:|---:|---:|---:|---:|
-| `example-not-explicit` | 0 | 0 | 0 | 3382 | 3382 |
-| `mechanism-not-explicit` | 0 | 0 | 0 | 2363 | 2363 |
-| `failure-mode-not-explicit` | 0 | 0 | 0 | 1726 | 1726 |
+| `example-not-explicit` | 0 | 0 | 0 | 3399 | 3399 |
+| `mechanism-not-explicit` | 0 | 0 | 0 | 2382 | 2382 |
+| `failure-mode-not-explicit` | 0 | 0 | 0 | 1727 | 1727 |
 | `term-before-explanation` | 0 | 55 | 325 | 0 | 380 |
 | `single-sentence-concept` | 0 | 345 | 0 | 0 | 345 |
 | `outline-instead-of-explanation` | 317 | 0 | 0 | 0 | 317 |

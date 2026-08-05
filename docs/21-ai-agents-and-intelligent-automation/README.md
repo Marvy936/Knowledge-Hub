@@ -70,15 +70,15 @@ Odporúčané predchádzajúce oblasti:
 54. [Event-driven automation](event-driven-automation.md)
 55. [AI-assisted CI/CD](ai-assisted-ci-cd.md)
 56. [AI-assisted observability a incident response](ai-assisted-observability-incident-response.md)
+57. [AI-assisted security operations](ai-assisted-security-operations.md)
+58. [Knowledge assistants a enterprise search](knowledge-assistants-enterprise-search.md)
+59. [Ticket, email a chat automation](ticket-email-chat-automation.md)
+60. [Autonomous remediation boundaries](autonomous-remediation-boundaries.md)
 
 ## Plánované authoritative poradie
 
 Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
 
-57. AI-assisted security operations
-58. Knowledge assistants a enterprise search
-59. Ticket, email a chat automation
-60. Autonomous remediation boundaries
 61. Evaluation-driven automation lifecycle
 62. Intelligent automation troubleshooting
 
@@ -111,4 +111,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **56/62 · In progress**. Štrnásty authoritative blok aktivuje kapitoly 53–56 a incident `AGENT-AUTO-14`. Runtime-selection kapitola oddeľuje integration workflow, durable application orchestration, batch/data Dag a Python-first flow a viaže výber na state authority, retries, versioning, operability a exit strategy. Event-driven kapitola zavádza CloudEvents envelope, event/command boundary, outbox/inbox, ordering, backpressure, replay, security a business idempotency. AI-assisted CI/CD kapitola viaže exact SHA, untrusted context, test integrity, permissions, OIDC, runner isolation, artifact provenance a independent deployment verification. Observability kapitola oddeľuje traces, metrics, logs, change events, no-data, sampling, hypotheses, runbook approval a technical aj business recovery. Reálne runtime migrations, event replays, AI-authored pipeline changes, deployments, incident actions ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Ďalší blok sú kapitoly 57–60: AI-assisted security operations, knowledge assistants a enterprise search, ticket/email/chat automation a autonomous remediation boundaries.
+Aktuálny authoritative stav sekcie je **60/62 · In progress**. Pätnásty authoritative blok aktivuje kapitoly 57–60 a incident `AGENT-OPS-15`. Security-operations kapitola viaže alerty, incidents, evidence, identity, tool authority, containment a business impact. Knowledge-assistant kapitola zachováva source authority, query-time permissions, ACL freshness, citations, delete propagation a abstention. Communication kapitola oddeľuje ticket, e-mail a chat semantics, draft od send authority, recipient identity, durable approvals, outbox a SLA. Remediation kapitola povoľuje mutation iba v versioned deterministic envelope s exact targetom, policy, scoped identity, runbookom, canary, kill switchom, rollbackom alebo compensation a business read-backom. Reálne SOC investigations, permission sync tests, message delivery, remediation runs, recovery drilly ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Záverečný blok sú kapitoly 61–62: evaluation-driven automation lifecycle a intelligent automation troubleshooting.

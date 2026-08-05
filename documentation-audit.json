@@ -6415,7 +6415,7 @@
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-observability-incident-response.md",
       "title": "AI-assisted observability a incident response",
-      "words": 1927,
+      "words": 1929,
       "headings": 36,
       "sections": 36,
       "findings": 10,
@@ -6438,6 +6438,34 @@
       "medium": 0,
       "low": 5,
       "score": 8,
+      "grade": "A"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "title": "AI-assisted security operations",
+      "words": 1977,
+      "headings": 39,
+      "sections": 39,
+      "findings": 15,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 15,
+      "score": 23,
+      "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md",
+      "title": "Autonomous remediation boundaries",
+      "words": 1716,
+      "headings": 41,
+      "sections": 41,
+      "findings": 4,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 4,
+      "score": 6,
       "grade": "A"
     },
     {
@@ -6662,6 +6690,20 @@
       "medium": 0,
       "low": 9,
       "score": 18,
+      "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "title": "Knowledge assistants a enterprise search",
+      "words": 1736,
+      "headings": 39,
+      "sections": 39,
+      "findings": 10,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 10,
+      "score": 15,
       "grade": "B"
     },
     {
@@ -6943,6 +6985,20 @@
       "low": 12,
       "score": 20,
       "grade": "B"
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md",
+      "title": "Ticket, email a chat automation",
+      "words": 1688,
+      "headings": 39,
+      "sections": 39,
+      "findings": 8,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 8,
+      "score": 12,
+      "grade": "A"
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/tool-calling-tool-contracts.md",
@@ -86637,6 +86693,177 @@
       "score": 1
     },
     {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "1. Business outcome",
+      "line": 5,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "1. Business outcome",
+      "line": 5,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "2. Exact governed subject",
+      "line": 11,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "2. Exact governed subject",
+      "line": 11,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "3. Generácie vstupov",
+      "line": 17,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "7. Alert nie je incident",
+      "line": 41,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "11. Harness STO a AI remediation",
+      "line": 65,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "12. Microsoft Security Copilot agents",
+      "line": 71,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "12. Microsoft Security Copilot agents",
+      "line": 71,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "14. Prompt injection v security dátach",
+      "line": 83,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "37. Practical investigation contract",
+      "line": 219,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "37. Practical investigation contract",
+      "line": 219,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "38. Primary sources",
+      "line": 249,
+      "severity": "low",
+      "rule": "failure-mode-not-explicit",
+      "detail": "Sekcia nemá zreteľnú hranicu, trade-off alebo failure mode.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "Zhrnutie",
+      "line": 255,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md",
+      "section": "Zhrnutie",
+      "line": 255,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md",
+      "section": "38. Practical remediation envelope",
+      "line": 221,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md",
+      "section": "39. Promotion lifecycle",
+      "line": 257,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md",
+      "section": "40. Primary sources",
+      "line": 263,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md",
+      "section": "Zhrnutie",
+      "line": 269,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
       "path": "docs/21-ai-agents-and-intelligent-automation/binary-data-storage-execution-retention.md",
       "section": "1. Execution data verzus binary data",
       "line": 21,
@@ -88507,6 +88734,96 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "section": "1. Business outcome",
+      "line": 5,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "section": "2. Exact knowledge subject",
+      "line": 11,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "section": "7. Azure AI Search boundaries",
+      "line": 41,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "section": "7. Azure AI Search boundaries",
+      "line": 41,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "section": "36. Practical permission-aware contract",
+      "line": 213,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "section": "36. Practical permission-aware contract",
+      "line": 213,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "section": "37. Troubleshooting decomposition",
+      "line": 246,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "section": "38. Primary sources",
+      "line": 252,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "section": "Zhrnutie",
+      "line": 258,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md",
+      "section": "Zhrnutie",
+      "line": 258,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/least-privilege-tools-credentials.md",
@@ -91621,6 +91938,78 @@
       "rule": "mechanism-not-explicit",
       "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
       "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md",
+      "section": "10. Jira Service Management extensibility",
+      "line": 59,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md",
+      "section": "10. Jira Service Management extensibility",
+      "line": 59,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md",
+      "section": "23. Auto-response classes",
+      "line": 137,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md",
+      "section": "36. Practical communication envelope",
+      "line": 211,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md",
+      "section": "37. Operational ownership",
+      "line": 241,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md",
+      "section": "38. Primary sources",
+      "line": 247,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md",
+      "section": "Zhrnutie",
+      "line": 253,
+      "severity": "low",
+      "rule": "mechanism-not-explicit",
+      "detail": "Sekcia nespomína zreteľný mechanizmus, tok, rozhodovanie alebo internú väzbu.",
+      "score": 2
+    },
+    {
+      "path": "docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md",
+      "section": "Zhrnutie",
+      "line": 253,
+      "severity": "low",
+      "rule": "example-not-explicit",
+      "detail": "Sekcia nemá zreteľný konkrétny príklad alebo praktický scenár.",
+      "score": 1
     },
     {
       "path": "docs/21-ai-agents-and-intelligent-automation/tool-calling-tool-contracts.md",

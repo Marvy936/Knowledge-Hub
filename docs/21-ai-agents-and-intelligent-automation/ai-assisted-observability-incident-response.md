@@ -285,5 +285,5 @@ AI observability agent je najhodnotnejší ako evidence-oriented investigator: o
 
 **Navigácia**
 
-[← Predchádzajúca: AI-assisted CI/CD](ai-assisted-ci-cd.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: AI-assisted CI/CD](ai-assisted-ci-cd.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: AI-assisted security operations →](ai-assisted-security-operations.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
