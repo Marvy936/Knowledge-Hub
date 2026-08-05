@@ -65,7 +65,9 @@ Nosný end-to-end smer sekcie:
 raw dataset → validation a preprocessing → baseline model → train/validation/test evaluation → experiment comparison → packaged inference artifact
 ```
 
-Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom koncepčnom základe. Dokumentačný workflow môže overiť súbory, príkazy a konzistenciu modelu, ale nepreukazuje vykonanie tréningu, inference, agentického side effectu ani produkčného outcome-u.
+Aktívna implementácia je [Machine Learning Fundamentals flagship lab](../../labs/machine-learning/README.md). Používa deterministický syntetický classification dataset, strict schema a leakage validation, preprocessing uzavretý v scikit-learn pipeline, dummy baseline, logistic regression a random forest, validation-only threshold selection, jednorazový test-set gate, checksum-bound artifact manifest a strict local inference. Samostatný GitHub Actions workflow vykonáva positive lifecycle, leakage refusal, integrity tests a cleanup na Python 3.12.
+
+Runtime workflow preukazuje iba vykonanie syntetického lab contractu na deklarovanom runneri. Nepreukazuje kvalitu reálnych dát, production train-serving consistency, calibration pod driftom, business impact ani production readiness.
 
 ## Stav
 
