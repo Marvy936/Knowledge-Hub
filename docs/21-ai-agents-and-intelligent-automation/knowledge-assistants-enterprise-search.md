@@ -260,3 +260,11 @@ Tieto vendor capabilities sa dopĺňajú všeobecným RAG modelom z predchádzaj
 Enterprise knowledge assistant je permission-aware retrieval system s modelovou answer vrstvou. Source authority, ACL generation, ingestion freshness, citations, abstention, delete propagation a adversarial evaluation musia zostať explicitné.
 
 Ďalšia kapitola rieši ticket, e-mail a chat automation, ktorá odpovede posúva do komunikačných a procesných systémov.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: AI-assisted security operations](ai-assisted-security-operations.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Ticket, email a chat automation →](ticket-email-chat-automation.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

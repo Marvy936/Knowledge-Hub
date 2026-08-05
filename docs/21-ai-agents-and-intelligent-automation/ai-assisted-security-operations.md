@@ -257,3 +257,11 @@ Google Cloud Architecture Center dokumentuje agentické security-operations work
 AI v SOC má byť evidence accelerator a bounded proposal system. Exact subject, immutable evidence, least privilege, competing hypotheses, approval, idempotent execution, provider read-back a business verification sú authority vrstvy, ktoré model nenahrádza.
 
 Ďalšia kapitola rieši knowledge assistants a enterprise search, z ktorých security agent čerpá runbooky a organizačný kontext.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: AI-assisted observability a incident response](ai-assisted-observability-incident-response.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Knowledge assistants a enterprise search →](knowledge-assistants-enterprise-search.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

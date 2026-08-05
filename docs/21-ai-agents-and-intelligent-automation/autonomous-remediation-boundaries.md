@@ -271,3 +271,11 @@ Google Cloud operational guidance zdôrazňuje runbooks, incident process, recov
 Autonomous remediation je bezpečná iba v úzkom, versioned a deterministic envelope. Model vytvára diagnosis a proposal; policy, identity, runbook, state machine, limits, approval, read-back, rollback alebo compensation a business verification držia mutation authority.
 
 Nasledujúci blok uzavrie sekciu evaluation-driven lifecycle a troubleshootingom inteligentnej automatizácie.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Ticket, email a chat automation](ticket-email-chat-automation.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

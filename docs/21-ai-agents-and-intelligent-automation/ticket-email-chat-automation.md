@@ -255,3 +255,11 @@ Tieto capabilities sú transport a process primitives. Správny recipient, factu
 Ticket, e-mail a chat automation potrebuje exact identities, channel-aware contracts, drafts oddelené od send authority, durable outbox, approvals, idempotency a business verification. Komunikačný success nesmie zatvoriť proces, ktorý ešte nie je vyriešený.
 
 Ďalšia kapitola určuje hranice, v ktorých môže agent vykonať remediation bez neprimeraného rizika.
+
+<!-- KNOWLEDGE-NAVIGATION:START -->
+---
+
+**Navigácia**
+
+[← Predchádzajúca: Knowledge assistants a enterprise search](knowledge-assistants-enterprise-search.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Autonomous remediation boundaries →](autonomous-remediation-boundaries.md)
+<!-- KNOWLEDGE-NAVIGATION:END -->

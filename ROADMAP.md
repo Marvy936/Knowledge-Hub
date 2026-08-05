@@ -575,10 +575,10 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Event-driven automation](docs/21-ai-agents-and-intelligent-automation/event-driven-automation.md)
 - [x] [AI-assisted CI/CD](docs/21-ai-agents-and-intelligent-automation/ai-assisted-ci-cd.md)
 - [x] [AI-assisted observability a incident response](docs/21-ai-agents-and-intelligent-automation/ai-assisted-observability-incident-response.md)
-- [ ] AI-assisted security operations
-- [ ] Knowledge assistants a enterprise search
-- [ ] Ticket, email a chat automation
-- [ ] Autonomous remediation boundaries
+- [x] [AI-assisted security operations](docs/21-ai-agents-and-intelligent-automation/ai-assisted-security-operations.md)
+- [x] [Knowledge assistants a enterprise search](docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md)
+- [x] [Ticket, email a chat automation](docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md)
+- [x] [Autonomous remediation boundaries](docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md)
 - [ ] Evaluation-driven automation lifecycle
 - [ ] Intelligent automation troubleshooting
 
