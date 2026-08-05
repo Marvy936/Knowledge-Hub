@@ -277,5 +277,5 @@ Nasledujúci blok uzavrie sekciu evaluation-driven lifecycle a troubleshootingom
 
 **Navigácia**
 
-[← Predchádzajúca: Ticket, email a chat automation](ticket-email-chat-automation.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md)
+[← Predchádzajúca: Ticket, email a chat automation](ticket-email-chat-automation.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Evaluation-driven automation lifecycle →](evaluation-driven-automation-lifecycle.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->

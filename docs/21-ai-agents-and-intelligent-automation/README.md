@@ -74,13 +74,8 @@ Odporúčané predchádzajúce oblasti:
 58. [Knowledge assistants a enterprise search](knowledge-assistants-enterprise-search.md)
 59. [Ticket, email a chat automation](ticket-email-chat-automation.md)
 60. [Autonomous remediation boundaries](autonomous-remediation-boundaries.md)
-
-## Plánované authoritative poradie
-
-Nasledujúci inventory je schválený plán sekcie. Položka sa zmení na aktívny Markdown link až v pracovnom bloku, ktorý vytvorí a validuje príslušnú kapitolu. Tým sa plánovaný obsah nezamieňa za hotovú dokumentáciu.
-
-61. Evaluation-driven automation lifecycle
-62. Intelligent automation troubleshooting
+61. [Evaluation-driven automation lifecycle](evaluation-driven-automation-lifecycle.md)
+62. [Intelligent automation troubleshooting](intelligent-automation-troubleshooting.md)
 
 ## Authoring a evidence štandard
 
@@ -111,4 +106,4 @@ Samostatné laby a troubleshooting drilly sa aktivujú až po dostatočnom konce
 
 ## Stav
 
-Aktuálny authoritative stav sekcie je **60/62 · In progress**. Pätnásty authoritative blok aktivuje kapitoly 57–60 a incident `AGENT-OPS-15`. Security-operations kapitola viaže alerty, incidents, evidence, identity, tool authority, containment a business impact. Knowledge-assistant kapitola zachováva source authority, query-time permissions, ACL freshness, citations, delete propagation a abstention. Communication kapitola oddeľuje ticket, e-mail a chat semantics, draft od send authority, recipient identity, durable approvals, outbox a SLA. Remediation kapitola povoľuje mutation iba v versioned deterministic envelope s exact targetom, policy, scoped identity, runbookom, canary, kill switchom, rollbackom alebo compensation a business read-backom. Reálne SOC investigations, permission sync tests, message delivery, remediation runs, recovery drilly ani business outcomes neboli vykonané. Sekcia zostáva `In progress`, nie runtime `Verified`, production `Stable` ani user `Accepted`. Záverečný blok sú kapitoly 61–62: evaluation-driven automation lifecycle a intelligent automation troubleshooting.
+Aktuálny authoritative stav sekcie je **62/62 · Ready for user review**. Šestnásty a záverečný authoritative blok aktivuje kapitoly 61–62 a incident `AGENT-EVAL-16`. Evaluation-driven lifecycle viaže composed candidate a baseline identity, governed dataset generations, representative a critical slices, deterministic aj modelové gradery, human calibration, hard thresholds, failure injection, offline, shadow, canary a online evaluation, promotion, rollback a business post-condition. Troubleshooting kapitola rozkladá incident na trigger, orchestration, queue, model, prompt, retrieval, memory, tool, connector, identity, policy, approval, side effect, telemetry a business vrstvy; používa evidence freeze, correlation, competing hypotheses, safe replay, generation bisection, unknown-outcome reconciliation a second-operation acceptance. Všetkých 62 kapitol sekcie má authoritative prose-first obsah a synchronizovaný repository evidence model. Dokumentačné kontroly nepreukazujú živé eval runs, model/provider behavior, tool side effects, incident recovery, rollback drilly ani business outcomes; sekcia je preto `Ready for user review`, nie runtime `Verified`, production `Stable` ani user `Accepted`.

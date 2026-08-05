@@ -579,7 +579,7 @@ Checkbox označuje, či je téma spracovaná v repozitári. Skutočná úroveň 
 - [x] [Knowledge assistants a enterprise search](docs/21-ai-agents-and-intelligent-automation/knowledge-assistants-enterprise-search.md)
 - [x] [Ticket, email a chat automation](docs/21-ai-agents-and-intelligent-automation/ticket-email-chat-automation.md)
 - [x] [Autonomous remediation boundaries](docs/21-ai-agents-and-intelligent-automation/autonomous-remediation-boundaries.md)
-- [ ] Evaluation-driven automation lifecycle
-- [ ] Intelligent automation troubleshooting
+- [x] [Evaluation-driven automation lifecycle](docs/21-ai-agents-and-intelligent-automation/evaluation-driven-automation-lifecycle.md)
+- [x] [Intelligent automation troubleshooting](docs/21-ai-agents-and-intelligent-automation/intelligent-automation-troubleshooting.md)
 
 <!-- ACTIVE-AI-ROADMAP:END -->

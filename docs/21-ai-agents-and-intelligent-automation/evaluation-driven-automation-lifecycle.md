@@ -319,5 +319,5 @@ Nasledujúca kapitola uzavrie sekciu systematickým troubleshootingom inteligent
 
 **Navigácia**
 
-[← Predchádzajúca: Autonomous remediation boundaries](autonomous-remediation-boundaries.md) · [↑ Obsah sekcie](README.md) · [↑ Learning Roadmap](../../ROADMAP.md) · [Nasledujúca: Intelligent automation troubleshooting →](intelligent-automation-troubleshooting.md)
+[← Predchádzajúca: Autonomous remediation boundaries](autonomous-remediation-boundaries.md) · [↑ Obsah sekcie](README.md) · [Nasledujúca: Intelligent automation troubleshooting →](intelligent-automation-troubleshooting.md)
 <!-- KNOWLEDGE-NAVIGATION:END -->
