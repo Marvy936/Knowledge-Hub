@@ -1,8 +1,7 @@
 name: Machine Learning flagship lab
 
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened]
+  pull_request:
     paths:
       - "labs/machine-learning/**"
       - "docs/18-machine-learning-fundamentals/README.md"
@@ -35,10 +34,9 @@ jobs:
       RUNTIME_DIR: "${{ runner.temp }}/knowledge-hub-ml-lab"
 
     steps:
-      - name: Checkout exact subject revision
+      - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
 
       - name: Set up Python
@@ -109,7 +107,7 @@ jobs:
           assert manifest["test_metrics"]["recall"] >= 0.55
           assert len(manifest["model_sha256"]) == 64
 
-          versions = ", ".join(
+          versions = ",".join(
               f"{name}={value}"
               for name, value in sorted(manifest["library_versions"].items())
           )
@@ -127,18 +125,14 @@ jobs:
           rm -rf "$RUNTIME_DIR"
           test ! -e "$RUNTIME_DIR"
 
-  report-runtime-evidence:
-    if: ${{ always() }}
+  publish-main-statuses:
+    if: ${{ github.event_name == 'push' && always() }}
     needs: test-runtime-lifecycle
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      issues: write
-      pull-requests: read
+      statuses: write
     env:
-      EVENT_NAME: ${{ github.event_name }}
       RUNTIME_RESULT: ${{ needs.test-runtime-lifecycle.result }}
-      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       SELECTED_MODEL: ${{ needs.test-runtime-lifecycle.outputs.selected_model }}
       DECISION_THRESHOLD: ${{ needs.test-runtime-lifecycle.outputs.decision_threshold }}
       TEST_F1: ${{ needs.test-runtime-lifecycle.outputs.test_f1 }}
@@ -147,57 +141,53 @@ jobs:
       MODEL_SHA256: ${{ needs.test-runtime-lifecycle.outputs.model_sha256 }}
       LIBRARY_VERSIONS: ${{ needs.test-runtime-lifecycle.outputs.library_versions }}
     steps:
-      - name: Publish structured runtime evidence
+      - name: Publish connector-readable commit statuses
         uses: actions/github-script@v9
         with:
           script: |
-            const marker = '<!-- ml-flagship-runtime-evidence -->';
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const result = process.env.RUNTIME_RESULT;
-            const icon = result === 'success' ? '✅' : '❌';
-            let issueNumber = context.payload.pull_request?.number;
+            const success = process.env.RUNTIME_RESULT === 'success';
+            const statuses = [{
+              context: 'knowledge-hub/ml-flagship-runtime',
+              state: success ? 'success' : 'failure',
+              description: success
+                ? '5/5 tests and complete synthetic lifecycle passed'
+                : 'Machine Learning flagship runtime lifecycle failed',
+            }];
 
-            if (!issueNumber) {
-              const associated = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                commit_sha: process.env.SUBJECT_SHA,
-              });
-              const pull = associated.data.find(item => item.merged_at) ?? associated.data[0];
-              issueNumber = pull?.number;
+            if (success) {
+              statuses.push(
+                {
+                  context: 'knowledge-hub/ml-metrics',
+                  state: 'success',
+                  description: `${process.env.SELECTED_MODEL}; threshold=${process.env.DECISION_THRESHOLD}; f1=${process.env.TEST_F1}; recall=${process.env.TEST_RECALL}`,
+                },
+                {
+                  context: 'knowledge-hub/ml-dataset-sha256',
+                  state: 'success',
+                  description: `sha256=${process.env.DATASET_SHA256}`,
+                },
+                {
+                  context: 'knowledge-hub/ml-model-sha256',
+                  state: 'success',
+                  description: `sha256=${process.env.MODEL_SHA256}`,
+                },
+                {
+                  context: 'knowledge-hub/ml-runtime-versions',
+                  state: 'success',
+                  description: process.env.LIBRARY_VERSIONS.slice(0, 140),
+                },
+              );
             }
 
-            if (!issueNumber) {
-              core.notice(`No pull request is associated with ${process.env.SUBJECT_SHA}; evidence remains in run ${context.runId}.`);
-              return;
-            }
-
-            const metrics = result === 'success'
-              ? `\n- Tests: **5/5 passed**\n- Selected model: \`${process.env.SELECTED_MODEL}\`\n- Decision threshold: \`${process.env.DECISION_THRESHOLD}\`\n- Test F1: \`${process.env.TEST_F1}\`\n- Test recall: \`${process.env.TEST_RECALL}\`\n- Dataset SHA-256: \`${process.env.DATASET_SHA256}\`\n- Model SHA-256: \`${process.env.MODEL_SHA256}\`\n- Runtime: ${process.env.LIBRARY_VERSIONS}`
-              : '\n- Metrics were not published because the runtime lifecycle did not complete successfully.';
-            const body = `${marker}\n### ${icon} Machine Learning flagship runtime evidence\n\n- Result: **${result}**\n- Event: \`${process.env.EVENT_NAME}\`\n- Exact subject revision: \`${process.env.SUBJECT_SHA}\`\n- Workflow run: [${context.runId}](${runUrl})${metrics}\n\nThis evidence covers the deterministic synthetic lab contract only. It does not establish production data quality, business impact or production readiness.`;
-
-            const comments = await github.paginate(github.rest.issues.listComments, {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issueNumber,
-              per_page: 100,
-            });
-            const existing = comments.find(comment =>
-              comment.user?.type === 'Bot' && comment.body?.includes(marker)
-            );
-            if (existing) {
-              await github.rest.issues.updateComment({
+            for (const status of statuses) {
+              await github.rest.repos.createCommitStatus({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                body,
+                sha: context.sha,
+                state: status.state,
+                context: status.context,
+                description: status.description,
+                target_url: runUrl,
               });
             }
