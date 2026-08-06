@@ -45,6 +45,36 @@ def test_dataset_and_candidate_identity_are_deterministic(tmp_path: Path) -> Non
     validate_candidate_manifest(first)
 
 
+def test_candidate_identity_is_workspace_independent(tmp_path: Path) -> None:
+    dataset = tmp_path / "dataset.csv"
+    dataset.write_text("id,label\n1,0\n2,1\n", encoding="utf-8", newline="\n")
+    dataset_manifest = build_dataset_manifest(
+        dataset, dataset_name="churn-training", generation="data-v1"
+    )
+
+    first_model = tmp_path / "runner-a" / "model.bin"
+    second_model = tmp_path / "runner-b" / "renamed-model.bin"
+    first_model.parent.mkdir()
+    second_model.parent.mkdir()
+    first_model.write_bytes(b"deterministic-model-bytes")
+    second_model.write_bytes(b"deterministic-model-bytes")
+
+    first = build_candidate_manifest(
+        dataset_manifest=dataset_manifest,
+        model_path=first_model,
+        evaluation=_evaluation(),
+        source_revision="abc123",
+    )
+    second = build_candidate_manifest(
+        dataset_manifest=dataset_manifest,
+        model_path=second_model,
+        evaluation=_evaluation(),
+        source_revision="abc123",
+    )
+
+    assert first == second
+
+
 def test_candidate_tampering_is_refused(tmp_path: Path) -> None:
     candidate = _candidate(tmp_path)
     candidate["model"]["sha256"] = "0" * 64
@@ -90,6 +120,17 @@ def test_stale_promotion_is_refused_without_new_state(tmp_path: Path) -> None:
             expected_current="2" * 64,
         )
     assert state == original
+
+
+def test_alias_state_schema_is_validated(tmp_path: Path) -> None:
+    candidate = _candidate(tmp_path)
+    with pytest.raises(ContractError, match="schema_version must equal 1"):
+        promote_candidate(
+            candidate=candidate,
+            alias_state={"schema_version": 2, "aliases": {}},
+            alias="champion",
+            expected_current=None,
+        )
 
 
 def test_expected_current_allows_controlled_replacement(tmp_path: Path) -> None:
