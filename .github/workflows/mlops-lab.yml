@@ -1,0 +1,90 @@
+name: MLOps flagship lab
+
+on:
+  pull_request:
+    paths:
+      - "labs/mlops/**"
+      - ".github/workflows/mlops-lab.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "labs/mlops/**"
+      - ".github/workflows/mlops-lab.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mlops-flagship-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contract-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: labs/mlops/pyproject.toml
+
+      - name: Install lab
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e "labs/mlops[dev]"
+
+      - name: Run contract tests
+        env:
+          PYTHONWARNINGS: error
+        run: pytest labs/mlops/tests -q
+
+      - name: CLI smoke and refusal paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime="labs/mlops/.runtime/ci"
+          rm -rf "$runtime"
+          mkdir -p "$runtime"
+          printf 'id,label\n1,0\n2,1\n' > "$runtime/dataset.csv"
+          printf 'model-bytes\n' > "$runtime/model.bin"
+
+          python -m mlops_lab snapshot \
+            --dataset "$runtime/dataset.csv" \
+            --output "$runtime/dataset-manifest.json" \
+            --dataset-name ci-churn \
+            --generation ci-v1
+
+          python -m mlops_lab candidate \
+            --dataset-manifest "$runtime/dataset-manifest.json" \
+            --model "$runtime/model.bin" \
+            --evaluation labs/mlops/data/sample-evaluation.json \
+            --source-revision "${GITHUB_SHA}" \
+            --output "$runtime/candidate.json"
+
+          python -m mlops_lab promote \
+            --candidate "$runtime/candidate.json" \
+            --alias-state "$runtime/aliases.json" \
+            --alias champion \
+            --expected-current none \
+            --release-output "$runtime/release.json"
+
+          if python -m mlops_lab promote \
+            --candidate "$runtime/candidate.json" \
+            --alias-state "$runtime/aliases.json" \
+            --alias champion \
+            --expected-current none \
+            --release-output "$runtime/stale-release.json"; then
+            echo "::error::Stale promotion unexpectedly succeeded."
+            exit 1
+          fi
+
+          test -s "$runtime/release.json"
+          test ! -e "$runtime/stale-release.json"
+          rm -rf "$runtime"
+          test ! -e "$runtime"
