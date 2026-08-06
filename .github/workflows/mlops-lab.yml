@@ -1,16 +1,15 @@
 name: MLOps flagship lab
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
     paths:
       - "labs/mlops/**"
-      - ".github/workflows/mlops-lab.yml"
   push:
     branches:
       - main
     paths:
       - "labs/mlops/**"
-      - ".github/workflows/mlops-lab.yml"
 
 permissions:
   contents: read
@@ -21,7 +20,7 @@ concurrency:
 
 jobs:
   contract-tests:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event_name != 'pull_request_target' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: [self-hosted, Linux, X64]
     timeout-minutes: 15
     env:
@@ -30,9 +29,10 @@ jobs:
       VENV_DIR: "${{ runner.temp }}/knowledge-hub-mlops-venv"
 
     steps:
-      - name: Checkout repository
+      - name: Checkout exact subject revision
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
           fetch-depth: 1
           clean: true
