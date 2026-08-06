@@ -22,7 +22,7 @@ Stavy sa nededia automaticky. `Runtime verified` nie je production readiness a `
 | MLOps promotion foundation | Áno | Áno — candidate, release a compare-before-promote contracts | Nie — Actions dispatch blocker #151 | Nie | [`labs/mlops/RUNTIME-EVIDENCE.md`](labs/mlops/RUNTIME-EVIDENCE.md) |
 | MLOps training lineage | Áno | Áno — evaluation odvodená z exact ML training manifestu | Nie — 21/21 exact-source tests nie sú live workflow evidence | Nie | [`labs/mlops/TRAINING-LINEAGE.md`](labs/mlops/TRAINING-LINEAGE.md) |
 | MLOps Tracking/Registry a artifact read-back | Áno | Áno — MLflow server, SQLite Registry, artifact checksum a exact-version contracts | Nie — Actions dispatch blocker #151 | Nie | [`labs/mlops/RUNTIME-EVIDENCE.md`](labs/mlops/RUNTIME-EVIDENCE.md) |
-| MLOps serving, canary a rollback | Áno v sekcii 19 | Nie | Nie | Nie | Nasledujúci Practical v1 blok |
+| MLOps serving, canary a rollback | Áno | Čiastočne — immutable deployment, deterministic routing a rollback control plane | Nie — 29/29 exact-source tests nepreukazujú container ani HTTP runtime | Nie | [`labs/mlops/SERVING-CANARY-ROLLBACK.md`](labs/mlops/SERVING-CANARY-ROLLBACK.md) |
 | MLOps monitoring, drift a retraining | Áno v sekcii 19 | Nie | Nie | Nie | Neskorší Practical v1 blok |
 | Knowledge Hub LLM/RAG flagship | Áno v sekcii 20 | Nie | Nie | Nie | Required for Practical v1 |
 | Keycloak-secured AI API | Áno v sekciách 17, 20 a 21 | Nie | Nie | Nie | Required for Practical v1 |
@@ -37,9 +37,10 @@ Aktuálny implementovaný MLOps rozsah je viazaný najmä na:
 - PR #145 — MLflow Registry a artifact read-back lifecycle,
 - PR #150 — evaluation odvodená z exact training manifestu,
 - PR #152 — hosted unified Registry runner,
-- PR #153 — self-hosted unified Registry runner.
+- PR #153 — self-hosted unified Registry runner,
+- PR #155 — immutable deployment, canary routing a rollback control-plane contracts.
 
-Exact-source reconstruction prešla 16/16 testami po Registry implementácii a 21/21 testami po training-lineage rozšírení. Tieto výsledky dokazujú Python a contract správanie v rekonštruovanom prostredí. Nenahrádzajú chýbajúci GitHub Actions run, live package installation, MLflow server execution, restart verification alebo cleanup evidence.
+Exact-source reconstruction prešla 16/16 testami po Registry implementácii, 21/21 testami po training-lineage rozšírení a 29/29 testami po serving control-plane rozšírení. Tieto výsledky dokazujú Python, CLI a contract správanie v rekonštruovanom prostredí. Nenahrádzajú chýbajúci GitHub Actions run, live package installation, MLflow server execution, container build, skutočný OCI digest, HTTP traffic, workload rollback alebo cleanup evidence.
 
 Issue #151 je explicitný Practical v1 blocker pre runtime closeout. Kým GitHub nevytvorí exact workflow run a jeho read-back, MLOps riadky zostávajú `Runtime verified = Nie`.
 
@@ -49,7 +50,7 @@ Issue #151 je explicitný Practical v1 blocker pre runtime closeout. Kým GitHub
 |---|---|---|
 | 00–17 | `User reviewed` v aktuálnom dokumentačnom rozsahu | Neznamená automaticky vykonané laby ani runtime acceptance. |
 | 18 — Machine Learning Fundamentals | `Ready for user review` | Flagship package je implementovaný a runtime verified; sekcia ako celok ešte nie je `User accepted`. |
-| 19 — MLOps and ML Platforms | `Ready for user review` | Promotion, training-lineage a Registry contracts sú implementované; runtime closeout, serving, canary, rollback, drift a retraining zostávajú otvorené. |
+| 19 — MLOps and ML Platforms | `Ready for user review` | Promotion, training lineage, Registry a serving control-plane contracts sú implementované; runtime closeout, container serving, live canary/rollback, drift a retraining zostávajú otvorené. |
 | 20 — LLM and GenAI Engineering | `Ready for user review` | Practical v1 flagship ešte nie je implementovaný. |
 | 21 — AI Agents and Intelligent Automation | `Ready for user review` | Practical v1 bounded agent ešte nie je implementovaný. |
 
