@@ -32,6 +32,10 @@ from .monitoring import (
     validate_drift_report,
     validate_monitoring_window,
 )
+from .post_retraining import (
+    build_post_retraining_handoff,
+    validate_post_retraining_handoff,
+)
 from .registry import (
     build_registry_evidence,
     register_candidate,
@@ -66,6 +70,7 @@ __all__ = [
     "build_deployment_manifest",
     "build_evaluation_from_training_manifest",
     "build_monitoring_window",
+    "build_post_retraining_handoff",
     "build_registry_evidence",
     "build_retraining_proposal",
     "build_rollback_state",
@@ -86,6 +91,7 @@ __all__ = [
     "validate_deployment_manifest",
     "validate_drift_report",
     "validate_monitoring_window",
+    "validate_post_retraining_handoff",
     "validate_registry_evidence",
     "validate_release_manifest",
     "validate_retraining_approval",
