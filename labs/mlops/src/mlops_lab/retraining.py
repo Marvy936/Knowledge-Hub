@@ -3,12 +3,15 @@ from __future__ import annotations
 from typing import Any, Mapping
 
 from .contracts import ContractError, canonical_json_bytes, sha256_bytes
-from .monitoring import (
-    CATEGORICAL_FEATURES,
-    DRIFT_STATUSES,
-    MONITORING_SCHEMA_VERSION,
-    NUMERIC_FEATURES,
-)
+from .monitoring import CATEGORICAL_FEATURES, MONITORING_SCHEMA_VERSION, NUMERIC_FEATURES
+
+DRIFT_STATUSES = {
+    "no_data",
+    "insufficient_evidence",
+    "operational_failure",
+    "drift_detected",
+    "stable",
+}
 
 
 def _require_exact_keys(value: Mapping[str, Any], expected: set[str], field: str) -> None:
