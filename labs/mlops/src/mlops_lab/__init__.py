@@ -1,5 +1,11 @@
 """Deterministic MLOps lineage, registry, serving and promotion contracts."""
 
+from .canary import (
+    build_canary_decision,
+    execute_canary_window,
+    rollback_from_canary_decision,
+    validate_canary_evidence,
+)
 from .contracts import (
     ContractError,
     build_candidate_manifest,
@@ -30,15 +36,19 @@ from .serving import (
 __all__ = [
     "ContractError",
     "build_candidate_manifest",
+    "build_canary_decision",
     "build_dataset_manifest",
     "build_deployment_manifest",
     "build_evaluation_from_training_manifest",
     "build_registry_evidence",
     "build_rollback_state",
     "build_routing_state",
+    "execute_canary_window",
     "promote_candidate",
     "register_candidate",
+    "rollback_from_canary_decision",
     "route_request",
+    "validate_canary_evidence",
     "validate_deployment_manifest",
     "validate_registry_evidence",
     "validate_release_manifest",
