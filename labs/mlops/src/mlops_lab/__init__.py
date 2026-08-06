@@ -1,4 +1,4 @@
-"""Deterministic MLOps lineage, registry, serving, monitoring and promotion contracts."""
+"""Deterministic MLOps lineage, registry, serving, monitoring and retraining contracts."""
 
 from .canary import (
     build_canary_decision,
@@ -11,6 +11,13 @@ from .contracts import (
     build_candidate_manifest,
     build_dataset_manifest,
     promote_candidate,
+)
+from .controlled_retraining import (
+    build_controlled_retraining_operation,
+    execute_controlled_retraining,
+    reconcile_controlled_retraining,
+    validate_controlled_retraining_operation,
+    validate_controlled_retraining_state,
 )
 from .lineage import (
     build_evaluation_from_training_manifest,
@@ -54,6 +61,7 @@ __all__ = [
     "build_baseline_profile",
     "build_candidate_manifest",
     "build_canary_decision",
+    "build_controlled_retraining_operation",
     "build_dataset_manifest",
     "build_deployment_manifest",
     "build_evaluation_from_training_manifest",
@@ -64,13 +72,17 @@ __all__ = [
     "build_routing_state",
     "compare_drift",
     "execute_canary_window",
+    "execute_controlled_retraining",
     "inject_drift",
     "promote_candidate",
+    "reconcile_controlled_retraining",
     "register_candidate",
     "rollback_from_canary_decision",
     "route_request",
     "validate_baseline_profile",
     "validate_canary_evidence",
+    "validate_controlled_retraining_operation",
+    "validate_controlled_retraining_state",
     "validate_deployment_manifest",
     "validate_drift_report",
     "validate_monitoring_window",
