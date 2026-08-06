@@ -41,6 +41,10 @@ def _registry_intent_path(output_dir: Path) -> Path:
     return output_dir / "registry-attempt.json"
 
 
+def _registry_response_path(output_dir: Path) -> Path:
+    return output_dir / "registry-response.json"
+
+
 def _build_registry_intent(
     operation: Mapping[str, Any], candidate: Mapping[str, Any]
 ) -> dict[str, Any]:
@@ -58,6 +62,17 @@ def _build_registry_intent(
         **payload,
         "registry_attempt_id": sha256_bytes(canonical_json_bytes(payload)),
     }
+
+
+def _registry_response_matches_intent(
+    response: Mapping[str, Any], intent: Mapping[str, Any]
+) -> bool:
+    return (
+        response["candidate_id"] == intent["candidate_id"]
+        and response["source_revision"] == intent["source_revision"]
+        and response["artifact_readback"]["downloaded_sha256"]
+        == intent["model_sha256"]
+    )
 
 
 def _guard_registry_unknown_outcome(
@@ -84,12 +99,25 @@ def _guard_registry_unknown_outcome(
         )
 
     evidence_path = output_dir / "registry-evidence.json"
-    if not evidence_path.is_file():
-        raise ContractError(
-            "Registry mutation outcome is unknown; external Registry read-back "
-            "and explicit reconciliation are required"
-        )
-    intent_path.unlink()
+    response_path = _registry_response_path(output_dir)
+    if evidence_path.is_file():
+        response_path.unlink(missing_ok=True)
+        intent_path.unlink()
+        return
+
+    if response_path.is_file():
+        response = read_json(response_path)
+        validate_registry_evidence(response)
+        if _registry_response_matches_intent(response, intent):
+            atomic_write_json(evidence_path, response)
+        response_path.unlink()
+        intent_path.unlink()
+        return
+
+    raise ContractError(
+        "Registry mutation outcome is unknown; external Registry read-back "
+        "and explicit reconciliation are required"
+    )
 
 
 def execute_controlled_retraining(
@@ -261,13 +289,18 @@ def execute_controlled_retraining(
                 operation["registry"],
                 paths["download_dir"],
             )
-            intent_path.unlink()
+            response_path = _registry_response_path(output_dir)
+            atomic_write_json(response_path, registry_evidence)
             validate_registry_evidence(registry_evidence)
             if registry_evidence["candidate_id"] != candidate["candidate_id"]:
+                response_path.unlink()
+                intent_path.unlink()
                 raise ContractError(
                     "Registry adapter returned evidence for another candidate"
                 )
             if registry_evidence["source_revision"] != operation["source_revision"]:
+                response_path.unlink()
+                intent_path.unlink()
                 raise ContractError(
                     "Registry adapter returned another source revision"
                 )
@@ -275,10 +308,14 @@ def execute_controlled_retraining(
                 registry_evidence["artifact_readback"]["downloaded_sha256"]
                 != current["artifacts"]["model_sha256"]
             ):
+                response_path.unlink()
+                intent_path.unlink()
                 raise ContractError(
                     "Registry adapter returned another model digest"
                 )
             atomic_write_json(paths["registry_evidence"], registry_evidence)
+            response_path.unlink()
+            intent_path.unlink()
             current = _write_phase(
                 state_path,
                 current,
