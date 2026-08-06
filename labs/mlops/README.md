@@ -18,13 +18,14 @@ Implementované sú:
 
 - SHA-256 identita datasetu a model artifactu,
 - canonical JSON fingerprints,
-- schema-validovaný evaluation bundle,
-- candidate manifest viazaný na dataset, model, source revision a policy generation,
+- strict schema validation pre dataset, evaluation, candidate a alias state,
+- candidate manifest viazaný na dataset, model bytes, source revision a policy generation,
+- workspace-independent candidate identity bez lokálneho filesystem pathu,
 - refusal pri neakceptovanom candidate,
 - compare-before-promote kontrola očakávanej predchádzajúcej verzie,
 - atomic write alias state-u,
 - immutable release manifest pre downstream serving,
-- tests pre determinism, tampering a stale promotion.
+- tests pre determinism, tampering, workspace portability a stale promotion.
 
 Zatiaľ nie sú implementované ani deklarované ako overené:
 
@@ -70,7 +71,7 @@ python -m mlops_lab snapshot \
   --generation churn-data-2026-08-06
 ```
 
-Výstup obsahuje exact path subject, byte size, SHA-256, dataset name a generation. Manifest nedokazuje data quality ani representativeness; dokazuje iba identitu konkrétnych bytes.
+Výstup obsahuje exact path subject, byte size, SHA-256, dataset name a generation. Manifest nedokazuje data quality ani representativeness; dokazuje iba identitu konkrétnych bytes. Lokálna cesta ostáva diagnostickým údajom dataset snapshotu, ale neprenáša sa do candidate identity.
 
 ## Candidate manifest
 
@@ -98,7 +99,7 @@ python -m mlops_lab candidate \
   --output labs/mlops/.runtime/candidate.json
 ```
 
-Candidate identity je SHA-256 canonical payloadu. Mutable timestamp nie je súčasťou identity.
+Candidate identity je SHA-256 canonical payloadu. Mutable timestamp, lokálna cesta ani názov model file nie sú súčasťou identity. Rovnaké dataset a model bytes, evaluation bundle a source revision preto vytvoria rovnaký candidate ID aj v inom workspace. Kandidát stále nie je dôkazom, že model možno bezpečne načítať alebo že je vhodný pre produkciu; tieto gates patria do nasledujúcich vrstiev.
 
 ## Promotion a release manifest
 
