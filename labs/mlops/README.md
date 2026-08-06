@@ -127,6 +127,12 @@ python -m mlops_lab promote \
 
 Ak alias medzitým zmenil iný actor, command zlyhá bez mutation. Release manifest pinne candidate ID, dataset digest, model digest, evaluation digest, source revision a policy generation. Downstream deployment má používať release manifest, nie znovu resolvovať mutable alias pri štarte každej repliky.
 
+## CI execution profile
+
+Permanentný workflow používa interný Linux X64 self-hosted runner iba pre kód z rovnakého repozitára. Checkout neukladá Git credentials. Package sa inštaluje do nového virtual environmentu pod `runner.temp`; dataset, manifests a alias state vznikajú v samostatnom dočasnom runtime directory.
+
+Gate vykoná unit a contract tests s warnings povýšenými na error, positive CLI lifecycle, stale-promotion refusal a read-back požadovaných výstupov. Záverečný cleanup step sa vykoná aj po zlyhaní a odstráni virtual environment aj runtime state. Úspech na jednom runneri stále nepreukazuje portable production deployment; preukazuje deklarovaný Python 3.12 local execution profile.
+
 ## Acceptance hranica
 
 Zelené tests preukazujú lokálny deterministic promotion contract. Nepreukazujú MLflow server, Registry permissions, artifact upload, model loadability, serving image, canary outcome, production drift ani business impact.
