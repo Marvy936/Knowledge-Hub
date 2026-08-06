@@ -22,7 +22,7 @@ jobs:
   contract-tests:
     if: github.event_name != 'pull_request_target' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: [self-hosted, Linux, X64]
-    timeout-minutes: 15
+    timeout-minutes: 25
     outputs:
       candidate_id: ${{ steps.evidence.outputs.candidate_id }}
       release_id: ${{ steps.evidence.outputs.release_id }}
@@ -30,6 +30,11 @@ jobs:
       model_sha256: ${{ steps.evidence.outputs.model_sha256 }}
       evaluation_sha256: ${{ steps.evidence.outputs.evaluation_sha256 }}
       python_version: ${{ steps.evidence.outputs.python_version }}
+      registry_evidence_id: ${{ steps.evidence.outputs.registry_evidence_id }}
+      registry_version: ${{ steps.evidence.outputs.registry_version }}
+      registry_run_id: ${{ steps.evidence.outputs.registry_run_id }}
+      registry_artifact_sha256: ${{ steps.evidence.outputs.registry_artifact_sha256 }}
+      mlflow_version: ${{ steps.evidence.outputs.mlflow_version }}
     env:
       PYTHONHASHSEED: "0"
       SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -55,6 +60,11 @@ jobs:
           else
             echo "present=false" >> "$GITHUB_OUTPUT"
           fi
+          if [[ -f labs/mlops/src/mlops_lab/registry.py ]]; then
+            echo "registry_present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "registry_present=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Validate bootstrap state
         if: steps.source.outputs.present != 'true'
@@ -70,7 +80,9 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: labs/mlops/pyproject.toml
+          cache-dependency-path: |
+            labs/mlops/pyproject.toml
+            labs/machine-learning/pyproject.toml
 
       - name: Install isolated lab environment
         if: steps.source.outputs.present == 'true'
@@ -80,7 +92,11 @@ jobs:
           rm -rf "$VENV_DIR" "$RUNTIME_DIR"
           python -m venv "$VENV_DIR"
           "$VENV_DIR/bin/python" -m pip install --upgrade pip
-          "$VENV_DIR/bin/python" -m pip install -e "labs/mlops[dev]"
+          if [[ "${{ steps.source.outputs.registry_present }}" == "true" ]]; then
+            "$VENV_DIR/bin/python" -m pip install -e "labs/machine-learning" -e "labs/mlops[dev,registry]"
+          else
+            "$VENV_DIR/bin/python" -m pip install -e "labs/mlops[dev]"
+          fi
 
       - name: Run contract tests
         if: steps.source.outputs.present == 'true'
@@ -91,7 +107,7 @@ jobs:
           set -euo pipefail
           "$VENV_DIR/bin/python" -m pytest labs/mlops/tests -q
 
-      - name: CLI smoke and refusal paths
+      - name: Foundation CLI smoke and refusal paths
         if: steps.source.outputs.present == 'true'
         shell: bash
         run: |
@@ -136,6 +152,112 @@ jobs:
           test -s "$RUNTIME_DIR/aliases.json"
           test ! -e "$RUNTIME_DIR/stale-release.json"
 
+      - name: MLflow Registry and artifact round-trip
+        if: steps.source.outputs.registry_present == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          ML_RUNTIME="$RUNTIME_DIR/ml"
+          BACKEND_DB="$RUNTIME_DIR/mlflow.db"
+          ARTIFACT_ROOT="$RUNTIME_DIR/mlartifacts"
+          DOWNLOAD_DIR="$RUNTIME_DIR/downloaded"
+          TRACKING_URI="http://127.0.0.1:5057"
+          SERVER_LOG="$RUNTIME_DIR/mlflow-server.log"
+          SERVER_PID=""
+
+          stop_server() {
+            if [[ -n "$SERVER_PID" ]] && kill -0 "$SERVER_PID" 2>/dev/null; then
+              kill "$SERVER_PID"
+              wait "$SERVER_PID" || true
+            fi
+            SERVER_PID=""
+          }
+          trap stop_server EXIT
+
+          start_server() {
+            "$VENV_DIR/bin/mlflow" server \
+              --host 127.0.0.1 \
+              --port 5057 \
+              --backend-store-uri "sqlite:///$BACKEND_DB" \
+              --artifacts-destination "file://$ARTIFACT_ROOT" \
+              --allowed-hosts "127.0.0.1:*,localhost:*" \
+              >"$SERVER_LOG" 2>&1 &
+            SERVER_PID=$!
+            for attempt in $(seq 1 60); do
+              if TRACKING_URI="$TRACKING_URI" "$VENV_DIR/bin/python" - <<'PY'
+          import os
+          import urllib.request
+
+          try:
+              with urllib.request.urlopen(os.environ["TRACKING_URI"] + "/health", timeout=1) as response:
+                  raise SystemExit(0 if response.status == 200 else 1)
+          except Exception:
+              raise SystemExit(1)
+          PY
+              then
+                return 0
+              fi
+              if ! kill -0 "$SERVER_PID" 2>/dev/null; then
+                cat "$SERVER_LOG"
+                return 1
+              fi
+              sleep 1
+            done
+            cat "$SERVER_LOG"
+            return 1
+          }
+
+          mkdir -p "$ML_RUNTIME" "$ARTIFACT_ROOT" "$DOWNLOAD_DIR"
+          "$VENV_DIR/bin/python" -m ml_lab generate-data \
+            --output "$ML_RUNTIME/customers.csv" \
+            --rows 1200 \
+            --seed 20260805
+          "$VENV_DIR/bin/python" -m ml_lab train \
+            --input "$ML_RUNTIME/customers.csv" \
+            --output-dir "$ML_RUNTIME/artifact" \
+            --seed 20260805
+
+          "$VENV_DIR/bin/python" -m mlops_lab snapshot \
+            --dataset "$ML_RUNTIME/customers.csv" \
+            --output "$ML_RUNTIME/dataset-manifest.json" \
+            --dataset-name churn-training \
+            --generation ci-mlflow-v1
+          "$VENV_DIR/bin/python" -m mlops_lab candidate \
+            --dataset-manifest "$ML_RUNTIME/dataset-manifest.json" \
+            --model "$ML_RUNTIME/artifact/model.joblib" \
+            --evaluation labs/mlops/data/sample-evaluation.json \
+            --source-revision "$SUBJECT_SHA" \
+            --output "$ML_RUNTIME/candidate.json"
+
+          start_server
+          "$VENV_DIR/bin/python" -m mlops_lab registry-roundtrip \
+            --candidate "$ML_RUNTIME/candidate.json" \
+            --model "$ML_RUNTIME/artifact/model.joblib" \
+            --sample-request labs/machine-learning/data/sample-request.json \
+            --tracking-uri "$TRACKING_URI" \
+            --experiment-name knowledge-hub-mlops-ci \
+            --model-name KnowledgeHubChurn \
+            --alias champion \
+            --download-dir "$DOWNLOAD_DIR" \
+            --output "$RUNTIME_DIR/registry-evidence.json"
+          "$VENV_DIR/bin/python" -m mlops_lab registry-verify \
+            --evidence "$RUNTIME_DIR/registry-evidence.json" \
+            --sample-request labs/machine-learning/data/sample-request.json \
+            --tracking-uri "$TRACKING_URI"
+
+          stop_server
+          start_server
+          "$VENV_DIR/bin/python" -m mlops_lab registry-verify \
+            --evidence "$RUNTIME_DIR/registry-evidence.json" \
+            --sample-request labs/machine-learning/data/sample-request.json \
+            --tracking-uri "$TRACKING_URI"
+          stop_server
+
+          test -s "$BACKEND_DB"
+          test -d "$ARTIFACT_ROOT"
+          test -n "$(find "$ARTIFACT_ROOT" -type f -print -quit)"
+          test -s "$RUNTIME_DIR/registry-evidence.json"
+
       - name: Collect bounded runtime evidence
         if: steps.source.outputs.present == 'true'
         id: evidence
@@ -169,7 +291,32 @@ jobs:
               "model_sha256": release["model_sha256"],
               "evaluation_sha256": release["evaluation_sha256"],
               "python_version": platform.python_version(),
+              "registry_evidence_id": "",
+              "registry_version": "",
+              "registry_run_id": "",
+              "registry_artifact_sha256": "",
+              "mlflow_version": "",
           }
+          registry_path = runtime / "registry-evidence.json"
+          if registry_path.exists():
+              registry = json.loads(registry_path.read_text(encoding="utf-8"))
+              assert registry["candidate_id"] != candidate["candidate_id"]
+              assert registry["registry"]["exact_uri"].endswith(
+                  "/" + registry["registry"]["version"]
+              )
+              assert registry["registry"]["alias_resolved_version"] == registry["registry"]["version"]
+              assert registry["artifact_readback"]["passed"] is True
+              assert registry["parity"]["passed"] is True
+              values.update(
+                  {
+                      "registry_evidence_id": registry["registry_evidence_id"],
+                      "registry_version": registry["registry"]["version"],
+                      "registry_run_id": registry["run_id"],
+                      "registry_artifact_sha256": registry["artifact_readback"]["downloaded_sha256"],
+                      "mlflow_version": registry["runtime"]["mlflow_version"],
+                  }
+              )
+
           with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as handle:
               for key, value in values.items():
                   handle.write(f"{key}={value}\n")
@@ -181,6 +328,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          pkill -f "$VENV_DIR/bin/mlflow server" 2>/dev/null || true
           rm -rf "$RUNTIME_DIR" "$VENV_DIR"
           test ! -e "$RUNTIME_DIR"
           test ! -e "$VENV_DIR"
@@ -200,6 +348,11 @@ jobs:
       MODEL_SHA256: ${{ needs.contract-tests.outputs.model_sha256 }}
       EVALUATION_SHA256: ${{ needs.contract-tests.outputs.evaluation_sha256 }}
       PYTHON_VERSION: ${{ needs.contract-tests.outputs.python_version }}
+      REGISTRY_EVIDENCE_ID: ${{ needs.contract-tests.outputs.registry_evidence_id }}
+      REGISTRY_VERSION: ${{ needs.contract-tests.outputs.registry_version }}
+      REGISTRY_RUN_ID: ${{ needs.contract-tests.outputs.registry_run_id }}
+      REGISTRY_ARTIFACT_SHA256: ${{ needs.contract-tests.outputs.registry_artifact_sha256 }}
+      MLFLOW_VERSION: ${{ needs.contract-tests.outputs.mlflow_version }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       REPOSITORY: ${{ github.repository }}
       SUBJECT_SHA: ${{ github.sha }}
@@ -221,7 +374,7 @@ jobs:
                   "context": "knowledge-hub/mlops-foundation-runtime",
                   "state": "success" if success else "failure",
                   "description": (
-                      "9/9 tests, CLI lifecycle, stale refusal and cleanup passed"
+                      "Foundation contracts, CLI refusal paths and cleanup passed"
                       if success
                       else "MLOps foundation runtime lifecycle failed"
                   ),
@@ -262,6 +415,31 @@ jobs:
                       },
                   ]
               )
+              if os.environ["REGISTRY_EVIDENCE_ID"]:
+                  statuses.extend(
+                      [
+                          {
+                              "context": "knowledge-hub/mlops-registry-runtime",
+                              "state": "success",
+                              "description": f"registry-evidence={os.environ['REGISTRY_EVIDENCE_ID']}",
+                          },
+                          {
+                              "context": "knowledge-hub/mlops-registry-version",
+                              "state": "success",
+                              "description": f"version={os.environ['REGISTRY_VERSION']}; run={os.environ['REGISTRY_RUN_ID']}",
+                          },
+                          {
+                              "context": "knowledge-hub/mlops-registry-artifact",
+                              "state": "success",
+                              "description": f"sha256={os.environ['REGISTRY_ARTIFACT_SHA256']}",
+                          },
+                          {
+                              "context": "knowledge-hub/mlops-mlflow-version",
+                              "state": "success",
+                              "description": f"mlflow={os.environ['MLFLOW_VERSION']}",
+                          },
+                      ]
+                  )
 
           url = (
               "https://api.github.com/repos/"
