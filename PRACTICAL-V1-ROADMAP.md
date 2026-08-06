@@ -154,8 +154,8 @@ Live production remediation, široké cloud credentials, email/chat send authori
 
 ### 5. Unified practical product surface
 
-- [ ] `labs/README.md` ako authoritative index existujúcich a v1 flagship labov.
-- [ ] Jednotný status ledger s rozlíšením `Documented`, `Implemented`, `Runtime verified`, `User accepted`.
+- [x] `labs/README.md` ako authoritative index existujúcich a v1 flagship labov.
+- [x] Jednotný status ledger s rozlíšením `Documented`, `Implemented`, `Runtime verified`, `User accepted`.
 - [ ] Jeden orchestrátor pre offline/core checks z čistého checkoutu.
 - [ ] Permanent CI matrix pre ML, MLOps, LLM/RAG a agentické contracts.
 - [ ] Interné linky, package imports, schemas a generated manifests validované v CI.
