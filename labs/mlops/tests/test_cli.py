@@ -12,7 +12,9 @@ def test_module_entrypoint_exposes_help() -> None:
         text=True,
     )
     assert completed.returncode == 0, completed.stderr
-    assert "Deterministic lineage and promotion foundation" in completed.stdout
+    assert "Deterministic lineage, registry and promotion contracts" in completed.stdout
     assert "snapshot" in completed.stdout
     assert "candidate" in completed.stdout
     assert "promote" in completed.stdout
+    assert "registry-roundtrip" in completed.stdout
+    assert "registry-verify" in completed.stdout
