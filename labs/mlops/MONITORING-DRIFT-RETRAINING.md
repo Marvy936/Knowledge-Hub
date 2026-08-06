@@ -124,7 +124,8 @@ Control corpus musí zostať `stable`. Shift corpus musí pri rovnakých thresho
 Proposal vznikne iba z canonical a semantically valid drift reportu.
 
 - `drift_detected` → `approval_required`,
-- každý iný status → `blocked`.
+- každý iný podporovaný status → `blocked`,
+- neznámy `drift_status` → refusal.
 
 Proposal pinne:
 
@@ -135,7 +136,7 @@ Proposal pinne:
 - policy generation,
 - canonical `retraining_proposal_id`.
 
-Action a reason sa musia zhodovať s drift statusom. Nanovo zahashovaný proposal s vlastným action mappingom sa odmietne.
+Action a reason sa musia zhodovať s drift statusom. Nanovo zahashovaný proposal s vlastným action mappingom alebo neznámym statusom sa odmietne.
 
 ## Human approval
 
@@ -193,16 +194,16 @@ python labs/mlops/scripts/approve_retraining.py \
   --output labs/mlops/.runtime/retraining-approval.json
 ```
 
-Nesprávny proposal ID, iný drift report, upravený payload alebo blocked action skončia refusal bez approval outputu.
+Nesprávny proposal ID, iný drift report, upravený payload, neznámy drift status alebo blocked action skončia refusal bez approval outputu.
 
 ## Overená source hranica
 
 Izolovaná exact-source rekonštrukcia monitoring, drift a approval vrstvy prešla:
 
 - Python `compileall`,
-- **12/12 pytest cases**.
+- **13/13 pytest cases**.
 
-Testy pokrývajú stable control, reproducible shift, no-data, insufficient evidence, operational failure, exact approval, stale approval, canonical tampering, semantically invalid rehashed report/profile, forged proposal viazaný na iný report a executable driver lifecycle.
+Testy pokrývajú stable control, reproducible shift, no-data, insufficient evidence, operational failure, exact approval, stale approval, canonical tampering, semantically invalid rehashed report/profile, forged proposal viazaný na iný report, neznámy proposal `drift_status` a executable driver lifecycle.
 
 Predchádzajúci live-canary blok na `main` prešiel vlastnou 42-testovou source reconstruction. Celý repository runtime suite však nie je uzavretý, pretože GitHub Actions dispatch zostáva blokovaný issue #151.
 
