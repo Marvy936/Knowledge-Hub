@@ -16,12 +16,18 @@ from .contracts import (
 )
 from .lineage import build_evaluation_from_training_manifest
 from .registry import register_candidate, verify_registered_model
+from .serving import (
+    build_deployment_manifest,
+    build_rollback_state,
+    build_routing_state,
+    route_request,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="mlops-lab",
-        description="Deterministic lineage, registry and promotion contracts for the MLOps flagship lab.",
+        description="Deterministic lineage, registry, serving and promotion contracts for the MLOps flagship lab.",
     )
     commands = parser.add_subparsers(dest="command", required=True)
 
@@ -80,6 +86,47 @@ def _parser() -> argparse.ArgumentParser:
     registry_verify.add_argument("--sample-request", type=Path, required=True)
     registry_verify.add_argument("--tracking-uri")
 
+    deployment = commands.add_parser(
+        "deployment",
+        help="Bind a release, exact Registry version and image digest into one deployment subject",
+    )
+    deployment.add_argument("--release", type=Path, required=True)
+    deployment.add_argument("--registry-evidence", type=Path, required=True)
+    deployment.add_argument("--service-name", required=True)
+    deployment.add_argument("--generation", required=True)
+    deployment.add_argument("--image-reference", required=True)
+    deployment.add_argument("--image-digest", required=True)
+    deployment.add_argument("--output", type=Path, required=True)
+
+    routing_state = commands.add_parser(
+        "routing-state",
+        help="Create a compare-before-change stable/canary routing state",
+    )
+    routing_state.add_argument("--stable", type=Path, required=True)
+    routing_state.add_argument("--canary", type=Path)
+    routing_state.add_argument("--canary-basis-points", type=int, required=True)
+    routing_state.add_argument("--current-state", type=Path)
+    routing_state.add_argument("--expected-current-state-id", required=True)
+    routing_state.add_argument("--output", type=Path, required=True)
+
+    route = commands.add_parser(
+        "route",
+        help="Resolve one deterministic request assignment from an immutable routing state",
+    )
+    route.add_argument("--routing-state", type=Path, required=True)
+    route.add_argument("--stable", type=Path, required=True)
+    route.add_argument("--canary", type=Path)
+    route.add_argument("--routing-key", required=True)
+
+    rollback = commands.add_parser(
+        "rollback",
+        help="Restore an exact stable deployment without resolving a mutable Registry alias",
+    )
+    rollback.add_argument("--current-state", type=Path, required=True)
+    rollback.add_argument("--target-stable", type=Path, required=True)
+    rollback.add_argument("--expected-current-state-id", required=True)
+    rollback.add_argument("--output", type=Path, required=True)
+
     return parser
 
 
@@ -90,6 +137,11 @@ def _load_alias_state(path: Path) -> dict[str, object]:
     if state.get("schema_version") != 1:
         raise ContractError("alias state schema_version must equal 1")
     return state
+
+
+def _optional_state_id(value: str) -> str | None:
+    resolved = value.strip()
+    return None if resolved.lower() == "none" else resolved
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -179,12 +231,82 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "version": evidence["registry"]["version"],
                 "exact_uri": evidence["registry"]["exact_uri"],
             }
-        else:
+        elif args.command == "registry-verify":
             result = verify_registered_model(
                 evidence=read_json(args.evidence),
                 sample_request_path=args.sample_request,
                 tracking_uri=args.tracking_uri,
             )
+        elif args.command == "deployment":
+            deployment_manifest = build_deployment_manifest(
+                release=read_json(args.release),
+                registry_evidence=read_json(args.registry_evidence),
+                service_name=args.service_name,
+                generation=args.generation,
+                image_reference=args.image_reference,
+                image_digest=args.image_digest,
+            )
+            atomic_write_json(args.output, deployment_manifest)
+            result = {
+                "status": "deployment_subject_recorded",
+                "output": args.output.as_posix(),
+                "deployment_id": deployment_manifest["deployment_id"],
+                "generation": deployment_manifest["generation"],
+                "exact_uri": deployment_manifest["model"]["exact_uri"],
+                "image_digest": deployment_manifest["image"]["digest"],
+            }
+        elif args.command == "routing-state":
+            stable = read_json(args.stable)
+            canary = None if args.canary is None else read_json(args.canary)
+            current = (
+                None if args.current_state is None else read_json(args.current_state)
+            )
+            state = build_routing_state(
+                stable=stable,
+                canary=canary,
+                canary_basis_points=args.canary_basis_points,
+                current_state=current,
+                expected_current_state_id=_optional_state_id(
+                    args.expected_current_state_id
+                ),
+            )
+            atomic_write_json(args.output, state)
+            result = {
+                "status": "routing_state_recorded",
+                "output": args.output.as_posix(),
+                "routing_state_id": state["routing_state_id"],
+                "stable_deployment_id": state["stable_deployment_id"],
+                "canary_deployment_id": state["canary_deployment_id"],
+                "canary_basis_points": state["canary_basis_points"],
+            }
+        elif args.command == "route":
+            stable = read_json(args.stable)
+            deployments = {stable["deployment_id"]: stable}
+            if args.canary is not None:
+                canary = read_json(args.canary)
+                deployments[canary["deployment_id"]] = canary
+            result = {
+                "status": "request_routed",
+                **route_request(
+                    routing_state=read_json(args.routing_state),
+                    deployments=deployments,
+                    routing_key=args.routing_key,
+                ),
+            }
+        else:
+            state = build_rollback_state(
+                current_state=read_json(args.current_state),
+                target_stable=read_json(args.target_stable),
+                expected_current_state_id=args.expected_current_state_id,
+            )
+            atomic_write_json(args.output, state)
+            result = {
+                "status": "rollback_state_recorded",
+                "output": args.output.as_posix(),
+                "routing_state_id": state["routing_state_id"],
+                "stable_deployment_id": state["stable_deployment_id"],
+                "previous_routing_state_id": state["previous_routing_state_id"],
+            }
     except ContractError as exc:
         print(
             json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True),
