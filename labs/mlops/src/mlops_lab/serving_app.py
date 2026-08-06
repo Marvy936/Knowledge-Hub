@@ -9,6 +9,24 @@ from typing import Any, Callable, Literal, Mapping
 from .contracts import ContractError, read_json
 from .serving import validate_deployment_manifest
 
+try:
+    from pydantic import BaseModel, ConfigDict, Field
+except ImportError as exc:
+    raise ContractError("serving support requires Pydantic") from exc
+
+
+class PredictionRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    tenure_months: int = Field(ge=0, le=120)
+    monthly_spend_eur: float = Field(ge=5.0, le=250.0)
+    support_tickets_90d: int = Field(ge=0, le=30)
+    login_days_30d: int = Field(ge=0, le=30)
+    days_since_last_login: int = Field(ge=0, le=180)
+    contract_type: Literal["monthly", "annual", "two_year"]
+    region: Literal["west", "central", "east", "north"]
+    auto_pay: Literal["yes", "no"]
+
 
 @dataclass(frozen=True)
 class ServingRuntime:
@@ -128,21 +146,8 @@ def load_runtime_from_environment() -> ServingRuntime:
 def create_app(runtime: ServingRuntime | None = None):
     try:
         from fastapi import FastAPI, HTTPException
-        from pydantic import BaseModel, ConfigDict, Field
     except ImportError as exc:
-        raise ContractError("serving support requires FastAPI and Pydantic") from exc
-
-    class PredictionRequest(BaseModel):
-        model_config = ConfigDict(extra="forbid")
-
-        tenure_months: int = Field(ge=0, le=120)
-        monthly_spend_eur: float = Field(ge=5.0, le=250.0)
-        support_tickets_90d: int = Field(ge=0, le=30)
-        login_days_30d: int = Field(ge=0, le=30)
-        days_since_last_login: int = Field(ge=0, le=180)
-        contract_type: Literal["monthly", "annual", "two_year"]
-        region: Literal["west", "central", "east", "north"]
-        auto_pay: Literal["yes", "no"]
+        raise ContractError("serving support requires FastAPI") from exc
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
