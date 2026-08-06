@@ -99,11 +99,13 @@ Recovery rozlišuje tri stavy:
 - canonical response pre exact intent sa môže povýšiť na `registry-evidence.json` bez opakovania remote mutation,
 - už existujúci authoritative evidence umožní odstrániť zvyšný intent/response checkpoint a pokračovať.
 
-Canonical response pre iný candidate, source revision alebo model je známy neplatný výsledok, nie neznámy výsledok. Executor ho odmietne a explicitný recovery môže zopakovať registráciu požadovaného exact candidate subjectu.
+Canonical response pre iný candidate, source revision alebo model je známy neplatný výsledok, nie neznámy výsledok. Executor ho odmietne a explicitný recovery môže zopakovať registráciu požadovaného exact candidate subjectu. Response bez zodpovedajúceho intentu je orphaned evidence a vyžaduje explicitnú reconciliation.
 
 ## Concurrency
 
-Vedľa state súboru vzniká exclusive lock. Druhý súbežný executor sa odmietne. Lock nepredstavuje distributed coordination; contract je určený pre jeden authoritative local runner alebo pre externý orchestrátor, ktorý garantuje single-writer execution.
+Executor používa advisory OS lock nad persistentným lock súborom. Existencia súboru sama osebe neznamená, že operácia je zamknutá. Súbežný proces nezíska kernel lock a skončí refusal. Pri ukončení alebo páde procesu operačný systém lock uvoľní, takže nasledujúci recovery proces môže použiť ten istý lock path.
+
+Unix používa `flock`; Windows používa non-blocking `msvcrt.locking`. Ide o single-host coordination. Distributed execution stále vyžaduje externý authoritative single-writer mechanizmus.
 
 ## Training a lineage
 
@@ -173,9 +175,9 @@ Operation output sa nevymení za iný subject. Ak súbor už existuje, musí by�
 Izolovaný executor contract prešiel:
 
 - Python `compileall`,
-- **14/14 pytest cases**.
+- **16/16 pytest cases**.
 
-Testy pokrývajú canonical operation identity, nový dataset gate, full training→candidate→Registry→promotion flow s fake adapters, completed-operation replay bez side effects, explicit recovery, training checkpoint read-back, Registry checkpoint recovery, stale alias recovery, wrong Registry candidate, current-deployment mutation, completed-output tampering, CLI recovery-contract exposure, refusal automatického retry po neznámom Registry outcome a dokončenie operácie z checkpointed Registry response bez druhého remote callu.
+Testy pokrývajú canonical operation identity, nový dataset gate, full training→candidate→Registry→promotion flow s fake adapters, completed-operation replay bez side effects, explicit recovery, training checkpoint read-back, Registry checkpoint recovery, stale alias recovery, wrong Registry candidate, current-deployment mutation, completed-output tampering, CLI recovery-contract exposure, refusal automatického retry po neznámom Registry outcome, dokončenie operácie z checkpointed Registry response bez druhého remote callu, orphaned response refusal a advisory-lock concurrency/reacquisition.
 
 ## Neoverená hranica
 
