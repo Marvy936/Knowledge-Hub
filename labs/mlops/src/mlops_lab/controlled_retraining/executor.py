@@ -8,8 +8,10 @@ from ..contracts import (
     ContractError,
     atomic_write_json,
     build_candidate_manifest,
+    canonical_json_bytes,
     promote_candidate,
     read_json,
+    sha256_bytes,
     sha256_file,
 )
 from ..lineage import (
@@ -33,6 +35,61 @@ TrainAdapter = Callable[[Path, Path, int, str], Mapping[str, Any]]
 RegistryAdapter = Callable[
     [Mapping[str, Any], Path, Path, Mapping[str, str], Path], Mapping[str, Any]
 ]
+
+
+def _registry_intent_path(output_dir: Path) -> Path:
+    return output_dir / "registry-attempt.json"
+
+
+def _build_registry_intent(
+    operation: Mapping[str, Any], candidate: Mapping[str, Any]
+) -> dict[str, Any]:
+    payload = {
+        "schema_version": 1,
+        "operation_id": operation["operation_id"],
+        "candidate_id": candidate["candidate_id"],
+        "source_revision": candidate["source_revision"],
+        "model_sha256": candidate["model"]["sha256"],
+        "tracking_uri": operation["registry"]["tracking_uri"],
+        "model_name": operation["registry"]["model_name"],
+        "alias": operation["registry"]["alias"],
+    }
+    return {
+        **payload,
+        "registry_attempt_id": sha256_bytes(canonical_json_bytes(payload)),
+    }
+
+
+def _guard_registry_unknown_outcome(
+    *, operation: Mapping[str, Any], output_dir: Path
+) -> None:
+    intent_path = _registry_intent_path(output_dir)
+    if not intent_path.is_file():
+        return
+
+    intent = read_json(intent_path)
+    attempt_id = intent.get("registry_attempt_id")
+    payload = {
+        key: value
+        for key, value in intent.items()
+        if key != "registry_attempt_id"
+    }
+    if (
+        not isinstance(attempt_id, str)
+        or sha256_bytes(canonical_json_bytes(payload)) != attempt_id
+        or intent.get("operation_id") != operation["operation_id"]
+    ):
+        raise ContractError(
+            "Registry attempt intent is invalid or belongs to another operation"
+        )
+
+    evidence_path = output_dir / "registry-evidence.json"
+    if not evidence_path.is_file():
+        raise ContractError(
+            "Registry mutation outcome is unknown; external Registry read-back "
+            "and explicit reconciliation are required"
+        )
+    intent_path.unlink()
 
 
 def execute_controlled_retraining(
@@ -68,6 +125,11 @@ def execute_controlled_retraining(
     mutated_state = False
 
     try:
+        if not state_path.is_file():
+            _guard_registry_unknown_outcome(
+                operation=operation, output_dir=output_dir
+            )
+
         if state_path.is_file():
             current = read_json(state_path)
             validate_controlled_retraining_state(current)
@@ -90,6 +152,9 @@ def execute_controlled_retraining(
                 raise ContractError(
                     "incomplete retraining operation requires explicit recovery"
                 )
+            _guard_registry_unknown_outcome(
+                operation=operation, output_dir=output_dir
+            )
             current = reconcile_controlled_retraining(
                 operation=operation,
                 state_path=state_path,
@@ -185,6 +250,10 @@ def execute_controlled_retraining(
 
         if current["phase"] == "candidate_recorded":
             candidate = read_json(paths["candidate"])
+            intent_path = _registry_intent_path(output_dir)
+            atomic_write_json(
+                intent_path, _build_registry_intent(operation, candidate)
+            )
             registry_evidence = registry_adapter(
                 candidate,
                 paths["model"],
@@ -192,6 +261,7 @@ def execute_controlled_retraining(
                 operation["registry"],
                 paths["download_dir"],
             )
+            intent_path.unlink()
             validate_registry_evidence(registry_evidence)
             if registry_evidence["candidate_id"] != candidate["candidate_id"]:
                 raise ContractError(
