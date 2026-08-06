@@ -1,0 +1,104 @@
+name: Repository status documentation
+
+on:
+  pull_request:
+    paths:
+      - "README.md"
+      - "ROADMAP.md"
+      - "FUTURE-IDENTITY-AI-ROADMAP.md"
+      - "PRACTICAL-V1-ROADMAP.md"
+      - "DOCUMENTATION-REVIEW-STATUS.md"
+      - ".github/workflows/repository-status-docs.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "README.md"
+      - "ROADMAP.md"
+      - "FUTURE-IDENTITY-AI-ROADMAP.md"
+      - "PRACTICAL-V1-ROADMAP.md"
+      - "DOCUMENTATION-REVIEW-STATUS.md"
+      - ".github/workflows/repository-status-docs.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-status-docs-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate generated documentation state
+        run: |
+          python scripts/update_glossary.py --check
+          python scripts/update_navigation.py --check
+          python scripts/audit_learning_depth.py --all-docs
+
+      - name: Validate Practical v1 status contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("PRACTICAL-V1-ROADMAP.md")
+          text = path.read_text(encoding="utf-8")
+
+          required_sections = [
+              "## Stav",
+              "## Required for v1",
+              "## Hard v1 acceptance gates",
+              "## Post-v1 backlog",
+              "## Odporúčané implementačné poradie",
+          ]
+          missing = [heading for heading in required_sections if heading not in text]
+          if missing:
+              raise SystemExit(f"Missing Practical v1 headings: {missing}")
+
+          allowed_statuses = {
+              "Practical v1: In progress",
+              "Practical v1: Ready for user review",
+              "Practical v1: Complete",
+          }
+          present = [status for status in allowed_statuses if status in text]
+          if len(present) != 1:
+              raise SystemExit(
+                  f"Expected exactly one Practical v1 status, found: {present}"
+              )
+
+          required_block = text.split("## Required for v1", 1)[1].split(
+              "## Hard v1 acceptance gates", 1
+          )[0]
+          open_items = [
+              line.strip()
+              for line in required_block.splitlines()
+              if line.lstrip().startswith("- [ ] ")
+          ]
+          completed_items = [
+              line.strip()
+              for line in required_block.splitlines()
+              if line.lstrip().startswith("- [x] ")
+          ]
+          if not open_items and not completed_items:
+              raise SystemExit("Required for v1 contains no checklist items")
+          if present[0] == "Practical v1: Complete" and open_items:
+              raise SystemExit(
+                  "Practical v1 cannot be Complete while required gates remain open: "
+                  + repr(open_items)
+              )
+
+          print(
+              f"Practical v1 status valid: {present[0]}; "
+              f"completed={len(completed_items)}, open={len(open_items)}"
+          )
+          PY
