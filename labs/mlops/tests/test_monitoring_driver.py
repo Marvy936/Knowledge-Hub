@@ -13,7 +13,9 @@ def _record(index: int, *, shifted: bool) -> dict[str, object]:
         "support_tickets_90d": 8 + (index % 6) if shifted else index % 6,
         "login_days_30d": index % 8 if shifted else 8 + (index % 20),
         "days_since_last_login": 45 + (index % 25) if shifted else index % 25,
-        "contract_type": "monthly" if shifted else ("monthly", "annual", "two_year")[index % 3],
+        "contract_type": "monthly"
+        if shifted
+        else ("monthly", "annual", "two_year")[index % 3],
         "region": ("west", "central", "east", "north")[index % 4],
         "auto_pay": "no" if shifted else ("yes" if index % 2 == 0 else "no"),
     }
@@ -109,6 +111,8 @@ def test_monitoring_driver_requires_separate_exact_approval(tmp_path: Path) -> N
             str(approval_script),
             "--proposal",
             str(proposal_output),
+            "--drift-report",
+            str(drift_output),
             "--expected-proposal-id",
             "f" * 64,
             "--approver",
@@ -131,6 +135,8 @@ def test_monitoring_driver_requires_separate_exact_approval(tmp_path: Path) -> N
             str(approval_script),
             "--proposal",
             str(proposal_output),
+            "--drift-report",
+            str(drift_output),
             "--expected-proposal-id",
             proposal["retraining_proposal_id"],
             "--approver",
