@@ -14,6 +14,7 @@ def _parser() -> argparse.ArgumentParser:
         description="Authorize one exact retraining proposal without executing training."
     )
     parser.add_argument("--proposal", type=Path, required=True)
+    parser.add_argument("--drift-report", type=Path, required=True)
     parser.add_argument("--expected-proposal-id", required=True)
     parser.add_argument("--approver", required=True)
     parser.add_argument("--approval-generation", required=True)
@@ -26,6 +27,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         approval = approve_retraining(
             proposal=read_json(args.proposal),
+            drift_report=read_json(args.drift_report),
             expected_proposal_id=args.expected_proposal_id,
             approver=args.approver,
             approval_generation=args.approval_generation,
