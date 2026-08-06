@@ -25,7 +25,7 @@ Handoff vyžaduje state vo fáze `completed`. State musí patriť exact operatio
 - Registry evidence ID,
 - numeric Registry version.
 
-Neukončený, upravený alebo inej operácii patriaci state sa odmietne.
+Current deployment ID, candidate a model digest musia zároveň sedieť s pôvodným retraining operation subjectom. Release dataset a evaluation policy generation musia byť rovnaké ako v operation pláne. Neukončený, upravený alebo inej operácii patriaci state sa odmietne.
 
 ## Release a Registry väzba
 
@@ -33,7 +33,7 @@ Release musí:
 
 - používať candidate z completed state-u,
 - používať model digest z completed state-u,
-- používať source revision operation subjectu,
+- používať source revision, dataset a policy generation operation subjectu,
 - ukazovať `previous_candidate_id` na candidate aktuálneho deploymentu,
 - predstavovať nový candidate.
 
@@ -98,9 +98,9 @@ Refusal skončí exit code `2` a handoff output nevznikne.
 Izolovaná reconstruction prešla:
 
 - Python `compileall`,
-- **6/6 pytest cases**.
+- **7/7 pytest cases**.
 
-Testy pokrývajú pozitívny completed-operation handoff, exact numeric Registry version, neukončený state, release ktorý nenadväzuje na current candidate, existujúci canary, stale routing subject, canonical tampering a CLI subject exposure.
+Testy pokrývajú pozitívny completed-operation handoff, exact numeric Registry version, neukončený state, release ktorý nenadväzuje na current candidate, current deployment odlišný od operation subjectu, existujúci canary, stale routing subject, canonical tampering a CLI subject exposure.
 
 ## Neoverená hranica
 
