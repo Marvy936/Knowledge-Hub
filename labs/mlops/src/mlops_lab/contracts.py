@@ -64,6 +64,14 @@ def atomic_write_json(path: Path, value: Mapping[str, Any]) -> None:
             temporary.unlink()
 
 
+def _require_exact_keys(value: Mapping[str, Any], expected: set[str], field: str) -> None:
+    actual = set(value)
+    if actual != expected:
+        missing = sorted(expected - actual)
+        extra = sorted(actual - expected)
+        raise ContractError(f"{field} keys mismatch: missing={missing}, extra={extra}")
+
+
 def _require_nonempty_string(value: Any, field: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise ContractError(f"{field} must be a non-empty string")
@@ -97,11 +105,17 @@ def build_dataset_manifest(
 
 
 def validate_dataset_manifest(value: Mapping[str, Any]) -> None:
+    _require_exact_keys(value, {"schema_version", "subject"}, "dataset manifest")
     if value.get("schema_version") != 1:
         raise ContractError("dataset manifest schema_version must equal 1")
     subject = value.get("subject")
     if not isinstance(subject, dict):
         raise ContractError("dataset manifest subject must be an object")
+    _require_exact_keys(
+        subject,
+        {"dataset_name", "generation", "path", "size_bytes", "sha256"},
+        "dataset manifest subject",
+    )
     _require_nonempty_string(subject.get("dataset_name"), "subject.dataset_name")
     _require_nonempty_string(subject.get("generation"), "subject.generation")
     _require_nonempty_string(subject.get("path"), "subject.path")
@@ -111,10 +125,11 @@ def validate_dataset_manifest(value: Mapping[str, Any]) -> None:
 
 
 def validate_evaluation_bundle(value: Mapping[str, Any]) -> None:
-    if set(value) != {"accepted", "metrics", "policy_generation"}:
-        raise ContractError(
-            "evaluation bundle must contain exactly accepted, metrics and policy_generation"
-        )
+    _require_exact_keys(
+        value,
+        {"accepted", "metrics", "policy_generation"},
+        "evaluation bundle",
+    )
     if not isinstance(value["accepted"], bool):
         raise ContractError("evaluation.accepted must be boolean")
     _require_nonempty_string(value["policy_generation"], "evaluation.policy_generation")
@@ -149,7 +164,6 @@ def build_candidate_manifest(
             "sha256": dataset_manifest["subject"]["sha256"],
         },
         "model": {
-            "path": model_path.as_posix(),
             "size_bytes": model_path.stat().st_size,
             "sha256": sha256_file(model_path),
         },
@@ -165,23 +179,58 @@ def build_candidate_manifest(
 
 
 def validate_candidate_manifest(value: Mapping[str, Any]) -> None:
+    _require_exact_keys(
+        value,
+        {
+            "schema_version",
+            "dataset",
+            "model",
+            "evaluation",
+            "source_revision",
+            "candidate_id",
+        },
+        "candidate manifest",
+    )
     candidate_id = _require_sha256(value.get("candidate_id"), "candidate_id")
     payload = {key: item for key, item in value.items() if key != "candidate_id"}
     if sha256_bytes(canonical_json_bytes(payload)) != candidate_id:
         raise ContractError("candidate_id does not match canonical candidate payload")
     if value.get("schema_version") != 1:
         raise ContractError("candidate schema_version must equal 1")
+
     dataset = value.get("dataset")
     model = value.get("model")
     evaluation = value.get("evaluation")
     if not isinstance(dataset, dict) or not isinstance(model, dict) or not isinstance(evaluation, dict):
         raise ContractError("candidate dataset, model and evaluation must be objects")
+
+    _require_exact_keys(dataset, {"name", "generation", "sha256"}, "candidate dataset")
+    _require_nonempty_string(dataset.get("name"), "dataset.name")
+    _require_nonempty_string(dataset.get("generation"), "dataset.generation")
     _require_sha256(dataset.get("sha256"), "dataset.sha256")
+
+    _require_exact_keys(model, {"size_bytes", "sha256"}, "candidate model")
+    if not isinstance(model.get("size_bytes"), int) or model["size_bytes"] < 0:
+        raise ContractError("model.size_bytes must be a non-negative integer")
     _require_sha256(model.get("sha256"), "model.sha256")
-    _require_sha256(evaluation.get("sha256"), "evaluation.sha256")
+
+    _require_exact_keys(
+        evaluation,
+        {"accepted", "metrics", "policy_generation", "sha256"},
+        "candidate evaluation",
+    )
+    evaluation_payload = {
+        "accepted": evaluation.get("accepted"),
+        "metrics": evaluation.get("metrics"),
+        "policy_generation": evaluation.get("policy_generation"),
+    }
+    validate_evaluation_bundle(evaluation_payload)
+    evaluation_sha256 = _require_sha256(evaluation.get("sha256"), "evaluation.sha256")
+    if sha256_bytes(canonical_json_bytes(evaluation_payload)) != evaluation_sha256:
+        raise ContractError("evaluation.sha256 does not match canonical evaluation payload")
     if evaluation.get("accepted") is not True:
         raise ContractError("candidate evaluation is not accepted")
-    _require_nonempty_string(evaluation.get("policy_generation"), "evaluation.policy_generation")
+
     _require_nonempty_string(value.get("source_revision"), "source_revision")
 
 
@@ -193,11 +242,16 @@ def promote_candidate(
     expected_current: str | None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     validate_candidate_manifest(candidate)
+    _require_exact_keys(alias_state, {"schema_version", "aliases"}, "alias state")
+    if alias_state.get("schema_version") != 1:
+        raise ContractError("alias state schema_version must equal 1")
     resolved_alias = _require_nonempty_string(alias, "alias")
-    aliases = alias_state.get("aliases", {})
+    aliases = alias_state.get("aliases")
     if not isinstance(aliases, dict):
         raise ContractError("alias state aliases must be an object")
 
+    if expected_current is not None:
+        expected_current = _require_sha256(expected_current, "expected_current")
     actual_current = aliases.get(resolved_alias)
     if actual_current is not None:
         _require_sha256(actual_current, f"aliases.{resolved_alias}")
