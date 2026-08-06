@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import os
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
@@ -19,9 +18,9 @@ from ..lineage import (
     validate_training_manifest,
 )
 from ..registry import validate_registry_evidence
+from .locking import acquire_operation_lock, release_operation_lock
 from .operation import validate_operation_inputs
 from .state import (
-    _acquire_lock,
     _build_state,
     _paths,
     _readback_checkpoint,
@@ -79,7 +78,12 @@ def _guard_registry_unknown_outcome(
     *, operation: Mapping[str, Any], output_dir: Path
 ) -> None:
     intent_path = _registry_intent_path(output_dir)
+    response_path = _registry_response_path(output_dir)
     if not intent_path.is_file():
+        if response_path.is_file():
+            raise ContractError(
+                "orphaned Registry response requires explicit reconciliation"
+            )
         return
 
     intent = read_json(intent_path)
@@ -99,7 +103,6 @@ def _guard_registry_unknown_outcome(
         )
 
     evidence_path = output_dir / "registry-evidence.json"
-    response_path = _registry_response_path(output_dir)
     if evidence_path.is_file():
         response_path.unlink(missing_ok=True)
         intent_path.unlink()
@@ -148,7 +151,7 @@ def execute_controlled_retraining(
     output_dir.mkdir(parents=True, exist_ok=True)
     paths = _paths(output_dir)
     lock_path = state_path.with_suffix(state_path.suffix + ".lock")
-    descriptor = _acquire_lock(lock_path)
+    descriptor = acquire_operation_lock(lock_path)
     current: dict[str, Any] | None = None
     mutated_state = False
 
@@ -377,8 +380,4 @@ def execute_controlled_retraining(
                 pass
         raise
     finally:
-        os.close(descriptor)
-        try:
-            lock_path.unlink()
-        except FileNotFoundError:
-            pass
+        release_operation_lock(descriptor)
