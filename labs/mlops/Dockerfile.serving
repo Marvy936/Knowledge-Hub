@@ -8,8 +8,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-COPY labs/machine-learning /opt/knowledge-hub/machine-learning
-COPY labs/mlops /opt/knowledge-hub/mlops
+COPY labs/machine-learning/pyproject.toml /opt/knowledge-hub/machine-learning/pyproject.toml
+COPY labs/machine-learning/README.md /opt/knowledge-hub/machine-learning/README.md
+COPY labs/machine-learning/src /opt/knowledge-hub/machine-learning/src
+COPY labs/mlops/pyproject.toml /opt/knowledge-hub/mlops/pyproject.toml
+COPY labs/mlops/README.md /opt/knowledge-hub/mlops/README.md
+COPY labs/mlops/src /opt/knowledge-hub/mlops/src
 
 RUN python -m pip install --no-cache-dir --upgrade pip \
     && python -m pip install --no-cache-dir \
