@@ -2,7 +2,7 @@
 
 > **Evidence status: Pending**
 
-Tento dokument je authoritative runtime evidence summary pre praktický MLOps lifecycle. Stav `Pending` znamená, že source, contracts a tests sú pripravené, ale repository zatiaľ nemá úspešný authoritative post-merge GitHub run viazaný na aktuálny implementation merge commit. Dokument sa nesmie interpretovať ako `Runtime verified`.
+Tento dokument je authoritative runtime evidence summary pre praktický MLOps lifecycle. Stav `Pending` znamená, že source, contracts a tests sú pripravené, ale repository zatiaľ nemá úspešný authoritative post-merge GitHub run viazaný na aktuálny validation subject. Dokument sa nesmie interpretovať ako `Runtime verified`.
 
 ## Evidence layers
 
@@ -21,9 +21,14 @@ Zelený výsledok jednej vrstvy automaticky nepreukazuje ďalšiu. Registry evid
 
 ## Authoritative execution subject
 
-Permanentný workflow `.github/workflows/mlops-lab.yml` je uložený na `main`. Pull-request runtime používa trusted workflow z base vetvy, checkoutne exact head SHA a spustí iba branch z rovnakého repozitára na Linux X64 self-hosted runneri.
+Repository obsahuje dva oddelené runtime paths:
 
-Runtime job má `contents: read`, neukladá Git credentials a používa isolated virtual environment a runtime directory pod `runner.temp`. Samostatný push-only status publisher má iba `statuses: write`, nevykonáva checkout a nespúšťa feature-branch kód.
+- `.github/workflows/mlops-lab.yml` používa Linux X64 self-hosted runner pre foundation a Registry checks,
+- `.github/workflows/mlops-registry-hosted.yml` používa GitHub-hosted `ubuntu-latest` pre nezávislý Registry, artifact a restart round-trip.
+
+Oba pull-request paths používajú trusted workflow z base vetvy, exact subject SHA, branch z rovnakého repozitára, `contents: read` a checkout bez persisted Git credentials. Disposable virtual environment a runtime state sú uložené pod `runner.temp`.
+
+Každý push-only status publisher vykonáva samostatný no-checkout job s jedinou write permission `statuses: write`. Feature-branch kód preto nedostáva write token. Hosted workflow bol bootstrapnutý na `main`; tento dokumentačný merge je samostatný `labs/mlops/**` trigger, pri ktorom workflow už existuje v parent revision. Evidence zostáva `Pending`, kým connector-readable statusy nepotvrdia výsledok exact merge commit-u.
 
 ## Required foundation evidence
 
