@@ -14,12 +14,13 @@ from .contracts import (
     promote_candidate,
     read_json,
 )
+from .registry import register_candidate, verify_registered_model
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="mlops-lab",
-        description="Deterministic lineage and promotion foundation for the MLOps flagship lab.",
+        description="Deterministic lineage, registry and promotion contracts for the MLOps flagship lab.",
     )
     commands = parser.add_subparsers(dest="command", required=True)
 
@@ -42,6 +43,28 @@ def _parser() -> argparse.ArgumentParser:
     promote.add_argument("--alias", required=True)
     promote.add_argument("--expected-current", required=True)
     promote.add_argument("--release-output", type=Path, required=True)
+
+    registry_roundtrip = commands.add_parser(
+        "registry-roundtrip",
+        help="Register a candidate in MLflow and prove metadata, artifact and model read-back",
+    )
+    registry_roundtrip.add_argument("--candidate", type=Path, required=True)
+    registry_roundtrip.add_argument("--model", type=Path, required=True)
+    registry_roundtrip.add_argument("--sample-request", type=Path, required=True)
+    registry_roundtrip.add_argument("--tracking-uri", required=True)
+    registry_roundtrip.add_argument("--experiment-name", required=True)
+    registry_roundtrip.add_argument("--model-name", required=True)
+    registry_roundtrip.add_argument("--alias", required=True)
+    registry_roundtrip.add_argument("--download-dir", type=Path, required=True)
+    registry_roundtrip.add_argument("--output", type=Path, required=True)
+
+    registry_verify = commands.add_parser(
+        "registry-verify",
+        help="Load the exact registered model version and verify recorded prediction parity",
+    )
+    registry_verify.add_argument("--evidence", type=Path, required=True)
+    registry_verify.add_argument("--sample-request", type=Path, required=True)
+    registry_verify.add_argument("--tracking-uri")
 
     return parser
 
@@ -84,9 +107,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "candidate_id": manifest["candidate_id"],
                 "accepted": manifest["evaluation"]["accepted"],
             }
-        else:
+        elif args.command == "promote":
             expected_current = (
-                None if args.expected_current.strip().lower() == "none" else args.expected_current.strip()
+                None
+                if args.expected_current.strip().lower() == "none"
+                else args.expected_current.strip()
             )
             alias_state = _load_alias_state(args.alias_state)
             release, next_state = promote_candidate(
@@ -103,8 +128,38 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "candidate_id": release["candidate_id"],
                 "release_id": release["release_id"],
             }
+        elif args.command == "registry-roundtrip":
+            evidence = register_candidate(
+                candidate=read_json(args.candidate),
+                model_path=args.model,
+                sample_request_path=args.sample_request,
+                tracking_uri=args.tracking_uri,
+                experiment_name=args.experiment_name,
+                model_name=args.model_name,
+                alias=args.alias,
+                download_dir=args.download_dir,
+            )
+            atomic_write_json(args.output, evidence)
+            result = {
+                "status": "registry_roundtrip_verified",
+                "output": args.output.as_posix(),
+                "registry_evidence_id": evidence["registry_evidence_id"],
+                "run_id": evidence["run_id"],
+                "model_name": evidence["registry"]["name"],
+                "version": evidence["registry"]["version"],
+                "exact_uri": evidence["registry"]["exact_uri"],
+            }
+        else:
+            result = verify_registered_model(
+                evidence=read_json(args.evidence),
+                sample_request_path=args.sample_request,
+                tracking_uri=args.tracking_uri,
+            )
     except ContractError as exc:
-        print(json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True), file=sys.stderr)
+        print(
+            json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True),
+            file=sys.stderr,
+        )
         return 2
 
     print(json.dumps(result, sort_keys=True))

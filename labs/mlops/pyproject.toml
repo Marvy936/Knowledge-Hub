@@ -4,13 +4,19 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "knowledge-hub-mlops-flagship-lab"
-version = "0.1.0"
-description = "Deterministic lineage and promotion foundation for the Knowledge Hub MLOps flagship"
+version = "0.2.0"
+description = "Deterministic lineage, registry and promotion contracts for the Knowledge Hub MLOps flagship"
 readme = "README.md"
 requires-python = ">=3.12,<3.15"
 dependencies = []
 
 [project.optional-dependencies]
+registry = [
+  "joblib>=1.5,<2",
+  "mlflow==3.14.0",
+  "pandas>=2.2,<3.1",
+  "scikit-learn>=1.8,<1.10",
+]
 dev = [
   "pytest>=8,<10",
 ]
