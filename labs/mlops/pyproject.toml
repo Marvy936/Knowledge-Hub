@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "knowledge-hub-mlops-flagship-lab"
-version = "0.6.0"
-description = "Deterministic lineage, registry, serving, monitoring and retraining-approval contracts for the Knowledge Hub MLOps flagship"
+version = "0.7.0"
+description = "Deterministic lineage, registry, serving, monitoring and controlled retraining contracts for the Knowledge Hub MLOps flagship"
 readme = "README.md"
 requires-python = ">=3.12,<3.15"
 dependencies = []
