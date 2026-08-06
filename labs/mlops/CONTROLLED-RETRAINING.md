@@ -80,7 +80,7 @@ Artifact identities zahŕňajú training-manifest file digest, model SHA-256, ev
 
 Ak state už existuje, executor ho najprv prečíta.
 
-- `completed` sa iba znovu overí; training, Registry ani promotion sa neopakujú.
+- `completed` sa iba znovu overí; training, Registry ani promotion sa neopakujú,
 - neukončený state bez explicitného expected state ID sa odmietne,
 - recovery vyžaduje exact current state ID,
 - stale recovery subject sa odmietne bez zmeny state-u,
@@ -88,6 +88,18 @@ Ak state už existuje, executor ho najprv prečíta.
 - partial alebo orphaned outputs, ktoré nemožno jednoznačne priradiť, vyžadujú manual reconciliation.
 
 Ak pád nastal po hotovom trainingu, recovery validuje manifest, dataset, model bytes a source revision a pokračuje z `training_completed`. Ak Registry evidence už existuje a sedí s candidate/model/source subjectom, Registry side effect sa neopakuje.
+
+## Registry unknown outcome
+
+Pred remote Registry callom executor atomicky zapíše `registry-attempt.json`, ktorý pinne operation, candidate, source revision, model SHA-256 a Registry target. Bezprostredne po návrate adaptera zapíše `registry-response.json` ešte pred lokálnou semantic validáciou.
+
+Recovery rozlišuje tri stavy:
+
+- intent bez response a bez evidence znamená `Unknown outcome`; automatický retry je zakázaný,
+- canonical response pre exact intent sa môže povýšiť na `registry-evidence.json` bez opakovania remote mutation,
+- už existujúci authoritative evidence umožní odstrániť zvyšný intent/response checkpoint a pokračovať.
+
+Canonical response pre iný candidate, source revision alebo model je známy neplatný výsledok, nie neznámy výsledok. Executor ho odmietne a explicitný recovery môže zopakovať registráciu požadovaného exact candidate subjectu.
 
 ## Concurrency
 
@@ -161,9 +173,9 @@ Operation output sa nevymení za iný subject. Ak súbor už existuje, musí by�
 Izolovaný executor contract prešiel:
 
 - Python `compileall`,
-- **12/12 pytest cases**.
+- **13/13 pytest cases**.
 
-Testy pokrývajú canonical operation identity, nový dataset gate, full training→candidate→Registry→promotion flow s fake adapters, completed-operation replay bez side effects, explicit recovery, training checkpoint read-back, Registry checkpoint recovery, stale alias recovery, wrong Registry candidate, current-deployment mutation, completed-output tampering a CLI recovery-contract exposure.
+Testy pokrývajú canonical operation identity, nový dataset gate, full training→candidate→Registry→promotion flow s fake adapters, completed-operation replay bez side effects, explicit recovery, training checkpoint read-back, Registry checkpoint recovery, stale alias recovery, wrong Registry candidate, current-deployment mutation, completed-output tampering, CLI recovery-contract exposure a refusal automatického retry po neznámom Registry outcome.
 
 ## Neoverená hranica
 
@@ -172,7 +184,7 @@ Táto source vrstva ešte nepreukazuje:
 - live deterministic ML training v rovnakom rune,
 - živý MLflow server a nový numeric Registry version,
 - actual second-operation replay po process restart-e,
-- crash počas remote Registry mutation,
+- external Registry query na reconciliation unknown outcome,
 - distributed locking,
 - external approval identity,
 - container build alebo deployment novej generácie,
