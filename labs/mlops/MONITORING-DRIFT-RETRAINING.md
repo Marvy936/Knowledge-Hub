@@ -1,66 +1,74 @@
 # Monitoring, drift a approval-gated retraining
 
-Táto vrstva vytvára deterministic monitoring a decision contracts nad serving evidence. Neimplementuje production telemetry backend ani samotný retraining job. Jej cieľom je zabrániť trom častým chybám:
+Táto vrstva vytvára deterministic monitoring a decision contracts nad serving evidence. Neimplementuje production telemetry backend ani samotný retraining job. Zabraňuje trom chybným skratkám:
 
-1. chýbajúce dáta sú interpretované ako zdravý stav,
-2. operational failure je nesprávne interpretovaný ako data drift,
-3. drift signal automaticky spustí training bez exact approval subjectu.
+1. chýbajúce dáta sa nesmú interpretovať ako zdravý stav,
+2. operational failure sa nesmie interpretovať ako data drift,
+3. drift signal nesmie automaticky spustiť training bez exact approval subjectu.
 
 ```text
 baseline events
 → aggregate baseline profile
 → deployment monitoring window
-→ drift comparison
+→ semantically validated drift report
 → stable / no-data / insufficient / operational-failure / drift-detected
 → canonical retraining proposal
-→ exact human approval
+→ proposal + exact drift report + human approval
 → budúci controlled retraining operation
 ```
 
-## Event contract
+## Event a privacy boundary
 
-Jeden monitoring event obsahuje:
+Jeden vstupný event obsahuje exact feature record, `success`, observed `latency_ms` a pri úspechu prediction s probability. Failed event musí mať prediction a probability nastavené na `null`.
 
-- exact feature record,
-- `success`,
-- observed `latency_ms`,
-- prediction a probability pri úspechu,
-- `null` prediction/probability pri failure.
-
-Feature record používa rovnakých osem vstupov ako Machine Learning a serving contract:
-
-- päť numeric features,
-- `contract_type`,
-- `region`,
-- `auto_pay`.
-
-Event corpus je dôveryhodný vstup do aggregate buildera. Baseline ani monitoring window neukladajú raw recordy. Ukladajú iba counts, feature distributions, latency, error rate a prediction aggregates. Source event log môže mať vlastný retention a access policy mimo tohto labu.
+Baseline ani monitoring window neukladajú raw recordy. Ukladajú len counts, feature distributions, latency, error rate a prediction aggregates. Source event log môže mať vlastný retention, redaction a access policy mimo tohto labu.
 
 ## Baseline profile
 
-Baseline musí obsahovať aspoň jeden úspešný event a nesmie obsahovať failed outcomes. Profile obsahuje:
+Baseline vyžaduje aspoň jeden úspešný event a nesmie obsahovať failed outcome. Obsahuje:
 
 - profile name a generation,
 - total/success/failure counts,
 - error rate a explicitný `no_data`,
 - latency minimum, average, p95 a maximum,
-- positive prediction rate a average probability,
+- positive prediction rate a priemernú probability,
 - numeric quantile boundaries, proportions, mean, minimum a maximum,
 - categorical categories, proportions a `other_proportion`,
 - canonical `baseline_profile_id`.
 
-Numeric boundaries sa vytvoria iba z baseline-u. Monitoring window používa tie isté boundaries; nesmie si vytvoriť nové bins, pretože tým by sa zmenil porovnávací subject.
+Numeric boundaries vzniknú iba z baseline-u. Monitoring window používa tie isté boundaries. Vytvorenie nových bins vo window by zmenilo porovnávací subject a znehodnotilo PSI.
 
 ## Monitoring window
 
-Window je viazané na:
+Window je viazané na exact `baseline_profile_id` a `deployment_id`. Môže obsahovať úspešné aj neúspešné events.
 
-- exact `baseline_profile_id`,
-- exact `deployment_id`.
+Ak nemá žiadny event:
 
-Window môže obsahovať úspešné aj neúspešné events. Ak neobsahuje žiadny event, `no_data=true`, latency je `null` a prediction aggregates sú `null`. Tento stav je explicitne otvorený; nie je healthy.
+- `no_data=true`,
+- latency hodnoty sú `null`,
+- prediction aggregates sú `null`,
+- feature distributions majú nulové proportions.
 
-Window ukladá canonical `monitoring_window_id`. Zmena countu, error rate-u, distribution alebo deployment subjectu bez nového ID je tampering a validácia ju odmietne.
+Tento stav je otvorený, nie healthy.
+
+## Semantic validation
+
+Canonical SHA-256 sám o sebe dokazuje iba nemennosť payloadu. Nedokazuje, že payload dáva zmysel. Preto validátory pred rozhodnutím kontrolujú aj:
+
+- exact top-level a nested keys,
+- event-count rovnice,
+- `error_rate = failed / total`,
+- konzistenciu `no_data`,
+- latency a prediction nullability,
+- feature profile keys,
+- count každej feature distribution voči `successful_events`,
+- strictly increasing numeric boundaries,
+- počet histogram bins,
+- súčet numeric proportions,
+- categorical categories, proportions a `other` bucket,
+- canonical ID až po sémantickej validácii.
+
+Nanovo zahashovaný, ale sémanticky neplatný profile alebo window sa preto odmietne.
 
 ## Drift metriky
 
@@ -70,11 +78,9 @@ Numeric features používajú Population Stability Index nad baseline bins:
 PSI = Σ (actual - expected) × ln((actual + ε) / (expected + ε))
 ```
 
-Categorical features používajú total variation distance nad baseline categories a samostatným `other` bucketom.
+Categorical features používajú total variation distance nad baseline categories a samostatným `other` bucketom. Prediction layer porovnáva absolute delta positive prediction rate. Operational layer používa observed error rate.
 
-Prediction layer porovnáva absolute delta positive prediction rate. Operational layer používa observed error rate.
-
-Thresholdy sú explicitné vstupy drift reportu:
+Thresholdy sú explicitné súčasti reportu:
 
 - numeric PSI,
 - categorical TVD,
@@ -82,34 +88,40 @@ Thresholdy sú explicitné vstupy drift reportu:
 - maximum error rate,
 - minimum successful events.
 
-## Status precedence
+## Drift report a status precedence
 
-Drift report má presne jeden stav:
+Report obsahuje exact baseline, window a deployment IDs, per-feature scores, thresholdy, exceeded feature lists a observed:
 
-| Stav | Význam |
+- total events,
+- successful events,
+- failed events,
+- `no_data`,
+- error rate.
+
+Tieto observed polia umožňujú validátoru deterministicky prepočítať status:
+
+| Stav | Podmienka |
 |---|---|
 | `no_data` | Window nemá events. |
-| `insufficient_evidence` | Úspešných events je menej než minimum. |
+| `insufficient_evidence` | Successful events sú pod minimom. |
 | `operational_failure` | Error rate prekročil operational threshold. |
-| `drift_detected` | Evidence volume je dostatočný a drift signal prekročil threshold. |
+| `drift_detected` | Evidence volume je dostatočný a drift gate bol prekročený. |
 | `stable` | Evidence je dostatočný a žiadny gate nebol prekročený. |
 
-Precedence je zámerná. Vysoký error rate nie je automaticky training signal. Najprv treba vyriešiť serving, dependency, network alebo telemetry failure.
-
-Drift report obsahuje exact baseline/window/deployment IDs, thresholds, per-feature PSI/TVD, exceeded feature names, prediction delta, observed error rate a canonical `drift_report_id`.
+Validátor znovu vypočíta exceeded lists a status. Preto nestačí zmeniť `status` na `drift_detected` a vytvoriť nový hash.
 
 ## Reproducible drift injection
 
-`inject_drift` má dva režimy:
+`inject_drift` podporuje:
 
 - `control` — exact copy bez zmeny,
-- `shift` — deterministic zmena spend, support tickets, login activity, contract a autopay distribution.
+- `shift` — deterministic zmenu spend, support tickets, login activity, contract a autopay distribution.
 
-Control dataset musí zostať `stable`. Shift dataset musí vytvoriť reproducible drift signals pri rovnakých thresholds. Injection je testovací mechanizmus; nepredstavuje production data generator.
+Control corpus musí zostať `stable`. Shift corpus musí pri rovnakých thresholdoch vytvoriť reprodukovateľný drift signal. Injection je testovací mechanizmus, nie production data generator.
 
 ## Retraining proposal
 
-Proposal sa vytvorí iba z canonical-valid drift reportu.
+Proposal vznikne iba z canonical a semantically valid drift reportu.
 
 - `drift_detected` → `approval_required`,
 - každý iný status → `blocked`.
@@ -117,31 +129,27 @@ Proposal sa vytvorí iba z canonical-valid drift reportu.
 Proposal pinne:
 
 - exact `drift_report_id`,
+- `drift_status`,
 - exact `deployment_id`,
 - current model SHA-256,
 - policy generation,
 - canonical `retraining_proposal_id`.
 
-Upravený drift status s pôvodným report ID sa odmietne. Operational failure, no-data, insufficient evidence a stable window nemôžu byť schválené na retraining.
+Action a reason sa musia zhodovať s drift statusom. Nanovo zahashovaný proposal s vlastným action mappingom sa odmietne.
 
 ## Human approval
 
-Approval vyžaduje:
+Approval vyžaduje súčasne:
 
 - canonical proposal,
+- exact canonical drift report,
 - exact expected proposal ID,
 - approvera,
 - approval generation.
 
-Výstup pinne proposal, drift report, deployment, model SHA, policy generation a authorized action `start_controlled_retraining`. Canonical `retraining_approval_id` sa zmení pri každej zmene subjectu alebo approval generation.
+Approval path znovu overí, že proposal patrí danému reportu, má rovnaký drift status a deployment a bol z reportu deterministicky odvodený. Výstup pinne `drift_detected` a authorized action `start_controlled_retraining`.
 
-Approval neštartuje training. Je to authorization artifact pre budúci executor. Executor musí ešte overiť:
-
-- approval ID a payload,
-- že current deployment/model stále zodpovedá proposal subjectu,
-- operation ID a read-before-retry state,
-- exact training dataset generation,
-- výsledný candidate/version read-back.
+Approval neštartuje training. Je to authorization artifact pre budúci executor. Executor musí ešte overiť current deployment/model, operation ID, read-before-retry state, exact training dataset generation a výsledný candidate/Registry read-back.
 
 ## Executable monitoring driver
 
@@ -178,43 +186,28 @@ Exit codes:
 ```bash
 python labs/mlops/scripts/approve_retraining.py \
   --proposal labs/mlops/.runtime/retraining-proposal.json \
+  --drift-report labs/mlops/.runtime/drift.json \
   --expected-proposal-id <exact-proposal-id> \
   --approver ml-platform-owner \
   --approval-generation approval-2026-08-06 \
   --output labs/mlops/.runtime/retraining-approval.json
 ```
 
-Nesprávny proposal ID, upravený proposal alebo blocked action skončia refusal bez approval outputu.
+Nesprávny proposal ID, iný drift report, upravený payload alebo blocked action skončia refusal bez approval outputu.
 
-## Testovaná hranica
+## Overená source hranica
 
-Exact-source tests pokrývajú:
+Izolovaná exact-source rekonštrukcia monitoring, drift a approval vrstvy prešla:
 
-- stable control window,
-- reproducible shifted window,
-- no-data,
-- insufficient evidence,
-- operational failure oddelený od driftu,
-- proposal blocked pre nedriftové stavy,
-- exact approval pre drift,
-- stale proposal refusal,
-- tampered drift-report refusal,
-- tampered proposal refusal,
-- baseline/window tampering,
-- executable monitoring a approval lifecycle.
+- Python `compileall`,
+- **12/12 pytest cases**.
+
+Testy pokrývajú stable control, reproducible shift, no-data, insufficient evidence, operational failure, exact approval, stale approval, canonical tampering, semantically invalid rehashed report/profile, forged proposal viazaný na iný report a executable driver lifecycle.
+
+Predchádzajúci live-canary blok na `main` prešiel vlastnou 42-testovou source reconstruction. Celý repository runtime suite však nie je uzavretý, pretože GitHub Actions dispatch zostáva blokovaný issue #151.
 
 ## Neoverená hranica
 
-Tento blok nepreukazuje:
-
-- production telemetry collection,
-- online feature store alebo streaming aggregation,
-- reálny drift počas času,
-- label/concept drift,
-- alert delivery,
-- schválenie cez externý identity/approval systém,
-- samotný retraining execution,
-- nový candidate, Registry version alebo serving promotion,
-- business outcome.
+Tento blok nepreukazuje production telemetry collection, reálny časový drift, label/concept drift, alert delivery, externý identity/approval systém, samotný retraining execution, nový candidate alebo Registry version ani business outcome.
 
 Practical v1 monitoring, drift a controlled retraining checkbox zostáva otvorený do live evidence a schváleného end-to-end retraining runu.
