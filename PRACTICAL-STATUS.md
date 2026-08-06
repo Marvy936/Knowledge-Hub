@@ -23,7 +23,7 @@ Stavy sa nededia automaticky. `Runtime verified` nie je production readiness a `
 | MLOps training lineage | Áno | Áno — evaluation odvodená z exact ML training manifestu | Nie — 21/21 exact-source tests nie sú live workflow evidence | Nie | [`labs/mlops/TRAINING-LINEAGE.md`](labs/mlops/TRAINING-LINEAGE.md) |
 | MLOps Tracking/Registry a artifact read-back | Áno | Áno — MLflow server, SQLite Registry, artifact checksum a exact-version contracts | Nie — Actions dispatch blocker #151 | Nie | [`labs/mlops/RUNTIME-EVIDENCE.md`](labs/mlops/RUNTIME-EVIDENCE.md) |
 | MLOps serving, canary a rollback | Áno | Čiastočne — immutable deployment, FastAPI serving source, deterministic routing, dve loopback Uvicorn generácie, canary evidence a exact rollback state | Nie — bez actual OCI build/digest, container artifact mount, platform traffic read-back a kvôli blockeru #151 | Nie | [`labs/mlops/LIVE-CANARY.md`](labs/mlops/LIVE-CANARY.md) |
-| MLOps monitoring, drift a retraining | Áno | Čiastočne — aggregate monitoring, semantic drift report, retraining proposal a exact human approval; retraining executor ešte chýba | Nie — 13/13 izolovaných testov nie je production telemetry ani workflow evidence | Nie | [`labs/mlops/MONITORING-DRIFT-RETRAINING.md`](labs/mlops/MONITORING-DRIFT-RETRAINING.md) |
+| MLOps monitoring, drift a retraining | Áno | Áno — aggregate monitoring, semantic drift report, exact human approval a approval-bound controlled executor s durable checkpoint/recovery contractom | Nie — 16/16 izolovaných executor testov nie je live MLflow retraining ani workflow evidence | Nie | [`labs/mlops/CONTROLLED-RETRAINING.md`](labs/mlops/CONTROLLED-RETRAINING.md) |
 | Knowledge Hub LLM/RAG flagship | Áno v sekcii 20 | Nie | Nie | Nie | Required for Practical v1 |
 | Keycloak-secured AI API | Áno v sekciách 17, 20 a 21 | Nie | Nie | Nie | Required for Practical v1 |
 | Bounded incident/operations agent | Áno v sekcii 21 | Nie | Nie | Nie | Required for Practical v1 |
@@ -41,11 +41,12 @@ Aktuálny implementovaný MLOps rozsah je viazaný najmä na:
 - PR #155 — immutable deployment, canary routing a rollback control-plane contracts,
 - PR #157 — identity-bound FastAPI serving source a Dockerfile contract,
 - PR #158 — live two-generation loopback canary evidence a rollback decision,
-- PR #160 — aggregate monitoring, semantically validated drift a exact retraining approval.
+- PR #160 — aggregate monitoring, semantically validated drift a exact retraining approval,
+- PR #162 — approval-bound controlled retraining executor, durable state, Registry unknown-outcome checkpoint a compare-before-promote recovery.
 
-Oddelené exact-source rekonštrukcie prešli 16/16 testami po Registry implementácii, 21/21 po training-lineage rozšírení, 29/29 po serving control-plane vrstve, 38/38 po HTTP serving source vrstve, 42/42 po live-canary vrstve a 13/13 pre monitoring, drift a approval vrstvu. Tieto počty patria samostatným validačným bodom; nepredstavujú jeden spoločný vykonaný repository run.
+Oddelené exact-source rekonštrukcie prešli 16/16 testami po Registry implementácii, 21/21 po training-lineage rozšírení, 29/29 po serving control-plane vrstve, 38/38 po HTTP serving source vrstve, 42/42 po live-canary vrstve, 13/13 pre monitoring/drift/approval a 16/16 pre controlled retraining executor. Tieto počty patria samostatným validačným bodom; nepredstavujú jeden spoločný vykonaný repository run.
 
-Dôkazy preukazujú Python, CLI, HTTP loopback a contract správanie vo vymedzených rekonštruovaných prostrediach. Nenahrádzajú chýbajúci GitHub Actions run, live MLflow closeout, OCI build a digest read-back, container artifact mount, skutočnú platform traffic zmenu, post-rollback read-back, production telemetry ani controlled retraining execution.
+Dôkazy preukazujú Python, CLI, HTTP loopback, durable local state, failure recovery, Registry intent/response checkpoint a contract správanie vo vymedzených rekonštruovaných prostrediach. Nenahrádzajú chýbajúci GitHub Actions run, live end-to-end MLflow retraining, actual OCI build a digest read-back, container artifact mount, skutočnú platform traffic zmenu, post-retraining deployment/canary read-back, production telemetry ani business outcome.
 
 Issue #151 je explicitný Practical v1 blocker pre central runtime closeout. Kým GitHub nevytvorí exact workflow run a jeho read-back, príslušné MLOps riadky zostávajú `Runtime verified = Nie`.
 
@@ -55,7 +56,7 @@ Issue #151 je explicitný Practical v1 blocker pre central runtime closeout. Ký
 |---|---|---|
 | 00–17 | `User reviewed` v aktuálnom dokumentačnom rozsahu | Neznamená automaticky vykonané laby ani runtime acceptance. |
 | 18 — Machine Learning Fundamentals | `Ready for user review` | Flagship package je implementovaný a runtime verified; sekcia ako celok ešte nie je `User accepted`. |
-| 19 — MLOps and ML Platforms | `Ready for user review` | Promotion, training lineage, Registry, serving source, loopback canary, monitoring, drift a approval contracts sú implementované. Otvorené zostávajú central runtime closeout, actual OCI/container execution, platform rollback read-back a controlled retraining executor. |
+| 19 — MLOps and ML Platforms | `Ready for user review` | Promotion, training lineage, Registry, serving source, loopback canary, monitoring, drift, approval a controlled retraining executor sú implementované. Otvorené zostávajú central runtime closeout, actual OCI/container execution, živý retraining s novou Registry version a post-retraining deployment/canary read-back. |
 | 20 — LLM and GenAI Engineering | `Ready for user review` | Practical v1 flagship ešte nie je implementovaný. |
 | 21 — AI Agents and Intelligent Automation | `Ready for user review` | Practical v1 bounded agent ešte nie je implementovaný. |
 
