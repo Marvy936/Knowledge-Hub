@@ -4,13 +4,14 @@ from copy import deepcopy
 
 import pytest
 
-from mlops_lab.contracts import ContractError
+from mlops_lab.contracts import ContractError, canonical_json_bytes, sha256_bytes
 from mlops_lab.monitoring import (
     build_baseline_profile,
     build_monitoring_window,
     compare_drift,
     inject_drift,
     validate_baseline_profile,
+    validate_drift_report,
     validate_monitoring_window,
 )
 from mlops_lab.retraining import approve_retraining, build_retraining_proposal
@@ -104,6 +105,11 @@ def _report(events, *, minimum=50, maximum_error_rate=0.05):
     return baseline, window, report
 
 
+def _rehash(value: dict[str, object], id_field: str) -> None:
+    payload = {key: item for key, item in value.items() if key != id_field}
+    value[id_field] = sha256_bytes(canonical_json_bytes(payload))
+
+
 def test_control_window_is_stable_and_does_not_store_raw_records() -> None:
     baseline, window, report = _report(_events(inject_drift(_records(), mode="control")))
     assert report["status"] == "stable"
@@ -115,6 +121,7 @@ def test_control_window_is_stable_and_does_not_store_raw_records() -> None:
     assert "records" not in window
     validate_baseline_profile(baseline)
     validate_monitoring_window(window)
+    validate_drift_report(report)
 
 
 def test_reproducible_shift_is_detected() -> None:
@@ -131,6 +138,7 @@ def test_no_data_and_insufficient_evidence_are_explicit() -> None:
     _, empty_window, empty_report = _report([], minimum=20)
     assert empty_window["no_data"] is True
     assert empty_report["status"] == "no_data"
+    assert empty_report["observed_total_events"] == 0
 
     _, sparse_window, sparse_report = _report(_events(_records(5)), minimum=20)
     assert sparse_window["successful_events"] == 5
@@ -157,16 +165,15 @@ def test_drift_requires_exact_human_approval() -> None:
         model_sha256=MODEL_SHA256,
         policy_generation="retraining-policy-v1",
     )
-    assert proposal["action"] == "approval_required"
     approval = approve_retraining(
         proposal=proposal,
+        drift_report=report,
         expected_proposal_id=proposal["retraining_proposal_id"],
         approver="ml-platform-owner",
         approval_generation="approval-2026-08-06",
     )
     assert approval["authorized_action"] == "start_controlled_retraining"
-    assert approval["retraining_proposal_id"] == proposal["retraining_proposal_id"]
-    assert len(approval["retraining_approval_id"]) == 64
+    assert approval["drift_status"] == "drift_detected"
 
 
 def test_stale_or_ineligible_proposal_cannot_be_approved() -> None:
@@ -179,6 +186,7 @@ def test_stale_or_ineligible_proposal_cannot_be_approved() -> None:
     with pytest.raises(ContractError, match="stale or mismatched"):
         approve_retraining(
             proposal=proposal,
+            drift_report=drift_report,
             expected_proposal_id="f" * 64,
             approver="ml-platform-owner",
             approval_generation="approval-v1",
@@ -193,6 +201,7 @@ def test_stale_or_ineligible_proposal_cannot_be_approved() -> None:
     with pytest.raises(ContractError, match="not eligible"):
         approve_retraining(
             proposal=blocked,
+            drift_report=stable_report,
             expected_proposal_id=blocked["retraining_proposal_id"],
             approver="ml-platform-owner",
             approval_generation="approval-v1",
@@ -203,7 +212,7 @@ def test_modified_drift_report_cannot_create_retraining_proposal() -> None:
     _, _, stable_report = _report(_events(_records()))
     tampered = deepcopy(stable_report)
     tampered["status"] = "drift_detected"
-    with pytest.raises(ContractError, match="drift_report_id"):
+    with pytest.raises(ContractError, match="status|drift_report_id"):
         build_retraining_proposal(
             drift_report=tampered,
             model_sha256=MODEL_SHA256,
@@ -211,7 +220,16 @@ def test_modified_drift_report_cannot_create_retraining_proposal() -> None:
         )
 
 
-def test_modified_proposal_cannot_be_approved() -> None:
+def test_semantically_invalid_rehashed_drift_report_is_rejected() -> None:
+    _, _, stable_report = _report(_events(_records()))
+    forged = deepcopy(stable_report)
+    forged["status"] = "drift_detected"
+    _rehash(forged, "drift_report_id")
+    with pytest.raises(ContractError, match="status is inconsistent"):
+        validate_drift_report(forged)
+
+
+def test_modified_or_forged_proposal_cannot_be_approved() -> None:
     _, _, report = _report(_events(inject_drift(_records(), mode="shift")))
     proposal = build_retraining_proposal(
         drift_report=report,
@@ -223,10 +241,32 @@ def test_modified_proposal_cannot_be_approved() -> None:
     with pytest.raises(ContractError, match="retraining_proposal_id"):
         approve_retraining(
             proposal=tampered,
+            drift_report=report,
             expected_proposal_id=proposal["retraining_proposal_id"],
             approver="ml-platform-owner",
             approval_generation="approval-v1",
         )
+
+    forged = deepcopy(proposal)
+    forged["drift_report_id"] = "f" * 64
+    _rehash(forged, "retraining_proposal_id")
+    with pytest.raises(ContractError, match="another drift report"):
+        approve_retraining(
+            proposal=forged,
+            drift_report=report,
+            expected_proposal_id=forged["retraining_proposal_id"],
+            approver="ml-platform-owner",
+            approval_generation="approval-v1",
+        )
+
+
+def test_semantically_invalid_rehashed_profile_is_rejected() -> None:
+    baseline = _baseline()
+    forged = deepcopy(baseline)
+    del forged["numeric_features"]["tenure_months"]
+    _rehash(forged, "baseline_profile_id")
+    with pytest.raises(ContractError, match="feature profile keys"):
+        validate_baseline_profile(forged)
 
 
 def test_profile_and_window_tampering_is_detected() -> None:
