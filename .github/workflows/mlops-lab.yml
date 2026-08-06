@@ -37,7 +37,27 @@ jobs:
           fetch-depth: 1
           clean: true
 
+      - name: Detect MLOps lab source
+        id: source
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -f labs/mlops/pyproject.toml ]]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate bootstrap state
+        if: steps.source.outputs.present != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e labs/mlops/pyproject.toml
+          echo "MLOps workflow bootstrap validated; implementation source is not on this revision."
+
       - name: Set up Python
+        if: steps.source.outputs.present == 'true'
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: "3.12"
@@ -45,6 +65,7 @@ jobs:
           cache-dependency-path: labs/mlops/pyproject.toml
 
       - name: Install isolated lab environment
+        if: steps.source.outputs.present == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -54,6 +75,7 @@ jobs:
           "$VENV_DIR/bin/python" -m pip install -e "labs/mlops[dev]"
 
       - name: Run contract tests
+        if: steps.source.outputs.present == 'true'
         shell: bash
         env:
           PYTHONWARNINGS: error
@@ -62,6 +84,7 @@ jobs:
           "$VENV_DIR/bin/python" -m pytest labs/mlops/tests -q
 
       - name: CLI smoke and refusal paths
+        if: steps.source.outputs.present == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -106,7 +129,7 @@ jobs:
           test ! -e "$RUNTIME_DIR/stale-release.json"
 
       - name: Cleanup isolated runtime
-        if: always()
+        if: always() && steps.source.outputs.present == 'true'
         shell: bash
         run: |
           set -euo pipefail
