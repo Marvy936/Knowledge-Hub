@@ -173,9 +173,9 @@ Operation output sa nevymení za iný subject. Ak súbor už existuje, musí by�
 Izolovaný executor contract prešiel:
 
 - Python `compileall`,
-- **13/13 pytest cases**.
+- **14/14 pytest cases**.
 
-Testy pokrývajú canonical operation identity, nový dataset gate, full training→candidate→Registry→promotion flow s fake adapters, completed-operation replay bez side effects, explicit recovery, training checkpoint read-back, Registry checkpoint recovery, stale alias recovery, wrong Registry candidate, current-deployment mutation, completed-output tampering, CLI recovery-contract exposure a refusal automatického retry po neznámom Registry outcome.
+Testy pokrývajú canonical operation identity, nový dataset gate, full training→candidate→Registry→promotion flow s fake adapters, completed-operation replay bez side effects, explicit recovery, training checkpoint read-back, Registry checkpoint recovery, stale alias recovery, wrong Registry candidate, current-deployment mutation, completed-output tampering, CLI recovery-contract exposure, refusal automatického retry po neznámom Registry outcome a dokončenie operácie z checkpointed Registry response bez druhého remote callu.
 
 ## Neoverená hranica
 
