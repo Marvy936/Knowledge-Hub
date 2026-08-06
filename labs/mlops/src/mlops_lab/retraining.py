@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, Mapping
 
 from .contracts import ContractError, canonical_json_bytes, sha256_bytes
-from .monitoring import MONITORING_SCHEMA_VERSION, validate_drift_report
+from .monitoring import DRIFT_STATUSES, MONITORING_SCHEMA_VERSION, validate_drift_report
 
 
 def _require_exact_keys(value: Mapping[str, Any], expected: set[str], field: str) -> None:
@@ -93,6 +93,8 @@ def validate_retraining_proposal(value: Mapping[str, Any]) -> None:
     for field in ("drift_report_id", "deployment_id", "model_sha256"):
         _require_sha256(value.get(field), f"proposal.{field}")
     status = _require_nonempty_string(value.get("drift_status"), "proposal.drift_status")
+    if status not in DRIFT_STATUSES:
+        raise ContractError("retraining proposal drift status is unsupported")
     expected_action, expected_reason = _proposal_action(status)
     _require_nonempty_string(value.get("policy_generation"), "proposal.policy_generation")
     if value.get("action") != expected_action or value.get("reason") != expected_reason:
