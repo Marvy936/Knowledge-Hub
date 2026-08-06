@@ -14,6 +14,7 @@ from .contracts import (
     promote_candidate,
     read_json,
 )
+from .lineage import build_evaluation_from_training_manifest
 from .registry import register_candidate, verify_registered_model
 
 
@@ -29,6 +30,19 @@ def _parser() -> argparse.ArgumentParser:
     snapshot.add_argument("--output", type=Path, required=True)
     snapshot.add_argument("--dataset-name", required=True)
     snapshot.add_argument("--generation", required=True)
+
+    evaluation = commands.add_parser(
+        "evaluation-from-training",
+        help="Derive an accepted evaluation bundle from an exact ML training manifest",
+    )
+    evaluation.add_argument("--training-manifest", type=Path, required=True)
+    evaluation.add_argument("--dataset", type=Path, required=True)
+    evaluation.add_argument("--model", type=Path, required=True)
+    evaluation.add_argument("--source-revision", required=True)
+    evaluation.add_argument(
+        "--policy-generation", default="ml-training-manifest-v1"
+    )
+    evaluation.add_argument("--output", type=Path, required=True)
 
     candidate = commands.add_parser("candidate", help="Create an accepted candidate manifest")
     candidate.add_argument("--dataset-manifest", type=Path, required=True)
@@ -92,6 +106,22 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "status": "dataset_snapshot_recorded",
                 "output": args.output.as_posix(),
                 "dataset_sha256": manifest["subject"]["sha256"],
+            }
+        elif args.command == "evaluation-from-training":
+            evaluation = build_evaluation_from_training_manifest(
+                training_manifest_path=args.training_manifest,
+                dataset_path=args.dataset,
+                model_path=args.model,
+                expected_source_revision=args.source_revision,
+                policy_generation=args.policy_generation,
+            )
+            atomic_write_json(args.output, evaluation)
+            result = {
+                "status": "training_evaluation_recorded",
+                "output": args.output.as_posix(),
+                "accepted": evaluation["accepted"],
+                "policy_generation": evaluation["policy_generation"],
+                "metrics": evaluation["metrics"],
             }
         elif args.command == "candidate":
             manifest = build_candidate_manifest(
