@@ -94,3 +94,15 @@ def test_registry_response_checkpoint_completes_without_remote_retry(
     assert calls.count("registry") == 1
     assert not (tmp_path / "output" / "registry-attempt.json").exists()
     assert not (tmp_path / "output" / "registry-response.json").exists()
+
+
+def test_orphaned_registry_response_without_intent_is_refused(
+    tmp_path: Path,
+) -> None:
+    args = _inputs(tmp_path)
+    output_dir = tmp_path / "output"
+    output_dir.mkdir()
+    atomic_write_json(output_dir / "registry-response.json", {"unexpected": True})
+
+    with pytest.raises(ContractError, match="orphaned Registry response"):
+        _execute(args, _train([]), _registry([]))
