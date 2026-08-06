@@ -53,6 +53,15 @@ def build_post_retraining_handoff(
         raise ContractError("post-retraining handoff requires a completed operation")
     if completed_state["operation_id"] != operation["operation_id"]:
         raise ContractError("completed state belongs to another operation")
+    if current_deployment["deployment_id"] != operation["current_deployment_id"]:
+        raise ContractError("current deployment does not match retraining operation")
+    if current_deployment["candidate_id"] != operation["current_candidate_id"]:
+        raise ContractError("current candidate does not match retraining operation")
+    if (
+        current_deployment["model"]["sha256"]
+        != operation["current_model_sha256"]
+    ):
+        raise ContractError("current model does not match retraining operation")
 
     artifacts = completed_state["artifacts"]
     if artifacts["release_id"] != release["release_id"]:
@@ -72,6 +81,13 @@ def build_post_retraining_handoff(
         raise ContractError("release and Registry evidence candidate mismatch")
     if release["source_revision"] != operation["source_revision"]:
         raise ContractError("release source revision does not match operation")
+    if release["dataset_sha256"] != operation["dataset"]["sha256"]:
+        raise ContractError("release dataset does not match retraining operation")
+    if (
+        release["policy_generation"]
+        != operation["evaluation_policy_generation"]
+    ):
+        raise ContractError("release policy generation does not match operation")
     if release["previous_candidate_id"] != current_deployment["candidate_id"]:
         raise ContractError(
             "release does not advance the current deployment candidate"
