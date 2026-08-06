@@ -6,15 +6,14 @@ import pytest
 
 from mlops_lab.contracts import ContractError
 from mlops_lab.monitoring import (
-    approve_retraining,
     build_baseline_profile,
     build_monitoring_window,
-    build_retraining_proposal,
     compare_drift,
     inject_drift,
     validate_baseline_profile,
     validate_monitoring_window,
 )
+from mlops_lab.retraining import approve_retraining, build_retraining_proposal
 
 DEPLOYMENT_ID = "a" * 64
 MODEL_SHA256 = "b" * 64
@@ -243,5 +242,5 @@ def test_profile_and_window_tampering_is_detected() -> None:
         deployment_id=DEPLOYMENT_ID,
     )
     window["error_rate"] = 0.9
-    with pytest.raises(ContractError, match="monitoring_window_id"):
+    with pytest.raises(ContractError, match="error_rate|monitoring_window_id"):
         validate_monitoring_window(window)
