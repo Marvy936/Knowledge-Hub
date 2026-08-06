@@ -1,46 +1,68 @@
-# MLOps flagship project — foundation
+# MLOps flagship project
 
-Tento blok zakladá praktický lifecycle sekcie 19. Neimplementuje ešte celý serving, canary, drift a retraining chain. Najprv vytvára deterministic evidence a promotion contract, bez ktorého by MLflow run, Registry version alebo alias zostali iba mutable control-plane metadata.
+Tento lab implementuje praktický lifecycle sekcie 19 po vrstvách. Prvý blok vytvoril deterministic dataset, candidate a promotion contract. Druhý blok pridáva lokálny MLflow Tracking Server, database-backed Model Registry, oddelený artifact store a exact-version read-back.
 
 ```text
-source dataset
-→ immutable dataset snapshot manifest
-→ evaluation bundle
+source dataset a trusted model artifact
+→ immutable dataset snapshot
 → accepted candidate manifest
-→ compare-before-promote decision
-→ immutable release manifest
-→ mutable local alias read-back
+→ MLflow run a logged model
+→ registered model version
+→ mutable alias read-back
+→ original artifact download a SHA-256 verification
+→ exact-version model load a prediction parity test
+→ immutable registry evidence
 ```
 
-## Hranica prvého bloku
+## Implementovaná hranica
 
-Implementované sú:
+Aktuálne sú implementované:
 
-- SHA-256 identita datasetu a model artifactu,
+- SHA-256 identita datasetu a zdrojového model artifactu,
 - canonical JSON fingerprints,
-- strict schema validation pre dataset, evaluation, candidate a alias state,
-- candidate manifest viazaný na dataset, model bytes, source revision a policy generation,
+- strict schema validation pre dataset, evaluation, candidate, alias state a registry evidence,
 - workspace-independent candidate identity bez lokálneho filesystem pathu,
-- refusal pri neakceptovanom candidate,
-- compare-before-promote kontrola očakávanej predchádzajúcej verzie,
-- atomic write alias state-u,
+- compare-before-promote a stale-promotion refusal,
 - immutable release manifest pre downstream serving,
-- tests pre determinism, tampering, workspace portability a stale promotion.
+- lokálny MLflow server s SQLite metadata backendom,
+- samostatný proxied filesystem artifact destination,
+- run params, metrics, tags a candidate evidence logované do MLflow,
+- registered model version a model-version tags,
+- mutable alias read-back,
+- stiahnutie pôvodného `model.joblib` cez tracking server a porovnanie SHA-256,
+- načítanie exact registered version URI,
+- prediction parity medzi dôveryhodným source artifactom a Registry version,
+- fresh-process verification po reštarte MLflow servera,
+- deterministic registry evidence ID,
+- unit refusal tests a permanent CI runtime path.
 
 Zatiaľ nie sú implementované ani deklarované ako overené:
 
-- MLflow Tracking Server a database-backed Model Registry,
-- upload model bytes do artifact store,
-- Registry version a alias mutation,
-- container image build a digest pinning,
-- canary traffic,
-- production metrics, drift signal a controlled retraining.
+- containerized inference service,
+- image digest a release-manifest pinning,
+- canary traffic medzi dvoma serving generations,
+- rollback nasadenej generácie,
+- production metrics a explicitný no-data state,
+- drift injection a controlled retraining,
+- production authentication, authorization, HA alebo backup/restore.
 
-Tieto vrstvy budú nadväzovať na release manifest vytvorený týmto blokom.
+## Dve odlišné storage vrstvy
+
+MLflow metadata backend a artifact store nie sú tá istá vec.
+
+```text
+SQLite backend
+→ experiments, runs, params, metrics, tags, registered models, versions a aliases
+
+artifact destination
+→ model files, candidate JSON, sample request a source model bytes
+```
+
+Lokálny lab používa SQLite, pretože Model Registry vyžaduje database-backed store. Artifact bytes sú uložené v samostatnom directory a klient ich uploaduje aj sťahuje cez MLflow server. Zelený test preto musí preukázať existenciu databázy aj artifact files; samotný úspešný API response nestačí.
 
 ## Inštalácia
 
-Z koreňa repozitára:
+Foundation-only tests:
 
 ```bash
 python -m venv .venv
@@ -50,18 +72,38 @@ python -m pip install -e "labs/mlops[dev]"
 pytest labs/mlops/tests -q
 ```
 
-PowerShell:
+Registry round-trip potrebuje aj existujúci Machine Learning flagship a MLflow extras:
+
+```bash
+python -m pip install -e "labs/machine-learning"
+python -m pip install -e "labs/mlops[dev,registry]"
+```
+
+PowerShell aktivácia:
 
 ```powershell
 .venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -e "labs/mlops[dev]"
-pytest labs/mlops/tests -q
 ```
 
-## Dataset snapshot
+## Príprava ML artifactu
 
-Ako vstup možno použiť deterministický CSV dataset z `labs/machine-learning` alebo iný lokálny testovací súbor.
+Z koreňa repozitára:
+
+```bash
+python -m ml_lab generate-data \
+  --output labs/machine-learning/.runtime/data/customers.csv \
+  --rows 1200 \
+  --seed 20260805
+
+python -m ml_lab train \
+  --input labs/machine-learning/.runtime/data/customers.csv \
+  --output-dir labs/machine-learning/.runtime/artifact \
+  --seed 20260805
+```
+
+Výsledný `model.joblib` je trusted local artifact iba v rámci kontrolovaného training runu. `joblib` používa pickle semantics. Registry command ho načíta až po tom, ako candidate manifest potvrdí jeho byte size a SHA-256.
+
+## Dataset snapshot a candidate
 
 ```bash
 python -m mlops_lab snapshot \
@@ -69,28 +111,7 @@ python -m mlops_lab snapshot \
   --output labs/mlops/.runtime/dataset-manifest.json \
   --dataset-name churn-training \
   --generation churn-data-2026-08-06
-```
 
-Výstup obsahuje exact path subject, byte size, SHA-256, dataset name a generation. Manifest nedokazuje data quality ani representativeness; dokazuje iba identitu konkrétnych bytes. Lokálna cesta ostáva diagnostickým údajom dataset snapshotu, ale neprenáša sa do candidate identity.
-
-## Candidate manifest
-
-Evaluation bundle je explicitný JSON contract:
-
-```json
-{
-  "accepted": true,
-  "metrics": {
-    "f1": 0.63,
-    "recall": 0.57
-  },
-  "policy_generation": "churn-promotion-v1"
-}
-```
-
-Candidate sa vytvorí iba z existujúceho dataset manifestu, model artifactu a evaluation bundle:
-
-```bash
 python -m mlops_lab candidate \
   --dataset-manifest labs/mlops/.runtime/dataset-manifest.json \
   --model labs/machine-learning/.runtime/artifact/model.joblib \
@@ -99,11 +120,79 @@ python -m mlops_lab candidate \
   --output labs/mlops/.runtime/candidate.json
 ```
 
-Candidate identity je SHA-256 canonical payloadu. Mutable timestamp, lokálna cesta ani názov model file nie sú súčasťou identity. Rovnaké dataset a model bytes, evaluation bundle a source revision preto vytvoria rovnaký candidate ID aj v inom workspace. Kandidát stále nie je dôkazom, že model možno bezpečne načítať alebo že je vhodný pre produkciu; tieto gates patria do nasledujúcich vrstiev.
+Candidate identity závisí od dataset generation a digestu, model size a digestu, evaluation bundle a source revision. Mutable timestamp, lokálna cesta ani názov workspace nie sú súčasťou identity.
 
-## Promotion a release manifest
+## Lokálny MLflow server
 
-Promotion používa compare-before-promote semantics. Prvý promotion očakáva, že alias ešte neexistuje:
+Príklad používa loopback endpoint, SQLite backend a oddelený artifact directory:
+
+```bash
+mkdir -p labs/mlops/.runtime/mlartifacts
+
+mlflow server \
+  --host 127.0.0.1 \
+  --port 5057 \
+  --backend-store-uri "sqlite:///$(pwd)/labs/mlops/.runtime/mlflow.db" \
+  --artifacts-destination "file://$(pwd)/labs/mlops/.runtime/mlartifacts" \
+  --allowed-hosts "127.0.0.1:*,localhost:*"
+```
+
+Server je development-only. Nie je nakonfigurovaný pre vzdialený access, TLS, multi-user authorization alebo production durability.
+
+## Registry round-trip
+
+V druhom termináli:
+
+```bash
+python -m mlops_lab registry-roundtrip \
+  --candidate labs/mlops/.runtime/candidate.json \
+  --model labs/machine-learning/.runtime/artifact/model.joblib \
+  --sample-request labs/machine-learning/data/sample-request.json \
+  --tracking-uri http://127.0.0.1:5057 \
+  --experiment-name knowledge-hub-mlops-local \
+  --model-name KnowledgeHubChurn \
+  --alias champion \
+  --download-dir labs/mlops/.runtime/downloaded \
+  --output labs/mlops/.runtime/registry-evidence.json
+```
+
+Command vykoná tieto hard checks:
+
+```text
+candidate model digest == local model bytes
+→ run tags a model-version tags sa zhodujú
+→ Registry version má source run lineage
+→ alias read-back ukazuje na vytvorenú version
+→ source/model.joblib sa stiahne cez server
+→ downloaded SHA-256 == candidate model SHA-256
+→ models:/KnowledgeHubChurn/<version> sa načíta
+→ source a Registry prediction sa zhodujú
+```
+
+Registry evidence obsahuje exact URI vo forme:
+
+```text
+models:/KnowledgeHubChurn/1
+```
+
+Alias URI `models:/KnowledgeHubChurn@champion` je zámerne mutable control-plane reference. Evidence ho nesmie používať ako immutable deployment subject.
+
+## Fresh-process verification
+
+Po ukončení a opätovnom spustení servera nad rovnakou databázou a artifact directory:
+
+```bash
+python -m mlops_lab registry-verify \
+  --evidence labs/mlops/.runtime/registry-evidence.json \
+  --sample-request labs/machine-learning/data/sample-request.json \
+  --tracking-uri http://127.0.0.1:5057
+```
+
+Verification načíta iba exact version URI zaznamenané v evidence. Nevykonáva nové alias resolution. Tým sa oddeľuje historický deployment subject od aktuálnej mutable hodnoty aliasu.
+
+## Local promotion contract
+
+Registry alias nenahrádza compare-before-promote contract. Lokálny release manifest sa vytvára samostatne:
 
 ```bash
 python -m mlops_lab promote \
@@ -114,39 +203,49 @@ python -m mlops_lab promote \
   --release-output labs/mlops/.runtime/release.json
 ```
 
-Ďalší promotion musí uviesť presnú candidate identity, ktorú očakáva ako aktuálnu:
-
-```bash
-python -m mlops_lab promote \
-  --candidate labs/mlops/.runtime/next-candidate.json \
-  --alias-state labs/mlops/.runtime/registry-aliases.json \
-  --alias champion \
-  --expected-current <previous-candidate-id> \
-  --release-output labs/mlops/.runtime/next-release.json
-```
-
-Ak alias medzitým zmenil iný actor, command zlyhá bez mutation. Release manifest pinne candidate ID, dataset digest, model digest, evaluation digest, source revision a policy generation. Downstream deployment má používať release manifest, nie znovu resolvovať mutable alias pri štarte každej repliky.
+Downstream serving bude v ďalšom bloku pinovať immutable release manifest, exact Registry version a model digest. Pri štarte každej repliky sa nesmie znovu resolvovať mutable alias.
 
 ## CI execution profile
 
-Permanentný workflow používa interný Linux X64 self-hosted runner iba pre kód z rovnakého repozitára. Checkout neukladá Git credentials. Package sa inštaluje do nového virtual environmentu pod `runner.temp`; dataset, manifests a alias state vznikajú v samostatnom dočasnom runtime directory.
+Permanentný workflow používa Linux X64 self-hosted runner iba pre kód z rovnakého repozitára. Checkout neukladá Git credentials. Runtime job má iba `contents: read`; push-only status publisher má `statuses: write`, nevykonáva checkout a nespúšťa PR kód.
 
-Gate vykoná unit a contract tests s warnings povýšenými na error, positive CLI lifecycle, stale-promotion refusal a read-back požadovaných výstupov. Záverečný cleanup step sa vykoná aj po zlyhaní a odstráni virtual environment aj runtime state. Úspech na jednom runneri stále nepreukazuje portable production deployment; preukazuje deklarovaný Python 3.12 local execution profile.
+Registry gate:
+
+1. vytvorí deterministic ML artifact,
+2. vytvorí candidate,
+3. spustí loopback MLflow server,
+4. vykoná Registry a artifact round-trip,
+5. overí exact version,
+6. reštartuje server,
+7. zopakuje exact-version verification,
+8. overí SQLite DB aj artifact directory,
+9. odstráni celý virtual environment a runtime state.
 
 ## Acceptance hranica
 
-Zelené tests preukazujú lokálny deterministic promotion contract. Nepreukazujú MLflow server, Registry permissions, artifact upload, model loadability, serving image, canary outcome, production drift ani business impact.
+Úspešný registry run preukazuje:
+
+- database-backed local Model Registry,
+- run a model-version lineage read-back,
+- oddelený local artifact store,
+- source artifact byte integrity po download-e,
+- exact registered version loadability v rovnakom resolved runtime,
+- prediction parity a persistence po reštarte servera.
+
+Nepreukazuje fresh dependency reconstruction na inom OS, production serving, canary outcome, drift, business impact, HA, disaster recovery ani production security.
 
 ## Cleanup
 
 ```bash
 rm -rf labs/mlops/.runtime
+rm -rf labs/machine-learning/.runtime
 ```
 
 PowerShell:
 
 ```powershell
 Remove-Item -Recurse -Force labs/mlops/.runtime
+Remove-Item -Recurse -Force labs/machine-learning/.runtime
 ```
 
-Cleanup je dokončený až po read-backu, že `.runtime` neexistuje.
+Cleanup je dokončený až po read-backu, že runtime paths neexistujú.
