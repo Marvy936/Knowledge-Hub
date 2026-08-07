@@ -109,13 +109,17 @@ def test_cli_snapshot_chunk_and_readback(tmp_path: Path) -> None:
             "validate-chunks",
             "--manifest",
             str(chunks_path),
+            "--snapshot",
+            str(snapshot_path),
         ],
         check=False,
         capture_output=True,
         text=True,
     )
     assert validate.returncode == 0, validate.stderr
-    assert json.loads(validate.stdout)["status"] == "chunk_manifest_valid"
+    result = json.loads(validate.stdout)
+    assert result["status"] == "chunk_manifest_valid"
+    assert result["corpus_snapshot_id"] == snapshot_result["corpus_snapshot_id"]
 
 
 def test_cli_refuses_changed_snapshot_bytes(tmp_path: Path) -> None:
