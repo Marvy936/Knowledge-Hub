@@ -6,14 +6,13 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
+from .binding import validate_chunk_manifest_against_snapshot
 from .contracts import (
     ContractError,
     atomic_write_json,
     build_chunk_manifest,
     build_corpus_snapshot,
     read_json,
-    validate_chunk_manifest,
-    validate_corpus_snapshot,
     verify_snapshot_bytes,
 )
 
@@ -42,8 +41,9 @@ def _parser() -> argparse.ArgumentParser:
     chunks.add_argument("--min-chars", type=int, default=240)
     chunks.add_argument("--output", type=Path, required=True)
 
-    validate = commands.add_parser("validate-chunks", help="Validate an immutable chunk manifest")
+    validate = commands.add_parser("validate-chunks", help="Validate chunks against an exact corpus snapshot")
     validate.add_argument("--manifest", type=Path, required=True)
+    validate.add_argument("--snapshot", type=Path, required=True)
 
     return parser
 
@@ -89,10 +89,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             }
         else:
             manifest = read_json(args.manifest)
-            validate_chunk_manifest(manifest)
+            snapshot = read_json(args.snapshot)
+            validate_chunk_manifest_against_snapshot(manifest=manifest, snapshot=snapshot)
             result = {
                 "status": "chunk_manifest_valid",
                 "chunk_manifest_id": manifest["chunk_manifest_id"],
+                "corpus_snapshot_id": snapshot["corpus_snapshot_id"],
                 "chunk_count": manifest["chunk_count"],
             }
     except ContractError as exc:
