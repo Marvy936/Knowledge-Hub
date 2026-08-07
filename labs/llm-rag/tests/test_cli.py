@@ -107,6 +107,8 @@ def test_cli_snapshot_chunk_and_readback(tmp_path: Path) -> None:
             "-m",
             "knowledge_hub_rag",
             "validate-chunks",
+            "--repo-root",
+            str(root),
             "--manifest",
             str(chunks_path),
             "--snapshot",
