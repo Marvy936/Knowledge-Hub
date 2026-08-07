@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "knowledge-hub-rag-flagship-lab"
+version = "0.1.0"
+description = "Deterministic corpus, chunking and retrieval contracts for the Knowledge Hub LLM/RAG flagship"
+readme = "README.md"
+requires-python = ">=3.12,<3.15"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<10",
+]
+
+[project.scripts]
+knowledge-hub-rag = "knowledge_hub_rag.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
