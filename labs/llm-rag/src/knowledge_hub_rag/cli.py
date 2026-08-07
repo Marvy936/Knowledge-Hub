@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
-from .binding import validate_chunk_manifest_against_snapshot
+from .binding import verify_chunk_manifest_rebuild
 from .contracts import (
     ContractError,
     atomic_write_json,
@@ -41,7 +41,8 @@ def _parser() -> argparse.ArgumentParser:
     chunks.add_argument("--min-chars", type=int, default=240)
     chunks.add_argument("--output", type=Path, required=True)
 
-    validate = commands.add_parser("validate-chunks", help="Validate chunks against an exact corpus snapshot")
+    validate = commands.add_parser("validate-chunks", help="Rebuild and validate chunks against exact corpus bytes")
+    validate.add_argument("--repo-root", type=Path, required=True)
     validate.add_argument("--manifest", type=Path, required=True)
     validate.add_argument("--snapshot", type=Path, required=True)
 
@@ -90,7 +91,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         else:
             manifest = read_json(args.manifest)
             snapshot = read_json(args.snapshot)
-            validate_chunk_manifest_against_snapshot(manifest=manifest, snapshot=snapshot)
+            verify_chunk_manifest_rebuild(
+                repo_root=args.repo_root,
+                manifest=manifest,
+                snapshot=snapshot,
+            )
             result = {
                 "status": "chunk_manifest_valid",
                 "chunk_manifest_id": manifest["chunk_manifest_id"],
