@@ -28,9 +28,17 @@ Tento index je authoritative vstup do praktickej vrstvy repozitára. Nezamieňa 
 
 - Index: [`mlops/README.md`](mlops/README.md)
 - Runtime evidence: [`mlops/RUNTIME-EVIDENCE.md`](mlops/RUNTIME-EVIDENCE.md)
-- Stav: promotion foundation implementovaná; authoritative post-merge runtime evidence čaká na closeout.
-- Aktuálny rozsah: dataset/model/evaluation identity, workspace-independent candidate, compare-before-promote, stale refusal, immutable release manifest a atomic alias-state write.
-- Ďalšie povinné v1 vrstvy: MLflow tracking/registry, artifact read-back, serving, canary, rollback, monitoring, drift a controlled retraining.
+- Stav: source/control-plane lifecycle je implementovaný cez promotion, Registry, serving, canary, monitoring, controlled retraining a post-retraining handoff; central runtime closeout je blokovaný issue #151.
+- Preukázané source vrstvy sú viazané na exact subjects, immutable IDs, explicitné no-data/unknown-outcome states, recovery a compare-before-change semantics.
+- Otvorené zostávajú actual OCI/container runtime evidence, live end-to-end MLflow retraining closeout a GitHub Actions runtime verification.
+
+### Knowledge Hub LLM/RAG flagship
+
+- Index: [`llm-rag/README.md`](llm-rag/README.md)
+- Runtime evidence: [`llm-rag/RUNTIME-EVIDENCE.md`](llm-rag/RUNTIME-EVIDENCE.md)
+- Stav: prvá corpus/chunking vrstva je implementovaná; runtime evidence je `Pending` kvôli Actions blockeru #151.
+- Aktuálny rozsah: exact Git corpus snapshot, path-sorted per-file byte identity, source-byte read-back, deterministic Markdown heading/code-fence parser, immutable chunk identity a full-manifest deterministic rebuild.
+- Nasledujúce povinné vrstvy: offline retrieval s explicitným `no_result`, exact citations, structured grounded answer, eval/security gates a observability.
 
 ## Manual environment labs
 
@@ -63,8 +71,8 @@ Walkthrough sa do tohto indexu nepovažuje za samostatný flagship, kým nemá v
 
 ```text
 Machine Learning flagship — runtime verified
-→ MLOps end-to-end lifecycle — in progress
-→ Knowledge Hub LLM/RAG flagship — planned for v1
+→ MLOps end-to-end lifecycle — source lifecycle implemented, runtime closeout blocked
+→ Knowledge Hub LLM/RAG flagship — corpus/chunking implemented, retrieval next
 → Keycloak-secured AI API — planned for v1
 → bounded incident/operations agent — planned for v1
 → unified runner, evidence closeout a v1.0.0 tag
