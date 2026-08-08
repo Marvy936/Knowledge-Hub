@@ -25,10 +25,8 @@ def build_runtime_config(
     min_score: float = 0.01,
     context_max_chars: int = 6000,
     answer_max_chars: int = 700,
-    system_policy: str = DEFAULT_SYSTEM_POLICY,
 ) -> dict[str, Any]:
     generation = _require_nonempty_string(generation, "generation")
-    policy = _require_nonempty_string(system_policy, "system_policy")
     if isinstance(top_k, bool) or not isinstance(top_k, int) or not 1 <= top_k <= 100:
         raise ContractError("top_k must be an integer between 1 and 100")
     if (
@@ -45,7 +43,7 @@ def build_runtime_config(
     payload = {
         "schema_version": RUNTIME_CONFIG_SCHEMA_VERSION,
         "generation": generation,
-        "system_policy": policy,
+        "system_policy": DEFAULT_SYSTEM_POLICY,
         "adapter_generation": "extractive-evidence-v1",
         "security_generation": "prompt-injection-policy-v1",
         "token_counter_generation": "unicode-word-v1",
@@ -71,7 +69,6 @@ def validate_runtime_config(value: Mapping[str, Any]) -> None:
         min_score=value.get("retrieval", {}).get("min_score"),
         context_max_chars=value.get("context", {}).get("max_chars"),
         answer_max_chars=value.get("answer", {}).get("max_chars"),
-        system_policy=value.get("system_policy"),
     )
     if dict(value) != expected:
         raise ContractError("runtime config does not match canonical generation semantics")
