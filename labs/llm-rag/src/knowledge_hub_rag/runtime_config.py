@@ -18,15 +18,26 @@ def _require_nonempty_string(value: Any, field: str) -> str:
     return value.strip()
 
 
+def _require_git_revision(value: Any, field: str) -> str:
+    text = _require_nonempty_string(value, field)
+    if len(text) != 40 or any(ch not in "0123456789abcdef" for ch in text):
+        raise ContractError(f"{field} must be an exact lowercase 40-hex Git commit SHA")
+    return text
+
+
 def build_runtime_config(
     *,
     generation: str,
+    implementation_revision: str,
     top_k: int = 5,
     min_score: float = 0.01,
     context_max_chars: int = 6000,
     answer_max_chars: int = 700,
 ) -> dict[str, Any]:
     generation = _require_nonempty_string(generation, "generation")
+    revision = _require_git_revision(
+        implementation_revision, "implementation_revision"
+    )
     if isinstance(top_k, bool) or not isinstance(top_k, int) or not 1 <= top_k <= 100:
         raise ContractError("top_k must be an integer between 1 and 100")
     if (
@@ -51,6 +62,7 @@ def build_runtime_config(
     payload = {
         "schema_version": RUNTIME_CONFIG_SCHEMA_VERSION,
         "generation": generation,
+        "implementation_revision": revision,
         "system_policy": DEFAULT_SYSTEM_POLICY,
         "adapter_generation": "extractive-evidence-v1",
         "security_generation": "prompt-injection-policy-v1",
@@ -80,6 +92,7 @@ def validate_runtime_config(value: Mapping[str, Any]) -> None:
         raise ContractError("runtime config retrieval/context/answer must be objects")
     expected = build_runtime_config(
         generation=value.get("generation"),
+        implementation_revision=value.get("implementation_revision"),
         top_k=retrieval.get("top_k"),
         min_score=retrieval.get("min_score"),
         context_max_chars=context.get("max_chars"),
