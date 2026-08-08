@@ -36,10 +36,11 @@ Tento index je authoritative vstup do praktickej vrstvy repozitára. Nezamieňa 
 
 - Index: [`llm-rag/README.md`](llm-rag/README.md)
 - Retrieval/answer contract: [`llm-rag/RETRIEVAL-GROUNDED-ANSWER.md`](llm-rag/RETRIEVAL-GROUNDED-ANSWER.md)
+- Eval/security/observability contract: [`llm-rag/EVAL-SECURITY-OBSERVABILITY.md`](llm-rag/EVAL-SECURITY-OBSERVABILITY.md)
 - Runtime evidence: [`llm-rag/RUNTIME-EVIDENCE.md`](llm-rag/RUNTIME-EVIDENCE.md)
-- Stav: corpus/chunking a deterministic offline retrieval/answer-contract vrstvy sú implementované; runtime evidence je `Pending` kvôli Actions blockeru #151.
-- Aktuálny rozsah: exact Git corpus snapshot, per-file byte identity, deterministic Markdown chunking, immutable chunk/index/query/result identities, BM25-v1 retrieval, explicitný `no_result`, exact chunk citations, bounded context a structured answer/abstention envelope.
-- Otvorené zostávajú versioned prompt/config, deterministic answer adapter, faithfulness a high-risk eval gates, direct/indirect prompt-injection tests, trace/latency/token-equivalent observability a runtime closeout.
+- Stav: offline deterministic Practical v1 source lifecycle je implementovaný; runtime evidence je `Pending` kvôli Actions blockeru #151.
+- Aktuálny rozsah: exact Git corpus snapshot, per-file byte identity, deterministic Markdown chunking, immutable chunk/index/query/result identities, BM25-v1 retrieval, explicitný `no_result`, exact chunk citations, bounded context, exact implementation-revision binding, code-defined system policy, direct/indirect prompt-injection gates, deterministic extractive faithfulness, critical/high-risk eval gates, prompt/config release provenance, trace/token-equivalent evidence a bounded cleanup.
+- Otvorené zostávajú central runtime closeout a voliteľné post-v1 generative/semantic adapters; generatívny model nie je hard requirement offline Practical v1 core pathu.
 
 ## Manual environment labs
 
@@ -73,8 +74,8 @@ Walkthrough sa do tohto indexu nepovažuje za samostatný flagship, kým nemá v
 ```text
 Machine Learning flagship — runtime verified
 → MLOps end-to-end lifecycle — source lifecycle implemented, runtime closeout blocked
-→ Knowledge Hub LLM/RAG flagship — corpus/chunking + retrieval/citation/schema implemented; eval/security next
-→ Keycloak-secured AI API — planned for v1
+→ Knowledge Hub LLM/RAG flagship — offline source lifecycle implemented, runtime closeout blocked
+→ Keycloak-secured AI API — next required v1 track
 → bounded incident/operations agent — planned for v1
 → unified runner, evidence closeout a v1.0.0 tag
 ```
