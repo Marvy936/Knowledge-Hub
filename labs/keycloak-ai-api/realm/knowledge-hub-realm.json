@@ -1,0 +1,131 @@
+{
+  "realm": "knowledge-hub",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "resetPasswordAllowed": false,
+  "rememberMe": false,
+  "verifyEmail": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "accessTokenLifespan": 300,
+  "defaultSignatureAlgorithm": "RS256",
+  "roles": {
+    "client": {
+      "knowledge-hub-api": [
+        {"name": "rag.read", "description": "Read the bounded Knowledge Hub RAG API."},
+        {"name": "agent.run", "description": "Run bounded agent workflows."},
+        {"name": "agent.remediate", "description": "Authorize high-risk bounded remediation endpoints."}
+      ]
+    }
+  },
+  "clientScopes": [
+    {
+      "name": "knowledge-hub-api-access",
+      "description": "Adds the exact Knowledge Hub API audience and an access-token-only marker.",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "name": "knowledge-hub-api-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "knowledge-hub-api",
+            "access.token.claim": "true",
+            "id.token.claim": "false"
+          }
+        },
+        {
+          "name": "knowledge-hub-access-token-marker",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-hardcoded-claim-mapper",
+          "consentRequired": false,
+          "config": {
+            "claim.name": "token_use",
+            "claim.value": "access",
+            "jsonType.label": "String",
+            "access.token.claim": "true",
+            "id.token.claim": "false",
+            "userinfo.token.claim": "false",
+            "access.tokenResponse.claim": "false"
+          }
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "knowledge-hub-web",
+      "name": "Knowledge Hub browser client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "redirectUris": [
+        "http://127.0.0.1:8765/callback"
+      ],
+      "webOrigins": [
+        "http://127.0.0.1:8765"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      },
+      "defaultClientScopes": [
+        "profile",
+        "roles",
+        "knowledge-hub-api-access"
+      ]
+    },
+    {
+      "clientId": "knowledge-hub-api",
+      "name": "Knowledge Hub AI resource server",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "bearerOnly": true
+    },
+    {
+      "clientId": "knowledge-hub-automation",
+      "name": "Knowledge Hub automation service account",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "defaultClientScopes": [
+        "roles",
+        "knowledge-hub-api-access"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "service-account-knowledge-hub-automation",
+      "enabled": true,
+      "serviceAccountClientId": "knowledge-hub-automation",
+      "clientRoles": {
+        "knowledge-hub-api": [
+          "rag.read",
+          "agent.run",
+          "agent.remediate"
+        ]
+      }
+    }
+  ]
+}
