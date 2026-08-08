@@ -5,6 +5,12 @@ from typing import Any, Iterable, Mapping
 from .contracts import ContractError, canonical_json_bytes, sha256_bytes
 from .retrieval import RETRIEVAL_SCHEMA_VERSION, validate_retrieval_result
 
+POLICY_ABSTENTION_REASONS = {
+    "direct_prompt_injection",
+    "indirect_prompt_injection",
+    "no_safe_context",
+}
+
 
 def _require_nonempty_string(value: Any, field: str) -> str:
     if not isinstance(value, str) or not value.strip():
@@ -27,6 +33,7 @@ def build_answer_envelope(
     answer_text: str | None,
     cited_chunk_ids: Iterable[str],
     prompt_generation: str,
+    abstention_reason: str | None = None,
 ) -> dict[str, Any]:
     validate_retrieval_result(retrieval_result, index=index, manifest=manifest)
     retrieval_id = _require_sha256(
@@ -50,12 +57,21 @@ def build_answer_envelope(
     }
 
     if status == "no_result":
-        if answer_text is not None or cited:
+        if answer_text is not None or cited or abstention_reason not in (None, "retrieval_no_result"):
             raise ContractError("no_result retrieval must abstain without citations")
         envelope_status = "abstained"
         answer = None
         citations: list[dict[str, Any]] = []
         reason = "retrieval_no_result"
+    elif status == "results" and abstention_reason is not None:
+        if abstention_reason not in POLICY_ABSTENTION_REASONS:
+            raise ContractError("unsupported policy abstention reason")
+        if answer_text is not None or cited:
+            raise ContractError("policy abstention must not contain answer text or citations")
+        envelope_status = "abstained"
+        answer = None
+        citations = []
+        reason = abstention_reason
     elif status == "results":
         answer = _require_nonempty_string(answer_text, "answer_text")
         if not cited:
@@ -125,9 +141,16 @@ def validate_answer_envelope(
             or citations
         ):
             raise ContractError("no-result answer envelope must be an exact abstention")
+    elif retrieval_result.get("status") == "results" and value.get("status") == "abstained":
+        if (
+            value.get("answer") is not None
+            or value.get("abstention_reason") not in POLICY_ABSTENTION_REASONS
+            or citations
+        ):
+            raise ContractError("policy abstention envelope is invalid")
     elif retrieval_result.get("status") == "results":
         if value.get("status") != "answered":
-            raise ContractError("retrieval results require answered status")
+            raise ContractError("retrieval results require answered or policy-abstained status")
         _require_nonempty_string(value.get("answer"), "answer")
         if value.get("abstention_reason") is not None:
             raise ContractError("answered envelope must not carry abstention reason")
