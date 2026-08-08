@@ -313,6 +313,8 @@ def test_trace_binds_subjects_latency_and_non_monetary_counters() -> None:
         retrieval_result=retrieval,
         adapter_result=adapter,
         context=context,
+        index=index,
+        manifest=manifest,
         latency_ms=12.5,
     )
     assert trace["latency_ms"] == 12.5
@@ -324,5 +326,7 @@ def test_trace_binds_subjects_latency_and_non_monetary_counters() -> None:
         retrieval_result=retrieval,
         adapter_result=adapter,
         context=context,
+        index=index,
+        manifest=manifest,
         latency_ms=12.5,
     )
