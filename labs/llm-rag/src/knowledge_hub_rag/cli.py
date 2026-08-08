@@ -69,6 +69,8 @@ def _parser() -> argparse.ArgumentParser:
     search.add_argument("--context-output", type=Path)
 
     answer = commands.add_parser("answer", help="Validate and record a structured answer or exact abstention")
+    answer.add_argument("--manifest", type=Path, required=True)
+    answer.add_argument("--index", type=Path, required=True)
     answer.add_argument("--retrieval", type=Path, required=True)
     answer.add_argument("--answer-text-file", type=Path)
     answer.add_argument("--cite-chunk-id", action="append", default=[])
@@ -167,7 +169,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "output": args.output.as_posix(),
             }
         else:
+            manifest = read_json(args.manifest)
+            index = read_json(args.index)
             retrieval = read_json(args.retrieval)
+            validate_retrieval_result(retrieval, index=index, manifest=manifest)
             if args.answer_text_file is None:
                 answer_text = None
             else:
