@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "knowledge-hub-rag-flagship-lab"
-version = "0.1.0"
-description = "Deterministic corpus, chunking and retrieval contracts for the Knowledge Hub LLM/RAG flagship"
+version = "0.2.0"
+description = "Deterministic corpus, chunking, retrieval and grounded-answer contracts for the Knowledge Hub LLM/RAG flagship"
 readme = "README.md"
 requires-python = ">=3.12,<3.15"
 dependencies = []
