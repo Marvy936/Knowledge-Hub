@@ -26,6 +26,7 @@ Stavy sa nededia automaticky. `Runtime verified` nie je production readiness a `
 | MLOps monitoring, drift a retraining | Áno | Áno — aggregate monitoring, semantic drift report, exact human approval a approval-bound controlled executor s durable checkpoint/recovery contractom | Nie — 16/16 izolovaných executor testov nie je live MLflow retraining ani workflow evidence | Nie | [`labs/mlops/CONTROLLED-RETRAINING.md`](labs/mlops/CONTROLLED-RETRAINING.md) |
 | Knowledge Hub LLM/RAG corpus a chunking | Áno | Áno — exact Git corpus snapshot, byte read-back, deterministic Markdown chunking a rebuild validation | Nie — `RUNTIME-EVIDENCE.md` je `Pending`; Actions blocker #151 | Nie | [`labs/llm-rag/README.md`](labs/llm-rag/README.md) |
 | Knowledge Hub LLM/RAG retrieval a answer lifecycle | Áno | Áno — deterministic BM25-v1 index/retrieval, explicitný `no_result`, exact chunk citations, bounded context a structured answer/abstention envelope | Nie — vykonaný izolovaný reconstruction 8/8 pred posledným dodatočným determinism testom; final source obsahuje 9 test cases a Actions blocker #151 | Nie | [`labs/llm-rag/RETRIEVAL-GROUNDED-ANSWER.md`](labs/llm-rag/RETRIEVAL-GROUNDED-ANSWER.md) |
+| Knowledge Hub LLM/RAG eval, security a observability | Áno | Áno — exact implementation/corpus revision, bounded-context extractive adapter, direct/indirect injection gates, slice-based hard evals, prompt/config release, trace counters a bounded cleanup | Nie — PR #171 source/test inventory bez central Actions runu; blocker #151 | Nie | [`labs/llm-rag/EVAL-SECURITY-OBSERVABILITY.md`](labs/llm-rag/EVAL-SECURITY-OBSERVABILITY.md) |
 | Keycloak-secured AI API | Áno v sekciách 17, 20 a 21 | Nie | Nie | Nie | Required for Practical v1 |
 | Bounded incident/operations agent | Áno v sekcii 21 | Nie | Nie | Nie | Required for Practical v1 |
 | Unified Practical v1 runner/evidence | Áno v roadmap-e | Čiastočne — lab index, status ledger a MLOps unified runner | Nie | Nie | Required for Practical v1 closeout |
@@ -56,12 +57,15 @@ Issue #151 je explicitný Practical v1 blocker pre central runtime closeout. Dia
 
 - PR #167 — exact Git corpus snapshot, per-file byte identity, workspace-independent snapshot ID, deterministic Markdown heading/code-fence chunking, per-chunk identity a deterministic full-manifest rebuild.
 - PR #169 — deterministic offline lexical index, canonical query/result identity, explicitný `no_result`, exact retrieved citations, bounded context a structured answer/abstention envelope s deterministic retrieval read-backom.
+- PR #171 — exact implementation-revision binding, code-defined system policy, bounded-context extractive adapter, direct/indirect prompt-injection policy, per-slice retrieval/citation/faithfulness/abstention/security gates, critical/high-risk release refusal, explicit corpus/index provenance, trace/token-equivalent evidence a bounded cleanup.
 
 PR #167 obsahuje 17 test cases v source pre corpus/chunk positive a refusal contracts. Úspešný pytest/CI run sa neclaimuje, pretože Actions dispatch blocker #151 zostáva otvorený.
 
 Pre PR #169 prešiel izolovaný exact-source reconstruction `compileall` + 8/8 tests pred pridaním posledného samostatného query/result determinism testu. Finálny merged source obsahuje 9 retrieval/answer test cases. Tento ledger preto neclaimuje `9/9`; rozlišuje vykonanú evidence od počtu testov prítomných vo final source.
 
-`labs/llm-rag/RUNTIME-EVIDENCE.md` zostáva `Pending`. Nasledujúce otvorené vrstvy sú versioned prompt/config, deterministic answer adapter, eval slices vrátane faithfulness/abstention, high-risk hard gates, prompt-injection defense a observability.
+PR #171 obsahuje 10 focused eval/security/observability test functions v source. Central pytest/CI run sa neclaimuje. Self-review pred merge odstránil raw-retrieval context bypass, stale release artifact, runtime-editable untested system policy, nejednoznačné no-result security dôvody, chýbajúcu implementation revision a chýbajúcu top-level corpus/index provenance.
+
+`labs/llm-rag/RUNTIME-EVIDENCE.md` zostáva `Pending`. LLM/RAG source lifecycle je pre Practical v1 funkčne implementovaný na offline deterministic úrovni; otvorený zostáva central runtime closeout a voliteľné post-v1 generative/semantic adapters.
 
 ## Dokumentačné sekcie a praktický stav
 
@@ -70,7 +74,7 @@ Pre PR #169 prešiel izolovaný exact-source reconstruction `compileall` + 8/8 t
 | 00–17 | `User reviewed` v aktuálnom dokumentačnom rozsahu | Neznamená automaticky vykonané laby ani runtime acceptance. |
 | 18 — Machine Learning Fundamentals | `Ready for user review` | Flagship package je implementovaný a runtime verified; sekcia ako celok ešte nie je `User accepted`. |
 | 19 — MLOps and ML Platforms | `Ready for user review` | Promotion, training lineage, Registry, serving source, loopback canary, monitoring, drift, approval, controlled retraining executor a post-retraining deployment handoff sú implementované. Otvorené zostávajú central runtime closeout, actual OCI/container execution, živý retraining s novou Registry version a platform post-retraining canary read-back. |
-| 20 — LLM and GenAI Engineering | `Ready for user review` | Corpus/chunking, deterministic retrieval/no-result, exact citation binding a structured answer/abstention schema sú implementované. Prompt/config, eval/faithfulness, injection defense, observability a runtime closeout zostávajú otvorené. |
+| 20 — LLM and GenAI Engineering | `Ready for user review` | Offline Practical v1 source lifecycle od exact corpusu cez retrieval/citations po eval/security/promotion/trace/cleanup je implementovaný. Central runtime evidence zostáva `Pending` kvôli #151. |
 | 21 — AI Agents and Intelligent Automation | `Ready for user review` | Practical v1 bounded agent ešte nie je implementovaný. |
 
 ## Stavový postup
