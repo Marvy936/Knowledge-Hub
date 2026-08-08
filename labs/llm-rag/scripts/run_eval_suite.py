@@ -18,6 +18,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--index", type=Path, required=True)
     parser.add_argument("--cases", type=Path, required=True)
     parser.add_argument("--generation", required=True)
+    parser.add_argument("--implementation-revision", required=True)
     parser.add_argument("--top-k", type=int, default=5)
     parser.add_argument("--min-score", type=float, default=0.01)
     parser.add_argument("--context-max-chars", type=int, default=6000)
@@ -35,7 +36,11 @@ def _load_cases(path: Path) -> list[dict[str, object]]:
         raise ContractError(f"eval cases file does not exist: {path}") from exc
     except json.JSONDecodeError as exc:
         raise ContractError(f"invalid eval cases JSON: {exc}") from exc
-    if not isinstance(value, list) or not value or not all(isinstance(item, dict) for item in value):
+    if (
+        not isinstance(value, list)
+        or not value
+        or not all(isinstance(item, dict) for item in value)
+    ):
         raise ContractError("eval cases root must be a non-empty array of objects")
     return value
 
@@ -52,6 +57,7 @@ def main() -> int:
         cases = _load_cases(args.cases)
         config = build_runtime_config(
             generation=args.generation,
+            implementation_revision=args.implementation_revision,
             top_k=args.top_k,
             min_score=args.min_score,
             context_max_chars=args.context_max_chars,
@@ -73,6 +79,7 @@ def main() -> int:
                     {
                         "status": "eval_failed",
                         "eval_report_id": report["eval_report_id"],
+                        "implementation_revision": config["implementation_revision"],
                         "critical_failures": report["critical_failures"],
                         "high_risk_failures": report["high_risk_failures"],
                         "threshold_failures": report["threshold_failures"],
@@ -90,7 +97,10 @@ def main() -> int:
         )
         atomic_write_json(args.release_output, release)
     except ContractError as exc:
-        print(json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True), file=sys.stderr)
+        print(
+            json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True),
+            file=sys.stderr,
+        )
         return 2
 
     print(
@@ -98,6 +108,7 @@ def main() -> int:
             {
                 "status": "promoted",
                 "runtime_config_id": config["runtime_config_id"],
+                "implementation_revision": config["implementation_revision"],
                 "eval_report_id": report["eval_report_id"],
                 "prompt_release_id": release["prompt_release_id"],
             },
