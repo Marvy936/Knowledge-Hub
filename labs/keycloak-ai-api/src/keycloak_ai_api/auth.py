@@ -8,7 +8,15 @@ from jwt import PyJWKClient
 
 
 class AuthorizationError(ValueError):
-    """Raised when a bearer token fails authentication or route authorization."""
+    """Base class for bounded bearer-token failures."""
+
+
+class AuthenticationError(AuthorizationError):
+    """Token cryptography, identity or required access-token claims are invalid."""
+
+
+class ForbiddenError(AuthorizationError):
+    """Token is valid but the caller or role is not authorized for the route."""
 
 
 class SigningKeyResolver(Protocol):
@@ -42,21 +50,31 @@ class Principal:
     jti: str
 
 
-def _nonempty(value: Any, field: str) -> str:
+def _auth_nonempty(value: Any, field: str) -> str:
     if not isinstance(value, str) or not value.strip():
-        raise AuthorizationError(f"{field} must be a non-empty string")
+        raise AuthenticationError(f"{field} must be a non-empty string")
+    return value.strip()
+
+
+def _config_nonempty(value: Any, field: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{field} must be a non-empty string")
     return value.strip()
 
 
 def _audiences(value: Any) -> tuple[str, ...]:
     if isinstance(value, str):
-        resolved = (_nonempty(value, "aud"),)
-    elif isinstance(value, list) and value and all(isinstance(item, str) and item for item in value):
+        resolved = (_auth_nonempty(value, "aud"),)
+    elif (
+        isinstance(value, list)
+        and value
+        and all(isinstance(item, str) and item for item in value)
+    ):
         resolved = tuple(value)
     else:
-        raise AuthorizationError("aud must be a string or a non-empty string array")
+        raise AuthenticationError("aud must be a string or a non-empty string array")
     if len(set(resolved)) != len(resolved):
-        raise AuthorizationError("aud contains duplicate audiences")
+        raise AuthenticationError("aud contains duplicate audiences")
     return resolved
 
 
@@ -68,7 +86,9 @@ def _roles(claims: Mapping[str, Any], audience: str) -> frozenset[str]:
     if not isinstance(resource, dict):
         return frozenset()
     roles = resource.get("roles")
-    if not isinstance(roles, list) or not all(isinstance(role, str) and role for role in roles):
+    if not isinstance(roles, list) or not all(
+        isinstance(role, str) and role for role in roles
+    ):
         return frozenset()
     return frozenset(roles)
 
@@ -78,7 +98,7 @@ def _scopes(claims: Mapping[str, Any]) -> frozenset[str]:
     if value is None:
         return frozenset()
     if not isinstance(value, str):
-        raise AuthorizationError("scope claim must be a space-delimited string")
+        raise AuthenticationError("scope claim must be a space-delimited string")
     return frozenset(item for item in value.split() if item)
 
 
@@ -89,14 +109,14 @@ def validate_access_token(
     signing_keys: SigningKeyResolver,
 ) -> Principal:
     if not isinstance(token, str) or token.count(".") != 2:
-        raise AuthorizationError("bearer token must be a compact JWT")
+        raise AuthenticationError("bearer token must be a compact JWT")
     try:
         header = jwt.get_unverified_header(token)
     except jwt.PyJWTError as exc:
-        raise AuthorizationError("bearer token header is invalid") from exc
+        raise AuthenticationError("bearer token header is invalid") from exc
     if header.get("alg") != "RS256":
-        raise AuthorizationError("bearer token algorithm must be RS256")
-    _nonempty(header.get("kid"), "kid")
+        raise AuthenticationError("bearer token algorithm must be RS256")
+    _auth_nonempty(header.get("kid"), "kid")
 
     try:
         key = signing_keys.resolve(token)
@@ -108,7 +128,16 @@ def validate_access_token(
             audience=policy.audience,
             leeway=policy.leeway_seconds,
             options={
-                "require": ["exp", "iat", "iss", "aud", "sub", "azp", "jti", "token_use"],
+                "require": [
+                    "exp",
+                    "iat",
+                    "iss",
+                    "aud",
+                    "sub",
+                    "azp",
+                    "jti",
+                    "token_use",
+                ],
                 "verify_signature": True,
                 "verify_exp": True,
                 "verify_iat": True,
@@ -118,27 +147,31 @@ def validate_access_token(
             },
         )
     except (jwt.PyJWTError, ValueError) as exc:
-        raise AuthorizationError(f"bearer token cryptographic/claim validation failed: {type(exc).__name__}") from exc
+        raise AuthenticationError(
+            f"bearer token cryptographic/claim validation failed: {type(exc).__name__}"
+        ) from exc
 
     if claims.get("token_use") != "access":
-        raise AuthorizationError("token_use must equal access")
+        raise AuthenticationError("token_use must equal access")
     audiences = _audiences(claims.get("aud"))
     if set(audiences) != {policy.audience}:
-        raise AuthorizationError("access token audience must contain only the configured API audience")
-    azp = _nonempty(claims.get("azp"), "azp")
+        raise AuthenticationError(
+            "access token audience must contain only the configured API audience"
+        )
+    azp = _auth_nonempty(claims.get("azp"), "azp")
     if azp not in policy.allowed_azp:
-        raise AuthorizationError("authorized party is not allowed for this route")
+        raise ForbiddenError("authorized party is not allowed for this route")
     roles = _roles(claims, policy.audience)
     missing = sorted(policy.required_roles - roles)
     if missing:
-        raise AuthorizationError(f"required API roles are missing: {missing}")
+        raise ForbiddenError(f"required API roles are missing: {missing}")
     return Principal(
-        subject=_nonempty(claims.get("sub"), "sub"),
+        subject=_auth_nonempty(claims.get("sub"), "sub"),
         authorized_party=azp,
         audience=audiences,
         roles=roles,
         scopes=_scopes(claims),
-        jti=_nonempty(claims.get("jti"), "jti"),
+        jti=_auth_nonempty(claims.get("jti"), "jti"),
     )
 
 
@@ -149,13 +182,13 @@ def policy(
     allowed_azp: Iterable[str],
     required_roles: Iterable[str],
 ) -> TokenPolicy:
-    callers = frozenset(_nonempty(item, "allowed_azp") for item in allowed_azp)
-    roles = frozenset(_nonempty(item, "required_role") for item in required_roles)
+    callers = frozenset(_config_nonempty(item, "allowed_azp") for item in allowed_azp)
+    roles = frozenset(_config_nonempty(item, "required_role") for item in required_roles)
     if not callers:
         raise ValueError("route policy requires at least one allowed caller")
     return TokenPolicy(
-        issuer=_nonempty(issuer, "issuer"),
-        audience=_nonempty(audience, "audience"),
+        issuer=_config_nonempty(issuer, "issuer"),
+        audience=_config_nonempty(audience, "audience"),
         allowed_azp=callers,
         required_roles=roles,
     )
