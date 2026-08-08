@@ -43,9 +43,7 @@ def main() -> int:
         session = _read_session(args.session)
         if args.returned_state != session["state"]:
             raise ValueError("OAuth callback state does not match the PKCE session")
-        token_endpoint = (
-            session["issuer"].rstrip("/") + "/protocol/openid-connect/token"
-        )
+        token_endpoint = session["issuer"].rstrip("/") + "/protocol/openid-connect/token"
         if not endpoint_is_allowed(token_endpoint):
             raise ValueError("token endpoint must use HTTPS or loopback HTTP")
         if args.token_output.exists():
@@ -77,6 +75,10 @@ def main() -> int:
         if stat.S_IMODE(args.token_output.stat().st_mode) & 0o077:
             args.token_output.unlink(missing_ok=True)
             raise ValueError("token output permissions are too broad")
+        args.session.unlink()
+        if args.session.exists():
+            args.token_output.unlink(missing_ok=True)
+            raise ValueError("single-use PKCE session cleanup failed")
     except (ValueError, urllib.error.URLError, json.JSONDecodeError) as exc:
         print(
             json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True),
@@ -92,6 +94,7 @@ def main() -> int:
                 "expires_in": payload.get("expires_in"),
                 "scope": payload.get("scope"),
                 "token_output": args.token_output.as_posix(),
+                "pkce_session_deleted": True,
                 "access_token_logged": False,
                 "id_token_used_as_api_bearer": False,
             },
