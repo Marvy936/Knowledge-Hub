@@ -10,7 +10,10 @@ POLICY_ABSTENTION_REASONS = {
     "indirect_prompt_injection",
     "no_safe_context",
 }
-ALL_ABSTENTION_REASONS = {"retrieval_no_result", *POLICY_ABSTENTION_REASONS}
+NO_RESULT_ABSTENTION_REASONS = {
+    "retrieval_no_result",
+    "direct_prompt_injection",
+}
 
 
 def _require_nonempty_string(value: Any, field: str) -> str:
@@ -59,7 +62,7 @@ def build_answer_envelope(
 
     if status == "no_result":
         reason = abstention_reason or "retrieval_no_result"
-        if reason not in ALL_ABSTENTION_REASONS or answer_text is not None or cited:
+        if reason not in NO_RESULT_ABSTENTION_REASONS or answer_text is not None or cited:
             raise ContractError("no_result retrieval must abstain without answer or citations")
         envelope_status = "abstained"
         answer = None
@@ -137,7 +140,7 @@ def validate_answer_envelope(
     if value.get("status") == "abstained":
         reason = value.get("abstention_reason")
         allowed = (
-            ALL_ABSTENTION_REASONS
+            NO_RESULT_ABSTENTION_REASONS
             if retrieval_result.get("status") == "no_result"
             else POLICY_ABSTENTION_REASONS
         )
