@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 import os
-from dataclasses import asdict
 from typing import Callable
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from .auth import (
-    AuthorizationError,
+    AuthenticationError,
+    ForbiddenError,
     JwksSigningKeyResolver,
     Principal,
     SigningKeyResolver,
@@ -17,6 +17,17 @@ from .auth import (
 )
 
 bearer = HTTPBearer(auto_error=False)
+
+
+def _principal_json(principal: Principal) -> dict[str, object]:
+    return {
+        "subject": principal.subject,
+        "authorized_party": principal.authorized_party,
+        "audience": list(principal.audience),
+        "roles": sorted(principal.roles),
+        "scopes": sorted(principal.scopes),
+        "jti": principal.jti,
+    }
 
 
 def create_app(
@@ -59,14 +70,24 @@ def create_app(
             credentials: HTTPAuthorizationCredentials | None = Depends(bearer),
         ) -> Principal:
             if credentials is None or credentials.scheme.lower() != "bearer":
-                raise HTTPException(status_code=401, detail="bearer token required")
+                raise HTTPException(
+                    status_code=401,
+                    detail="bearer token required",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
             try:
                 return validate_access_token(
                     credentials.credentials,
                     policy=route_policies[action],
                     signing_keys=resolver,
                 )
-            except AuthorizationError as exc:
+            except AuthenticationError as exc:
+                raise HTTPException(
+                    status_code=401,
+                    detail=str(exc),
+                    headers={"WWW-Authenticate": "Bearer"},
+                ) from exc
+            except ForbiddenError as exc:
                 raise HTTPException(status_code=403, detail=str(exc)) from exc
 
         return dependency
@@ -80,7 +101,7 @@ def create_app(
         return {
             "status": "authorized",
             "action": "rag.read",
-            "principal": asdict(principal),
+            "principal": _principal_json(principal),
             "boundary": "authorization-only; RAG execution is not performed by this foundation endpoint",
         }
 
@@ -89,7 +110,7 @@ def create_app(
         return {
             "status": "authorized",
             "action": "agent.run",
-            "principal": asdict(principal),
+            "principal": _principal_json(principal),
             "boundary": "authorization-only; agent execution is not performed by this foundation endpoint",
         }
 
@@ -100,7 +121,7 @@ def create_app(
         return {
             "status": "authorized",
             "action": "agent.remediate",
-            "principal": asdict(principal),
+            "principal": _principal_json(principal),
             "boundary": "authorization-only; remediation is not performed by this foundation endpoint",
         }
 
