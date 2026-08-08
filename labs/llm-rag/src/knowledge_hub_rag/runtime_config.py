@@ -36,9 +36,17 @@ def build_runtime_config(
         or float(min_score) < 0
     ):
         raise ContractError("min_score must be a finite non-negative number")
-    if isinstance(context_max_chars, bool) or not isinstance(context_max_chars, int) or context_max_chars < 256:
+    if (
+        isinstance(context_max_chars, bool)
+        or not isinstance(context_max_chars, int)
+        or context_max_chars < 256
+    ):
         raise ContractError("context_max_chars must be at least 256")
-    if isinstance(answer_max_chars, bool) or not isinstance(answer_max_chars, int) or answer_max_chars < 32:
+    if (
+        isinstance(answer_max_chars, bool)
+        or not isinstance(answer_max_chars, int)
+        or answer_max_chars < 32
+    ):
         raise ContractError("answer_max_chars must be at least 32")
     payload = {
         "schema_version": RUNTIME_CONFIG_SCHEMA_VERSION,
@@ -63,12 +71,19 @@ def build_runtime_config(
 
 
 def validate_runtime_config(value: Mapping[str, Any]) -> None:
+    if not isinstance(value, Mapping):
+        raise ContractError("runtime config must be an object")
+    retrieval = value.get("retrieval")
+    context = value.get("context")
+    answer = value.get("answer")
+    if not all(isinstance(item, Mapping) for item in (retrieval, context, answer)):
+        raise ContractError("runtime config retrieval/context/answer must be objects")
     expected = build_runtime_config(
         generation=value.get("generation"),
-        top_k=value.get("retrieval", {}).get("top_k"),
-        min_score=value.get("retrieval", {}).get("min_score"),
-        context_max_chars=value.get("context", {}).get("max_chars"),
-        answer_max_chars=value.get("answer", {}).get("max_chars"),
+        top_k=retrieval.get("top_k"),
+        min_score=retrieval.get("min_score"),
+        context_max_chars=context.get("max_chars"),
+        answer_max_chars=answer.get("max_chars"),
     )
     if dict(value) != expected:
         raise ContractError("runtime config does not match canonical generation semantics")
