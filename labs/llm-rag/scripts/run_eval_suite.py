@@ -43,6 +43,10 @@ def _load_cases(path: Path) -> list[dict[str, object]]:
 def main() -> int:
     args = _parser().parse_args()
     try:
+        if args.release_output.exists():
+            raise ContractError(
+                "release output already exists; use a fresh path so a failed eval cannot leave stale promotion evidence"
+            )
         manifest = read_json(args.manifest)
         index = read_json(args.index)
         cases = _load_cases(args.cases)
@@ -62,6 +66,8 @@ def main() -> int:
         atomic_write_json(args.config_output, config)
         atomic_write_json(args.report_output, report)
         if report["suite_passed"] is not True:
+            if args.release_output.exists():
+                raise ContractError("failed eval unexpectedly created release output")
             print(
                 json.dumps(
                     {
