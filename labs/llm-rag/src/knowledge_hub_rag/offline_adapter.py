@@ -5,7 +5,11 @@ from typing import Any, Mapping
 
 from .answers import build_answer_envelope, validate_answer_envelope
 from .contracts import ContractError, canonical_json_bytes, sha256_bytes
-from .retrieval import tokenize, validate_retrieval_result
+from .retrieval import (
+    build_grounded_context,
+    tokenize,
+    validate_retrieval_result,
+)
 from .runtime_config import validate_runtime_config
 from .security import scan_prompt_injection
 
@@ -41,6 +45,12 @@ def run_offline_adapter(
 ) -> dict[str, Any]:
     validate_runtime_config(runtime_config)
     validate_retrieval_result(retrieval_result, index=index, manifest=manifest)
+    context = build_grounded_context(
+        retrieval_result,
+        index=index,
+        manifest=manifest,
+        max_chars=runtime_config["context"]["max_chars"],
+    )
 
     query = retrieval_result["query"]["query"]
     query_security = scan_prompt_injection(
@@ -69,18 +79,28 @@ def run_offline_adapter(
             cited_chunk_ids=[],
             prompt_generation=runtime_config["generation"],
         )
+    elif context["status"] != "context":
+        answer = build_answer_envelope(
+            retrieval_result=retrieval_result,
+            index=index,
+            manifest=manifest,
+            answer_text=None,
+            cited_chunk_ids=[],
+            prompt_generation=runtime_config["generation"],
+            abstention_reason="no_safe_context",
+        )
     else:
-        safe_hit: Mapping[str, Any] | None = None
-        for hit in retrieval_result["hits"]:
+        safe_item: Mapping[str, Any] | None = None
+        for item in context["items"]:
             evidence = scan_prompt_injection(
-                text=hit["content"],
+                text=item["content"],
                 subject_type="retrieved_chunk",
-                subject_id=hit["citation"]["chunk_id"],
+                subject_id=item["citation"]["chunk_id"],
             )
             hit_security.append(evidence)
-            if evidence["classification"] == "clean" and safe_hit is None:
-                safe_hit = hit
-        if safe_hit is None:
+            if evidence["classification"] == "clean" and safe_item is None:
+                safe_item = item
+        if safe_item is None:
             answer = build_answer_envelope(
                 retrieval_result=retrieval_result,
                 index=index,
@@ -92,7 +112,7 @@ def run_offline_adapter(
             )
         else:
             text = _extract_sentence(
-                safe_hit["content"],
+                safe_item["content"],
                 retrieval_result["query"]["query_tokens"],
                 int(runtime_config["answer"]["max_chars"]),
             )
@@ -101,7 +121,7 @@ def run_offline_adapter(
                 index=index,
                 manifest=manifest,
                 answer_text=text,
-                cited_chunk_ids=[safe_hit["citation"]["chunk_id"]],
+                cited_chunk_ids=[safe_item["citation"]["chunk_id"]],
                 prompt_generation=runtime_config["generation"],
             )
 
@@ -115,6 +135,7 @@ def run_offline_adapter(
         "schema_version": ADAPTER_SCHEMA_VERSION,
         "runtime_config_id": runtime_config["runtime_config_id"],
         "retrieval_result_id": retrieval_result["retrieval_result_id"],
+        "context_id": context["context_id"],
         "adapter_generation": runtime_config["adapter_generation"],
         "query_security": query_security,
         "hit_security": hit_security,
