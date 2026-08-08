@@ -44,6 +44,10 @@ def run_offline_adapter(
     runtime_config: Mapping[str, Any],
 ) -> dict[str, Any]:
     validate_runtime_config(runtime_config)
+    if runtime_config["implementation_revision"] != manifest.get("source_revision"):
+        raise ContractError(
+            "runtime implementation revision does not match corpus source revision"
+        )
     validate_retrieval_result(retrieval_result, index=index, manifest=manifest)
     context = build_grounded_context(
         retrieval_result,
@@ -134,6 +138,7 @@ def run_offline_adapter(
     payload = {
         "schema_version": ADAPTER_SCHEMA_VERSION,
         "runtime_config_id": runtime_config["runtime_config_id"],
+        "implementation_revision": runtime_config["implementation_revision"],
         "retrieval_result_id": retrieval_result["retrieval_result_id"],
         "context_id": context["context_id"],
         "adapter_generation": runtime_config["adapter_generation"],
