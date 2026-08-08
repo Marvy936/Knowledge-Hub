@@ -18,11 +18,15 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def _validate_target(path: Path) -> Path:
+    if path.name != "rag" or path.parent.name != ".runtime":
+        raise ContractError("runtime cleanup target must end with .runtime/rag")
     if path.is_symlink():
         raise ContractError("runtime cleanup target must not be a symlink")
+    if path.parent.is_symlink():
+        raise ContractError("runtime cleanup .runtime parent must not be a symlink")
     resolved = path.resolve(strict=False)
     if resolved.name != "rag" or resolved.parent.name != ".runtime":
-        raise ContractError("runtime cleanup target must end with .runtime/rag")
+        raise ContractError("resolved runtime cleanup target must end with .runtime/rag")
     return resolved
 
 
@@ -38,7 +42,10 @@ def main() -> int:
         if target.exists():
             raise ContractError("runtime cleanup read-back failed")
     except ContractError as exc:
-        print(json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True), file=sys.stderr)
+        print(
+            json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True),
+            file=sys.stderr,
+        )
         return 2
 
     print(
