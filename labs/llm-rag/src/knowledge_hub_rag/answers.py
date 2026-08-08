@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, Iterable, Mapping
 
 from .contracts import ContractError, canonical_json_bytes, sha256_bytes
-from .retrieval import RETRIEVAL_SCHEMA_VERSION
+from .retrieval import RETRIEVAL_SCHEMA_VERSION, validate_retrieval_result
 
 
 def _require_nonempty_string(value: Any, field: str) -> str:
@@ -22,10 +22,13 @@ def _require_sha256(value: Any, field: str) -> str:
 def build_answer_envelope(
     *,
     retrieval_result: Mapping[str, Any],
+    index: Mapping[str, Any],
+    manifest: Mapping[str, Any],
     answer_text: str | None,
     cited_chunk_ids: Iterable[str],
     prompt_generation: str,
 ) -> dict[str, Any]:
+    validate_retrieval_result(retrieval_result, index=index, manifest=manifest)
     retrieval_id = _require_sha256(
         retrieval_result.get("retrieval_result_id"), "retrieval_result_id"
     )
@@ -83,8 +86,13 @@ def build_answer_envelope(
 
 
 def validate_answer_envelope(
-    value: Mapping[str, Any], *, retrieval_result: Mapping[str, Any]
+    value: Mapping[str, Any],
+    *,
+    retrieval_result: Mapping[str, Any],
+    index: Mapping[str, Any],
+    manifest: Mapping[str, Any],
 ) -> None:
+    validate_retrieval_result(retrieval_result, index=index, manifest=manifest)
     expected_keys = {
         "schema_version",
         "retrieval_result_id",
