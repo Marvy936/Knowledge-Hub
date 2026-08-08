@@ -157,7 +157,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
             validate_retrieval_result(retrieval, index=index, manifest=manifest)
             atomic_write_json(args.output, retrieval)
-            context = build_grounded_context(retrieval, max_chars=args.context_max_chars)
+            context = build_grounded_context(
+                retrieval,
+                index=index,
+                manifest=manifest,
+                max_chars=args.context_max_chars,
+            )
             if args.context_output is not None:
                 atomic_write_json(args.context_output, context)
             result = {
@@ -182,11 +187,18 @@ def main(argv: Sequence[str] | None = None) -> int:
                     raise ContractError(f"answer text file does not exist: {args.answer_text_file}") from exc
             envelope = build_answer_envelope(
                 retrieval_result=retrieval,
+                index=index,
+                manifest=manifest,
                 answer_text=answer_text,
                 cited_chunk_ids=args.cite_chunk_id,
                 prompt_generation=args.prompt_generation,
             )
-            validate_answer_envelope(envelope, retrieval_result=retrieval)
+            validate_answer_envelope(
+                envelope,
+                retrieval_result=retrieval,
+                index=index,
+                manifest=manifest,
+            )
             atomic_write_json(args.output, envelope)
             result = {
                 "status": envelope["status"],
