@@ -80,7 +80,11 @@ def _manifest(*, malicious_only: bool = False) -> dict[str, object]:
 
 
 def _config() -> dict[str, object]:
-    return build_runtime_config(generation="rag-grounded-v1", top_k=5)
+    return build_runtime_config(
+        generation="rag-grounded-v1",
+        implementation_revision="e" * 40,
+        top_k=5,
+    )
 
 
 def _cases() -> list[dict[str, object]]:
@@ -135,10 +139,13 @@ def _cases() -> list[dict[str, object]]:
 def test_runtime_config_is_versioned_and_rebuild_validated() -> None:
     config = _config()
     validate_runtime_config(config)
+    assert config["implementation_revision"] == "e" * 40
     forged = deepcopy(config)
     forged["answer"]["max_chars"] = 999
     with pytest.raises(ContractError, match="canonical generation semantics"):
         validate_runtime_config(forged)
+    with pytest.raises(ContractError, match="retrieval/context/answer must be objects"):
+        validate_runtime_config({"generation": "x", "retrieval": "bad"})
 
 
 def test_security_scan_is_deterministic_and_rejects_modified_evidence() -> None:
@@ -223,6 +230,10 @@ def test_eval_suite_passes_all_required_slices_and_promotes_exact_config() -> No
     assert report["suite_passed"] is True
     assert report["critical_failures"] == []
     assert report["high_risk_failures"] == []
+    assert report["chunk_manifest_id"] == manifest["chunk_manifest_id"]
+    assert report["corpus_snapshot_id"] == manifest["corpus_snapshot_id"]
+    assert report["source_revision"] == manifest["source_revision"]
+    assert report["retrieval_index_id"] == index["retrieval_index_id"]
     for name in ("citation", "faithfulness", "abstention", "security"):
         assert report["slice_metrics"][name]["gate_passed"] is True
     validate_eval_report(
@@ -240,6 +251,8 @@ def test_eval_suite_passes_all_required_slices_and_promotes_exact_config() -> No
         index=index,
     )
     assert release["status"] == "promoted"
+    assert release["source_revision"] == "e" * 40
+    assert release["retrieval_index_id"] == index["retrieval_index_id"]
 
 
 def test_high_aggregate_cannot_mask_critical_abstention_failure() -> None:
