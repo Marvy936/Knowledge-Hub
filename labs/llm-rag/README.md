@@ -1,6 +1,6 @@
 # Knowledge Hub LLM/RAG flagship
 
-Tento package je praktický flagship pre sekciu 20. Prvá implementovaná vrstva rieši iba authoritative corpus identity a deterministic Markdown chunking. Retrieval, reranking, answer generation, evals, injection defense a observability sú samostatné nasledujúce vrstvy.
+Tento package je praktický flagship pre sekciu 20. Implementované sú authoritative corpus identity, deterministic Markdown chunking, offline lexical retrieval, explicitný `no_result`, exact chunk citations a structured answer/abstention envelope. Model generation, evals, injection defense a observability sú samostatné nasledujúce vrstvy.
 
 ## Aktuálny lifecycle
 
@@ -17,15 +17,26 @@ exact Git commit
 → per-chunk source/content identity
 → immutable chunk manifest ID
 → deterministic rebuild verification
+→ deterministic lexical index
+→ canonical query identity
+→ BM25-v1 retrieval
+→ results / no_result
+→ exact chunk citations
+→ bounded grounded context
+→ structured answer alebo exact abstention
 ```
 
 Snapshot nepoužíva mtime, absolute workspace path ani wall-clock timestamp. Rovnaké bytes, relatívne cesty, include roots a source revision preto vytvoria rovnaký `corpus_snapshot_id` aj v inom checkout adresári.
 
 Chunk identity zahŕňa source path, source SHA-256, heading path, ordinal, content SHA-256 a character count. `chunk_manifest_id` fingerprintuje celý ordered manifest vrátane chunk textu a chunking configuration.
 
+Retrieval index pinne exact `chunk_manifest_id`, source revision, tokenizer generation a lexical statistics. Query pinne index, normalized tokens a retrieval parametre. Result validator retrieval deterministicky vykoná znova; rehashed result s odstráneným alebo zmeneným hitom neprejde.
+
+Podrobný retrieval/answer contract je v [`RETRIEVAL-GROUNDED-ANSWER.md`](RETRIEVAL-GROUNDED-ANSWER.md).
+
 ## Trust boundary
 
-Corpus source je v tomto bloku lokálny trusted Git checkout. Vstup musí mať exact lowercase 40-hex commit SHA. Default corpus root je `docs/`; ďalšie roots musia byť explicitne relatívne k repository rootu.
+Corpus source je lokálny trusted Git checkout. Vstup musí mať exact lowercase 40-hex commit SHA. Default corpus root je `docs/`; ďalšie roots musia byť explicitne relatívne k repository rootu.
 
 Zakázané sú:
 
@@ -37,9 +48,12 @@ Zakázané sú:
 - chunk manifest patriaci inému snapshotu alebo revision,
 - chunk source digest odlišný od snapshotu,
 - canonical tampering s corpus/chunk IDs,
-- rehashed manifest s vynechaným alebo zmeneným chunkom; final validation deterministicky rebuildne celý manifest z exact source bytes.
+- rehashed manifest s vynechaným alebo zmeneným chunkom,
+- rehashed retrieval result, ktorý sa nezhoduje s deterministic query/index rebuildom,
+- answer citation, ktorá nebola exact retrieved hitom,
+- answer pri `no_result` namiesto mandatory abstention.
 
-Hash sám nie je authority. Snapshot a chunk manifest sa pred ďalšou vrstvou validujú semanticky a proti source bytes.
+Hash sám nie je authority. Snapshot, chunk manifest, retrieval index a retrieval result sa validujú semanticky alebo deterministic rebuildom.
 
 ## CLI
 
@@ -64,7 +78,20 @@ python -m knowledge_hub_rag validate-chunks \
   --repo-root . \
   --snapshot .runtime/rag/corpus-snapshot.json \
   --manifest .runtime/rag/chunk-manifest.json
+
+python -m knowledge_hub_rag index \
+  --manifest .runtime/rag/chunk-manifest.json \
+  --output .runtime/rag/retrieval-index.json
+
+python -m knowledge_hub_rag retrieve \
+  --manifest .runtime/rag/chunk-manifest.json \
+  --index .runtime/rag/retrieval-index.json \
+  --query "Ako funguje Kubernetes Service?" \
+  --output .runtime/rag/retrieval.json \
+  --context-output .runtime/rag/context.json
 ```
+
+Structured answer od budúceho deterministic/local/real model adaptera sa zapisuje cez `answer`. Command pred zápisom znova validuje retrieval proti exact indexu a manifestu.
 
 Runtime output patrí do disposable `.runtime` alebo runner temp priestoru a nesmie sa commitovať.
 
@@ -79,11 +106,28 @@ Default chunk limits sú:
 
 Blok väčší než maximum sa delí deterministicky najprv na newline boundary, potom whitespace boundary a až potom hard character boundary. Malý posledný chunk sa spojí s predchádzajúcim iba vtedy, keď výsledok neprekročí maximum.
 
-Tieto hodnoty sú zatiaľ parser generation `v1` implicitne reprezentovaná package version/schema. Budúci retrieval/index contract musí chunking configuration niesť ako immutable input a nesmie ticho re-chunkovať corpus.
+## Retrieval a citation semantics
+
+Core retrieval používa deterministic `bm25-v1`, `unicode-word-v1` tokenizer, default `k1=1.2` a `b=0.75`. Stop-word list, stemming ani hidden locale config sa nepoužívajú.
+
+Každý hit nesie exact:
+
+- `chunk_id`,
+- `source_path`,
+- source file SHA-256,
+- heading path,
+- content SHA-256,
+- canonical citation ID.
+
+Ak žiadny chunk neprekročí score gate, result je `no_result`. Tento stav sa nesmie interpretovať ako odpoveď ani healthy evidence.
+
+Structured answer envelope vyžaduje aspoň jednu exact retrieved citation. Pri `no_result` povoľuje iba `abstained`, `answer=null`, `retrieval_no_result` a prázdne citations.
+
+Tento schema/citation contract ešte nedokazuje faithfulness textu; to bude samostatný eval gate.
 
 ## Evidence boundary
 
-Táto vrstva môže po úspešnom rune preukázať:
+Implementované vrstvy môžu po úspešnom rune preukázať:
 
 - exact documentation corpus viazaný na Git commit,
 - per-file byte identity a read-back,
@@ -91,21 +135,25 @@ Táto vrstva môže po úspešnom rune preukázať:
 - deterministic section/chunk identity,
 - code-fence-aware parsing,
 - tamper a source-drift refusal,
-- completeness read-back cez deterministic rebuild.
+- completeness read-back cez deterministic rebuild,
+- deterministic offline index identity,
+- query/result identity,
+- relevant lexical retrieval a explicitný no-result state,
+- exact source/chunk citation binding,
+- structured answered/abstained schema.
 
-Nepreukazuje:
+Zatiaľ nepreukazujú:
 
-- semantic alebo lexical retrieval kvalitu,
-- embedding model/version alebo vector index,
-- reranking,
-- grounded answer generation,
-- citation correctness,
-- structured answer schema,
+- semantic embedding retrieval alebo learned reranking,
+- faithfulness answer textu,
+- hallucination rate,
+- prompt/config promotion,
 - prompt injection resistance,
-- eval-driven promotion,
-- model/token/cost telemetry,
+- model execution,
+- token/cost telemetry,
+- end-to-end runtime CI evidence,
 - production search alebo business outcome.
 
 ## Ďalší blok
 
-Nasledujúca vrstva pridá deterministic offline index a retrieval contract s explicitným `no_result`, exact chunk citations a query/result identity. Externý API key nebude potrebný pre core CI path.
+Nasledujúca vrstva pridá versioned prompt/config, deterministic model adapter, eval dataset a hard gates pre retrieval, citation, faithfulness a abstention slices. Potom nasledujú direct/indirect prompt-injection testy a trace/latency/token-equivalent observability.
