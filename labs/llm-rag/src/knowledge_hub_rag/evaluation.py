@@ -5,7 +5,12 @@ from typing import Any, Iterable, Mapping
 from .answers import validate_answer_envelope
 from .contracts import ContractError, canonical_json_bytes, sha256_bytes
 from .offline_adapter import run_offline_adapter, validate_offline_adapter_result
-from .retrieval import build_grounded_context, retrieve, validate_retrieval_result
+from .retrieval import (
+    build_grounded_context,
+    retrieve,
+    validate_retrieval_index,
+    validate_retrieval_result,
+)
 from .runtime_config import validate_runtime_config
 
 EVAL_SCHEMA_VERSION = 1
@@ -134,15 +139,23 @@ def run_eval_case(
     )
 
     expected_retrieval = case["expected_retrieval"]
-    retrieval_pass = None if expected_retrieval == "any" else retrieval["status"] == expected_retrieval
+    retrieval_pass = (
+        None
+        if expected_retrieval == "any"
+        else retrieval["status"] == expected_retrieval
+    )
     paths = set(case["expected_source_paths"])
     if paths and retrieval_pass is not False:
-        retrieval_pass = any(hit["citation"]["source_path"] in paths for hit in retrieval["hits"])
+        retrieval_pass = any(
+            hit["citation"]["source_path"] in paths for hit in retrieval["hits"]
+        )
 
     if answer["status"] == "answered":
         citation_pass: bool | None = bool(answer["citations"])
         if citation_pass and paths:
-            citation_pass = all(item["source_path"] in paths for item in answer["citations"])
+            citation_pass = all(
+                item["source_path"] in paths for item in answer["citations"]
+            )
     else:
         citation_pass = None
 
@@ -153,7 +166,9 @@ def run_eval_case(
         and case["expected_answer"] == "abstained"
         and case["expected_abstention_reason"] is not None
     ):
-        abstention_pass = answer["abstention_reason"] == case["expected_abstention_reason"]
+        abstention_pass = (
+            answer["abstention_reason"] == case["expected_abstention_reason"]
+        )
 
     query_security = adapter["query_security"]
     hit_security = adapter["hit_security"]
@@ -185,7 +200,9 @@ def run_eval_case(
     observed = {
         "retrieval": _slice(retrieval_pass, retrieval["status"]),
         "citation": _slice(citation_pass, f"citations={len(answer['citations'])}"),
-        "faithfulness": _slice(faithfulness_pass, "extractive substring of cited chunk"),
+        "faithfulness": _slice(
+            faithfulness_pass, "extractive substring of cited chunk"
+        ),
         "abstention": _slice(abstention_pass, answer["status"]),
         "security": _slice(security_pass, attack_type),
     }
@@ -217,6 +234,7 @@ def run_eval_suite(
     runtime_config: Mapping[str, Any],
 ) -> dict[str, Any]:
     validate_runtime_config(runtime_config)
+    validate_retrieval_index(index, manifest)
     resolved = list(cases)
     if not resolved:
         raise ContractError("eval suite requires at least one case")
@@ -268,10 +286,16 @@ def run_eval_suite(
         if metrics[name]["gate_passed"] is not True
     )
     passed_cases = sum(result["case_passed"] is True for result in results)
-    suite_passed = not threshold_failures and not critical_failures and not high_risk_failures
+    suite_passed = (
+        not threshold_failures and not critical_failures and not high_risk_failures
+    )
     payload = {
         "schema_version": EVAL_SCHEMA_VERSION,
         "runtime_config_id": runtime_config["runtime_config_id"],
+        "chunk_manifest_id": manifest["chunk_manifest_id"],
+        "corpus_snapshot_id": manifest["corpus_snapshot_id"],
+        "source_revision": manifest["source_revision"],
+        "retrieval_index_id": index["retrieval_index_id"],
         "case_count": len(results),
         "passed_cases": passed_cases,
         "aggregate_case_rate": round(passed_cases / len(results), 9),
@@ -327,6 +351,10 @@ def build_prompt_release(
         "runtime_config_id": runtime_config["runtime_config_id"],
         "generation": runtime_config["generation"],
         "eval_report_id": eval_report["eval_report_id"],
+        "chunk_manifest_id": eval_report["chunk_manifest_id"],
+        "corpus_snapshot_id": eval_report["corpus_snapshot_id"],
+        "source_revision": eval_report["source_revision"],
+        "retrieval_index_id": eval_report["retrieval_index_id"],
         "status": "promoted",
     }
     return {**payload, "prompt_release_id": sha256_bytes(canonical_json_bytes(payload))}
