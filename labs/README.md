@@ -35,10 +35,11 @@ Tento index je authoritative vstup do praktickej vrstvy repozitára. Nezamieňa 
 ### Knowledge Hub LLM/RAG flagship
 
 - Index: [`llm-rag/README.md`](llm-rag/README.md)
+- Retrieval/answer contract: [`llm-rag/RETRIEVAL-GROUNDED-ANSWER.md`](llm-rag/RETRIEVAL-GROUNDED-ANSWER.md)
 - Runtime evidence: [`llm-rag/RUNTIME-EVIDENCE.md`](llm-rag/RUNTIME-EVIDENCE.md)
-- Stav: prvá corpus/chunking vrstva je implementovaná; runtime evidence je `Pending` kvôli Actions blockeru #151.
-- Aktuálny rozsah: exact Git corpus snapshot, path-sorted per-file byte identity, source-byte read-back, deterministic Markdown heading/code-fence parser, immutable chunk identity a full-manifest deterministic rebuild.
-- Nasledujúce povinné vrstvy: offline retrieval s explicitným `no_result`, exact citations, structured grounded answer, eval/security gates a observability.
+- Stav: corpus/chunking a deterministic offline retrieval/answer-contract vrstvy sú implementované; runtime evidence je `Pending` kvôli Actions blockeru #151.
+- Aktuálny rozsah: exact Git corpus snapshot, per-file byte identity, deterministic Markdown chunking, immutable chunk/index/query/result identities, BM25-v1 retrieval, explicitný `no_result`, exact chunk citations, bounded context a structured answer/abstention envelope.
+- Otvorené zostávajú versioned prompt/config, deterministic answer adapter, faithfulness a high-risk eval gates, direct/indirect prompt-injection tests, trace/latency/token-equivalent observability a runtime closeout.
 
 ## Manual environment labs
 
@@ -72,7 +73,7 @@ Walkthrough sa do tohto indexu nepovažuje za samostatný flagship, kým nemá v
 ```text
 Machine Learning flagship — runtime verified
 → MLOps end-to-end lifecycle — source lifecycle implemented, runtime closeout blocked
-→ Knowledge Hub LLM/RAG flagship — corpus/chunking implemented, retrieval next
+→ Knowledge Hub LLM/RAG flagship — corpus/chunking + retrieval/citation/schema implemented; eval/security next
 → Keycloak-secured AI API — planned for v1
 → bounded incident/operations agent — planned for v1
 → unified runner, evidence closeout a v1.0.0 tag

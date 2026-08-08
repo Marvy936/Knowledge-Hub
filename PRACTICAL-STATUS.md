@@ -25,7 +25,7 @@ Stavy sa nededia automaticky. `Runtime verified` nie je production readiness a `
 | MLOps serving, canary a rollback | Áno | Áno na source/control-plane úrovni — immutable deployment, FastAPI source, deterministic routing, live loopback canary, rollback a post-retraining handoff | Nie — bez actual OCI build/digest, container artifact mount, platform traffic read-back a kvôli blockeru #151 | Nie | [`labs/mlops/POST-RETRAINING-HANDOFF.md`](labs/mlops/POST-RETRAINING-HANDOFF.md) |
 | MLOps monitoring, drift a retraining | Áno | Áno — aggregate monitoring, semantic drift report, exact human approval a approval-bound controlled executor s durable checkpoint/recovery contractom | Nie — 16/16 izolovaných executor testov nie je live MLflow retraining ani workflow evidence | Nie | [`labs/mlops/CONTROLLED-RETRAINING.md`](labs/mlops/CONTROLLED-RETRAINING.md) |
 | Knowledge Hub LLM/RAG corpus a chunking | Áno | Áno — exact Git corpus snapshot, byte read-back, deterministic Markdown chunking a rebuild validation | Nie — `RUNTIME-EVIDENCE.md` je `Pending`; Actions blocker #151 | Nie | [`labs/llm-rag/README.md`](labs/llm-rag/README.md) |
-| Knowledge Hub LLM/RAG retrieval a answer lifecycle | Áno v sekcii 20 | Nie | Nie | Nie | Nasledujúce Practical v1 bloky |
+| Knowledge Hub LLM/RAG retrieval a answer lifecycle | Áno | Áno — deterministic BM25-v1 index/retrieval, explicitný `no_result`, exact chunk citations, bounded context a structured answer/abstention envelope | Nie — vykonaný izolovaný reconstruction 8/8 pred posledným dodatočným determinism testom; final source obsahuje 9 test cases a Actions blocker #151 | Nie | [`labs/llm-rag/RETRIEVAL-GROUNDED-ANSWER.md`](labs/llm-rag/RETRIEVAL-GROUNDED-ANSWER.md) |
 | Keycloak-secured AI API | Áno v sekciách 17, 20 a 21 | Nie | Nie | Nie | Required for Practical v1 |
 | Bounded incident/operations agent | Áno v sekcii 21 | Nie | Nie | Nie | Required for Practical v1 |
 | Unified Practical v1 runner/evidence | Áno v roadmap-e | Čiastočne — lab index, status ledger a MLOps unified runner | Nie | Nie | Required for Practical v1 closeout |
@@ -55,8 +55,13 @@ Issue #151 je explicitný Practical v1 blocker pre central runtime closeout. Dia
 ## LLM/RAG implementačné subjects
 
 - PR #167 — exact Git corpus snapshot, per-file byte identity, workspace-independent snapshot ID, deterministic Markdown heading/code-fence chunking, per-chunk identity a deterministic full-manifest rebuild.
+- PR #169 — deterministic offline lexical index, canonical query/result identity, explicitný `no_result`, exact retrieved citations, bounded context a structured answer/abstention envelope s deterministic retrieval read-backom.
 
-PR #167 obsahuje 17 test cases v source pre positive a refusal contracts. Úspešný pytest/CI run sa neclaimuje, pretože Actions dispatch blocker #151 zostáva otvorený. `labs/llm-rag/RUNTIME-EVIDENCE.md` preto zostáva `Pending`.
+PR #167 obsahuje 17 test cases v source pre corpus/chunk positive a refusal contracts. Úspešný pytest/CI run sa neclaimuje, pretože Actions dispatch blocker #151 zostáva otvorený.
+
+Pre PR #169 prešiel izolovaný exact-source reconstruction `compileall` + 8/8 tests pred pridaním posledného samostatného query/result determinism testu. Finálny merged source obsahuje 9 retrieval/answer test cases. Tento ledger preto neclaimuje `9/9`; rozlišuje vykonanú evidence od počtu testov prítomných vo final source.
+
+`labs/llm-rag/RUNTIME-EVIDENCE.md` zostáva `Pending`. Nasledujúce otvorené vrstvy sú versioned prompt/config, deterministic answer adapter, eval slices vrátane faithfulness/abstention, high-risk hard gates, prompt-injection defense a observability.
 
 ## Dokumentačné sekcie a praktický stav
 
@@ -65,7 +70,7 @@ PR #167 obsahuje 17 test cases v source pre positive a refusal contracts. Úspe�
 | 00–17 | `User reviewed` v aktuálnom dokumentačnom rozsahu | Neznamená automaticky vykonané laby ani runtime acceptance. |
 | 18 — Machine Learning Fundamentals | `Ready for user review` | Flagship package je implementovaný a runtime verified; sekcia ako celok ešte nie je `User accepted`. |
 | 19 — MLOps and ML Platforms | `Ready for user review` | Promotion, training lineage, Registry, serving source, loopback canary, monitoring, drift, approval, controlled retraining executor a post-retraining deployment handoff sú implementované. Otvorené zostávajú central runtime closeout, actual OCI/container execution, živý retraining s novou Registry version a platform post-retraining canary read-back. |
-| 20 — LLM and GenAI Engineering | `Ready for user review` | Corpus snapshot a deterministic chunking sú implementované; retrieval, grounded answer, eval/security a observability vrstvy zostávajú otvorené. |
+| 20 — LLM and GenAI Engineering | `Ready for user review` | Corpus/chunking, deterministic retrieval/no-result, exact citation binding a structured answer/abstention schema sú implementované. Prompt/config, eval/faithfulness, injection defense, observability a runtime closeout zostávajú otvorené. |
 | 21 — AI Agents and Intelligent Automation | `Ready for user review` | Practical v1 bounded agent ešte nie je implementovaný. |
 
 ## Stavový postup
