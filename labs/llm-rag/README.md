@@ -15,13 +15,14 @@ exact Git commit
 → canonical query identity
 → BM25-v1 retrieval
 → results / no_result
-→ direct-query a retrieved-chunk security scan
-→ safe-context selection
+→ exact implementation-revision check
+→ bounded context
+→ direct-query a context-chunk security scan
 → deterministic extractive answer alebo exact abstention
 → exact citations
 → per-slice evaluation
 → critical/high-risk hard gates
-→ runtime-config promotion
+→ runtime-config promotion s corpus/index provenance
 → trace + latency + token-equivalent counters
 → bounded cleanup
 ```
@@ -66,17 +67,23 @@ Ak žiadny chunk neprekročí score gate, stav je explicitný `no_result`.
 
 ## Versioned runtime config
 
-`runtime_config_id` pinne prompt/config generation, system policy, adapter/security/token-counter generations, retrieval parametre, context/answer budget a eval thresholds.
+`runtime_config_id` pinne prompt/config generation, exact `implementation_revision`, code-defined system policy, adapter/security/token-counter generations, retrieval parametre, context/answer budget a eval thresholds.
 
-Default system policy považuje retrieved text výhradne za evidence. Retrieved text nemá instruction authority.
+`implementation_revision` musí byť exact lowercase 40-hex Git commit SHA a musí sa zhodovať s `manifest.source_revision`. Praktický query/eval run preto nemôže tvrdiť, že testuje inú implementáciu než commit, z ktorého vznikol corpus/index subject.
 
-Config sa validuje deterministic rebuildom. Zmena thresholdov, generation alebo policy vytvorí iný subject.
+Default system policy považuje retrieved text výhradne za evidence. Retrieved text nemá instruction authority. Policy nie je runtime-editable string; zmena policy je source change a vyžaduje nový revision/config/eval subject.
+
+Config sa validuje deterministic rebuildom. Zmena thresholdov, revision, generation alebo policy source vytvorí iný subject.
 
 ## Deterministic offline adapter
 
-Reference adapter je zámerne extraktívny. Pri bezpečnom retrieval výsledku odpovie substringom z exact cited chunku. To umožňuje deterministic faithfulness gate bez LLM judge-a.
+Reference adapter je zámerne extraktívny. Najprv zostaví bounded context podľa exact config budgetu; security scan aj answer selection používajú iba tento context, nie všetky raw retrieval hits.
 
-Ak query obsahuje direct prompt-injection pattern, výsledok je `direct_prompt_injection` abstention. Retrieved chunks sa skenujú oddelene. Unsafe chunk sa nesmie stať citation authority; ak neexistuje safe evidence, výsledok je `indirect_prompt_injection` abstention.
+Pri bezpečnom context iteme odpovie substringom z exact cited chunku. To umožňuje deterministic faithfulness gate bez LLM judge-a.
+
+Ak query obsahuje direct prompt-injection pattern, výsledok je `direct_prompt_injection` abstention. Context chunks sa skenujú oddelene. Unsafe chunk sa nesmie stať citation authority; ak bounded context obsahuje iba unsafe evidence, výsledok je `indirect_prompt_injection` abstention. Ak retrieval mal hits, ale nič sa nezmestilo do context budgetu, výsledok je `no_safe_context`.
+
+Adapter result pinne `runtime_config_id`, `implementation_revision`, `retrieval_result_id`, `context_id`, security evidence a answer ID.
 
 Security scanner je explicitný heuristic policy `prompt-injection-policy-v1`, nie všeobecný production classifier.
 
@@ -93,13 +100,13 @@ abstention_reason = retrieval_no_result
 citations = []
 ```
 
-Security abstention môže používať:
+Security/context abstention môže používať:
 
 - `direct_prompt_injection`,
 - `indirect_prompt_injection`,
 - `no_safe_context`.
 
-Policy abstention nikdy nenesie answer text ani citations.
+Policy abstention nikdy nenesie answer text ani citations. Pri `no_result` je prípustný iba `retrieval_no_result` alebo direct-query security precedence; indirect dôvod bez retrieved subjectu je odmietnutý.
 
 ## Evaluation-driven promotion
 
@@ -117,9 +124,11 @@ security     = 1.00
 
 Citation, faithfulness, abstention a security sú high-risk slices.
 
-Suite prejde iba keď každý slice dosiahne threshold, žiadny critical case nezlyhá a žiadny high-risk slice nezlyhá. Aggregate case rate je diagnostika, nie promotion authority.
+Suite prejde iba keď každý slice dosiahne threshold, žiadny critical case nezlyhá a žiadny high-risk slice nezlyhá. Aggregate case rate je diagnostika, nie promotion authority. Povinný slice bez applicable evidence je failure.
 
-`eval_report_id` sám nestačí. Pred promotion sa report celý znovu vykoná z exact cases, manifestu, indexu a runtime configu. Až potom môže vzniknúť `prompt_release_id`.
+`eval_report_id` sám nestačí. Pred promotion sa report celý znovu vykoná z exact cases, manifestu, indexu a runtime configu. Top-level report priamo pinne `chunk_manifest_id`, `corpus_snapshot_id`, source revision a `retrieval_index_id`.
+
+`prompt_release_id` vznikne iba po hard-pass rebuild-e a pinne runtime config, generation, eval report, chunk manifest, corpus snapshot, source revision a retrieval index. Release output path musí byť fresh; failed re-eval nemôže ponechať stale release artifact z predchádzajúceho úspešného runu.
 
 ## Observability
 
@@ -127,7 +136,7 @@ Single-query trace pinne config, query, retrieval, context, adapter a answer IDs
 
 Counters obsahujú query/retrieved/answer lexical token equivalents, retrieved chunk count, retrieved/context chars a citation count. `monetary_cost` je `null`, pretože offline adapter nemá provider billing a nesmie predstierať finančnú cenu.
 
-Trace pred zápisom znovu validuje config, retrieval, adapter a context.
+Trace pred zápisom znovu validuje config, retrieval, adapter a exact bounded context.
 
 ## CLI pre corpus a retrieval
 
@@ -162,12 +171,15 @@ python labs/llm-rag/scripts/run_offline_query.py \
   --index .runtime/rag/retrieval-index.json \
   --query "Ako funguje Kubernetes ConfigMap?" \
   --generation rag-grounded-v1 \
+  --implementation-revision "$GIT_COMMIT" \
   --config-output .runtime/rag/runtime-config.json \
   --retrieval-output .runtime/rag/retrieval.json \
   --context-output .runtime/rag/context.json \
   --adapter-output .runtime/rag/adapter.json \
   --trace-output .runtime/rag/trace.json
 ```
+
+`$GIT_COMMIT` musí byť ten istý commit, ktorý bol použitý pre corpus snapshot.
 
 ## Eval a promotion
 
@@ -177,12 +189,13 @@ python labs/llm-rag/scripts/run_eval_suite.py \
   --index .runtime/rag/retrieval-index.json \
   --cases labs/llm-rag/data/eval-cases.json \
   --generation rag-grounded-v1 \
+  --implementation-revision "$GIT_COMMIT" \
   --config-output .runtime/rag/runtime-config.json \
   --report-output .runtime/rag/eval-report.json \
   --release-output .runtime/rag/prompt-release.json
 ```
 
-Eval driver vracia `4`, ak run je contract-validný, ale hard gate zlyhal. Release vtedy nevznikne.
+Eval driver vracia `4`, ak run je contract-validný, ale hard gate zlyhal. Release vtedy nevznikne. Existujúci release-output path je refusal, aby nový failed run nemohol byť zamenený so starým úspešným artifactom.
 
 ## Cleanup
 
@@ -202,19 +215,22 @@ Zakázané alebo odmietané sú najmä:
 - changed snapshot bytes,
 - rehashed alebo incomplete chunk manifest,
 - rehashed retrieval result odlišný od deterministic query rebuild-u,
+- runtime implementation revision odlišný od corpus source revision,
 - citation, ktorá nebola exact retrieved hitom,
 - answer bez citation pri answered stave,
 - guessed answer pri `no_result`,
 - direct injection answer,
-- citation unsafe retrieved chunku,
+- citation unsafe context chunku,
+- raw retrieval answer mimo bounded contextu,
 - eval promotion podľa aggregate priemeru pri critical/high-risk failure,
 - forged eval report bez deterministic rebuild-u,
+- stale release output z predošlého runu,
 - trace nad iným context/adapter subjectom,
 - broad alebo symlinked cleanup target.
 
 ## Source test inventory a runtime boundary
 
-Corpus/chunk layer, retrieval/answer layer a eval/security/observability layer majú samostatné source tests. Nová eval/security test matrix obsahuje 10 test functions pre config, security, direct/indirect injection, all-unsafe abstention, hard eval gates, forged report refusal, invalid slice schema a trace evidence.
+Corpus/chunk layer, retrieval/answer layer a eval/security/observability layer majú samostatné source tests. Nová eval/security test matrix obsahuje 10 test functions pre config/revision, malformed config refusal, security, direct/indirect injection, all-unsafe abstention, hard eval gates, explicit corpus/index provenance, forged report refusal, invalid slice schema a trace evidence.
 
 Kým issue #151 blokuje GitHub Actions dispatch, tieto source tests sa neprezentujú ako central runtime verification. `RUNTIME-EVIDENCE.md` zostáva `Pending`.
 
