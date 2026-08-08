@@ -1,63 +1,144 @@
 # Knowledge Hub LLM/RAG flagship
 
-Tento package je praktický flagship pre sekciu 20. Implementované sú authoritative corpus identity, deterministic Markdown chunking, offline lexical retrieval, explicitný `no_result`, exact chunk citations a structured answer/abstention envelope. Model generation, evals, injection defense a observability sú samostatné nasledujúce vrstvy.
+Tento package je praktický flagship pre sekciu 20. Implementované sú authoritative corpus identity, deterministic Markdown chunking, offline lexical retrieval, explicitný `no_result`, exact citations, structured answer/abstention, versioned runtime config, deterministic extractive CI adapter, evaluation-driven promotion, prompt-injection policy gates a bounded trace/cost-equivalent evidence.
+
+Core cesta zostáva offline a bez API keya. Generatívny alebo lokálny model môže byť neskôr pridaný ako voliteľný adapter, ale nemení authority deterministických CI gates.
 
 ## Aktuálny lifecycle
 
 ```text
 exact Git commit
-→ explicitné corpus roots
-→ path-sorted Markdown discovery
-→ per-file byte SHA-256
-→ immutable corpus snapshot ID
-→ snapshot byte read-back
-→ heading-aware deterministic parsing
-→ fenced-code-safe block splitting
-→ bounded chunk packing
-→ per-chunk source/content identity
-→ immutable chunk manifest ID
-→ deterministic rebuild verification
+→ immutable corpus snapshot
+→ deterministic Markdown chunks
+→ exact chunk manifest
 → deterministic lexical index
 → canonical query identity
 → BM25-v1 retrieval
 → results / no_result
-→ exact chunk citations
-→ bounded grounded context
-→ structured answer alebo exact abstention
+→ exact implementation-revision check
+→ bounded context
+→ direct-query a context-chunk security scan
+→ deterministic extractive answer alebo exact abstention
+→ exact citations
+→ per-slice evaluation
+→ critical/high-risk hard gates
+→ runtime-config promotion s corpus/index provenance
+→ trace + latency + token-equivalent counters
+→ bounded cleanup
 ```
 
-Snapshot nepoužíva mtime, absolute workspace path ani wall-clock timestamp. Rovnaké bytes, relatívne cesty, include roots a source revision preto vytvoria rovnaký `corpus_snapshot_id` aj v inom checkout adresári.
+Podrobné contracts:
+
+- [`RETRIEVAL-GROUNDED-ANSWER.md`](RETRIEVAL-GROUNDED-ANSWER.md)
+- [`EVAL-SECURITY-OBSERVABILITY.md`](EVAL-SECURITY-OBSERVABILITY.md)
+- runtime evidence: [`RUNTIME-EVIDENCE.md`](RUNTIME-EVIDENCE.md)
+
+## Corpus a chunk identity
+
+Snapshot nepoužíva mtime, absolute workspace path ani wall-clock timestamp. Rovnaké bytes, relatívne cesty, include roots a source revision vytvoria rovnaký `corpus_snapshot_id` aj v inom checkout adresári.
 
 Chunk identity zahŕňa source path, source SHA-256, heading path, ordinal, content SHA-256 a character count. `chunk_manifest_id` fingerprintuje celý ordered manifest vrátane chunk textu a chunking configuration.
 
-Retrieval index pinne exact `chunk_manifest_id`, source revision, tokenizer generation a lexical statistics. Query pinne index, normalized tokens a retrieval parametre. Result validator retrieval deterministicky vykoná znova; rehashed result s odstráneným alebo zmeneným hitom neprejde.
+Snapshot a chunk manifest sa nevalidujú iba hashom. Source bytes sa čítajú späť a chunk manifest sa deterministicky rebuildne z exact snapshot subjectu.
 
-Podrobný retrieval/answer contract je v [`RETRIEVAL-GROUNDED-ANSWER.md`](RETRIEVAL-GROUNDED-ANSWER.md).
+## Retrieval a citations
 
-## Trust boundary
+Retrieval index pinne exact `chunk_manifest_id`, source revision, tokenizer generation a lexical statistics. Query pinne index, normalized tokens a retrieval parametre. Result validator retrieval vykoná znova; rehashed result s odstráneným alebo modifikovaným hitom neprejde.
 
-Corpus source je lokálny trusted Git checkout. Vstup musí mať exact lowercase 40-hex commit SHA. Default corpus root je `docs/`; ďalšie roots musia byť explicitne relatívne k repository rootu.
+Core retrieval používa:
 
-Zakázané sú:
+```text
+algorithm = bm25-v1
+tokenizer = unicode-word-v1
+k1 = 1.2
+b = 0.75
+```
 
-- symlinked Markdown subjects,
-- include root mimo repository rootu,
-- non-Markdown corpus subject,
-- ne-UTF-8 Markdown,
-- snapshot s changed size alebo digestom,
-- chunk manifest patriaci inému snapshotu alebo revision,
-- chunk source digest odlišný od snapshotu,
-- canonical tampering s corpus/chunk IDs,
-- rehashed manifest s vynechaným alebo zmeneným chunkom,
-- rehashed retrieval result, ktorý sa nezhoduje s deterministic query/index rebuildom,
-- answer citation, ktorá nebola exact retrieved hitom,
-- answer pri `no_result` namiesto mandatory abstention.
+Každý hit nesie exact:
 
-Hash sám nie je authority. Snapshot, chunk manifest, retrieval index a retrieval result sa validujú semanticky alebo deterministic rebuildom.
+- `chunk_id`,
+- `source_path`,
+- source file SHA-256,
+- heading path,
+- content SHA-256,
+- canonical citation ID.
 
-## CLI
+Ak žiadny chunk neprekročí score gate, stav je explicitný `no_result`.
 
-Z editable installu package:
+## Versioned runtime config
+
+`runtime_config_id` pinne prompt/config generation, exact `implementation_revision`, code-defined system policy, adapter/security/token-counter generations, retrieval parametre, context/answer budget a eval thresholds.
+
+`implementation_revision` musí byť exact lowercase 40-hex Git commit SHA a musí sa zhodovať s `manifest.source_revision`. Praktický query/eval run preto nemôže tvrdiť, že testuje inú implementáciu než commit, z ktorého vznikol corpus/index subject.
+
+Default system policy považuje retrieved text výhradne za evidence. Retrieved text nemá instruction authority. Policy nie je runtime-editable string; zmena policy je source change a vyžaduje nový revision/config/eval subject.
+
+Config sa validuje deterministic rebuildom. Zmena thresholdov, revision, generation alebo policy source vytvorí iný subject.
+
+## Deterministic offline adapter
+
+Reference adapter je zámerne extraktívny. Najprv zostaví bounded context podľa exact config budgetu; security scan aj answer selection používajú iba tento context, nie všetky raw retrieval hits.
+
+Pri bezpečnom context iteme odpovie substringom z exact cited chunku. To umožňuje deterministic faithfulness gate bez LLM judge-a.
+
+Ak query obsahuje direct prompt-injection pattern, výsledok je `direct_prompt_injection` abstention. Context chunks sa skenujú oddelene. Unsafe chunk sa nesmie stať citation authority; ak bounded context obsahuje iba unsafe evidence, výsledok je `indirect_prompt_injection` abstention. Ak retrieval mal hits, ale nič sa nezmestilo do context budgetu, výsledok je `no_safe_context`.
+
+Adapter result pinne `runtime_config_id`, `implementation_revision`, `retrieval_result_id`, `context_id`, security evidence a answer ID.
+
+Security scanner je explicitný heuristic policy `prompt-injection-policy-v1`, nie všeobecný production classifier.
+
+## Structured answer states
+
+Povolené sú answered alebo explicitne abstained výsledky.
+
+Retrieval abstention:
+
+```text
+status = abstained
+answer = null
+abstention_reason = retrieval_no_result
+citations = []
+```
+
+Security/context abstention môže používať:
+
+- `direct_prompt_injection`,
+- `indirect_prompt_injection`,
+- `no_safe_context`.
+
+Policy abstention nikdy nenesie answer text ani citations. Pri `no_result` je prípustný iba `retrieval_no_result` alebo direct-query security precedence; indirect dôvod bez retrieved subjectu je odmietnutý.
+
+## Evaluation-driven promotion
+
+Versioned dataset `data/eval-cases.json` obsahuje retrieval, citation, faithfulness, abstention a direct-security cases. Indirect injection sa testuje synthetic fixture-om, aby sa škodlivý prompt nemusel commitovať do trusted documentation corpusu.
+
+Default gates:
+
+```text
+retrieval    >= 0.80
+citation     = 1.00
+faithfulness = 1.00
+abstention   = 1.00
+security     = 1.00
+```
+
+Citation, faithfulness, abstention a security sú high-risk slices.
+
+Suite prejde iba keď každý slice dosiahne threshold, žiadny critical case nezlyhá a žiadny high-risk slice nezlyhá. Aggregate case rate je diagnostika, nie promotion authority. Povinný slice bez applicable evidence je failure.
+
+`eval_report_id` sám nestačí. Pred promotion sa report celý znovu vykoná z exact cases, manifestu, indexu a runtime configu. Top-level report priamo pinne `chunk_manifest_id`, `corpus_snapshot_id`, source revision a `retrieval_index_id`.
+
+`prompt_release_id` vznikne iba po hard-pass rebuild-e a pinne runtime config, generation, eval report, chunk manifest, corpus snapshot, source revision a retrieval index. Release output path musí byť fresh; failed re-eval nemôže ponechať stale release artifact z predchádzajúceho úspešného runu.
+
+## Observability
+
+Single-query trace pinne config, query, retrieval, context, adapter a answer IDs plus observed latency.
+
+Counters obsahujú query/retrieved/answer lexical token equivalents, retrieved chunk count, retrieved/context chars a citation count. `monetary_cost` je `null`, pretože offline adapter nemá provider billing a nesmie predstierať finančnú cenu.
+
+Trace pred zápisom znovu validuje config, retrieval, adapter a exact bounded context.
+
+## CLI pre corpus a retrieval
 
 ```bash
 python -m knowledge_hub_rag snapshot \
@@ -65,19 +146,10 @@ python -m knowledge_hub_rag snapshot \
   --source-revision "$GIT_COMMIT" \
   --output .runtime/rag/corpus-snapshot.json
 
-python -m knowledge_hub_rag verify-snapshot \
-  --repo-root . \
-  --snapshot .runtime/rag/corpus-snapshot.json
-
 python -m knowledge_hub_rag chunk \
   --repo-root . \
   --snapshot .runtime/rag/corpus-snapshot.json \
   --output .runtime/rag/chunk-manifest.json
-
-python -m knowledge_hub_rag validate-chunks \
-  --repo-root . \
-  --snapshot .runtime/rag/corpus-snapshot.json \
-  --manifest .runtime/rag/chunk-manifest.json
 
 python -m knowledge_hub_rag index \
   --manifest .runtime/rag/chunk-manifest.json \
@@ -91,69 +163,87 @@ python -m knowledge_hub_rag retrieve \
   --context-output .runtime/rag/context.json
 ```
 
-Structured answer od budúceho deterministic/local/real model adaptera sa zapisuje cez `answer`. Command pred zápisom znova validuje retrieval proti exact indexu a manifestu.
+## Offline query evidence
 
-Runtime output patrí do disposable `.runtime` alebo runner temp priestoru a nesmie sa commitovať.
+```bash
+python labs/llm-rag/scripts/run_offline_query.py \
+  --manifest .runtime/rag/chunk-manifest.json \
+  --index .runtime/rag/retrieval-index.json \
+  --query "Ako funguje Kubernetes ConfigMap?" \
+  --generation rag-grounded-v1 \
+  --implementation-revision "$GIT_COMMIT" \
+  --config-output .runtime/rag/runtime-config.json \
+  --retrieval-output .runtime/rag/retrieval.json \
+  --context-output .runtime/rag/context.json \
+  --adapter-output .runtime/rag/adapter.json \
+  --trace-output .runtime/rag/trace.json
+```
 
-## Parser a chunking semantics
+`$GIT_COMMIT` musí byť ten istý commit, ktorý bol použitý pre corpus snapshot.
 
-Markdown headings vytvárajú ordered heading path. Heading syntax vo fenced code blocku sa neinterpretuje ako section boundary. Fenced blocks sa pri paragraph splittingu nerozbijú na blank lines.
+## Eval a promotion
 
-Default chunk limits sú:
+```bash
+python labs/llm-rag/scripts/run_eval_suite.py \
+  --manifest .runtime/rag/chunk-manifest.json \
+  --index .runtime/rag/retrieval-index.json \
+  --cases labs/llm-rag/data/eval-cases.json \
+  --generation rag-grounded-v1 \
+  --implementation-revision "$GIT_COMMIT" \
+  --config-output .runtime/rag/runtime-config.json \
+  --report-output .runtime/rag/eval-report.json \
+  --release-output .runtime/rag/prompt-release.json
+```
 
-- `max_chars = 1800`,
-- `min_chars = 240`.
+Eval driver vracia `4`, ak run je contract-validný, ale hard gate zlyhal. Release vtedy nevznikne. Existujúci release-output path je refusal, aby nový failed run nemohol byť zamenený so starým úspešným artifactom.
 
-Blok väčší než maximum sa delí deterministicky najprv na newline boundary, potom whitespace boundary a až potom hard character boundary. Malý posledný chunk sa spojí s predchádzajúcim iba vtedy, keď výsledok neprekročí maximum.
+## Cleanup
 
-## Retrieval a citation semantics
+```bash
+python labs/llm-rag/scripts/cleanup_runtime.py --runtime-root .runtime/rag
+```
 
-Core retrieval používa deterministic `bm25-v1`, `unicode-word-v1` tokenizer, default `k1=1.2` a `b=0.75`. Stop-word list, stemming ani hidden locale config sa nepoužívajú.
+Cleanup driver smie odstrániť iba target končiaci `.runtime/rag`, odmieta symlink a číta späť, že directory neexistuje.
 
-Každý hit nesie exact:
+## Trust boundary
 
-- `chunk_id`,
-- `source_path`,
-- source file SHA-256,
-- heading path,
-- content SHA-256,
-- canonical citation ID.
+Zakázané alebo odmietané sú najmä:
 
-Ak žiadny chunk neprekročí score gate, result je `no_result`. Tento stav sa nesmie interpretovať ako odpoveď ani healthy evidence.
+- symlinked corpus subjects,
+- include root mimo repository rootu,
+- non-Markdown alebo non-UTF-8 corpus,
+- changed snapshot bytes,
+- rehashed alebo incomplete chunk manifest,
+- rehashed retrieval result odlišný od deterministic query rebuild-u,
+- runtime implementation revision odlišný od corpus source revision,
+- citation, ktorá nebola exact retrieved hitom,
+- answer bez citation pri answered stave,
+- guessed answer pri `no_result`,
+- direct injection answer,
+- citation unsafe context chunku,
+- raw retrieval answer mimo bounded contextu,
+- eval promotion podľa aggregate priemeru pri critical/high-risk failure,
+- forged eval report bez deterministic rebuild-u,
+- stale release output z predošlého runu,
+- trace nad iným context/adapter subjectom,
+- broad alebo symlinked cleanup target.
 
-Structured answer envelope vyžaduje aspoň jednu exact retrieved citation. Pri `no_result` povoľuje iba `abstained`, `answer=null`, `retrieval_no_result` a prázdne citations.
+## Source test inventory a runtime boundary
 
-Tento schema/citation contract ešte nedokazuje faithfulness textu; to bude samostatný eval gate.
+Corpus/chunk layer, retrieval/answer layer a eval/security/observability layer majú samostatné source tests. Nová eval/security test matrix obsahuje 10 test functions pre config/revision, malformed config refusal, security, direct/indirect injection, all-unsafe abstention, hard eval gates, explicit corpus/index provenance, forged report refusal, invalid slice schema a trace evidence.
 
-## Evidence boundary
+Kým issue #151 blokuje GitHub Actions dispatch, tieto source tests sa neprezentujú ako central runtime verification. `RUNTIME-EVIDENCE.md` zostáva `Pending`.
 
-Implementované vrstvy môžu po úspešnom rune preukázať:
+Táto vrstva stále nepreukazuje:
 
-- exact documentation corpus viazaný na Git commit,
-- per-file byte identity a read-back,
-- workspace-independent snapshot identity,
-- deterministic section/chunk identity,
-- code-fence-aware parsing,
-- tamper a source-drift refusal,
-- completeness read-back cez deterministic rebuild,
-- deterministic offline index identity,
-- query/result identity,
-- relevant lexical retrieval a explicitný no-result state,
-- exact source/chunk citation binding,
-- structured answered/abstained schema.
-
-Zatiaľ nepreukazujú:
-
-- semantic embedding retrieval alebo learned reranking,
-- faithfulness answer textu,
-- hallucination rate,
-- prompt/config promotion,
-- prompt injection resistance,
-- model execution,
-- token/cost telemetry,
-- end-to-end runtime CI evidence,
-- production search alebo business outcome.
+- kvalitu generatívneho LLM,
+- semantic embeddings alebo learned reranker,
+- robustnosť voči všetkým injection variantom,
+- production tracing backend,
+- provider billing,
+- online prompt canary,
+- user acceptance alebo business outcome.
 
 ## Ďalší blok
 
-Nasledujúca vrstva pridá versioned prompt/config, deterministic model adapter, eval dataset a hard gates pre retrieval, citation, faithfulness a abstention slices. Potom nasledujú direct/indirect prompt-injection testy a trace/latency/token-equivalent observability.
+LLM/RAG source lifecycle pre Practical v1 je po tejto vrstve funkčne uzavretý na offline deterministic úrovni. Ďalší major track je Keycloak-secured AI API; LLM/RAG runtime closeout zostáva paralelne blokovaný issue #151.
