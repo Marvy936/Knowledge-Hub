@@ -48,6 +48,14 @@ def validate_eval_case(case: Mapping[str, Any]) -> None:
         raise ContractError("eval case expected_retrieval is unsupported")
     if case.get("expected_answer") not in EXPECTED_ANSWER:
         raise ContractError("eval case expected_answer is unsupported")
+    if case["expected_retrieval"] == "any" and "retrieval" in slices:
+        raise ContractError("retrieval slice requires an exact expected retrieval state")
+    if case["expected_answer"] == "abstained" and any(
+        item in slices for item in ("citation", "faithfulness")
+    ):
+        raise ContractError("abstention case cannot require citation or faithfulness slices")
+    if case["expected_answer"] == "answered" and "abstention" in slices:
+        raise ContractError("answered case cannot require abstention slice")
     reason = case.get("expected_abstention_reason")
     if case["expected_answer"] == "answered" and reason is not None:
         raise ContractError("answered eval case must not expect abstention reason")
@@ -140,7 +148,11 @@ def run_eval_case(
 
     faithfulness_pass = _faithfulness(answer, retrieval)
     abstention_pass = answer["status"] == case["expected_answer"]
-    if abstention_pass and case["expected_answer"] == "abstained" and case["expected_abstention_reason"] is not None:
+    if (
+        abstention_pass
+        and case["expected_answer"] == "abstained"
+        and case["expected_abstention_reason"] is not None
+    ):
         abstention_pass = answer["abstention_reason"] == case["expected_abstention_reason"]
 
     query_security = adapter["query_security"]
@@ -177,12 +189,15 @@ def run_eval_case(
         "abstention": _slice(abstention_pass, answer["status"]),
         "security": _slice(security_pass, attack_type),
     }
-    applicable_required = [name for name in case["slices"] if observed[name]["applicable"]]
-    case_passed = all(observed[name]["passed"] is True for name in applicable_required)
+    case_passed = all(
+        observed[name]["applicable"] and observed[name]["passed"] is True
+        for name in case["slices"]
+    )
     payload = {
         "schema_version": EVAL_SCHEMA_VERSION,
         "case_id": case["case_id"],
         "critical": case["critical"],
+        "required_slices": list(case["slices"]),
         "runtime_config_id": runtime_config["runtime_config_id"],
         "retrieval_result_id": retrieval["retrieval_result_id"],
         "context_id": context["context_id"],
@@ -201,6 +216,7 @@ def run_eval_suite(
     index: Mapping[str, Any],
     runtime_config: Mapping[str, Any],
 ) -> dict[str, Any]:
+    validate_runtime_config(runtime_config)
     resolved = list(cases)
     if not resolved:
         raise ContractError("eval suite requires at least one case")
@@ -211,13 +227,23 @@ def run_eval_suite(
         if case["case_id"] in ids:
             raise ContractError("eval case IDs must be unique")
         ids.add(case["case_id"])
-        results.append(run_eval_case(case=case, manifest=manifest, index=index, runtime_config=runtime_config))
+        results.append(
+            run_eval_case(
+                case=case,
+                manifest=manifest,
+                index=index,
+                runtime_config=runtime_config,
+            )
+        )
 
     metrics: dict[str, dict[str, Any]] = {}
     threshold_failures: list[str] = []
     for name in SLICES:
-        applicable = [result["slices"][name] for result in results if result["slices"][name]["applicable"]]
-        passed = sum(item["passed"] is True for item in applicable)
+        required = [result for result in results if name in result["required_slices"]]
+        applicable = [result["slices"][name] for result in required]
+        passed = sum(
+            item["applicable"] and item["passed"] is True for item in applicable
+        )
         rate = None if not applicable else passed / len(applicable)
         threshold = float(runtime_config["eval_thresholds"][name])
         gate_passed = rate is not None and rate >= threshold
@@ -259,20 +285,48 @@ def run_eval_suite(
     return {**payload, "eval_report_id": sha256_bytes(canonical_json_bytes(payload))}
 
 
-def build_prompt_release(*, runtime_config: Mapping[str, Any], eval_report: Mapping[str, Any]) -> dict[str, Any]:
+def validate_eval_report(
+    value: Mapping[str, Any],
+    *,
+    cases: Iterable[Mapping[str, Any]],
+    manifest: Mapping[str, Any],
+    index: Mapping[str, Any],
+    runtime_config: Mapping[str, Any],
+) -> None:
+    expected = run_eval_suite(
+        cases=cases,
+        manifest=manifest,
+        index=index,
+        runtime_config=runtime_config,
+    )
+    if dict(value) != expected:
+        raise ContractError("eval report does not match deterministic suite rebuild")
+
+
+def build_prompt_release(
+    *,
+    runtime_config: Mapping[str, Any],
+    eval_report: Mapping[str, Any],
+    cases: Iterable[Mapping[str, Any]],
+    manifest: Mapping[str, Any],
+    index: Mapping[str, Any],
+) -> dict[str, Any]:
     validate_runtime_config(runtime_config)
-    if eval_report.get("runtime_config_id") != runtime_config["runtime_config_id"]:
-        raise ContractError("eval report belongs to another runtime config")
+    resolved_cases = list(cases)
+    validate_eval_report(
+        eval_report,
+        cases=resolved_cases,
+        manifest=manifest,
+        index=index,
+        runtime_config=runtime_config,
+    )
     if eval_report.get("suite_passed") is not True:
         raise ContractError("runtime config cannot be released while eval suite fails")
-    report_id = eval_report.get("eval_report_id")
-    if not isinstance(report_id, str) or len(report_id) != 64:
-        raise ContractError("eval report ID is invalid")
     payload = {
         "schema_version": EVAL_SCHEMA_VERSION,
         "runtime_config_id": runtime_config["runtime_config_id"],
         "generation": runtime_config["generation"],
-        "eval_report_id": report_id,
+        "eval_report_id": eval_report["eval_report_id"],
         "status": "promoted",
     }
     return {**payload, "prompt_release_id": sha256_bytes(canonical_json_bytes(payload))}
