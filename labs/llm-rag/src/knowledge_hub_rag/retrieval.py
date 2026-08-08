@@ -198,7 +198,14 @@ def validate_retrieval_result(result: Mapping[str, Any], *, index: Mapping[str, 
         raise ContractError("retrieval result does not match deterministic query/index rebuild")
 
 
-def build_grounded_context(result: Mapping[str, Any], *, max_chars: int = 6000) -> dict[str, Any]:
+def build_grounded_context(
+    result: Mapping[str, Any],
+    *,
+    index: Mapping[str, Any],
+    manifest: Mapping[str, Any],
+    max_chars: int = 6000,
+) -> dict[str, Any]:
+    validate_retrieval_result(result, index=index, manifest=manifest)
     if isinstance(max_chars, bool) or not isinstance(max_chars, int) or max_chars < 256:
         raise ContractError("context max_chars must be at least 256")
     if result.get("status") == "no_result":
