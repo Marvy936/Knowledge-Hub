@@ -21,6 +21,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--index", type=Path, required=True)
     parser.add_argument("--query", required=True)
     parser.add_argument("--generation", required=True)
+    parser.add_argument("--implementation-revision", required=True)
     parser.add_argument("--top-k", type=int, default=5)
     parser.add_argument("--min-score", type=float, default=0.01)
     parser.add_argument("--context-max-chars", type=int, default=6000)
@@ -40,6 +41,7 @@ def main() -> int:
         index = read_json(args.index)
         config = build_runtime_config(
             generation=args.generation,
+            implementation_revision=args.implementation_revision,
             top_k=args.top_k,
             min_score=args.min_score,
             context_max_chars=args.context_max_chars,
@@ -81,7 +83,10 @@ def main() -> int:
         atomic_write_json(args.adapter_output, adapter)
         atomic_write_json(args.trace_output, trace)
     except ContractError as exc:
-        print(json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True), file=sys.stderr)
+        print(
+            json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True),
+            file=sys.stderr,
+        )
         return 2
 
     print(
@@ -90,6 +95,7 @@ def main() -> int:
                 "status": adapter["answer"]["status"],
                 "abstention_reason": adapter["answer"]["abstention_reason"],
                 "runtime_config_id": config["runtime_config_id"],
+                "implementation_revision": config["implementation_revision"],
                 "retrieval_result_id": retrieval["retrieval_result_id"],
                 "answer_id": adapter["answer"]["answer_id"],
                 "trace_id": trace["trace_id"],
