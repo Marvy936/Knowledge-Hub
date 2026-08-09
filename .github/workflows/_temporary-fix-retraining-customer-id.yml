@@ -1,0 +1,88 @@
+name: Temporary fix retraining customer id
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'fix/actions-runner-context'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: fix/actions-runner-context
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Patch customer id derivation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('labs/mlops/scripts/run_live_retraining_runtime.py')
+          text = path.read_text(encoding='utf-8')
+          old = '''    try:\n        customer_ids = [int(row["customer_id"]) for row in rows]\n    except (KeyError, TypeError, ValueError) as exc:\n        raise LiveRetrainingRuntimeError(\n            "fresh retraining snapshot customer_id values must be integers"\n        ) from exc\n    if len(set(customer_ids)) != len(customer_ids):\n        raise LiveRetrainingRuntimeError("baseline customer_id values must be unique")\n    new_row = dict(rows[-1])\n    new_row["customer_id"] = str(max(customer_ids) + 1)\n'''
+          new = '''    parsed_ids: list[tuple[str, int, int]] = []\n    try:\n        for row in rows:\n            raw = row["customer_id"]\n            if not isinstance(raw, str) or not raw:\n                raise ValueError("customer_id must be a non-empty string")\n            match = re.fullmatch(r"(.*?)([0-9]+)", raw)\n            if match is None:\n                raise ValueError("customer_id must end with a decimal numeric suffix")\n            parsed_ids.append((match.group(1), int(match.group(2)), len(match.group(2))))\n    except (KeyError, TypeError, ValueError) as exc:\n        raise LiveRetrainingRuntimeError(\n            "fresh retraining snapshot customer_id values must share a stable prefix and decimal suffix"\n        ) from exc\n    raw_ids = [row["customer_id"] for row in rows]\n    if len(set(raw_ids)) != len(raw_ids):\n        raise LiveRetrainingRuntimeError("baseline customer_id values must be unique")\n    prefixes = {prefix for prefix, _, _ in parsed_ids}\n    if len(prefixes) != 1:\n        raise LiveRetrainingRuntimeError("baseline customer_id values must share one prefix")\n    prefix = next(iter(prefixes))\n    numeric_ids = [number for _, number, _ in parsed_ids]\n    if len(set(numeric_ids)) != len(numeric_ids):\n        raise LiveRetrainingRuntimeError("baseline customer_id numeric suffixes must be unique")\n    widths = {width for _, _, width in parsed_ids}\n    if prefix and len(widths) != 1:\n        raise LiveRetrainingRuntimeError(\n            "prefixed customer_id values must use one numeric suffix width"\n        )\n    width = next(iter(widths)) if prefix else 0\n    next_numeric_id = max(numeric_ids) + 1\n    next_customer_id = (\n        f"{prefix}{next_numeric_id:0{width}d}" if prefix else str(next_numeric_id)\n    )\n    if next_customer_id in set(raw_ids):\n        raise LiveRetrainingRuntimeError("derived fresh customer_id already exists")\n    new_row = dict(rows[-1])\n    new_row["customer_id"] = next_customer_id\n'''
+          if old not in text:
+              raise SystemExit('stale integer customer_id block not found')
+          text = text.replace(old, new, 1)
+          if 'import re\n' not in text:
+              text = text.replace('import json\n', 'import json\nimport re\n', 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+          git diff --check
+
+      - name: Add prefixed-id regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat >> labs/mlops/tests/test_live_retraining_runtime.py <<'PY'
+
+
+def test_fresh_dataset_preserves_prefixed_customer_id_contract(tmp_path: Path) -> None:
+    baseline = tmp_path / "baseline-prefixed.csv"
+    baseline.write_text(
+        "customer_id,value\\n"
+        "cust-000001,a\\n"
+        "cust-000002,b\\n"
+        "cust-000003,c\\n",
+        encoding="utf-8",
+    )
+    output = tmp_path / "fresh-prefixed.csv"
+    result = runtime._build_retraining_snapshot(baseline=baseline, output=output)
+    rows = list(csv.DictReader(output.open(encoding="utf-8", newline="")))
+    assert len(rows) == 4
+    assert rows[-1]["customer_id"] == "cust-000004"
+    assert result["rows"] == 4
+PY
+
+      - name: Run focused and full MLOps contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -q \
+            -e 'labs/machine-learning' \
+            -e 'labs/mlops[dev,registry,serving]'
+          python -m pytest labs/mlops/tests -q -p no:cacheprovider
+
+      - name: Commit source correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            labs/mlops/scripts/run_live_retraining_runtime.py \
+            labs/mlops/tests/test_live_retraining_runtime.py
+          git diff --cached --quiet && exit 0
+          git commit -m 'fix(mlops): preserve retraining customer id schema'
+          git push origin HEAD:fix/actions-runner-context
