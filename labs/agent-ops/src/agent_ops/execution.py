@@ -24,7 +24,7 @@ from .planning import (
 )
 from .safety import (
     validate_approval_against_plan,
-    validate_kill_switch,
+    validate_kill_switch_against_policy,
 )
 from .tools import (
     MutationToolAdapter,
@@ -230,9 +230,7 @@ def _validate_operation_inputs(
     )
     if dict(operation) != expected:
         raise AgentContractError("operation does not match authoritative input rebuild")
-    validate_kill_switch(kill_switch)
-    if kill_switch["engaged"] is True:
-        raise AgentContractError("agent mutation kill switch is engaged")
+    validate_kill_switch_against_policy(kill_switch=kill_switch, policy=policy)
     if operation["tool"] not in policy["allowed_tools"]:
         raise AgentContractError("operation tool is outside policy allowlist")
     if operation["target"] not in policy["allowed_targets"]:
@@ -328,6 +326,10 @@ def execute_operation(
                 raise UnknownToolOutcome(
                     "tool outcome is unknown; automatic retry is forbidden"
                 )
+            if kill_switch["engaged"] is True:
+                raise AgentContractError(
+                    "agent mutation kill switch is engaged; retry after not_found is forbidden"
+                )
             current = _transition(
                 current,
                 phase="planned",
@@ -336,6 +338,8 @@ def execute_operation(
             )
             _write_state(state_path, current)
         else:
+            if kill_switch["engaged"] is True:
+                raise AgentContractError("agent mutation kill switch is engaged")
             if result_path.exists():
                 raise AgentContractError("orphaned result requires manual reconciliation")
             current = _empty_state(
