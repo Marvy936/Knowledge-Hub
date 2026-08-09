@@ -5,10 +5,13 @@ Táto vrstva pripája local-only `labs/agent-ops` core za Keycloak automation ro
 ```text
 Client Credentials access token
 → JWT issuer/audience/token-class validation
+→ required scope = knowledge-hub-api-access
 → allowed azp = knowledge-hub-automation
 → route-specific client role
 → bounded agent backend
 ```
+
+Scope a role sú dve nezávislé authorization podmienky. Realm pridáva `knowledge-hub-api-access` ako default client scope s `include.in.token.scope=true`; API preto odmietne aj kryptograficky validný token so správnou rolou, ak exact scope chýba.
 
 Authority sa ďalej delí podľa route:
 
@@ -74,6 +77,23 @@ python labs/agent-ops/scripts/set_kill_switch.py \
 
 Policy a kill switch sú odlišné subjects. Policy je immutable planning/execution contract; kill switch je dynamic safety state viazaný na exact `policy_id` a `policy_generation`.
 
+Bridge nevníma `.runtime/agent-ops` iba ako odporúčaný adresár. Startup vyžaduje presne tieto bootstrap subjects:
+
+```text
+.runtime/agent-ops/tool-state.json
+.runtime/agent-ops/policy.json
+.runtime/agent-ops/kill-switch.json
+```
+
+Alternatívny path, file symlink alebo `plans/`/`operations/` directory symlink mimo runtime rootu je refusal. Canonical identity directories sú iba:
+
+```text
+.runtime/agent-ops/plans/<64-hex-plan-id>
+.runtime/agent-ops/operations/<64-hex-operation-id>
+```
+
+Tool-state envelope sa číta už pri startup readiness. Konkrétny service record sa napriek tomu validuje nanovo cez typed `inspect_service` pri každom pláne, aby readiness snapshot nenahradil fresh operational evidence.
+
 ## API runner
 
 ```bash
@@ -87,11 +107,11 @@ python labs/keycloak-ai-api/scripts/run_secured_agent_api.py \
   --port 8091
 ```
 
-Runner odmieta non-loopback host. Pri štarte validuje policy, kill switch a exact runtime-root boundary. `GET /readyz/agent` vráti configured `policy_id` a generation; liveness a readiness nie sú zamieňané.
+Runner odmieta non-loopback host. Pri štarte validuje tool-state envelope, policy, kill switch a exact runtime-root boundary. `GET /readyz/agent` vráti configured `policy_id` a generation; liveness a readiness nie sú zamieňané.
 
 ## `POST /v1/agent/run`
 
-Vyžaduje automation access token s client role `agent.run`.
+Vyžaduje automation access token s exact scope `knowledge-hub-api-access` a client role `agent.run`.
 
 Request:
 
@@ -152,7 +172,7 @@ Practical v1 roadmap ešte vyžaduje approval expiry. Táto integration vrstva j
 
 ## `POST /v1/agent/remediate`
 
-Vyžaduje automation access token s client role `agent.remediate`.
+Vyžaduje automation access token s exact scope `knowledge-hub-api-access` a client role `agent.remediate`.
 
 Request:
 
@@ -167,7 +187,7 @@ Request:
 Execution order:
 
 ```text
-JWT authentication + route authorization
+JWT authentication + scope + route-role authorization
 → exact plan directory
 → exact approval_id read-back
 → stored policy equality with configured policy
@@ -189,6 +209,16 @@ Operation state patrí do:
 ```
 
 Incomplete recovery vyžaduje exact `recover_expected_state_id`. Core potom urobí authoritative `lookup(operation_id)` pred akýmkoľvek retry.
+
+Ak request skončí po zapísaní durable checkpointu, HTTP 409 môže vrátiť iba bounded recovery evidence:
+
+```text
+operation_id
+state_id
+phase
+```
+
+Gateway tým klientovi sprístupní exact recovery subject, ale sám retry nespustí. `unknown_outcome` zostáva explicitne neretryovateľný bez authoritative lookup evidence.
 
 ## Kill-switch semantics
 
@@ -227,7 +257,8 @@ Toto je source implementation, nie runtime verification. Stále nepreukazuje:
 - real Kubernetes/cloud/service restart,
 - wall-clock/tool runtime limit,
 - production credentials,
-- final trajectory/business-outcome evaluation,
+- retrieved-content → agent prompt-injection gate,
+- final trajectory/tool-selection/policy/business-outcome evaluation,
 - clean-checkout combined runtime evidence,
 - user acceptance.
 
