@@ -89,7 +89,9 @@ Detaily:
 
 Detail: [`MONITORING-DRIFT-RETRAINING.md`](MONITORING-DRIFT-RETRAINING.md)
 
-### Controlled retraining executor
+### Controlled retraining executor a live-provider gate
+
+Source executor obsahuje:
 
 - canonical operation ID,
 - approval/report/proposal/current-deployment read-back,
@@ -103,22 +105,49 @@ Detail: [`MONITORING-DRIFT-RETRAINING.md`](MONITORING-DRIFT-RETRAINING.md)
 - compare-before-promote,
 - completed-operation replay bez opakovania side effects.
 
-Detail: [`CONTROLLED-RETRAINING.md`](CONTROLLED-RETRAINING.md)
+Nad tým existuje executable live runtime driver `scripts/run_live_retraining_runtime.py` a dedicated hosted workflow `.github/workflows/mlops-live-retraining-runtime.yml`.
+
+Gate zámerne skladá existujúce authoritative vrstvy:
+
+```text
+run_registry_gate.sh
+→ baseline Registry version + champion alias
+→ deterministic drift window
+→ retraining proposal
+→ forged proposal approval refusal
+→ exact human-style approval artifact
+→ fresh deterministic 1201-row dataset snapshot
+→ run_controlled_retraining.py
+→ new live MLflow Registry version
+→ champion alias read-back
+→ exact models:/name/version load
+→ completed replay
+→ unchanged version inventory after replay
+→ provider + filesystem cleanup
+```
+
+Monitoring events sú synthetic. Training a MLflow Registry side effects sú live local-provider operations. Current deployment image v tomto gate je iba explicitný control-plane subject; post-retraining container/deployment/canary runtime je samostatná ďalšia vrstva.
+
+Detaily:
+
+- [`CONTROLLED-RETRAINING.md`](CONTROLLED-RETRAINING.md)
+- [`LIVE-CONTROLLED-RETRAINING.md`](LIVE-CONTROLLED-RETRAINING.md)
 
 ## Stav dôkazov
 
 `Implemented` neznamená automaticky `Runtime verified`.
 
-Source-level vrstvy majú oddelené exact-source test evidence. Central GitHub Actions closeout však zostáva otvorený kvôli issue #151: matching MLOps PR a push events nevytvárajú connector-readable workflow runy.
+Source-level vrstvy majú oddelené exact-source test evidence a executable hosted runtime harnesses pre containerized inference aj live controlled retraining. Central GitHub Actions closeout však zostáva otvorený kvôli issue #151: matching MLOps PR a push events nevytvárajú connector-readable workflow runy.
 
 Lab preto netvrdí:
 
-- úspešný živý end-to-end controlled retraining run,
+- úspešný živý end-to-end controlled retraining run na authoritative revision,
 - úspešný actual Docker image build/container HTTP run na authoritative revision,
 - OCI Registry manifest/digest alebo vzdialený image pull,
 - platform load-balancer traffic switch,
 - production telemetry alebo reálny časový drift,
-- external identity approval,
+- external cryptographic approval identity,
+- post-retraining container/canary read-back,
 - HA, backup/restore alebo disaster recovery,
 - production readiness alebo business outcome.
 
@@ -150,6 +179,8 @@ python -m pip install -e "labs/mlops[dev,serving]"
 ```
 
 Container runtime gate potrebuje lokálny Docker engine a combined ML/MLOps environment s `registry` aj `serving` extras. Dedicated hosted workflow pripravuje Registry subjects existujúcim `run_registry_gate.sh` a až potom volá container driver; driver preto netrénuje ani neregistruje druhú paralelnú implementáciu.
+
+Live controlled-retraining gate potrebuje ML + `mlops[dev,registry,serving]`. Baseline MLflow database/artifact store vytvorí existujúci Registry gate; live driver potom provider znovu otvorí na loopbacku, vykoná approval-bound retraining a provider po evidence read-backu stopne.
 
 PowerShell aktivácia:
 
@@ -211,7 +242,7 @@ Alias URI ako `models:/KnowledgeHubChurn@champion` je mutable control-plane refe
 
 Monitoring driver najprv vytvorí drift report a proposal. Samostatný approval driver vytvorí approval artifact. Až potom môže `run_controlled_retraining.py` odvodiť operation ID a vykonať training→Registry→promotion lifecycle.
 
-Presný command a recovery semantics sú v [`CONTROLLED-RETRAINING.md`](CONTROLLED-RETRAINING.md).
+Presný command a recovery semantics sú v [`CONTROLLED-RETRAINING.md`](CONTROLLED-RETRAINING.md). Live provider acceptance a replay semantics sú v [`LIVE-CONTROLLED-RETRAINING.md`](LIVE-CONTROLLED-RETRAINING.md).
 
 ## Cleanup
 
