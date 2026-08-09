@@ -1,0 +1,301 @@
+name: MLOps live controlled retraining runtime
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "labs/machine-learning/**"
+      - "labs/mlops/**"
+      - ".github/workflows/mlops-live-retraining-runtime.yml"
+  push:
+    branches: [main]
+    paths:
+      - "labs/machine-learning/**"
+      - "labs/mlops/**"
+      - ".github/workflows/mlops-live-retraining-runtime.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mlops-live-retraining-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  live-retraining:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      evidence_id: ${{ steps.evidence.outputs.evidence_id }}
+      operation_id: ${{ steps.evidence.outputs.operation_id }}
+      before_version: ${{ steps.evidence.outputs.before_version }}
+      after_version: ${{ steps.evidence.outputs.after_version }}
+      candidate_id: ${{ steps.evidence.outputs.candidate_id }}
+      model_sha256: ${{ steps.evidence.outputs.model_sha256 }}
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
+    env:
+      PYTHONHASHSEED: "0"
+      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      VENV_DIR: "${{ runner.temp }}/knowledge-hub-mlops-retraining-venv"
+      RUNTIME_DIR: "${{ runner.temp }}/knowledge-hub-mlops-retraining-runtime"
+      TRACKING_URI: "http://127.0.0.1:5057"
+      EVIDENCE: "${{ runner.temp }}/knowledge-hub-mlops-live-retraining-evidence.json"
+
+    steps:
+      - name: Checkout exact subject revision
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          clean: true
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.12"
+
+      - name: Install isolated ML and MLOps runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$VENV_DIR" "$RUNTIME_DIR"
+          rm -f "$EVIDENCE"
+          python -m venv "$VENV_DIR"
+          "$VENV_DIR/bin/python" -m pip install --upgrade pip
+          "$VENV_DIR/bin/python" -m pip install \
+            -e "labs/machine-learning" \
+            -e "labs/mlops[dev,registry,serving]"
+
+      - name: Run MLOps contract suite
+        shell: bash
+        env:
+          PYTHONWARNINGS: error
+        run: |
+          set -euo pipefail
+          "$VENV_DIR/bin/python" -m pytest labs/mlops/tests -q
+
+      - name: Build baseline live Registry subjects
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash labs/mlops/scripts/run_registry_gate.sh
+
+      - name: Execute live controlled retraining gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$VENV_DIR/bin/python" labs/mlops/scripts/run_live_retraining_runtime.py \
+            --repo-root . \
+            --runtime-dir "$RUNTIME_DIR" \
+            --subject-sha "$SUBJECT_SHA" \
+            --sample-request labs/machine-learning/data/sample-request.json \
+            --tracking-uri "$TRACKING_URI" \
+            --retraining-seed 20260806 \
+            --output "$EVIDENCE"
+
+      - name: Verify live retraining evidence before outer cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$VENV_DIR/bin/python" - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          evidence = json.loads(Path(os.environ["EVIDENCE"]).read_text(encoding="utf-8"))
+          assert evidence["subject_sha"] == os.environ["SUBJECT_SHA"]
+          assert evidence["provider"]["type"] == "mlflow"
+          assert evidence["provider"]["backend"] == "sqlite"
+          assert evidence["provider_stopped"] is True
+          assert evidence["monitoring"]["drift_status"] == "drift_detected"
+          assert evidence["monitoring"]["proposal_action"] == "approval_required"
+          assert evidence["approval"]["forged_proposal_refused"] is True
+          assert evidence["approval"]["authorized_action"] == "start_controlled_retraining"
+          assert evidence["baseline"]["registry_version"] != evidence["retraining"]["registry_version"]
+          assert evidence["provider_readback"]["champion_alias_version"] == evidence["retraining"]["registry_version"]
+          assert evidence["provider_readback"]["registry_verify_passed"] is True
+          assert evidence["replay"]["status"] == "already_completed"
+          assert evidence["replay"]["duplicate_registry_side_effect"] is False
+          assert evidence["replay"]["registered_versions_after_replay"] == evidence["provider_readback"]["registered_versions_after"]
+          assert evidence["proof_boundary"]["current_deployment_image_runtime_verified"] is False
+          assert evidence["proof_boundary"]["production_traffic_claimed"] is False
+          assert isinstance(evidence["evidence_id"], str) and len(evidence["evidence_id"]) == 64
+          PY
+
+      - name: Cleanup live retraining provider runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          pkill -f "$VENV_DIR/bin/python.*-m mlflow server" 2>/dev/null || true
+          rm -rf "$RUNTIME_DIR" "$VENV_DIR"
+          test ! -e "$RUNTIME_DIR"
+          test ! -e "$VENV_DIR"
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path(os.environ["EVIDENCE"])
+          evidence = json.loads(path.read_text(encoding="utf-8"))
+          evidence["workflow_cleanup_verified"] = True
+          payload = {key: value for key, value in evidence.items() if key != "evidence_id"}
+          canonical = json.dumps(
+              payload,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+              allow_nan=False,
+          ).encode("utf-8")
+          evidence["evidence_id"] = hashlib.sha256(canonical).hexdigest()
+          path.write_text(json.dumps(evidence, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+          PY
+
+      - name: Collect final evidence outputs
+        id: evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          evidence = json.loads(Path(os.environ["EVIDENCE"]).read_text(encoding="utf-8"))
+          assert evidence["subject_sha"] == os.environ["SUBJECT_SHA"]
+          assert evidence["provider_stopped"] is True
+          assert evidence["workflow_cleanup_verified"] is True
+          values = {
+              "evidence_id": evidence["evidence_id"],
+              "operation_id": evidence["retraining"]["operation_id"],
+              "before_version": evidence["baseline"]["registry_version"],
+              "after_version": evidence["retraining"]["registry_version"],
+              "candidate_id": evidence["retraining"]["candidate_id"],
+              "model_sha256": evidence["retraining"]["model_sha256"],
+          }
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as handle:
+              for key, value in values.items():
+                  handle.write(f"{key}={value}\n")
+          print(json.dumps(values, sort_keys=True))
+          PY
+
+      - name: Upload canonical live retraining evidence
+        id: upload
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: mlops-live-retraining-${{ env.SUBJECT_SHA }}
+          path: ${{ env.EVIDENCE }}
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Emergency cleanup
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          pkill -f "$VENV_DIR/bin/python.*-m mlflow server" 2>/dev/null || true
+          rm -rf "$RUNTIME_DIR" "$VENV_DIR"
+          test ! -e "$RUNTIME_DIR"
+          test ! -e "$VENV_DIR"
+
+  publish-main-statuses:
+    if: github.event_name == 'push' && always()
+    needs: live-retraining
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      statuses: write
+    env:
+      RUNTIME_RESULT: ${{ needs.live-retraining.result }}
+      EVIDENCE_ID: ${{ needs.live-retraining.outputs.evidence_id }}
+      OPERATION_ID: ${{ needs.live-retraining.outputs.operation_id }}
+      BEFORE_VERSION: ${{ needs.live-retraining.outputs.before_version }}
+      AFTER_VERSION: ${{ needs.live-retraining.outputs.after_version }}
+      CANDIDATE_ID: ${{ needs.live-retraining.outputs.candidate_id }}
+      MODEL_SHA256: ${{ needs.live-retraining.outputs.model_sha256 }}
+      ARTIFACT_ID: ${{ needs.live-retraining.outputs.artifact_id }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPOSITORY: ${{ github.repository }}
+      SUBJECT_SHA: ${{ github.sha }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+    steps:
+      - name: Publish connector-readable live retraining statuses
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          success = os.environ["RUNTIME_RESULT"] == "success"
+          statuses = [
+              {
+                  "context": "knowledge-hub/mlops-live-retraining-runtime",
+                  "state": "success" if success else "failure",
+                  "description": (
+                      "drift, approval, new Registry version, alias read-back and replay passed"
+                      if success
+                      else "MLOps live controlled retraining runtime gate failed"
+                  ),
+              }
+          ]
+          if success:
+              statuses.extend(
+                  [
+                      {
+                          "context": "knowledge-hub/mlops-live-retraining-evidence",
+                          "state": "success",
+                          "description": f"evidence={os.environ['EVIDENCE_ID']}; artifact={os.environ['ARTIFACT_ID']}",
+                      },
+                      {
+                          "context": "knowledge-hub/mlops-live-retraining-operation",
+                          "state": "success",
+                          "description": f"operation={os.environ['OPERATION_ID']}",
+                      },
+                      {
+                          "context": "knowledge-hub/mlops-live-retraining-version",
+                          "state": "success",
+                          "description": f"Registry {os.environ['BEFORE_VERSION']}→{os.environ['AFTER_VERSION']}",
+                      },
+                      {
+                          "context": "knowledge-hub/mlops-live-retraining-model",
+                          "state": "success",
+                          "description": f"candidate={os.environ['CANDIDATE_ID']}; model={os.environ['MODEL_SHA256']}",
+                      },
+                  ]
+              )
+
+          url = (
+              "https://api.github.com/repos/"
+              + os.environ["REPOSITORY"]
+              + "/statuses/"
+              + os.environ["SUBJECT_SHA"]
+          )
+          for status in statuses:
+              request = urllib.request.Request(
+                  url,
+                  data=json.dumps(
+                      {
+                          **status,
+                          "description": status["description"][:140],
+                          "target_url": os.environ["RUN_URL"],
+                      }
+                  ).encode("utf-8"),
+                  method="POST",
+                  headers={
+                      "Accept": "application/vnd.github+json",
+                      "Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                      "Content-Type": "application/json",
+                      "User-Agent": "knowledge-hub-mlops-live-retraining",
+                      "X-GitHub-Api-Version": "2022-11-28",
+                  },
+              )
+              with urllib.request.urlopen(request) as response:
+                  if response.status != 201:
+                      raise SystemExit(f"Unexpected status API response: {response.status}")
+          PY
