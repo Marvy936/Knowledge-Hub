@@ -1,0 +1,314 @@
+name: Keycloak live identity runtime
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "labs/llm-rag/**"
+      - "labs/agent-ops/**"
+      - "labs/keycloak-ai-api/**"
+      - ".github/workflows/keycloak-live-identity-runtime.yml"
+  push:
+    branches: [main]
+    paths:
+      - "labs/llm-rag/**"
+      - "labs/agent-ops/**"
+      - "labs/keycloak-ai-api/**"
+      - ".github/workflows/keycloak-live-identity-runtime.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: keycloak-live-identity-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  live-identity:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      evidence_id: ${{ steps.evidence.outputs.evidence_id }}
+      plan_id: ${{ steps.evidence.outputs.plan_id }}
+      approval_id: ${{ steps.evidence.outputs.approval_id }}
+      rag_answer_id: ${{ steps.evidence.outputs.rag_answer_id }}
+      rag_trace_id: ${{ steps.evidence.outputs.rag_trace_id }}
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
+    env:
+      PYTHONHASHSEED: "0"
+      PYTHONDONTWRITEBYTECODE: "1"
+      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      VENV_DIR: "${{ runner.temp }}/knowledge-hub-keycloak-runtime-venv"
+      EVIDENCE: "${{ runner.temp }}/knowledge-hub-keycloak-live-identity-evidence.json"
+      API_PORT: "18091"
+
+    steps:
+      - name: Checkout exact subject revision
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          clean: true
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.12"
+
+      - name: Verify Docker and Compose runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker version
+          docker compose version
+
+      - name: Install isolated combined AI runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$VENV_DIR" .runtime/keycloak .runtime/agent-ops
+          rm -f "$EVIDENCE"
+          python -m venv "$VENV_DIR"
+          "$VENV_DIR/bin/python" -m pip install --upgrade pip
+          "$VENV_DIR/bin/python" -m pip install \
+            -e "labs/llm-rag[dev]" \
+            -e "labs/agent-ops[dev]" \
+            -e "labs/keycloak-ai-api[dev]"
+
+      - name: Run combined RAG agent and identity contract suites
+        shell: bash
+        env:
+          PYTHONWARNINGS: error
+        run: |
+          set -euo pipefail
+          "$VENV_DIR/bin/python" -m pytest \
+            labs/llm-rag/tests \
+            labs/agent-ops/tests \
+            labs/keycloak-ai-api/tests \
+            -q
+
+      - name: Execute live Keycloak identity gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$VENV_DIR/bin/python" labs/keycloak-ai-api/scripts/run_live_identity_gate.py \
+            --repo-root . \
+            --subject-sha "$SUBJECT_SHA" \
+            --issuer http://127.0.0.1:8080/realms/knowledge-hub \
+            --api-host 127.0.0.1 \
+            --api-port "$API_PORT" \
+            --startup-timeout-seconds 120 \
+            --output "$EVIDENCE"
+
+      - name: Verify exact identity evidence
+        id: evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$VENV_DIR/bin/python" - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          evidence = json.loads(Path(os.environ["EVIDENCE"]).read_text(encoding="utf-8"))
+          assert evidence["subject_sha"] == os.environ["SUBJECT_SHA"]
+          assert evidence["cleanup_verified"] is True
+          assert evidence["keycloak"]["configured_image"] == "quay.io/keycloak/keycloak:26.7.0"
+          assert evidence["keycloak"]["local_image_id"].startswith("sha256:")
+          assert evidence["keycloak"]["issuer"] == "http://127.0.0.1:8080/realms/knowledge-hub"
+          assert evidence["keycloak"]["discovery_issuer"] == evidence["keycloak"]["issuer"]
+          assert evidence["keycloak"]["jwks_key_count"] > 0
+          assert evidence["keycloak"]["realm_import_live"] is True
+
+          assert evidence["pkce"]["standard_flow_enabled"] is True
+          assert evidence["pkce"]["pkce_method"] == "S256"
+          assert evidence["pkce"]["implicit_flow_enabled"] is False
+          assert evidence["pkce"]["direct_access_grants_enabled"] is False
+          assert evidence["pkce"]["authorization_code_exchange_executed"] is False
+
+          service = evidence["service_account"]
+          assert service["audience"] == ["knowledge-hub-api"]
+          assert service["azp"] == "knowledge-hub-automation"
+          assert service["token_use"] == "access"
+          assert service["scope_present"] is True
+          assert {"rag.read", "agent.run", "agent.remediate"}.issubset(set(service["roles"]))
+          assert service["secret_persisted_in_evidence"] is False
+          assert service["token_value_persisted_in_evidence"] is False
+
+          assert evidence["rag"]["protected_status"] == 200
+          assert evidence["rag"]["answer_status"] == "answered"
+          assert len(evidence["rag"]["answer_id"]) == 64
+          assert len(evidence["rag"]["trace_id"]) == 64
+
+          agent = evidence["agent"]
+          assert agent["disposition"] == "approval_required"
+          assert len(agent["plan_id"]) == 64
+          assert len(agent["retrieval_context_id"]) == 64
+          assert len(agent["action_digest"]) == 64
+          assert len(agent["approval_id"]) == 64
+          assert agent["remediation_http_status"] == 200
+          assert agent["replay_http_status"] == 200
+          assert agent["service_after_remediation"] == agent["service_after_replay"]
+          assert agent["service_after_replay"]["generation"] == 2
+          assert agent["service_after_replay"]["status"] == "healthy"
+          assert agent["service_after_replay"]["restart_count"] == 1
+
+          expected = {
+              "missing_bearer": 401,
+              "tampered_signature": 401,
+              "wrong_audience": 401,
+              "missing_scope": 403,
+              "missing_agent_remediate_role": 403,
+              "expired_token": 401,
+          }
+          for label, status in expected.items():
+              item = evidence["negative_authorization"][label]
+              assert item["observed_http_status"] == status
+              assert item["expected_http_status"] == status
+          assert "knowledge-hub-wrong-audience" in evidence["negative_token_claims"]["wrong_audience"]
+          assert evidence["negative_token_claims"]["missing_scope_confirmed"] is True
+          assert evidence["negative_token_claims"]["missing_remediate_role_confirmed"] is True
+
+          assert evidence["redaction"]["client_secret_found_in_api_log"] is False
+          assert evidence["redaction"]["bearer_token_found_in_api_log"] is False
+          assert evidence["proof_boundary"]["service_account_client_credentials"] == "live"
+          assert evidence["proof_boundary"]["protected_rag"] == "live-loopback-http"
+          assert evidence["proof_boundary"]["browser_authorization_code_exchange"] == "not-executed"
+          assert evidence["proof_boundary"]["production_tls_claimed"] is False
+          assert evidence["proof_boundary"]["production_identity_platform_claimed"] is False
+          assert isinstance(evidence["evidence_id"], str) and len(evidence["evidence_id"]) == 64
+          assert not Path(".runtime/keycloak").exists()
+          assert not Path(".runtime/agent-ops").exists()
+
+          values = {
+              "evidence_id": evidence["evidence_id"],
+              "plan_id": agent["plan_id"],
+              "approval_id": agent["approval_id"],
+              "rag_answer_id": evidence["rag"]["answer_id"],
+              "rag_trace_id": evidence["rag"]["trace_id"],
+          }
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as handle:
+              for key, value in values.items():
+                  handle.write(f"{key}={value}\n")
+          print(json.dumps(values, sort_keys=True))
+          PY
+
+      - name: Upload canonical live identity evidence
+        id: upload
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: keycloak-live-identity-${{ env.SUBJECT_SHA }}
+          path: ${{ env.EVIDENCE }}
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Emergency cleanup
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          project="kh-keycloak-runtime-${SUBJECT_SHA:0:12}"
+          docker compose \
+            --project-name "$project" \
+            -f labs/keycloak-ai-api/compose.yaml \
+            down -v --remove-orphans || true
+          rm -rf .runtime/keycloak .runtime/agent-ops "$VENV_DIR"
+          test ! -e .runtime/keycloak
+          test ! -e .runtime/agent-ops
+          test ! -e "$VENV_DIR"
+
+  publish-main-statuses:
+    if: github.event_name == 'push' && always()
+    needs: live-identity
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      statuses: write
+    env:
+      RUNTIME_RESULT: ${{ needs.live-identity.result }}
+      EVIDENCE_ID: ${{ needs.live-identity.outputs.evidence_id }}
+      PLAN_ID: ${{ needs.live-identity.outputs.plan_id }}
+      APPROVAL_ID: ${{ needs.live-identity.outputs.approval_id }}
+      RAG_ANSWER_ID: ${{ needs.live-identity.outputs.rag_answer_id }}
+      RAG_TRACE_ID: ${{ needs.live-identity.outputs.rag_trace_id }}
+      ARTIFACT_ID: ${{ needs.live-identity.outputs.artifact_id }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPOSITORY: ${{ github.repository }}
+      SUBJECT_SHA: ${{ github.sha }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+    steps:
+      - name: Publish connector-readable live identity statuses
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          success = os.environ["RUNTIME_RESULT"] == "success"
+          statuses = [
+              {
+                  "context": "knowledge-hub/keycloak-live-identity-runtime",
+                  "state": "success" if success else "failure",
+                  "description": (
+                      "live realm/JWKS/token/RAG/agent authorization path passed"
+                      if success
+                      else "Keycloak live identity runtime gate failed"
+                  ),
+              }
+          ]
+          if success:
+              statuses.extend(
+                  [
+                      {
+                          "context": "knowledge-hub/keycloak-live-identity-evidence",
+                          "state": "success",
+                          "description": f"evidence={os.environ['EVIDENCE_ID']}; artifact={os.environ['ARTIFACT_ID']}",
+                      },
+                      {
+                          "context": "knowledge-hub/keycloak-live-agent-authority",
+                          "state": "success",
+                          "description": f"plan={os.environ['PLAN_ID']}; approval={os.environ['APPROVAL_ID']}",
+                      },
+                      {
+                          "context": "knowledge-hub/keycloak-live-rag-trace",
+                          "state": "success",
+                          "description": f"answer={os.environ['RAG_ANSWER_ID']}; trace={os.environ['RAG_TRACE_ID']}",
+                      },
+                  ]
+              )
+
+          url = (
+              "https://api.github.com/repos/"
+              + os.environ["REPOSITORY"]
+              + "/statuses/"
+              + os.environ["SUBJECT_SHA"]
+          )
+          for status in statuses:
+              request = urllib.request.Request(
+                  url,
+                  data=json.dumps(
+                      {
+                          **status,
+                          "description": status["description"][:140],
+                          "target_url": os.environ["RUN_URL"],
+                      }
+                  ).encode("utf-8"),
+                  method="POST",
+                  headers={
+                      "Accept": "application/vnd.github+json",
+                      "Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                      "Content-Type": "application/json",
+                      "User-Agent": "knowledge-hub-keycloak-live-identity",
+                      "X-GitHub-Api-Version": "2022-11-28",
+                  },
+              )
+              with urllib.request.urlopen(request) as response:
+                  if response.status != 201:
+                      raise SystemExit(f"Unexpected status API response: {response.status}")
+          PY
