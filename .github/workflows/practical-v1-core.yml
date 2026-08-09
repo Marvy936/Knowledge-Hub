@@ -11,6 +11,7 @@ on:
       - "labs/keycloak-ai-api/**"
       - "scripts/practical_v1_core.py"
       - "scripts/validate_practical_v1_repo.py"
+      - "scripts/tests/**"
       - ".github/workflows/practical-v1-core.yml"
       - "PRACTICAL-V1-ROADMAP.md"
       - "PRACTICAL-STATUS.md"
@@ -25,6 +26,7 @@ on:
       - "labs/keycloak-ai-api/**"
       - "scripts/practical_v1_core.py"
       - "scripts/validate_practical_v1_repo.py"
+      - "scripts/tests/**"
       - ".github/workflows/practical-v1-core.yml"
       - "PRACTICAL-V1-ROADMAP.md"
       - "PRACTICAL-STATUS.md"
@@ -209,6 +211,12 @@ jobs:
             -e "labs/llm-rag[dev]" \
             -e "labs/agent-ops[dev]" \
             -e "labs/keycloak-ai-api[dev]"
+
+      - name: Run release-tooling contract tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pytest scripts/tests -q
 
       - name: Run Practical v1 offline core orchestrator
         shell: bash
