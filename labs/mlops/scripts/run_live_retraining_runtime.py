@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import socket
 import subprocess
 import sys
 import time
@@ -104,6 +105,15 @@ def _tracking_endpoint(value: str) -> tuple[str, int]:
     return "127.0.0.1", port
 
 
+def _require_port_unused(host: str, port: int) -> None:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+        probe.settimeout(0.5)
+        if probe.connect_ex((host, port)) == 0:
+            raise LiveRetrainingError(
+                f"tracking endpoint {host}:{port} is already in use; refusing ambiguous provider ownership"
+            )
+
+
 def _wait_mlflow(tracking_uri: str, process: subprocess.Popen[str], timeout: int = 60) -> None:
     deadline = time.monotonic() + timeout
     last_error = "not attempted"
@@ -129,6 +139,7 @@ def _start_mlflow(
     tracking_uri: str,
 ) -> tuple[subprocess.Popen[str], Any, Path]:
     host, port = _tracking_endpoint(tracking_uri)
+    _require_port_unused(host, port)
     backend = runtime_dir / "mlflow.db"
     artifacts = runtime_dir / "mlartifacts"
     log_path = runtime_dir / "live-retraining-mlflow.log"
@@ -415,6 +426,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     approval = read_json(approval_path)
     if approval.get("authorized_action") != "start_controlled_retraining":
         raise LiveRetrainingError("valid approval did not authorize controlled retraining")
+    if approval_summary.get("retraining_approval_id") != approval.get("retraining_approval_id"):
+        raise LiveRetrainingError("approval CLI summary does not match approval artifact")
 
     retraining_dataset = live_root / "retraining.csv"
     _run(
@@ -439,19 +452,25 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
     server: subprocess.Popen[str] | None = None
     server_handle: Any | None = None
+    server_log_path: Path | None = None
     provider_stopped = False
     evidence: dict[str, Any] | None = None
     try:
-        server, server_handle, log_path = _start_mlflow(
+        server, server_handle, server_log_path = _start_mlflow(
             runtime_dir=runtime_dir,
             tracking_uri=args.tracking_uri,
         )
         import mlflow
+        import mlflow.sklearn
         import pandas as pd
         from mlflow.tracking import MlflowClient
 
         mlflow.set_tracking_uri(args.tracking_uri)
-        client = MlflowClient(tracking_uri=args.tracking_uri)
+        mlflow.set_registry_uri(args.tracking_uri)
+        client = MlflowClient(
+            tracking_uri=args.tracking_uri,
+            registry_uri=args.tracking_uri,
+        )
         model_name = registry["registry"]["name"]
         before_alias = client.get_model_version_by_alias(model_name, "champion")
         before_version = str(before_alias.version)
@@ -578,9 +597,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "provider": {
                 "type": "mlflow",
                 "backend": "sqlite",
-                "database_sha256_before_cleanup": sha256_file(runtime_dir / "mlflow.db"),
                 "artifact_store": "local-filesystem",
-                "server_log_sha256": hashlib.sha256(log_path.read_bytes()).hexdigest(),
             },
             "baseline": {
                 "candidate_id": candidate["candidate_id"],
@@ -656,6 +673,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         raise LiveRetrainingError("live retraining ended without evidence")
     if not provider_stopped:
         raise LiveRetrainingError("MLflow provider did not stop cleanly")
+    if server_log_path is None or not server_log_path.is_file():
+        raise LiveRetrainingError("MLflow server log is missing after provider stop")
+    database_path = runtime_dir / "mlflow.db"
+    if not database_path.is_file():
+        raise LiveRetrainingError("MLflow SQLite database is missing after provider stop")
+    evidence["provider"]["database_sha256_after_stop"] = sha256_file(database_path)
+    evidence["provider"]["server_log_sha256_after_stop"] = hashlib.sha256(
+        server_log_path.read_bytes()
+    ).hexdigest()
     evidence["provider_stopped"] = True
     payload = {key: value for key, value in evidence.items() if key != "evidence_id"}
     evidence["evidence_id"] = sha256_bytes(canonical_json_bytes(payload))
