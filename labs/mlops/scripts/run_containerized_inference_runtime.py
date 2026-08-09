@@ -19,9 +19,14 @@ from mlops_lab.contracts import (
     canonical_json_bytes,
     promote_candidate,
     read_json,
+    validate_candidate_manifest,
 )
 from mlops_lab.registry import validate_registry_evidence
-from mlops_lab.serving import build_deployment_manifest, validate_deployment_manifest
+from mlops_lab.serving import (
+    build_deployment_manifest,
+    validate_deployment_manifest,
+    validate_release_manifest,
+)
 
 IMAGE_ID_PREFIX = "sha256:"
 IMAGE_ID_HEX_LENGTH = 64
@@ -43,6 +48,12 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--subject-sha", required=True)
     parser.add_argument("--sample-request", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--candidate", type=Path)
+    parser.add_argument("--registry-evidence", type=Path)
+    parser.add_argument("--artifact-dir", type=Path)
+    parser.add_argument("--release", type=Path)
+    parser.add_argument("--service-name", default="knowledge-hub-churn-api")
+    parser.add_argument("--generation", default="container-runtime-v1")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=18080)
     parser.add_argument("--startup-timeout-seconds", type=int, default=90)
@@ -65,6 +76,13 @@ def _require_subject_sha(value: str) -> str:
     text = value.strip()
     if len(text) != 40 or any(character not in "0123456789abcdef" for character in text):
         raise RuntimeGateError("subject SHA must be a lowercase 40-character Git SHA-1")
+    return text
+
+
+def _require_nonempty(value: str, field: str) -> str:
+    text = value.strip()
+    if not text:
+        raise RuntimeGateError(f"{field} must be a non-empty string")
     return text
 
 
@@ -158,15 +176,67 @@ def _wait_ready(base_url: str, timeout_seconds: int) -> dict[str, Any]:
     raise RuntimeGateError(f"serving container did not become ready: {last_error}")
 
 
-def _require_runtime_inputs(runtime_dir: Path, subject_sha: str) -> dict[str, Any]:
-    candidate_path = runtime_dir / "ml" / "candidate.json"
-    registry_path = runtime_dir / "registry-evidence.json"
-    artifact_manifest_path = runtime_dir / "ml" / "artifact" / "manifest.json"
-    model_path = runtime_dir / "ml" / "artifact" / "model.joblib"
+def _resolve_subject_paths(
+    *,
+    runtime_dir: Path,
+    candidate_path: Path | None,
+    registry_path: Path | None,
+    artifact_dir: Path | None,
+    release_path: Path | None,
+) -> dict[str, Any]:
+    explicit_values = (candidate_path, registry_path, artifact_dir)
+    if any(value is not None for value in explicit_values):
+        if not all(value is not None for value in explicit_values):
+            raise RuntimeGateError(
+                "explicit serving subject mode requires --candidate, --registry-evidence and --artifact-dir together"
+            )
+        if release_path is None:
+            raise RuntimeGateError(
+                "explicit serving subject mode requires --release so release lineage cannot be regenerated"
+            )
+        return {
+            "input_mode": "explicit-subjects",
+            "candidate_path": candidate_path.resolve(strict=True),
+            "registry_path": registry_path.resolve(strict=True),
+            "artifact_dir": artifact_dir.resolve(strict=True),
+            "release_path": release_path.resolve(strict=True),
+        }
+    if release_path is not None:
+        raise RuntimeGateError("--release is valid only with explicit serving subjects")
+    return {
+        "input_mode": "runtime-baseline",
+        "candidate_path": (runtime_dir / "ml" / "candidate.json").resolve(strict=True),
+        "registry_path": (runtime_dir / "registry-evidence.json").resolve(strict=True),
+        "artifact_dir": (runtime_dir / "ml" / "artifact").resolve(strict=True),
+        "release_path": None,
+    }
+
+
+def _require_runtime_inputs(
+    *,
+    candidate_path: Path,
+    registry_path: Path,
+    artifact_dir: Path,
+    subject_sha: str,
+) -> dict[str, Any]:
+    if candidate_path.is_symlink() or not candidate_path.is_file():
+        raise RuntimeGateError("candidate input must be a regular non-symlink file")
+    if registry_path.is_symlink() or not registry_path.is_file():
+        raise RuntimeGateError("Registry evidence input must be a regular non-symlink file")
+    if artifact_dir.is_symlink() or not artifact_dir.is_dir():
+        raise RuntimeGateError("artifact input must be a regular non-symlink directory")
+
+    artifact_manifest_path = artifact_dir / "manifest.json"
+    model_path = artifact_dir / "model.joblib"
+    if artifact_manifest_path.is_symlink() or not artifact_manifest_path.is_file():
+        raise RuntimeGateError("artifact manifest must be a regular non-symlink file")
+    if model_path.is_symlink() or not model_path.is_file():
+        raise RuntimeGateError("trained model artifact must be a regular non-symlink file")
 
     candidate = read_json(candidate_path)
     registry = read_json(registry_path)
     artifact_manifest = read_json(artifact_manifest_path)
+    validate_candidate_manifest(candidate)
     validate_registry_evidence(registry)
 
     if candidate.get("source_revision") != subject_sha:
@@ -177,13 +247,15 @@ def _require_runtime_inputs(runtime_dir: Path, subject_sha: str) -> dict[str, An
         raise RuntimeGateError("artifact source revision does not match runtime subject")
     if candidate.get("candidate_id") != registry.get("candidate_id"):
         raise RuntimeGateError("candidate and Registry evidence refer to different candidates")
-    model_sha256 = candidate.get("model", {}).get("sha256")
+    model_sha256 = candidate["model"]["sha256"]
     if model_sha256 != registry.get("artifact_readback", {}).get("downloaded_sha256"):
         raise RuntimeGateError("candidate model digest does not match Registry artifact read-back")
     if artifact_manifest.get("model_sha256") != model_sha256:
         raise RuntimeGateError("artifact manifest model digest does not match candidate")
-    if not model_path.is_file():
-        raise RuntimeGateError("trained model artifact is missing")
+    if artifact_manifest.get("dataset_sha256") != candidate["dataset"]["sha256"]:
+        raise RuntimeGateError("artifact manifest dataset digest does not match candidate")
+    if model_path.stat().st_size != candidate["model"]["size_bytes"]:
+        raise RuntimeGateError("trained model size does not match candidate")
     if _sha256_file(model_path) != model_sha256:
         raise RuntimeGateError("trained model bytes do not match candidate digest")
 
@@ -193,8 +265,40 @@ def _require_runtime_inputs(runtime_dir: Path, subject_sha: str) -> dict[str, An
         "artifact_manifest": artifact_manifest,
         "artifact_manifest_path": artifact_manifest_path,
         "model_path": model_path,
-        "artifact_dir": artifact_manifest_path.parent,
+        "artifact_dir": artifact_dir,
     }
+
+
+def _resolve_release(
+    *,
+    candidate: Mapping[str, Any],
+    provided_release_path: Path | None,
+) -> tuple[dict[str, Any], str]:
+    if provided_release_path is None:
+        release, _ = promote_candidate(
+            candidate=candidate,
+            alias_state={"schema_version": 1, "aliases": {}},
+            alias="champion",
+            expected_current=None,
+        )
+        return release, "generated-baseline-release"
+
+    if provided_release_path.is_symlink() or not provided_release_path.is_file():
+        raise RuntimeGateError("provided release must be a regular non-symlink file")
+    release = read_json(provided_release_path)
+    validate_release_manifest(release)
+    expected = {
+        "candidate_id": candidate["candidate_id"],
+        "dataset_sha256": candidate["dataset"]["sha256"],
+        "model_sha256": candidate["model"]["sha256"],
+        "evaluation_sha256": candidate["evaluation"]["sha256"],
+        "policy_generation": candidate["evaluation"]["policy_generation"],
+        "source_revision": candidate["source_revision"],
+    }
+    for key, value in expected.items():
+        if release.get(key) != value:
+            raise RuntimeGateError(f"provided release {key} does not match candidate subject")
+    return release, "provided-release"
 
 
 def _prepare_readonly_mounts(
@@ -322,6 +426,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     sample_request_path = args.sample_request.resolve(strict=True)
     output_path = args.output.resolve(strict=False)
     subject_sha = _require_subject_sha(args.subject_sha)
+    service_name = _require_nonempty(args.service_name, "service_name")
+    generation = _require_nonempty(args.generation, "generation")
 
     if args.host not in {"127.0.0.1", "localhost"}:
         raise RuntimeGateError("container runtime gate is loopback-only")
@@ -331,34 +437,51 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         raise RuntimeGateError("startup timeout must be between 1 and 300 seconds")
     if output_path.exists() or output_path.is_symlink():
         raise RuntimeGateError("evidence output must be a fresh path")
-    if not sample_request_path.is_file():
-        raise RuntimeGateError("sample request does not exist")
+    if not sample_request_path.is_file() or sample_request_path.is_symlink():
+        raise RuntimeGateError("sample request must be a regular non-symlink file")
 
     git_head = _run(["git", "rev-parse", "HEAD"], cwd=repo_root).stdout.strip()
     if git_head != subject_sha:
         raise RuntimeGateError("subject SHA does not match checked-out Git HEAD")
 
-    inputs = _require_runtime_inputs(runtime_dir, subject_sha)
+    paths = _resolve_subject_paths(
+        runtime_dir=runtime_dir,
+        candidate_path=args.candidate,
+        registry_path=args.registry_evidence,
+        artifact_dir=args.artifact_dir,
+        release_path=args.release,
+    )
+    inputs = _require_runtime_inputs(
+        candidate_path=paths["candidate_path"],
+        registry_path=paths["registry_path"],
+        artifact_dir=paths["artifact_dir"],
+        subject_sha=subject_sha,
+    )
     candidate = inputs["candidate"]
     registry = inputs["registry"]
     artifact_manifest_path = Path(inputs["artifact_manifest_path"]).resolve(strict=True)
     model_path = Path(inputs["model_path"]).resolve(strict=True)
     artifact_dir = Path(inputs["artifact_dir"]).resolve(strict=True)
-
-    release, _ = promote_candidate(
+    release, release_source = _resolve_release(
         candidate=candidate,
-        alias_state={"schema_version": 1, "aliases": {}},
-        alias="champion",
-        expected_current=None,
+        provided_release_path=paths["release_path"],
     )
-    release_path = runtime_dir / "container-runtime-release.json"
-    atomic_write_json(release_path, release)
 
-    image_tag = f"knowledge-hub-mlops-runtime:{subject_sha[:12]}-{os.getpid()}"
-    container_name = f"kh-mlops-runtime-{subject_sha[:10]}-{os.getpid()}"
+    if paths["input_mode"] == "runtime-baseline":
+        generated_release_path = runtime_dir / "container-runtime-release.json"
+        if generated_release_path.exists() or generated_release_path.is_symlink():
+            raise RuntimeGateError("generated container runtime release path must be fresh")
+        atomic_write_json(generated_release_path, release)
+
+    image_tag = (
+        f"knowledge-hub-mlops-runtime:{subject_sha[:10]}-{candidate['candidate_id'][:10]}-{os.getpid()}"
+    )
+    container_name = f"kh-mlops-runtime-{candidate['candidate_id'][:10]}-{os.getpid()}"
     negative_name = f"{container_name}-wrong-digest"
     image_id: str | None = None
     deployment_path = runtime_dir / "container-runtime-deployment.json"
+    if deployment_path.exists() or deployment_path.is_symlink():
+        raise RuntimeGateError("container runtime deployment output must be fresh")
     positive_container_id: str | None = None
     cleanup_errors: list[str] = []
     evidence: dict[str, Any] | None = None
@@ -386,8 +509,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         deployment = build_deployment_manifest(
             release=release,
             registry_evidence=registry,
-            service_name="knowledge-hub-churn-api",
-            generation="container-runtime-v1",
+            service_name=service_name,
+            generation=generation,
             image_reference=image_tag,
             image_digest=image_id,
         )
@@ -475,17 +598,23 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
         payload: dict[str, Any] = {
             "schema_version": 1,
-            "evidence_generation": "mlops-containerized-inference-v1",
+            "evidence_generation": "mlops-containerized-inference-v2",
             "subject_sha": subject_sha,
+            "input_mode": paths["input_mode"],
+            "release_source": release_source,
             "candidate_id": candidate["candidate_id"],
             "release_id": release["release_id"],
+            "previous_candidate_id": release["previous_candidate_id"],
             "registry_evidence_id": registry["registry_evidence_id"],
             "registry_model_name": registry["registry"]["name"],
             "registry_version": registry["registry"]["version"],
             "registry_exact_uri": registry["registry"]["exact_uri"],
             "model_sha256": deployment["model"]["sha256"],
             "docker_image_id": image_id,
+            "image_reference": image_tag,
             "deployment_id": deployment["deployment_id"],
+            "deployment_generation": deployment["generation"],
+            "service_name": deployment["service_name"],
             "container_uid": uid,
             "mount_file_modes": mount_modes,
             "health_status": health["status"],
@@ -558,6 +687,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             {
                 "status": "passed",
                 "subject_sha": evidence["subject_sha"],
+                "input_mode": evidence["input_mode"],
+                "release_id": evidence["release_id"],
                 "deployment_id": evidence["deployment_id"],
                 "docker_image_id": evidence["docker_image_id"],
                 "container_uid": evidence["container_uid"],
