@@ -325,8 +325,13 @@ class LocalBoundedAgentExecutor:
             operation_path = operation_dir / "operation.json"
             state_path = operation_dir / "execution-state.json"
             result_path = operation_dir / "tool-result.json"
-            if operation_path.is_symlink():
-                raise AgentBridgeError("stored operation artifact must not be a symlink")
+            for artifact_path, label in (
+                (operation_path, "operation"),
+                (state_path, "execution state"),
+                (result_path, "tool result"),
+            ):
+                if artifact_path.is_symlink():
+                    raise AgentBridgeError(f"stored {label} artifact must not be a symlink")
             if operation_path.exists():
                 if read_json(operation_path) != operation:
                     raise AgentBridgeError("stored operation differs from exact authoritative rebuild")
