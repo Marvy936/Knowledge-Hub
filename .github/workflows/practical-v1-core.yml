@@ -1,6 +1,7 @@
 name: Practical v1 core CI
 
 on:
+  workflow_dispatch:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
@@ -248,6 +249,7 @@ jobs:
           assert evidence["stage_count"] == 8
           assert evidence["all_passed"] is True
           assert evidence["cleanup_verified"] is True
+          assert evidence["worktree_verified"] is True
           assert all(stage["passed"] is True for stage in evidence["stages"])
           assert isinstance(evidence["evidence_id"], str) and len(evidence["evidence_id"]) == 64
           PY
