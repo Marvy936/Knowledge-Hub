@@ -152,6 +152,15 @@ def _query_from_chunk(chunk: Mapping[str, Any]) -> str:
     raise RagRuntimeError("cannot derive positive query from corpus chunk")
 
 
+def _query_from_chunks(chunks: Sequence[Mapping[str, Any]]) -> str:
+    for chunk in chunks:
+        try:
+            return _query_from_chunk(chunk)
+        except RagRuntimeError:
+            continue
+    raise RagRuntimeError("cannot derive positive query from any canonical corpus chunk")
+
+
 def _citation_chunk_ids(result: Mapping[str, Any]) -> set[str]:
     ids: set[str] = set()
     for item in _walk(result.get("citations", [])):
@@ -252,7 +261,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         if not _contains_exact(config, subject_sha):
             raise RagRuntimeError("runtime config does not bind exact implementation revision")
 
-        positive_query = _query_from_chunk(chunks[0])
+        positive_query = _query_from_chunks(chunks)
         _run(
             [
                 sys.executable,
@@ -352,7 +361,6 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             ("index_id", index_id),
             ("runtime_config_id", runtime_config_id),
             ("report_id", report_id),
-            ("implementation_revision", subject_sha),
         ):
             if not _contains_exact(release, value):
                 raise RagRuntimeError(f"prompt release does not bind exact {label}")
@@ -376,6 +384,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "chunk_count": len(manifest_chunk_ids),
             "index_id": index_id,
             "runtime_config_id": runtime_config_id,
+            "implementation_revision": subject_sha,
             "positive": {
                 "query": positive_query,
                 "answer_id": answer_id,
@@ -409,7 +418,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                         sys.executable,
                         "labs/llm-rag/scripts/cleanup_runtime.py",
                         "--runtime-root",
-                        str(runtime_root),
+                        ".runtime/llm-rag",
                     ],
                     cwd=repo_root,
                     check=False,
@@ -429,7 +438,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         finally:
             payload: dict[str, Any] = {
                 "schema_version": 1,
-                "evidence_generation": "rag-clean-checkout-runtime-v1",
+                "evidence_generation": "rag-clean-checkout-runtime-v2",
                 "subject_sha": subject_sha,
                 "runtime_root": ".runtime/llm-rag",
                 "lifecycle": lifecycle,
