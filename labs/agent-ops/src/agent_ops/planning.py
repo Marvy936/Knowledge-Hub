@@ -15,6 +15,7 @@ from .contracts import (
 
 AGENT_SCHEMA_VERSION = 1
 SUPPORTED_SIGNALS = {"service_degraded", "service_healthy", "unknown"}
+RETRIEVAL_STATUSES = {"answered", "abstained"}
 
 
 def _positive_seconds(value: Any, field: str, *, maximum: float) -> float:
@@ -24,6 +25,16 @@ def _positive_seconds(value: Any, field: str, *, maximum: float) -> float:
     if not math.isfinite(resolved) or resolved <= 0.0 or resolved > maximum:
         raise AgentContractError(f"{field} must be > 0 and <= {maximum:g} seconds")
     return resolved
+
+
+def _require_sha1(value: Any, field: str) -> str:
+    if (
+        not isinstance(value, str)
+        or len(value) != 40
+        or any(character not in "0123456789abcdef" for character in value)
+    ):
+        raise AgentContractError(f"{field} must be a lowercase 40-character Git SHA-1")
+    return value
 
 
 def build_agent_policy(
@@ -260,6 +271,87 @@ def validate_diagnostic_snapshot(value: Mapping[str, Any]) -> None:
     validate_canonical_id(value, "diagnostic_id")
 
 
+def build_retrieval_context(
+    *,
+    status: str,
+    prompt_release_id: str,
+    source_revision: str,
+    answer_id: str,
+    trace_id: str,
+    chunk_ids: Iterable[str],
+    text: str | None,
+    abstention_reason: str | None,
+) -> dict[str, Any]:
+    resolved_status = require_nonempty(status, "retrieval_context.status")
+    if resolved_status not in RETRIEVAL_STATUSES:
+        raise AgentContractError("retrieval context status is unsupported")
+    chunks = [require_sha256(item, "retrieval_context.chunk_id") for item in chunk_ids]
+    if len(chunks) != len(set(chunks)):
+        raise AgentContractError("retrieval context chunk_ids must be unique")
+    payload = {
+        "schema_version": AGENT_SCHEMA_VERSION,
+        "status": resolved_status,
+        "prompt_release_id": require_sha256(
+            prompt_release_id, "retrieval_context.prompt_release_id"
+        ),
+        "source_revision": _require_sha1(
+            source_revision, "retrieval_context.source_revision"
+        ),
+        "answer_id": require_sha256(answer_id, "retrieval_context.answer_id"),
+        "trace_id": require_sha256(trace_id, "retrieval_context.trace_id"),
+        "chunk_ids": chunks,
+        "text": text,
+        "abstention_reason": abstention_reason,
+    }
+    if resolved_status == "answered":
+        if not isinstance(text, str) or not text.strip():
+            raise AgentContractError("answered retrieval context requires non-empty text")
+        if not chunks:
+            raise AgentContractError("answered retrieval context requires chunk_ids")
+        if abstention_reason is not None:
+            raise AgentContractError("answered retrieval context cannot carry abstention_reason")
+    else:
+        if text is not None:
+            raise AgentContractError("abstained retrieval context must not carry text")
+        if chunks:
+            raise AgentContractError("abstained retrieval context must not carry chunk_ids")
+        require_nonempty(abstention_reason, "retrieval_context.abstention_reason")
+    return {**payload, "context_id": sha256_bytes(canonical_json_bytes(payload))}
+
+
+def validate_retrieval_context(value: Mapping[str, Any]) -> None:
+    require_exact_keys(
+        value,
+        {
+            "schema_version",
+            "status",
+            "prompt_release_id",
+            "source_revision",
+            "answer_id",
+            "trace_id",
+            "chunk_ids",
+            "text",
+            "abstention_reason",
+            "context_id",
+        },
+        "retrieval context",
+    )
+    if value.get("schema_version") != AGENT_SCHEMA_VERSION:
+        raise AgentContractError("retrieval context schema_version must equal 1")
+    rebuilt = build_retrieval_context(
+        status=value.get("status"),
+        prompt_release_id=value.get("prompt_release_id"),
+        source_revision=value.get("source_revision"),
+        answer_id=value.get("answer_id"),
+        trace_id=value.get("trace_id"),
+        chunk_ids=value.get("chunk_ids") if isinstance(value.get("chunk_ids"), list) else [],
+        text=value.get("text"),
+        abstention_reason=value.get("abstention_reason"),
+    )
+    if dict(value) != rebuilt:
+        raise AgentContractError("retrieval context is not canonical")
+
+
 def _action_digest(tool: str, target: str, arguments: Mapping[str, Any]) -> str:
     return sha256_bytes(
         canonical_json_bytes(
@@ -277,10 +369,13 @@ def plan_incident_action(
     incident: Mapping[str, Any],
     diagnostic: Mapping[str, Any],
     policy: Mapping[str, Any],
+    retrieval_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     validate_incident(incident)
     validate_diagnostic_snapshot(diagnostic)
     validate_agent_policy(policy)
+    if retrieval_context is not None:
+        validate_retrieval_context(retrieval_context)
     if diagnostic["incident_id"] != incident["incident_id"]:
         raise AgentContractError("diagnostic belongs to another incident")
     if diagnostic["target"] != incident["target"]:
@@ -288,12 +383,18 @@ def plan_incident_action(
     if incident["target"] not in policy["allowed_targets"]:
         raise AgentContractError("incident target is outside the sandbox allowlist")
 
-    if diagnostic["service_status"] == "degraded":
+    retrieval_abstained = (
+        retrieval_context is not None and retrieval_context["status"] == "abstained"
+    )
+    if retrieval_abstained:
+        disposition = "abstained"
+        tool = None
+        arguments: dict[str, Any] = {}
+        rationale = "promoted retrieval abstained; retrieved content cannot authorize mutation"
+    elif diagnostic["service_status"] == "degraded":
         disposition = "approval_required"
         tool = "restart_service"
-        arguments: dict[str, Any] = {
-            "expected_generation": diagnostic["service_generation"]
-        }
+        arguments = {"expected_generation": diagnostic["service_generation"]}
         rationale = "validated degraded service may be restarted once after exact approval"
     elif diagnostic["service_status"] == "healthy":
         disposition = "no_action"
@@ -320,32 +421,35 @@ def plan_incident_action(
         "action_digest": digest,
         "rationale": rationale,
     }
+    if retrieval_context is not None:
+        payload["retrieval_context_id"] = retrieval_context["context_id"]
     return {**payload, "plan_id": sha256_bytes(canonical_json_bytes(payload))}
 
 
 def validate_action_plan(value: Mapping[str, Any]) -> None:
-    require_exact_keys(
-        value,
-        {
-            "schema_version",
-            "incident_id",
-            "diagnostic_id",
-            "policy_id",
-            "policy_generation",
-            "target",
-            "disposition",
-            "tool",
-            "arguments",
-            "action_digest",
-            "rationale",
-            "plan_id",
-        },
-        "action plan",
-    )
+    base_keys = {
+        "schema_version",
+        "incident_id",
+        "diagnostic_id",
+        "policy_id",
+        "policy_generation",
+        "target",
+        "disposition",
+        "tool",
+        "arguments",
+        "action_digest",
+        "rationale",
+        "plan_id",
+    }
+    keys = frozenset(value)
+    if keys not in {frozenset(base_keys), frozenset(base_keys | {"retrieval_context_id"})}:
+        raise AgentContractError("action plan keys mismatch")
     if value.get("schema_version") != AGENT_SCHEMA_VERSION:
         raise AgentContractError("action plan schema_version must equal 1")
     for field in ("incident_id", "diagnostic_id", "policy_id"):
         require_sha256(value.get(field), f"plan.{field}")
+    if "retrieval_context_id" in value:
+        require_sha256(value.get("retrieval_context_id"), "plan.retrieval_context_id")
     require_nonempty(value.get("policy_generation"), "plan.policy_generation")
     target = require_nonempty(value.get("target"), "plan.target")
     require_nonempty(value.get("rationale"), "plan.rationale")
