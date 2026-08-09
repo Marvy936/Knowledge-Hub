@@ -8,6 +8,30 @@ class AgentBridgeError(ValueError):
     """Raised when a bounded agent request cannot satisfy the local authority contract."""
 
 
+class AgentExecutionRefusal(AgentBridgeError):
+    """Execution refusal carrying only the durable checkpoint needed for explicit recovery."""
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        operation_id: str,
+        state_id: str,
+        phase: str,
+    ) -> None:
+        super().__init__(message)
+        self.operation_id = operation_id
+        self.state_id = state_id
+        self.phase = phase
+
+    def evidence(self) -> dict[str, str]:
+        return {
+            "operation_id": self.operation_id,
+            "state_id": self.state_id,
+            "phase": self.phase,
+        }
+
+
 class AgentExecutor(Protocol):
     @property
     def policy_id(self) -> str: ...
@@ -232,24 +256,42 @@ class LocalBoundedAgentExecutor:
             )
             operation_dir = self._runtime_root / "operations" / operation["operation_id"]
             operation_path = operation_dir / "operation.json"
+            state_path = operation_dir / "execution-state.json"
+            result_path = operation_dir / "tool-result.json"
             if operation_path.exists():
                 if read_json(operation_path) != operation:
                     raise AgentBridgeError("stored operation differs from exact authoritative rebuild")
             else:
                 atomic_write_json(operation_path, operation)
-            outcome = execute_operation(
-                operation=operation,
-                incident=incident,
-                diagnostic=diagnostic,
-                plan=plan,
-                approval=approval,
-                policy=policy,
-                kill_switch=kill_switch,
-                adapter=LocalServiceStateAdapter(self._tool_state),
-                state_path=operation_dir / "execution-state.json",
-                result_path=operation_dir / "tool-result.json",
-                recover_expected_state_id=recover_expected_state_id,
-            )
+            try:
+                outcome = execute_operation(
+                    operation=operation,
+                    incident=incident,
+                    diagnostic=diagnostic,
+                    plan=plan,
+                    approval=approval,
+                    policy=policy,
+                    kill_switch=kill_switch,
+                    adapter=LocalServiceStateAdapter(self._tool_state),
+                    state_path=state_path,
+                    result_path=result_path,
+                    recover_expected_state_id=recover_expected_state_id,
+                )
+            except Exception as exc:
+                if state_path.is_file():
+                    state = read_json(state_path)
+                    state_id = state.get("state_id")
+                    phase = state.get("phase")
+                    if isinstance(state_id, str) and isinstance(phase, str):
+                        raise AgentExecutionRefusal(
+                            f"bounded remediation did not complete: {type(exc).__name__}: {str(exc)[:160]}",
+                            operation_id=operation["operation_id"],
+                            state_id=state_id,
+                            phase=phase,
+                        ) from exc
+                raise
+        except AgentExecutionRefusal:
+            raise
         except Exception as exc:
             if isinstance(exc, AgentBridgeError):
                 raise
