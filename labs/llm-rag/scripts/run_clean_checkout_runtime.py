@@ -141,6 +141,24 @@ def _contains_exact(value: object, expected: object) -> bool:
     return any(item == expected for item in _walk(value))
 
 
+def _chunk_records(value: object) -> list[dict[str, Any]]:
+    records: dict[str, dict[str, Any]] = {}
+
+    def visit(item: object) -> None:
+        if isinstance(item, dict):
+            chunk_id = item.get("chunk_id")
+            if isinstance(chunk_id, str) and chunk_id:
+                records.setdefault(chunk_id, dict(item))
+            for nested in item.values():
+                visit(nested)
+        elif isinstance(item, list):
+            for nested in item:
+                visit(nested)
+
+    visit(value)
+    return [records[chunk_id] for chunk_id in sorted(records)]
+
+
 def _query_from_chunk(chunk: Mapping[str, Any]) -> str:
     for field in ("content", "text", "body", "chunk_text"):
         value = chunk.get(field)
@@ -170,9 +188,19 @@ def _citation_chunk_ids(answer: Mapping[str, Any]) -> set[str]:
     citations = answer.get("citations")
     if not isinstance(citations, list):
         return result
-    for citation in citations:
-        if isinstance(citation, dict) and isinstance(citation.get("chunk_id"), str):
-            result.add(citation["chunk_id"])
+
+    def visit(item: object) -> None:
+        if isinstance(item, dict):
+            chunk_id = item.get("chunk_id")
+            if isinstance(chunk_id, str):
+                result.add(chunk_id)
+            for nested in item.values():
+                visit(nested)
+        elif isinstance(item, list):
+            for nested in item:
+                visit(nested)
+
+    visit(citations)
     return result
 
 
