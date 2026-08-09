@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -8,6 +9,7 @@ from keycloak_ai_api.agent_bridge import (
     AgentBridgeError,
     _bounded_identity_dir,
     _exact_runtime_file,
+    _validate_tool_state_envelope,
 )
 
 
@@ -54,6 +56,26 @@ def test_exact_runtime_file_refuses_symlink_escape(tmp_path: Path) -> None:
             runtime_root=runtime,
             name="policy.json",
         )
+
+
+def test_tool_state_readiness_requires_exact_local_envelope(tmp_path: Path) -> None:
+    runtime = _runtime(tmp_path)
+    state = runtime / "tool-state.json"
+    state.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "services": {},
+                "operations": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    _validate_tool_state_envelope(state)
+
+    state.write_text(json.dumps({"schema_version": 1, "services": {}}), encoding="utf-8")
+    with pytest.raises(AgentBridgeError, match="keys mismatch"):
+        _validate_tool_state_envelope(state)
 
 
 def test_identity_collections_cannot_be_symlinked_outside_runtime(tmp_path: Path) -> None:
