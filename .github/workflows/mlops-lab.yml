@@ -39,9 +39,9 @@ jobs:
     env:
       PYTHONHASHSEED: "0"
       SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      FOUNDATION_DIR: "${{ runner.temp }}/knowledge-hub-mlops-foundation"
-      REGISTRY_RUNTIME_DIR: "${{ runner.temp }}/knowledge-hub-mlops-registry"
-      VENV_DIR: "${{ runner.temp }}/knowledge-hub-mlops-venv"
+      FOUNDATION_DIR: "${{ github.workspace }}/../knowledge-hub-mlops-foundation"
+      REGISTRY_RUNTIME_DIR: "${{ github.workspace }}/../knowledge-hub-mlops-registry"
+      VENV_DIR: "${{ github.workspace }}/../knowledge-hub-mlops-venv"
       TRACKING_URI: "http://127.0.0.1:5057"
 
     steps:
