@@ -34,8 +34,8 @@ jobs:
 
           root = Path('.github/workflows')
           changed = []
-          needle = '${{ runner.temp }}/'
-          replacement = '${{ github.workspace }}/../'
+          needle = '$' + '{{ runner.temp }}/'
+          replacement = '$' + '{{ github.workspace }}/../'
 
           for path in sorted(root.glob('*.yml')):
               text = path.read_text(encoding='utf-8')
