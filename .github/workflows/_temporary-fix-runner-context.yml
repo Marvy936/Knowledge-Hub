@@ -4,12 +4,17 @@ on:
   push:
     branches:
       - fix/actions-runner-context
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
 
 permissions:
   contents: write
 
 jobs:
   migrate:
+    if: github.event_name == 'push' || (github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'fix/actions-runner-context')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
