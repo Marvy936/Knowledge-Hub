@@ -37,8 +37,8 @@ jobs:
     env:
       PYTHONHASHSEED: "0"
       SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      VENV_DIR: "${{ runner.temp }}/knowledge-hub-rag-runtime-venv"
-      EVIDENCE: "${{ runner.temp }}/knowledge-hub-rag-clean-checkout-evidence.json"
+      VENV_DIR: "${{ github.workspace }}/../knowledge-hub-rag-runtime-venv"
+      EVIDENCE: "${{ github.workspace }}/../knowledge-hub-rag-clean-checkout-evidence.json"
 
     steps:
       - name: Checkout exact subject revision
