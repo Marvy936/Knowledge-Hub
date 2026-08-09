@@ -61,7 +61,7 @@ def _workflow(subject: str) -> dict[str, object]:
     payload: dict[str, object] = {
         "schema_version": 1,
         "subject_sha": subject,
-        "workflow_name": "Practical v1 release candidate",
+        "workflow_name": "Practical v1 release evidence",
         "run_id": 123456789,
         "run_attempt": 1,
         "event_name": "workflow_dispatch",
