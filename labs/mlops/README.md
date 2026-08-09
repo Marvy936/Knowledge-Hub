@@ -52,7 +52,7 @@ Detail: [`TRAINING-LINEAGE.md`](TRAINING-LINEAGE.md)
 
 Detail: [`RUNTIME-EVIDENCE.md`](RUNTIME-EVIDENCE.md)
 
-### Serving, canary a rollback
+### Serving, container runtime, canary a rollback
 
 - immutable deployment manifest,
 - exact Registry version a model digest,
@@ -64,7 +64,12 @@ Detail: [`RUNTIME-EVIDENCE.md`](RUNTIME-EVIDENCE.md)
 - source-level traffic medzi dvoma loopback Uvicorn generations,
 - canary evidence s identity mismatch detection,
 - explicit `no_data`, `insufficient_evidence`, `continue` a `rollback`,
-- rollback na exact previous deployment subject.
+- rollback na exact previous deployment subject,
+- executable container runtime driver `scripts/run_containerized_inference_runtime.py`, ktorý nad artifacts z authoritative Registry gate-u buildne `Dockerfile.serving`, resolvuje local content-addressed Docker image ID, vytvorí immutable deployment subject, spustí image podľa exact ID a vykoná live loopback HTTP readiness/inference,
+- explicitný non-root read-back `uid=10001`, read-only serving mounts, extra-field HTTP refusal a startup refusal pri nesprávnom runtime image digest,
+- dedicated hosted workflow `.github/workflows/mlops-containerized-inference-runtime.yml`, ktorý po úspešnom execution musí zachovať canonical JSON evidence a cleanup read-back.
+
+Existencia drivera a workflowu je source-level `Implemented`. Kým nevznikne exact successful workflow/runtime record, neznamená to `Runtime verified` ani OCI Registry/Kubernetes deployment.
 
 Detaily:
 
@@ -109,8 +114,8 @@ Source-level vrstvy majú oddelené exact-source test evidence. Central GitHub A
 Lab preto netvrdí:
 
 - úspešný živý end-to-end controlled retraining run,
-- actual OCI image build a digest read-back,
-- container artifact mount,
+- úspešný actual Docker image build/container HTTP run na authoritative revision,
+- OCI Registry manifest/digest alebo vzdialený image pull,
 - platform load-balancer traffic switch,
 - production telemetry alebo reálny časový drift,
 - external identity approval,
@@ -143,6 +148,8 @@ Serving source potrebuje serving extra:
 ```bash
 python -m pip install -e "labs/mlops[dev,serving]"
 ```
+
+Container runtime gate potrebuje lokálny Docker engine a combined ML/MLOps environment s `registry` aj `serving` extras. Dedicated hosted workflow pripravuje Registry subjects existujúcim `run_registry_gate.sh` a až potom volá container driver; driver preto netrénuje ani neregistruje druhú paralelnú implementáciu.
 
 PowerShell aktivácia:
 
