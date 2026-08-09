@@ -69,10 +69,10 @@ jobs:
       VENV_DIR: "${{ github.workspace }}/../knowledge-hub-practical-v1-release-venv"
       PACKAGE_ROOT: "${{ github.workspace }}/../knowledge-hub-practical-v1-release-packages"
       WORK_ROOT: "${{ github.workspace }}/../knowledge-hub-practical-v1-release-work"
-      EVIDENCE_DIR: "${{ github.workspace }}/../knowledge-hub-practical-v1-release-evidence"
+      EVIDENCE_DIR: "/tmp/knowledge-hub-practical-v1-release-evidence"
       DEPENDENCY_TMP: "${{ github.workspace }}/../knowledge-hub-practical-v1-dependency-resolution.json"
-      RC_EVIDENCE: "${{ github.workspace }}/../knowledge-hub-practical-v1-release-evidence/release-candidate.json"
-      RELEASE_EVIDENCE: "${{ github.workspace }}/../knowledge-hub-practical-v1-release-evidence/release-evidence.json"
+      RC_EVIDENCE: "/tmp/knowledge-hub-practical-v1-release-evidence/release-candidate.json"
+      RELEASE_EVIDENCE: "/tmp/knowledge-hub-practical-v1-release-evidence/release-evidence.json"
 
     steps:
       - name: Checkout exact release subject
