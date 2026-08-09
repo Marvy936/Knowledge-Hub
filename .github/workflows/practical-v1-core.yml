@@ -1,0 +1,252 @@
+name: Practical v1 core CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "labs/machine-learning/**"
+      - "labs/mlops/**"
+      - "labs/llm-rag/**"
+      - "labs/agent-ops/**"
+      - "labs/keycloak-ai-api/**"
+      - "scripts/practical_v1_core.py"
+      - "scripts/validate_practical_v1_repo.py"
+      - ".github/workflows/practical-v1-core.yml"
+      - "PRACTICAL-V1-ROADMAP.md"
+      - "PRACTICAL-STATUS.md"
+      - "labs/README.md"
+  push:
+    branches: [main]
+    paths:
+      - "labs/machine-learning/**"
+      - "labs/mlops/**"
+      - "labs/llm-rag/**"
+      - "labs/agent-ops/**"
+      - "labs/keycloak-ai-api/**"
+      - "scripts/practical_v1_core.py"
+      - "scripts/validate_practical_v1_repo.py"
+      - ".github/workflows/practical-v1-core.yml"
+      - "PRACTICAL-V1-ROADMAP.md"
+      - "PRACTICAL-STATUS.md"
+      - "labs/README.md"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: practical-v1-core-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  standalone-contracts:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        lab:
+          - machine-learning
+          - mlops
+          - llm-rag
+          - agent-ops
+          - keycloak-ai-api
+    env:
+      PYTHONHASHSEED: "0"
+
+    steps:
+      - name: Checkout exact subject revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          clean: true
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+
+      - name: Install standalone lab dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          case "${{ matrix.lab }}" in
+            machine-learning)
+              python -m pip install -e "labs/machine-learning[dev]"
+              ;;
+            mlops)
+              python -m pip install \
+                -e "labs/machine-learning" \
+                -e "labs/mlops[dev,registry,serving]"
+              ;;
+            llm-rag)
+              python -m pip install -e "labs/llm-rag[dev]"
+              ;;
+            agent-ops)
+              python -m pip install -e "labs/agent-ops[dev]"
+              ;;
+            keycloak-ai-api)
+              python -m pip install -e "labs/keycloak-ai-api[dev]"
+              ;;
+            *)
+              echo "Unknown matrix lab" >&2
+              exit 2
+              ;;
+          esac
+
+      - name: Run standalone contract suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pytest "labs/${{ matrix.lab }}/tests" -q
+
+  combined-ai-contracts:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONHASHSEED: "0"
+      EVAL_OUTPUT: "${{ runner.temp }}/knowledge-hub-agent-hard-eval.json"
+
+    steps:
+      - name: Checkout exact subject revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          clean: true
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+
+      - name: Install combined AI packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install \
+            -e "labs/llm-rag[dev]" \
+            -e "labs/agent-ops[dev]" \
+            -e "labs/keycloak-ai-api[dev]"
+
+      - name: Run cross-package RAG and agent contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pytest \
+            labs/keycloak-ai-api/tests/test_agent_bridge_retrieval.py \
+            labs/keycloak-ai-api/tests/test_agent_knowledge_route.py \
+            labs/agent-ops/tests/test_retrieval_injection.py \
+            labs/agent-ops/tests/test_agent_evaluation.py \
+            -q
+
+      - name: Execute deterministic agent hard evaluation
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f "$EVAL_OUTPUT"
+          python labs/agent-ops/scripts/run_evaluation.py \
+            --cases labs/agent-ops/data/eval-cases.json \
+            --output "$EVAL_OUTPUT"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          report = json.loads(Path(os.environ["EVAL_OUTPUT"]).read_text(encoding="utf-8"))
+          assert report["all_passed"] is True
+          assert report["case_count"] == report["passed_count"]
+          assert report["failed_count"] == 0
+          assert isinstance(report["report_id"], str) and len(report["report_id"]) == 64
+          PY
+
+      - name: Cleanup combined AI runtime
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f "$EVAL_OUTPUT"
+          test ! -e "$EVAL_OUTPUT"
+
+  offline-core-orchestrator:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONHASHSEED: "0"
+      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      WORK_ROOT: "${{ runner.temp }}/knowledge-hub-practical-v1-core-work"
+      EVIDENCE: "${{ runner.temp }}/knowledge-hub-practical-v1-core-evidence.json"
+
+    steps:
+      - name: Checkout exact subject revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          clean: true
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+
+      - name: Install complete core dependency set
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install \
+            -e "labs/machine-learning[dev]" \
+            -e "labs/mlops[dev,registry,serving]" \
+            -e "labs/llm-rag[dev]" \
+            -e "labs/agent-ops[dev]" \
+            -e "labs/keycloak-ai-api[dev]"
+
+      - name: Run Practical v1 offline core orchestrator
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$WORK_ROOT"
+          rm -f "$EVIDENCE"
+          python scripts/practical_v1_core.py \
+            --repo-root . \
+            --work-root "$WORK_ROOT" \
+            --evidence "$EVIDENCE"
+
+      - name: Verify exact orchestration evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          evidence = json.loads(Path(os.environ["EVIDENCE"]).read_text(encoding="utf-8"))
+          assert evidence["subject_sha"] == os.environ["SUBJECT_SHA"]
+          assert evidence["expected_stage_count"] == 8
+          assert evidence["stage_count"] == 8
+          assert evidence["all_passed"] is True
+          assert evidence["cleanup_verified"] is True
+          assert all(stage["passed"] is True for stage in evidence["stages"])
+          assert isinstance(evidence["evidence_id"], str) and len(evidence["evidence_id"]) == 64
+          PY
+          test ! -e "$WORK_ROOT"
+
+      - name: Cleanup orchestration evidence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$WORK_ROOT"
+          rm -f "$EVIDENCE"
+          test ! -e "$WORK_ROOT"
+          test ! -e "$EVIDENCE"
