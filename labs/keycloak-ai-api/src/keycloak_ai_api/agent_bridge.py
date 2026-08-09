@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from pathlib import Path
 from typing import Any, Mapping, Protocol
 
@@ -349,6 +350,7 @@ class LocalBoundedAgentExecutor:
                     adapter=LocalServiceStateAdapter(self._tool_state),
                     state_path=state_path,
                     result_path=result_path,
+                    now_unix=int(time.time()),
                     recover_expected_state_id=recover_expected_state_id,
                 )
             except Exception as exc:
