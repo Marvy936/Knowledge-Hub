@@ -17,7 +17,7 @@ def _with_id(payload: dict[str, object], field: str) -> dict[str, object]:
 
 
 def _release_candidate(subject: str) -> dict[str, object]:
-    return {
+    payload: dict[str, object] = {
         "schema_version": 1,
         "subject_sha": subject,
         "all_passed": True,
@@ -33,8 +33,8 @@ def _release_candidate(subject: str) -> dict[str, object]:
             "release_tag_created": False,
             "user_acceptance_claimed": False,
         },
-        "release_candidate_id": "a" * 64,
     }
+    return _with_id(payload, "release_candidate_id")
 
 
 def _dependencies(subject: str) -> dict[str, object]:
@@ -79,11 +79,12 @@ def _write(path: Path, value: object) -> None:
 
 def test_final_release_evidence_binds_candidate_dependencies_and_run(tmp_path: Path) -> None:
     subject = "b" * 40
+    release_candidate = _release_candidate(subject)
     rc_path = tmp_path / "release-candidate.json"
     dependency_path = tmp_path / "dependency-resolution.json"
     workflow_path = tmp_path / "workflow-provenance.json"
     output = tmp_path / "release-evidence.json"
-    _write(rc_path, _release_candidate(subject))
+    _write(rc_path, release_candidate)
     _write(dependency_path, _dependencies(subject))
     _write(workflow_path, _workflow(subject))
 
@@ -98,7 +99,10 @@ def test_final_release_evidence_binds_candidate_dependencies_and_run(tmp_path: P
     )
 
     assert evidence["subject_sha"] == subject
-    assert evidence["release_candidate"]["release_candidate_id"] == "a" * 64
+    assert (
+        evidence["release_candidate"]["release_candidate_id"]
+        == release_candidate["release_candidate_id"]
+    )
     assert evidence["workflow_provenance"]["run_id"] == 123456789
     assert evidence["proof_boundary"]["release_tag_created"] is False
     assert evidence["proof_boundary"]["user_acceptance_claimed"] is False
@@ -132,18 +136,41 @@ def test_workflow_provenance_refuses_nonpositive_run_id() -> None:
 
 def test_release_candidate_refuses_tag_or_user_acceptance_overclaim() -> None:
     subject = "e" * 40
-    tagged = _release_candidate(subject)
-    tagged["proof_boundary"] = {
+    tagged_payload = {
+        key: item
+        for key, item in _release_candidate(subject).items()
+        if key != "release_candidate_id"
+    }
+    tagged_payload["proof_boundary"] = {
         "release_tag_created": True,
         "user_acceptance_claimed": False,
     }
+    tagged = _with_id(tagged_payload, "release_candidate_id")
     with pytest.raises(finalizer.ReleaseEvidenceError, match="release tag"):
         finalizer._validate_release_candidate(tagged, subject)
 
-    accepted = _release_candidate(subject)
-    accepted["proof_boundary"] = {
+    accepted_payload = {
+        key: item
+        for key, item in _release_candidate(subject).items()
+        if key != "release_candidate_id"
+    }
+    accepted_payload["proof_boundary"] = {
         "release_tag_created": False,
         "user_acceptance_claimed": True,
     }
+    accepted = _with_id(accepted_payload, "release_candidate_id")
     with pytest.raises(finalizer.ReleaseEvidenceError, match="user acceptance"):
         finalizer._validate_release_candidate(accepted, subject)
+
+
+def test_release_candidate_refuses_payload_tampering() -> None:
+    subject = "f" * 40
+    value = _release_candidate(subject)
+    value["repository_clean_after"] = False
+    value["repository_clean_after"] = True
+    value["components"] = {
+        **value["components"],
+        "core": {"evidence_id": "9" * 64},
+    }
+    with pytest.raises(finalizer.ReleaseEvidenceError, match="canonical payload"):
+        finalizer._validate_release_candidate(value, subject)
