@@ -11,47 +11,34 @@ def _passing_stages() -> list[dict[str, object]]:
     return [{"name": name, "passed": True} for name in names]
 
 
-def test_core_report_refuses_zero_stage_success() -> None:
-    report = practical_v1_core._build_report(
+def _report(
+    *,
+    stages: list[dict[str, object]],
+    cleanup_verified: bool = True,
+    worktree_verified: bool = True,
+):
+    return practical_v1_core._build_report(
         subject_sha="a" * 40,
         python_version="3.12.0",
-        stages=[],
-        cleanup_verified=True,
+        stages=stages,
+        cleanup_verified=cleanup_verified,
+        worktree_verified=worktree_verified,
         preflight_error=None,
     )
+
+
+def test_core_report_refuses_zero_stage_success() -> None:
+    report = _report(stages=[])
     assert report["all_passed"] is False
     assert report["stage_count"] == 0
 
 
-def test_core_report_requires_exact_stage_order_and_cleanup() -> None:
+def test_core_report_requires_exact_stage_order_cleanup_and_clean_worktree() -> None:
     stages = _passing_stages()
-    report = practical_v1_core._build_report(
-        subject_sha="a" * 40,
-        python_version="3.12.0",
-        stages=stages,
-        cleanup_verified=True,
-        preflight_error=None,
-    )
-    assert report["all_passed"] is True
-
-    reordered = list(reversed(stages))
-    report = practical_v1_core._build_report(
-        subject_sha="a" * 40,
-        python_version="3.12.0",
-        stages=reordered,
-        cleanup_verified=True,
-        preflight_error=None,
-    )
-    assert report["all_passed"] is False
-
-    report = practical_v1_core._build_report(
-        subject_sha="a" * 40,
-        python_version="3.12.0",
-        stages=stages,
-        cleanup_verified=False,
-        preflight_error=None,
-    )
-    assert report["all_passed"] is False
+    assert _report(stages=stages)["all_passed"] is True
+    assert _report(stages=list(reversed(stages)))["all_passed"] is False
+    assert _report(stages=stages, cleanup_verified=False)["all_passed"] is False
+    assert _report(stages=stages, worktree_verified=False)["all_passed"] is False
 
 
 def test_markdown_target_parser_ignores_fenced_examples(tmp_path: Path) -> None:
