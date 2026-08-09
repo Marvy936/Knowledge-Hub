@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from typing import Any, Iterable, Mapping
 
 from .contracts import (
@@ -16,12 +17,39 @@ AGENT_SCHEMA_VERSION = 1
 SUPPORTED_SIGNALS = {"service_degraded", "service_healthy", "unknown"}
 
 
+def _positive_seconds(value: Any, field: str, *, maximum: float) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise AgentContractError(f"{field} must be a positive finite number")
+    resolved = float(value)
+    if not math.isfinite(resolved) or resolved <= 0.0 or resolved > maximum:
+        raise AgentContractError(f"{field} must be > 0 and <= {maximum:g} seconds")
+    return resolved
+
+
 def build_agent_policy(
-    *, generation: str, allowed_targets: Iterable[str]
+    *,
+    generation: str,
+    allowed_targets: Iterable[str],
+    max_approval_ttl_seconds: int = 900,
+    max_tool_wait_seconds: float = 5.0,
 ) -> dict[str, Any]:
     targets = sorted({require_nonempty(item, "allowed_target") for item in allowed_targets})
     if not targets:
         raise AgentContractError("agent policy requires at least one allowed target")
+    if (
+        isinstance(max_approval_ttl_seconds, bool)
+        or not isinstance(max_approval_ttl_seconds, int)
+        or max_approval_ttl_seconds <= 0
+        or max_approval_ttl_seconds > 86400
+    ):
+        raise AgentContractError(
+            "policy.max_approval_ttl_seconds must be an integer between 1 and 86400"
+        )
+    tool_wait = _positive_seconds(
+        max_tool_wait_seconds,
+        "policy.max_tool_wait_seconds",
+        maximum=60.0,
+    )
     payload = {
         "schema_version": AGENT_SCHEMA_VERSION,
         "generation": require_nonempty(generation, "policy.generation"),
@@ -30,6 +58,8 @@ def build_agent_policy(
         "allowed_tools": ["inspect_service", "restart_service"],
         "approval_required_tools": ["restart_service"],
         "max_mutations_per_operation": 1,
+        "max_approval_ttl_seconds": max_approval_ttl_seconds,
+        "max_tool_wait_seconds": tool_wait,
     }
     return {**payload, "policy_id": sha256_bytes(canonical_json_bytes(payload))}
 
@@ -45,6 +75,8 @@ def validate_agent_policy(value: Mapping[str, Any]) -> None:
             "allowed_tools",
             "approval_required_tools",
             "max_mutations_per_operation",
+            "max_approval_ttl_seconds",
+            "max_tool_wait_seconds",
             "policy_id",
         },
         "agent policy",
@@ -70,6 +102,18 @@ def validate_agent_policy(value: Mapping[str, Any]) -> None:
         )
     if value.get("max_mutations_per_operation") != 1:
         raise AgentContractError("agent policy max mutations must equal 1")
+    ttl = value.get("max_approval_ttl_seconds")
+    if isinstance(ttl, bool) or not isinstance(ttl, int) or ttl <= 0 or ttl > 86400:
+        raise AgentContractError(
+            "policy.max_approval_ttl_seconds must be an integer between 1 and 86400"
+        )
+    wait = _positive_seconds(
+        value.get("max_tool_wait_seconds"),
+        "policy.max_tool_wait_seconds",
+        maximum=60.0,
+    )
+    if value.get("max_tool_wait_seconds") != wait:
+        raise AgentContractError("policy.max_tool_wait_seconds must be canonical numeric seconds")
     validate_canonical_id(value, "policy_id")
 
 
