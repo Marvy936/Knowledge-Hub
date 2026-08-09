@@ -19,6 +19,7 @@ registry = [
 ]
 serving = [
   "fastapi==0.141.1",
+  "pandas>=2.2,<3",
   "uvicorn==0.52.1",
 ]
 dev = [
