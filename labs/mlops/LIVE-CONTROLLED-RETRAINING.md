@@ -96,7 +96,7 @@ exact baseline 1200-row dataset
 → new dataset SHA-256
 ```
 
-Tým je dataset subject nový, ale distribúcia zostáva prakticky rovnaká. Seed `20260806` je seed samotného training algoritmu, nie tvrdenie o novom data-generating procese.
+Tým je dataset subject nový, ale distribúcia zostáva prakticky rovnaká. Training používa canonical ML seed `20260805`; nový operation subject vzniká cez fresh dataset SHA a approval/proposal lineage, nie umelou zmenou random seeda.
 
 ### Live provider execution
 
