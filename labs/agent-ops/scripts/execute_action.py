@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from pathlib import Path
 
 from agent_ops.contracts import AgentContractError, atomic_write_json, read_json
@@ -60,13 +61,22 @@ def main() -> int:
             adapter=LocalServiceStateAdapter(args.tool_state),
             state_path=args.state,
             result_path=args.result,
+            now_unix=int(time.time()),
             recover_expected_state_id=args.recover_expected_state_id,
         )
     except UnknownToolOutcome as exc:
-        print(json.dumps({"status": "unknown_outcome", "error": str(exc)}, sort_keys=True), file=sys.stderr)
+        print(
+            json.dumps(
+                {"status": "unknown_outcome", "error": str(exc)}, sort_keys=True
+            ),
+            file=sys.stderr,
+        )
         return 4
     except AgentContractError as exc:
-        print(json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True), file=sys.stderr)
+        print(
+            json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True),
+            file=sys.stderr,
+        )
         return 2
 
     print(

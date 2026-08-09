@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import os
+import queue
+import threading
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -24,6 +26,7 @@ from .planning import (
 )
 from .safety import (
     validate_approval_against_plan,
+    validate_approval_time,
     validate_kill_switch_against_policy,
 )
 from .tools import (
@@ -31,7 +34,6 @@ from .tools import (
     UnknownToolOutcome,
     validate_lookup,
     validate_result_against_action,
-    validate_tool_result,
 )
 
 PHASES = {"planned", "tool_started", "completed", "failed", "unknown_outcome"}
@@ -235,6 +237,54 @@ def _validate_operation_inputs(
         raise AgentContractError("operation tool is outside policy allowlist")
     if operation["target"] not in policy["allowed_targets"]:
         raise AgentContractError("operation target is outside policy allowlist")
+    if policy["max_mutations_per_operation"] != 1:
+        raise AgentContractError("operation requires exactly one mutation-attempt budget")
+
+
+def _execute_with_wait_bound(
+    *,
+    adapter: MutationToolAdapter,
+    operation: Mapping[str, Any],
+    max_wait_seconds: float,
+) -> dict[str, Any]:
+    outcome: queue.Queue[tuple[str, Any]] = queue.Queue(maxsize=1)
+
+    def invoke() -> None:
+        try:
+            result = dict(
+                adapter.execute(
+                    operation_id=operation["operation_id"],
+                    action_digest=operation["action_digest"],
+                    tool=operation["tool"],
+                    target=operation["target"],
+                    arguments=operation["arguments"],
+                )
+            )
+            outcome.put(("result", result))
+        except Exception as exc:
+            outcome.put(("error", exc))
+
+    worker = threading.Thread(
+        target=invoke,
+        name=f"agent-tool-{operation['operation_id'][:12]}",
+        daemon=True,
+    )
+    worker.start()
+    worker.join(max_wait_seconds)
+    if worker.is_alive():
+        raise UnknownToolOutcome(
+            "tool did not produce an authoritative outcome within "
+            f"{max_wait_seconds:g}s; execution may still complete and automatic retry is forbidden"
+        )
+    try:
+        kind, value = outcome.get_nowait()
+    except queue.Empty as exc:
+        raise UnknownToolOutcome(
+            "tool worker ended without an authoritative result; automatic retry is forbidden"
+        ) from exc
+    if kind == "error":
+        raise value
+    return dict(value)
 
 
 def execute_operation(
@@ -249,6 +299,7 @@ def execute_operation(
     adapter: MutationToolAdapter,
     state_path: Path,
     result_path: Path,
+    now_unix: int,
     recover_expected_state_id: str | None = None,
 ) -> dict[str, Any]:
     _validate_operation_inputs(
@@ -326,10 +377,26 @@ def execute_operation(
                 raise UnknownToolOutcome(
                     "tool outcome is unknown; automatic retry is forbidden"
                 )
+            if current["phase"] == "unknown_outcome":
+                unresolved = _transition(
+                    current,
+                    phase="unknown_outcome",
+                    lookup_id=lookup["lookup_id"],
+                    failure=(
+                        "lookup returned not_found after an unknown outcome; absence of a provider record "
+                        "does not prove the side effect did not occur"
+                    ),
+                    increment_attempt=True,
+                )
+                _write_state(state_path, unresolved)
+                raise UnknownToolOutcome(
+                    "previous tool outcome is unknown; not_found cannot authorize automatic retry"
+                )
             if kill_switch["engaged"] is True:
                 raise AgentContractError(
                     "agent mutation kill switch is engaged; retry after not_found is forbidden"
                 )
+            validate_approval_time(approval, now_unix=now_unix)
             current = _transition(
                 current,
                 phase="planned",
@@ -340,6 +407,7 @@ def execute_operation(
         else:
             if kill_switch["engaged"] is True:
                 raise AgentContractError("agent mutation kill switch is engaged")
+            validate_approval_time(approval, now_unix=now_unix)
             if result_path.exists():
                 raise AgentContractError("orphaned result requires manual reconciliation")
             current = _empty_state(
@@ -353,14 +421,10 @@ def execute_operation(
         current = _transition(current, phase="tool_started")
         _write_state(state_path, current)
         try:
-            result = dict(
-                adapter.execute(
-                    operation_id=operation["operation_id"],
-                    action_digest=operation["action_digest"],
-                    tool=operation["tool"],
-                    target=operation["target"],
-                    arguments=operation["arguments"],
-                )
+            result = _execute_with_wait_bound(
+                adapter=adapter,
+                operation=operation,
+                max_wait_seconds=policy["max_tool_wait_seconds"],
             )
         except UnknownToolOutcome as exc:
             unknown = _transition(
