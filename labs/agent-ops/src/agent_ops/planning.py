@@ -117,28 +117,71 @@ def validate_incident(value: Mapping[str, Any]) -> None:
     validate_canonical_id(value, "incident_id")
 
 
-def build_diagnostic_snapshot(
-    *,
-    incident: Mapping[str, Any],
-    service_generation: int,
-    service_status: str,
+def build_service_inspection(
+    *, target: str, service_generation: int, service_status: str
 ) -> dict[str, Any]:
-    validate_incident(incident)
+    resolved_target = require_nonempty(target, "inspection.target")
     if (
         isinstance(service_generation, bool)
         or not isinstance(service_generation, int)
         or service_generation < 1
     ):
-        raise AgentContractError("service_generation must be a positive integer")
-    status = require_nonempty(service_status, "diagnostic.service_status")
+        raise AgentContractError("inspection service_generation must be a positive integer")
+    status = require_nonempty(service_status, "inspection.service_status")
     if status not in {"healthy", "degraded", "unknown"}:
-        raise AgentContractError("diagnostic service status is unsupported")
+        raise AgentContractError("inspection service_status is unsupported")
+    payload = {
+        "schema_version": AGENT_SCHEMA_VERSION,
+        "tool": "inspect_service",
+        "target": resolved_target,
+        "service_generation": service_generation,
+        "service_status": status,
+    }
+    return {**payload, "inspection_id": sha256_bytes(canonical_json_bytes(payload))}
+
+
+def validate_service_inspection(value: Mapping[str, Any]) -> None:
+    require_exact_keys(
+        value,
+        {
+            "schema_version",
+            "tool",
+            "target",
+            "service_generation",
+            "service_status",
+            "inspection_id",
+        },
+        "service inspection",
+    )
+    if value.get("schema_version") != AGENT_SCHEMA_VERSION:
+        raise AgentContractError("service inspection schema_version must equal 1")
+    if value.get("tool") != "inspect_service":
+        raise AgentContractError("service inspection tool must equal inspect_service")
+    require_nonempty(value.get("target"), "inspection.target")
+    generation = value.get("service_generation")
+    if isinstance(generation, bool) or not isinstance(generation, int) or generation < 1:
+        raise AgentContractError("inspection service_generation is invalid")
+    if value.get("service_status") not in {"healthy", "degraded", "unknown"}:
+        raise AgentContractError("inspection service_status is unsupported")
+    validate_canonical_id(value, "inspection_id")
+
+
+def build_diagnostic_snapshot(
+    *,
+    incident: Mapping[str, Any],
+    inspection: Mapping[str, Any],
+) -> dict[str, Any]:
+    validate_incident(incident)
+    validate_service_inspection(inspection)
+    if inspection["target"] != incident["target"]:
+        raise AgentContractError("inspection target does not match incident")
     payload = {
         "schema_version": AGENT_SCHEMA_VERSION,
         "incident_id": incident["incident_id"],
+        "inspection_id": inspection["inspection_id"],
         "target": incident["target"],
-        "service_generation": service_generation,
-        "service_status": status,
+        "service_generation": inspection["service_generation"],
+        "service_status": inspection["service_status"],
     }
     return {
         **payload,
@@ -152,6 +195,7 @@ def validate_diagnostic_snapshot(value: Mapping[str, Any]) -> None:
         {
             "schema_version",
             "incident_id",
+            "inspection_id",
             "target",
             "service_generation",
             "service_status",
@@ -162,6 +206,7 @@ def validate_diagnostic_snapshot(value: Mapping[str, Any]) -> None:
     if value.get("schema_version") != AGENT_SCHEMA_VERSION:
         raise AgentContractError("diagnostic schema_version must equal 1")
     require_sha256(value.get("incident_id"), "diagnostic.incident_id")
+    require_sha256(value.get("inspection_id"), "diagnostic.inspection_id")
     require_nonempty(value.get("target"), "diagnostic.target")
     generation = value.get("service_generation")
     if isinstance(generation, bool) or not isinstance(generation, int) or generation < 1:
