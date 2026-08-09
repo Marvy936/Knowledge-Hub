@@ -29,7 +29,16 @@ def test_realm_pins_pkce_audience_access_marker_and_service_account_roles() -> N
     assert automation["serviceAccountsEnabled"] is True
     assert automation["standardFlowEnabled"] is False
     assert automation["directAccessGrantsEnabled"] is False
+    assert automation["fullScopeAllowed"] is False
     assert "secret" not in automation
+
+    role_scope_mappings = realm["clientScopeMappings"]["knowledge-hub-automation"]
+    assert role_scope_mappings == [
+        {
+            "client": "knowledge-hub-api",
+            "roles": ["rag.read", "agent.run", "agent.remediate"],
+        }
+    ]
 
     scopes = {scope["name"]: scope for scope in realm["clientScopes"]}
     api_scope = scopes["knowledge-hub-api-access"]
