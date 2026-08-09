@@ -3,6 +3,10 @@ name: Temporary inspect ML date parsing
 on:
   push:
     branches: [fix/actions-runner-context]
+  pull_request:
+    types: [synchronize]
+    paths:
+      - ".github/workflows/_temporary-inspect-ml-date-parsing.yml"
 
 permissions:
   contents: read
@@ -15,6 +19,7 @@ jobs:
       - name: Checkout diagnostic subject
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
           fetch-depth: 1
           clean: true
