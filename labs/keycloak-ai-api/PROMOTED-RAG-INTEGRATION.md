@@ -4,6 +4,7 @@ Táto vrstva pripája už implementovaný offline deterministic Knowledge Hub RA
 
 ```text
 valid Keycloak access token
++ exact knowledge-hub-api-access scope
 + rag.read client role
 + allowed azp
 → promoted RAG bundle read-back
@@ -15,6 +16,8 @@ valid Keycloak access token
 → bounded offline RAG query
 → answer/abstention + citations + trace
 ```
+
+Scope a role sú samostatné podmienky. Token so správnym `rag.read`, ktorému chýba `knowledge-hub-api-access`, je odmietnutý ešte pred RAG executorom.
 
 ## Promoted bundle
 
@@ -87,7 +90,8 @@ Execution order je:
 ```text
 Bearer authentication
 → issuer/audience/token-class validation
-→ azp + rag.read authorization
+→ required knowledge-hub-api-access scope
+→ allowed azp + rag.read authorization
 → promoted RAG executor availability
 → exact promoted bundle execution
 ```
@@ -108,19 +112,22 @@ Ak token prejde, ale promoted backend nie je nakonfigurovaný, endpoint vracia `
 - observed latency,
 - exact citations alebo explicitný abstention reason.
 
-HTTP 200 teda neznamená iba „JWT bol platný“. Znamená, že request prešiel authorization a promoted offline RAG execution vrátil bounded contract result.
+HTTP 200 teda neznamená iba „JWT bol platný“. Znamená, že request prešiel scope/route authorization a promoted offline RAG execution vrátil bounded contract result.
 
 ## Agent routes zostávajú oddelené
 
-`POST /v1/agent/run` a `POST /v1/agent/remediate` v tomto bloku stále vykonávajú iba authorization read-back.
+`run_secured_rag_api.py` konfiguruje iba RAG executor. V tomto konkrétnom procese preto `POST /v1/agent/run` a `POST /v1/agent/remediate` po úspešnej authorization vrátia `503`, pretože bounded agent backend nie je configured.
 
-To je zámerné. Keycloak role `agent.run` alebo `agent.remediate` ešte nie sú dôkazom, že bounded agent executor, approval digest, idempotency, checkpoint/replay alebo remediation recovery sú implementované. Tie patria do nasledujúceho Practical v1 agent tracku.
+Executable agent lifecycle je samostatný adapter a runner v [`BOUNDED-AGENT-INTEGRATION.md`](BOUNDED-AGENT-INTEGRATION.md). Ani tam Keycloak role nie je sama mutation authority: remediation stále vyžaduje exact external approval, policy/kill-switch read-back a durable operation contract.
+
+Tým RAG runner nedostáva incident-remediation side effects a agent runner nemusí načítavať promoted RAG bundle.
 
 ## Refusal variants
 
 Source tests pokrývajú alebo explicitne definujú refusal pre:
 
 - missing/invalid bearer token pred RAG execution,
+- missing `knowledge-hub-api-access` scope pred RAG execution,
 - browser token na automation-only agent route,
 - valid `rag.read` token bez promoted RAG backendu,
 - query nad request bound,
@@ -136,6 +143,7 @@ Táto vrstva je source implementation. Stále nepreukazuje:
 - live Keycloak container + realm import,
 - real browser/service-account token issuance,
 - live JWKS fetch,
+- live scope a role claims z imported realm,
 - protected request s reálnym Keycloak tokenom,
 - fresh clean-checkout build oboch packages,
 - promoted RAG bundle vytvorený a použitý v jednom recorded runtime gate,
