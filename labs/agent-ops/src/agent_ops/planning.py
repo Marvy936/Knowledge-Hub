@@ -441,7 +441,7 @@ def validate_action_plan(value: Mapping[str, Any]) -> None:
         "rationale",
         "plan_id",
     }
-    keys = set(value)
+    keys = frozenset(value)
     if keys not in {frozenset(base_keys), frozenset(base_keys | {"retrieval_context_id"})}:
         raise AgentContractError("action plan keys mismatch")
     if value.get("schema_version") != AGENT_SCHEMA_VERSION:
