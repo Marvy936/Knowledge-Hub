@@ -14,7 +14,7 @@ from .contracts import (
     sha256_bytes,
     validate_canonical_id,
 )
-from .planning import AGENT_SCHEMA_VERSION
+from .planning import AGENT_SCHEMA_VERSION, build_service_inspection
 
 LOOKUP_STATUSES = {"completed", "not_found", "unknown"}
 
@@ -141,7 +141,7 @@ def validate_result_against_action(
 
 
 class LocalServiceStateAdapter:
-    """A local-only idempotent mutation adapter for Practical v1 source tests."""
+    """A local-only typed inspection and idempotent mutation adapter for Practical v1."""
 
     def __init__(self, state_path: Path) -> None:
         self.state_path = state_path
@@ -157,6 +157,36 @@ class LocalServiceStateAdapter:
         ):
             raise AgentContractError("local service state maps are invalid")
         return value
+
+    @staticmethod
+    def _validate_service_record(service: Mapping[str, Any]) -> None:
+        if set(service) != {"generation", "status", "restart_count"}:
+            raise AgentContractError("local service record keys mismatch")
+        generation = service.get("generation")
+        if isinstance(generation, bool) or not isinstance(generation, int) or generation < 1:
+            raise AgentContractError("local service generation is invalid")
+        if service.get("status") not in {"healthy", "degraded", "unknown"}:
+            raise AgentContractError("local service status is unsupported")
+        restart_count = service.get("restart_count")
+        if (
+            isinstance(restart_count, bool)
+            or not isinstance(restart_count, int)
+            or restart_count < 0
+        ):
+            raise AgentContractError("service restart_count is invalid")
+
+    def inspect(self, target: str) -> Mapping[str, Any]:
+        resolved_target = require_nonempty(target, "inspection.target")
+        state = self._state()
+        service = state["services"].get(resolved_target)
+        if not isinstance(service, dict):
+            raise AgentContractError("target service does not exist in local sandbox")
+        self._validate_service_record(service)
+        return build_service_inspection(
+            target=resolved_target,
+            service_generation=service["generation"],
+            service_status=service["status"],
+        )
 
     def lookup(self, operation_id: str) -> Mapping[str, Any]:
         require_sha256(operation_id, "operation_id")
@@ -194,8 +224,7 @@ class LocalServiceStateAdapter:
         service = state["services"].get(target)
         if not isinstance(service, dict):
             raise AgentContractError("target service does not exist in local sandbox")
-        if set(service) != {"generation", "status", "restart_count"}:
-            raise AgentContractError("local service record keys mismatch")
+        self._validate_service_record(service)
         expected_generation = arguments.get("expected_generation")
         if set(arguments) != {"expected_generation"}:
             raise AgentContractError("restart_service arguments are invalid")
@@ -203,9 +232,7 @@ class LocalServiceStateAdapter:
             raise AgentContractError("service generation changed since action approval")
         if service.get("status") != "degraded":
             raise AgentContractError("restart_service requires degraded service status")
-        restart_count = service.get("restart_count")
-        if isinstance(restart_count, bool) or not isinstance(restart_count, int):
-            raise AgentContractError("service restart_count is invalid")
+        restart_count = service["restart_count"]
         next_service = {
             "generation": expected_generation + 1,
             "status": "healthy",
