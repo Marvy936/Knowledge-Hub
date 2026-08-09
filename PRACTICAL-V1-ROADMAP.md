@@ -6,7 +6,7 @@ Tento dokument definuje minimálnu hranicu prvej použiteľnej praktickej verzie
 
 > **Practical v1: In progress**
 
-Authoritative dokumentačný základ sekcií 00–21 je dokončený. Sekcie 00–17 sú `User reviewed`; sekcie 18–21 sú `Ready for user review`. Praktická v1 je samostatný runtime a release milestone.
+Authoritative dokumentačný základ sekcií 00–21 je dokončený. Sekcie 00–17 sú `User reviewed`; sekcie 18–21 sú `Ready for user review`. Praktická v1 je samostatný runtime a release milestone. Release-candidate draft je v [`PRACTICAL-V1-RELEASE-NOTES.md`](PRACTICAL-V1-RELEASE-NOTES.md); nie je to vydaný release ani náhrada runtime evidence.
 
 ## Podporovaný v1 execution profile
 
@@ -163,7 +163,7 @@ Live production remediation, široké cloud credentials, email/chat send authori
 - [ ] Runtime evidence dokument pre každý povinný flagship.
 - [ ] Súhrnný `PRACTICAL-V1-EVIDENCE.md` viazaný na exact commit, workflow runs, dependency resolutions a proof boundaries.
 - [ ] Root README quick start pre podporovaný v1 execution profile.
-- [ ] Changelog/release notes a immutable Git tag `v1.0.0` až po finálnom acceptance gate.
+- [ ] Changelog/release notes a immutable Git tag `v1.0.0` až po finálnom acceptance gate. Release-candidate notes sú source-level pripravené v `PRACTICAL-V1-RELEASE-NOTES.md`; immutable tag zostáva zakázaný do finálneho acceptance gate-u.
 
 ## Hard v1 acceptance gates
 
