@@ -7,7 +7,10 @@ import uvicorn
 
 from keycloak_ai_api.agent_bridge import LocalBoundedAgentExecutor
 from keycloak_ai_api.app import create_app
-from keycloak_ai_api.rag_bridge import OfflinePromotedRagExecutor
+from keycloak_ai_api.rag_bridge import (
+    OfflinePromotedRagExecutor,
+    RagBundlePaths,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -42,12 +45,14 @@ def main() -> int:
         raise SystemExit("combined secured AI API runner is loopback-only")
 
     rag_executor = OfflinePromotedRagExecutor(
-        manifest_path=args.manifest,
-        index_path=args.index,
-        runtime_config_path=args.runtime_config,
-        eval_cases_path=args.eval_cases,
-        eval_report_path=args.eval_report,
-        prompt_release_path=args.prompt_release,
+        RagBundlePaths(
+            manifest=args.manifest,
+            index=args.index,
+            runtime_config=args.runtime_config,
+            eval_cases=args.eval_cases,
+            eval_report=args.eval_report,
+            prompt_release=args.prompt_release,
+        )
     )
     agent_executor = LocalBoundedAgentExecutor(
         tool_state=args.tool_state,
