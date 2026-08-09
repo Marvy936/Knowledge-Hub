@@ -5,7 +5,12 @@ from pathlib import Path
 
 import pytest
 
-from mlops_lab.monitoring import inject_drift
+from mlops_lab.monitoring import (
+    build_baseline_profile,
+    build_monitoring_window,
+    compare_drift,
+    inject_drift,
+)
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "run_live_retraining_runtime.py"
@@ -68,3 +73,33 @@ def test_event_generation_is_deterministic_and_success_only() -> None:
     assert all(event["prediction"] in {0, 1} for event in first)
     assert all(0.0 <= event["probability"] <= 1.0 for event in first)
     assert all(event["latency_ms"] >= 0 for event in first)
+
+
+def test_driver_monitoring_corpus_crosses_exact_drift_gate() -> None:
+    baseline_records = runtime._records()
+    baseline = build_baseline_profile(
+        events=runtime._events(baseline_records),
+        profile_name="live-retraining-baseline",
+        generation="live-retraining-v1",
+    )
+    shifted = inject_drift(baseline_records, mode="shift")
+    window = build_monitoring_window(
+        events=runtime._events(shifted),
+        baseline=baseline,
+        deployment_id="a" * 64,
+    )
+    report = compare_drift(
+        baseline=baseline,
+        window=window,
+        minimum_successful_events=100,
+        numeric_psi_threshold=0.20,
+        categorical_tvd_threshold=0.15,
+        prediction_rate_delta_threshold=0.10,
+        maximum_error_rate=0.05,
+    )
+
+    assert report["status"] == "drift_detected"
+    assert report["observed_successful_events"] == 200
+    assert report["observed_failed_events"] == 0
+    assert report["observed_no_data"] is False
+    assert report["exceeded_numeric_features"] or report["exceeded_categorical_features"]
