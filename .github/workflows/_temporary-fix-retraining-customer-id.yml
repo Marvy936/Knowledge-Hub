@@ -1,4 +1,4 @@
-name: Temporary fix retraining customer id
+name: Temporary fix retraining customer id v2
 
 on:
   pull_request:
