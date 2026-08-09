@@ -1,16 +1,15 @@
-name: Temporary fix Keycloak promoted RAG builder v2
+name: Temporary fix Keycloak promoted RAG builder v3
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    branches: [main]
+  push:
+    branches:
+      - fix/actions-runner-context
 
 permissions:
   contents: write
 
 jobs:
   fix:
-    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'fix/actions-runner-context'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
