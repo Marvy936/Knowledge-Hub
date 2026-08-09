@@ -129,7 +129,12 @@ def _validate_release_candidate(value: Mapping[str, Any], subject_sha: str) -> s
     components = value.get("components")
     if not isinstance(components, dict) or set(components) != {"core", "mlops", "rag", "identity"}:
         raise ReleaseEvidenceError("release candidate component inventory mismatch")
-    return _require_sha256(value.get("release_candidate_id"), "release_candidate_id")
+    declared_id = _require_sha256(value.get("release_candidate_id"), "release_candidate_id")
+    payload = {key: item for key, item in value.items() if key != "release_candidate_id"}
+    expected = _sha256_bytes(_canonical_bytes(payload))
+    if declared_id != expected:
+        raise ReleaseEvidenceError("release_candidate_id does not match canonical payload")
+    return declared_id
 
 
 def _validate_dependency_resolution(value: Mapping[str, Any], subject_sha: str) -> str:
