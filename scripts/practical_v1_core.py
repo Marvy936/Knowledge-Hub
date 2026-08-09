@@ -33,7 +33,7 @@ STAGES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("agent-contracts", ("-m", "pytest", "labs/agent-ops/tests", "-q")),
     ("keycloak-ai-api-contracts", ("-m", "pytest", "labs/keycloak-ai-api/tests", "-q")),
 )
-EXPECTED_STAGE_COUNT = len(STAGES) + 1  # deterministic agent hard evaluation
+EXPECTED_STAGE_COUNT = len(STAGES) + 1
 MAX_CAPTURE_CHARS = 12_000
 
 
@@ -46,9 +46,9 @@ def _sha256_text(value: str) -> str:
 
 
 def _canonical_json_bytes(value: object) -> bytes:
-    return (json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode(
-        "utf-8"
-    )
+    return (
+        json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n"
+    ).encode("utf-8")
 
 
 def _atomic_write_json(path: Path, value: object) -> None:
@@ -73,14 +73,15 @@ def _git(repo_root: Path, *args: str) -> str:
     return result.stdout.strip()
 
 
-def _validate_paths(repo_root: Path, work_root: Path, evidence_path: Path) -> tuple[Path, Path, Path]:
+def _validate_paths(
+    repo_root: Path, work_root: Path, evidence_path: Path
+) -> tuple[Path, Path, Path]:
     root = repo_root.resolve(strict=True)
     if not (root / ".git").exists():
         raise CoreRunError(f"repo root is not a Git checkout: {root}")
     work = work_root.resolve(strict=False)
     evidence = evidence_path.resolve(strict=False)
     if work == root or root in work.parents:
-        # work may be inside repo only under the ignored .runtime boundary.
         allowed = root / ".runtime" / "practical-v1"
         try:
             work.relative_to(allowed)
@@ -98,10 +99,7 @@ def _validate_paths(repo_root: Path, work_root: Path, evidence_path: Path) -> tu
 
 
 def _run_stage(
-    *,
-    name: str,
-    command: Sequence[str],
-    repo_root: Path,
+    *, name: str, command: Sequence[str], repo_root: Path
 ) -> dict[str, object]:
     started = time.monotonic()
     result = subprocess.run(
@@ -201,7 +199,10 @@ def _build_report(
         "preflight_error": preflight_error,
         "stages": stages,
     }
-    return {**payload, "evidence_id": hashlib.sha256(_canonical_json_bytes(payload)).hexdigest()}
+    return {
+        **payload,
+        "evidence_id": hashlib.sha256(_canonical_json_bytes(payload)).hexdigest(),
+    }
 
 
 def run(repo_root: Path, work_root: Path, evidence_path: Path) -> dict[str, object]:
@@ -218,11 +219,17 @@ def run(repo_root: Path, work_root: Path, evidence_path: Path) -> dict[str, obje
         subject_sha = _git(root, "rev-parse", "HEAD")
         if len(subject_sha) != 40 or any(ch not in "0123456789abcdef" for ch in subject_sha):
             raise CoreRunError("Git HEAD is not a lowercase 40-character SHA-1")
+        tracked_changes = _git(root, "status", "--porcelain", "--untracked-files=no")
+        if tracked_changes:
+            raise CoreRunError("tracked worktree is not clean; refusing revision-bound evidence")
         work.mkdir(parents=True, exist_ok=False)
 
         for name, args in STAGES:
-            command = (sys.executable, *args)
-            stage = _run_stage(name=name, command=command, repo_root=root)
+            stage = _run_stage(
+                name=name,
+                command=(sys.executable, *args),
+                repo_root=root,
+            )
             stages.append(stage)
             if stage["passed"] is not True:
                 break
@@ -233,7 +240,19 @@ def run(repo_root: Path, work_root: Path, evidence_path: Path) -> dict[str, obje
         print(preflight_error, file=sys.stderr)
     finally:
         if work is not None:
-            shutil.rmtree(work, ignore_errors=False) if work.exists() else None
+            try:
+                if work.exists() or work.is_symlink():
+                    if work.is_symlink():
+                        work.unlink()
+                    else:
+                        shutil.rmtree(work)
+            except OSError as exc:
+                cleanup_error = f"cleanup failed: {type(exc).__name__}: {exc}"
+                preflight_error = (
+                    cleanup_error
+                    if preflight_error is None
+                    else f"{preflight_error}; {cleanup_error}"
+                )
             cleanup_verified = not work.exists() and not work.is_symlink()
         report = _build_report(
             subject_sha=subject_sha,
@@ -267,7 +286,10 @@ def main() -> int:
     try:
         report = run(args.repo_root, args.work_root, args.evidence)
     except Exception as exc:
-        print(f"orchestrator evidence write failed: {type(exc).__name__}: {exc}", file=sys.stderr)
+        print(
+            f"orchestrator evidence write failed: {type(exc).__name__}: {exc}",
+            file=sys.stderr,
+        )
         return 2
     print(
         json.dumps(
