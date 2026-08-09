@@ -1,0 +1,156 @@
+name: Temporary fix RAG source-path ranking
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'fix/actions-runner-context'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: fix/actions-runner-context
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Patch deterministic source-path ranking v2
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          retrieval = Path('labs/llm-rag/src/knowledge_hub_rag/retrieval.py')
+          text = retrieval.read_text(encoding='utf-8')
+          text = text.replace(
+              'DEFAULT_B = 0.75\n',
+              'DEFAULT_B = 0.75\nRETRIEVAL_ALGORITHM = "bm25-source-path-v2"\nSOURCE_PATH_BOOST = 1.0\n',
+              1,
+          )
+          text = text.replace(
+              '        "tokenizer_generation": TOKENIZER_GENERATION,\n',
+              '        "tokenizer_generation": TOKENIZER_GENERATION,\n        "retrieval_generation": RETRIEVAL_ALGORITHM,\n',
+              1,
+          )
+          old_return = '    return round(score, 12)\n\n\ndef retrieve(\n'
+          helper = '''    return round(score, 12)\n\n\ndef _source_path_bonus(*, query_tokens: list[str], document: Mapping[str, Any], index: Mapping[str, Any]) -> float:\n    n = int(index["document_count"])\n    dfs = index["document_frequencies"]\n    path_tokens = set(tokenize(_require_nonempty_string(document.get("source_path"), "document.source_path")))\n    bonus = 0.0\n    for term in sorted(set(query_tokens) & path_tokens):\n        df = int(dfs.get(term, 0))\n        if df < 1:\n            idf = math.log(1.0 + (n - 0.5) / 0.5)\n        elif df <= n:\n            idf = math.log(1.0 + (n - df + 0.5) / (df + 0.5))\n        else:\n            raise ContractError("retrieval index document frequency is invalid")\n        bonus += idf * SOURCE_PATH_BOOST\n    return round(bonus, 12)\n\n\ndef retrieve(\n'''
+          if old_return not in text:
+              raise SystemExit('score helper insertion point not found')
+          text = text.replace(old_return, helper, 1)
+          old_score = '''        score = _score_document(query_tokens=q["query_tokens"], document=document, index=index, k1=k1, b=b)\n        if score >= float(min_score) and score > 0.0:\n'''
+          new_score = '''        content_score = _score_document(query_tokens=q["query_tokens"], document=document, index=index, k1=k1, b=b)\n        score = round(\n            content_score\n            + _source_path_bonus(\n                query_tokens=q["query_tokens"],\n                document=document,\n                index=index,\n            ),\n            12,\n        )\n        if score >= float(min_score) and score > 0.0:\n'''
+          if old_score not in text:
+              raise SystemExit('retrieve score block not found')
+          text = text.replace(old_score, new_score, 1)
+          text = text.replace(
+              '"retrieval_config": {"algorithm": "bm25-v1", "k1": k1, "b": b},\n',
+              '"retrieval_config": {"algorithm": RETRIEVAL_ALGORITHM, "k1": k1, "b": b},\n',
+              1,
+          )
+          validate_marker = '''    if not isinstance(query, dict) or not isinstance(config, dict):\n        raise ContractError("retrieval result query/config is invalid")\n'''
+          validate_replacement = validate_marker + '''    if config.get("algorithm") != RETRIEVAL_ALGORITHM:\n        raise ContractError("retrieval result algorithm generation mismatch")\n'''
+          if validate_marker not in text:
+              raise SystemExit('retrieval result validation marker not found')
+          text = text.replace(validate_marker, validate_replacement, 1)
+          retrieval.write_text(text, encoding='utf-8')
+
+          runtime = Path('labs/llm-rag/src/knowledge_hub_rag/runtime_config.py')
+          config_text = runtime.read_text(encoding='utf-8')
+          config_text = config_text.replace(
+              '        "retrieval": {"top_k": top_k, "min_score": float(min_score)},\n',
+              '        "retrieval": {\n            "algorithm": "bm25-source-path-v2",\n            "top_k": top_k,\n            "min_score": float(min_score),\n        },\n',
+              1,
+          )
+          runtime.write_text(config_text, encoding='utf-8')
+          PY
+          git diff --check
+
+      - name: Add ranking regression tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > labs/llm-rag/tests/test_retrieval_source_path_v2.py <<'PY'
+          from __future__ import annotations
+
+          import math
+
+          from knowledge_hub_rag import retrieval
+
+
+          def _index() -> dict[str, object]:
+              return {
+                  "document_count": 100,
+                  "document_frequencies": {
+                      "configmap": 5,
+                      "kubernetes": 20,
+                      "secret": 10,
+                      "error": 8,
+                  },
+              }
+
+
+          def test_source_path_bonus_rewards_exact_domain_tokens_only() -> None:
+              index = _index()
+              expected = {
+                  "source_path": "docs/09-kubernetes/configmap-secret.md",
+              }
+              unrelated = {
+                  "source_path": "docs/07-infrastructure/vault.md",
+              }
+              query = ["na", "čo", "slúži", "kubernetes", "configmap", "secret"]
+
+              expected_bonus = retrieval._source_path_bonus(
+                  query_tokens=query,
+                  document=expected,
+                  index=index,
+              )
+              unrelated_bonus = retrieval._source_path_bonus(
+                  query_tokens=query,
+                  document=unrelated,
+                  index=index,
+              )
+
+              assert expected_bonus > 0.0
+              assert unrelated_bonus == 0.0
+              assert expected_bonus == round(
+                  sum(
+                      math.log(1.0 + (100 - index["document_frequencies"][term] + 0.5) / (index["document_frequencies"][term] + 0.5))
+                      for term in ("configmap", "kubernetes", "secret")
+                  ),
+                  12,
+              )
+
+
+          def test_retrieval_algorithm_generation_is_explicit_v2() -> None:
+              assert retrieval.RETRIEVAL_ALGORITHM == "bm25-source-path-v2"
+              assert retrieval.SOURCE_PATH_BOOST == 1.0
+          PY
+
+      - name: Run RAG contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -q -e 'labs/llm-rag[dev]'
+          python -m pytest labs/llm-rag/tests -q -p no:cacheprovider
+
+      - name: Commit ranking v2
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            labs/llm-rag/src/knowledge_hub_rag/retrieval.py \
+            labs/llm-rag/src/knowledge_hub_rag/runtime_config.py \
+            labs/llm-rag/tests/test_retrieval_source_path_v2.py
+          git diff --cached --quiet && exit 0
+          git commit -m 'fix(rag): add deterministic source-path ranking signal'
+          git push origin HEAD:fix/actions-runner-context
