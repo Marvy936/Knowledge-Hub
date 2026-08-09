@@ -47,6 +47,7 @@ class AgentExecutor(Protocol):
         signal: str,
         operator_note: str,
         incident_generation: str,
+        retrieval_context: Mapping[str, Any] | None = None,
     ) -> Mapping[str, Any]: ...
 
     def remediate(
@@ -127,12 +128,7 @@ def _bounded_identity_dir(
 
 
 class LocalBoundedAgentExecutor:
-    """Bridge the Keycloak API to the local-only agent_ops authority/execution core.
-
-    The bridge intentionally does not create approvals. Planning writes canonical read-only
-    evidence and a plan. Remediation resolves an approval artifact from the exact plan
-    directory and then delegates mutation authority to agent_ops.execute_operation().
-    """
+    """Bridge the Keycloak API to the local-only agent_ops authority/execution core."""
 
     def __init__(
         self,
@@ -217,6 +213,42 @@ class LocalBoundedAgentExecutor:
             return
         atomic_write_json(path, value)
 
+    @staticmethod
+    def _canonical_retrieval_context(
+        value: Mapping[str, Any] | None,
+    ) -> dict[str, Any] | None:
+        if value is None:
+            return None
+        expected = {
+            "status",
+            "prompt_release_id",
+            "source_revision",
+            "answer_id",
+            "trace_id",
+            "chunk_ids",
+            "text",
+            "abstention_reason",
+        }
+        if not isinstance(value, Mapping) or set(value) != expected:
+            raise AgentBridgeError("RAG-derived retrieval context keys mismatch")
+        try:
+            from agent_ops.planning import build_retrieval_context
+
+            return build_retrieval_context(
+                status=value["status"],
+                prompt_release_id=value["prompt_release_id"],
+                source_revision=value["source_revision"],
+                answer_id=value["answer_id"],
+                trace_id=value["trace_id"],
+                chunk_ids=value["chunk_ids"],
+                text=value["text"],
+                abstention_reason=value["abstention_reason"],
+            )
+        except Exception as exc:
+            raise AgentBridgeError(
+                f"RAG-derived retrieval context refused: {type(exc).__name__}: {exc}"
+            ) from exc
+
     def plan(
         self,
         *,
@@ -224,6 +256,7 @@ class LocalBoundedAgentExecutor:
         signal: str,
         operator_note: str,
         incident_generation: str,
+        retrieval_context: Mapping[str, Any] | None = None,
     ) -> Mapping[str, Any]:
         try:
             from agent_ops.planning import (
@@ -248,15 +281,19 @@ class LocalBoundedAgentExecutor:
             )
             inspection = dict(LocalServiceStateAdapter(self._tool_state).inspect(target))
             diagnostic = build_diagnostic_snapshot(incident=incident, inspection=inspection)
+            canonical_context = self._canonical_retrieval_context(retrieval_context)
             plan = plan_incident_action(
                 incident=incident,
                 diagnostic=diagnostic,
                 policy=policy,
+                retrieval_context=canonical_context,
             )
             plan_dir = self._plan_dir(plan["plan_id"])
             self._write_exact(plan_dir / "incident.json", incident)
             self._write_exact(plan_dir / "inspection.json", inspection)
             self._write_exact(plan_dir / "diagnostic.json", diagnostic)
+            if canonical_context is not None:
+                self._write_exact(plan_dir / "retrieval-context.json", canonical_context)
             self._write_exact(plan_dir / "policy.json", policy)
             self._write_exact(plan_dir / "plan.json", plan)
         except Exception as exc:
@@ -271,6 +308,7 @@ class LocalBoundedAgentExecutor:
             "incident_id": incident["incident_id"],
             "inspection_id": inspection["inspection_id"],
             "diagnostic_id": diagnostic["diagnostic_id"],
+            "retrieval_context_id": plan.get("retrieval_context_id"),
             "plan_id": plan["plan_id"],
             "disposition": plan["disposition"],
             "action_digest": plan["action_digest"],
@@ -296,7 +334,10 @@ class LocalBoundedAgentExecutor:
         try:
             from agent_ops.contracts import atomic_write_json, read_json
             from agent_ops.execution import build_operation, execute_operation
-            from agent_ops.planning import validate_agent_policy
+            from agent_ops.planning import (
+                validate_agent_policy,
+                validate_retrieval_context,
+            )
             from agent_ops.safety import validate_kill_switch_against_policy
             from agent_ops.tools import LocalServiceStateAdapter
 
@@ -309,6 +350,20 @@ class LocalBoundedAgentExecutor:
                 raise AgentBridgeError("stored plan does not match requested plan_id")
             if approval.get("approval_id") != resolved_approval_id:
                 raise AgentBridgeError("stored approval does not match requested approval_id")
+
+            context_path = plan_dir / "retrieval-context.json"
+            context_id = plan.get("retrieval_context_id")
+            if context_id is None:
+                if context_path.exists() or context_path.is_symlink():
+                    raise AgentBridgeError(
+                        "plan without retrieval context has orphaned context artifact"
+                    )
+            else:
+                context = _read_json(context_path)
+                validate_retrieval_context(context)
+                if context.get("context_id") != context_id:
+                    raise AgentBridgeError("retrieval context does not match stored plan")
+
             validate_agent_policy(policy)
             if policy != self._policy:
                 raise AgentBridgeError("stored plan policy differs from configured agent policy")
