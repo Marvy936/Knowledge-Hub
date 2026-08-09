@@ -14,11 +14,19 @@ from .contracts import (
 from .planning import AGENT_SCHEMA_VERSION, validate_action_plan, validate_agent_policy
 
 
-def build_kill_switch(*, generation: str, engaged: bool) -> dict[str, Any]:
+def build_kill_switch(
+    *,
+    policy: Mapping[str, Any],
+    generation: str,
+    engaged: bool,
+) -> dict[str, Any]:
+    validate_agent_policy(policy)
     if not isinstance(engaged, bool):
         raise AgentContractError("kill switch engaged must be boolean")
     payload = {
         "schema_version": AGENT_SCHEMA_VERSION,
+        "policy_id": policy["policy_id"],
+        "policy_generation": policy["generation"],
         "generation": require_nonempty(generation, "kill_switch.generation"),
         "engaged": engaged,
     }
@@ -31,15 +39,37 @@ def build_kill_switch(*, generation: str, engaged: bool) -> dict[str, Any]:
 def validate_kill_switch(value: Mapping[str, Any]) -> None:
     require_exact_keys(
         value,
-        {"schema_version", "generation", "engaged", "kill_switch_id"},
+        {
+            "schema_version",
+            "policy_id",
+            "policy_generation",
+            "generation",
+            "engaged",
+            "kill_switch_id",
+        },
         "kill switch",
     )
     if value.get("schema_version") != AGENT_SCHEMA_VERSION:
         raise AgentContractError("kill switch schema_version must equal 1")
+    require_sha256(value.get("policy_id"), "kill_switch.policy_id")
+    require_nonempty(
+        value.get("policy_generation"), "kill_switch.policy_generation"
+    )
     require_nonempty(value.get("generation"), "kill_switch.generation")
     if not isinstance(value.get("engaged"), bool):
         raise AgentContractError("kill switch engaged must be boolean")
     validate_canonical_id(value, "kill_switch_id")
+
+
+def validate_kill_switch_against_policy(
+    *, kill_switch: Mapping[str, Any], policy: Mapping[str, Any]
+) -> None:
+    validate_kill_switch(kill_switch)
+    validate_agent_policy(policy)
+    if kill_switch["policy_id"] != policy["policy_id"]:
+        raise AgentContractError("kill switch belongs to another policy")
+    if kill_switch["policy_generation"] != policy["generation"]:
+        raise AgentContractError("kill switch policy generation does not match policy")
 
 
 def approve_action_plan(
@@ -134,6 +164,6 @@ def validate_approval_against_plan(
         "tool": plan["tool"],
         "target": plan["target"],
     }
-    for field, value in expected.items():
-        if approval[field] != value:
+    for field, expected_value in expected.items():
+        if approval[field] != expected_value:
             raise AgentContractError(f"approval {field} does not match action plan")
