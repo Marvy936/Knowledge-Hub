@@ -1,6 +1,6 @@
 # Knowledge Hub practical labs
 
-Tento index je authoritative vstup do praktickej vrstvy repozitára. Nezamieňa učebný text, manuálny exercise set, executable package a runtime-verified flagship. Presný stav každej oblasti je v [`PRACTICAL-STATUS.md`](../PRACTICAL-STATUS.md) a release hranica v [`PRACTICAL-V1-ROADMAP.md`](../PRACTICAL-V1-ROADMAP.md).
+Tento index je authoritative vstup do praktickej vrstvy repozitára. Nezamieňa učebný text, manuálny exercise set, executable package a runtime-verified flagship. Presný stav každej oblasti je v [`PRACTICAL-STATUS.md`](../PRACTICAL-STATUS.md), súhrnný evidence model v [`PRACTICAL-V1-EVIDENCE.md`](../PRACTICAL-V1-EVIDENCE.md) a release hranica v [`PRACTICAL-V1-ROADMAP.md`](../PRACTICAL-V1-ROADMAP.md).
 
 ## Typy praktického obsahu
 
@@ -42,6 +42,50 @@ Tento index je authoritative vstup do praktickej vrstvy repozitára. Nezamieňa 
 - Aktuálny rozsah: exact Git corpus snapshot, per-file byte identity, deterministic Markdown chunking, immutable chunk/index/query/result identities, BM25-v1 retrieval, explicitný `no_result`, exact chunk citations, bounded context, exact implementation-revision binding, code-defined system policy, direct/indirect prompt-injection gates, deterministic extractive faithfulness, critical/high-risk eval gates, prompt/config release provenance, trace/token-equivalent evidence a bounded cleanup.
 - Otvorené zostávajú central runtime closeout a voliteľné post-v1 generative/semantic adapters; generatívny model nie je hard requirement offline Practical v1 core pathu.
 
+### Keycloak-secured AI API
+
+- Index: [`keycloak-ai-api/README.md`](keycloak-ai-api/README.md)
+- Bounded agent integration: [`keycloak-ai-api/BOUNDED-AGENT-INTEGRATION.md`](keycloak-ai-api/BOUNDED-AGENT-INTEGRATION.md)
+- Stav: source-level identity path je implementovaný; live Keycloak runtime evidence je `Pending`.
+- Source rozsah: reproducible realm config/import, Authorization Code + PKCE contract, Client Credentials/service-account contract, exact issuer/audience/access-token/scope/azp/client-role validation, promoted RAG adapter, secured `agent.run`/`agent.remediate` routes a optional promoted-RAG `knowledge_query` do bounded agenta.
+- Otvorené zostáva live realm/token/JWKS/protected-route evidence a cleanup na exact revision.
+
+### Bounded incident/operations agent
+
+- Index: [`agent-ops/README.md`](agent-ops/README.md)
+- Retrieval/injection/eval contract: [`agent-ops/RETRIEVAL-INJECTION-EVALUATION.md`](agent-ops/RETRIEVAL-INJECTION-EVALUATION.md)
+- Runtime evidence: [`agent-ops/RUNTIME-EVIDENCE.md`](agent-ops/RUNTIME-EVIDENCE.md)
+- Stav: source-level Practical v1 lifecycle je implementovaný po PR #179; runtime evidence zostáva `Pending`.
+- Source rozsah: durable state, typed inspection/restart, action-digest approval + expiry, one-mutation/tool-wait bounds, idempotency/read-before-retry, unknown-outcome handling, sandbox/allowlist/kill switch, promoted retrieval-context authority boundary, strict typed tool-result boundary a deterministic hard evaluation.
+- Otvorené zostáva central clean-checkout combined RAG→agent execution/recovery evidence a live Keycloak identity path.
+
+## Practical v1 release surface
+
+Repository-level Practical v1 source surface prepája flagships bez zavedenia ďalšej doménovej implementácie:
+
+- offline/core orchestrátor: `../scripts/practical_v1_core.py`,
+- repository-integrity validator: `../scripts/validate_practical_v1_repo.py`,
+- release-tooling contract tests: `../scripts/tests/`,
+- permanent CI matrix: `../.github/workflows/practical-v1-core.yml`,
+- root clean-checkout quick start: [`../README.md`](../README.md),
+- súhrnný evidence ledger: [`../PRACTICAL-V1-EVIDENCE.md`](../PRACTICAL-V1-EVIDENCE.md).
+
+Orchestrátor spúšťa exact stage chain:
+
+```text
+compileall
+→ repository integrity
+→ ML contracts
+→ MLOps contracts
+→ RAG contracts
+→ agent contracts
+→ Keycloak AI API contracts
+→ agent hard evaluation
+→ cleanup read-back
+```
+
+Source runner odmietne dirty tracked checkout, čiastočný stage chain a neoverený cleanup. `all_passed=true` vyžaduje presne celý expected stage set. Kým #151 nevytvorí central Actions run, táto release surface je `Implemented` na source úrovni, nie `Runtime verified`.
+
 ## Manual environment labs
 
 ### CKA timed labs
@@ -75,9 +119,10 @@ Walkthrough sa do tohto indexu nepovažuje za samostatný flagship, kým nemá v
 Machine Learning flagship — runtime verified
 → MLOps end-to-end lifecycle — source lifecycle implemented, runtime closeout blocked
 → Knowledge Hub LLM/RAG flagship — offline source lifecycle implemented, runtime closeout blocked
-→ Keycloak-secured AI API — next required v1 track
-→ bounded incident/operations agent — planned for v1
-→ unified runner, evidence closeout a v1.0.0 tag
+→ Keycloak-secured AI API — source lifecycle implemented, live identity evidence pending
+→ bounded incident/operations agent — source lifecycle implemented, combined runtime evidence pending
+→ unified offline/core runner + permanent CI + evidence foundation — source implemented, runtime pending
+→ release-candidate evidence closeout + v1.0.0 tag
 ```
 
 Úplný checklist a post-v1 backlog sú v [`PRACTICAL-V1-ROADMAP.md`](../PRACTICAL-V1-ROADMAP.md).
