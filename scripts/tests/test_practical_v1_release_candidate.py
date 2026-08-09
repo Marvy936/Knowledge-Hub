@@ -96,7 +96,7 @@ def test_rag_summary_refuses_missing_hard_security_slice() -> None:
             "production_serving_claimed": False,
         },
     }
-    with pytest.raises(rc.ReleaseCandidateError, match="security slice"):
+    with pytest.raises(rc.ReleaseCandidateError, match="security case evidence"):
         rc._verify_rag(value, "a" * 40)
 
 
