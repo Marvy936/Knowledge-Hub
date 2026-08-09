@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import stat
 from pathlib import Path
 
 import pytest
+
+from mlops_lab.contracts import canonical_json_bytes, promote_candidate, sha256_bytes
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "run_containerized_inference_runtime.py"
@@ -29,6 +32,32 @@ def _deployment() -> dict[str, object]:
     }
 
 
+def _candidate(seed: str) -> dict[str, object]:
+    evaluation_payload = {
+        "accepted": True,
+        "metrics": {"f1": 0.8, "recall": 0.75},
+        "policy_generation": "policy-v1",
+    }
+    payload = {
+        "schema_version": 1,
+        "dataset": {
+            "name": "customers",
+            "generation": "dataset-v1",
+            "sha256": seed * 64,
+        },
+        "model": {
+            "size_bytes": 10,
+            "sha256": ("a" if seed != "a" else "b") * 64,
+        },
+        "evaluation": {
+            **evaluation_payload,
+            "sha256": sha256_bytes(canonical_json_bytes(evaluation_payload)),
+        },
+        "source_revision": "c" * 40,
+    }
+    return {**payload, "candidate_id": sha256_bytes(canonical_json_bytes(payload))}
+
+
 def test_image_id_requires_content_addressed_sha256() -> None:
     good = "sha256:" + "1" * 64
     assert runtime._validate_image_id(good) == good
@@ -49,6 +78,69 @@ def test_subject_sha_requires_exact_lowercase_git_sha1() -> None:
 
     with pytest.raises(runtime.RuntimeGateError, match="40-character"):
         runtime._require_subject_sha("A" * 40)
+
+
+def test_explicit_subject_mode_requires_complete_inputs_and_release(tmp_path: Path) -> None:
+    runtime_dir = tmp_path / "runtime"
+    runtime_dir.mkdir()
+    candidate = tmp_path / "candidate.json"
+    registry = tmp_path / "registry.json"
+    artifact = tmp_path / "artifact"
+    release = tmp_path / "release.json"
+    candidate.write_text("{}\n", encoding="utf-8")
+    registry.write_text("{}\n", encoding="utf-8")
+    artifact.mkdir()
+    release.write_text("{}\n", encoding="utf-8")
+
+    with pytest.raises(runtime.RuntimeGateError, match="requires --candidate"):
+        runtime._resolve_subject_paths(
+            runtime_dir=runtime_dir,
+            candidate_path=candidate,
+            registry_path=None,
+            artifact_dir=artifact,
+            release_path=release,
+        )
+
+    with pytest.raises(runtime.RuntimeGateError, match="requires --release"):
+        runtime._resolve_subject_paths(
+            runtime_dir=runtime_dir,
+            candidate_path=candidate,
+            registry_path=registry,
+            artifact_dir=artifact,
+            release_path=None,
+        )
+
+    resolved = runtime._resolve_subject_paths(
+        runtime_dir=runtime_dir,
+        candidate_path=candidate,
+        registry_path=registry,
+        artifact_dir=artifact,
+        release_path=release,
+    )
+    assert resolved["input_mode"] == "explicit-subjects"
+    assert resolved["candidate_path"] == candidate.resolve()
+    assert resolved["registry_path"] == registry.resolve()
+    assert resolved["artifact_dir"] == artifact.resolve()
+    assert resolved["release_path"] == release.resolve()
+
+
+def test_provided_release_must_match_exact_candidate_lineage(tmp_path: Path) -> None:
+    first = _candidate("d")
+    second = _candidate("e")
+    second_release, _ = promote_candidate(
+        candidate=second,
+        alias_state={"schema_version": 1, "aliases": {}},
+        alias="champion",
+        expected_current=None,
+    )
+    release_path = tmp_path / "release.json"
+    release_path.write_text(json.dumps(second_release), encoding="utf-8")
+
+    with pytest.raises(runtime.RuntimeGateError, match="does not match candidate subject"):
+        runtime._resolve_release(
+            candidate=first,
+            provided_release_path=release_path,
+        )
 
 
 def test_readonly_mount_preparation_preserves_model_bytes(tmp_path: Path) -> None:
