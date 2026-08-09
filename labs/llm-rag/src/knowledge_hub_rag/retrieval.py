@@ -13,6 +13,8 @@ TOKENIZER_GENERATION = "unicode-word-v1"
 TOKEN_RE = re.compile(r"[^\W_]+(?:[-'][^\W_]+)*", re.UNICODE)
 DEFAULT_K1 = 1.2
 DEFAULT_B = 0.75
+RETRIEVAL_ALGORITHM = "bm25-source-path-v2"
+SOURCE_PATH_BOOST = 1.0
 
 
 def _require_nonempty_string(value: Any, field: str) -> str:
@@ -62,6 +64,7 @@ def _canonical_index_payload(manifest: Mapping[str, Any]) -> dict[str, Any]:
         "corpus_snapshot_id": manifest["corpus_snapshot_id"],
         "source_revision": manifest["source_revision"],
         "tokenizer_generation": TOKENIZER_GENERATION,
+        "retrieval_generation": RETRIEVAL_ALGORITHM,
         "document_count": len(documents),
         "average_document_tokens": round(total_length / len(documents), 12),
         "document_frequencies": dict(sorted(document_frequencies.items())),
@@ -120,6 +123,25 @@ def _score_document(*, query_tokens: list[str], document: Mapping[str, Any], ind
     return round(score, 12)
 
 
+def _source_path_bonus(*, query_tokens: list[str], document: Mapping[str, Any], index: Mapping[str, Any]) -> float:
+    n = int(index["document_count"])
+    dfs = index["document_frequencies"]
+    source_path = _require_nonempty_string(document.get("source_path"), "document.source_path")
+    normalized_path = re.sub(r"[/._-]+", " ", source_path)
+    path_tokens = set(tokenize(normalized_path))
+    bonus = 0.0
+    for term in sorted(set(query_tokens) & path_tokens):
+        df = int(dfs.get(term, 0))
+        if df < 1:
+            idf = math.log(1.0 + (n - 0.5) / 0.5)
+        elif df <= n:
+            idf = math.log(1.0 + (n - df + 0.5) / (df + 0.5))
+        else:
+            raise ContractError("retrieval index document frequency is invalid")
+        bonus += idf * SOURCE_PATH_BOOST
+    return round(bonus, 12)
+
+
 def retrieve(
     *,
     index: Mapping[str, Any],
@@ -139,7 +161,16 @@ def retrieve(
     chunks_by_id = {chunk["chunk_id"]: chunk for chunk in manifest["chunks"]}
     scored: list[tuple[float, str, Mapping[str, Any]]] = []
     for document in index["documents"]:
-        score = _score_document(query_tokens=q["query_tokens"], document=document, index=index, k1=k1, b=b)
+        content_score = _score_document(query_tokens=q["query_tokens"], document=document, index=index, k1=k1, b=b)
+        score = round(
+            content_score
+            + _source_path_bonus(
+                query_tokens=q["query_tokens"],
+                document=document,
+                index=index,
+            ),
+            12,
+        )
         if score >= float(min_score) and score > 0.0:
             scored.append((score, document["chunk_id"], document))
     scored.sort(key=lambda item: (-item[0], item[1]))
@@ -172,7 +203,7 @@ def retrieve(
         "chunk_manifest_id": manifest["chunk_manifest_id"],
         "corpus_snapshot_id": manifest["corpus_snapshot_id"],
         "source_revision": manifest["source_revision"],
-        "retrieval_config": {"algorithm": "bm25-v1", "k1": k1, "b": b},
+        "retrieval_config": {"algorithm": RETRIEVAL_ALGORITHM, "k1": k1, "b": b},
         "status": "results" if hits else "no_result",
         "hit_count": len(hits),
         "hits": hits,
@@ -185,6 +216,8 @@ def validate_retrieval_result(result: Mapping[str, Any], *, index: Mapping[str, 
     config = result.get("retrieval_config") if isinstance(result, Mapping) else None
     if not isinstance(query, dict) or not isinstance(config, dict):
         raise ContractError("retrieval result query/config is invalid")
+    if config.get("algorithm") != RETRIEVAL_ALGORITHM:
+        raise ContractError("retrieval result algorithm generation mismatch")
     expected = retrieve(
         index=index,
         manifest=manifest,
