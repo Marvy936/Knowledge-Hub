@@ -8,7 +8,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ConfigDict, field_validator
 
-from .agent_bridge import AgentBridgeError, AgentExecutor
+from .agent_bridge import AgentBridgeError, AgentExecutionRefusal, AgentExecutor
 from .auth import (
     AuthenticationError,
     ForbiddenError,
@@ -158,11 +158,9 @@ def _validate_rag_result(
 ) -> dict[str, Any]:
     if not isinstance(result, Mapping) or set(result) != RAG_RESULT_KEYS:
         raise ValueError("RAG backend result keys mismatch")
-
     status = result.get("status")
     if status not in {"answered", "abstained"}:
         raise ValueError("RAG backend result status is unsupported")
-
     prompt_release_id = _require_hex(
         result.get("prompt_release_id"), length=64, field="prompt_release_id"
     )
@@ -173,10 +171,8 @@ def _validate_rag_result(
         raise ValueError("RAG backend returned another prompt release")
     if source_revision != executor.source_revision:
         raise ValueError("RAG backend returned another source revision")
-
     for field in ("retrieval_result_id", "answer_id", "trace_id"):
         _require_hex(result.get(field), length=64, field=field)
-
     latency = result.get("latency_ms")
     if (
         isinstance(latency, bool)
@@ -185,7 +181,6 @@ def _validate_rag_result(
         or float(latency) < 0.0
     ):
         raise ValueError("RAG backend latency_ms must be finite and non-negative")
-
     citations = result.get("citations")
     if not isinstance(citations, list):
         raise ValueError("RAG backend citations must be a list")
@@ -194,7 +189,6 @@ def _validate_rag_result(
             raise ValueError("RAG backend citation must be an object")
         if "chunk_id" in citation:
             _require_hex(citation["chunk_id"], length=64, field="citation.chunk_id")
-
     if status == "answered":
         answer = result.get("answer")
         if not isinstance(answer, str) or not answer.strip():
@@ -211,7 +205,6 @@ def _validate_rag_result(
             raise ValueError("abstained RAG result requires abstention_reason")
         if citations:
             raise ValueError("abstained RAG result must not contain citations")
-
     return dict(result)
 
 
@@ -305,7 +298,6 @@ def create_app(
         f"{resolved_issuer.rstrip('/')}/protocol/openid-connect/certs"
     )
     app = FastAPI(title="Knowledge Hub Keycloak AI API authorization gateway")
-
     route_policies = {
         "rag.read": policy(
             issuer=resolved_issuer,
@@ -443,6 +435,15 @@ def create_app(
                 recover_expected_state_id=request.recover_expected_state_id,
             )
             validated = _validate_agent_remediation_result(result, executor=agent_executor)
+        except AgentExecutionRefusal as exc:
+            raise HTTPException(
+                status_code=409,
+                detail={
+                    "status": "execution_refused",
+                    "message": str(exc),
+                    **exc.evidence(),
+                },
+            ) from exc
         except (AgentBridgeError, ValueError) as exc:
             raise HTTPException(status_code=409, detail=f"agent remediation refused: {exc}") from exc
         except Exception as exc:
