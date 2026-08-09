@@ -127,9 +127,9 @@ compileall
 → disposable workroot cleanup read-back
 ```
 
-`all_passed=true` vznikne iba ak sa vykoná presne celý stage set v očakávanom poradí a `cleanup_verified=true`. Zlyhanie sa nezmení na úspech tým, že sa ďalšie stages preskočia.
+`all_passed=true` vznikne iba ak sa vykoná presne celý stage set v očakávanom poradí, `cleanup_verified=true` a `worktree_verified=true`. Zlyhanie sa nezmení na úspech tým, že sa ďalšie stages preskočia.
 
-Evidence JSON zostáva zámerne mimo disposable workrootu, aby sa dal po rune prečítať. Obsahuje exact Git SHA, Python version, per-stage return code/duration, SHA-256 stdout/stderr, bounded log tails, agent hard-eval identity a canonical `evidence_id`.
+Evidence JSON zostáva zámerne mimo disposable workrootu, aby sa dal po rune prečítať. Obsahuje exact Git SHA, Python version, per-stage return code/duration, SHA-256 stdout/stderr, bounded log tails, agent hard-eval identity, cleanup/worktree read-back a canonical `evidence_id`.
 
 Po kontrole evidence sa local output odstráni:
 
@@ -141,7 +141,7 @@ rmdir .runtime 2>/dev/null || true
 
 Permanentný CI contract je v `.github/workflows/practical-v1-core.yml`. Kým issue #151 blokuje vytváranie repository Actions runov, existencia workflowu a runnera znamená iba source-level `Implemented`, nie `Runtime verified`.
 
-Aktuálny praktický stav je v [PRACTICAL-STATUS.md](PRACTICAL-STATUS.md) a hard release gates v [PRACTICAL-V1-ROADMAP.md](PRACTICAL-V1-ROADMAP.md).
+Aktuálny praktický stav je v [PRACTICAL-STATUS.md](PRACTICAL-STATUS.md), hard release gates v [PRACTICAL-V1-ROADMAP.md](PRACTICAL-V1-ROADMAP.md), súhrnná evidence v [PRACTICAL-V1-EVIDENCE.md](PRACTICAL-V1-EVIDENCE.md) a release-candidate hranica v [PRACTICAL-V1-RELEASE-NOTES.md](PRACTICAL-V1-RELEASE-NOTES.md).
 
 ## Navigácia
 
