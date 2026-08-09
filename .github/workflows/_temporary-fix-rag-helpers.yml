@@ -1,0 +1,69 @@
+name: Temporary fix RAG helper compatibility
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'fix/actions-runner-context'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: fix/actions-runner-context
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Restore canonical helper contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('labs/llm-rag/scripts/run_clean_checkout_runtime.py')
+          text = path.read_text(encoding='utf-8')
+
+          marker = '\n\ndef _query_from_chunk(chunk: Mapping[str, Any]) -> str:\n'
+          helper = '''\n\ndef _chunk_records(value: object) -> list[dict[str, Any]]:\n    records: dict[str, dict[str, Any]] = {}\n\n    def visit(item: object) -> None:\n        if isinstance(item, dict):\n            chunk_id = item.get("chunk_id")\n            if isinstance(chunk_id, str) and chunk_id:\n                records.setdefault(chunk_id, dict(item))\n            for nested in item.values():\n                visit(nested)\n        elif isinstance(item, list):\n            for nested in item:\n                visit(nested)\n\n    visit(value)\n    return [records[chunk_id] for chunk_id in sorted(records)]\n'''
+          if 'def _chunk_records(' not in text:
+              if marker not in text:
+                  raise SystemExit('query helper marker not found')
+              text = text.replace(marker, helper + marker, 1)
+
+          old = '''def _citation_chunk_ids(answer: Mapping[str, Any]) -> set[str]:\n    result: set[str] = set()\n    citations = answer.get("citations")\n    if not isinstance(citations, list):\n        return result\n    for citation in citations:\n        if isinstance(citation, dict) and isinstance(citation.get("chunk_id"), str):\n            result.add(citation["chunk_id"])\n    return result\n'''
+          new = '''def _citation_chunk_ids(answer: Mapping[str, Any]) -> set[str]:\n    result: set[str] = set()\n    citations = answer.get("citations")\n    if not isinstance(citations, list):\n        return result\n\n    def visit(item: object) -> None:\n        if isinstance(item, dict):\n            chunk_id = item.get("chunk_id")\n            if isinstance(chunk_id, str):\n                result.add(chunk_id)\n            for nested in item.values():\n                visit(nested)\n        elif isinstance(item, list):\n            for nested in item:\n                visit(nested)\n\n    visit(citations)\n    return result\n'''
+          if old not in text:
+              raise SystemExit('citation helper block not found')
+          text = text.replace(old, new, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+          git diff --check
+
+      - name: Run focused helper regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -q 'pytest>=8,<10'
+          PYTHONPATH=labs/llm-rag/src python -m pytest \
+            labs/llm-rag/tests/test_clean_checkout_runtime_driver.py \
+            labs/llm-rag/tests/test_clean_checkout_runtime_contract_v2.py \
+            -q -p no:cacheprovider
+
+      - name: Commit correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add labs/llm-rag/scripts/run_clean_checkout_runtime.py
+          git diff --cached --quiet && exit 0
+          git commit -m 'fix(rag): restore runtime helper contracts'
+          git push origin HEAD:fix/actions-runner-context
