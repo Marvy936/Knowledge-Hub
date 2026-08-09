@@ -16,7 +16,7 @@ class AuthenticationError(AuthorizationError):
 
 
 class ForbiddenError(AuthorizationError):
-    """Token is valid but the caller or role is not authorized for the route."""
+    """Token is valid but the caller, scope or role is not authorized for the route."""
 
 
 class SigningKeyResolver(Protocol):
@@ -37,6 +37,7 @@ class TokenPolicy:
     audience: str
     allowed_azp: frozenset[str]
     required_roles: frozenset[str]
+    required_scopes: frozenset[str]
     leeway_seconds: int = 30
 
 
@@ -161,16 +162,22 @@ def validate_access_token(
     azp = _auth_nonempty(claims.get("azp"), "azp")
     if azp not in policy.allowed_azp:
         raise ForbiddenError("authorized party is not allowed for this route")
+
+    scopes = _scopes(claims)
+    missing_scopes = sorted(policy.required_scopes - scopes)
+    if missing_scopes:
+        raise ForbiddenError(f"required API scopes are missing: {missing_scopes}")
+
     roles = _roles(claims, policy.audience)
-    missing = sorted(policy.required_roles - roles)
-    if missing:
-        raise ForbiddenError(f"required API roles are missing: {missing}")
+    missing_roles = sorted(policy.required_roles - roles)
+    if missing_roles:
+        raise ForbiddenError(f"required API roles are missing: {missing_roles}")
     return Principal(
         subject=_auth_nonempty(claims.get("sub"), "sub"),
         authorized_party=azp,
         audience=audiences,
         roles=roles,
-        scopes=_scopes(claims),
+        scopes=scopes,
         jti=_auth_nonempty(claims.get("jti"), "jti"),
     )
 
@@ -181,9 +188,11 @@ def policy(
     audience: str,
     allowed_azp: Iterable[str],
     required_roles: Iterable[str],
+    required_scopes: Iterable[str] = (),
 ) -> TokenPolicy:
     callers = frozenset(_config_nonempty(item, "allowed_azp") for item in allowed_azp)
     roles = frozenset(_config_nonempty(item, "required_role") for item in required_roles)
+    scopes = frozenset(_config_nonempty(item, "required_scope") for item in required_scopes)
     if not callers:
         raise ValueError("route policy requires at least one allowed caller")
     return TokenPolicy(
@@ -191,4 +200,5 @@ def policy(
         audience=_config_nonempty(audience, "audience"),
         allowed_azp=callers,
         required_roles=roles,
+        required_scopes=scopes,
     )
