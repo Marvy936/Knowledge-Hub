@@ -68,6 +68,8 @@ def _require_sha256(value: str, field: str) -> str:
 
 
 def _read_json(path: Path) -> dict[str, Any]:
+    if path.is_symlink():
+        raise AgentBridgeError(f"agent artifact must not be a symlink: {path}")
     try:
         import json
 
@@ -79,6 +81,36 @@ def _read_json(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise AgentBridgeError(f"agent artifact must contain an object: {path}")
     return value
+
+
+def _exact_runtime_file(path: Path, *, runtime_root: Path, name: str) -> Path:
+    if path.is_symlink():
+        raise AgentBridgeError(f"{name} must not be a symlink")
+    resolved = path.resolve(strict=False)
+    expected = runtime_root / name
+    if resolved != expected:
+        raise AgentBridgeError(f"{name} must be the exact {expected.as_posix()} runtime artifact")
+    return resolved
+
+
+def _bounded_identity_dir(
+    *, runtime_root: Path, collection: str, identity: str
+) -> Path:
+    resolved_identity = _require_sha256(identity, f"{collection} identity")
+    collection_root = runtime_root / collection
+    if collection_root.is_symlink():
+        raise AgentBridgeError(f"agent runtime {collection} root must not be a symlink")
+    collection_root.mkdir(parents=True, exist_ok=True)
+    resolved_collection = collection_root.resolve(strict=False)
+    if resolved_collection.parent != runtime_root or resolved_collection.name != collection:
+        raise AgentBridgeError(f"agent runtime {collection} root escaped the bounded runtime")
+    identity_dir = resolved_collection / resolved_identity
+    if identity_dir.is_symlink():
+        raise AgentBridgeError(f"agent runtime {collection} identity directory must not be a symlink")
+    resolved_dir = identity_dir.resolve(strict=False)
+    if resolved_dir.parent != resolved_collection or resolved_dir.name != resolved_identity:
+        raise AgentBridgeError(f"agent runtime {collection} identity escaped the bounded runtime")
+    return resolved_dir
 
 
 class LocalBoundedAgentExecutor:
@@ -108,9 +140,18 @@ class LocalBoundedAgentExecutor:
 
         try:
             resolved_runtime = validate_runtime_root(runtime_root)
-            policy = _read_json(policy_path)
+            resolved_tool_state = _exact_runtime_file(
+                tool_state, runtime_root=resolved_runtime, name="tool-state.json"
+            )
+            resolved_policy = _exact_runtime_file(
+                policy_path, runtime_root=resolved_runtime, name="policy.json"
+            )
+            resolved_kill_switch = _exact_runtime_file(
+                kill_switch_path, runtime_root=resolved_runtime, name="kill-switch.json"
+            )
+            policy = _read_json(resolved_policy)
             validate_agent_policy(policy)
-            kill_switch = _read_json(kill_switch_path)
+            kill_switch = _read_json(resolved_kill_switch)
             validate_kill_switch_against_policy(kill_switch=kill_switch, policy=policy)
         except Exception as exc:
             if isinstance(exc, AgentBridgeError):
@@ -119,9 +160,9 @@ class LocalBoundedAgentExecutor:
                 f"agent bridge startup validation failed: {type(exc).__name__}: {exc}"
             ) from exc
 
-        self._tool_state = tool_state
-        self._policy_path = policy_path
-        self._kill_switch_path = kill_switch_path
+        self._tool_state = resolved_tool_state
+        self._policy_path = resolved_policy
+        self._kill_switch_path = resolved_kill_switch
         self._runtime_root = resolved_runtime
         self._policy = policy
 
@@ -134,7 +175,18 @@ class LocalBoundedAgentExecutor:
         return str(self._policy["generation"])
 
     def _plan_dir(self, plan_id: str) -> Path:
-        return self._runtime_root / "plans" / _require_sha256(plan_id, "plan_id")
+        return _bounded_identity_dir(
+            runtime_root=self._runtime_root,
+            collection="plans",
+            identity=plan_id,
+        )
+
+    def _operation_dir(self, operation_id: str) -> Path:
+        return _bounded_identity_dir(
+            runtime_root=self._runtime_root,
+            collection="operations",
+            identity=operation_id,
+        )
 
     @staticmethod
     def _write_exact(path: Path, value: Mapping[str, Any]) -> None:
@@ -142,6 +194,8 @@ class LocalBoundedAgentExecutor:
             from agent_ops.contracts import atomic_write_json, read_json
         except ImportError as exc:
             raise AgentBridgeError("agent runtime package is unavailable") from exc
+        if path.is_symlink():
+            raise AgentBridgeError(f"agent artifact must not be a symlink: {path}")
         if path.exists():
             existing = read_json(path)
             if existing != dict(value):
@@ -254,10 +308,12 @@ class LocalBoundedAgentExecutor:
                 approval=approval,
                 policy=policy,
             )
-            operation_dir = self._runtime_root / "operations" / operation["operation_id"]
+            operation_dir = self._operation_dir(operation["operation_id"])
             operation_path = operation_dir / "operation.json"
             state_path = operation_dir / "execution-state.json"
             result_path = operation_dir / "tool-result.json"
+            if operation_path.is_symlink():
+                raise AgentBridgeError("stored operation artifact must not be a symlink")
             if operation_path.exists():
                 if read_json(operation_path) != operation:
                     raise AgentBridgeError("stored operation differs from exact authoritative rebuild")
@@ -278,7 +334,7 @@ class LocalBoundedAgentExecutor:
                     recover_expected_state_id=recover_expected_state_id,
                 )
             except Exception as exc:
-                if state_path.is_file():
+                if state_path.is_file() and not state_path.is_symlink():
                     state = read_json(state_path)
                     state_id = state.get("state_id")
                     phase = state.get("phase")
