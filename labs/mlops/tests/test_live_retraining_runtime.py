@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import importlib.util
 from pathlib import Path
 
@@ -103,3 +104,40 @@ def test_driver_monitoring_corpus_crosses_exact_drift_gate() -> None:
     assert report["observed_failed_events"] == 0
     assert report["observed_no_data"] is False
     assert report["exceeded_numeric_features"] or report["exceeded_categorical_features"]
+
+
+def test_retraining_snapshot_adds_one_unique_row_without_touching_baseline(
+    tmp_path: Path,
+) -> None:
+    baseline = tmp_path / "baseline.csv"
+    baseline.write_text(
+        "customer_id,tenure_months,monthly_spend_eur,support_tickets_90d,"
+        "login_days_30d,days_since_last_login,contract_type,region,auto_pay,"
+        "churned_next_30d\n"
+        "1,12,50.0,1,20,2,annual,west,yes,0\n"
+        "2,6,75.0,3,10,7,monthly,east,no,1\n",
+        encoding="utf-8",
+    )
+    before = baseline.read_bytes()
+    first = tmp_path / "retraining-1.csv"
+    second = tmp_path / "retraining-2.csv"
+
+    base_rows, new_rows, first_sha = runtime._build_retraining_snapshot(
+        baseline,
+        first,
+    )
+    _, second_rows, second_sha = runtime._build_retraining_snapshot(
+        baseline,
+        second,
+    )
+
+    assert baseline.read_bytes() == before
+    assert base_rows == 2
+    assert new_rows == second_rows == 3
+    assert first_sha == second_sha
+    assert first.read_bytes() == second.read_bytes()
+
+    with first.open("r", encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    assert [row["customer_id"] for row in rows] == ["1", "2", "3"]
+    assert rows[-1]["churned_next_30d"] == rows[0]["churned_next_30d"]
