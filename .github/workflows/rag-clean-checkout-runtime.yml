@@ -1,0 +1,248 @@
+name: RAG clean-checkout runtime
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "labs/llm-rag/**"
+      - ".github/workflows/rag-clean-checkout-runtime.yml"
+  push:
+    branches: [main]
+    paths:
+      - "labs/llm-rag/**"
+      - ".github/workflows/rag-clean-checkout-runtime.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rag-clean-checkout-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rag-runtime:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      evidence_id: ${{ steps.evidence.outputs.evidence_id }}
+      snapshot_id: ${{ steps.evidence.outputs.snapshot_id }}
+      index_id: ${{ steps.evidence.outputs.index_id }}
+      report_id: ${{ steps.evidence.outputs.report_id }}
+      prompt_release_id: ${{ steps.evidence.outputs.prompt_release_id }}
+      answer_id: ${{ steps.evidence.outputs.answer_id }}
+      trace_id: ${{ steps.evidence.outputs.trace_id }}
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
+    env:
+      PYTHONHASHSEED: "0"
+      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      VENV_DIR: "${{ runner.temp }}/knowledge-hub-rag-runtime-venv"
+      EVIDENCE: "${{ runner.temp }}/knowledge-hub-rag-clean-checkout-evidence.json"
+
+    steps:
+      - name: Checkout exact subject revision
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          clean: true
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.12"
+
+      - name: Install isolated RAG runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$VENV_DIR" .runtime/llm-rag
+          rm -f "$EVIDENCE"
+          python -m venv "$VENV_DIR"
+          "$VENV_DIR/bin/python" -m pip install --upgrade pip
+          "$VENV_DIR/bin/python" -m pip install -e "labs/llm-rag[dev]"
+
+      - name: Run full RAG contract suite
+        shell: bash
+        env:
+          PYTHONWARNINGS: error
+        run: |
+          set -euo pipefail
+          "$VENV_DIR/bin/python" -m pytest labs/llm-rag/tests -q
+
+      - name: Execute clean-checkout RAG lifecycle
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$VENV_DIR/bin/python" labs/llm-rag/scripts/run_clean_checkout_runtime.py \
+            --repo-root . \
+            --subject-sha "$SUBJECT_SHA" \
+            --output "$EVIDENCE"
+
+      - name: Verify exact RAG evidence
+        id: evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$VENV_DIR/bin/python" - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          evidence = json.loads(Path(os.environ["EVIDENCE"]).read_text(encoding="utf-8"))
+          lifecycle = evidence["lifecycle"]
+          assert evidence["subject_sha"] == os.environ["SUBJECT_SHA"]
+          assert evidence["all_passed"] is True
+          assert evidence["cleanup_verified"] is True
+          assert evidence["failure"] is None
+          assert evidence["runtime_root"] == ".runtime/llm-rag"
+          assert len(evidence["artifacts"]) == 7
+          assert lifecycle["chunk_count"] > 0
+          assert lifecycle["positive"]["citation_chunk_ids"]
+          assert lifecycle["no_result"]["status"] in {"no_result", "abstained"}
+          assert lifecycle["evaluation"]["all_passed"] is True
+          assert lifecycle["evaluation"]["failed_count"] == 0
+          assert lifecycle["evaluation"]["required_security_slices"] == [
+              "direct_prompt_injection",
+              "retrieved_context_prompt_injection",
+          ]
+          assert evidence["proof_boundary"]["external_api_key_required"] is False
+          assert evidence["proof_boundary"]["semantic_vector_provider_claimed"] is False
+          assert evidence["proof_boundary"]["production_serving_claimed"] is False
+          assert isinstance(evidence["evidence_id"], str) and len(evidence["evidence_id"]) == 64
+          assert not Path(".runtime/llm-rag").exists()
+
+          values = {
+              "evidence_id": evidence["evidence_id"],
+              "snapshot_id": lifecycle["snapshot_id"],
+              "index_id": lifecycle["index_id"],
+              "report_id": lifecycle["evaluation"]["report_id"],
+              "prompt_release_id": lifecycle["prompt_release_id"],
+              "answer_id": lifecycle["positive"]["answer_id"],
+              "trace_id": lifecycle["positive"]["trace_id"],
+          }
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as handle:
+              for key, value in values.items():
+                  handle.write(f"{key}={value}\n")
+          print(json.dumps(values, sort_keys=True))
+          PY
+
+      - name: Upload canonical RAG runtime evidence
+        id: upload
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: rag-clean-checkout-${{ env.SUBJECT_SHA }}
+          path: ${{ env.EVIDENCE }}
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Emergency cleanup
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .runtime/llm-rag "$VENV_DIR"
+          test ! -e .runtime/llm-rag
+          test ! -e "$VENV_DIR"
+
+  publish-main-statuses:
+    if: github.event_name == 'push' && always()
+    needs: rag-runtime
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      statuses: write
+    env:
+      RUNTIME_RESULT: ${{ needs.rag-runtime.result }}
+      EVIDENCE_ID: ${{ needs.rag-runtime.outputs.evidence_id }}
+      SNAPSHOT_ID: ${{ needs.rag-runtime.outputs.snapshot_id }}
+      INDEX_ID: ${{ needs.rag-runtime.outputs.index_id }}
+      REPORT_ID: ${{ needs.rag-runtime.outputs.report_id }}
+      PROMPT_RELEASE_ID: ${{ needs.rag-runtime.outputs.prompt_release_id }}
+      ANSWER_ID: ${{ needs.rag-runtime.outputs.answer_id }}
+      TRACE_ID: ${{ needs.rag-runtime.outputs.trace_id }}
+      ARTIFACT_ID: ${{ needs.rag-runtime.outputs.artifact_id }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPOSITORY: ${{ github.repository }}
+      SUBJECT_SHA: ${{ github.sha }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+    steps:
+      - name: Publish connector-readable RAG runtime statuses
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          success = os.environ["RUNTIME_RESULT"] == "success"
+          statuses = [
+              {
+                  "context": "knowledge-hub/rag-clean-checkout-runtime",
+                  "state": "success" if success else "failure",
+                  "description": (
+                      "corpus, retrieval, eval/security, release and cleanup passed"
+                      if success
+                      else "RAG clean-checkout runtime gate failed"
+                  ),
+              }
+          ]
+          if success:
+              statuses.extend(
+                  [
+                      {
+                          "context": "knowledge-hub/rag-runtime-evidence",
+                          "state": "success",
+                          "description": f"evidence={os.environ['EVIDENCE_ID']}; artifact={os.environ['ARTIFACT_ID']}",
+                      },
+                      {
+                          "context": "knowledge-hub/rag-corpus-index",
+                          "state": "success",
+                          "description": f"snapshot={os.environ['SNAPSHOT_ID']}; index={os.environ['INDEX_ID']}",
+                      },
+                      {
+                          "context": "knowledge-hub/rag-eval-release",
+                          "state": "success",
+                          "description": f"eval={os.environ['REPORT_ID']}; release={os.environ['PROMPT_RELEASE_ID']}",
+                      },
+                      {
+                          "context": "knowledge-hub/rag-answer-trace",
+                          "state": "success",
+                          "description": f"answer={os.environ['ANSWER_ID']}; trace={os.environ['TRACE_ID']}",
+                      },
+                  ]
+              )
+
+          url = (
+              "https://api.github.com/repos/"
+              + os.environ["REPOSITORY"]
+              + "/statuses/"
+              + os.environ["SUBJECT_SHA"]
+          )
+          for status in statuses:
+              request = urllib.request.Request(
+                  url,
+                  data=json.dumps(
+                      {
+                          **status,
+                          "description": status["description"][:140],
+                          "target_url": os.environ["RUN_URL"],
+                      }
+                  ).encode("utf-8"),
+                  method="POST",
+                  headers={
+                      "Accept": "application/vnd.github+json",
+                      "Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                      "Content-Type": "application/json",
+                      "User-Agent": "knowledge-hub-rag-clean-checkout",
+                      "X-GitHub-Api-Version": "2022-11-28",
+                  },
+              )
+              with urllib.request.urlopen(request) as response:
+                  if response.status != 201:
+                      raise SystemExit(f"Unexpected status API response: {response.status}")
+          PY
