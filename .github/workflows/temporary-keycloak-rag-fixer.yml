@@ -1,4 +1,4 @@
-name: Temporary Keycloak RAG source fixer
+name: Temporary Keycloak RAG source fixer v2
 
 on:
   push:
