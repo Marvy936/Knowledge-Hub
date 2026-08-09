@@ -1,0 +1,61 @@
+name: Temporary fix MLflow skops trust
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'fix/actions-runner-context'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: fix/actions-runner-context
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Add explicit skops trust boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('labs/mlops/src/mlops_lab/registry.py')
+          text = path.read_text(encoding='utf-8')
+          call_marker = '''            tags=run_tags,\n        )\n'''
+          replacement = '''            tags=run_tags,\n            skops_trusted_types=["numpy.dtype"],\n        )\n'''
+          if 'skops_trusted_types=["numpy.dtype"]' not in text:
+              if call_marker not in text:
+                  raise SystemExit('MLflow log_model call marker not found')
+              text = text.replace(call_marker, replacement, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+          git diff --check
+
+      - name: Run MLOps contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -q \
+            -e 'labs/machine-learning' \
+            -e 'labs/mlops[dev,registry,serving]'
+          python -m pytest labs/mlops/tests -q -p no:cacheprovider
+
+      - name: Commit provider correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add labs/mlops/src/mlops_lab/registry.py
+          git diff --cached --quiet && exit 0
+          git commit -m 'fix(mlops): declare exact skops trusted dtype'
+          git push origin HEAD:fix/actions-runner-context
