@@ -38,10 +38,12 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           import json
+          import math
           import subprocess
+          from collections import Counter
           from pathlib import Path
           from knowledge_hub_rag.contracts import build_corpus_snapshot, build_chunk_manifest
-          from knowledge_hub_rag.retrieval import build_retrieval_index, retrieve
+          from knowledge_hub_rag.retrieval import build_retrieval_index, retrieve, tokenize
           from knowledge_hub_rag.runtime_config import build_runtime_config
           from knowledge_hub_rag.evaluation import run_eval_case
 
@@ -50,9 +52,58 @@ jobs:
           snapshot = build_corpus_snapshot(repo_root=root, source_revision=sha)
           manifest = build_chunk_manifest(repo_root=root, snapshot=snapshot)
           index = build_retrieval_index(manifest)
-          config = build_runtime_config(generation='diagnostic-v1', implementation_revision=sha)
+          config = build_runtime_config(generation='diagnostic-v2', implementation_revision=sha)
           cases = json.loads(Path('labs/llm-rag/data/eval-cases.json').read_text(encoding='utf-8'))
+          chunks = {chunk['chunk_id']: chunk for chunk in manifest['chunks']}
           wanted = {'retrieval-error-budget', 'retrieval-kubernetes-configmap'}
+
+          def contributions(query_tokens, document):
+              n = int(index['document_count'])
+              avgdl = float(index['average_document_tokens'])
+              dl = int(document['token_count'])
+              out = []
+              for term in sorted(set(query_tokens)):
+                  tf = int(document['term_frequencies'].get(term, 0))
+                  df = int(index['document_frequencies'].get(term, 0))
+                  if tf == 0 or df < 1:
+                      continue
+                  idf = math.log(1.0 + (n - df + 0.5) / (df + 0.5))
+                  norm = tf + 1.2 * (1.0 - 0.75 + 0.75 * (dl / avgdl if avgdl else 0.0))
+                  score = idf * ((tf * 2.2) / norm)
+                  out.append({
+                      'term': term,
+                      'tf': tf,
+                      'df': df,
+                      'df_ratio': round(df / n, 6),
+                      'idf': round(idf, 6),
+                      'contribution': round(score, 6),
+                  })
+              return sorted(out, key=lambda item: (-item['contribution'], item['term']))
+
+          def metadata_tokens(chunk):
+              text = ' '.join([
+                  chunk['source_path'].replace('/', ' ').replace('-', ' ').replace('.', ' '),
+                  *chunk['heading_path'],
+              ])
+              return Counter(tokenize(text))
+
+          def simulated_metadata_score(query_tokens, document, boost):
+              base = sum(item['contribution'] for item in contributions(query_tokens, document))
+              chunk = chunks[document['chunk_id']]
+              metadata = metadata_tokens(chunk)
+              n = int(index['document_count'])
+              # Conservative metadata bonus: only exact query terms; IDF comes from content corpus,
+              # with unseen metadata terms receiving the maximum corpus IDF.
+              max_idf = math.log(1.0 + (n - 0.5) / 0.5)
+              bonus = 0.0
+              for term in sorted(set(query_tokens)):
+                  if metadata.get(term, 0) < 1:
+                      continue
+                  df = int(index['document_frequencies'].get(term, 0))
+                  idf = max_idf if df < 1 else math.log(1.0 + (n - df + 0.5) / (df + 0.5))
+                  bonus += idf * boost
+              return round(base + bonus, 12)
+
           print(json.dumps({
               'file_count': snapshot['file_count'],
               'chunk_count': manifest['chunk_count'],
@@ -60,9 +111,11 @@ jobs:
               'top_k': config['retrieval']['top_k'],
               'min_score': config['retrieval']['min_score'],
           }, sort_keys=True))
+
           for case in cases:
               if case['case_id'] not in wanted:
                   continue
+              qtokens = tokenize(case['query'])
               retrieval = retrieve(
                   index=index,
                   manifest=manifest,
@@ -78,18 +131,61 @@ jobs:
                   min_score=config['retrieval']['min_score'],
               )
               result = run_eval_case(case=case, manifest=manifest, index=index, runtime_config=config)
+              expected = set(case['expected_source_paths'])
+              expected_docs = [
+                  doc for doc in index['documents'] if doc['source_path'] in expected
+              ]
+              expected_ranked = sorted(
+                  expected_docs,
+                  key=lambda doc: -sum(item['contribution'] for item in contributions(qtokens, doc)),
+              )
+              top_wrong_id = retrieval['hits'][0]['citation']['chunk_id'] if retrieval['hits'] else None
+              top_wrong = next((doc for doc in index['documents'] if doc['chunk_id'] == top_wrong_id), None)
+
               print('CASE=' + case['case_id'])
-              print('EXPECTED=' + json.dumps(case['expected_source_paths'], sort_keys=True))
-              print('TOP20=' + json.dumps([
+              print('QUERY_TOKENS=' + json.dumps(qtokens, ensure_ascii=False))
+              print('QUERY_DF=' + json.dumps([
                   {
-                      'rank': hit['rank'],
-                      'score': hit['score'],
-                      'source_path': hit['citation']['source_path'],
-                      'heading_path': hit['citation']['heading_path'],
-                      'content_prefix': hit['content'][:180],
+                      'term': term,
+                      'df': int(index['document_frequencies'].get(term, 0)),
+                      'df_ratio': round(int(index['document_frequencies'].get(term, 0)) / index['document_count'], 6),
                   }
-                  for hit in retrieval['hits']
+                  for term in sorted(set(qtokens))
               ], ensure_ascii=False, sort_keys=True))
+              print('EXPECTED=' + json.dumps(case['expected_source_paths'], sort_keys=True))
+              if expected_ranked:
+                  best = expected_ranked[0]
+                  print('BEST_EXPECTED=' + json.dumps({
+                      'source_path': best['source_path'],
+                      'heading_path': chunks[best['chunk_id']]['heading_path'],
+                      'base_score': round(sum(item['contribution'] for item in contributions(qtokens, best)), 12),
+                      'contributions': contributions(qtokens, best),
+                      'metadata_tokens': sorted(metadata_tokens(chunks[best['chunk_id']]).keys()),
+                  }, ensure_ascii=False, sort_keys=True))
+              if top_wrong is not None:
+                  print('TOP_WRONG=' + json.dumps({
+                      'source_path': top_wrong['source_path'],
+                      'heading_path': chunks[top_wrong['chunk_id']]['heading_path'],
+                      'base_score': round(sum(item['contribution'] for item in contributions(qtokens, top_wrong)), 12),
+                      'contributions': contributions(qtokens, top_wrong),
+                      'metadata_tokens': sorted(metadata_tokens(chunks[top_wrong['chunk_id']]).keys()),
+                  }, ensure_ascii=False, sort_keys=True))
+
+              for boost in (0.25, 0.5, 1.0, 1.5):
+                  ranked = sorted(
+                      index['documents'],
+                      key=lambda doc: (-simulated_metadata_score(qtokens, doc, boost), doc['chunk_id']),
+                  )[:10]
+                  print(f'METADATA_BOOST_{boost}=' + json.dumps([
+                      {
+                          'rank': rank,
+                          'score': simulated_metadata_score(qtokens, doc, boost),
+                          'source_path': doc['source_path'],
+                          'heading_path': chunks[doc['chunk_id']]['heading_path'],
+                      }
+                      for rank, doc in enumerate(ranked, start=1)
+                  ], ensure_ascii=False, sort_keys=True))
+
               print('NORMAL=' + json.dumps([
                   {
                       'rank': hit['rank'],
