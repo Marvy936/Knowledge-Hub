@@ -9,7 +9,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-from typing import Sequence
+from typing import Mapping, Sequence
 
 STAGES: tuple[tuple[str, tuple[str, ...]], ...] = (
     (
@@ -26,12 +26,30 @@ STAGES: tuple[tuple[str, tuple[str, ...]], ...] = (
             "labs/keycloak-ai-api/src",
         ),
     ),
-    ("repository-integrity", ("scripts/validate_practical_v1_repo.py", "--repo-root", ".")),
-    ("machine-learning-contracts", ("-m", "pytest", "labs/machine-learning/tests", "-q")),
-    ("mlops-contracts", ("-m", "pytest", "labs/mlops/tests", "-q")),
-    ("llm-rag-contracts", ("-m", "pytest", "labs/llm-rag/tests", "-q")),
-    ("agent-contracts", ("-m", "pytest", "labs/agent-ops/tests", "-q")),
-    ("keycloak-ai-api-contracts", ("-m", "pytest", "labs/keycloak-ai-api/tests", "-q")),
+    (
+        "repository-integrity",
+        ("scripts/validate_practical_v1_repo.py", "--repo-root", "."),
+    ),
+    (
+        "machine-learning-contracts",
+        ("-m", "pytest", "-p", "no:cacheprovider", "labs/machine-learning/tests", "-q"),
+    ),
+    (
+        "mlops-contracts",
+        ("-m", "pytest", "-p", "no:cacheprovider", "labs/mlops/tests", "-q"),
+    ),
+    (
+        "llm-rag-contracts",
+        ("-m", "pytest", "-p", "no:cacheprovider", "labs/llm-rag/tests", "-q"),
+    ),
+    (
+        "agent-contracts",
+        ("-m", "pytest", "-p", "no:cacheprovider", "labs/agent-ops/tests", "-q"),
+    ),
+    (
+        "keycloak-ai-api-contracts",
+        ("-m", "pytest", "-p", "no:cacheprovider", "labs/keycloak-ai-api/tests", "-q"),
+    ),
 )
 EXPECTED_STAGE_COUNT = len(STAGES) + 1
 MAX_CAPTURE_CHARS = 12_000
@@ -73,6 +91,11 @@ def _git(repo_root: Path, *args: str) -> str:
     return result.stdout.strip()
 
 
+def _untracked(repo_root: Path) -> set[str]:
+    output = _git(repo_root, "ls-files", "--others", "--exclude-standard")
+    return {line for line in output.splitlines() if line}
+
+
 def _validate_paths(
     repo_root: Path, work_root: Path, evidence_path: Path
 ) -> tuple[Path, Path, Path]:
@@ -99,16 +122,23 @@ def _validate_paths(
 
 
 def _run_stage(
-    *, name: str, command: Sequence[str], repo_root: Path
+    *,
+    name: str,
+    command: Sequence[str],
+    repo_root: Path,
+    extra_env: Mapping[str, str] | None = None,
 ) -> dict[str, object]:
     started = time.monotonic()
+    environment = {**os.environ, "PYTHONHASHSEED": "0"}
+    if extra_env:
+        environment.update(extra_env)
     result = subprocess.run(
         list(command),
         cwd=repo_root,
         check=False,
         capture_output=True,
         text=True,
-        env={**os.environ, "PYTHONHASHSEED": "0"},
+        env=environment,
     )
     duration_ms = int((time.monotonic() - started) * 1000)
     stdout = result.stdout or ""
@@ -143,6 +173,7 @@ def _agent_eval_stage(repo_root: Path, work_root: Path) -> dict[str, object]:
             str(report_path),
         ),
         repo_root=repo_root,
+        extra_env={"PYTHONPYCACHEPREFIX": str(work_root / "pycache")},
     )
     if not stage["passed"]:
         return stage
@@ -176,6 +207,7 @@ def _build_report(
     python_version: str,
     stages: list[dict[str, object]],
     cleanup_verified: bool,
+    worktree_verified: bool,
     preflight_error: str | None,
 ) -> dict[str, object]:
     expected_names = [name for name, _ in STAGES] + ["agent-hard-evaluation"]
@@ -186,6 +218,7 @@ def _build_report(
         and observed_names == expected_names
         and all(stage.get("passed") is True for stage in stages)
         and cleanup_verified
+        and worktree_verified
     )
     payload: dict[str, object] = {
         "schema_version": 1,
@@ -196,6 +229,7 @@ def _build_report(
         "stage_count": len(stages),
         "all_passed": all_passed,
         "cleanup_verified": cleanup_verified,
+        "worktree_verified": worktree_verified,
         "preflight_error": preflight_error,
         "stages": stages,
     }
@@ -208,11 +242,13 @@ def _build_report(
 def run(repo_root: Path, work_root: Path, evidence_path: Path) -> dict[str, object]:
     stages: list[dict[str, object]] = []
     cleanup_verified = False
+    worktree_verified = False
     preflight_error: str | None = None
     subject_sha = "unknown"
     root: Path | None = None
     work: Path | None = None
     evidence: Path | None = None
+    untracked_before: set[str] = set()
 
     try:
         root, work, evidence = _validate_paths(repo_root, work_root, evidence_path)
@@ -222,13 +258,16 @@ def run(repo_root: Path, work_root: Path, evidence_path: Path) -> dict[str, obje
         tracked_changes = _git(root, "status", "--porcelain", "--untracked-files=no")
         if tracked_changes:
             raise CoreRunError("tracked worktree is not clean; refusing revision-bound evidence")
+        untracked_before = _untracked(root)
         work.mkdir(parents=True, exist_ok=False)
+        stage_env = {"PYTHONPYCACHEPREFIX": str(work / "pycache")}
 
         for name, args in STAGES:
             stage = _run_stage(
                 name=name,
                 command=(sys.executable, *args),
                 repo_root=root,
+                extra_env=stage_env,
             )
             stages.append(stage)
             if stage["passed"] is not True:
@@ -254,11 +293,41 @@ def run(repo_root: Path, work_root: Path, evidence_path: Path) -> dict[str, obje
                     else f"{preflight_error}; {cleanup_error}"
                 )
             cleanup_verified = not work.exists() and not work.is_symlink()
+
+        if root is not None:
+            try:
+                tracked_after = _git(
+                    root, "status", "--porcelain", "--untracked-files=no"
+                )
+                untracked_after = _untracked(root)
+                new_untracked = sorted(untracked_after - untracked_before)
+                worktree_verified = not tracked_after and not new_untracked
+                if not worktree_verified:
+                    detail = []
+                    if tracked_after:
+                        detail.append("tracked files changed")
+                    if new_untracked:
+                        detail.append("new untracked files: " + ", ".join(new_untracked[:20]))
+                    worktree_error = "post-run worktree verification failed: " + "; ".join(detail)
+                    preflight_error = (
+                        worktree_error
+                        if preflight_error is None
+                        else f"{preflight_error}; {worktree_error}"
+                    )
+            except Exception as exc:
+                worktree_error = f"worktree verification failed: {type(exc).__name__}: {exc}"
+                preflight_error = (
+                    worktree_error
+                    if preflight_error is None
+                    else f"{preflight_error}; {worktree_error}"
+                )
+
         report = _build_report(
             subject_sha=subject_sha,
             python_version=sys.version.split()[0],
             stages=stages,
             cleanup_verified=cleanup_verified,
+            worktree_verified=worktree_verified,
             preflight_error=preflight_error,
         )
         if evidence is None:
@@ -298,6 +367,7 @@ def main() -> int:
                 "subject_sha": report["subject_sha"],
                 "stage_count": report["stage_count"],
                 "cleanup_verified": report["cleanup_verified"],
+                "worktree_verified": report["worktree_verified"],
                 "evidence_id": report["evidence_id"],
                 "evidence": args.evidence.as_posix(),
             },
