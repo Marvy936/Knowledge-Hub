@@ -67,8 +67,8 @@ jobs:
       SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       VENV_DIR: "${{ github.workspace }}/../knowledge-hub-practical-v1-rc-venv"
       WORK_ROOT: "${{ github.workspace }}/../knowledge-hub-practical-v1-rc-work"
-      EVIDENCE_DIR: "${{ github.workspace }}/../knowledge-hub-practical-v1-rc-evidence"
-      RC_EVIDENCE: "${{ github.workspace }}/../knowledge-hub-practical-v1-rc-evidence/release-candidate.json"
+      EVIDENCE_DIR: "/tmp/knowledge-hub-practical-v1-rc-evidence"
+      RC_EVIDENCE: "/tmp/knowledge-hub-practical-v1-rc-evidence/release-candidate.json"
 
     steps:
       - name: Checkout exact release-candidate subject
