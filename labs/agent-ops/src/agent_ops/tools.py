@@ -72,6 +72,28 @@ def validate_lookup(value: Mapping[str, Any]) -> None:
     validate_canonical_id(value, "lookup_id")
 
 
+def _validate_restart_output(output: Mapping[str, Any]) -> None:
+    if not isinstance(output, Mapping):
+        raise AgentContractError("restart_service output must be an object")
+    require_exact_keys(
+        output,
+        {"previous_generation", "current_generation", "status"},
+        "restart_service output",
+    )
+    previous = output.get("previous_generation")
+    current = output.get("current_generation")
+    if isinstance(previous, bool) or not isinstance(previous, int) or previous < 1:
+        raise AgentContractError("restart_service previous_generation is invalid")
+    if isinstance(current, bool) or not isinstance(current, int):
+        raise AgentContractError("restart_service current_generation is invalid")
+    if current != previous + 1:
+        raise AgentContractError(
+            "restart_service current_generation must equal previous_generation + 1"
+        )
+    if output.get("status") != "healthy":
+        raise AgentContractError("restart_service output status must equal healthy")
+
+
 def build_tool_result(
     *,
     operation_id: str,
@@ -80,11 +102,15 @@ def build_tool_result(
     target: str,
     output: Mapping[str, Any],
 ) -> dict[str, Any]:
+    resolved_tool = require_nonempty(tool, "tool_result.tool")
+    if resolved_tool != "restart_service":
+        raise AgentContractError("generation-1 tool result supports only restart_service")
+    _validate_restart_output(output)
     payload = {
         "schema_version": AGENT_SCHEMA_VERSION,
         "operation_id": require_sha256(operation_id, "tool_result.operation_id"),
         "action_digest": require_sha256(action_digest, "tool_result.action_digest"),
-        "tool": require_nonempty(tool, "tool_result.tool"),
+        "tool": resolved_tool,
         "target": require_nonempty(target, "tool_result.target"),
         "status": "completed",
         "output": dict(output),
@@ -111,12 +137,15 @@ def validate_tool_result(value: Mapping[str, Any]) -> None:
         raise AgentContractError("tool result schema_version must equal 1")
     require_sha256(value.get("operation_id"), "tool_result.operation_id")
     require_sha256(value.get("action_digest"), "tool_result.action_digest")
-    require_nonempty(value.get("tool"), "tool_result.tool")
+    if value.get("tool") != "restart_service":
+        raise AgentContractError("generation-1 tool result supports only restart_service")
     require_nonempty(value.get("target"), "tool_result.target")
     if value.get("status") != "completed":
         raise AgentContractError("tool result status must equal completed")
-    if not isinstance(value.get("output"), dict):
+    output = value.get("output")
+    if not isinstance(output, dict):
         raise AgentContractError("tool result output must be an object")
+    _validate_restart_output(output)
     validate_canonical_id(value, "result_id")
 
 
