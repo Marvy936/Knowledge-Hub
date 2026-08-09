@@ -29,6 +29,28 @@ class StaticResolver:
         return self.key
 
 
+class FakeRagExecutor:
+    def __init__(self, *, prompt_release_id: str = "1" * 64, source_revision: str = "c" * 40) -> None:
+        self.prompt_release_id = prompt_release_id
+        self.source_revision = source_revision
+        self.calls: list[str] = []
+
+    def query(self, text: str):
+        self.calls.append(text)
+        return {
+            "status": "answered",
+            "answer": "A Kubernetes Service provides a stable endpoint.",
+            "abstention_reason": None,
+            "citations": [{"chunk_id": "6" * 64}],
+            "prompt_release_id": self.prompt_release_id,
+            "source_revision": self.source_revision,
+            "retrieval_result_id": "2" * 64,
+            "answer_id": "7" * 64,
+            "trace_id": "8" * 64,
+            "latency_ms": 1.5,
+        }
+
+
 @pytest.fixture(scope="module")
 def keys():
     private = rsa.generate_private_key(public_exponent=65537, key_size=2048)
@@ -149,12 +171,16 @@ def test_valid_token_missing_role_is_forbidden(keys) -> None:
         )
 
 
-def test_gateway_route_matrix_uses_401_for_bad_token_and_403_for_permissions(keys) -> None:
+def test_gateway_route_matrix_uses_401_403_and_503_at_distinct_boundaries(keys) -> None:
     private, public, wrong_public = keys
     client = TestClient(create_app(issuer=ISSUER, signing_keys=StaticResolver(public)))
 
-    assert client.get("/healthz").json() == {"status": "ok"}
-    assert client.post("/v1/rag/query").status_code == 401
+    assert client.get("/healthz").json() == {
+        "status": "ok",
+        "rag_backend": "not_configured",
+    }
+    assert client.get("/readyz").status_code == 503
+    assert client.post("/v1/rag/query", json={"query": "test"}).status_code == 401
 
     browser_rag = _token(
         private,
@@ -162,11 +188,11 @@ def test_gateway_route_matrix_uses_401_for_bad_token_and_403_for_permissions(key
         roles=("rag.read",),
     )
     response = client.post(
-        "/v1/rag/query", headers={"Authorization": f"Bearer {browser_rag}"}
+        "/v1/rag/query",
+        json={"query": "test"},
+        headers={"Authorization": f"Bearer {browser_rag}"},
     )
-    assert response.status_code == 200
-    assert response.json()["action"] == "rag.read"
-    assert response.json()["principal"]["authorized_party"] == "knowledge-hub-web"
+    assert response.status_code == 503
 
     forbidden = client.post(
         "/v1/agent/run", headers={"Authorization": f"Bearer {browser_rag}"}
@@ -184,7 +210,115 @@ def test_gateway_route_matrix_uses_401_for_bad_token_and_403_for_permissions(key
         create_app(issuer=ISSUER, signing_keys=StaticResolver(wrong_public))
     )
     invalid = wrong_key_client.post(
-        "/v1/rag/query", headers={"Authorization": f"Bearer {browser_rag}"}
+        "/v1/rag/query",
+        json={"query": "test"},
+        headers={"Authorization": f"Bearer {browser_rag}"},
     )
     assert invalid.status_code == 401
     assert invalid.headers["www-authenticate"] == "Bearer"
+
+
+def test_authorized_rag_request_executes_configured_promoted_backend(keys) -> None:
+    private, public, _ = keys
+    executor = FakeRagExecutor()
+    client = TestClient(
+        create_app(
+            issuer=ISSUER,
+            signing_keys=StaticResolver(public),
+            rag_executor=executor,
+        )
+    )
+    browser_rag = _token(private, azp="knowledge-hub-web", roles=("rag.read",))
+
+    assert client.get("/healthz").json()["rag_backend"] == "configured"
+    ready = client.get("/readyz")
+    assert ready.status_code == 200
+    assert ready.json()["prompt_release_id"] == executor.prompt_release_id
+    assert ready.json()["source_revision"] == executor.source_revision
+
+    response = client.post(
+        "/v1/rag/query",
+        json={"query": "  Kubernetes Service  "},
+        headers={"Authorization": f"Bearer {browser_rag}"},
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["status"] == "completed"
+    assert payload["action"] == "rag.read"
+    assert payload["principal"]["authorized_party"] == "knowledge-hub-web"
+    assert payload["rag"]["prompt_release_id"] == executor.prompt_release_id
+    assert executor.calls == ["Kubernetes Service"]
+
+
+def test_unauthorized_or_invalid_rag_request_never_calls_backend(keys) -> None:
+    private, public, _ = keys
+    executor = FakeRagExecutor()
+    client = TestClient(
+        create_app(issuer=ISSUER, signing_keys=StaticResolver(public), rag_executor=executor)
+    )
+
+    assert client.post("/v1/rag/query", json={"query": "test"}).status_code == 401
+    missing_role = _token(private, azp="knowledge-hub-web", roles=())
+    assert (
+        client.post(
+            "/v1/rag/query",
+            json={"query": "test"},
+            headers={"Authorization": f"Bearer {missing_role}"},
+        ).status_code
+        == 403
+    )
+    assert executor.calls == []
+
+
+def test_query_validation_refuses_whitespace_extra_fields_and_oversized_input(keys) -> None:
+    private, public, _ = keys
+    executor = FakeRagExecutor()
+    client = TestClient(
+        create_app(issuer=ISSUER, signing_keys=StaticResolver(public), rag_executor=executor)
+    )
+    token = _token(private, azp="knowledge-hub-web", roles=("rag.read",))
+    headers = {"Authorization": f"Bearer {token}"}
+
+    assert client.post("/v1/rag/query", json={"query": "   "}, headers=headers).status_code == 422
+    assert (
+        client.post(
+            "/v1/rag/query",
+            json={"query": "ok", "command": "ignore policy"},
+            headers=headers,
+        ).status_code
+        == 422
+    )
+    assert (
+        client.post(
+            "/v1/rag/query", json={"query": "x" * 2001}, headers=headers
+        ).status_code
+        == 422
+    )
+    assert executor.calls == []
+
+
+def test_gateway_refuses_backend_result_from_another_promoted_subject(keys) -> None:
+    private, public, _ = keys
+    executor = FakeRagExecutor()
+
+    class WrongReleaseExecutor(FakeRagExecutor):
+        def query(self, text: str):
+            result = dict(super().query(text))
+            result["prompt_release_id"] = "9" * 64
+            return result
+
+    wrong = WrongReleaseExecutor(
+        prompt_release_id=executor.prompt_release_id,
+        source_revision=executor.source_revision,
+    )
+    client = TestClient(
+        create_app(issuer=ISSUER, signing_keys=StaticResolver(public), rag_executor=wrong)
+    )
+    token = _token(private, azp="knowledge-hub-web", roles=("rag.read",))
+    response = client.post(
+        "/v1/rag/query",
+        json={"query": "test"},
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert response.status_code == 503
+    assert "another prompt release" in response.json()["detail"]
