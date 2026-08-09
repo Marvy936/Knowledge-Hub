@@ -547,7 +547,33 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             raise RuntimeGateError("docker run did not return a container ID")
 
         base_url = f"http://{args.host}:{args.port}"
-        ready = _wait_ready(base_url, args.startup_timeout_seconds)
+        try:
+            ready = _wait_ready(base_url, args.startup_timeout_seconds)
+        except Exception as exc:
+            inspect_result = _run(
+                [
+                    "docker",
+                    "inspect",
+                    "--format",
+                    "{{json .State}}",
+                    positive_container_id,
+                ],
+                cwd=repo_root,
+                check=False,
+            )
+            logs_result = _run(
+                ["docker", "logs", positive_container_id],
+                cwd=repo_root,
+                check=False,
+            )
+            state_text = (inspect_result.stdout or inspect_result.stderr or "").strip()
+            combined_logs = (logs_result.stdout or "") + (logs_result.stderr or "")
+            log_tail = combined_logs[-4000:]
+            log_sha256 = _sha256_bytes(combined_logs.encode("utf-8", errors="replace"))
+            raise RuntimeGateError(
+                "serving container readiness failed; "
+                f"state={state_text}; log_sha256={log_sha256}; log_tail={log_tail}"
+            ) from exc
         _validate_ready(ready, deployment=deployment)
 
         uid = _run(
