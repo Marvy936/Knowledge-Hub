@@ -5,14 +5,15 @@ import json
 import sys
 from pathlib import Path
 
-from agent_ops.contracts import AgentContractError, atomic_write_json
+from agent_ops.contracts import AgentContractError, atomic_write_json, read_json
 from agent_ops.safety import build_kill_switch
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Write one explicit bounded-agent kill-switch generation."
+        description="Write one explicit policy-bound bounded-agent kill-switch generation."
     )
+    parser.add_argument("--policy", type=Path, required=True)
     parser.add_argument("--generation", required=True)
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--engage", action="store_true")
@@ -24,22 +25,33 @@ def _parser() -> argparse.ArgumentParser:
 def main() -> int:
     args = _parser().parse_args()
     if args.output.exists():
-        print(json.dumps({"status": "refused", "error": "kill-switch output already exists"}), file=sys.stderr)
+        print(
+            json.dumps(
+                {"status": "refused", "error": "kill-switch output already exists"}
+            ),
+            file=sys.stderr,
+        )
         return 2
     try:
         value = build_kill_switch(
+            policy=read_json(args.policy),
             generation=args.generation,
             engaged=args.engage,
         )
         atomic_write_json(args.output, value)
     except AgentContractError as exc:
-        print(json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True), file=sys.stderr)
+        print(
+            json.dumps({"status": "refused", "error": str(exc)}, sort_keys=True),
+            file=sys.stderr,
+        )
         return 2
     print(
         json.dumps(
             {
                 "status": "kill_switch_recorded",
                 "engaged": value["engaged"],
+                "policy_id": value["policy_id"],
+                "policy_generation": value["policy_generation"],
                 "kill_switch_id": value["kill_switch_id"],
             },
             sort_keys=True,
