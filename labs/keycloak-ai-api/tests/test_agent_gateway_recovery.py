@@ -49,7 +49,7 @@ def _token(private_key) -> str:
             "iat": now,
             "exp": now + 300,
             "token_use": "access",
-            "scope": "openid",
+            "scope": "openid knowledge-hub-api-access",
             "resource_access": {AUDIENCE: {"roles": ["agent.remediate"]}},
         },
         private_key,
