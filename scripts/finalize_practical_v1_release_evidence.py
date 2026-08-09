@@ -172,7 +172,7 @@ def _validate_workflow_provenance(value: Mapping[str, Any], subject_sha: str) ->
         raise ReleaseEvidenceError("workflow provenance belongs to another Git subject")
     if value.get("schema_version") != 1:
         raise ReleaseEvidenceError("workflow provenance schema version mismatch")
-    if _require_nonempty(value.get("workflow_name"), "workflow_name") != "Practical v1 release candidate":
+    if _require_nonempty(value.get("workflow_name"), "workflow_name") != "Practical v1 release evidence":
         raise ReleaseEvidenceError("unexpected workflow name")
     _require_positive_int(value.get("run_id"), "run_id")
     _require_positive_int(value.get("run_attempt"), "run_attempt")
