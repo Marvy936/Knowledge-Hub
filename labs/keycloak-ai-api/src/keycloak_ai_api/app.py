@@ -21,6 +21,7 @@ from .auth import (
 from .rag_bridge import RagBridgeError, RagExecutor
 
 bearer = HTTPBearer(auto_error=False)
+REQUIRED_API_SCOPE = "knowledge-hub-api-access"
 
 RAG_RESULT_KEYS = {
     "status",
@@ -304,18 +305,21 @@ def create_app(
             audience=audience,
             allowed_azp={"knowledge-hub-web", "knowledge-hub-automation"},
             required_roles={"rag.read"},
+            required_scopes={REQUIRED_API_SCOPE},
         ),
         "agent.run": policy(
             issuer=resolved_issuer,
             audience=audience,
             allowed_azp={"knowledge-hub-automation"},
             required_roles={"agent.run"},
+            required_scopes={REQUIRED_API_SCOPE},
         ),
         "agent.remediate": policy(
             issuer=resolved_issuer,
             audience=audience,
             allowed_azp={"knowledge-hub-automation"},
             required_roles={"agent.remediate"},
+            required_scopes={REQUIRED_API_SCOPE},
         ),
     }
 
@@ -368,10 +372,14 @@ def create_app(
     def agent_readyz() -> dict[str, str]:
         if agent_executor is None:
             raise HTTPException(status_code=503, detail="bounded agent backend is not configured")
+        policy_id = _require_hex(agent_executor.policy_id, length=64, field="agent policy_id")
+        generation = agent_executor.policy_generation
+        if not isinstance(generation, str) or not generation.strip():
+            raise HTTPException(status_code=503, detail="bounded agent policy generation is invalid")
         return {
             "status": "ready",
-            "policy_id": agent_executor.policy_id,
-            "policy_generation": agent_executor.policy_generation,
+            "policy_id": policy_id,
+            "policy_generation": generation,
         }
 
     @app.post("/v1/rag/query")
