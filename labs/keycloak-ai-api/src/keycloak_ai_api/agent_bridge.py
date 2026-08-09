@@ -83,6 +83,18 @@ def _read_json(path: Path) -> dict[str, Any]:
     return value
 
 
+def _validate_tool_state_envelope(path: Path) -> None:
+    value = _read_json(path)
+    if set(value) != {"schema_version", "services", "operations"}:
+        raise AgentBridgeError("tool-state.json keys mismatch")
+    if value.get("schema_version") != 1:
+        raise AgentBridgeError("tool-state.json schema_version must equal 1")
+    if not isinstance(value.get("services"), dict) or not isinstance(
+        value.get("operations"), dict
+    ):
+        raise AgentBridgeError("tool-state.json service/operation maps are invalid")
+
+
 def _exact_runtime_file(path: Path, *, runtime_root: Path, name: str) -> Path:
     if path.is_symlink():
         raise AgentBridgeError(f"{name} must not be a symlink")
@@ -149,6 +161,7 @@ class LocalBoundedAgentExecutor:
             resolved_kill_switch = _exact_runtime_file(
                 kill_switch_path, runtime_root=resolved_runtime, name="kill-switch.json"
             )
+            _validate_tool_state_envelope(resolved_tool_state)
             policy = _read_json(resolved_policy)
             validate_agent_policy(policy)
             kill_switch = _read_json(resolved_kill_switch)
