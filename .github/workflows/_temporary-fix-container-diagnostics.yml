@@ -1,0 +1,62 @@
+name: Temporary fix container startup diagnostics
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'fix/actions-runner-context'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: fix/actions-runner-context
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Add bounded container failure read-back
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('labs/mlops/scripts/run_containerized_inference_runtime.py')
+          text = path.read_text(encoding='utf-8')
+          old = '''        base_url = f"http://{args.host}:{args.port}"\n        ready = _wait_ready(base_url, args.startup_timeout_seconds)\n        _validate_ready(ready, deployment=deployment)\n'''
+          new = '''        base_url = f"http://{args.host}:{args.port}"\n        try:\n            ready = _wait_ready(base_url, args.startup_timeout_seconds)\n        except Exception as exc:\n            inspect_result = _run(\n                [\n                    "docker",\n                    "inspect",\n                    "--format",\n                    "{{json .State}}",\n                    positive_container_id,\n                ],\n                cwd=repo_root,\n                check=False,\n            )\n            logs_result = _run(\n                ["docker", "logs", positive_container_id],\n                cwd=repo_root,\n                check=False,\n            )\n            state_text = (inspect_result.stdout or inspect_result.stderr or "").strip()\n            combined_logs = (logs_result.stdout or "") + (logs_result.stderr or "")\n            log_tail = combined_logs[-4000:]\n            log_sha256 = _sha256_bytes(combined_logs.encode("utf-8", errors="replace"))\n            raise RuntimeGateError(\n                "serving container readiness failed; "\n                f"state={state_text}; log_sha256={log_sha256}; log_tail={log_tail}"\n            ) from exc\n        _validate_ready(ready, deployment=deployment)\n'''
+          if old not in text:
+              raise SystemExit('container readiness block not found')
+          text = text.replace(old, new, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+          git diff --check
+
+      - name: Run container runtime unit contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -q \
+            -e 'labs/machine-learning' \
+            -e 'labs/mlops[dev,registry,serving]'
+          python -m pytest \
+            labs/mlops/tests/test_containerized_inference_runtime.py \
+            -q -p no:cacheprovider
+
+      - name: Commit diagnostic hardening
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add labs/mlops/scripts/run_containerized_inference_runtime.py
+          git diff --cached --quiet && exit 0
+          git commit -m 'fix(mlops): expose container startup failure evidence'
+          git push origin HEAD:fix/actions-runner-context
