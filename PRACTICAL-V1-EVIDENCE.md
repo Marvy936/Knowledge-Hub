@@ -25,7 +25,7 @@ Chýbajúci run, status, telemetry alebo artifact sa neinterpretuje ako success.
 | Machine Learning Fundamentals | Verified v deklarovanom syntetickom profile | [`labs/machine-learning/RUNTIME-EVIDENCE.md`](labs/machine-learning/RUNTIME-EVIDENCE.md) | Nie production dataset/business A/B outcome |
 | MLOps | Pending | [`labs/mlops/RUNTIME-EVIDENCE.md`](labs/mlops/RUNTIME-EVIDENCE.md) | Central workflow run, live provider/container lifecycle a cleanup evidence |
 | Knowledge Hub LLM/RAG | Pending | [`labs/llm-rag/RUNTIME-EVIDENCE.md`](labs/llm-rag/RUNTIME-EVIDENCE.md) | Clean-checkout corpus→retrieval→eval/security→cleanup run |
-| Keycloak-secured AI API | Pending | [`labs/keycloak-ai-api/README.md`](labs/keycloak-ai-api/README.md) | Live realm/token/JWKS/protected-route positive a negative run |
+| Keycloak-secured AI API | Pending | [`labs/keycloak-ai-api/RUNTIME-EVIDENCE.md`](labs/keycloak-ai-api/RUNTIME-EVIDENCE.md) | Live realm/token/JWKS/protected-route positive a negative run |
 | Bounded incident/operations agent | Pending | [`labs/agent-ops/RUNTIME-EVIDENCE.md`](labs/agent-ops/RUNTIME-EVIDENCE.md) | Clean-checkout combined RAG→plan→approval→execution/recovery hard-eval run |
 | Practical v1 offline/core orchestrator | Pending | `scripts/practical_v1_core.py` | Exact CI/local run a recorded evidence ID |
 | Permanent Practical v1 core CI matrix | Pending | `.github/workflows/practical-v1-core.yml` | GitHub Actions dispatch/run; issue #151 |
@@ -71,6 +71,7 @@ compileall
 → Keycloak AI API tests
 → deterministic agent hard evaluation
 → disposable workroot cleanup
+→ tracked/untracked worktree read-back
 ```
 
 Successful core evidence musí obsahovať:
@@ -83,9 +84,10 @@ Successful core evidence musí obsahovať:
 - SHA-256 stdout/stderr a bounded log tails,
 - hard-eval `report_id`, case count a passed count,
 - `cleanup_verified=true`,
+- `worktree_verified=true`,
 - canonical `evidence_id`.
 
-`all_passed=true` je dovolené iba ak sa vykoná celý expected stage set. Partial alebo zero-stage run nemôže byť success.
+`all_passed=true` je dovolené iba ak sa vykoná celý expected stage set a repository read-back zostane čistý. Partial alebo zero-stage run nemôže byť success.
 
 Evidence file musí byť mimo disposable workrootu. Workroot sa po rune odstráni; evidence sa ponechá iba na read-back a následne sa tiež odstráni alebo uloží do explicitného CI evidence surface-u.
 
@@ -101,7 +103,11 @@ Workflow používa SHA-pinned `actions/checkout` a `actions/setup-python`, exact
 
 ## Central Actions blocker
 
-Issue #151 zostáva otvorený. Corrected PR #179 head aj jeho merge commit nevytvorili connector-readable workflow run alebo commit status. Preto:
+Issue #151 zostáva otvorený. Corrected PR #179 head aj jeho merge commit nevytvorili connector-readable workflow run alebo commit status. PR #181 následne pridal permanentný Practical v1 workflow; jeho exact PR head `7900ddf598ae19bc09e52bd9495b1d0cc6bdd7ce` a merge commit `c31cc8d5a07a2534611db80d9f982e915af606b4` takisto nemajú observable workflow run/status.
+
+Pre #181 je relevantné, že PR menil samotný `.github/workflows/practical-v1-core.yml` a workflow túto path explicitne zahŕňa vo svojom `pull_request.paths`. Po merge je workflow už prítomný aj na default branche.
+
+Preto:
 
 ```text
 workflow YAML exists
@@ -125,7 +131,7 @@ Evidence musí preukázať exact Git corpus snapshot, deterministic chunks/index
 
 ### Keycloak-secured API
 
-Evidence musí preukázať live imported realm, Authorization Code + PKCE contract alebo browser-flow proof boundary, service-account Client Credentials token, JWKS signature validation, issuer/audience/scope/azp/client-role claims, protected RAG/agent positive requesty a negative token/authorization variants.
+Dedicated contract je v [`labs/keycloak-ai-api/RUNTIME-EVIDENCE.md`](labs/keycloak-ai-api/RUNTIME-EVIDENCE.md). Evidence musí preukázať live imported realm, Authorization Code + PKCE boundary, service-account Client Credentials token, JWKS signature validation, issuer/audience/scope/azp/client-role claims, protected RAG/agent positive requesty, negative 401/403 variants, mutation-authority separation a cleanup read-back.
 
 ### Bounded agent
 
