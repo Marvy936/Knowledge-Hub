@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from copy import deepcopy
 from pathlib import Path
 
@@ -18,10 +19,11 @@ from agent_ops.tools import (
     LocalServiceStateAdapter,
     UnknownToolOutcome,
     build_lookup,
-    build_tool_result,
 )
 
 TARGET = "payments-api"
+ISSUED_AT = 1_700_000_000
+NOW = ISSUED_AT + 10
 
 
 def _sandbox(path: Path, *, status: str = "degraded", generation: int = 1) -> None:
@@ -46,11 +48,19 @@ def _subjects(
     *,
     status: str = "degraded",
     operator_note: str = "Investigate the service and use only approved tools.",
+    approval_ttl_seconds: int = 300,
+    max_approval_ttl_seconds: int = 900,
+    max_tool_wait_seconds: float = 5.0,
 ):
     tool_state = tmp_path / "tool-state.json"
     _sandbox(tool_state, status=status)
     adapter = LocalServiceStateAdapter(tool_state)
-    policy = build_agent_policy(generation="policy-v1", allowed_targets=[TARGET])
+    policy = build_agent_policy(
+        generation="policy-v1",
+        allowed_targets=[TARGET],
+        max_approval_ttl_seconds=max_approval_ttl_seconds,
+        max_tool_wait_seconds=max_tool_wait_seconds,
+    )
     incident = build_incident(
         generation="incident-v1",
         target=TARGET,
@@ -73,6 +83,8 @@ def _subjects(
             expected_plan_id=plan["plan_id"],
             approver="on-call-owner",
             approval_generation="approval-v1",
+            issued_at_unix=ISSUED_AT,
+            ttl_seconds=approval_ttl_seconds,
         )
         operation = build_operation(
             incident=incident,
@@ -102,7 +114,14 @@ def _subjects(
     }
 
 
-def _execute(subjects, *, adapter=None, kill_switch=None, recover=None):
+def _execute(
+    subjects,
+    *,
+    adapter=None,
+    kill_switch=None,
+    recover=None,
+    now_unix: int = NOW,
+):
     return execute_operation(
         operation=subjects["operation"],
         incident=subjects["incident"],
@@ -114,6 +133,7 @@ def _execute(subjects, *, adapter=None, kill_switch=None, recover=None):
         adapter=adapter or subjects["adapter"],
         state_path=subjects["state_path"],
         result_path=subjects["result_path"],
+        now_unix=now_unix,
         recover_expected_state_id=recover,
     )
 
@@ -165,9 +185,37 @@ def test_target_outside_policy_allowlist_is_refused(tmp_path: Path) -> None:
         plan_incident_action(incident=incident, diagnostic=diagnostic, policy=policy)
 
 
-def test_approval_is_bound_to_exact_plan_and_action_digest(tmp_path: Path) -> None:
+def test_policy_bounds_are_canonical_and_refuse_unbounded_values() -> None:
+    policy = build_agent_policy(
+        generation="policy-v1",
+        allowed_targets=[TARGET],
+        max_approval_ttl_seconds=600,
+        max_tool_wait_seconds=0.25,
+    )
+    assert policy["max_mutations_per_operation"] == 1
+    assert policy["max_approval_ttl_seconds"] == 600
+    assert policy["max_tool_wait_seconds"] == 0.25
+    with pytest.raises(AgentContractError, match="max_approval_ttl_seconds"):
+        build_agent_policy(
+            generation="policy-v1",
+            allowed_targets=[TARGET],
+            max_approval_ttl_seconds=86401,
+        )
+    with pytest.raises(AgentContractError, match="max_tool_wait_seconds"):
+        build_agent_policy(
+            generation="policy-v1",
+            allowed_targets=[TARGET],
+            max_tool_wait_seconds=0,
+        )
+
+
+def test_approval_is_bound_to_exact_plan_action_digest_and_finite_ttl(tmp_path: Path) -> None:
     subjects = _subjects(tmp_path)
     plan = subjects["plan"]
+    approval = subjects["approval"]
+    assert approval["issued_at_unix"] == ISSUED_AT
+    assert approval["expires_at_unix"] == ISSUED_AT + 300
+
     with pytest.raises(AgentContractError, match="stale or mismatched"):
         approve_action_plan(
             plan=plan,
@@ -175,6 +223,8 @@ def test_approval_is_bound_to_exact_plan_and_action_digest(tmp_path: Path) -> No
             expected_plan_id="f" * 64,
             approver="on-call-owner",
             approval_generation="approval-v1",
+            issued_at_unix=ISSUED_AT,
+            ttl_seconds=300,
         )
     forged = deepcopy(plan)
     forged["arguments"]["expected_generation"] = 9
@@ -185,19 +235,41 @@ def test_approval_is_bound_to_exact_plan_and_action_digest(tmp_path: Path) -> No
             expected_plan_id=plan["plan_id"],
             approver="on-call-owner",
             approval_generation="approval-v1",
+            issued_at_unix=ISSUED_AT,
+            ttl_seconds=300,
         )
+    with pytest.raises(AgentContractError, match="ttl exceeds policy"):
+        approve_action_plan(
+            plan=plan,
+            policy=subjects["policy"],
+            expected_plan_id=plan["plan_id"],
+            approver="on-call-owner",
+            approval_generation="approval-v1",
+            issued_at_unix=ISSUED_AT,
+            ttl_seconds=901,
+        )
+
+
+def test_expiry_boundary_blocks_new_mutation_without_creating_execution_state(
+    tmp_path: Path,
+) -> None:
+    subjects = _subjects(tmp_path, approval_ttl_seconds=10)
+    with pytest.raises(AgentContractError, match="approval has expired"):
+        _execute(subjects, now_unix=ISSUED_AT + 10)
+    assert not subjects["state_path"].exists()
+    assert read_json(subjects["tool_state"])["services"][TARGET]["restart_count"] == 0
 
 
 def test_positive_execution_mutates_once_and_completed_replay_is_read_only(
     tmp_path: Path,
 ) -> None:
-    subjects = _subjects(tmp_path)
-    first = _execute(subjects)
+    subjects = _subjects(tmp_path, approval_ttl_seconds=20)
+    first = _execute(subjects, now_unix=ISSUED_AT + 1)
     assert first["status"] == "completed"
     service = read_json(subjects["tool_state"])["services"][TARGET]
     assert service == {"generation": 2, "status": "healthy", "restart_count": 1}
 
-    second = _execute(subjects)
+    second = _execute(subjects, now_unix=ISSUED_AT + 100)
     assert second["status"] == "already_completed"
     service_again = read_json(subjects["tool_state"])["services"][TARGET]
     assert service_again == service
@@ -247,13 +319,13 @@ class CrashAfterRecordedMutation:
         raise RuntimeError("response lost after recorded mutation")
 
 
-def test_engaged_kill_switch_allows_read_only_reconciliation_of_completed_side_effect(
+def test_expired_approval_and_engaged_switch_allow_read_only_completed_reconciliation(
     tmp_path: Path,
 ) -> None:
-    subjects = _subjects(tmp_path)
+    subjects = _subjects(tmp_path, approval_ttl_seconds=20)
     wrapper = CrashAfterRecordedMutation(subjects["adapter"])
     with pytest.raises(RuntimeError, match="response lost"):
-        _execute(subjects, adapter=wrapper)
+        _execute(subjects, adapter=wrapper, now_unix=ISSUED_AT + 1)
     failed = read_json(subjects["state_path"])
     assert failed["phase"] == "failed"
     assert wrapper.execute_calls == 1
@@ -266,6 +338,7 @@ def test_engaged_kill_switch_allows_read_only_reconciliation_of_completed_side_e
         adapter=wrapper,
         kill_switch=engaged,
         recover=failed["state_id"],
+        now_unix=ISSUED_AT + 100,
     )
     assert recovered["status"] == "recovered_completed"
     assert wrapper.execute_calls == 1
@@ -273,9 +346,10 @@ def test_engaged_kill_switch_allows_read_only_reconciliation_of_completed_side_e
 
 
 class UnknownAdapter:
-    def __init__(self) -> None:
+    def __init__(self, *, lookup_status: str = "unknown") -> None:
         self.execute_calls = 0
         self.lookup_calls = 0
+        self.lookup_status = lookup_status
 
     def execute(self, **kwargs):
         self.execute_calls += 1
@@ -283,7 +357,7 @@ class UnknownAdapter:
 
     def lookup(self, operation_id: str):
         self.lookup_calls += 1
-        return build_lookup(status="unknown", result=None)
+        return build_lookup(status=self.lookup_status, result=None)
 
 
 def test_unknown_outcome_never_retries_without_authoritative_resolution(
@@ -303,6 +377,22 @@ def test_unknown_outcome_never_retries_without_authoritative_resolution(
     assert adapter.lookup_calls == 1
 
 
+def test_unknown_outcome_plus_not_found_still_never_authorizes_retry(tmp_path: Path) -> None:
+    subjects = _subjects(tmp_path)
+    adapter = UnknownAdapter(lookup_status="not_found")
+    with pytest.raises(UnknownToolOutcome):
+        _execute(subjects, adapter=adapter)
+    unknown = read_json(subjects["state_path"])
+
+    with pytest.raises(UnknownToolOutcome, match="not_found cannot authorize"):
+        _execute(subjects, adapter=adapter, recover=unknown["state_id"])
+    next_unknown = read_json(subjects["state_path"])
+    assert next_unknown["phase"] == "unknown_outcome"
+    assert next_unknown["lookup_id"] is not None
+    assert adapter.execute_calls == 1
+    assert adapter.lookup_calls == 1
+
+
 class FailBeforeMutationThenSucceed:
     def __init__(self, local: LocalServiceStateAdapter) -> None:
         self.local = local
@@ -318,16 +408,71 @@ class FailBeforeMutationThenSucceed:
         return self.local.execute(**kwargs)
 
 
-def test_not_found_lookup_allows_exact_recovery_retry(tmp_path: Path) -> None:
+def test_not_found_lookup_allows_exact_recovery_retry_while_approval_is_fresh(
+    tmp_path: Path,
+) -> None:
     subjects = _subjects(tmp_path)
     adapter = FailBeforeMutationThenSucceed(subjects["adapter"])
     with pytest.raises(RuntimeError, match="before mutation"):
-        _execute(subjects, adapter=adapter)
+        _execute(subjects, adapter=adapter, now_unix=ISSUED_AT + 1)
     failed = read_json(subjects["state_path"])
-    recovered = _execute(subjects, adapter=adapter, recover=failed["state_id"])
+    recovered = _execute(
+        subjects,
+        adapter=adapter,
+        recover=failed["state_id"],
+        now_unix=ISSUED_AT + 2,
+    )
     assert recovered["status"] == "completed"
     assert adapter.execute_calls == 2
     assert read_json(subjects["tool_state"])["services"][TARGET]["restart_count"] == 1
+
+
+def test_expired_approval_blocks_retry_after_not_found(tmp_path: Path) -> None:
+    subjects = _subjects(tmp_path, approval_ttl_seconds=5)
+    adapter = FailBeforeMutationThenSucceed(subjects["adapter"])
+    with pytest.raises(RuntimeError, match="before mutation"):
+        _execute(subjects, adapter=adapter, now_unix=ISSUED_AT + 1)
+    failed = read_json(subjects["state_path"])
+
+    with pytest.raises(AgentContractError, match="approval has expired"):
+        _execute(
+            subjects,
+            adapter=adapter,
+            recover=failed["state_id"],
+            now_unix=ISSUED_AT + 5,
+        )
+    assert adapter.execute_calls == 1
+    assert read_json(subjects["tool_state"])["services"][TARGET]["restart_count"] == 0
+
+
+class SlowNoResultAdapter:
+    def __init__(self) -> None:
+        self.execute_calls = 0
+        self.lookup_calls = 0
+
+    def execute(self, **kwargs):
+        self.execute_calls += 1
+        time.sleep(0.05)
+        raise RuntimeError("late tool failure")
+
+    def lookup(self, operation_id: str):
+        self.lookup_calls += 1
+        return build_lookup(status="not_found", result=None)
+
+
+def test_tool_wait_bound_becomes_unknown_and_not_found_cannot_retry(tmp_path: Path) -> None:
+    subjects = _subjects(tmp_path, max_tool_wait_seconds=0.01)
+    adapter = SlowNoResultAdapter()
+    with pytest.raises(UnknownToolOutcome, match="within 0.01s"):
+        _execute(subjects, adapter=adapter)
+    unknown = read_json(subjects["state_path"])
+    assert unknown["phase"] == "unknown_outcome"
+    assert adapter.execute_calls == 1
+
+    with pytest.raises(UnknownToolOutcome, match="not_found cannot authorize"):
+        _execute(subjects, adapter=adapter, recover=unknown["state_id"])
+    assert adapter.execute_calls == 1
+    assert adapter.lookup_calls == 1
 
 
 def test_stale_recovery_and_concurrent_writer_are_refused(tmp_path: Path) -> None:
