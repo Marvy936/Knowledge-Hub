@@ -27,8 +27,8 @@ Stavy sa nededia automaticky. `Runtime verified` nie je production readiness a `
 | Knowledge Hub LLM/RAG corpus a chunking | Áno | Áno — exact Git corpus snapshot, byte read-back, deterministic Markdown chunking a rebuild validation | Nie — `RUNTIME-EVIDENCE.md` je `Pending`; Actions blocker #151 | Nie | [`labs/llm-rag/README.md`](labs/llm-rag/README.md) |
 | Knowledge Hub LLM/RAG retrieval a answer lifecycle | Áno | Áno — deterministic BM25-v1 index/retrieval, explicitný `no_result`, exact chunk citations, bounded context a structured answer/abstention envelope | Nie — vykonaný izolovaný reconstruction 8/8 pred posledným dodatočným determinism testom; final source obsahuje 9 test cases a Actions blocker #151 | Nie | [`labs/llm-rag/RETRIEVAL-GROUNDED-ANSWER.md`](labs/llm-rag/RETRIEVAL-GROUNDED-ANSWER.md) |
 | Knowledge Hub LLM/RAG eval, security a observability | Áno | Áno — exact implementation/corpus revision, bounded-context extractive adapter, direct/indirect injection gates, slice-based hard evals, prompt/config release, trace counters a bounded cleanup | Nie — PR #171 source/test inventory bez central Actions runu; blocker #151 | Nie | [`labs/llm-rag/EVAL-SECURITY-OBSERVABILITY.md`](labs/llm-rag/EVAL-SECURITY-OBSERVABILITY.md) |
-| Keycloak-secured AI API | Áno v sekciách 17, 20 a 21 | Nie | Nie | Nie | Required for Practical v1 |
-| Bounded incident/operations agent | Áno v sekcii 21 | Nie | Nie | Nie | Required for Practical v1 |
+| Keycloak-secured AI API | Áno | Áno na source úrovni — reproducible realm import, PKCE a Client Credentials contracts, exact issuer/audience/access-token/scope/azp/client-role validation, promoted RAG adapter a protected agent routes | Nie — bez authoritative live Keycloak end-to-end runu a kvôli Actions blockeru #151 | Nie | [`labs/keycloak-ai-api/README.md`](labs/keycloak-ai-api/README.md), [`labs/keycloak-ai-api/BOUNDED-AGENT-INTEGRATION.md`](labs/keycloak-ai-api/BOUNDED-AGENT-INTEGRATION.md) |
+| Bounded incident/operations agent | Áno | Čiastočne — durable workflow state, typed local inspection/restart tool, exact action approval subject bez expiry, idempotency/read-before-retry, unknown-outcome handling, sandbox/allowlist/kill switch a Keycloak route separation | Nie — source contract bez central runu; approval expiry, explicitný time/resource bound, retrieved-content injection gate, trajectory/business-outcome eval a final evidence zostávajú otvorené | Nie | [`labs/agent-ops/README.md`](labs/agent-ops/README.md), [`labs/keycloak-ai-api/BOUNDED-AGENT-INTEGRATION.md`](labs/keycloak-ai-api/BOUNDED-AGENT-INTEGRATION.md) |
 | Unified Practical v1 runner/evidence | Áno v roadmap-e | Čiastočne — lab index, status ledger a MLOps unified runner | Nie | Nie | Required for Practical v1 closeout |
 
 ## MLOps implementačné subjects
@@ -67,6 +67,17 @@ PR #171 obsahuje 10 focused eval/security/observability test functions v source.
 
 `labs/llm-rag/RUNTIME-EVIDENCE.md` zostáva `Pending`. LLM/RAG source lifecycle je pre Practical v1 funkčne implementovaný na offline deterministic úrovni; otvorený zostáva central runtime closeout a voliteľné post-v1 generative/semantic adapters.
 
+## Keycloak a agent implementačné subjects
+
+- PR #173 — reproducible local realm, PKCE/public-client a service-account contracts, RS256/JWKS resource-server validation, exact audience a client-role boundary, secret hygiene a disposable cleanup contract.
+- PR #174 — promoted RAG executor za Keycloak `rag.read` route, strict request/result schema, exact prompt/source identity a backend readiness/refusal boundary.
+- PR #175 — bounded local incident-agent foundation: durable state, typed inspection/restart tool, exact policy/action approval binding, local idempotency, read-before-retry, unknown-outcome checkpoint, kill switch a replay without duplicate side effect.
+- PR #177 — exact `knowledge-hub-api-access` scope enforcement, Keycloak-protected `agent.run`/`agent.remediate` integration, exact runtime filesystem sandbox, external approval preservation, fresh kill-switch read-back, strict tool-output boundary a explicit recovery checkpoint response.
+
+Tieto source subjects neznamenajú, že agentický flagship je hotový. Approval v #175/#177 zatiaľ nemá expiry; explicitný wall-clock/tool resource limit nie je implementovaný; agent workflow ešte neintegruje Knowledge Hub retrieval do incident classification/planning pathu; retrieved-content injection a trajectory/tool-selection/policy/business-outcome eval zostávajú otvorené.
+
+PR #177 zároveň dopĺňa scope gate, ktorý bol v realm confige pripravený cez default client scope `knowledge-hub-api-access`, ale resource server ho predtým iba parsoval. Po tejto zmene je scope samostatná authorization podmienka vedľa `azp` a client role. Central pytest/CI alebo live Keycloak run sa neclaimuje, pretože issue #151 zostáva otvorený.
+
 ## Dokumentačné sekcie a praktický stav
 
 | Sekcia | Dokumentačný stav | Praktická interpretácia |
@@ -75,7 +86,7 @@ PR #171 obsahuje 10 focused eval/security/observability test functions v source.
 | 18 — Machine Learning Fundamentals | `Ready for user review` | Flagship package je implementovaný a runtime verified; sekcia ako celok ešte nie je `User accepted`. |
 | 19 — MLOps and ML Platforms | `Ready for user review` | Promotion, training lineage, Registry, serving source, loopback canary, monitoring, drift, approval, controlled retraining executor a post-retraining deployment handoff sú implementované. Otvorené zostávajú central runtime closeout, actual OCI/container execution, živý retraining s novou Registry version a platform post-retraining canary read-back. |
 | 20 — LLM and GenAI Engineering | `Ready for user review` | Offline Practical v1 source lifecycle od exact corpusu cez retrieval/citations po eval/security/promotion/trace/cleanup je implementovaný. Central runtime evidence zostáva `Pending` kvôli #151. |
-| 21 — AI Agents and Intelligent Automation | `Ready for user review` | Practical v1 bounded agent ešte nie je implementovaný. |
+| 21 — AI Agents and Intelligent Automation | `Ready for user review` | Bounded incident-agent foundation a Keycloak-protected local execution path sú implementované čiastočne. Otvorené zostávajú approval expiry, time/resource limit, Knowledge Hub retrieval/injection path, trajectory/business-outcome evaluation a final runtime evidence. |
 
 ## Stavový postup
 
