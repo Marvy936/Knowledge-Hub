@@ -249,7 +249,7 @@ def _validate_agent_plan_result(
 ) -> dict[str, Any]:
     if not isinstance(result, Mapping):
         raise ValueError("agent planning result must be an object")
-    keys = set(result)
+    keys = frozenset(result)
     if keys not in {
         frozenset(AGENT_PLAN_BASE_KEYS),
         frozenset(AGENT_PLAN_BASE_KEYS | {"retrieval_context_id"}),
