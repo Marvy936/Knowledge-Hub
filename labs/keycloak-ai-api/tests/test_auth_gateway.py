@@ -17,6 +17,7 @@ from keycloak_ai_api.auth import (
 
 ISSUER = "http://127.0.0.1:8080/realms/knowledge-hub"
 AUDIENCE = "knowledge-hub-api"
+API_SCOPE = "knowledge-hub-api-access"
 
 
 class StaticResolver:
@@ -127,6 +128,7 @@ def _claims(
     issuer: str = ISSUER,
     audience: str | list[str] = AUDIENCE,
     token_use: str = "access",
+    scope: str = f"openid profile {API_SCOPE}",
     exp_offset: int = 300,
     nbf_offset: int | None = None,
 ) -> dict[str, object]:
@@ -140,7 +142,7 @@ def _claims(
         "iat": now,
         "exp": now + exp_offset,
         "token_use": token_use,
-        "scope": "openid profile",
+        "scope": scope,
         "resource_access": {
             AUDIENCE: {"roles": list(roles)},
         },
@@ -165,6 +167,7 @@ def _policy(*, role: str = "rag.read", callers=frozenset({"knowledge-hub-automat
         audience=AUDIENCE,
         allowed_azp=callers,
         required_roles={role},
+        required_scopes={API_SCOPE},
     )
 
 
@@ -188,6 +191,7 @@ def test_valid_access_token_returns_bounded_principal(keys) -> None:
     assert principal.authorized_party == "knowledge-hub-automation"
     assert principal.audience == (AUDIENCE,)
     assert "rag.read" in principal.roles
+    assert API_SCOPE in principal.scopes
     assert principal.jti == "jti-123"
 
 
@@ -228,6 +232,16 @@ def test_valid_token_wrong_authorized_party_is_forbidden(keys) -> None:
         validate_access_token(
             _token(private, azp="knowledge-hub-web"),
             policy=_policy(role="agent.run"),
+            signing_keys=StaticResolver(public),
+        )
+
+
+def test_valid_token_missing_scope_is_forbidden(keys) -> None:
+    private, public, _ = keys
+    with pytest.raises(ForbiddenError, match="required API scopes"):
+        validate_access_token(
+            _token(private, scope="openid profile"),
+            policy=_policy(),
             signing_keys=StaticResolver(public),
         )
 
@@ -278,6 +292,21 @@ def test_gateway_route_matrix_uses_distinct_auth_and_backend_boundaries(keys) ->
     )
     assert missing_backend.status_code == 503
 
+    missing_scope = _token(
+        private,
+        azp="knowledge-hub-automation",
+        roles=("agent.run",),
+        scope="openid",
+    )
+    assert (
+        client.post(
+            "/v1/agent/run",
+            json=_plan_request(),
+            headers={"Authorization": f"Bearer {missing_scope}"},
+        ).status_code
+        == 403
+    )
+
     wrong_key_client = TestClient(create_app(issuer=ISSUER, signing_keys=StaticResolver(wrong_public)))
     invalid = wrong_key_client.post(
         "/v1/rag/query",
@@ -312,6 +341,7 @@ def test_authorized_rag_request_executes_configured_promoted_backend(keys) -> No
     assert payload["status"] == "completed"
     assert payload["action"] == "rag.read"
     assert payload["principal"]["authorized_party"] == "knowledge-hub-web"
+    assert API_SCOPE in payload["principal"]["scopes"]
     assert payload["rag"]["prompt_release_id"] == executor.prompt_release_id
     assert executor.calls == ["Kubernetes Service"]
 
@@ -330,6 +360,20 @@ def test_unauthorized_or_invalid_rag_request_never_calls_backend(keys) -> None:
             "/v1/rag/query",
             json={"query": "test"},
             headers={"Authorization": f"Bearer {missing_role}"},
+        ).status_code
+        == 403
+    )
+    missing_scope = _token(
+        private,
+        azp="knowledge-hub-web",
+        roles=("rag.read",),
+        scope="openid profile",
+    )
+    assert (
+        client.post(
+            "/v1/rag/query",
+            json={"query": "test"},
+            headers={"Authorization": f"Bearer {missing_scope}"},
         ).status_code
         == 403
     )
@@ -442,6 +486,15 @@ def test_agent_auth_and_schema_refusals_do_not_call_executor(keys) -> None:
             "/v1/agent/run",
             json=_plan_request(),
             headers={"Authorization": f"Bearer {wrong_role}"},
+        ).status_code
+        == 403
+    )
+    missing_scope = _token(private, roles=("agent.run",), scope="openid")
+    assert (
+        client.post(
+            "/v1/agent/run",
+            json=_plan_request(),
+            headers={"Authorization": f"Bearer {missing_scope}"},
         ).status_code
         == 403
     )
