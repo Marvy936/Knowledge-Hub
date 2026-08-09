@@ -93,7 +93,7 @@ jobs:
             --subject-sha "$SUBJECT_SHA" \
             --sample-request labs/machine-learning/data/sample-request.json \
             --tracking-uri "$TRACKING_URI" \
-            --retraining-seed 20260806 \
+            --retraining-seed 20260805 \
             --output "$EVIDENCE"
 
       - name: Verify live retraining evidence before outer cleanup
@@ -114,6 +114,10 @@ jobs:
           assert evidence["monitoring"]["proposal_action"] == "approval_required"
           assert evidence["approval"]["forged_proposal_refused"] is True
           assert evidence["approval"]["authorized_action"] == "start_controlled_retraining"
+          assert evidence["baseline"]["dataset_rows"] == 1200
+          assert evidence["retraining"]["dataset_rows"] == 1201
+          assert evidence["retraining"]["training_seed"] == 20260805
+          assert evidence["retraining"]["snapshot_derivation"] == "baseline-plus-one-valid-row"
           assert evidence["baseline"]["registry_version"] != evidence["retraining"]["registry_version"]
           assert evidence["provider_readback"]["champion_alias_version"] == evidence["retraining"]["registry_version"]
           assert evidence["provider_readback"]["registry_verify_passed"] is True
