@@ -8,6 +8,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ConfigDict, field_validator
 
+from .agent_bridge import AgentBridgeError, AgentExecutor
 from .auth import (
     AuthenticationError,
     ForbiddenError,
@@ -33,6 +34,32 @@ RAG_RESULT_KEYS = {
     "trace_id",
     "latency_ms",
 }
+AGENT_PLAN_RESULT_KEYS = {
+    "status",
+    "incident_id",
+    "inspection_id",
+    "diagnostic_id",
+    "plan_id",
+    "disposition",
+    "action_digest",
+    "tool",
+    "target",
+    "policy_id",
+    "policy_generation",
+}
+AGENT_REMEDIATION_RESULT_KEYS = {
+    "status",
+    "plan_id",
+    "approval_id",
+    "operation_id",
+    "state_id",
+    "result_id",
+    "tool",
+    "target",
+    "output",
+    "policy_id",
+    "policy_generation",
+}
 
 
 class RagQueryRequest(BaseModel):
@@ -49,6 +76,62 @@ class RagQueryRequest(BaseModel):
         if len(resolved) > 2000:
             raise ValueError("query exceeds the 2000-character request bound")
         return resolved
+
+
+class AgentPlanRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    target: str
+    signal: str
+    operator_note: str
+    incident_generation: str
+
+    @field_validator("target", "incident_generation")
+    @classmethod
+    def validate_short_nonempty(cls, value: str) -> str:
+        resolved = value.strip()
+        if not resolved:
+            raise ValueError("value must be non-empty")
+        if len(resolved) > 128:
+            raise ValueError("value exceeds the 128-character request bound")
+        return resolved
+
+    @field_validator("signal")
+    @classmethod
+    def validate_signal(cls, value: str) -> str:
+        if value not in {"service_degraded", "service_healthy", "unknown"}:
+            raise ValueError("signal is unsupported")
+        return value
+
+    @field_validator("operator_note")
+    @classmethod
+    def validate_operator_note(cls, value: str) -> str:
+        resolved = value.strip()
+        if not resolved:
+            raise ValueError("operator_note must be non-empty")
+        if len(resolved) > 2000:
+            raise ValueError("operator_note exceeds the 2000-character request bound")
+        return resolved
+
+
+class AgentRemediateRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    plan_id: str
+    approval_id: str
+    recover_expected_state_id: str | None = None
+
+    @field_validator("plan_id", "approval_id")
+    @classmethod
+    def validate_required_digest(cls, value: str) -> str:
+        return _require_hex(value, length=64, field="agent request digest")
+
+    @field_validator("recover_expected_state_id")
+    @classmethod
+    def validate_optional_digest(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        return _require_hex(value, length=64, field="recover_expected_state_id")
 
 
 def _principal_json(principal: Principal) -> dict[str, object]:
@@ -132,12 +215,88 @@ def _validate_rag_result(
     return dict(result)
 
 
+def _validate_agent_plan_result(
+    result: Mapping[str, Any], *, executor: AgentExecutor
+) -> dict[str, Any]:
+    if not isinstance(result, Mapping) or set(result) != AGENT_PLAN_RESULT_KEYS:
+        raise ValueError("agent planning result keys mismatch")
+    if result.get("status") != "planned":
+        raise ValueError("agent planning result status must equal planned")
+    for field in ("incident_id", "inspection_id", "diagnostic_id", "plan_id", "policy_id"):
+        _require_hex(result.get(field), length=64, field=f"agent.{field}")
+    if result["policy_id"] != executor.policy_id:
+        raise ValueError("agent planning result belongs to another policy")
+    if result.get("policy_generation") != executor.policy_generation:
+        raise ValueError("agent planning result belongs to another policy generation")
+    target = result.get("target")
+    if not isinstance(target, str) or not target:
+        raise ValueError("agent planning result target is invalid")
+    disposition = result.get("disposition")
+    if disposition == "approval_required":
+        if result.get("tool") != "restart_service":
+            raise ValueError("approval-required agent plan must use restart_service")
+        _require_hex(result.get("action_digest"), length=64, field="agent.action_digest")
+    elif disposition in {"no_action", "abstained"}:
+        if result.get("tool") is not None or result.get("action_digest") is not None:
+            raise ValueError("non-mutating agent plan must not expose a mutation action")
+    else:
+        raise ValueError("agent planning disposition is unsupported")
+    return dict(result)
+
+
+def _validate_agent_remediation_result(
+    result: Mapping[str, Any], *, executor: AgentExecutor
+) -> dict[str, Any]:
+    if not isinstance(result, Mapping) or set(result) != AGENT_REMEDIATION_RESULT_KEYS:
+        raise ValueError("agent remediation result keys mismatch")
+    if result.get("status") not in {"completed", "already_completed", "recovered_completed"}:
+        raise ValueError("agent remediation result status is unsupported")
+    for field in (
+        "plan_id",
+        "approval_id",
+        "operation_id",
+        "state_id",
+        "result_id",
+        "policy_id",
+    ):
+        _require_hex(result.get(field), length=64, field=f"agent.{field}")
+    if result["policy_id"] != executor.policy_id:
+        raise ValueError("agent remediation result belongs to another policy")
+    if result.get("policy_generation") != executor.policy_generation:
+        raise ValueError("agent remediation result belongs to another policy generation")
+    if result.get("tool") != "restart_service":
+        raise ValueError("agent remediation result tool is unsupported")
+    if not isinstance(result.get("target"), str) or not result["target"]:
+        raise ValueError("agent remediation result target is invalid")
+    output = result.get("output")
+    if not isinstance(output, dict) or set(output) != {
+        "previous_generation",
+        "current_generation",
+        "status",
+    }:
+        raise ValueError("agent remediation output schema mismatch")
+    previous = output.get("previous_generation")
+    current = output.get("current_generation")
+    if (
+        isinstance(previous, bool)
+        or not isinstance(previous, int)
+        or previous < 1
+        or isinstance(current, bool)
+        or not isinstance(current, int)
+        or current != previous + 1
+        or output.get("status") != "healthy"
+    ):
+        raise ValueError("agent remediation output values are invalid")
+    return dict(result)
+
+
 def create_app(
     *,
     issuer: str | None = None,
     audience: str = "knowledge-hub-api",
     signing_keys: SigningKeyResolver | None = None,
     rag_executor: RagExecutor | None = None,
+    agent_executor: AgentExecutor | None = None,
 ) -> FastAPI:
     resolved_issuer = issuer or os.environ.get(
         "KEYCLOAK_ISSUER", "http://127.0.0.1:8080/realms/knowledge-hub"
@@ -200,6 +359,7 @@ def create_app(
         return {
             "status": "ok",
             "rag_backend": "configured" if rag_executor is not None else "not_configured",
+            "agent_backend": "configured" if agent_executor is not None else "not_configured",
         }
 
     @app.get("/readyz")
@@ -210,6 +370,16 @@ def create_app(
             "status": "ready",
             "prompt_release_id": rag_executor.prompt_release_id,
             "source_revision": rag_executor.source_revision,
+        }
+
+    @app.get("/readyz/agent")
+    def agent_readyz() -> dict[str, str]:
+        if agent_executor is None:
+            raise HTTPException(status_code=503, detail="bounded agent backend is not configured")
+        return {
+            "status": "ready",
+            "policy_id": agent_executor.policy_id,
+            "policy_generation": agent_executor.policy_generation,
         }
 
     @app.post("/v1/rag/query")
@@ -234,23 +404,54 @@ def create_app(
         }
 
     @app.post("/v1/agent/run")
-    def agent_run(principal: Principal = Depends(require("agent.run"))) -> dict[str, object]:
+    def agent_run(
+        request: AgentPlanRequest,
+        principal: Principal = Depends(require("agent.run")),
+    ) -> dict[str, object]:
+        if agent_executor is None:
+            raise HTTPException(status_code=503, detail="bounded agent backend is not configured")
+        try:
+            result = agent_executor.plan(
+                target=request.target,
+                signal=request.signal,
+                operator_note=request.operator_note,
+                incident_generation=request.incident_generation,
+            )
+            validated = _validate_agent_plan_result(result, executor=agent_executor)
+        except (AgentBridgeError, ValueError) as exc:
+            raise HTTPException(status_code=409, detail=f"agent planning refused: {exc}") from exc
+        except Exception as exc:
+            raise HTTPException(status_code=503, detail="agent planning backend failed") from exc
         return {
-            "status": "authorized",
+            "status": "completed",
             "action": "agent.run",
             "principal": _principal_json(principal),
-            "boundary": "authorization-only; agent execution is not performed by this endpoint",
+            "agent": validated,
         }
 
     @app.post("/v1/agent/remediate")
     def agent_remediate(
+        request: AgentRemediateRequest,
         principal: Principal = Depends(require("agent.remediate")),
     ) -> dict[str, object]:
+        if agent_executor is None:
+            raise HTTPException(status_code=503, detail="bounded agent backend is not configured")
+        try:
+            result = agent_executor.remediate(
+                plan_id=request.plan_id,
+                approval_id=request.approval_id,
+                recover_expected_state_id=request.recover_expected_state_id,
+            )
+            validated = _validate_agent_remediation_result(result, executor=agent_executor)
+        except (AgentBridgeError, ValueError) as exc:
+            raise HTTPException(status_code=409, detail=f"agent remediation refused: {exc}") from exc
+        except Exception as exc:
+            raise HTTPException(status_code=503, detail="agent remediation backend failed") from exc
         return {
-            "status": "authorized",
+            "status": "completed",
             "action": "agent.remediate",
             "principal": _principal_json(principal),
-            "boundary": "authorization-only; remediation is not performed by this endpoint",
+            "agent": validated,
         }
 
     return app
