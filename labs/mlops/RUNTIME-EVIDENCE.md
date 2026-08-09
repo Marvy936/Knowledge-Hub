@@ -2,129 +2,310 @@
 
 > **Evidence status: Pending**
 
-Tento dokument je authoritative runtime evidence summary pre praktický MLOps lifecycle. Stav `Pending` znamená, že source, contracts a tests sú pripravené, ale repository zatiaľ nemá úspešný authoritative post-merge GitHub run viazaný na aktuálny validation subject. Dokument sa nesmie interpretovať ako `Runtime verified`.
+Tento dokument je authoritative runtime-evidence contract pre celý Practical v1 MLOps lifecycle. Source implementácia už pokrýva promotion foundation, training lineage, MLflow Tracking/Registry a artifact read-back, immutable serving/canary/rollback, monitoring/drift, approval-gated controlled retraining a post-retraining deployment handoff. `Pending` znamená, že tieto vrstvy ešte nemajú jeden alebo viac exact authoritative runtime records potrebných na ich acceptance; source completeness sa nesmie interpretovať ako `Runtime verified`.
 
 ## Evidence layers
 
-MLOps flagship má dve odlišné vrstvy:
+MLOps runtime sa nesmie zredukovať na jediný zelený pytest job. Required proof je rozdelený na navzájom odlišné layers:
 
 ```text
-foundation evidence
-→ dataset snapshot, candidate, release, compare-before-promote a stale refusal
-
-registry evidence
-→ MLflow server, database metadata, artifact upload/read-back,
-  registered version, alias read-back, exact-version load a restart verification
+training + promotion identity
+→ Tracking/Registry + artifact read-back
+→ immutable serving subject
+→ live inference + canary/rollback
+→ monitoring + drift decision
+→ exact human approval
+→ controlled retraining + new Registry version
+→ post-retraining deployment/canary handoff
+→ cleanup/read-back
 ```
 
-Zelený výsledok jednej vrstvy automaticky nepreukazuje ďalšiu. Registry evidence tiež nepreukazuje serving, canary, rollback, drift alebo retraining.
+Úspech jednej vrstvy automaticky nepreukazuje ďalšiu.
 
 ## Authoritative execution subject
 
-Repository obsahuje dva oddelené runtime paths:
+Každý runtime record musí pinovať:
 
-- `.github/workflows/mlops-lab.yml` používa Linux X64 self-hosted runner pre foundation a Registry checks,
-- `.github/workflows/mlops-registry-hosted.yml` používa GitHub-hosted `ubuntu-latest` pre nezávislý Registry, artifact a restart round-trip.
+- exact Git SHA,
+- Python version,
+- resolved package versions,
+- runner/environment identity,
+- workflow/run alebo equivalent execution ID,
+- exact input artifact identities,
+- exact output identities,
+- cleanup/read-back result,
+- explicit proof boundary.
 
-Oba pull-request paths používajú trusted workflow z base vetvy, exact subject SHA, branch z rovnakého repozitára, `contents: read` a checkout bez persisted Git credentials. Disposable virtual environment a runtime state sú uložené pod `runner.temp`.
+Repository obsahuje MLOps-specific workflows aj spoločný `.github/workflows/practical-v1-core.yml`. Kým issue #151 nevytvára observable Actions runs, ich prítomnosť zostáva source contractom, nie runtime evidence.
 
-Každý push-only status publisher vykonáva samostatný no-checkout job s jedinou write permission `statuses: write`. Feature-branch kód preto nedostáva write token. Hosted workflow bol bootstrapnutý na `main`; tento dokumentačný merge je samostatný `labs/mlops/**` trigger, pri ktorom workflow už existuje v parent revision. Evidence zostáva `Pending`, kým connector-readable statusy nepotvrdia výsledok exact merge commit-u.
+## 1. Training lineage and promotion foundation
 
-## Required foundation evidence
-
-Gate musí preukázať:
-
-- dataset snapshot a SHA-256,
-- accepted candidate a canonical candidate ID,
-- release manifest a canonical release ID,
-- alias-state read-back,
-- source revision viazanú na exact execution subject,
-- refusal druhého promotionu s neaktuálnym `expected-current`,
-- absenciu `stale-release.json`,
-- cleanup virtual environmentu a runtime directory.
-
-Unit suite musí odmietnuť tampered candidate, neakceptovanú evaluation, invalid alias-state schema, workspace-dependent identity a nesprávny compare-before-promote subject.
-
-## Required Registry evidence
-
-Registry gate musí vykonať celý tento chain:
+Required chain:
 
 ```text
-trusted deterministic model.joblib
+Machine Learning training manifest
+→ exact dataset/model identities
+→ evaluation bundle
+→ accepted candidate
+→ compare-before-promote
+→ immutable release manifest
+→ alias-state mutation
+→ stale second promotion refusal
+```
+
+Evidence musí preukázať:
+
+- dataset SHA-256 a exact source/training subject,
+- packaged model SHA-256,
+- candidate ID nezávislý od workspace pathu,
+- evaluation odvodenú z exact ML training manifestu,
+- accepted status a canonical candidate ID,
+- release ID a exact model identity,
+- alias-state before/after read-back,
+- refusal stale `expected-current` promotionu,
+- neprítomnosť neautorizovaného `stale-release.json` alebo podobného partial artifactu.
+
+Forbidden matrix musí odmietnuť tampered candidate, neakceptovanú evaluation, mismatched training lineage, workspace-dependent identity a invalid alias-state schema.
+
+## 2. Tracking, Registry and artifact read-back
+
+Registry gate musí vykonať skutočný database-backed provider lifecycle:
+
+```text
+trusted deterministic model artifact
 → candidate digest verification pred deserializáciou
 → loopback MLflow Tracking Server
 → SQLite metadata backend
-→ oddelený proxied filesystem artifact destination
-→ run params, metrics, tags a candidate evidence
-→ logged model a registered model version
-→ model-version tags a alias mutation
-→ API read-back runu, version a aliasu
-→ source/model.joblib download cez tracking server
-→ SHA-256 porovnanie
+→ oddelený artifact destination
+→ run params/metrics/tags
+→ logged model
+→ registered model version
+→ model-version tags
+→ alias mutation
+→ API read-back
+→ artifact download cez tracking server
+→ SHA-256 parity
 → exact models:/<name>/<version> load
 → prediction parity
-→ MLflow server restart
-→ opakovaná exact-version verification
+→ server restart
+→ repeated exact-version read-back/load
 ```
 
-Authoritative evidence musí obsahovať:
+Required evidence:
 
-- exact merge commit,
-- workflow run alebo connector-readable status target,
 - Python a MLflow version,
+- backend/store locations v disposable runtime,
 - experiment ID, run ID a logged model ID,
 - registered model name a exact numeric version,
-- exact immutable Registry URI,
-- alias a version, na ktorú sa alias pri rune resolvoval,
-- candidate ID a source revision tags prečítané späť z runu aj model version,
-- pôvodný a stiahnutý model SHA-256,
-- registry evidence ID,
-- source a Registry prediction parity,
-- dôkaz, že SQLite database a artifact files existovali pred cleanupom,
-- dôkaz opakovanej verifikácie po reštarte servera,
-- cleanup read-back.
+- immutable Registry URI `models:/<name>/<version>`,
+- alias a resolved version pri danom rune,
+- candidate/source/model identity tags prečítané späť z runu aj model version,
+- original/downloaded model SHA-256,
+- source/Registry prediction parity,
+- evidence ID,
+- SQLite/artifact existence pred cleanupom,
+- repeated verification po MLflow server reštarte.
 
-## Required forbidden evidence
+Mutable alias URI nie je deployment identity. Runtime deployment subject musí pinovať exact numeric version a model digest.
 
-Runtime musí odmietnuť alebo odhaliť:
+## 3. Immutable serving subject and container evidence
 
-- source model bytes, ktoré nesedia s candidate digestom,
-- Registry evidence s alias URI namiesto exact numeric version URI,
-- model version s nesprávnym source runom,
-- chýbajúci alebo nesprávny candidate/source/model tag,
-- artifact download s odlišným SHA-256,
-- alias ukazujúci na inú version než zaznamenaný subject,
-- prediction mismatch medzi source artifactom a exact Registry version,
-- neplatný alebo dodatočne upravený registry evidence payload.
+Source-level Dockerfile/FastAPI contract nie je container runtime evidence. Serving gate musí preukázať:
 
-Mutable alias `models:/<name>@<alias>` je control-plane reference. Runtime evidence a budúci deployment subject musia pinovať `models:/<name>/<version>` a model digest.
+```text
+exact promoted model version
++ exact model digest
++ exact source revision
+→ image build
+→ immutable image identity/digest
+→ non-root container
+→ exact model artifact mount/read-back
+→ live inference request
+→ response identity validation
+```
+
+Required evidence:
+
+- image build subject a immutable digest/ID,
+- non-root UID/read-back,
+- exact deployed release/model/image IDs,
+- mounted model artifact SHA-256 alebo equivalent byte identity,
+- service liveness/readiness distinction,
+- strict request-schema refusal,
+- at least one real HTTP inference request,
+- response viazanú na deployment/release/model/image subject,
+- container stop/remove cleanup.
+
+Samotný Dockerfile source test ani loopback Uvicorn process mimo image nestačí na uzavretie containerized-serving gate-u.
+
+## 4. Canary and rollback evidence
+
+Canary gate musí preukázať dve samostatné generations a deterministic traffic routing:
+
+```text
+stable generation A
++ candidate generation B
+→ exact routing policy
+→ live HTTP request set
+→ per-generation evidence
+→ no_data | insufficient_evidence | healthy/failed decision
+→ promotion alebo exact rollback
+→ control-plane read-back
+```
+
+Required evidence:
+
+- deployment IDs oboch generations,
+- routing generation/policy ID,
+- deterministic request-to-generation mapping,
+- HTTP request/response evidence pre oba subjects,
+- metrics/counts viazané na exact generations,
+- explicitný `no_data` a `insufficient_evidence` behavior,
+- rollback decision viazaný na exact failed candidate/deployment subject,
+- post-rollback stable-state read-back.
+
+Canary success nesmie byť odvodený iba z toho, že oba procesy odpovedajú `200`.
+
+## 5. Monitoring and drift evidence
+
+Monitoring gate používa aggregate telemetry bez potreby raw request retention.
+
+Required evidence:
+
+- exact baseline subject,
+- exact monitoring-window subject,
+- numeric PSI,
+- categorical TVD,
+- prediction-rate delta,
+- latency a error evidence,
+- explicit states `stable`, `no_data`, `insufficient_evidence`, `operational_failure`, `drift_detected`,
+- deterministic control a shifted drift injection,
+- canonical drift-report identity.
+
+No-data alebo operational-failure stav sa nesmie reinterpretovať ako „model je zdravý“.
+
+## 6. Approval-gated controlled retraining
+
+Drift report sám o sebe nesmie spustiť mutation authority. Required chain:
+
+```text
+validated drift report
+→ canonical retraining proposal
+→ exact proposal ID
+→ separate human approval
+→ approval/proposal read-back
+→ operation ID
+→ read-before-retry
+→ training execution
+→ new candidate
+→ Registry write
+→ exact new model version
+→ compare-before-promote
+→ alias/promotion read-back
+```
+
+Required evidence:
+
+- before Registry version,
+- drift/report/proposal IDs,
+- exact approval subject a validity,
+- operation/checkpoint IDs,
+- no duplicate side effect pri replay/recovery,
+- new candidate/model digest,
+- after Registry version odlišnú od before version,
+- exact new immutable Registry URI,
+- promotion decision/read-back,
+- refusal tampered proposal/report/stale approval,
+- unknown-outcome handling pri nejednoznačnom Registry/provider result-e.
+
+Zelené isolated executor unit tests nie sú live provider retraining evidence; provider lifecycle musí reálne vytvoriť a prečítať novú Registry version.
+
+## 7. Post-retraining deployment handoff
+
+Finálny MLOps Practical v1 chain musí spojiť retraining output s deployment subjectom, nie iba dokázať vrstvy oddelene.
+
+Required identity chain:
+
+```text
+completed retraining operation
+→ promoted new Registry version
+→ exact live-tested image identity
+→ immutable deployment subject
+→ canary subject
+→ rollback/promote decision subject
+```
+
+Evidence musí potvrdiť, že:
+
+- deployment používa práve novú promoted Registry version,
+- deployment image identity je exact image použitá v serving runtime gate-e alebo immutable equivalent,
+- canary referencuje exact deployment ID,
+- rollback/promote rozhodnutie referencuje exact canary/deployment subject,
+- žiadny mutable alias sa nere-resolví ako runtime deployment identity.
+
+## Required failure and recovery evidence
+
+MLOps runtime musí fail-closed pokryť minimálne:
+
+- tampered source/model/candidate bytes,
+- wrong training lineage,
+- alias/version mismatch,
+- artifact checksum mismatch,
+- wrong model source run/tags,
+- prediction parity failure,
+- stale deployment/canary subject,
+- missing telemetry/no-data,
+- operational monitoring failure,
+- tampered drift report/proposal,
+- missing/stale approval,
+- provider unknown outcome,
+- recovery/replay bez duplicate Registry/promotion side effectu,
+- stale compare-before-promote subject.
 
 ## Cleanup evidence
 
-Cleanup step sa vykonáva s `always()` a musí ukončiť lokálny MLflow server, odstrániť:
+Cleanup sa musí vykonať aj po failure branchi a musí odstrániť/read-backnúť non-existence podľa použitého gate-u:
 
+- MLflow process/server,
 - SQLite database,
-- artifact destination,
-- downloaded artifacts,
-- generated Machine Learning dataset a model,
-- manifests a registry evidence,
-- virtual environment,
-- všetok disposable runtime state.
+- artifact destination/downloads,
+- generated dataset/model/candidate/release files,
+- monitoring/drift/retraining runtime,
+- serving containers/images, ak boli vytvorené ako disposable test artifacts,
+- canary runtime processes/state,
+- virtual environment alebo runner-temp dependency surface, ak je súčasťou contractu,
+- všetok disposable `.runtime` state.
 
-Evidence je uzavreté až po explicitnom read-backu, že runtime a virtual-environment paths neexistujú.
+Tracked worktree nesmie byť po cleanup-e zmenený a nový runtime artifact nesmie zostať v repository checkout-e.
+
+## Evidence record
+
+Finálny MLOps closeout môže byť jeden chained run alebo viac immutable runov, ak sú ich identities explicitne prepojené. Súhrnný record musí uviesť:
+
+- exact Git SHA(s),
+- workflow/run/job IDs,
+- resolved dependency/provider versions,
+- training/candidate/release identities,
+- Registry run/model/version/artifact identities,
+- serving image/deployment identities,
+- canary/rollback subjects,
+- monitoring/drift/proposal/approval identities,
+- retraining operation a before/after Registry versions,
+- post-retraining deployment chain,
+- cleanup read-back,
+- explicit proof boundary.
 
 ## Proof boundary
 
-Úspešný registry run preukáže database-backed lokálny Registry, oddelený artifact store, API lineage read-back, exact model version, artifact byte integrity, prediction parity a persistenciu po reštarte servera v rovnakom resolved runtime.
+Úspešný Practical v1 MLOps evidence set preukáže bounded local/hosted lifecycle od exact ML artifactu cez Registry, immutable serving, canary/rollback, drift a approval-gated retraining až po deployment handoff pre novú model version.
 
-Nepreukáže:
+Nepreukáže automaticky:
 
-- fresh dependency reconstruction na inom operačnom systéme,
-- containerized serving alebo image digest,
-- canary traffic a rollback,
-- production metrics alebo no-data handling,
-- drift a controlled retraining,
-- vzdialený artifact object store,
-- multi-user authentication a authorization,
-- HA, backup/restore alebo disaster recovery,
-- production readiness alebo business outcome.
+- production Kubernetes/cloud ingress alebo autoscaling,
+- remote object-store durability,
+- multi-user MLflow auth/authorization,
+- HA/backup/restore/disaster recovery,
+- production business KPI impact,
+- production readiness.
+
+Kým required evidence records neexistujú, stav zostáva `Pending`.
