@@ -1,4 +1,4 @@
-name: Temporary fix Keycloak promoted RAG builder
+name: Temporary fix Keycloak promoted RAG builder v2
 
 on:
   pull_request:
