@@ -40,8 +40,8 @@ jobs:
       PYTHONHASHSEED: "0"
       PYTHONDONTWRITEBYTECODE: "1"
       SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      VENV_DIR: "${{ runner.temp }}/knowledge-hub-keycloak-runtime-venv"
-      EVIDENCE: "${{ runner.temp }}/knowledge-hub-keycloak-live-identity-evidence.json"
+      VENV_DIR: "${{ github.workspace }}/../knowledge-hub-keycloak-runtime-venv"
+      EVIDENCE: "${{ github.workspace }}/../knowledge-hub-keycloak-live-identity-evidence.json"
       API_PORT: "18091"
 
     steps:
