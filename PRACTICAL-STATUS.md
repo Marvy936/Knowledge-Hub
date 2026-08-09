@@ -29,7 +29,7 @@ Stavy sa nededia automaticky. `Runtime verified` nie je production readiness a `
 | Knowledge Hub LLM/RAG eval, security a observability | Áno | Áno — exact implementation/corpus revision, bounded-context extractive adapter, direct/indirect injection gates, slice-based hard evals, prompt/config release, trace counters a bounded cleanup | Nie — PR #171 source/test inventory bez central Actions runu; blocker #151 | Nie | [`labs/llm-rag/EVAL-SECURITY-OBSERVABILITY.md`](labs/llm-rag/EVAL-SECURITY-OBSERVABILITY.md) |
 | Keycloak-secured AI API | Áno | Áno na source úrovni — reproducible realm import, PKCE a Client Credentials contracts, exact issuer/audience/access-token/scope/azp/client-role validation, promoted RAG adapter, protected agent routes a optional promoted-RAG `knowledge_query` path do bounded agenta | Nie — bez authoritative live Keycloak end-to-end runu a kvôli Actions blockeru #151 | Nie | [`labs/keycloak-ai-api/README.md`](labs/keycloak-ai-api/README.md), [`labs/keycloak-ai-api/BOUNDED-AGENT-INTEGRATION.md`](labs/keycloak-ai-api/BOUNDED-AGENT-INTEGRATION.md) |
 | Bounded incident/operations agent | Áno | Áno na source úrovni — durable workflow state, typed local inspection/restart tool, exact time-bounded action approval, one-mutation budget, bounded control-plane tool wait, idempotency/read-before-retry, hardened unknown-outcome handling, sandbox/allowlist/kill switch, promoted retrieval-context/injection boundary, strict typed tool-result boundary a deterministic hard eval pre trajectory/tool-selection/policy/completion/business outcome | Nie — PR #179 je source-merged ako `eff39d9d10110a5eb7fb30f0ae8c5ee3dddedc63`, ale corrected PR head aj merge commit nemajú Actions run/status; #151 a clean-checkout combined evidence zostávajú otvorené | Nie | [`labs/agent-ops/README.md`](labs/agent-ops/README.md), [`labs/agent-ops/RETRIEVAL-INJECTION-EVALUATION.md`](labs/agent-ops/RETRIEVAL-INJECTION-EVALUATION.md) |
-| Unified Practical v1 runner/evidence | Áno v roadmap-e | Čiastočne — lab index, status ledger a MLOps unified runner | Nie | Nie | Required for Practical v1 closeout |
+| Unified Practical v1 runner/evidence | Áno | Čiastočne na source úrovni — lab index, status ledger, MLOps unified runner, offline/core orchestrátor, repository-integrity validator, permanentná five-package CI matrix, root quick start a `PRACTICAL-V1-EVIDENCE.md` foundation | Nie — source surface ešte nemá executed central run; #151 | Nie | [`PRACTICAL-V1-EVIDENCE.md`](PRACTICAL-V1-EVIDENCE.md), [`README.md`](README.md), `scripts/practical_v1_core.py`, `.github/workflows/practical-v1-core.yml` |
 
 ## MLOps implementačné subjects
 
@@ -83,6 +83,19 @@ PR #179 uzatvára source-level retrieval/injection a evaluation medzeru. Retriev
 Source-level bounded-agent Practical v1 lifecycle je tým implementovaný. Otvorený zostáva central clean-checkout runtime evidence, live Keycloak + promoted RAG + agent execution path a user acceptance. External cryptographic approver identity, distributed locking, production credentials, hard remote cancellation a remote provider idempotency zostávajú mimo local Practical v1 reference implementation.
 
 PR #177 zároveň doplnil scope gate, ktorý bol v realm confige pripravený cez default client scope `knowledge-hub-api-access`, ale resource server ho predtým iba parsoval. Scope je teraz samostatná authorization podmienka vedľa `azp` a client role. Central pytest/CI alebo live Keycloak run sa neclaimuje, pretože issue #151 zostáva otvorený.
+
+## Practical v1 release-surface subjects
+
+Aktuálny source-level release surface je tvorený:
+
+- `scripts/practical_v1_core.py` — exact-order offline/core orchestrátor s clean tracked-worktree preflightom, fail-fast stage execution a canonical evidence ID,
+- `scripts/validate_practical_v1_repo.py` — repository integrity pre tracked Markdown internal links, `labs/**/*.json`, five-package imports a zakázané tracked runtime/model artifacts,
+- `scripts/tests/test_practical_v1_tools.py` — meta-contracty release tooling-u vrátane zero-stage refusal, stage order/cleanup a workroot boundary,
+- `.github/workflows/practical-v1-core.yml` — SHA-pinned standalone five-package matrix, combined RAG/agent/Keycloak job a all-five-package offline orchestrator job,
+- root `README.md` — podporovaný Python 3.12 clean-checkout quick start a cleanup/read-back semantics,
+- `PRACTICAL-V1-EVIDENCE.md` — súhrnný evidence ledger s existujúcim verified ML subjectom a explicitne pending ostatnými flagship/runtime gates.
+
+Tento blok implementuje source contract pre roadmap položky „jeden orchestrátor“, „permanent CI matrix“, repository integrity a súhrnný evidence document. Roadmap hard checkboxes zostávajú otvorené, kým exact source neprejde executed gate-om a evidence sa nezapíše proti skutočnému runu. Issue #151 preto stále oddeľuje `Implemented` od `Runtime verified`.
 
 ## Dokumentačné sekcie a praktický stav
 
