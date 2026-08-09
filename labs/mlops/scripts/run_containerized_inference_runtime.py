@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import stat
 import subprocess
 import sys
 import time
@@ -52,6 +53,14 @@ def _sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
 
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def _require_subject_sha(value: str) -> str:
     text = value.strip()
     if len(text) != 40 or any(character not in "0123456789abcdef" for character in text):
@@ -76,13 +85,12 @@ def _run(
     *,
     cwd: Path,
     check: bool = True,
-    capture_output: bool = True,
 ) -> subprocess.CompletedProcess[str]:
     result = subprocess.run(
         list(command),
         cwd=cwd,
         check=False,
-        capture_output=capture_output,
+        capture_output=True,
         text=True,
     )
     if check and result.returncode != 0:
@@ -96,12 +104,14 @@ def _run(
 
 
 def _docker_exists(repo_root: Path, kind: str, subject: str) -> bool:
-    result = _run(
-        ["docker", kind, "inspect", subject],
-        cwd=repo_root,
-        check=False,
+    return (
+        _run(
+            ["docker", kind, "inspect", subject],
+            cwd=repo_root,
+            check=False,
+        ).returncode
+        == 0
     )
-    return result.returncode == 0
 
 
 def _http_json(
@@ -142,7 +152,7 @@ def _wait_ready(base_url: str, timeout_seconds: int) -> dict[str, Any]:
             if status == 200:
                 return value
             last_error = f"HTTP {status}: {value}"
-        except Exception as exc:  # bounded startup polling; final failure is explicit
+        except Exception as exc:  # bounded polling; final failure is explicit
             last_error = f"{type(exc).__name__}: {exc}"
         time.sleep(1)
     raise RuntimeGateError(f"serving container did not become ready: {last_error}")
@@ -167,28 +177,47 @@ def _require_runtime_inputs(runtime_dir: Path, subject_sha: str) -> dict[str, An
         raise RuntimeGateError("artifact source revision does not match runtime subject")
     if candidate.get("candidate_id") != registry.get("candidate_id"):
         raise RuntimeGateError("candidate and Registry evidence refer to different candidates")
-    if candidate.get("model", {}).get("sha256") != registry.get("artifact_readback", {}).get(
-        "downloaded_sha256"
-    ):
+    model_sha256 = candidate.get("model", {}).get("sha256")
+    if model_sha256 != registry.get("artifact_readback", {}).get("downloaded_sha256"):
         raise RuntimeGateError("candidate model digest does not match Registry artifact read-back")
+    if artifact_manifest.get("model_sha256") != model_sha256:
+        raise RuntimeGateError("artifact manifest model digest does not match candidate")
     if not model_path.is_file():
         raise RuntimeGateError("trained model artifact is missing")
+    if _sha256_file(model_path) != model_sha256:
+        raise RuntimeGateError("trained model bytes do not match candidate digest")
 
     return {
         "candidate": candidate,
         "registry": registry,
         "artifact_manifest": artifact_manifest,
-        "candidate_path": candidate_path,
-        "registry_path": registry_path,
+        "artifact_manifest_path": artifact_manifest_path,
+        "model_path": model_path,
         "artifact_dir": artifact_manifest_path.parent,
     }
 
 
-def _validate_ready(
-    value: Mapping[str, Any],
+def _prepare_readonly_mounts(
     *,
-    deployment: Mapping[str, Any],
-) -> None:
+    deployment_path: Path,
+    artifact_manifest_path: Path,
+    model_path: Path,
+    expected_model_sha256: str,
+) -> dict[str, str]:
+    for path in (deployment_path, artifact_manifest_path, model_path):
+        if not path.is_file() or path.is_symlink():
+            raise RuntimeGateError(f"serving mount must be a regular non-symlink file: {path}")
+        path.chmod(0o444)
+    if _sha256_file(model_path) != expected_model_sha256:
+        raise RuntimeGateError("model digest changed while preparing read-only serving mount")
+    return {
+        "deployment": oct(stat.S_IMODE(deployment_path.stat().st_mode)),
+        "manifest": oct(stat.S_IMODE(artifact_manifest_path.stat().st_mode)),
+        "model": oct(stat.S_IMODE(model_path.stat().st_mode)),
+    }
+
+
+def _validate_ready(value: Mapping[str, Any], *, deployment: Mapping[str, Any]) -> None:
     expected = {
         "status": "ready",
         "service_name": deployment["service_name"],
@@ -203,11 +232,7 @@ def _validate_ready(
         raise RuntimeGateError("readiness response does not match exact deployment subject")
 
 
-def _validate_prediction(
-    value: Mapping[str, Any],
-    *,
-    deployment: Mapping[str, Any],
-) -> None:
+def _validate_prediction(value: Mapping[str, Any], *, deployment: Mapping[str, Any]) -> None:
     expected_identity = {
         "service_name": deployment["service_name"],
         "deployment_id": deployment["deployment_id"],
@@ -262,6 +287,9 @@ def _negative_wrong_digest_refusal(
         cwd=repo_root,
     )
     container_id = result.stdout.strip()
+    if not container_id:
+        raise RuntimeGateError("wrong-digest docker run did not return a container ID")
+
     deadline = time.monotonic() + timeout_seconds
     exit_code: int | None = None
     while time.monotonic() < deadline:
@@ -273,9 +301,9 @@ def _negative_wrong_digest_refusal(
             exit_code = int(inspect[1])
             break
         time.sleep(1)
-    logs = _run(["docker", "logs", container_id], cwd=repo_root, check=False).stdout or ""
-    stderr_logs = _run(["docker", "logs", container_id], cwd=repo_root, check=False).stderr or ""
-    combined_logs = logs + stderr_logs
+
+    log_result = _run(["docker", "logs", container_id], cwd=repo_root, check=False)
+    combined_logs = (log_result.stdout or "") + (log_result.stderr or "")
     if exit_code is None or exit_code == 0:
         raise RuntimeGateError("wrong-image-digest container did not fail startup")
     if "runtime image digest does not match deployment subject" not in combined_logs:
@@ -313,6 +341,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     inputs = _require_runtime_inputs(runtime_dir, subject_sha)
     candidate = inputs["candidate"]
     registry = inputs["registry"]
+    artifact_manifest_path = Path(inputs["artifact_manifest_path"]).resolve(strict=True)
+    model_path = Path(inputs["model_path"]).resolve(strict=True)
     artifact_dir = Path(inputs["artifact_dir"]).resolve(strict=True)
 
     release, _ = promote_candidate(
@@ -363,6 +393,12 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         )
         validate_deployment_manifest(deployment)
         atomic_write_json(deployment_path, deployment)
+        mount_modes = _prepare_readonly_mounts(
+            deployment_path=deployment_path,
+            artifact_manifest_path=artifact_manifest_path,
+            model_path=model_path,
+            expected_model_sha256=deployment["model"]["sha256"],
+        )
 
         run_result = _run(
             [
@@ -391,7 +427,10 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         ready = _wait_ready(base_url, args.startup_timeout_seconds)
         _validate_ready(ready, deployment=deployment)
 
-        uid = _run(["docker", "exec", positive_container_id, "id", "-u"], cwd=repo_root).stdout.strip()
+        uid = _run(
+            ["docker", "exec", positive_container_id, "id", "-u"],
+            cwd=repo_root,
+        ).stdout.strip()
         if uid != "10001":
             raise RuntimeGateError(f"serving container UID must equal 10001, got {uid!r}")
 
@@ -448,6 +487,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "docker_image_id": image_id,
             "deployment_id": deployment["deployment_id"],
             "container_uid": uid,
+            "mount_file_modes": mount_modes,
             "health_status": health["status"],
             "ready_deployment_id": ready["deployment_id"],
             "prediction": {
