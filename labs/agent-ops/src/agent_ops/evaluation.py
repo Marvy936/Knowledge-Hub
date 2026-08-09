@@ -313,7 +313,7 @@ def evaluate_case(case: Mapping[str, Any]) -> dict[str, Any]:
     payload = {
         "case_id": case["case_id"],
         "plan_id": plan["plan_id"],
-        "retrieval_context_id": plan["retrieval_context_id"],
+        "retrieval_context_id": plan.get("retrieval_context_id"),
         "operation_id": operation_id,
         "result_id": result_id,
         "observed_disposition": plan["disposition"],
