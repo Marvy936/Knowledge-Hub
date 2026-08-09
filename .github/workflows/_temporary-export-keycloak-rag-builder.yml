@@ -1,4 +1,4 @@
-name: Temporary export Keycloak RAG builder
+name: Temporary export Keycloak RAG builder v2
 
 on:
   pull_request:
