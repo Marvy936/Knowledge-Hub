@@ -5,6 +5,7 @@ import csv
 import hashlib
 import json
 import os
+import re
 import socket
 import subprocess
 import sys
@@ -31,6 +32,9 @@ from mlops_lab.serving import build_deployment_manifest, validate_deployment_man
 
 class LiveRetrainingError(RuntimeError):
     pass
+
+
+CUSTOMER_ID_RE = re.compile(r"^cust-(\d{6})$")
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -258,12 +262,26 @@ def _build_retraining_snapshot(baseline: Path, output: Path) -> tuple[int, int, 
         rows = list(reader)
     if not rows:
         raise LiveRetrainingError("baseline dataset is empty")
-    try:
-        max_customer_id = max(int(row["customer_id"]) for row in rows)
-    except (KeyError, TypeError, ValueError) as exc:
-        raise LiveRetrainingError("baseline customer_id values must be integers") from exc
+
+    customer_ids: list[str] = []
+    numeric_ids: list[int] = []
+    for row in rows:
+        value = row.get("customer_id")
+        if not isinstance(value, str):
+            raise LiveRetrainingError("baseline customer_id values must use cust-<6 digits>")
+        match = CUSTOMER_ID_RE.fullmatch(value)
+        if match is None:
+            raise LiveRetrainingError("baseline customer_id values must use cust-<6 digits>")
+        customer_ids.append(value)
+        numeric_ids.append(int(match.group(1), 10))
+    if len(set(customer_ids)) != len(customer_ids):
+        raise LiveRetrainingError("baseline customer_id values must be unique")
+
+    next_customer_id = max(numeric_ids) + 1
+    if next_customer_id > 999999:
+        raise LiveRetrainingError("baseline customer_id namespace is exhausted")
     appended = dict(rows[0])
-    appended["customer_id"] = str(max_customer_id + 1)
+    appended["customer_id"] = f"cust-{next_customer_id:06d}"
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("x", encoding="utf-8", newline="") as target:
         writer = csv.DictWriter(target, fieldnames=fieldnames, lineterminator="\n")
