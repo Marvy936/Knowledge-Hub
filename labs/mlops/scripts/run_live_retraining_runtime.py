@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import os
@@ -134,9 +135,7 @@ def _wait_mlflow(tracking_uri: str, process: subprocess.Popen[str], timeout: int
 
 
 def _start_mlflow(
-    *,
-    runtime_dir: Path,
-    tracking_uri: str,
+    *, runtime_dir: Path, tracking_uri: str
 ) -> tuple[subprocess.Popen[str], Any, Path]:
     host, port = _tracking_endpoint(tracking_uri)
     _require_port_unused(host, port)
@@ -246,10 +245,36 @@ def _write_jsonl(path: Path, values: Sequence[Mapping[str, Any]]) -> None:
             handle.write(json.dumps(item, sort_keys=True, separators=(",", ":")) + "\n")
 
 
+def _build_retraining_snapshot(baseline: Path, output: Path) -> tuple[int, int, str]:
+    if not baseline.is_file() or baseline.is_symlink():
+        raise LiveRetrainingError("baseline retraining source must be a regular file")
+    if output.exists() or output.is_symlink():
+        raise LiveRetrainingError("retraining snapshot output must be fresh")
+    with baseline.open("r", encoding="utf-8", newline="") as source:
+        reader = csv.DictReader(source)
+        fieldnames = reader.fieldnames
+        if not fieldnames or "customer_id" not in fieldnames:
+            raise LiveRetrainingError("baseline dataset does not expose customer_id")
+        rows = list(reader)
+    if not rows:
+        raise LiveRetrainingError("baseline dataset is empty")
+    try:
+        max_customer_id = max(int(row["customer_id"]) for row in rows)
+    except (KeyError, TypeError, ValueError) as exc:
+        raise LiveRetrainingError("baseline customer_id values must be integers") from exc
+    appended = dict(rows[0])
+    appended["customer_id"] = str(max_customer_id + 1)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("x", encoding="utf-8", newline="") as target:
+        writer = csv.DictWriter(target, fieldnames=fieldnames, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+        writer.writerow(appended)
+    return len(rows), len(rows) + 1, sha256_file(output)
+
+
 def _baseline_subjects(
-    *,
-    runtime_dir: Path,
-    subject_sha: str,
+    *, runtime_dir: Path, subject_sha: str
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any], dict[str, Any]]:
     candidate = read_json(runtime_dir / "ml" / "candidate.json")
     registry = read_json(runtime_dir / "registry-evidence.json")
@@ -429,25 +454,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     if approval_summary.get("retraining_approval_id") != approval.get("retraining_approval_id"):
         raise LiveRetrainingError("approval CLI summary does not match approval artifact")
 
+    baseline_dataset = runtime_dir / "ml" / "customers.csv"
+    if sha256_file(baseline_dataset) != candidate["dataset"]["sha256"]:
+        raise LiveRetrainingError("baseline dataset bytes do not match candidate")
     retraining_dataset = live_root / "retraining.csv"
-    _run(
-        [
-            sys.executable,
-            "-m",
-            "ml_lab",
-            "generate-data",
-            "--output",
-            str(retraining_dataset),
-            "--rows",
-            "1200",
-            "--seed",
-            str(args.retraining_seed),
-        ],
-        cwd=repo_root,
+    baseline_rows, retraining_rows, retraining_dataset_sha = _build_retraining_snapshot(
+        baseline_dataset,
+        retraining_dataset,
     )
-    baseline_dataset_sha = candidate["dataset"]["sha256"]
-    retraining_dataset_sha = sha256_file(retraining_dataset)
-    if retraining_dataset_sha == baseline_dataset_sha:
+    if retraining_dataset_sha == candidate["dataset"]["sha256"]:
         raise LiveRetrainingError("retraining dataset is not a new snapshot")
 
     server: subprocess.Popen[str] | None = None
@@ -602,7 +617,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "baseline": {
                 "candidate_id": candidate["candidate_id"],
                 "model_sha256": candidate["model"]["sha256"],
-                "dataset_sha256": baseline_dataset_sha,
+                "dataset_sha256": candidate["dataset"]["sha256"],
+                "dataset_rows": baseline_rows,
                 "registry_evidence_id": registry["registry_evidence_id"],
                 "registry_version": before_version,
                 "registry_exact_uri": registry["registry"]["exact_uri"],
@@ -635,7 +651,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "phase": state["phase"],
                 "attempt": state["attempt"],
                 "dataset_sha256": retraining_dataset_sha,
-                "dataset_seed": args.retraining_seed,
+                "dataset_rows": retraining_rows,
+                "snapshot_derivation": "baseline-plus-one-valid-row",
+                "training_seed": args.retraining_seed,
                 "candidate_id": state["artifacts"]["candidate_id"],
                 "model_sha256": state["artifacts"]["model_sha256"],
                 "registry_evidence_id": state["artifacts"]["registry_evidence_id"],
@@ -659,6 +677,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             },
             "proof_boundary": {
                 "monitoring_events": "deterministic-synthetic",
+                "retraining_dataset": "deterministic-synthetic-snapshot",
                 "registry_provider": "live-local-mlflow",
                 "training": "live-machine-learning-flagship",
                 "current_deployment_image_runtime_verified": False,
