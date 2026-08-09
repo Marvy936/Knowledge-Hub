@@ -37,12 +37,12 @@ Authoritative ML runtime evidence už existuje a nie je odvodené iba zo source 
 Recorded subject podľa ML evidence dokumentu:
 
 ```text
-workflow:        Knowledge documentation
-workflow run:    1998
-GitHub run ID:   31037119011
-job ID:          92411983199
-runner:          self-hosted MARVY
-Python:          3.12.13
+workflow:         Knowledge documentation
+workflow run:     1998
+GitHub run ID:    31037119011
+job ID:           92411983199
+runner:           self-hosted MARVY
+Python:           3.12.13
 feature revision: 6b325080307c594ff74c1ca97273e6bb15431967
 PR merge subject: 0e434e9cfa68173f3e3b76a61b93d08201474c81
 inventory closeout: 07cfe2a883b901b40e7e0d266a00ff9a3fd12d4f
@@ -59,7 +59,7 @@ Plný dependency resolution, metrics, leakage refusal, strict inference a cleanu
 
 ## Practical v1 core runner evidence contract
 
-`script/practical_v1_core.py` nevytvára nový ML/RAG/agent algoritmus. Orchestruje existujúce authoritative contracts v exact poradí:
+`scripts/practical_v1_core.py` nevytvára nový ML/RAG/agent algoritmus. Orchestruje existujúce authoritative contracts v exact poradí:
 
 ```text
 compileall
@@ -72,8 +72,6 @@ compileall
 → deterministic agent hard evaluation
 → disposable workroot cleanup
 ```
-
-Poznámka: authoritative path je `scripts/practical_v1_core.py`; názov `script/` vyššie je iba opis komponentu, nie filesystem path.
 
 Successful core evidence musí obsahovať:
 
