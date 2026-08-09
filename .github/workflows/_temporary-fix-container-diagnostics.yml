@@ -1,4 +1,4 @@
-name: Temporary fix container startup diagnostics
+name: Temporary fix container startup diagnostics v2
 
 on:
   pull_request:
