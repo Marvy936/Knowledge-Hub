@@ -45,7 +45,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--subject-sha", required=True)
     parser.add_argument("--sample-request", type=Path, required=True)
     parser.add_argument("--tracking-uri", default="http://127.0.0.1:5057")
-    parser.add_argument("--retraining-seed", type=int, default=20260806)
+    parser.add_argument("--retraining-seed", type=int, default=20260805)
     parser.add_argument("--output", type=Path, required=True)
     return parser
 
