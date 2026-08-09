@@ -12,20 +12,21 @@ from agent_ops.planning import (
     build_incident,
     plan_incident_action,
 )
+from agent_ops.tools import LocalServiceStateAdapter
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Build deterministic incident, diagnostic, policy and bounded action-plan artifacts."
+        description="Build deterministic incident, inspection, diagnostic, policy and bounded action-plan artifacts."
     )
     parser.add_argument("--target", required=True)
     parser.add_argument("--signal", required=True)
     parser.add_argument("--operator-note", required=True)
-    parser.add_argument("--service-generation", type=int, required=True)
-    parser.add_argument("--service-status", required=True)
     parser.add_argument("--incident-generation", required=True)
     parser.add_argument("--policy-generation", required=True)
     parser.add_argument("--allowed-target", action="append", required=True)
+    parser.add_argument("--tool-state", type=Path, required=True)
+    parser.add_argument("--inspection-output", type=Path, required=True)
     parser.add_argument("--incident-output", type=Path, required=True)
     parser.add_argument("--diagnostic-output", type=Path, required=True)
     parser.add_argument("--policy-output", type=Path, required=True)
@@ -36,6 +37,7 @@ def _parser() -> argparse.ArgumentParser:
 def main() -> int:
     args = _parser().parse_args()
     outputs = [
+        args.inspection_output,
         args.incident_output,
         args.diagnostic_output,
         args.policy_output,
@@ -61,10 +63,10 @@ def main() -> int:
             signal=args.signal,
             operator_note=args.operator_note,
         )
+        inspection = dict(LocalServiceStateAdapter(args.tool_state).inspect(args.target))
         diagnostic = build_diagnostic_snapshot(
             incident=incident,
-            service_generation=args.service_generation,
-            service_status=args.service_status,
+            inspection=inspection,
         )
         plan = plan_incident_action(
             incident=incident,
@@ -73,6 +75,7 @@ def main() -> int:
         )
         atomic_write_json(args.policy_output, policy)
         atomic_write_json(args.incident_output, incident)
+        atomic_write_json(args.inspection_output, inspection)
         atomic_write_json(args.diagnostic_output, diagnostic)
         atomic_write_json(args.plan_output, plan)
     except AgentContractError as exc:
@@ -84,6 +87,7 @@ def main() -> int:
             {
                 "status": "planned",
                 "incident_id": incident["incident_id"],
+                "inspection_id": inspection["inspection_id"],
                 "diagnostic_id": diagnostic["diagnostic_id"],
                 "policy_id": policy["policy_id"],
                 "plan_id": plan["plan_id"],
