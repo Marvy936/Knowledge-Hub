@@ -35,7 +35,7 @@ RAG_RESULT_KEYS = {
     "trace_id",
     "latency_ms",
 }
-AGENT_PLAN_RESULT_KEYS = {
+AGENT_PLAN_BASE_KEYS = {
     "status",
     "incident_id",
     "inspection_id",
@@ -86,6 +86,7 @@ class AgentPlanRequest(BaseModel):
     signal: str
     operator_note: str
     incident_generation: str
+    knowledge_query: str | None = None
 
     @field_validator("target", "incident_generation")
     @classmethod
@@ -112,6 +113,18 @@ class AgentPlanRequest(BaseModel):
             raise ValueError("operator_note must be non-empty")
         if len(resolved) > 2000:
             raise ValueError("operator_note exceeds the 2000-character request bound")
+        return resolved
+
+    @field_validator("knowledge_query")
+    @classmethod
+    def validate_knowledge_query(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        resolved = value.strip()
+        if not resolved:
+            raise ValueError("knowledge_query must be non-empty when provided")
+        if len(resolved) > 2000:
+            raise ValueError("knowledge_query exceeds the 2000-character request bound")
         return resolved
 
 
@@ -209,15 +222,49 @@ def _validate_rag_result(
     return dict(result)
 
 
+def _rag_result_to_agent_context(result: Mapping[str, Any]) -> dict[str, Any]:
+    chunk_ids: list[str] = []
+    for citation in result["citations"]:
+        if "chunk_id" not in citation:
+            raise ValueError("agent knowledge context requires chunk_id on every citation")
+        chunk_ids.append(
+            _require_hex(citation["chunk_id"], length=64, field="citation.chunk_id")
+        )
+    if len(chunk_ids) != len(set(chunk_ids)):
+        raise ValueError("agent knowledge context contains duplicate chunk citations")
+    return {
+        "status": result["status"],
+        "prompt_release_id": result["prompt_release_id"],
+        "source_revision": result["source_revision"],
+        "answer_id": result["answer_id"],
+        "trace_id": result["trace_id"],
+        "chunk_ids": chunk_ids,
+        "text": result["answer"],
+        "abstention_reason": result["abstention_reason"],
+    }
+
+
 def _validate_agent_plan_result(
     result: Mapping[str, Any], *, executor: AgentExecutor
 ) -> dict[str, Any]:
-    if not isinstance(result, Mapping) or set(result) != AGENT_PLAN_RESULT_KEYS:
+    if not isinstance(result, Mapping):
+        raise ValueError("agent planning result must be an object")
+    keys = set(result)
+    if keys not in {
+        frozenset(AGENT_PLAN_BASE_KEYS),
+        frozenset(AGENT_PLAN_BASE_KEYS | {"retrieval_context_id"}),
+    }:
         raise ValueError("agent planning result keys mismatch")
     if result.get("status") != "planned":
         raise ValueError("agent planning result status must equal planned")
     for field in ("incident_id", "inspection_id", "diagnostic_id", "plan_id", "policy_id"):
         _require_hex(result.get(field), length=64, field=f"agent.{field}")
+    if "retrieval_context_id" in result and result.get("retrieval_context_id") is not None:
+        _require_hex(
+            result.get("retrieval_context_id"),
+            length=64,
+            field="agent.retrieval_context_id",
+        )
     if result["policy_id"] != executor.policy_id:
         raise ValueError("agent planning result belongs to another policy")
     if result.get("policy_generation") != executor.policy_generation:
@@ -410,13 +457,45 @@ def create_app(
     ) -> dict[str, object]:
         if agent_executor is None:
             raise HTTPException(status_code=503, detail="bounded agent backend is not configured")
+
+        retrieval_context: dict[str, Any] | None = None
+        if request.knowledge_query is not None:
+            if rag_executor is None:
+                raise HTTPException(
+                    status_code=503,
+                    detail="promoted RAG backend is required for knowledge_query",
+                )
+            try:
+                rag_result = rag_executor.query(request.knowledge_query)
+                validated_rag = _validate_rag_result(rag_result, executor=rag_executor)
+                retrieval_context = _rag_result_to_agent_context(validated_rag)
+            except (RagBridgeError, ValueError) as exc:
+                raise HTTPException(
+                    status_code=503,
+                    detail=f"agent knowledge retrieval refused: {exc}",
+                ) from exc
+            except Exception as exc:
+                raise HTTPException(
+                    status_code=503,
+                    detail="agent knowledge retrieval failed",
+                ) from exc
+
         try:
-            result = agent_executor.plan(
-                target=request.target,
-                signal=request.signal,
-                operator_note=request.operator_note,
-                incident_generation=request.incident_generation,
-            )
+            if retrieval_context is None:
+                result = agent_executor.plan(
+                    target=request.target,
+                    signal=request.signal,
+                    operator_note=request.operator_note,
+                    incident_generation=request.incident_generation,
+                )
+            else:
+                result = agent_executor.plan(
+                    target=request.target,
+                    signal=request.signal,
+                    operator_note=request.operator_note,
+                    incident_generation=request.incident_generation,
+                    retrieval_context=retrieval_context,
+                )
             validated = _validate_agent_plan_result(result, executor=agent_executor)
         except (AgentBridgeError, ValueError) as exc:
             raise HTTPException(status_code=409, detail=f"agent planning refused: {exc}") from exc
