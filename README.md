@@ -73,6 +73,76 @@ Sekcie 00–17 boli používateľom schválené v aktuálnom rozsahu. Sekcie 18�
 
 Kompletné poradie a stav spracovania je v [ROADMAP.md](ROADMAP.md).
 
+## Practical v1 — offline/core quick start
+
+Practical v1 spája Machine Learning, MLOps contracts, Knowledge Hub RAG, Keycloak resource-server contracts a bounded operations agenta do jedného deterministického core validation pathu. Tento path nepoužíva platený model provider, cloud account ani externý API key.
+
+Dependency bootstrap môže pri prvej inštalácii potrebovať Python package index alebo lokálny package cache. Samotný core orchestrátor po nainštalovaní dependencies vykonáva iba repository-local contracty a disposable local state.
+
+Podporovaný základ je Python 3.12. Z čistého checkoutu na Linuxe/WSL2:
+
+```bash
+python3.12 -m venv .venv
+. .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install \
+  -e 'labs/machine-learning[dev]' \
+  -e 'labs/mlops[dev,registry,serving]' \
+  -e 'labs/llm-rag[dev]' \
+  -e 'labs/agent-ops[dev]' \
+  -e 'labs/keycloak-ai-api[dev]'
+```
+
+Prečo sa packages inštalujú explicitne: každý flagship zostáva samostatný package boundary a jeho standalone CI job musí vedieť odhaliť skrytú sibling dependency. Až offline/core runner zámerne vytvorí combined environment, pretože overuje celý prepojený Practical v1 source surface.
+
+Najprv sa dajú spustiť contracty samotného release tooling-u:
+
+```bash
+python -m pytest scripts/tests -q
+```
+
+Potom core orchestrátor:
+
+```bash
+rm -rf .runtime/practical-v1/core-run
+rm -f .runtime/practical-v1-evidence.json
+
+python scripts/practical_v1_core.py \
+  --repo-root . \
+  --work-root .runtime/practical-v1/core-run \
+  --evidence .runtime/practical-v1-evidence.json
+```
+
+Orchestrátor odmietne dirty tracked worktree, aby `subject_sha` nemohol predstierať inú revíziu než source, ktorý sa reálne vykonáva. Stage chain je:
+
+```text
+compileall
+→ repository link/JSON/import/artifact-integrity validation
+→ Machine Learning contracts
+→ MLOps contracts
+→ LLM/RAG contracts
+→ bounded-agent contracts
+→ Keycloak AI API contracts
+→ deterministic agent hard evaluation
+→ disposable workroot cleanup read-back
+```
+
+`all_passed=true` vznikne iba ak sa vykoná presne celý stage set v očakávanom poradí a `cleanup_verified=true`. Zlyhanie sa nezmení na úspech tým, že sa ďalšie stages preskočia.
+
+Evidence JSON zostáva zámerne mimo disposable workrootu, aby sa dal po rune prečítať. Obsahuje exact Git SHA, Python version, per-stage return code/duration, SHA-256 stdout/stderr, bounded log tails, agent hard-eval identity a canonical `evidence_id`.
+
+Po kontrole evidence sa local output odstráni:
+
+```bash
+rm -f .runtime/practical-v1-evidence.json
+rmdir .runtime/practical-v1 2>/dev/null || true
+rmdir .runtime 2>/dev/null || true
+```
+
+Permanentný CI contract je v `.github/workflows/practical-v1-core.yml`. Kým issue #151 blokuje vytváranie repository Actions runov, existencia workflowu a runnera znamená iba source-level `Implemented`, nie `Runtime verified`.
+
+Aktuálny praktický stav je v [PRACTICAL-STATUS.md](PRACTICAL-STATUS.md) a hard release gates v [PRACTICAL-V1-ROADMAP.md](PRACTICAL-V1-ROADMAP.md).
+
 ## Navigácia
 
 Každá aktívna sekcia má vlastný `README.md` s očíslovaným poradím článkov. Toto poradie je jediným zdrojom pre lineárnu navigáciu.
