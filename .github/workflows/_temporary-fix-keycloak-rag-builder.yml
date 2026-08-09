@@ -1,0 +1,184 @@
+name: Temporary fix Keycloak promoted RAG builder
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'fix/actions-runner-context'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: fix/actions-runner-context
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Replace stale RAG wrapper orchestration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('labs/keycloak-ai-api/scripts/run_live_identity_gate.py')
+          text = path.read_text(encoding='utf-8')
+          start = text.index('def _build_rag(')
+          end = text.index('\n\ndef _build_agent(', start)
+          replacement = '''def _build_rag(repo_root: Path, runtime_root: Path, subject_sha: str) -> dict[str, Any]:
+    from keycloak_ai_api.rag_bridge import OfflinePromotedRagExecutor, RagBundlePaths
+    from knowledge_hub_rag.contracts import (
+        atomic_write_json as rag_atomic_write_json,
+        build_chunk_manifest,
+        build_corpus_snapshot,
+    )
+    from knowledge_hub_rag.evaluation import build_prompt_release, run_eval_suite
+    from knowledge_hub_rag.retrieval import build_retrieval_index, validate_retrieval_index
+    from knowledge_hub_rag.runtime_config import build_runtime_config, validate_runtime_config
+
+    rag = runtime_root / "rag"
+    rag.mkdir(parents=True, exist_ok=False)
+    manifest = rag / "manifest.json"
+    index = rag / "index.json"
+    config = rag / "runtime-config.json"
+    evaluation = rag / "eval-report.json"
+    release = rag / "prompt-release.json"
+    cases_path = repo_root / "labs" / "llm-rag" / "data" / "eval-cases.json"
+
+    try:
+        cases = json.loads(cases_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise IdentityRuntimeError(f"cannot read RAG eval cases: {exc}") from exc
+    if not isinstance(cases, list) or not cases or not all(isinstance(item, dict) for item in cases):
+        raise IdentityRuntimeError("RAG eval cases must be a non-empty object list")
+
+    snapshot = build_corpus_snapshot(repo_root=repo_root, source_revision=subject_sha)
+    manifest_value = build_chunk_manifest(repo_root=repo_root, snapshot=snapshot)
+    if manifest_value.get("source_revision") != subject_sha:
+        raise IdentityRuntimeError("RAG chunk manifest source revision mismatch")
+    rag_atomic_write_json(manifest, manifest_value)
+
+    index_value = build_retrieval_index(manifest_value)
+    validate_retrieval_index(index_value, manifest_value)
+    rag_atomic_write_json(index, index_value)
+
+    config_value = build_runtime_config(
+        generation="keycloak-live-identity-rag-v1",
+        implementation_revision=subject_sha,
+    )
+    validate_runtime_config(config_value)
+    rag_atomic_write_json(config, config_value)
+
+    eval_value = run_eval_suite(
+        cases=cases,
+        manifest=manifest_value,
+        index=index_value,
+        runtime_config=config_value,
+    )
+    if eval_value.get("suite_passed") is not True:
+        raise IdentityRuntimeError(
+            "promoted RAG evaluation is not all-passed: "
+            + json.dumps(
+                {
+                    "critical_failures": eval_value.get("critical_failures"),
+                    "threshold_failures": eval_value.get("threshold_failures"),
+                },
+                sort_keys=True,
+            )
+        )
+    rag_atomic_write_json(evaluation, eval_value)
+
+    release_value = build_prompt_release(
+        runtime_config=config_value,
+        eval_report=eval_value,
+        cases=cases,
+        manifest=manifest_value,
+        index=index_value,
+    )
+    rag_atomic_write_json(release, release_value)
+
+    executor = OfflinePromotedRagExecutor(
+        RagBundlePaths(
+            manifest=manifest,
+            index=index,
+            runtime_config=config,
+            eval_cases=cases_path,
+            eval_report=evaluation,
+            prompt_release=release,
+        )
+    )
+    positive_cases = sorted(
+        (
+            case
+            for case in cases
+            if case.get("attack_type") == "none" and case.get("expected_answer") == "answered"
+        ),
+        key=lambda item: str(item.get("case_id", "")),
+    )
+    if not positive_cases:
+        raise IdentityRuntimeError("RAG eval set contains no positive promoted-query case")
+    query = str(positive_cases[0]["query"])
+    preflight = executor.query(query)
+    if preflight.get("status") != "answered" or not preflight.get("citations"):
+        raise IdentityRuntimeError("promoted RAG bundle failed positive bridge read-back")
+
+    return {
+        "manifest": manifest,
+        "index": index,
+        "runtime_config": config,
+        "eval_cases": cases_path,
+        "eval_report": evaluation,
+        "prompt_release": release,
+        "query": query,
+        "snapshot_id": _require_sha256(
+            snapshot.get("corpus_snapshot_id"), "RAG corpus_snapshot_id"
+        ),
+        "index_id": _require_sha256(
+            index_value.get("retrieval_index_id"), "RAG retrieval_index_id"
+        ),
+        "report_id": _require_sha256(
+            eval_value.get("eval_report_id"), "RAG eval_report_id"
+        ),
+        "prompt_release_id": _require_sha256(
+            release_value.get("prompt_release_id"), "RAG prompt_release_id"
+        ),
+    }
+'''
+          text = text[:start] + replacement + text[end:]
+          if 'labs/llm-rag/scripts/build_corpus.py' in text:
+              raise SystemExit('stale RAG wrapper call remains')
+          path.write_text(text, encoding='utf-8')
+          PY
+          git diff --check
+
+      - name: Run focused combined contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -q \
+            -e 'labs/llm-rag[dev]' \
+            -e 'labs/agent-ops[dev]' \
+            -e 'labs/keycloak-ai-api[dev]'
+          python -m pytest \
+            labs/keycloak-ai-api/tests/test_rag_bridge.py \
+            labs/keycloak-ai-api/tests/test_agent_bridge_retrieval.py \
+            labs/keycloak-ai-api/tests/test_agent_knowledge_route.py \
+            -q -p no:cacheprovider
+
+      - name: Commit source correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add labs/keycloak-ai-api/scripts/run_live_identity_gate.py
+          git diff --cached --quiet && exit 0
+          git commit -m 'fix(identity): build promoted RAG through package contracts'
+          git push origin HEAD:fix/actions-runner-context
