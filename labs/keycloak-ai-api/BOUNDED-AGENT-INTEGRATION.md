@@ -27,14 +27,17 @@ external human approval
 → exact plan_id
 → exact action_digest
 → policy_id/generation
+→ issued_at/expires_at
 → approval artifact
 
 agent.remediate
 → JWT authorization
 → exact plan + approval read-back
 → fresh policy-bound kill-switch read-back
+→ approval validity check pred novou mutation authority
 → deterministic operation rebuild
 → durable state + read-before-retry
+→ bounded tool wait
 → at most one typed restart_service mutation
 ```
 
@@ -66,6 +69,8 @@ python labs/agent-ops/scripts/init_sandbox.py \
 python labs/agent-ops/scripts/init_policy.py \
   --generation policy-v1 \
   --allowed-target payments-api \
+  --max-approval-ttl-seconds 900 \
+  --max-tool-wait-seconds 5 \
   --output .runtime/agent-ops/policy.json
 
 python labs/agent-ops/scripts/set_kill_switch.py \
@@ -76,6 +81,12 @@ python labs/agent-ops/scripts/set_kill_switch.py \
 ```
 
 Policy a kill switch sú odlišné subjects. Policy je immutable planning/execution contract; kill switch je dynamic safety state viazaný na exact `policy_id` a `policy_generation`.
+
+Policy ID pinne aj:
+
+- `max_mutations_per_operation = 1`,
+- maximum approval TTL,
+- maximum control-plane wait na authoritative tool outcome.
 
 Bridge nevníma `.runtime/agent-ops` iba ako odporúčaný adresár. Startup vyžaduje presne tieto bootstrap subjects:
 
@@ -92,7 +103,7 @@ Alternatívny path, file symlink alebo `plans/`/`operations/` directory symlink 
 .runtime/agent-ops/operations/<64-hex-operation-id>
 ```
 
-Tool-state envelope sa číta už pri startup readiness. Konkrétny service record sa napriek tomu validuje nanovo cez typed `inspect_service` pri každom pláne, aby readiness snapshot nenahradil fresh operational evidence.
+Tool-state envelope sa číta už pri startup readiness. Konkrétny service record sa validuje nanovo cez typed `inspect_service` pri každom pláne, aby readiness snapshot nenahradil fresh operational evidence.
 
 ## API runner
 
@@ -126,18 +137,7 @@ Request:
 
 `operator_note` a incident signal sú context, nie mutation authority. Backend vždy vykoná typed `inspect_service` nad local sandbox state. Ak alert tvrdí degraded, ale aktuálny inspection je healthy, výsledok je `no_action`.
 
-Plan response pinne:
-
-- incident ID,
-- inspection ID,
-- diagnostic ID,
-- plan ID,
-- disposition,
-- action digest ak ide o mutation proposal,
-- tool a target,
-- exact policy ID/generation.
-
-Gateway revaliduje response schema a policy identity pred HTTP 200.
+Plan response pinne incident, inspection, diagnostic, plan, action digest, tool/target a exact policy subject. Gateway revaliduje response schema a policy identity pred HTTP 200.
 
 Canonical artifacts sa zapisujú do:
 
@@ -150,7 +150,7 @@ Canonical artifacts sa zapisujú do:
   plan.json
 ```
 
-Rovnaký deterministic plan môže artifact read-back zopakovať iba ak bytesemantický JSON subject sedí. Existujúci path s iným subjectom je refusal.
+Rovnaký deterministic plan môže artifact read-back zopakovať iba ak JSON subject sedí. Existujúci path s iným subjectom je refusal.
 
 ## Human approval zostáva mimo JWT route
 
@@ -163,12 +163,23 @@ python labs/agent-ops/scripts/approve_action.py \
   --expected-plan-id '<plan_id>' \
   --approver on-call-owner \
   --approval-generation approval-v1 \
+  --ttl-seconds 300 \
   --output .runtime/agent-ops/plans/<plan_id>/approval.json
 ```
 
-Approval pinne exact plan, action digest, tool, target a policy subject. API approval nevytvára a `agent.remediate` role ho nedokáže preskočiť.
+Approval pinne exact plan, action digest, tool, target, policy subject a finite validity interval. CLI zoberie issue time zo svojho wall clocku; caller neposiela ľubovoľný `now`.
 
-Practical v1 roadmap ešte vyžaduje approval expiry. Táto integration vrstva ju zámerne netvrdí; expiry bude samostatné rozšírenie approval contractu pred final v1 closeoutom.
+Validity je:
+
+```text
+issued_at_unix <= now_unix < expires_at_unix
+```
+
+Requested TTL nesmie prekročiť `policy.max_approval_ttl_seconds`.
+
+API approval nevytvára a `agent.remediate` role ho nedokáže preskočiť. Pri remediation bridge používa server-side `time.time()`; HTTP request nemá parameter na posun času.
+
+Expiry blokuje novú mutáciu alebo retry po `not_found`. Nezablokuje read-only reconciliation už preukázaného completed side effectu, pretože tá nevytvára novú mutation authority.
 
 ## `POST /v1/agent/remediate`
 
@@ -194,10 +205,12 @@ JWT authentication + scope + route-role authorization
 → fresh kill-switch read-back
 → canonical operation rebuild
 → durable operation write/read-back
-→ execute_operation()
+→ read-before-retry ak ide o recovery
+→ approval-time check iba pred novou mutation authority
+→ bounded tool execution wait
 ```
 
-Missing alebo mismatched approval je `409` safety refusal, nie úspešná authorization response.
+Missing, mismatched, not-yet-valid alebo expired approval je safety refusal tam, kde by request vytváral nový side effect.
 
 Operation state patrí do:
 
@@ -218,19 +231,40 @@ state_id
 phase
 ```
 
-Gateway tým klientovi sprístupní exact recovery subject, ale sám retry nespustí. `unknown_outcome` zostáva explicitne neretryovateľný bez authoritative lookup evidence.
+Gateway tým klientovi sprístupní exact recovery subject, ale sám retry nespustí.
+
+## Unknown outcome a bounded tool wait
+
+`policy.max_tool_wait_seconds` obmedzuje čas, počas ktorého control plane čaká na authoritative tool response. Nie je to hard cancellation remote operácie.
+
+Ak tool v limite nevráti výsledok:
+
+```text
+tool_started
+→ wait bound exceeded
+→ unknown_outcome
+→ automatic retry forbidden
+```
+
+Provider/tool môže stále dobehnúť. Následná recovery vždy začína lookupom.
+
+- `completed` → read-only reconciliation,
+- `unknown` → zostáva `unknown_outcome`,
+- `not_found` po `unknown_outcome` → stále zostáva `unknown_outcome`; `not_found` nepreukazuje, že pôvodná mutácia určite nenastala.
+
+Tým timeout nikdy nie je reinterpretovaný ako bezpečná licencia na druhý side effect.
 
 ## Kill-switch semantics
 
 Bridge číta kill switch nanovo pri každom remediation requeste.
 
 - engaged + new operation → refusal,
-- engaged + recovery `not_found` → refusal,
+- engaged + recovery `not_found` po bežnom failure → refusal,
 - engaged + recovery `completed` → read-only reconciliation je povolená,
 - stale switch z inej policy → refusal,
-- `unknown` tool outcome → automatic retry forbidden.
+- `unknown_outcome` → automatic retry forbidden bez ohľadu na switch.
 
-Tým emergency stop neblokuje bezpečné uzavretie už preukázaného side effectu, ale blokuje každú novú mutation decision.
+Emergency stop teda neblokuje bezpečné uzavretie už preukázaného side effectu, ale blokuje každú novú mutation decision.
 
 ## Tool-output trust boundary
 
@@ -243,7 +277,7 @@ current_generation = previous_generation + 1
 status = healthy
 ```
 
-Extra free-text field typu `instruction`, `command` alebo prompt-like payload je odmietnutý. Tool output sa teda nesmie stať novým neštruktúrovaným authority channelom.
+Extra free-text field typu `instruction`, `command` alebo prompt-like payload je odmietnutý. Tool output sa nesmie stať novým neštruktúrovaným authority channelom.
 
 ## Čo tento blok ešte nepreukazuje
 
@@ -251,15 +285,17 @@ Toto je source implementation, nie runtime verification. Stále nepreukazuje:
 
 - live Keycloak Client Credentials token + live protected agent request,
 - external cryptographic approval identity,
-- approval expiry,
 - distributed locking,
 - remote provider idempotency,
+- hard remote cancellation,
+- OS/container CPU-memory isolation,
 - real Kubernetes/cloud/service restart,
-- wall-clock/tool runtime limit,
 - production credentials,
 - retrieved-content → agent prompt-injection gate,
 - final trajectory/tool-selection/policy/business-outcome evaluation,
 - clean-checkout combined runtime evidence,
 - user acceptance.
 
-Issue #151 preto naďalej blokuje prechod z `Implemented` na `Runtime verified` pre central Actions evidence.
+Approval expiry, one-mutation budget a bounded control-plane tool wait sú source-level implementované; nepredstavujú production resource isolation.
+
+Issue #151 naďalej blokuje prechod z `Implemented` na `Runtime verified` pre central Actions evidence.
