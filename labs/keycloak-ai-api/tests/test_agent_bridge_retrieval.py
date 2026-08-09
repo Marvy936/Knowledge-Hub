@@ -5,6 +5,11 @@ from pathlib import Path
 
 import pytest
 
+pytest.importorskip(
+    "agent_ops",
+    reason="cross-package retrieval/agent integration requires labs/agent-ops to be installed",
+)
+
 from agent_ops.contracts import atomic_write_json, read_json
 from agent_ops.planning import build_agent_policy
 from agent_ops.safety import approve_action_plan, build_kill_switch
