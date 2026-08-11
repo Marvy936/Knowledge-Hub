@@ -407,6 +407,7 @@ def register_candidate(
                 "source_revision": candidate["source_revision"],
             },
             tags=run_tags,
+            skops_trusted_types=["numpy.dtype"],
         )
 
     if model_info.registered_model_version is None:

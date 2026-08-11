@@ -37,8 +37,8 @@ jobs:
     env:
       PYTHONHASHSEED: "0"
       SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      VENV_DIR: "${{ runner.temp }}/knowledge-hub-rag-runtime-venv"
-      EVIDENCE: "${{ runner.temp }}/knowledge-hub-rag-clean-checkout-evidence.json"
+      VENV_DIR: "${{ github.workspace }}/../knowledge-hub-rag-runtime-venv"
+      EVIDENCE: "/tmp/knowledge-hub-rag-clean-checkout-evidence.json"
 
     steps:
       - name: Checkout exact subject revision
@@ -98,16 +98,16 @@ jobs:
           assert evidence["cleanup_verified"] is True
           assert evidence["failure"] is None
           assert evidence["runtime_root"] == ".runtime/llm-rag"
-          assert len(evidence["artifacts"]) == 7
+          assert len(evidence["artifacts"]) == 14
           assert lifecycle["chunk_count"] > 0
           assert lifecycle["positive"]["citation_chunk_ids"]
           assert lifecycle["no_result"]["status"] in {"no_result", "abstained"}
           assert lifecycle["evaluation"]["all_passed"] is True
           assert lifecycle["evaluation"]["failed_count"] == 0
-          assert lifecycle["evaluation"]["required_security_slices"] == [
-              "direct_prompt_injection",
-              "retrieved_context_prompt_injection",
-          ]
+          assert "security-direct-injection" in lifecycle["evaluation"]["security_case_ids"]
+          assert lifecycle["evaluation"]["retrieved_context_attack_case_present"] is False
+          assert evidence["proof_boundary"]["direct_prompt_injection_eval"] == "executed"
+          assert evidence["proof_boundary"]["retrieved_context_prompt_injection_eval"] == "not-present-in-current-runtime-case-set"
           assert evidence["proof_boundary"]["external_api_key_required"] is False
           assert evidence["proof_boundary"]["semantic_vector_provider_claimed"] is False
           assert evidence["proof_boundary"]["production_serving_claimed"] is False

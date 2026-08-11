@@ -322,13 +322,18 @@ def execute_operation(
                 raise AgentContractError("execution state belongs to another operation")
             if current["phase"] == "completed":
                 result = read_json(result_path)
-                validate_result_against_action(
-                    result,
-                    operation_id=operation["operation_id"],
-                    action_digest=operation["action_digest"],
-                    tool=operation["tool"],
-                    target=operation["target"],
-                )
+                try:
+                    validate_result_against_action(
+                        result,
+                        operation_id=operation["operation_id"],
+                        action_digest=operation["action_digest"],
+                        tool=operation["tool"],
+                        target=operation["target"],
+                    )
+                except AgentContractError as exc:
+                    raise AgentContractError(
+                        f"completed result failed canonical integrity validation: {exc}"
+                    ) from exc
                 if result["result_id"] != current["result_id"]:
                     raise AgentContractError("completed state result read-back mismatch")
                 return {"status": "already_completed", "state": current, "result": result}

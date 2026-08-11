@@ -22,7 +22,7 @@
   "clientScopes": [
     {
       "name": "knowledge-hub-api-access",
-      "description": "Adds the exact Knowledge Hub API audience and an access-token-only marker.",
+      "description": "Adds the exact Knowledge Hub API audience, access-token marker, and bounded API client roles.",
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "true",
@@ -54,10 +54,38 @@
             "userinfo.token.claim": "false",
             "access.tokenResponse.claim": "false"
           }
+        },
+        {
+          "name": "knowledge-hub-api-client-roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-client-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "usermodel.clientRoleMapping.clientId": "knowledge-hub-api",
+            "claim.name": "resource_access.knowledge-hub-api.roles",
+            "jsonType.label": "String",
+            "multivalued": "true",
+            "access.token.claim": "true",
+            "id.token.claim": "false",
+            "userinfo.token.claim": "false",
+            "introspection.token.claim": "true"
+          }
         }
       ]
     }
   ],
+  "clientScopeMappings": {
+    "knowledge-hub-automation": [
+      {
+        "client": "knowledge-hub-api",
+        "roles": [
+          "rag.read",
+          "agent.run",
+          "agent.remediate"
+        ]
+      }
+    ]
+  },
   "clients": [
     {
       "clientId": "knowledge-hub-web",
@@ -108,6 +136,7 @@
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": false,
       "serviceAccountsEnabled": true,
+      "fullScopeAllowed": false,
       "defaultClientScopes": [
         "roles",
         "knowledge-hub-api-access"

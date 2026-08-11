@@ -143,7 +143,7 @@ def test_provided_release_must_match_exact_candidate_lineage(tmp_path: Path) -> 
         )
 
 
-def test_readonly_mount_preparation_preserves_model_bytes(tmp_path: Path) -> None:
+def test_readonly_mount_staging_preserves_authoritative_inputs(tmp_path: Path) -> None:
     deployment = tmp_path / "deployment.json"
     manifest = tmp_path / "manifest.json"
     model = tmp_path / "model.joblib"
@@ -151,8 +151,14 @@ def test_readonly_mount_preparation_preserves_model_bytes(tmp_path: Path) -> Non
     manifest.write_text("{}\n", encoding="utf-8")
     model.write_bytes(b"stable-model-bytes")
     expected = runtime._sha256_file(model)
+    source_modes = {
+        path: stat.S_IMODE(path.stat().st_mode)
+        for path in (deployment, manifest, model)
+    }
+    source_bytes = {path: path.read_bytes() for path in (deployment, manifest, model)}
 
-    modes = runtime._prepare_readonly_mounts(
+    modes, staged_deployment, staged_artifact_dir = runtime._prepare_readonly_mounts(
+        staging_root=tmp_path / "serving-mounts",
         deployment_path=deployment,
         artifact_manifest_path=manifest,
         model_path=model,
@@ -164,9 +170,17 @@ def test_readonly_mount_preparation_preserves_model_bytes(tmp_path: Path) -> Non
         "manifest": "0o444",
         "model": "0o444",
     }
-    for path in (deployment, manifest, model):
+    assert staged_deployment != deployment
+    assert staged_artifact_dir != manifest.parent
+    staged_manifest = staged_artifact_dir / "manifest.json"
+    staged_model = staged_artifact_dir / "model.joblib"
+    for path in (staged_deployment, staged_manifest, staged_model):
         assert stat.S_IMODE(path.stat().st_mode) == 0o444
-    assert runtime._sha256_file(model) == expected
+    assert runtime._sha256_file(staged_model) == expected
+
+    for path in (deployment, manifest, model):
+        assert path.read_bytes() == source_bytes[path]
+        assert stat.S_IMODE(path.stat().st_mode) == source_modes[path]
 
 
 def test_readonly_mount_preparation_refuses_model_tampering(tmp_path: Path) -> None:
@@ -179,10 +193,32 @@ def test_readonly_mount_preparation_refuses_model_tampering(tmp_path: Path) -> N
 
     with pytest.raises(runtime.RuntimeGateError, match="model digest changed"):
         runtime._prepare_readonly_mounts(
+            staging_root=tmp_path / "serving-mounts",
             deployment_path=deployment,
             artifact_manifest_path=manifest,
             model_path=model,
             expected_model_sha256="0" * 64,
+        )
+    assert not (tmp_path / "serving-mounts").exists()
+
+
+def test_readonly_mount_preparation_requires_fresh_staging_root(tmp_path: Path) -> None:
+    deployment = tmp_path / "deployment.json"
+    manifest = tmp_path / "manifest.json"
+    model = tmp_path / "model.joblib"
+    staging = tmp_path / "serving-mounts"
+    deployment.write_text("{}\n", encoding="utf-8")
+    manifest.write_text("{}\n", encoding="utf-8")
+    model.write_bytes(b"stable-model-bytes")
+    staging.mkdir()
+
+    with pytest.raises(runtime.RuntimeGateError, match="staging root must be fresh"):
+        runtime._prepare_readonly_mounts(
+            staging_root=staging,
+            deployment_path=deployment,
+            artifact_manifest_path=manifest,
+            model_path=model,
+            expected_model_sha256=runtime._sha256_file(model),
         )
 
 

@@ -72,6 +72,15 @@ def _install_fake_rag(monkeypatch: pytest.MonkeyPatch) -> dict[str, object]:
 
     def build_prompt_release(*, runtime_config, eval_report, cases, manifest, index):
         calls.append("build_prompt_release")
+        # Mirror the real knowledge_hub_rag.evaluation contract: release
+        # construction itself validates the deterministic eval report.
+        validate_eval_report(
+            eval_report,
+            cases=cases,
+            manifest=manifest,
+            index=index,
+            runtime_config=runtime_config,
+        )
         return dict(expected_release)
 
     evaluation.validate_eval_report = validate_eval_report
@@ -145,7 +154,7 @@ def _install_fake_rag(monkeypatch: pytest.MonkeyPatch) -> dict[str, object]:
     return {"calls": calls, "release": expected_release}
 
 
-def test_promoted_bundle_is_rebuilt_before_query_execution(
+def test_promoted_bundle_is_rebuilt_once_before_query_execution(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     fake = _install_fake_rag(monkeypatch)
@@ -163,9 +172,10 @@ def test_promoted_bundle_is_rebuilt_before_query_execution(
     assert fake["calls"][:4] == [
         "validate_runtime_config",
         "validate_retrieval_index",
-        "validate_eval_report",
         "build_prompt_release",
+        "validate_eval_report",
     ]
+    assert fake["calls"].count("validate_eval_report") == 1
     assert "retrieve" in fake["calls"]
     assert "run_offline_adapter" in fake["calls"]
     assert "build_trace" in fake["calls"]

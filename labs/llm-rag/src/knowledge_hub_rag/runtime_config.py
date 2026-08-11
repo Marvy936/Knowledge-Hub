@@ -67,7 +67,11 @@ def build_runtime_config(
         "adapter_generation": "extractive-evidence-v1",
         "security_generation": "prompt-injection-policy-v1",
         "token_counter_generation": "unicode-word-v1",
-        "retrieval": {"top_k": top_k, "min_score": float(min_score)},
+        "retrieval": {
+            "algorithm": "bm25-source-path-v2",
+            "top_k": top_k,
+            "min_score": float(min_score),
+        },
         "context": {"max_chars": context_max_chars},
         "answer": {"max_chars": answer_max_chars},
         "eval_thresholds": {

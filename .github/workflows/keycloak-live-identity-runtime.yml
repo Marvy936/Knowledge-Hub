@@ -40,8 +40,6 @@ jobs:
       PYTHONHASHSEED: "0"
       PYTHONDONTWRITEBYTECODE: "1"
       SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      VENV_DIR: "${{ runner.temp }}/knowledge-hub-keycloak-runtime-venv"
-      EVIDENCE: "${{ runner.temp }}/knowledge-hub-keycloak-live-identity-evidence.json"
       API_PORT: "18091"
 
     steps:
@@ -57,6 +55,13 @@ jobs:
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: "3.12"
+
+      - name: Initialize runner-local paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "VENV_DIR=$RUNNER_TEMP/knowledge-hub-keycloak-runtime-venv" >> "$GITHUB_ENV"
+          echo "EVIDENCE=$RUNNER_TEMP/knowledge-hub-keycloak-live-identity-evidence.json" >> "$GITHUB_ENV"
 
       - name: Verify Docker and Compose runtime
         shell: bash
@@ -94,7 +99,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          "$VENV_DIR/bin/python" labs/keycloak-ai-api/scripts/run_live_identity_gate.py \
+          "$VENV_DIR/bin/python" labs/keycloak-ai-api/scripts/run_live_identity_gate_canonical.py \
             --repo-root . \
             --subject-sha "$SUBJECT_SHA" \
             --issuer http://127.0.0.1:8080/realms/knowledge-hub \
@@ -201,7 +206,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: keycloak-live-identity-${{ env.SUBJECT_SHA }}
-          path: ${{ env.EVIDENCE }}
+          path: ${{ runner.temp }}/knowledge-hub-keycloak-live-identity-evidence.json
           if-no-files-found: error
           retention-days: 30
 

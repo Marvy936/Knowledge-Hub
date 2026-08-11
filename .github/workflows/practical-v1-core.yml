@@ -116,7 +116,7 @@ jobs:
     timeout-minutes: 20
     env:
       PYTHONHASHSEED: "0"
-      EVAL_OUTPUT: "${{ runner.temp }}/knowledge-hub-agent-hard-eval.json"
+      EVAL_OUTPUT: "${{ github.workspace }}/../knowledge-hub-agent-hard-eval.json"
 
     steps:
       - name: Checkout exact subject revision
@@ -188,8 +188,8 @@ jobs:
     env:
       PYTHONHASHSEED: "0"
       SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      WORK_ROOT: "${{ runner.temp }}/knowledge-hub-practical-v1-core-work"
-      EVIDENCE: "${{ runner.temp }}/knowledge-hub-practical-v1-core-evidence.json"
+      WORK_ROOT: "${{ github.workspace }}/../knowledge-hub-practical-v1-core-work"
+      EVIDENCE: "${{ github.workspace }}/../knowledge-hub-practical-v1-core-evidence.json"
 
     steps:
       - name: Checkout exact subject revision

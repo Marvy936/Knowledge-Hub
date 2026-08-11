@@ -352,7 +352,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         )
     if handoff_summary.get("deployment_id") != new_deployment["deployment_id"]:
         raise PostRetrainingChainError("handoff CLI summary deployment mismatch")
-    canary_state = handoff["canary_routing_state"]
+    canary_state = handoff["routing_state"]
     if canary_state["previous_routing_state_id"] != current_routing["routing_state_id"]:
         raise PostRetrainingChainError("canary state is detached from current routing subject")
     if canary_state["stable_deployment_id"] != current_deployment["deployment_id"]:

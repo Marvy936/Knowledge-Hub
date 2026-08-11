@@ -9,24 +9,27 @@ from pathlib import Path
 from knowledge_hub_rag.contracts import ContractError
 
 
+RUNTIME_DIRECTORY_NAME = "llm-rag"
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Remove only an explicit Knowledge Hub RAG .runtime/rag directory and verify cleanup."
+        description="Remove only the explicit Knowledge Hub RAG .runtime/llm-rag directory and verify cleanup."
     )
     parser.add_argument("--runtime-root", type=Path, required=True)
     return parser
 
 
 def _validate_target(path: Path) -> Path:
-    if path.name != "rag" or path.parent.name != ".runtime":
-        raise ContractError("runtime cleanup target must end with .runtime/rag")
+    if path.name != RUNTIME_DIRECTORY_NAME or path.parent.name != ".runtime":
+        raise ContractError("runtime cleanup target must end with .runtime/llm-rag")
     if path.is_symlink():
         raise ContractError("runtime cleanup target must not be a symlink")
     if path.parent.is_symlink():
         raise ContractError("runtime cleanup .runtime parent must not be a symlink")
     resolved = path.resolve(strict=False)
-    if resolved.name != "rag" or resolved.parent.name != ".runtime":
-        raise ContractError("resolved runtime cleanup target must end with .runtime/rag")
+    if resolved.name != RUNTIME_DIRECTORY_NAME or resolved.parent.name != ".runtime":
+        raise ContractError("resolved runtime cleanup target must end with .runtime/llm-rag")
     return resolved
 
 

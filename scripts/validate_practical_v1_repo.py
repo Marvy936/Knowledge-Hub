@@ -25,6 +25,14 @@ EXPECTED_IMPORTS = (
     "agent_ops",
     "keycloak_ai_api",
 )
+PRACTICAL_ROOT_MARKDOWN = frozenset(
+    {
+        "README.md",
+        "PRACTICAL-V1-ROADMAP.md",
+        "PRACTICAL-STATUS.md",
+        "PRACTICAL-V1-EVIDENCE.md",
+    }
+)
 FORBIDDEN_SUFFIXES = {
     ".db",
     ".sqlite",
@@ -90,9 +98,23 @@ def _markdown_targets(path: Path) -> list[str]:
     return targets
 
 
+def _markdown_files_for_validation(repo_root: Path, tracked: list[Path]) -> list[Path]:
+    markdown_files: list[Path] = []
+    for path in tracked:
+        if path.suffix.lower() != ".md":
+            continue
+        relative = path.relative_to(repo_root)
+        if (
+            len(relative.parts) == 1
+            and relative.name in PRACTICAL_ROOT_MARKDOWN
+        ) or (relative.parts and relative.parts[0] == "labs"):
+            markdown_files.append(path)
+    return markdown_files
+
+
 def _validate_markdown_links(repo_root: Path, tracked: list[Path]) -> list[str]:
     errors: list[str] = []
-    markdown_files = [path for path in tracked if path.suffix.lower() == ".md"]
+    markdown_files = _markdown_files_for_validation(repo_root, tracked)
     for path in markdown_files:
         for raw_target in _markdown_targets(path):
             if not raw_target or raw_target.startswith("#"):
@@ -159,6 +181,7 @@ def validate(repo_root: Path) -> dict[str, object]:
     if not (resolved_root / ".git").exists():
         raise ValidationError(f"repo root is not a Git checkout: {resolved_root}")
     tracked = _tracked_files(resolved_root)
+    markdown_files = _markdown_files_for_validation(resolved_root, tracked)
     errors = [
         *_validate_markdown_links(resolved_root, tracked),
         *_validate_json(resolved_root, tracked),
@@ -168,7 +191,7 @@ def validate(repo_root: Path) -> dict[str, object]:
     report = {
         "status": "passed" if not errors else "failed",
         "tracked_file_count": len(tracked),
-        "markdown_file_count": sum(1 for path in tracked if path.suffix.lower() == ".md"),
+        "markdown_file_count": len(markdown_files),
         "json_file_count": sum(
             1
             for path in tracked

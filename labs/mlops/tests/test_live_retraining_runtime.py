@@ -106,7 +106,7 @@ def test_driver_monitoring_corpus_crosses_exact_drift_gate() -> None:
     assert report["exceeded_numeric_features"] or report["exceeded_categorical_features"]
 
 
-def test_retraining_snapshot_adds_one_unique_row_without_touching_baseline(
+def test_retraining_snapshot_adds_one_canonical_customer_without_touching_baseline(
     tmp_path: Path,
 ) -> None:
     baseline = tmp_path / "baseline.csv"
@@ -114,8 +114,8 @@ def test_retraining_snapshot_adds_one_unique_row_without_touching_baseline(
         "customer_id,tenure_months,monthly_spend_eur,support_tickets_90d,"
         "login_days_30d,days_since_last_login,contract_type,region,auto_pay,"
         "churned_next_30d\n"
-        "1,12,50.0,1,20,2,annual,west,yes,0\n"
-        "2,6,75.0,3,10,7,monthly,east,no,1\n",
+        "cust-000001,12,50.0,1,20,2,annual,west,yes,0\n"
+        "cust-000002,6,75.0,3,10,7,monthly,east,no,1\n",
         encoding="utf-8",
     )
     before = baseline.read_bytes()
@@ -139,5 +139,38 @@ def test_retraining_snapshot_adds_one_unique_row_without_touching_baseline(
 
     with first.open("r", encoding="utf-8", newline="") as handle:
         rows = list(csv.DictReader(handle))
-    assert [row["customer_id"] for row in rows] == ["1", "2", "3"]
+    assert [row["customer_id"] for row in rows] == [
+        "cust-000001",
+        "cust-000002",
+        "cust-000003",
+    ]
     assert rows[-1]["churned_next_30d"] == rows[0]["churned_next_30d"]
+
+
+def test_retraining_snapshot_refuses_noncanonical_or_duplicate_customer_ids(
+    tmp_path: Path,
+) -> None:
+    header = (
+        "customer_id,tenure_months,monthly_spend_eur,support_tickets_90d,"
+        "login_days_30d,days_since_last_login,contract_type,region,auto_pay,"
+        "churned_next_30d\n"
+    )
+    for name, rows in (
+        (
+            "numeric",
+            "1,12,50.0,1,20,2,annual,west,yes,0\n"
+            "2,6,75.0,3,10,7,monthly,east,no,1\n",
+        ),
+        (
+            "duplicate",
+            "cust-000001,12,50.0,1,20,2,annual,west,yes,0\n"
+            "cust-000001,6,75.0,3,10,7,monthly,east,no,1\n",
+        ),
+    ):
+        baseline = tmp_path / f"{name}.csv"
+        baseline.write_text(header + rows, encoding="utf-8")
+        with pytest.raises(runtime.LiveRetrainingError, match="customer_id"):
+            runtime._build_retraining_snapshot(
+                baseline,
+                tmp_path / f"{name}-retraining.csv",
+            )

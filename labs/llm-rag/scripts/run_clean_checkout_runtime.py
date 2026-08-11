@@ -10,19 +10,39 @@ import sys
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
+from knowledge_hub_rag.contracts import (
+    ContractError,
+    atomic_write_json,
+    build_chunk_manifest,
+    build_corpus_snapshot,
+)
+from knowledge_hub_rag.evaluation import build_prompt_release, run_eval_suite
+from knowledge_hub_rag.offline_adapter import run_offline_adapter
+from knowledge_hub_rag.retrieval import (
+    build_grounded_context,
+    build_retrieval_index,
+    retrieve,
+    validate_retrieval_index,
+)
+from knowledge_hub_rag.runtime_config import build_runtime_config, validate_runtime_config
+from knowledge_hub_rag.tracing import build_trace
+
 
 class RagRuntimeError(RuntimeError):
     pass
 
 
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+RUNTIME_RELATIVE = Path(".runtime/llm-rag")
+RUNTIME_GENERATION = "practical-v1-rag-runtime-v1"
+POSITIVE_SEARCH_LIMIT = 100
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
-            "Execute the deterministic Knowledge Hub RAG corpus→index→query→eval→release "
-            "lifecycle for the exact clean-checkout Git subject and emit bounded evidence."
+            "Execute the authoritative Knowledge Hub RAG corpus→chunk→index→retrieval→"
+            "adapter→trace→eval→release lifecycle for an exact clean Git subject."
         )
     )
     parser.add_argument("--repo-root", type=Path, default=Path.cwd())
@@ -36,6 +56,12 @@ def _require_git_sha(value: str) -> str:
     if len(text) != 40 or any(character not in "0123456789abcdef" for character in text):
         raise RagRuntimeError("subject SHA must be a lowercase 40-character Git SHA-1")
     return text
+
+
+def _require_sha256(value: object, field: str) -> str:
+    if not isinstance(value, str) or not SHA256_RE.fullmatch(value):
+        raise RagRuntimeError(f"{field} must be a lowercase SHA-256")
+    return value
 
 
 def _sha256_file(path: Path) -> str:
@@ -66,14 +92,14 @@ def _read_json(path: Path) -> dict[str, Any]:
     return value
 
 
-def _atomic_write_json(path: Path, value: Mapping[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.tmp-{os.getpid()}")
-    temporary.write_text(
-        json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False) + "\n",
-        encoding="utf-8",
-    )
-    os.replace(temporary, path)
+def _read_json_list(path: Path) -> list[dict[str, Any]]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RagRuntimeError(f"cannot read JSON list {path}: {exc}") from exc
+    if not isinstance(value, list) or not value or not all(isinstance(item, dict) for item in value):
+        raise RagRuntimeError(f"JSON artifact must be a non-empty object list: {path}")
+    return [dict(item) for item in value]
 
 
 def _run(
@@ -100,12 +126,6 @@ def _run(
     return result
 
 
-def _require_sha256(value: object, field: str) -> str:
-    if not isinstance(value, str) or not SHA256_RE.fullmatch(value):
-        raise RagRuntimeError(f"{field} must be a lowercase SHA-256")
-    return value
-
-
 def _walk(value: object) -> Iterable[object]:
     yield value
     if isinstance(value, dict):
@@ -121,24 +141,26 @@ def _contains_exact(value: object, expected: object) -> bool:
     return any(item == expected for item in _walk(value))
 
 
-def _chunk_records(manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
-    candidates: list[dict[str, Any]] = []
-    for item in _walk(manifest):
-        if not isinstance(item, dict):
-            continue
-        chunk_id = item.get("chunk_id")
-        if isinstance(chunk_id, str) and SHA256_RE.fullmatch(chunk_id):
-            candidates.append(item)
-    unique: dict[str, dict[str, Any]] = {}
-    for item in candidates:
-        unique[item["chunk_id"]] = item
-    if not unique:
-        raise RagRuntimeError("corpus manifest does not expose any canonical chunk records")
-    return [unique[key] for key in sorted(unique)]
+def _chunk_records(value: object) -> list[dict[str, Any]]:
+    records: dict[str, dict[str, Any]] = {}
+
+    def visit(item: object) -> None:
+        if isinstance(item, dict):
+            chunk_id = item.get("chunk_id")
+            if isinstance(chunk_id, str) and chunk_id:
+                records.setdefault(chunk_id, dict(item))
+            for nested in item.values():
+                visit(nested)
+        elif isinstance(item, list):
+            for nested in item:
+                visit(nested)
+
+    visit(value)
+    return [records[chunk_id] for chunk_id in sorted(records)]
 
 
 def _query_from_chunk(chunk: Mapping[str, Any]) -> str:
-    for field in ("text", "content", "body", "chunk_text"):
+    for field in ("content", "text", "body", "chunk_text"):
         value = chunk.get(field)
         if isinstance(value, str):
             words = [word for word in re.findall(r"[A-Za-z0-9_./:-]+", value) if len(word) >= 3]
@@ -152,25 +174,110 @@ def _query_from_chunk(chunk: Mapping[str, Any]) -> str:
     raise RagRuntimeError("cannot derive positive query from corpus chunk")
 
 
-def _citation_chunk_ids(result: Mapping[str, Any]) -> set[str]:
-    ids: set[str] = set()
-    for item in _walk(result.get("citations", [])):
+def _query_from_chunks(chunks: Sequence[Mapping[str, Any]]) -> str:
+    for chunk in chunks:
+        try:
+            return _query_from_chunk(chunk)
+        except RagRuntimeError:
+            continue
+    raise RagRuntimeError("cannot derive positive query from any canonical corpus chunk")
+
+
+def _citation_chunk_ids(answer: Mapping[str, Any]) -> set[str]:
+    result: set[str] = set()
+    citations = answer.get("citations")
+    if not isinstance(citations, list):
+        return result
+
+    def visit(item: object) -> None:
         if isinstance(item, dict):
             chunk_id = item.get("chunk_id")
             if isinstance(chunk_id, str):
-                ids.add(chunk_id)
-    return ids
+                result.add(chunk_id)
+            for nested in item.values():
+                visit(nested)
+        elif isinstance(item, list):
+            for nested in item:
+                visit(nested)
+
+    visit(citations)
+    return result
 
 
-def _artifact_identity(value: Mapping[str, Any], key: str, label: str) -> str:
-    return _require_sha256(value.get(key), f"{label}.{key}")
+def _write_artifact(
+    *,
+    name: str,
+    path: Path,
+    value: Mapping[str, Any],
+    artifacts: dict[str, dict[str, Any]],
+) -> None:
+    atomic_write_json(path, value)
+    artifacts[name] = {
+        "sha256": _sha256_file(path),
+        "size_bytes": path.stat().st_size,
+    }
+
+
+def _positive_execution(
+    *,
+    chunks: Sequence[Mapping[str, Any]],
+    manifest: Mapping[str, Any],
+    index: Mapping[str, Any],
+    runtime_config: Mapping[str, Any],
+) -> tuple[str, dict[str, Any], dict[str, Any], dict[str, Any], dict[str, Any]]:
+    attempted = 0
+    for chunk in chunks:
+        if attempted >= POSITIVE_SEARCH_LIMIT:
+            break
+        try:
+            query = _query_from_chunk(chunk)
+        except RagRuntimeError:
+            continue
+        attempted += 1
+        retrieval = retrieve(
+            index=index,
+            manifest=manifest,
+            query=query,
+            top_k=runtime_config["retrieval"]["top_k"],
+            min_score=runtime_config["retrieval"]["min_score"],
+        )
+        if retrieval["status"] != "results":
+            continue
+        context = build_grounded_context(
+            retrieval,
+            index=index,
+            manifest=manifest,
+            max_chars=runtime_config["context"]["max_chars"],
+        )
+        adapter = run_offline_adapter(
+            retrieval_result=retrieval,
+            index=index,
+            manifest=manifest,
+            runtime_config=runtime_config,
+        )
+        answer = adapter["answer"]
+        if answer["status"] != "answered" or not answer["citations"]:
+            continue
+        trace = build_trace(
+            runtime_config=runtime_config,
+            retrieval_result=retrieval,
+            adapter_result=adapter,
+            context=context,
+            index=index,
+            manifest=manifest,
+            latency_ms=0.0,
+        )
+        return query, retrieval, context, adapter, trace
+    raise RagRuntimeError(
+        f"no answered positive query found in first {min(len(chunks), POSITIVE_SEARCH_LIMIT)} canonical chunks"
+    )
 
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
     repo_root = args.repo_root.resolve(strict=True)
     subject_sha = _require_git_sha(args.subject_sha)
     output_path = args.output.resolve(strict=False)
-    runtime_root = repo_root / ".runtime" / "llm-rag"
+    runtime_root = repo_root / RUNTIME_RELATIVE
 
     if not (repo_root / ".git").exists():
         raise RagRuntimeError("repo root is not a Git checkout")
@@ -186,215 +293,265 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         raise RagRuntimeError("tracked checkout must be clean before RAG runtime")
 
     runtime_root.mkdir(parents=True, exist_ok=False)
-    manifest_path = runtime_root / "corpus-manifest.json"
-    index_path = runtime_root / "index.json"
-    config_path = runtime_root / "runtime-config.json"
-    eval_path = runtime_root / "eval-report.json"
-    release_path = runtime_root / "prompt-release.json"
-    positive_path = runtime_root / "positive-query.json"
-    no_result_path = runtime_root / "no-result-query.json"
-    eval_cases = repo_root / "labs" / "llm-rag" / "data" / "eval-cases.json"
+    paths = {
+        "corpus_snapshot": runtime_root / "corpus-snapshot.json",
+        "chunk_manifest": runtime_root / "chunk-manifest.json",
+        "retrieval_index": runtime_root / "retrieval-index.json",
+        "runtime_config": runtime_root / "runtime-config.json",
+        "positive_retrieval": runtime_root / "positive-retrieval.json",
+        "positive_context": runtime_root / "positive-context.json",
+        "positive_adapter": runtime_root / "positive-adapter.json",
+        "positive_trace": runtime_root / "positive-trace.json",
+        "no_result_retrieval": runtime_root / "no-result-retrieval.json",
+        "no_result_context": runtime_root / "no-result-context.json",
+        "no_result_adapter": runtime_root / "no-result-adapter.json",
+        "no_result_trace": runtime_root / "no-result-trace.json",
+        "evaluation": runtime_root / "eval-report.json",
+        "prompt_release": runtime_root / "prompt-release.json",
+    }
+    eval_cases_path = repo_root / "labs" / "llm-rag" / "data" / "eval-cases.json"
 
     artifacts: dict[str, dict[str, Any]] = {}
     cleanup_verified = False
     lifecycle: dict[str, Any] = {}
     failure: str | None = None
+
     try:
-        _run(
-            [
-                sys.executable,
-                "labs/llm-rag/scripts/build_corpus.py",
-                "--repo",
-                str(repo_root),
-                "--revision",
-                subject_sha,
-                "--output",
-                str(manifest_path),
-            ],
-            cwd=repo_root,
+        snapshot = build_corpus_snapshot(
+            repo_root=repo_root,
+            source_revision=subject_sha,
         )
-        manifest = _read_json(manifest_path)
-        if manifest.get("source_revision") != subject_sha:
-            raise RagRuntimeError("corpus manifest source revision mismatch")
-        snapshot_id = _artifact_identity(manifest, "snapshot_id", "manifest")
-        chunks = _chunk_records(manifest)
+        corpus_snapshot_id = _require_sha256(
+            snapshot.get("corpus_snapshot_id"), "corpus_snapshot_id"
+        )
+        _write_artifact(
+            name="corpus_snapshot",
+            path=paths["corpus_snapshot"],
+            value=snapshot,
+            artifacts=artifacts,
+        )
+
+        manifest = build_chunk_manifest(repo_root=repo_root, snapshot=snapshot)
+        chunk_manifest_id = _require_sha256(
+            manifest.get("chunk_manifest_id"), "chunk_manifest_id"
+        )
+        if manifest.get("corpus_snapshot_id") != corpus_snapshot_id:
+            raise RagRuntimeError("chunk manifest is detached from corpus snapshot")
+        chunks = manifest.get("chunks")
+        if not isinstance(chunks, list) or not chunks:
+            raise RagRuntimeError("chunk manifest does not contain canonical chunks")
+        _write_artifact(
+            name="chunk_manifest",
+            path=paths["chunk_manifest"],
+            value=manifest,
+            artifacts=artifacts,
+        )
+
+        index = build_retrieval_index(manifest)
+        validate_retrieval_index(index, manifest)
+        retrieval_index_id = _require_sha256(
+            index.get("retrieval_index_id"), "retrieval_index_id"
+        )
+        if index.get("chunk_manifest_id") != chunk_manifest_id:
+            raise RagRuntimeError("retrieval index is detached from chunk manifest")
+        _write_artifact(
+            name="retrieval_index",
+            path=paths["retrieval_index"],
+            value=index,
+            artifacts=artifacts,
+        )
+
+        runtime_config = build_runtime_config(
+            generation=RUNTIME_GENERATION,
+            implementation_revision=subject_sha,
+        )
+        validate_runtime_config(runtime_config)
+        runtime_config_id = _require_sha256(
+            runtime_config.get("runtime_config_id"), "runtime_config_id"
+        )
+        _write_artifact(
+            name="runtime_config",
+            path=paths["runtime_config"],
+            value=runtime_config,
+            artifacts=artifacts,
+        )
+
+        positive_query, positive_retrieval, positive_context, positive_adapter, positive_trace = (
+            _positive_execution(
+                chunks=chunks,
+                manifest=manifest,
+                index=index,
+                runtime_config=runtime_config,
+            )
+        )
+        positive_answer = positive_adapter["answer"]
+        citation_ids = _citation_chunk_ids(positive_answer)
         manifest_chunk_ids = {chunk["chunk_id"] for chunk in chunks}
+        if not citation_ids or not citation_ids.issubset(manifest_chunk_ids):
+            raise RagRuntimeError("positive answer does not contain exact manifest citations")
+        for name, value in (
+            ("positive_retrieval", positive_retrieval),
+            ("positive_context", positive_context),
+            ("positive_adapter", positive_adapter),
+            ("positive_trace", positive_trace),
+        ):
+            _write_artifact(name=name, path=paths[name], value=value, artifacts=artifacts)
 
-        _run(
-            [
-                sys.executable,
-                "labs/llm-rag/scripts/build_index.py",
-                "--manifest",
-                str(manifest_path),
-                "--output",
-                str(index_path),
-            ],
-            cwd=repo_root,
+        no_result_query = "xylophonic-quantum-zebra-7391"
+        no_result_retrieval = retrieve(
+            index=index,
+            manifest=manifest,
+            query=no_result_query,
+            top_k=runtime_config["retrieval"]["top_k"],
+            min_score=runtime_config["retrieval"]["min_score"],
         )
-        index = _read_json(index_path)
-        index_id = _artifact_identity(index, "index_id", "index")
-        if not _contains_exact(index, snapshot_id):
-            raise RagRuntimeError("index does not bind exact corpus snapshot ID")
+        if no_result_retrieval["status"] != "no_result":
+            raise RagRuntimeError("nonsense query did not produce explicit no_result")
+        no_result_context = build_grounded_context(
+            no_result_retrieval,
+            index=index,
+            manifest=manifest,
+            max_chars=runtime_config["context"]["max_chars"],
+        )
+        no_result_adapter = run_offline_adapter(
+            retrieval_result=no_result_retrieval,
+            index=index,
+            manifest=manifest,
+            runtime_config=runtime_config,
+        )
+        no_result_answer = no_result_adapter["answer"]
+        if (
+            no_result_answer["status"] != "abstained"
+            or no_result_answer["abstention_reason"] != "retrieval_no_result"
+            or no_result_answer["citations"]
+        ):
+            raise RagRuntimeError("no_result path did not produce exact citation-free abstention")
+        no_result_trace = build_trace(
+            runtime_config=runtime_config,
+            retrieval_result=no_result_retrieval,
+            adapter_result=no_result_adapter,
+            context=no_result_context,
+            index=index,
+            manifest=manifest,
+            latency_ms=0.0,
+        )
+        for name, value in (
+            ("no_result_retrieval", no_result_retrieval),
+            ("no_result_context", no_result_context),
+            ("no_result_adapter", no_result_adapter),
+            ("no_result_trace", no_result_trace),
+        ):
+            _write_artifact(name=name, path=paths[name], value=value, artifacts=artifacts)
 
-        _run(
-            [
-                sys.executable,
-                "labs/llm-rag/scripts/build_runtime_config.py",
-                "--implementation-revision",
-                subject_sha,
-                "--output",
-                str(config_path),
-            ],
-            cwd=repo_root,
+        cases = _read_json_list(eval_cases_path)
+        evaluation = run_eval_suite(
+            cases=cases,
+            manifest=manifest,
+            index=index,
+            runtime_config=runtime_config,
         )
-        config = _read_json(config_path)
-        runtime_config_id = _artifact_identity(config, "runtime_config_id", "runtime config")
-        if not _contains_exact(config, subject_sha):
-            raise RagRuntimeError("runtime config does not bind exact implementation revision")
+        eval_report_id = _require_sha256(
+            evaluation.get("eval_report_id"), "eval_report_id"
+        )
+        failed_case_ids = sorted(
+            result["case_id"]
+            for result in evaluation["results"]
+            if result["case_passed"] is not True
+        )
+        if evaluation.get("suite_passed") is not True or failed_case_ids:
+            raise RagRuntimeError(
+                f"RAG hard evaluation failed: cases={failed_case_ids}, "
+                f"thresholds={evaluation.get('threshold_failures')}"
+            )
+        result_by_case = {result["case_id"]: result for result in evaluation["results"]}
+        security_cases = []
+        for case in cases:
+            if "security" not in case.get("slices", []):
+                continue
+            result = result_by_case[case["case_id"]]
+            security_cases.append(
+                {
+                    "case_id": case["case_id"],
+                    "attack_type": case["attack_type"],
+                    "case_passed": result["case_passed"],
+                }
+            )
+        direct = [
+            item
+            for item in security_cases
+            if item["case_id"] == "security-direct-injection" and item["attack_type"] == "direct"
+        ]
+        if len(direct) != 1 or direct[0]["case_passed"] is not True:
+            raise RagRuntimeError("required direct prompt-injection runtime case did not pass")
+        _write_artifact(
+            name="evaluation",
+            path=paths["evaluation"],
+            value=evaluation,
+            artifacts=artifacts,
+        )
 
-        positive_query = _query_from_chunk(chunks[0])
-        _run(
-            [
-                sys.executable,
-                "labs/llm-rag/scripts/query.py",
-                "--manifest",
-                str(manifest_path),
-                "--index",
-                str(index_path),
-                "--query",
-                positive_query,
-                "--output",
-                str(positive_path),
-            ],
-            cwd=repo_root,
+        prompt_release = build_prompt_release(
+            runtime_config=runtime_config,
+            eval_report=evaluation,
+            cases=cases,
+            manifest=manifest,
+            index=index,
         )
-        positive = _read_json(positive_path)
-        if positive.get("status") != "answered":
-            raise RagRuntimeError("derived positive query did not produce answered status")
-        answer_id = _artifact_identity(positive, "answer_id", "positive answer")
-        trace_id = _artifact_identity(positive, "trace_id", "positive answer")
-        answer = positive.get("answer")
-        if not isinstance(answer, str) or not answer.strip():
-            raise RagRuntimeError("answered result does not contain a non-empty answer")
-        citation_ids = _citation_chunk_ids(positive)
-        if not citation_ids:
-            raise RagRuntimeError("answered result contains no canonical chunk citations")
-        if not citation_ids.issubset(manifest_chunk_ids):
-            raise RagRuntimeError("answered result cites chunk outside exact corpus manifest")
-
-        no_result_query = "kh_no_result_9f3a0a6e_zzzz_nonexistent_subject"
-        _run(
-            [
-                sys.executable,
-                "labs/llm-rag/scripts/query.py",
-                "--manifest",
-                str(manifest_path),
-                "--index",
-                str(index_path),
-                "--query",
-                no_result_query,
-                "--output",
-                str(no_result_path),
-            ],
-            cwd=repo_root,
+        prompt_release_id = _require_sha256(
+            prompt_release.get("prompt_release_id"), "prompt_release_id"
         )
-        no_result = _read_json(no_result_path)
-        if no_result.get("status") not in {"no_result", "abstained"}:
-            raise RagRuntimeError("nonsense query did not produce explicit no-result/abstention")
-        no_result_trace_id = _artifact_identity(no_result, "trace_id", "no-result answer")
-
-        _run(
-            [
-                sys.executable,
-                "labs/llm-rag/scripts/run_evaluation.py",
-                "--manifest",
-                str(manifest_path),
-                "--index",
-                str(index_path),
-                "--runtime-config",
-                str(config_path),
-                "--cases",
-                str(eval_cases),
-                "--output",
-                str(eval_path),
-            ],
-            cwd=repo_root,
-        )
-        evaluation = _read_json(eval_path)
-        report_id = _artifact_identity(evaluation, "report_id", "evaluation")
-        if evaluation.get("all_passed") is not True or evaluation.get("failed_count") != 0:
-            raise RagRuntimeError("RAG hard evaluation is not all-passed")
-        for slice_name in ("direct_prompt_injection", "retrieved_context_prompt_injection"):
-            if not _contains_exact(evaluation, slice_name):
-                raise RagRuntimeError(f"evaluation does not contain required slice {slice_name}")
-
-        _run(
-            [
-                sys.executable,
-                "labs/llm-rag/scripts/build_prompt_release.py",
-                "--manifest",
-                str(manifest_path),
-                "--index",
-                str(index_path),
-                "--runtime-config",
-                str(config_path),
-                "--eval-report",
-                str(eval_path),
-                "--output",
-                str(release_path),
-            ],
-            cwd=repo_root,
-        )
-        release = _read_json(release_path)
-        prompt_release_id = _artifact_identity(release, "prompt_release_id", "prompt release")
-        for label, value in (
-            ("snapshot_id", snapshot_id),
-            ("index_id", index_id),
+        for label, expected in (
             ("runtime_config_id", runtime_config_id),
-            ("report_id", report_id),
-            ("implementation_revision", subject_sha),
+            ("eval_report_id", eval_report_id),
+            ("chunk_manifest_id", chunk_manifest_id),
+            ("corpus_snapshot_id", corpus_snapshot_id),
+            ("retrieval_index_id", retrieval_index_id),
+            ("source_revision", subject_sha),
         ):
-            if not _contains_exact(release, value):
+            if prompt_release.get(label) != expected:
                 raise RagRuntimeError(f"prompt release does not bind exact {label}")
-
-        for name, path in (
-            ("manifest", manifest_path),
-            ("index", index_path),
-            ("runtime_config", config_path),
-            ("positive_query", positive_path),
-            ("no_result_query", no_result_path),
-            ("evaluation", eval_path),
-            ("prompt_release", release_path),
-        ):
-            artifacts[name] = {
-                "sha256": _sha256_file(path),
-                "size_bytes": path.stat().st_size,
-            }
+        _write_artifact(
+            name="prompt_release",
+            path=paths["prompt_release"],
+            value=prompt_release,
+            artifacts=artifacts,
+        )
 
         lifecycle = {
-            "snapshot_id": snapshot_id,
-            "chunk_count": len(manifest_chunk_ids),
-            "index_id": index_id,
+            "snapshot_id": corpus_snapshot_id,
+            "corpus_snapshot_id": corpus_snapshot_id,
+            "chunk_manifest_id": chunk_manifest_id,
+            "chunk_count": manifest["chunk_count"],
+            "index_id": retrieval_index_id,
+            "retrieval_index_id": retrieval_index_id,
             "runtime_config_id": runtime_config_id,
+            "implementation_revision": subject_sha,
             "positive": {
                 "query": positive_query,
-                "answer_id": answer_id,
-                "trace_id": trace_id,
+                "retrieval_result_id": positive_retrieval["retrieval_result_id"],
+                "answer_id": positive_answer["answer_id"],
+                "trace_id": positive_trace["trace_id"],
                 "citation_chunk_ids": sorted(citation_ids),
             },
             "no_result": {
                 "query": no_result_query,
-                "status": no_result["status"],
-                "trace_id": no_result_trace_id,
+                "retrieval_result_id": no_result_retrieval["retrieval_result_id"],
+                "status": no_result_retrieval["status"],
+                "answer_status": no_result_answer["status"],
+                "abstention_reason": no_result_answer["abstention_reason"],
+                "trace_id": no_result_trace["trace_id"],
             },
             "evaluation": {
-                "report_id": report_id,
+                "report_id": eval_report_id,
+                "eval_report_id": eval_report_id,
+                "suite_passed": True,
                 "all_passed": True,
                 "failed_count": 0,
-                "required_security_slices": [
-                    "direct_prompt_injection",
-                    "retrieved_context_prompt_injection",
-                ],
+                "security_case_ids": sorted(item["case_id"] for item in security_cases),
+                "security_cases": sorted(security_cases, key=lambda item: item["case_id"]),
+                "retrieved_context_attack_case_present": any(
+                    item["attack_type"] == "indirect" for item in security_cases
+                ),
             },
             "prompt_release_id": prompt_release_id,
         }
@@ -409,7 +566,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                         sys.executable,
                         "labs/llm-rag/scripts/cleanup_runtime.py",
                         "--runtime-root",
-                        str(runtime_root),
+                        RUNTIME_RELATIVE.as_posix(),
                     ],
                     cwd=repo_root,
                     check=False,
@@ -429,16 +586,18 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         finally:
             payload: dict[str, Any] = {
                 "schema_version": 1,
-                "evidence_generation": "rag-clean-checkout-runtime-v1",
+                "evidence_generation": "rag-clean-checkout-runtime-v3",
                 "subject_sha": subject_sha,
-                "runtime_root": ".runtime/llm-rag",
+                "runtime_root": RUNTIME_RELATIVE.as_posix(),
                 "lifecycle": lifecycle,
                 "artifacts": artifacts,
                 "cleanup_verified": cleanup_verified,
                 "failure": failure,
                 "proof_boundary": {
-                    "retrieval": "deterministic-offline",
+                    "retrieval": "deterministic-offline-bm25",
                     "generation": "bounded-extractive-ci-adapter",
+                    "direct_prompt_injection_eval": "executed",
+                    "retrieved_context_prompt_injection_eval": "not-present-in-current-runtime-case-set",
                     "external_api_key_required": False,
                     "semantic_vector_provider_claimed": False,
                     "production_serving_claimed": False,
@@ -448,14 +607,18 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 failure is None
                 and cleanup_verified
                 and bool(lifecycle)
-                and len(artifacts) == 7
+                and len(artifacts) == len(paths)
             )
             evidence = {
                 **payload,
                 "evidence_id": hashlib.sha256(_canonical_bytes(payload)).hexdigest(),
             }
             if not output_path.exists() and not output_path.is_symlink():
-                _atomic_write_json(output_path, evidence)
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                output_path.write_text(
+                    json.dumps(evidence, ensure_ascii=False, sort_keys=True, indent=2) + "\n",
+                    encoding="utf-8",
+                )
 
     evidence = _read_json(output_path)
     if evidence.get("all_passed") is not True:
@@ -467,7 +630,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
         evidence = run(args)
-    except (RagRuntimeError, OSError, RuntimeError, ValueError) as exc:
+    except (ContractError, RagRuntimeError, OSError, RuntimeError, ValueError) as exc:
         print(
             json.dumps(
                 {"status": "refused", "error": f"{type(exc).__name__}: {exc}"},
@@ -482,9 +645,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             {
                 "status": "passed",
                 "subject_sha": evidence["subject_sha"],
-                "snapshot_id": lifecycle["snapshot_id"],
-                "index_id": lifecycle["index_id"],
-                "report_id": lifecycle["evaluation"]["report_id"],
+                "corpus_snapshot_id": lifecycle["corpus_snapshot_id"],
+                "chunk_manifest_id": lifecycle["chunk_manifest_id"],
+                "retrieval_index_id": lifecycle["retrieval_index_id"],
+                "eval_report_id": lifecycle["evaluation"]["eval_report_id"],
                 "prompt_release_id": lifecycle["prompt_release_id"],
                 "answer_id": lifecycle["positive"]["answer_id"],
                 "trace_id": lifecycle["positive"]["trace_id"],

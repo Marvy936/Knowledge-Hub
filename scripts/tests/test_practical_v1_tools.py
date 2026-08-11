@@ -57,6 +57,39 @@ def test_markdown_target_parser_ignores_fenced_examples(tmp_path: Path) -> None:
     ]
 
 
+def test_practical_markdown_scope_excludes_legacy_docs_and_templates(tmp_path: Path) -> None:
+    repo = tmp_path / "repo"
+    files = [
+        repo / "README.md",
+        repo / "PRACTICAL-STATUS.md",
+        repo / "labs" / "mlops" / "README.md",
+        repo / "glossary" / "legacy.md",
+        repo / "docs" / "legacy.md",
+        repo / "templates" / "topic-template.md",
+    ]
+    for path in files:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("# test\n", encoding="utf-8")
+
+    assert validate_practical_v1_repo._markdown_files_for_validation(repo, files) == files[:3]
+
+
+def test_practical_link_validation_ignores_out_of_scope_placeholders(tmp_path: Path) -> None:
+    repo = tmp_path / "repo"
+    practical = repo / "labs" / "mlops" / "README.md"
+    template = repo / "templates" / "topic-template.md"
+    practical.parent.mkdir(parents=True)
+    template.parent.mkdir(parents=True)
+    practical.write_text("[missing](not-there.md)\n", encoding="utf-8")
+    template.write_text("[placeholder](future/topic.md)\n", encoding="utf-8")
+
+    errors = validate_practical_v1_repo._validate_markdown_links(
+        repo,
+        [practical, template],
+    )
+    assert errors == ["labs/mlops/README.md -> missing target: not-there.md"]
+
+
 def test_path_policy_allows_only_runtime_subtree_inside_repo(tmp_path: Path) -> None:
     repo = tmp_path / "repo"
     (repo / ".git").mkdir(parents=True)

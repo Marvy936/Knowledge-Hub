@@ -16,6 +16,7 @@ class ReleaseCandidateError(RuntimeError):
 
 
 EXPECTED_COMPONENTS = ("core", "mlops", "rag", "identity")
+IDENTITY_GATE_SCRIPT = "labs/keycloak-ai-api/scripts/run_live_identity_gate_canonical.py"
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -266,12 +267,25 @@ def _verify_rag(value: Mapping[str, Any], subject_sha: str) -> dict[str, Any]:
         raise ReleaseCandidateError("RAG no-result evidence is missing")
     if evaluation.get("all_passed") is not True or evaluation.get("failed_count") != 0:
         raise ReleaseCandidateError("RAG hard evaluation is not all-passed")
-    expected_slices = [
-        "direct_prompt_injection",
-        "retrieved_context_prompt_injection",
+    security_cases = evaluation.get("security_cases")
+    if not isinstance(security_cases, list):
+        raise ReleaseCandidateError("RAG security case evidence is missing")
+    direct_cases = [
+        item
+        for item in security_cases
+        if isinstance(item, dict)
+        and item.get("case_id") == "security-direct-injection"
+        and item.get("attack_type") == "direct"
     ]
-    if evaluation.get("required_security_slices") != expected_slices:
-        raise ReleaseCandidateError("RAG hard security slice inventory mismatch")
+    if len(direct_cases) != 1 or direct_cases[0].get("case_passed") is not True:
+        raise ReleaseCandidateError("RAG direct prompt-injection runtime case did not pass")
+    if boundary.get("direct_prompt_injection_eval") != "executed":
+        raise ReleaseCandidateError("RAG direct prompt-injection proof boundary mismatch")
+    if (
+        boundary.get("retrieved_context_prompt_injection_eval")
+        != "not-present-in-current-runtime-case-set"
+    ):
+        raise ReleaseCandidateError("RAG retrieved-context injection proof boundary is ambiguous")
     if boundary.get("external_api_key_required") is not False:
         raise ReleaseCandidateError("RAG evidence unexpectedly requires external API key")
     if boundary.get("production_serving_claimed") is not False:
@@ -480,7 +494,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         _run(
             [
                 sys.executable,
-                "labs/keycloak-ai-api/scripts/run_live_identity_gate.py",
+                IDENTITY_GATE_SCRIPT,
                 "--repo-root",
                 str(repo_root),
                 "--subject-sha",

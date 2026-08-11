@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
 import stat
 import subprocess
 import sys
@@ -170,7 +171,7 @@ def _wait_ready(base_url: str, timeout_seconds: int) -> dict[str, Any]:
             if status == 200:
                 return value
             last_error = f"HTTP {status}: {value}"
-        except Exception as exc:  # bounded polling; final failure is explicit
+        except Exception as exc:
             last_error = f"{type(exc).__name__}: {exc}"
         time.sleep(1)
     raise RuntimeGateError(f"serving container did not become ready: {last_error}")
@@ -303,22 +304,44 @@ def _resolve_release(
 
 def _prepare_readonly_mounts(
     *,
+    staging_root: Path,
     deployment_path: Path,
     artifact_manifest_path: Path,
     model_path: Path,
     expected_model_sha256: str,
-) -> dict[str, str]:
+) -> tuple[dict[str, str], Path, Path]:
+    if staging_root.exists() or staging_root.is_symlink():
+        raise RuntimeGateError("serving mount staging root must be fresh")
     for path in (deployment_path, artifact_manifest_path, model_path):
         if not path.is_file() or path.is_symlink():
-            raise RuntimeGateError(f"serving mount must be a regular non-symlink file: {path}")
-        path.chmod(0o444)
+            raise RuntimeGateError(f"serving mount source must be a regular non-symlink file: {path}")
     if _sha256_file(model_path) != expected_model_sha256:
+        raise RuntimeGateError("model digest changed before preparing read-only serving mount")
+
+    artifact_staging = staging_root / "artifact"
+    artifact_staging.mkdir(parents=True, exist_ok=False)
+    staged_deployment = staging_root / "deployment.json"
+    staged_manifest = artifact_staging / "manifest.json"
+    staged_model = artifact_staging / "model.joblib"
+    for source, target in (
+        (deployment_path, staged_deployment),
+        (artifact_manifest_path, staged_manifest),
+        (model_path, staged_model),
+    ):
+        shutil.copyfile(source, target)
+        target.chmod(0o444)
+
+    if _sha256_file(staged_model) != expected_model_sha256:
         raise RuntimeGateError("model digest changed while preparing read-only serving mount")
-    return {
-        "deployment": oct(stat.S_IMODE(deployment_path.stat().st_mode)),
-        "manifest": oct(stat.S_IMODE(artifact_manifest_path.stat().st_mode)),
-        "model": oct(stat.S_IMODE(model_path.stat().st_mode)),
-    }
+    return (
+        {
+            "deployment": oct(stat.S_IMODE(staged_deployment.stat().st_mode)),
+            "manifest": oct(stat.S_IMODE(staged_manifest.stat().st_mode)),
+            "model": oct(stat.S_IMODE(staged_model.stat().st_mode)),
+        },
+        staged_deployment,
+        artifact_staging,
+    )
 
 
 def _validate_ready(value: Mapping[str, Any], *, deployment: Mapping[str, Any]) -> None:
@@ -461,7 +484,6 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     registry = inputs["registry"]
     artifact_manifest_path = Path(inputs["artifact_manifest_path"]).resolve(strict=True)
     model_path = Path(inputs["model_path"]).resolve(strict=True)
-    artifact_dir = Path(inputs["artifact_dir"]).resolve(strict=True)
     release, release_source = _resolve_release(
         candidate=candidate,
         provided_release_path=paths["release_path"],
@@ -516,7 +538,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         )
         validate_deployment_manifest(deployment)
         atomic_write_json(deployment_path, deployment)
-        mount_modes = _prepare_readonly_mounts(
+        mount_modes, serving_deployment_path, serving_artifact_dir = _prepare_readonly_mounts(
+            staging_root=runtime_dir / "container-runtime-serving-mounts",
             deployment_path=deployment_path,
             artifact_manifest_path=artifact_manifest_path,
             model_path=model_path,
@@ -533,9 +556,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "--publish",
                 f"{args.host}:{args.port}:8080",
                 "--mount",
-                f"type=bind,src={deployment_path.resolve()},dst=/runtime/deployment.json,readonly",
+                f"type=bind,src={serving_deployment_path.resolve()},dst=/runtime/deployment.json,readonly",
                 "--mount",
-                f"type=bind,src={artifact_dir},dst=/runtime/artifact,readonly",
+                f"type=bind,src={serving_artifact_dir.resolve()},dst=/runtime/artifact,readonly",
                 "--env",
                 f"MLOPS_IMAGE_DIGEST={image_id}",
                 image_id,
@@ -547,7 +570,33 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             raise RuntimeGateError("docker run did not return a container ID")
 
         base_url = f"http://{args.host}:{args.port}"
-        ready = _wait_ready(base_url, args.startup_timeout_seconds)
+        try:
+            ready = _wait_ready(base_url, args.startup_timeout_seconds)
+        except Exception as exc:
+            inspect_result = _run(
+                [
+                    "docker",
+                    "inspect",
+                    "--format",
+                    "{{json .State}}",
+                    positive_container_id,
+                ],
+                cwd=repo_root,
+                check=False,
+            )
+            logs_result = _run(
+                ["docker", "logs", positive_container_id],
+                cwd=repo_root,
+                check=False,
+            )
+            state_text = (inspect_result.stdout or inspect_result.stderr or "").strip()
+            combined_logs = (logs_result.stdout or "") + (logs_result.stderr or "")
+            log_tail = combined_logs[-4000:]
+            log_sha256 = _sha256_bytes(combined_logs.encode("utf-8", errors="replace"))
+            raise RuntimeGateError(
+                "serving container readiness failed; "
+                f"state={state_text}; log_sha256={log_sha256}; log_tail={log_tail}"
+            ) from exc
         _validate_ready(ready, deployment=deployment)
 
         uid = _run(
@@ -589,8 +638,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         wrong_digest = _negative_wrong_digest_refusal(
             repo_root=repo_root,
             image_id=image_id,
-            deployment_path=deployment_path.resolve(),
-            artifact_dir=artifact_dir,
+            deployment_path=serving_deployment_path.resolve(),
+            artifact_dir=serving_artifact_dir.resolve(),
             container_name=negative_name,
             timeout_seconds=min(args.startup_timeout_seconds, 60),
         )
@@ -617,6 +666,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "service_name": deployment["service_name"],
             "container_uid": uid,
             "mount_file_modes": mount_modes,
+            "mount_staging": "disposable-runtime-copy",
+            "authoritative_artifacts_mutated": False,
             "health_status": health["status"],
             "ready_deployment_id": ready["deployment_id"],
             "prediction": {
