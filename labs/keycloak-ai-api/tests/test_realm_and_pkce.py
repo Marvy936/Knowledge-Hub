@@ -53,6 +53,13 @@ def test_realm_pins_pkce_audience_access_marker_and_service_account_roles() -> N
     assert marker["config"]["claim.value"] == "access"
     assert marker["config"]["access.token.claim"] == "true"
     assert marker["config"]["id.token.claim"] == "false"
+    roles_mapper = mappers["knowledge-hub-api-client-roles"]
+    assert roles_mapper["protocolMapper"] == "oidc-usermodel-client-role-mapper"
+    assert roles_mapper["config"]["usermodel.clientRoleMapping.clientId"] == "knowledge-hub-api"
+    assert roles_mapper["config"]["claim.name"] == "resource_access.knowledge-hub-api.roles"
+    assert roles_mapper["config"]["multivalued"] == "true"
+    assert roles_mapper["config"]["access.token.claim"] == "true"
+    assert roles_mapper["config"]["id.token.claim"] == "false"
 
     users = {user["username"]: user for user in realm["users"]}
     service = users["service-account-knowledge-hub-automation"]
