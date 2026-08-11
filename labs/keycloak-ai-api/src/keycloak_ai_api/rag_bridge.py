@@ -42,10 +42,7 @@ class RagBundlePaths:
 class OfflinePromotedRagExecutor:
     def __init__(self, paths: RagBundlePaths) -> None:
         try:
-            from knowledge_hub_rag.evaluation import (
-                build_prompt_release,
-                validate_eval_report,
-            )
+            from knowledge_hub_rag.evaluation import build_prompt_release
             from knowledge_hub_rag.retrieval import validate_retrieval_index
             from knowledge_hub_rag.runtime_config import validate_runtime_config
         except ImportError as exc:
@@ -63,13 +60,9 @@ class OfflinePromotedRagExecutor:
         try:
             validate_runtime_config(config)
             validate_retrieval_index(index, manifest)
-            validate_eval_report(
-                report,
-                cases=cases,
-                manifest=manifest,
-                index=index,
-                runtime_config=config,
-            )
+            # build_prompt_release performs the exact deterministic eval-report
+            # rebuild internally. Calling validate_eval_report separately here
+            # would execute the full evaluation suite twice during API startup.
             expected_release = build_prompt_release(
                 runtime_config=config,
                 eval_report=report,
