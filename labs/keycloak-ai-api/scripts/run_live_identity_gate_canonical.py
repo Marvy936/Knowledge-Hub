@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import os
 import subprocess
 import sys
 import time
+import urllib.error
 import urllib.parse
+import urllib.request
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -19,7 +22,10 @@ SPEC.loader.exec_module(core)
 
 IdentityRuntimeError = core.IdentityRuntimeError
 _REQUIRED_API_ROLES = frozenset({"rag.read", "agent.run", "agent.remediate"})
+_PROTECTED_API_TIMEOUT_SECONDS = 120.0
 _ORIGINAL_ADMIN_GET_CLIENT = core._admin_get_client
+_ORIGINAL_JSON_REQUEST = core._json_request
+_ORIGINAL_FORM_REQUEST = core._form_request
 
 
 def _role_names(value: object, *, label: str) -> set[str]:
@@ -34,6 +40,103 @@ def _role_names(value: object, *, label: str) -> set[str]:
             raise IdentityRuntimeError(f"{label} read-back contains a role without a name")
         names.add(name)
     return names
+
+
+def _json_request(
+    url: str,
+    *,
+    method: str = "GET",
+    bearer: str | None = None,
+    payload: object | None = None,
+    timeout: float = 10.0,
+    expected: set[int] | None = None,
+) -> tuple[int, Any]:
+    try:
+        return _ORIGINAL_JSON_REQUEST(
+            url,
+            method=method,
+            bearer=bearer,
+            payload=payload,
+            timeout=timeout,
+            expected=expected,
+        )
+    except TimeoutError as exc:
+        raise IdentityRuntimeError(
+            f"HTTP {method} {url} timed out after {timeout:g}s"
+        ) from exc
+    except urllib.error.URLError as exc:
+        if isinstance(exc.reason, TimeoutError):
+            raise IdentityRuntimeError(
+                f"HTTP {method} {url} timed out after {timeout:g}s"
+            ) from exc
+        raise
+
+
+def _form_request(
+    url: str,
+    *,
+    values: Mapping[str, str],
+    timeout: float = 10.0,
+) -> dict[str, Any]:
+    try:
+        return _ORIGINAL_FORM_REQUEST(url, values=values, timeout=timeout)
+    except TimeoutError as exc:
+        raise IdentityRuntimeError(
+            f"form POST {url} timed out after {timeout:g}s"
+        ) from exc
+    except urllib.error.URLError as exc:
+        if isinstance(exc.reason, TimeoutError):
+            raise IdentityRuntimeError(
+                f"form POST {url} timed out after {timeout:g}s"
+            ) from exc
+        raise
+
+
+def _api_json(
+    base_url: str,
+    path: str,
+    *,
+    token: str | None,
+    payload: Mapping[str, Any],
+) -> tuple[int, dict[str, Any]]:
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    if token is not None:
+        headers["Authorization"] = "Bearer " + token
+    request = urllib.request.Request(
+        base_url + path,
+        data=json.dumps(payload, separators=(",", ":")).encode("utf-8"),
+        method="POST",
+        headers=headers,
+    )
+    try:
+        with urllib.request.urlopen(
+            request,
+            timeout=_PROTECTED_API_TIMEOUT_SECONDS,
+        ) as response:
+            status = response.status
+            raw = response.read()
+    except urllib.error.HTTPError as exc:
+        status = exc.code
+        raw = exc.read()
+    except TimeoutError as exc:
+        raise IdentityRuntimeError(
+            f"protected API {path} timed out after {_PROTECTED_API_TIMEOUT_SECONDS:g}s"
+        ) from exc
+    except urllib.error.URLError as exc:
+        if isinstance(exc.reason, TimeoutError):
+            raise IdentityRuntimeError(
+                f"protected API {path} timed out after {_PROTECTED_API_TIMEOUT_SECONDS:g}s"
+            ) from exc
+        raise IdentityRuntimeError(
+            f"protected API {path} transport failed: {exc}"
+        ) from exc
+    try:
+        value = json.loads(raw.decode("utf-8")) if raw else {}
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise IdentityRuntimeError(f"protected API {path} returned non-JSON body") from exc
+    if not isinstance(value, dict):
+        raise IdentityRuntimeError(f"protected API {path} response must be an object")
+    return status, value
 
 
 def _api_role_representations(
@@ -276,6 +379,9 @@ def _start_api(
     )
 
 
+core._json_request = _json_request
+core._form_request = _form_request
+core._api_json = _api_json
 core._admin_get_client = _admin_get_client
 core._build_rag = _build_rag
 core._start_api = _start_api
