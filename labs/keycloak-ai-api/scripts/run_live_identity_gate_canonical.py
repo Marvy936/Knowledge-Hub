@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import importlib.util
+import os
+import subprocess
+import sys
+import time
 import urllib.parse
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -173,8 +177,108 @@ def _build_rag(repo_root: Path, runtime_root: Path, subject_sha: str) -> dict[st
         ) from exc
 
 
+def _log_tail(log_path: Path, limit: int = 6000) -> str:
+    try:
+        return log_path.read_text(encoding="utf-8", errors="replace")[-limit:]
+    except OSError as exc:
+        return f"<cannot read secured API log: {type(exc).__name__}: {exc}>"
+
+
+def _start_api(
+    *,
+    repo_root: Path,
+    issuer: str,
+    rag: Mapping[str, Any],
+    agent: Mapping[str, Path],
+    agent_root: Path,
+    host: str,
+    port: int,
+    log_path: Path,
+    timeout_seconds: int,
+) -> tuple[subprocess.Popen[str], Any]:
+    handle = log_path.open("w", encoding="utf-8")
+    process = subprocess.Popen(
+        [
+            sys.executable,
+            "labs/keycloak-ai-api/scripts/run_secured_agent_rag_api.py",
+            "--issuer",
+            issuer,
+            "--manifest",
+            str(rag["manifest"]),
+            "--index",
+            str(rag["index"]),
+            "--runtime-config",
+            str(rag["runtime_config"]),
+            "--eval-cases",
+            str(rag["eval_cases"]),
+            "--eval-report",
+            str(rag["eval_report"]),
+            "--prompt-release",
+            str(rag["prompt_release"]),
+            "--tool-state",
+            str(agent["tool_state"]),
+            "--policy",
+            str(agent["policy"]),
+            "--kill-switch",
+            str(agent["kill_switch"]),
+            "--runtime-root",
+            str(agent_root),
+            "--host",
+            host,
+            "--port",
+            str(port),
+        ],
+        cwd=repo_root,
+        stdout=handle,
+        stderr=subprocess.STDOUT,
+        text=True,
+        env={
+            **os.environ,
+            "PYTHONHASHSEED": "0",
+            "PYTHONDONTWRITEBYTECODE": "1",
+        },
+    )
+    deadline = time.monotonic() + timeout_seconds
+    last = "not attempted"
+    while time.monotonic() < deadline:
+        returncode = process.poll()
+        if returncode is not None:
+            handle.flush()
+            handle.close()
+            raise IdentityRuntimeError(
+                f"secured API exited before readiness with code {returncode}\n"
+                f"secured-api.log tail:\n{_log_tail(log_path)}"
+            )
+        try:
+            status, value = core._json_request(
+                f"http://{host}:{port}/healthz",
+                timeout=2.0,
+                expected={200},
+            )
+            if status == 200 and isinstance(value, dict):
+                return process, handle
+            last = f"HTTP {status}"
+        except Exception as exc:
+            last = f"{type(exc).__name__}: {exc}"
+        time.sleep(1)
+
+    process.terminate()
+    try:
+        process.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        process.kill()
+        process.wait(timeout=10)
+    handle.flush()
+    handle.close()
+    raise IdentityRuntimeError(
+        f"secured API did not become ready: http://{host}:{port}/healthz: {last}\n"
+        f"secured-api.log tail:\n{_log_tail(log_path)}"
+    )
+
+
 core._admin_get_client = _admin_get_client
 core._build_rag = _build_rag
+core._start_api = _start_api
 
 
 def main(argv: Sequence[str] | None = None) -> int:
