@@ -114,3 +114,83 @@ def test_scope_bootstrap_refuses_roles_outside_allowlist(monkeypatch: pytest.Mon
         match="outside the bounded allowlist",
     ):
         module._ensure_automation_role_scope("http://keycloak/admin", "admin-token")
+
+
+def test_protected_api_uses_execution_timeout_budget(monkeypatch: pytest.MonkeyPatch) -> None:
+    observed: dict[str, Any] = {}
+
+    class Response:
+        status = 200
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def read(self) -> bytes:
+            return b'{"status":"completed"}'
+
+    def fake_urlopen(request, *, timeout: float):
+        observed["url"] = request.full_url
+        observed["authorization"] = request.get_header("Authorization")
+        observed["timeout"] = timeout
+        return Response()
+
+    monkeypatch.setattr(module.urllib.request, "urlopen", fake_urlopen)
+    status, value = module._api_json(
+        "http://127.0.0.1:18091",
+        "/v1/rag/query",
+        token="signed-token",
+        payload={"query": "Kubernetes Service"},
+    )
+
+    assert status == 200
+    assert value == {"status": "completed"}
+    assert observed == {
+        "url": "http://127.0.0.1:18091/v1/rag/query",
+        "authorization": "Bearer signed-token",
+        "timeout": module._PROTECTED_API_TIMEOUT_SECONDS,
+    }
+    assert module._PROTECTED_API_TIMEOUT_SECONDS == 120.0
+
+
+def test_protected_api_timeout_reports_exact_endpoint(monkeypatch: pytest.MonkeyPatch) -> None:
+    def timeout_urlopen(_request, *, timeout: float):
+        assert timeout == module._PROTECTED_API_TIMEOUT_SECONDS
+        raise TimeoutError("timed out")
+
+    monkeypatch.setattr(module.urllib.request, "urlopen", timeout_urlopen)
+    with pytest.raises(
+        module.IdentityRuntimeError,
+        match=r"protected API /v1/agent/run timed out after 120s",
+    ):
+        module._api_json(
+            "http://127.0.0.1:18091",
+            "/v1/agent/run",
+            token="signed-token",
+            payload={"target": "payments-api"},
+        )
+
+
+def test_control_plane_timeout_keeps_short_budget_and_context(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def timeout_request(
+        url: str,
+        *,
+        method: str = "GET",
+        bearer: str | None = None,
+        payload: object | None = None,
+        timeout: float = 10.0,
+        expected: set[int] | None = None,
+    ) -> tuple[int, Any]:
+        del url, method, bearer, payload, timeout, expected
+        raise TimeoutError("timed out")
+
+    monkeypatch.setattr(module, "_ORIGINAL_JSON_REQUEST", timeout_request)
+    with pytest.raises(
+        module.IdentityRuntimeError,
+        match=r"HTTP GET http://keycloak/admin timed out after 10s",
+    ):
+        module._json_request("http://keycloak/admin")
