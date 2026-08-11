@@ -15,6 +15,13 @@ def test_release_candidate_subject_requires_exact_git_sha1() -> None:
         rc._require_git_sha("A" * 40)
 
 
+def test_release_candidate_composes_canonical_identity_gate() -> None:
+    assert (
+        rc.IDENTITY_GATE_SCRIPT
+        == "labs/keycloak-ai-api/scripts/run_live_identity_gate_canonical.py"
+    )
+
+
 def test_release_candidate_paths_are_external_disjoint_and_exact(tmp_path: Path) -> None:
     repo = tmp_path / "repo"
     (repo / ".git").mkdir(parents=True)
