@@ -14,7 +14,17 @@ def _parser() -> argparse.ArgumentParser:
         description="Build an immutable post-retraining deployment and canary handoff."
     )
     parser.add_argument("--operation", type=Path, required=True)
-    parser.add_argument("--completed-state", type=Path, required=True)
+    parser.add_argument(
+        "--completed-state",
+        "--state",
+        dest="completed_state",
+        type=Path,
+        required=True,
+        help=(
+            "Completed retraining state. --state is retained only as a backward-compatible "
+            "alias for composed runtime callers."
+        ),
+    )
     parser.add_argument("--release", type=Path, required=True)
     parser.add_argument("--registry-evidence", type=Path, required=True)
     parser.add_argument("--current-deployment", type=Path, required=True)
