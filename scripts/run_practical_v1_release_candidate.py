@@ -16,6 +16,7 @@ class ReleaseCandidateError(RuntimeError):
 
 
 EXPECTED_COMPONENTS = ("core", "mlops", "rag", "identity")
+IDENTITY_GATE_SCRIPT = "labs/keycloak-ai-api/scripts/run_live_identity_gate_canonical.py"
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -493,7 +494,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         _run(
             [
                 sys.executable,
-                "labs/keycloak-ai-api/scripts/run_live_identity_gate.py",
+                IDENTITY_GATE_SCRIPT,
                 "--repo-root",
                 str(repo_root),
                 "--subject-sha",
