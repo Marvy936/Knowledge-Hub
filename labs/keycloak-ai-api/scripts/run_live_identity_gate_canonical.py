@@ -92,6 +92,40 @@ def _form_request(
         raise
 
 
+def _normalize_protected_response(
+    path: str,
+    status: int,
+    value: dict[str, Any],
+) -> dict[str, Any]:
+    if path != "/v1/rag/query" or status != 200:
+        return value
+    if value.get("status") != "completed":
+        raise IdentityRuntimeError(
+            "protected RAG envelope status must equal completed"
+        )
+    if value.get("action") != "rag.read":
+        raise IdentityRuntimeError(
+            "protected RAG envelope action must equal rag.read"
+        )
+    rag = value.get("rag")
+    if not isinstance(rag, dict):
+        raise IdentityRuntimeError("protected RAG envelope is missing rag result")
+    rag_status = rag.get("status")
+    if rag_status not in {"answered", "abstained"}:
+        raise IdentityRuntimeError(
+            "protected RAG result status must equal answered or abstained"
+        )
+
+    # The canonical FastAPI response has an execution envelope with
+    # status=completed and the RAG answer status nested under rag.status.
+    # The legacy lifecycle reader predates that envelope and reads top-level
+    # status. Preserve the full response while exposing the validated nested
+    # RAG status to that compatibility reader.
+    normalized = dict(value)
+    normalized["status"] = rag_status
+    return normalized
+
+
 def _api_json(
     base_url: str,
     path: str,
@@ -136,7 +170,7 @@ def _api_json(
         raise IdentityRuntimeError(f"protected API {path} returned non-JSON body") from exc
     if not isinstance(value, dict):
         raise IdentityRuntimeError(f"protected API {path} response must be an object")
-    return status, value
+    return status, _normalize_protected_response(path, status, value)
 
 
 def _api_role_representations(
