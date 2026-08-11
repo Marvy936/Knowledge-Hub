@@ -66,6 +66,7 @@ jobs:
       PYTHONDONTWRITEBYTECODE: "1"
       SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       VENV_DIR: "${{ github.workspace }}/../knowledge-hub-practical-v1-rc-venv"
+      PACKAGE_ROOT: "/tmp/knowledge-hub-practical-v1-rc-packages"
       WORK_ROOT: "${{ github.workspace }}/../knowledge-hub-practical-v1-rc-work"
       EVIDENCE_DIR: "/tmp/knowledge-hub-practical-v1-rc-evidence"
       RC_EVIDENCE: "/tmp/knowledge-hub-practical-v1-rc-evidence/release-candidate.json"
@@ -95,15 +96,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf "$VENV_DIR" "$WORK_ROOT" "$EVIDENCE_DIR" .runtime
+          rm -rf "$VENV_DIR" "$PACKAGE_ROOT" "$WORK_ROOT" "$EVIDENCE_DIR" .runtime
+          mkdir -p "$PACKAGE_ROOT"
+          cp -a labs/machine-learning "$PACKAGE_ROOT/machine-learning"
+          cp -a labs/mlops "$PACKAGE_ROOT/mlops"
+          cp -a labs/llm-rag "$PACKAGE_ROOT/llm-rag"
+          cp -a labs/agent-ops "$PACKAGE_ROOT/agent-ops"
+          cp -a labs/keycloak-ai-api "$PACKAGE_ROOT/keycloak-ai-api"
           python -m venv "$VENV_DIR"
           "$VENV_DIR/bin/python" -m pip install --upgrade pip
           "$VENV_DIR/bin/python" -m pip install \
-            "./labs/machine-learning[dev]" \
-            "./labs/mlops[dev,registry,serving]" \
-            "./labs/llm-rag[dev]" \
-            "./labs/agent-ops[dev]" \
-            "./labs/keycloak-ai-api[dev]"
+            "$PACKAGE_ROOT/machine-learning[dev]" \
+            "$PACKAGE_ROOT/mlops[dev,registry,serving]" \
+            "$PACKAGE_ROOT/llm-rag[dev]" \
+            "$PACKAGE_ROOT/agent-ops[dev]" \
+            "$PACKAGE_ROOT/keycloak-ai-api[dev]"
           test -z "$(git status --porcelain --untracked-files=all)"
 
       - name: Run release-tooling contract tests
@@ -170,7 +177,8 @@ jobs:
             | awk '$1 ~ /^knowledge-hub-mlops-runtime:/ {print $2}' \
             | sort -u \
             | xargs -r docker image rm -f || true
-          rm -rf "$WORK_ROOT" .runtime
+          rm -rf "$PACKAGE_ROOT" "$WORK_ROOT" .runtime
+          test ! -e "$PACKAGE_ROOT"
           test ! -e "$WORK_ROOT"
           test ! -e .runtime
           test -z "$(docker ps -aq --filter 'name=kh-mlops-runtime-')"
@@ -259,8 +267,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf "$VENV_DIR"
+          rm -rf "$VENV_DIR" "$PACKAGE_ROOT"
           test ! -e "$VENV_DIR"
+          test ! -e "$PACKAGE_ROOT"
           test -z "$(git status --porcelain --untracked-files=all)"
 
       - name: Emergency cleanup
@@ -279,7 +288,8 @@ jobs:
             | awk '$1 ~ /^knowledge-hub-mlops-runtime:/ {print $2}' \
             | sort -u \
             | xargs -r docker image rm -f || true
-          rm -rf "$WORK_ROOT" .runtime "$VENV_DIR"
+          rm -rf "$PACKAGE_ROOT" "$WORK_ROOT" .runtime "$VENV_DIR"
+          test ! -e "$PACKAGE_ROOT"
           test ! -e "$WORK_ROOT"
           test ! -e .runtime
           test ! -e "$VENV_DIR"
