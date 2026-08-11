@@ -116,7 +116,9 @@ def test_scope_bootstrap_refuses_roles_outside_allowlist(monkeypatch: pytest.Mon
         module._ensure_automation_role_scope("http://keycloak/admin", "admin-token")
 
 
-def test_protected_api_uses_execution_timeout_budget(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_protected_api_uses_execution_timeout_and_normalizes_rag_envelope(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     observed: dict[str, Any] = {}
 
     class Response:
@@ -129,7 +131,12 @@ def test_protected_api_uses_execution_timeout_budget(monkeypatch: pytest.MonkeyP
             return False
 
         def read(self) -> bytes:
-            return b'{"status":"completed"}'
+            return (
+                b'{"status":"completed","action":"rag.read","principal":{"subject":"svc"},'
+                b'"rag":{"status":"answered","answer_id":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","trace_id":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+                b'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}}'
+            )
 
     def fake_urlopen(request, *, timeout: float):
         observed["url"] = request.full_url
@@ -146,13 +153,43 @@ def test_protected_api_uses_execution_timeout_budget(monkeypatch: pytest.MonkeyP
     )
 
     assert status == 200
-    assert value == {"status": "completed"}
+    assert value["status"] == "answered"
+    assert value["action"] == "rag.read"
+    assert value["rag"]["status"] == "answered"
     assert observed == {
         "url": "http://127.0.0.1:18091/v1/rag/query",
         "authorization": "Bearer signed-token",
         "timeout": module._PROTECTED_API_TIMEOUT_SECONDS,
     }
     assert module._PROTECTED_API_TIMEOUT_SECONDS == 120.0
+
+
+def test_rag_envelope_normalization_refuses_wrong_action() -> None:
+    with pytest.raises(
+        module.IdentityRuntimeError,
+        match=r"action must equal rag.read",
+    ):
+        module._normalize_protected_response(
+            "/v1/rag/query",
+            200,
+            {
+                "status": "completed",
+                "action": "agent.run",
+                "rag": {"status": "answered"},
+            },
+        )
+
+
+def test_rag_envelope_normalization_refuses_missing_nested_result() -> None:
+    with pytest.raises(
+        module.IdentityRuntimeError,
+        match=r"missing rag result",
+    ):
+        module._normalize_protected_response(
+            "/v1/rag/query",
+            200,
+            {"status": "completed", "action": "rag.read"},
+        )
 
 
 def test_protected_api_timeout_reports_exact_endpoint(monkeypatch: pytest.MonkeyPatch) -> None:
