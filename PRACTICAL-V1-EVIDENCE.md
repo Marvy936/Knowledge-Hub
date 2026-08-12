@@ -44,7 +44,19 @@ Run `31542501300` now concludes success on `run_attempt=2`. Attempt 1 failed dur
 
 The automated identity proof still does not claim an actual interactive browser Authorization Code exchange; that remains an explicit proof boundary rather than a hidden success claim.
 
-## 4. Final `v1.0.0` subject policy
+## 4. Repository hygiene closeout
+
+Before the final tag-subject run, repository hygiene is part of the release subject itself:
+
+- the remote branch set is reduced to `main` only,
+- superseded draft PR #134 is closed without merge,
+- temporary diagnostic/executor workflows are removed,
+- the historical Section 18 one-shot remediation hook/helper is removed from the permanent documentation workflow,
+- permanent release-evidence workflow remains read-only and does not create tags or claim user acceptance.
+
+This section intentionally contains no future run ID. The commit containing this cleanup must itself become the subject of the final exact-head release lifecycle.
+
+## 5. Final `v1.0.0` subject policy
 
 The final release subject is **not** one of the historical subjects above. After repository metadata/workflow cleanup, the exact current `main` must run the canonical RC and release-evidence workflows again.
 
