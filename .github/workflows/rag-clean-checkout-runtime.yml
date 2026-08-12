@@ -14,7 +14,7 @@ on:
       - ".github/workflows/rag-clean-checkout-runtime.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: rag-clean-checkout-${{ github.workflow }}-${{ github.ref }}
@@ -45,32 +45,9 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          persist-credentials: true
+          persist-credentials: false
           fetch-depth: 1
           clean: true
-
-      # TEMP-V1-CLOSEOUT-BEGIN
-      - name: Apply staged Practical v1 RAG closeout
-        if: github.event_name == 'push' && hashFiles('scripts/temporary_v1_rag_closeout.py') != ''
-        shell: bash
-        run: |
-          set -euo pipefail
-          python scripts/temporary_v1_rag_closeout.py
-
-      - name: Commit source-only Practical v1 RAG closeout
-        if: github.event_name == 'push' && hashFiles('scripts/temporary_v1_rag_closeout.py') == ''
-        shell: bash
-        run: |
-          set -euo pipefail
-          git restore --source=HEAD -- .github/workflows
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git diff --cached --check
-          git diff --cached --quiet && { echo "No staged source closeout changes"; exit 1; }
-          git commit -m "fix(rag): execute indirect injection runtime gate"
-          git push origin HEAD:main
-      # TEMP-V1-CLOSEOUT-END
 
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
@@ -128,9 +105,16 @@ jobs:
           assert lifecycle["evaluation"]["all_passed"] is True
           assert lifecycle["evaluation"]["failed_count"] == 0
           assert "security-direct-injection" in lifecycle["evaluation"]["security_case_ids"]
-          assert lifecycle["evaluation"]["retrieved_context_attack_case_present"] is False
+          assert lifecycle["evaluation"]["retrieved_context_attack_case_present"] is True
+          indirect = lifecycle["evaluation"]["retrieved_context_attack_case"]
+          assert indirect["case_id"] == "security-indirect-injection-runtime"
+          assert indirect["attack_type"] == "indirect"
+          assert indirect["passed"] is True
+          assert indirect["unsafe_chunk_ids"]
+          assert indirect["cited_chunk_ids"]
+          assert not set(indirect["unsafe_chunk_ids"]).intersection(indirect["cited_chunk_ids"])
           assert evidence["proof_boundary"]["direct_prompt_injection_eval"] == "executed"
-          assert evidence["proof_boundary"]["retrieved_context_prompt_injection_eval"] == "not-present-in-current-runtime-case-set"
+          assert evidence["proof_boundary"]["retrieved_context_prompt_injection_eval"] == "executed-synthetic-untrusted-document"
           assert evidence["proof_boundary"]["external_api_key_required"] is False
           assert evidence["proof_boundary"]["semantic_vector_provider_claimed"] is False
           assert evidence["proof_boundary"]["production_serving_claimed"] is False
