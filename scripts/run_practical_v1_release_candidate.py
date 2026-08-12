@@ -281,9 +281,19 @@ def _verify_rag(value: Mapping[str, Any], subject_sha: str) -> dict[str, Any]:
         raise ReleaseCandidateError("RAG direct prompt-injection runtime case did not pass")
     if boundary.get("direct_prompt_injection_eval") != "executed":
         raise ReleaseCandidateError("RAG direct prompt-injection proof boundary mismatch")
+    if evaluation.get("retrieved_context_attack_case_present") is not True:
+        raise ReleaseCandidateError("RAG retrieved-context injection runtime case did not pass")
+    indirect_case = evaluation.get("retrieved_context_attack_case")
+    if (
+        not isinstance(indirect_case, dict)
+        or indirect_case.get("case_id") != "security-indirect-injection-runtime"
+        or indirect_case.get("attack_type") != "indirect"
+        or indirect_case.get("passed") is not True
+    ):
+        raise ReleaseCandidateError("RAG retrieved-context injection evidence is incomplete")
     if (
         boundary.get("retrieved_context_prompt_injection_eval")
-        != "not-present-in-current-runtime-case-set"
+        != "executed-synthetic-untrusted-document"
     ):
         raise ReleaseCandidateError("RAG retrieved-context injection proof boundary is ambiguous")
     if boundary.get("external_api_key_required") is not False:
