@@ -199,3 +199,73 @@ jobs:
           "$PYTHON_BIN" scripts/update_glossary.py --check
           "$PYTHON_BIN" scripts/update_navigation.py --check
           "$PYTHON_BIN" scripts/audit_learning_depth.py --all-docs --report /tmp/DOCUMENTATION-AUDIT.md --json /tmp/documentation-audit.json
+
+  cleanup-branches:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Delete every remote branch except main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+
+          repo = os.environ["REPOSITORY"]
+          token = os.environ["GH_TOKEN"]
+          headers = {
+              "Accept": "application/vnd.github+json",
+              "Authorization": "Bearer " + token,
+              "User-Agent": "knowledge-hub-v1-branch-cleanup",
+              "X-GitHub-Api-Version": "2022-11-28",
+          }
+
+          names = []
+          page = 1
+          while True:
+              request = urllib.request.Request(
+                  f"https://api.github.com/repos/{repo}/branches?per_page=100&page={page}",
+                  headers=headers,
+              )
+              with urllib.request.urlopen(request) as response:
+                  batch = json.load(response)
+              if not batch:
+                  break
+              names.extend(item["name"] for item in batch)
+              if len(batch) < 100:
+                  break
+              page += 1
+
+          deleted = []
+          failures = []
+          for name in sorted(set(names)):
+              if name == "main":
+                  continue
+              encoded = urllib.parse.quote(name, safe="")
+              request = urllib.request.Request(
+                  f"https://api.github.com/repos/{repo}/git/refs/heads/{encoded}",
+                  headers=headers,
+                  method="DELETE",
+              )
+              try:
+                  with urllib.request.urlopen(request) as response:
+                      if response.status != 204:
+                          failures.append((name, response.status))
+                          continue
+                  deleted.append(name)
+              except urllib.error.HTTPError as exc:
+                  failures.append((name, exc.code))
+
+          print(json.dumps({"deleted_count": len(deleted), "failures": failures}, sort_keys=True))
+          if failures:
+              raise SystemExit(f"Unable to delete {len(failures)} branch refs")
+          PY
