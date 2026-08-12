@@ -2,16 +2,6 @@
 
 This is the authoritative index of the practical layer. `Implemented`, `Runtime verified` and `User accepted` remain separate states; see [`../PRACTICAL-STATUS.md`](../PRACTICAL-STATUS.md).
 
-## Interactive Labs
-
-The post-v1.0 interactive layer lives under [`interactive/`](interactive/README.md). It adds a common learner-facing runner around disposable Docker Compose scenarios:
-
-```text
-kh-lab run -> inspect/change -> kh-lab check -> reset/stop
-```
-
-The first reference challenge is [`docker-network-debug`](interactive/docker-network-debug/README.md). CI proves both sides of the learning contract: the intentionally broken initial state must fail validation, and the documented repair must pass.
-
 ## Practical v1 executable flagships
 
 | Track | Runtime state | Boundary |
@@ -32,9 +22,14 @@ The first reference challenge is [`docker-network-debug`](interactive/docker-net
 - roadmap: [`../PRACTICAL-V1-ROADMAP.md`](../PRACTICAL-V1-ROADMAP.md),
 - evidence ledger: [`../PRACTICAL-V1-EVIDENCE.md`](../PRACTICAL-V1-EVIDENCE.md).
 
-Combined baseline `789b5038b81b9342b1aef57b809bd3b67202ebde` passed canonical RC and release-evidence workflows. RAG indirect retrieved-context injection is additionally runtime-verified on `8c861edac728e5d19e7dd6035e4b438b8e8f8c2a` / run `31636019897`.
+Practical v1.0.0 is released at tag `v1.0.0`. Post-v1.0 development continues on `main`.
 
-Practical v1.0.0 was accepted and released from exact subject `37974326dc05c881c69b8488a518f50b735e3a94`; the `v1.0.0` tag remains the immutable release boundary while `main` continues with post-v1.0 work.
+## Interactive Labs
+
+- Index: [`interactive/README.md`](interactive/README.md)
+- Host contract: Docker + Docker Compose v2 only.
+- First reference lab: [`interactive/docker-network-debug`](interactive/docker-network-debug/README.md)
+- Interactive Labs are post-v1.0 development and do not alter the immutable `v1.0.0` release subject.
 
 ## Manual environment labs
 

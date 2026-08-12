@@ -5,16 +5,10 @@ on:
     branches:
       - main
     paths:
-      - "kh-lab.py"
-      - "kh-lab.ps1"
-      - "kh-lab.sh"
       - "labs/interactive/**"
       - ".github/workflows/interactive-labs.yml"
   pull_request:
     paths:
-      - "kh-lab.py"
-      - "kh-lab.ps1"
-      - "kh-lab.sh"
       - "labs/interactive/**"
       - ".github/workflows/interactive-labs.yml"
   workflow_dispatch:
@@ -23,40 +17,46 @@ permissions:
   contents: read
 
 jobs:
-  framework-and-reference-lab:
+  docker-only-reference-lab:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: labs/interactive/docker-network-debug
+
     steps:
       - name: Checkout exact subject
         uses: actions/checkout@v4
 
-      - name: Validate manifests
+      - name: Validate outer Compose model
+        run: docker compose config >/dev/null
+
+      - name: Build Docker-only lab image
+        run: docker compose build lab
+
+      - name: Prove initial scenario fails
         run: |
-          python3 -m py_compile kh-lab.py
-          python3 kh-lab.py validate
-          python3 kh-lab.py list
-
-      - name: Reset reference lab
-        run: python3 kh-lab.py reset docker-network-debug
-
-      - name: Start intentionally broken scenario
-        run: python3 kh-lab.py run docker-network-debug
-
-      - name: Prove initial state fails
-        run: |
-          if python3 kh-lab.py check docker-network-debug; then
+          if docker compose run --rm lab check; then
             echo "Reference challenge unexpectedly passed before the learner repair." >&2
             exit 1
           fi
 
-      - name: Apply intended learner repair
+      - name: Apply intended learner repair inside the lab
         run: |
-          sed -i 's/^DB_HOST=.*/DB_HOST=postgres/' .kh-labs/docker-network-debug/scenario.env
-          python3 kh-lab.py run docker-network-debug
+          docker compose run --rm lab sh -lc \
+            "sed -i 's/^DB_HOST=.*/DB_HOST=postgres/' /workspace/scenario.env && apply"
 
-      - name: Prove repaired state passes
-        run: python3 kh-lab.py check docker-network-debug
+      - name: Prove repaired scenario passes
+        run: docker compose run --rm lab check
 
-      - name: Cleanup
+      - name: Prove reset restores the broken state
+        run: |
+          docker compose run --rm lab reset
+          if docker compose run --rm lab check; then
+            echo "Reset did not restore the intentionally broken challenge." >&2
+            exit 1
+          fi
+
+      - name: Cleanup complete sandbox
         if: always()
-        run: python3 kh-lab.py stop docker-network-debug || true
+        run: docker compose down -v --remove-orphans || true

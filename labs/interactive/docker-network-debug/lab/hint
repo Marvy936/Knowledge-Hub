@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+WORKSPACE="${LAB_WORKSPACE:-/workspace}"
+LEVEL_FILE="$WORKSPACE/.hint-level"
+
+level=0
+if [[ -f "$LEVEL_FILE" ]]; then
+  level="$(cat "$LEVEL_FILE" 2>/dev/null || echo 0)"
+fi
+level=$((level + 1))
+if (( level > 3 )); then
+  level=3
+fi
+printf '%s\n' "$level" > "$LEVEL_FILE"
+
+case "$level" in
+  1)
+    echo "Hint 1: inspect the application logs and its environment. Start with:"
+    echo "  docker logs kh-lab-app"
+    echo "  docker inspect kh-lab-app"
+    ;;
+  2)
+    echo "Hint 2: containers in the same Compose network reach a service by its service name."
+    echo "Compare the database service name with the value used by the application."
+    ;;
+  3)
+    echo "Hint 3: inspect /workspace/scenario.env. The PostgreSQL service is named 'postgres'."
+    echo "After editing the file, run: apply"
+    ;;
+esac

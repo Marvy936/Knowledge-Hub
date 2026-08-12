@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -u
+
+pass_count=0
+fail_count=0
+
+result() {
+  local ok="$1"
+  local message="$2"
+  if [[ "$ok" == "1" ]]; then
+    printf '[PASS] %s\n' "$message"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$message"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+container_health() {
+  docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "$1" 2>/dev/null || true
+}
+
+postgres_health="$(container_health kh-lab-postgres)"
+result "$([[ "$postgres_health" == "healthy" ]] && echo 1 || echo 0)" "PostgreSQL is healthy"
+
+app_health=""
+for _ in $(seq 1 12); do
+  app_health="$(container_health kh-lab-app)"
+  [[ "$app_health" == "healthy" ]] && break
+  sleep 1
+done
+result "$([[ "$app_health" == "healthy" ]] && echo 1 || echo 0)" "Application connectivity probe is healthy"
+
+if docker exec kh-lab-app sh -ec 'pg_isready -h "$DB_HOST" -U labuser -d labdb >/dev/null' >/dev/null 2>&1; then
+  result 1 "Application can resolve and reach PostgreSQL"
+else
+  result 0 "Application can resolve and reach PostgreSQL"
+fi
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "Use 'hint' if you need help."
+exit 1

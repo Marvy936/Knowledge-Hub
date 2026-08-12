@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+docker compose \
+  -f /opt/knowledge-hub/scenario.compose.yaml \
+  --env-file "${LAB_WORKSPACE:-/workspace}/scenario.env" \
+  ps

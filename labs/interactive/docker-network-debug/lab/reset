@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="/opt/knowledge-hub"
+WORKSPACE="${LAB_WORKSPACE:-/workspace}"
+SCENARIO="$ROOT/scenario.compose.yaml"
+ENV_FILE="$WORKSPACE/scenario.env"
+
+echo "Resetting the lab to its intentionally broken state..."
+docker compose -f "$SCENARIO" --env-file "$ENV_FILE" down -v --remove-orphans >/dev/null 2>&1 || true
+cp "$ROOT/scenario.env.template" "$ENV_FILE"
+rm -f "$WORKSPACE/.hint-level"
+docker compose -f "$SCENARIO" --env-file "$ENV_FILE" up -d >/dev/null
+
+echo "Lab reset. Run: status"

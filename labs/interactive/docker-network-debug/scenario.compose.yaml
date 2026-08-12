@@ -1,0 +1,43 @@
+name: kh-docker-network-debug-scenario
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: kh-lab-postgres
+    environment:
+      POSTGRES_DB: labdb
+      POSTGRES_USER: labuser
+      POSTGRES_PASSWORD: labpass
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labuser -d labdb"]
+      interval: 2s
+      timeout: 2s
+      retries: 20
+
+  app:
+    image: postgres:16-alpine
+    container_name: kh-lab-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: ${DB_HOST}
+    command:
+      - /bin/sh
+      - -ec
+      - |
+        echo "Starting database connectivity probe against $$DB_HOST:5432"
+        while true; do
+          if pg_isready -h "$$DB_HOST" -U labuser -d labdb; then
+            echo "database reachable via $$DB_HOST"
+            sleep 3600
+          fi
+          echo "database not reachable via $$DB_HOST"
+          sleep 2
+        done
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h \"$$DB_HOST\" -U labuser -d labdb"]
+      interval: 2s
+      timeout: 2s
+      retries: 3
+      start_period: 1s
