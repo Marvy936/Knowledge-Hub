@@ -51,41 +51,23 @@ jobs:
 
       # TEMP-V1-CLOSEOUT-BEGIN
       - name: Apply staged Practical v1 RAG closeout
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && hashFiles('scripts/temporary_v1_rag_closeout.py') != ''
         shell: bash
         run: |
           set -euo pipefail
           python scripts/temporary_v1_rag_closeout.py
 
-      - name: Restore permanent workflow source boundary
-        if: github.event_name == 'push'
+      - name: Commit source-only Practical v1 RAG closeout
+        if: github.event_name == 'push' && hashFiles('scripts/temporary_v1_rag_closeout.py') == ''
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-          path = Path('.github/workflows/rag-clean-checkout-runtime.yml')
-          text = path.read_text(encoding='utf-8')
-          text = text.replace('permissions:\n  contents: write\n', 'permissions:\n  contents: read\n', 1)
-          text = text.replace('          persist-credentials: true\n', '          persist-credentials: false\n', 1)
-          begin = '      # TEMP-V1-CLOSEOUT-BEGIN\n'
-          end = '      # TEMP-V1-CLOSEOUT-END\n'
-          start = text.index(begin)
-          stop = text.index(end, start) + len(end)
-          text = text[:start] + text[stop:]
-          path.write_text(text, encoding='utf-8', newline='\n')
-          PY
-
-      - name: Commit validated Practical v1 RAG closeout
-        if: github.event_name == 'push'
-        shell: bash
-        run: |
-          set -euo pipefail
+          git restore --source=HEAD -- .github/workflows
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git diff --cached --check
-          git diff --cached --quiet && { echo "No staged closeout changes"; exit 1; }
+          git diff --cached --quiet && { echo "No staged source closeout changes"; exit 1; }
           git commit -m "fix(rag): execute indirect injection runtime gate"
           git push origin HEAD:main
       # TEMP-V1-CLOSEOUT-END
