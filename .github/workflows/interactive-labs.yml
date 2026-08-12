@@ -43,7 +43,7 @@ jobs:
 
       - name: Apply intended learner repair inside the lab
         run: |
-          docker compose run --rm lab sh -lc \
+          docker compose run --rm lab bash -c \
             "sed -i 's/^DB_HOST=.*/DB_HOST=postgres/' /workspace/scenario.env && apply"
 
       - name: Prove repaired scenario passes
