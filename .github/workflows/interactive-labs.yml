@@ -1,0 +1,62 @@
+name: Interactive Labs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "kh-lab.py"
+      - "kh-lab.ps1"
+      - "kh-lab.sh"
+      - "labs/interactive/**"
+      - ".github/workflows/interactive-labs.yml"
+  pull_request:
+    paths:
+      - "kh-lab.py"
+      - "kh-lab.ps1"
+      - "kh-lab.sh"
+      - "labs/interactive/**"
+      - ".github/workflows/interactive-labs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  framework-and-reference-lab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact subject
+        uses: actions/checkout@v4
+
+      - name: Validate manifests
+        run: |
+          python3 -m py_compile kh-lab.py
+          python3 kh-lab.py validate
+          python3 kh-lab.py list
+
+      - name: Reset reference lab
+        run: python3 kh-lab.py reset docker-network-debug
+
+      - name: Start intentionally broken scenario
+        run: python3 kh-lab.py run docker-network-debug
+
+      - name: Prove initial state fails
+        run: |
+          if python3 kh-lab.py check docker-network-debug; then
+            echo "Reference challenge unexpectedly passed before the learner repair." >&2
+            exit 1
+          fi
+
+      - name: Apply intended learner repair
+        run: |
+          sed -i 's/^DB_HOST=.*/DB_HOST=postgres/' .kh-labs/docker-network-debug/scenario.env
+          python3 kh-lab.py run docker-network-debug
+
+      - name: Prove repaired state passes
+        run: python3 kh-lab.py check docker-network-debug
+
+      - name: Cleanup
+        if: always()
+        run: python3 kh-lab.py stop docker-network-debug || true

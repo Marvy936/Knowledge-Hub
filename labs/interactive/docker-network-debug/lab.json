@@ -1,0 +1,59 @@
+{
+  "id": "docker-network-debug",
+  "title": "Docker service discovery troubleshooting",
+  "version": "0.1.0",
+  "type": "challenge",
+  "difficulty": "beginner",
+  "estimated_minutes": 15,
+  "description": "Diagnose a container that cannot reach PostgreSQL because it uses the wrong Docker Compose service hostname.",
+  "compose_file": "compose.yaml",
+  "project_name": "kh-docker-network-debug",
+  "compose_env_file": "scenario.env",
+  "workspace_files": [
+    {
+      "source": "templates/scenario.env",
+      "target": "scenario.env"
+    }
+  ],
+  "ready_services": [
+    "postgres"
+  ],
+  "ready_timeout_seconds": 45,
+  "check_timeout_seconds": 8,
+  "tasks": [
+    "Start by inspecting `docker compose` state with `python kh-lab.py status docker-network-debug`.",
+    "Inspect the application logs and determine why it cannot resolve/reach PostgreSQL.",
+    "Fix the scenario in `{workspace}/scenario.env` without changing `compose.yaml`.",
+    "Re-apply the lab with `python kh-lab.py run docker-network-debug`.",
+    "Validate your repair with `python kh-lab.py check docker-network-debug`."
+  ],
+  "hints": [
+    "Docker Compose services can resolve each other by service name on the project network.",
+    "Compare the hostname in the app logs with the service names defined in compose.yaml.",
+    "The PostgreSQL service is named `postgres`; the initial scenario intentionally uses a misspelled hostname."
+  ],
+  "checks": [
+    {
+      "name": "PostgreSQL is healthy",
+      "type": "service_health",
+      "service": "postgres"
+    },
+    {
+      "name": "Application connectivity probe is healthy",
+      "type": "service_health",
+      "service": "app"
+    },
+    {
+      "name": "Application can resolve and reach PostgreSQL",
+      "type": "compose_exec",
+      "service": "app",
+      "command": [
+        "sh",
+        "-ec",
+        "test \"$DB_HOST\" = \"postgres\" && pg_isready -h \"$DB_HOST\" -U labuser -d labdb"
+      ],
+      "expect_exit": 0,
+      "stdout_contains": "accepting connections"
+    }
+  ]
+}
