@@ -1,10 +1,8 @@
 # Knowledge Hub LLM/RAG runtime evidence
 
-> **Evidence status: Pending**
+> **Evidence status: Runtime verified for the deterministic Practical v1 profile**
 
-Tento dokument je authoritative runtime-evidence contract pre celý offline/deterministic Practical v1 RAG flagship. Source implementácia už pokrýva exact Git corpus, deterministic Markdown chunking, lexical index/retrieval, explicitný `no_result`, exact citations, bounded grounded answer/abstention, eval/security release gates, tracing a cleanup. `Pending` znamená, že repository ešte nemá successful authoritative clean-checkout run pre exact merged implementation subject.
-
-GitHub Actions dispatch je momentálne otvorený repository-level blocker v issue #151. Source/test completeness preto nie je `Runtime verified`.
+Tento dokument je authoritative runtime-evidence contract pre celý offline/deterministic Practical v1 RAG flagship. Canonical clean-checkout runtime je verified; po combined baseline bol retrieved-context injection proof explicitne sprísnený a úspešne vykonaný na `8c861edac728e5d19e7dd6035e4b438b8e8f8c2a` v rune `31636019897` (`evidence_id=b1db832a962fc2e4886dd59b13607b41a7a4cf276a19867098fd0232699c5116`). GitHub Actions blocker #151 je uzavretý.
 
 ## Required execution subject
 
@@ -278,4 +276,4 @@ Nepreukáže automaticky:
 
 Voliteľný local alebo external LLM adapter môže byť post-v1 alebo doplnkový runtime layer; offline core evidence od neho nesmie závisieť.
 
-Kým exact clean-checkout record neexistuje, stav zostáva `Pending`.
+Exact clean-checkout record existuje; semantic/vector/external-LLM a production proof boundaries uvedené vyššie zostávajú mimo Practical v1 claimu.

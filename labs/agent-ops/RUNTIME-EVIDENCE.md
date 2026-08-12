@@ -1,8 +1,8 @@
 # Bounded incident/operations agent runtime evidence
 
-> **Evidence status: Pending**
+> **Evidence status: Runtime verified for the bounded combined Practical v1 local profile**
 
-Tento dokument je authoritative runtime-evidence contract pre Practical v1 bounded incident/operations agent. Source implementation po PR #179 pokrýva typed inspection, deterministic planning, durable state, exact time-bounded approval, policy-bound kill switch, one-mutation/tool-wait bounds, idempotent read-before-retry, hardened unknown-outcome handling, promoted retrieval-context authority boundary, strict typed tool-result schema a deterministic hard evaluation. Bez exact clean-checkout runtime recordu však track zostáva `Implemented`, nie `Runtime verified`.
+Tento dokument je authoritative runtime-evidence contract pre Practical v1 bounded incident/operations agent. Combined canonical release baseline na `789b5038b81b9342b1aef57b809bd3b67202ebde` vykonal deterministic agent contracts/hard evaluation aj protected Keycloak/RAG-agent composition. Runtime claim je bounded na local single-host profile; production credentials, distributed locking a remote exactly-once semantics sa neclaimujú.
 
 ## Required execution subject
 
@@ -340,4 +340,4 @@ Nepreukáže automaticky:
 - production telemetry/SLO recovery,
 - production readiness.
 
-Kým exact clean-checkout records neexistujú, stav zostáva `Pending`.
+Required bounded local/combined records existujú; production/distributed proof boundaries uvedené vyššie zostávajú mimo Practical v1 claimu.

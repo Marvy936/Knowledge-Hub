@@ -139,7 +139,7 @@ rmdir .runtime/practical-v1 2>/dev/null || true
 rmdir .runtime 2>/dev/null || true
 ```
 
-Permanentný CI contract je v `.github/workflows/practical-v1-core.yml`. Kým issue #151 blokuje vytváranie repository Actions runov, existencia workflowu a runnera znamená iba source-level `Implemented`, nie `Runtime verified`.
+Permanentný CI contract je v `.github/workflows/practical-v1-core.yml`. GitHub Actions dispatch blocker #151 je uzavretý; runtime stav sa neurčuje existenciou workflowu, ale exact-SHA evidence. Aktuálny authoritative stav je v [PRACTICAL-STATUS.md](PRACTICAL-STATUS.md) a [PRACTICAL-V1-EVIDENCE.md](PRACTICAL-V1-EVIDENCE.md).
 
 Aktuálny praktický stav je v [PRACTICAL-STATUS.md](PRACTICAL-STATUS.md), hard release gates v [PRACTICAL-V1-ROADMAP.md](PRACTICAL-V1-ROADMAP.md), súhrnná evidence v [PRACTICAL-V1-EVIDENCE.md](PRACTICAL-V1-EVIDENCE.md) a release-candidate hranica v [PRACTICAL-V1-RELEASE-NOTES.md](PRACTICAL-V1-RELEASE-NOTES.md).
 

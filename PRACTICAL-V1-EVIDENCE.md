@@ -1,144 +1,65 @@
-# Knowledge Hub Practical v1 evidence
+# Practical v1 evidence ledger
 
-> **Release evidence status: In progress**
+This ledger records executed evidence without turning source text into a substitute for runtime artifacts.
 
-Tento dokument je súhrnný evidence ledger pre Practical v1. Nezamieňa `Implemented` s `Runtime verified`: každá oblasť môže prejsť na verified iba vtedy, keď existuje exact execution subject, zaznamenaný run alebo ekvivalentný immutable evidence record, resolved dependencies, positive/forbidden/recovery proof a cleanup boundary zodpovedajúca danému gate-u.
+## 1. Combined release baseline
 
-## Evidence model
+Subject: `789b5038b81b9342b1aef57b809bd3b67202ebde`
 
-```text
-source revision
-→ resolved runtime/dependencies
-→ exact executable subject
-→ positive + forbidden + recovery checks
-→ output/read-back identities
-→ cleanup read-back
-→ proof boundary
-```
+| Evidence | Value |
+|---|---|
+| Release-candidate run | `31542501323` — success |
+| Release-evidence run | `31542501346` — success |
+| `release_candidate_id` | `2e0a0754332864ca5898852b921d76d88e78d0c8209ea3dccfab7a92c6fe0778` |
+| `dependency_resolution_id` | `e37285a9af7f2d53742fa8b29db91de07a6980ba1fad0c785dd60ed1c66a03dc` |
+| `workflow_provenance_id` | `80221bfce87ce37820738fe41d9392bc639f8fce216a9b7df1f7d812396471aa` |
+| `release_evidence_id` | `1bced14424764a890f8c8fbd346c49992c5ba1d2c7963d9f3b65485547c37b47` |
+| `artifact_manifest_id` | `52f6c2c886c14d746f3fdd7c35fc82a93e24372570acea50f6a90cad08c6eca2` |
+| Cleanup | `workflow_cleanup_verified=true`, core cleanup/worktree verified |
+| Tag boundary | `release_tag_created=false` |
+| Acceptance boundary | `user_acceptance_claimed=false` |
 
-Chýbajúci run, status, telemetry alebo artifact sa neinterpretuje ako success.
+The baseline proves the bounded combined lifecycle across core contracts, MLOps post-retraining runtime, clean-checkout RAG and live Keycloak/protected RAG-agent identity composition.
 
-## Current flagship evidence state
+## 2. RAG retrieved-context injection closeout
 
-| Oblasť | Runtime state | Authoritative evidence | Otvorená hranica |
-|---|---|---|---|
-| Machine Learning Fundamentals | Verified v deklarovanom syntetickom profile | [`labs/machine-learning/RUNTIME-EVIDENCE.md`](labs/machine-learning/RUNTIME-EVIDENCE.md) | Nie production dataset/business A/B outcome |
-| MLOps | Pending | [`labs/mlops/RUNTIME-EVIDENCE.md`](labs/mlops/RUNTIME-EVIDENCE.md) | Central workflow run, live provider/container lifecycle a cleanup evidence |
-| Knowledge Hub LLM/RAG | Pending | [`labs/llm-rag/RUNTIME-EVIDENCE.md`](labs/llm-rag/RUNTIME-EVIDENCE.md) | Clean-checkout corpus→retrieval→eval/security→cleanup run |
-| Keycloak-secured AI API | Pending | [`labs/keycloak-ai-api/RUNTIME-EVIDENCE.md`](labs/keycloak-ai-api/RUNTIME-EVIDENCE.md) | Live realm/token/JWKS/protected-route positive a negative run |
-| Bounded incident/operations agent | Pending | [`labs/agent-ops/RUNTIME-EVIDENCE.md`](labs/agent-ops/RUNTIME-EVIDENCE.md) | Clean-checkout combined RAG→plan→approval→execution/recovery hard-eval run |
-| Practical v1 offline/core orchestrator | Pending | `scripts/practical_v1_core.py` | Exact CI/local run a recorded evidence ID |
-| Permanent Practical v1 core CI matrix | Pending | `.github/workflows/practical-v1-core.yml` | GitHub Actions dispatch/run; issue #151 |
+Subject: `8c861edac728e5d19e7dd6035e4b438b8e8f8c2a`
 
-## Existing verified Machine Learning subject
+- workflow run `31636019897` — success,
+- artifact `9157100163`,
+- `evidence_id=b1db832a962fc2e4886dd59b13607b41a7a4cf276a19867098fd0232699c5116`,
+- indirect runtime case ID `5ab930d70a11b9aec819860dc26bbd9048bb0310c4871eb57404bca43aed510d`,
+- `attack_type=indirect`,
+- malicious retrieved chunk classified `prompt_injection_detected`,
+- safe chunk remained usable/cited,
+- unsafe and cited chunk sets are disjoint,
+- `retrieved_context_prompt_injection_eval=executed-synthetic-untrusted-document`,
+- cleanup verified.
 
-Authoritative ML runtime evidence už existuje a nie je odvodené iba zo source test inventory.
+This closes the previous proof-boundary gap where indirect injection existed in unit/hard-eval coverage but was not represented in the canonical RAG runtime record.
 
-Recorded subject podľa ML evidence dokumentu:
+## 3. Keycloak standalone hygiene
 
-```text
-workflow:         Knowledge documentation
-workflow run:     1998
-GitHub run ID:    31037119011
-job ID:           92411983199
-runner:           self-hosted MARVY
-Python:           3.12.13
-feature revision: 6b325080307c594ff74c1ca97273e6bb15431967
-PR merge subject: 0e434e9cfa68173f3e3b76a61b93d08201474c81
-inventory closeout: 07cfe2a883b901b40e7e0d266a00ff9a3fd12d4f
-```
+Run `31542501300` now concludes success on `run_attempt=2`. Attempt 1 failed during exact-subject checkout, so it did not execute the Keycloak runtime gate. The successful rerun removes that standalone CI ambiguity.
 
-Dataset a packaged-model identities:
+The automated identity proof still does not claim an actual interactive browser Authorization Code exchange; that remains an explicit proof boundary rather than a hidden success claim.
 
-```text
-dataset SHA-256: 08e795494731fa4c22f566769549240bf05413a918e34f9b0323091aa79cc3d6
-model SHA-256:   34de60e4a5254a98b262abead6ccbca9b09a0c5c549328f37e88c6f21b7b19e9
-```
+## 4. Final `v1.0.0` subject policy
 
-Plný dependency resolution, metrics, leakage refusal, strict inference a cleanup proof zostáva v dedicated ML evidence dokumente; tento súhrn ho nekopíruje ako nový dôkaz.
+The final release subject is **not** one of the historical subjects above. After repository metadata/workflow cleanup, the exact current `main` must run the canonical RC and release-evidence workflows again.
 
-## Practical v1 core runner evidence contract
+The final authoritative record is the GitHub Actions artifact bound to that exact SHA. No source commit may be made merely to copy the future run ID into this file, because doing so would create a different subject.
 
-`scripts/practical_v1_core.py` nevytvára nový ML/RAG/agent algoritmus. Orchestruje existujúce authoritative contracts v exact poradí:
+Required final artifact properties:
 
 ```text
-compileall
-→ repository-integrity validator
-→ Machine Learning tests
-→ MLOps tests
-→ LLM/RAG tests
-→ bounded-agent tests
-→ Keycloak AI API tests
-→ deterministic agent hard evaluation
-→ disposable workroot cleanup
-→ tracked/untracked worktree read-back
+subject_sha == tag target SHA
+release candidate all_passed == true
+core cleanup/worktree verified == true
+workflow_cleanup_verified == true
+canonical dependency/workflow provenance IDs valid
+release_tag_created == false
+user_acceptance_claimed == false
 ```
 
-Successful core evidence musí obsahovať:
-
-- lowercase 40-character Git `subject_sha`,
-- clean tracked worktree preflight,
-- Python version,
-- presne 8 stages v exact poradí,
-- per-stage command, return code a duration,
-- SHA-256 stdout/stderr a bounded log tails,
-- hard-eval `report_id`, case count a passed count,
-- `cleanup_verified=true`,
-- `worktree_verified=true`,
-- canonical `evidence_id`.
-
-`all_passed=true` je dovolené iba ak sa vykoná celý expected stage set a repository read-back zostane čistý. Partial alebo zero-stage run nemôže byť success.
-
-Evidence file musí byť mimo disposable workrootu. Workroot sa po rune odstráni; evidence sa ponechá iba na read-back a následne sa tiež odstráni alebo uloží do explicitného CI evidence surface-u.
-
-## Permanent CI source contract
-
-`.github/workflows/practical-v1-core.yml` definuje tri nezávislé vrstvy:
-
-1. standalone matrix pre `machine-learning`, `mlops`, `llm-rag`, `agent-ops`, `keycloak-ai-api`,
-2. combined RAG/agent/Keycloak integration + agent hard eval,
-3. all-five-package offline/core orchestrator + release-tooling self-tests.
-
-Workflow používa SHA-pinned `actions/checkout` a `actions/setup-python`, exact PR-head/push SHA, `persist-credentials:false` a repository-level `contents: read` permission. Source existence workflowu nie je runtime evidence.
-
-## Central Actions blocker
-
-Issue #151 zostáva otvorený. Corrected PR #179 head aj jeho merge commit nevytvorili connector-readable workflow run alebo commit status. PR #181 následne pridal permanentný Practical v1 workflow; jeho exact PR head `7900ddf598ae19bc09e52bd9495b1d0cc6bdd7ce` a merge commit `c31cc8d5a07a2534611db80d9f982e915af606b4` takisto nemajú observable workflow run/status.
-
-Pre #181 je relevantné, že PR menil samotný `.github/workflows/practical-v1-core.yml` a workflow túto path explicitne zahŕňa vo svojom `pull_request.paths`. Po merge je workflow už prítomný aj na default branche.
-
-Preto:
-
-```text
-workflow YAML exists
-≠ workflow was dispatched
-
-source tests exist
-≠ central runtime verified
-```
-
-Kým repository Actions control plane nezačne vytvárať runs, MLOps, RAG, Keycloak, agent a nový core runner zostávajú `Runtime verified = Pending` bez ohľadu na completeness source implementácie.
-
-## Required future closeout records
-
-### MLOps
-
-Evidence musí viazať training lineage, Tracking/Registry metadata, artifact bytes, exact registered version, immutable deployment subject, serving/container identity, canary/rollback, monitoring/drift, approval-gated retraining, recovery a cleanup. Zelený unit-test job bez provider/runtime read-backu nestačí.
-
-### LLM/RAG
-
-Evidence musí preukázať exact Git corpus snapshot, deterministic chunks/index, answered aj no-result retrieval, exact citations, structured output, hard eval slices, direct/indirect injection refusal, trace identity a cleanup.
-
-### Keycloak-secured API
-
-Dedicated contract je v [`labs/keycloak-ai-api/RUNTIME-EVIDENCE.md`](labs/keycloak-ai-api/RUNTIME-EVIDENCE.md). Evidence musí preukázať live imported realm, Authorization Code + PKCE boundary, service-account Client Credentials token, JWKS signature validation, issuer/audience/scope/azp/client-role claims, protected RAG/agent positive requesty, negative 401/403 variants, mutation-authority separation a cleanup read-back.
-
-### Bounded agent
-
-Evidence musí preukázať durable plan/operation state, typed inspection/result, retrieval-context binding, exact approval expiry/action digest, kill switch, idempotent read-before-retry, unknown-outcome refusal, replay bez duplicate mutation a hard-eval business outcome.
-
-## User acceptance boundary
-
-Dokumentačný stav sekcií 18–21 je `Ready for user review`. Practical v1 runtime merge, zelený CI alebo tento evidence ledger automaticky nemenia sekciu na `User accepted`.
-
-Finálny `v1.0.0` tag je dovolený až po repository-wide release-candidate rune, kontrole výsledného diffu, explicitnom proof-boundary review a splnení pravidla pre sekcie 18–21 z `PRACTICAL-V1-ROADMAP.md`.
+After read-back, explicit user acceptance may authorize creation of `v1.0.0` on that same SHA.

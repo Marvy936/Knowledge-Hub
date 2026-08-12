@@ -1,8 +1,8 @@
 # Keycloak-secured AI API runtime evidence
 
-> **Evidence status: Pending**
+> **Evidence status: Runtime verified for automated local service-account/JWKS/protected-API Practical v1 profile**
 
-Tento dokument je authoritative runtime evidence contract pre Practical v1 identity path. Source implementácia realm configu, token helpers, JWT/resource-server policy, promoted RAG adapter a bounded-agent routes existuje, ale bez exact live runu sa nesmie interpretovať ako `Runtime verified`.
+Tento dokument je authoritative runtime evidence contract pre Practical v1 identity path. Canonical combined release baseline na `789b5038b81b9342b1aef57b809bd3b67202ebde` a standalone Keycloak run `31542501300` (successful rerun attempt 2) verify disposable local Keycloak, live JWKS/service-account token validation and protected RAG/agent API paths. Actual interactive browser Authorization Code exchange remains explicitly not executed and is not claimed by this automated profile.
 
 ## Required execution subject
 
@@ -220,4 +220,4 @@ Nepreukáže:
 - backup/restore alebo disaster recovery,
 - production readiness.
 
-Kým exact live record neexistuje, stav zostáva `Pending`.
+Exact automated local identity record existuje; real-browser Authorization Code exchange a production identity-platform boundaries uvedené vyššie zostávajú mimo automated Practical v1 claimu.

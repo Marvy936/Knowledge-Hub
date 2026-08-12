@@ -1,8 +1,8 @@
 # MLOps flagship runtime evidence
 
-> **Evidence status: Pending**
+> **Evidence status: Runtime verified for the bounded Practical v1 local profile**
 
-Tento dokument je authoritative runtime-evidence contract pre celý Practical v1 MLOps lifecycle. Source implementácia už pokrýva promotion foundation, training lineage, MLflow Tracking/Registry a artifact read-back, immutable serving/canary/rollback, monitoring/drift, approval-gated controlled retraining a post-retraining deployment handoff. `Pending` znamená, že tieto vrstvy ešte nemajú jeden alebo viac exact authoritative runtime records potrebných na ich acceptance; source completeness sa nesmie interpretovať ako `Runtime verified`.
+Tento dokument je authoritative runtime-evidence contract pre celý Practical v1 MLOps lifecycle. Required vrstvy boli vykonané v canonical combined release baseline na `789b5038b81b9342b1aef57b809bd3b67202ebde` (release-evidence run `31542501346`) vrátane local MLflow/Registry provider read-backu, containerized inference, canary/rollback, drift/retraining, post-retraining handoff a cleanupu. Stav je bounded na deklarovaný local/hosted v1 profile a neznamená production platform readiness.
 
 ## Evidence layers
 
@@ -36,7 +36,7 @@ Každý runtime record musí pinovať:
 - cleanup/read-back result,
 - explicit proof boundary.
 
-Repository obsahuje MLOps-specific workflows aj spoločný `.github/workflows/practical-v1-core.yml`. Kým issue #151 nevytvára observable Actions runs, ich prítomnosť zostáva source contractom, nie runtime evidence.
+Repository obsahuje MLOps-specific workflows aj spoločný release lifecycle. GitHub Actions blocker #151 je uzavretý; canonical runtime evidence je viazaná na executed baseline `789b5038b81b9342b1aef57b809bd3b67202ebde` a ďalší final tag subject musí znovu prejsť exact-head release gate-om.
 
 ## 1. Training lineage and promotion foundation
 
@@ -308,4 +308,4 @@ Nepreukáže automaticky:
 - production business KPI impact,
 - production readiness.
 
-Kým required evidence records neexistujú, stav zostáva `Pending`.
+Required bounded-local evidence records existujú; production/cloud proof boundaries uvedené vyššie zostávajú mimo Practical v1 claimu.

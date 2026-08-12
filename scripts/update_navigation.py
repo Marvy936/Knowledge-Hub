@@ -14,7 +14,6 @@ from __future__ import annotations
 import argparse
 import os
 import re
-import subprocess
 import sys
 import unicodedata
 from dataclasses import dataclass
@@ -35,65 +34,6 @@ CHECKBOX_RE = re.compile(
 )
 
 
-# TEMP-V1-METADATA-BOOTSTRAP-BEGIN
-def _run_v1_metadata_closeout() -> None:
-    staged = ROOT / "scripts" / "temporary_v1_metadata_closeout.py"
-    if not staged.exists():
-        return
-
-    source = staged.read_text(encoding="utf-8")
-    exec(compile(source, str(staged), "exec"), {"__file__": str(staged), "__name__": "__main__"})
-
-    this_file = Path(__file__).resolve()
-    text = this_file.read_text(encoding="utf-8")
-    start_marker = "# TEMP-V1-METADATA-BOOTSTRAP-BEGIN\n"
-    end_marker = "# TEMP-V1-METADATA-BOOTSTRAP-END\n"
-    start = text.index(start_marker)
-    end = text.index(end_marker, start) + len(end_marker)
-    text = text[:start] + text[end:]
-    text = text.replace("import subprocess\n", "", 1)
-    text = text.replace("    _run_v1_metadata_closeout()\n", "", 1)
-    this_file.write_text(text, encoding="utf-8", newline="\n")
-
-    subprocess.run(["git", "config", "user.name", "github-actions[bot]"], cwd=ROOT, check=True)
-    subprocess.run(
-        ["git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com"],
-        cwd=ROOT,
-        check=True,
-    )
-    paths = [
-        "README.md",
-        "PRACTICAL-STATUS.md",
-        "PRACTICAL-V1-ROADMAP.md",
-        "PRACTICAL-V1-EVIDENCE.md",
-        "PRACTICAL-V1-RELEASE-EVIDENCE.md",
-        "PRACTICAL-V1-RELEASE-NOTES.md",
-        "labs/README.md",
-        "labs/mlops/README.md",
-        "labs/mlops/RUNTIME-EVIDENCE.md",
-        "labs/llm-rag/README.md",
-        "labs/llm-rag/RUNTIME-EVIDENCE.md",
-        "labs/agent-ops/README.md",
-        "labs/agent-ops/RUNTIME-EVIDENCE.md",
-        "labs/keycloak-ai-api/README.md",
-        "labs/keycloak-ai-api/RUNTIME-EVIDENCE.md",
-        "scripts/update_navigation.py",
-        "scripts/temporary_v1_metadata_closeout.py",
-    ]
-    subprocess.run(["git", "add", "-A", "--", *paths], cwd=ROOT, check=True)
-    subprocess.run(["git", "diff", "--cached", "--check"], cwd=ROOT, check=True)
-    result = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT)
-    if result.returncode == 0:
-        raise SystemExit("Practical v1 metadata closeout produced no staged changes")
-    if result.returncode != 1:
-        raise SystemExit("Unable to inspect Practical v1 metadata closeout diff")
-    subprocess.run(
-        ["git", "commit", "-m", "docs: synchronize Practical v1 release state"],
-        cwd=ROOT,
-        check=True,
-    )
-    subprocess.run(["git", "push", "origin", "HEAD:main"], cwd=ROOT, check=True)
-# TEMP-V1-METADATA-BOOTSTRAP-END
 
 
 @dataclass(frozen=True)
@@ -249,7 +189,6 @@ def calculate_changes() -> dict[Path, str]:
 
 
 def main() -> int:
-    _run_v1_metadata_closeout()
     parser = argparse.ArgumentParser()
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--write", action="store_true", help="write synchronized files")

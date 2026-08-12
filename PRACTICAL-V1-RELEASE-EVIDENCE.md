@@ -1,139 +1,29 @@
 # Practical v1 release evidence
 
-Status: **source-level implemented only; runtime evidence pending**.
+> **Status: release-evidence pipeline runtime verified; final tag subject exact-head run pending.**
 
-Tento dokument definuje poslednú evidence vrstvu nad existujúcim `Practical v1 release candidate` gate-om.
+The permanent hosted workflow is `.github/workflows/practical-v1-release-evidence.yml`. It composes the canonical release-candidate lifecycle with exact dependency resolution, GitHub workflow/run provenance and post-cleanup artifact manifest verification.
 
-## Tri rozdielne identity
+## Verified baseline
 
-`release_candidate_id` identifikuje all-passed runtime kandidáta zloženého z:
+On `789b5038b81b9342b1aef57b809bd3b67202ebde`:
 
-- Practical v1 core,
-- MLOps post-retraining runtime chain,
-- RAG clean-checkout lifecycle,
-- live Keycloak + bounded-agent identity path.
+- RC run `31542501323` succeeded,
+- release-evidence run `31542501346` succeeded,
+- `release_candidate_id=2e0a0754332864ca5898852b921d76d88e78d0c8209ea3dccfab7a92c6fe0778`,
+- `dependency_resolution_id=e37285a9af7f2d53742fa8b29db91de07a6980ba1fad0c785dd60ed1c66a03dc`,
+- `workflow_provenance_id=80221bfce87ce37820738fe41d9392bc639f8fce216a9b7df1f7d812396471aa`,
+- `release_evidence_id=1bced14424764a890f8c8fbd346c49992c5ba1d2c7963d9f3b65485547c37b47`,
+- `artifact_manifest_id=52f6c2c886c14d746f3fdd7c35fc82a93e24372570acea50f6a90cad08c6eca2`,
+- `workflow_cleanup_verified=true`,
+- `release_tag_created=false`,
+- `user_acceptance_claimed=false`.
 
-`release_evidence_id` je vyššia run-attestation identita. Pinne:
+The workflow permission remains `contents: read`; it is evidence generation, not release/tag mutation authority.
 
-```text
-release_candidate_id
-+ exact dependency resolution
-+ exact GitHub workflow/run provenance
-+ exact subject SHA
-+ explicit no-tag/no-user-acceptance boundary
-```
+## Canonical artifact contents
 
-`artifact_manifest_id` je finálna bundle identita. Vzniká až po outer cleanup-e a navyše pinne:
-
-```text
-release_evidence_id
-+ release_candidate_id
-+ dependency_resolution_id
-+ workflow_provenance_id
-+ exact run_id
-+ workflow_cleanup_verified=true
-+ SHA-256 a byte size všetkých evidence JSON artifacts
-```
-
-Pre finálny hosted release dôkaz sa preto uchovávajú obe vyššie identity:
-
-```text
-release_evidence_id
-artifact_manifest_id
-```
-
-Prvá dokazuje exact candidate/dependency/run binding. Druhá dokazuje integritu kompletného post-cleanup artifact bundle-u.
-
-## Authoritative source
-
-Finalizer:
-
-```text
-scripts/finalize_practical_v1_release_evidence.py
-```
-
-Hosted workflow:
-
-```text
-.github/workflows/practical-v1-release-evidence.yml
-```
-
-Nižší component gate zostáva:
-
-```text
-.github/workflows/practical-v1-release-candidate.yml
-```
-
-Nový workflow ho nenahrádza novou business logikou. Spúšťa ten istý root RC driver a pridáva iba release provenance/attestation vrstvu.
-
-## Dependency resolution
-
-Workflow inštaluje lokálne lab balíky z source snapshotov skopírovaných mimo Git checkoutu do `runner.temp`. Tým package build metadata nemusí zapisovať do checkoutu.
-
-Dependency evidence pinne minimálne:
-
-- Python version,
-- Python executable,
-- Python implementation,
-- platform a machine,
-- pip version,
-- canonical sorted installed distribution names a versions,
-- exact Git subject SHA,
-- canonical `dependency_resolution_id`.
-
-Finalizer vyžaduje prítomnosť všetkých piatich lokálnych distributions:
-
-- `knowledge-hub-ml-flagship-lab`,
-- `knowledge-hub-mlops-flagship-lab`,
-- `knowledge-hub-rag-flagship-lab`,
-- `knowledge-hub-bounded-ops-agent`,
-- `knowledge-hub-keycloak-ai-api`.
-
-## Workflow provenance
-
-Workflow provenance pinne:
-
-- workflow name `Practical v1 release evidence`,
-- exact `subject_sha`,
-- GitHub `run_id`,
-- `run_attempt`,
-- event name,
-- repository,
-- GitHub run SHA,
-- ref,
-- canonical run URL,
-- `workflow_provenance_id`.
-
-`run_id` a `run_attempt` musia byť kladné celé čísla. Event musí byť jeden z bounded profilov:
-
-```text
-workflow_dispatch
-push
-pull_request
-```
-
-Pre pull request môže GitHub run SHA reprezentovať synthetic merge subject; `subject_sha` zostáva exact head SHA, ktorý workflow checkoutol a runtime gate overil.
-
-## Release evidence
-
-Finalizer najprv znovu overí canonical `release_candidate_id`. Nestačí, že pole iba vyzerá ako SHA-256; musí zodpovedať aktuálnemu RC JSON payloadu.
-
-Rovnako prepočíta:
-
-- `dependency_resolution_id`,
-- `workflow_provenance_id`.
-
-Až potom vytvorí:
-
-```text
-release_evidence_id = SHA256(canonical run-attestation payload)
-```
-
-Tým sa zmena ktoréhokoľvek RC, dependency alebo workflow provenance subjectu prejaví novou release-evidence identitou alebo refusal-om.
-
-## Final artifact bundle
-
-Finálny artifact bundle obsahuje minimálne:
+A successful final bundle contains at least:
 
 - `core.json`,
 - `mlops.json`,
@@ -145,66 +35,22 @@ Finálny artifact bundle obsahuje minimálne:
 - `release-evidence.json`,
 - `artifact-manifest.json`.
 
-Artifact manifest vzniká až po outer cleanup-e. Pinne SHA-256 a byte size všetkých JSON artifacts a obsahuje:
+The finalizer recalculates the canonical candidate/dependency/provenance identities before producing release evidence and the artifact manifest binds SHA-256/size of the complete JSON bundle after cleanup.
 
-- `release_evidence_id`,
-- `release_candidate_id`,
-- `dependency_resolution_id`,
-- `workflow_provenance_id`,
-- exact workflow `run_id`,
-- `workflow_cleanup_verified=true`,
-- canonical `artifact_manifest_id`.
+## Final tag-subject acceptance
 
-## Cleanup boundary
+Before `v1.0.0`, the current final `main` SHA must independently satisfy:
 
-Pred vytvorením artifact manifestu musí byť odstránené:
+1. successful RC lifecycle,
+2. successful release-evidence workflow,
+3. exact subject SHA equality,
+4. canonical IDs verified,
+5. cleanup/worktree read-back verified,
+6. `release_tag_created=false`,
+7. `user_acceptance_claimed=false`.
 
-- disposable RC work root,
-- copied package source root,
-- temporary dependency snapshot,
-- Python venv,
-- `.runtime`,
-- disposable MLOps Docker containers/images,
-- disposable Keycloak Compose project/volumes.
+The final run IDs live in GitHub Actions provenance. They are not committed after execution, because such a commit would create a new unverified Git subject.
 
-Git checkout musí byť po cleanup-e čistý.
+## Proof boundary
 
-## Čo úspešný run stále neznamená
-
-Ani successful `Practical v1 release evidence` run automaticky neznamená:
-
-- `User accepted`,
-- vytvorený `v1.0.0` tag,
-- production Kubernetes/cloud readiness,
-- production identity platform readiness,
-- remote OCI Registry proof,
-- live proxy/service-mesh canary,
-- browser Authorization Code exchange.
-
-Workflow má repository permission iba:
-
-```text
-contents: read
-```
-
-Tag preto technicky nevytvára.
-
-## Runtime acceptance
-
-Kým GitHub Actions nevytvorí reálny run s čitateľnými jobs a artifact bundle, táto vrstva je iba `Implemented`.
-
-Finálny release evidence gate možno označiť `Runtime verified` až po kontrole:
-
-1. exact run ID a exact subject SHA,
-2. successful job result,
-3. `release-evidence.json`,
-4. canonical `release_evidence_id`,
-5. dependency resolution ID,
-6. workflow provenance ID,
-7. `artifact-manifest.json`,
-8. canonical `artifact_manifest_id`,
-9. `workflow_cleanup_verified=true` + clean-worktree read-back,
-10. explicit `release_tag_created=false`,
-11. explicit `user_acceptance_claimed=false`.
-
-Až následná samostatná user review/acceptance fáza môže meniť `User accepted` a až potom sa rieši immutable tag `v1.0.0`.
+Successful Practical v1 release evidence proves the bounded local/hosted profile defined by the repository. It does not automatically prove production Kubernetes/cloud readiness, production identity HA/federation, remote production Registry durability, real-browser PKCE exchange, GPU/distributed ML, external LLM quality or production remediation authority.
