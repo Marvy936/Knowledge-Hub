@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Waiting for K3s API..."
+for _ in $(seq 1 120); do
+  if docker exec kh-lab-k3s kubectl get --raw=/readyz >/dev/null 2>&1; then
+    break
+  fi
+  sleep 1
+done
+
+docker exec kh-lab-k3s kubectl get --raw=/readyz >/dev/null
+kubectl apply -f /workspace/configmap.yaml >/dev/null
+kubectl apply -f /workspace/deployment.yaml >/dev/null
+kubectl rollout status deployment/kh-demo -n kh-lab --timeout=120s >/dev/null
+echo "K3s scenario is ready."

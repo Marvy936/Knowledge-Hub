@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+printf 'Nodes:\n'
+kubectl get nodes
+printf '\nPods:\n'
+kubectl get pods -n kh-lab -o wide
+printf '\nConfigMap:\n'
+kubectl get configmap kh-config -n kh-lab -o yaml
+printf '\nRunning Pod value:\n'
+kubectl exec -n kh-lab deploy/kh-demo -- printenv APP_MESSAGE || true

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+printf '\n[1/4] Proving initial Kubernetes state is incomplete...\n'
+if check; then echo "Initial scenario unexpectedly passed." >&2; exit 1; fi
+printf '\n[2/4] Applying intended ConfigMap repair...\n'
+sed -i 's/APP_MESSAGE: stale-value/APP_MESSAGE: production-ready/' /workspace/configmap.yaml
+apply >/dev/null
+printf '\n[3/4] Proving new Pod consumes repaired value...\n'
+check
+printf '\n[4/4] Proving reset restores stale state...\n'
+reset >/dev/null
+if check; then echo "Reset scenario unexpectedly passed." >&2; exit 1; fi
+echo
+echo "SELF-TEST PASSED"

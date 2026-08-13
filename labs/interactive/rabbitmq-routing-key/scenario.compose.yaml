@@ -1,0 +1,11 @@
+name: kh-rabbitmq-routing-key
+
+services:
+  rabbitmq:
+    image: rabbitmq:4.1-management-alpine
+    container_name: kh-lab-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: lab
+      RABBITMQ_DEFAULT_PASS: labpass
+    ports:
+      - "127.0.0.1:15672:15672"

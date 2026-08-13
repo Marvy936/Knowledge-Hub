@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+kubectl delete namespace kh-lab --ignore-not-found=true --wait=true >/dev/null 2>&1 || true
+cp "$LAB_ROOT/configmap.yaml.template" /workspace/configmap.yaml
+cp "$LAB_ROOT/deployment.yaml.template" /workspace/deployment.yaml
+rm -f /workspace/.hint-level
+kubectl apply -f /workspace/configmap.yaml >/dev/null
+kubectl apply -f /workspace/deployment.yaml >/dev/null
+kubectl rollout status deployment/kh-demo -n kh-lab --timeout=120s >/dev/null
+echo "Lab reset. Run: status"

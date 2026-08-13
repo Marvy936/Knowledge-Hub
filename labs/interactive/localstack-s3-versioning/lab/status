@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+printf 'Bucket versioning:\n'
+aws s3api get-bucket-versioning --bucket kh-lab-bucket
+printf '\nObject versions:\n'
+aws s3api list-object-versions --bucket kh-lab-bucket --prefix app/config.json

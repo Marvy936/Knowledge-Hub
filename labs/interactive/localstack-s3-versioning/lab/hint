@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LEVEL_FILE=/workspace/.hint-level
+level=0; [[ -f "$LEVEL_FILE" ]] && level="$(cat "$LEVEL_FILE")"
+level=$((level+1)); echo "$level" > "$LEVEL_FILE"
+case "$level" in
+  1) echo "Use aws s3api get-bucket-versioning and list-object-versions first." ;;
+  2) echo "S3 versioning is enabled with put-bucket-versioning and Status=Enabled." ;;
+  3) echo "After versioning is enabled, upload config-v2.json to the same key app/config.json." ;;
+  *) echo "Example: aws s3api put-bucket-versioning --bucket kh-lab-bucket --versioning-configuration Status=Enabled ; aws s3api put-object --bucket kh-lab-bucket --key app/config.json --body /workspace/config-v2.json" ;;
+esac

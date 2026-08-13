@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kh-demo
+  namespace: kh-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kh-demo
+  template:
+    metadata:
+      labels:
+        app: kh-demo
+    spec:
+      containers:
+        - name: demo
+          image: busybox:1.36
+          command:
+            - /bin/sh
+            - -ec
+            - |
+              while true; do
+                echo "$APP_MESSAGE"
+                sleep 30
+              done
+          env:
+            - name: APP_MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: kh-config
+                  key: APP_MESSAGE

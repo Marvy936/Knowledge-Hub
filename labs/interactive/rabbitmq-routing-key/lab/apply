@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+BASE=http://127.0.0.1:15672/api
+AUTH=(-u lab:labpass -H 'content-type: application/json')
+key="$(tr -d '\r\n' < /workspace/routing-key.txt)"
+[[ -n "$key" ]] || { echo "routing-key.txt is empty" >&2; exit 1; }
+
+curl -fsS "${AUTH[@]}" -X PUT "$BASE/exchanges/%2F/events" -d '{"type":"direct","durable":false,"auto_delete":false,"internal":false,"arguments":{}}' >/dev/null
+curl -fsS "${AUTH[@]}" -X PUT "$BASE/queues/%2F/payments" -d '{"durable":false,"auto_delete":false,"arguments":{}}' >/dev/null
+curl -fsS "${AUTH[@]}" -X DELETE "$BASE/bindings/%2F/e/events/q/payments/payments.failed" >/dev/null 2>&1 || true
+curl -fsS "${AUTH[@]}" -X DELETE "$BASE/bindings/%2F/e/events/q/payments/payments.created" >/dev/null 2>&1 || true
+curl -fsS "${AUTH[@]}" -X POST "$BASE/bindings/%2F/e/events/q/payments" -d "{\"routing_key\":\"$key\",\"arguments\":{}}" >/dev/null
+echo "Binding applied with routing key: $key"

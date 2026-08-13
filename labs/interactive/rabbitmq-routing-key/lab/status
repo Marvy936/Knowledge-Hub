@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+BASE=http://127.0.0.1:15672/api
+printf 'Bindings from events -> payments:\n'
+curl -fsS -u lab:labpass "$BASE/bindings/%2F/e/events/q/payments" | jq '[.[] | {routing_key, properties_key}]'
+printf '\nQueue state:\n'
+curl -fsS -u lab:labpass "$BASE/queues/%2F/payments" | jq '{name, messages, consumers, state}'

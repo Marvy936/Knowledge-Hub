@@ -1,0 +1,17 @@
+name: kh-kubernetes-configmap-rollout
+
+services:
+  k3s:
+    image: rancher/k3s:v1.30.6-k3s1
+    container_name: kh-lab-k3s
+    privileged: true
+    command:
+      - server
+      - --disable=traefik
+      - --disable=servicelb
+      - --write-kubeconfig-mode=644
+    tmpfs:
+      - /run
+      - /var/run
+    volumes:
+      - /workspace:/workspace

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -u
+BASE=http://127.0.0.1:15672/api
+AUTH=(-u lab:labpass -H 'content-type: application/json')
+pass_count=0
+fail_count=0
+result() { if [[ "$1" == "1" ]]; then printf '[PASS] %s\n' "$2"; pass_count=$((pass_count+1)); else printf '[FAIL] %s\n' "$2"; fail_count=$((fail_count+1)); fi; }
+
+binding="$(curl -fsS -u lab:labpass "$BASE/bindings/%2F/e/events/q/payments" 2>/dev/null | jq -r '.[0].routing_key // ""' 2>/dev/null || true)"
+result "$([[ "$binding" == "payments.created" ]] && echo 1 || echo 0)" "Queue binding uses routing key payments.created"
+
+curl -fsS "${AUTH[@]}" -X DELETE "$BASE/queues/%2F/payments/contents" >/dev/null 2>&1 || true
+publish="$(curl -fsS "${AUTH[@]}" -X POST "$BASE/exchanges/%2F/events/publish" -d '{"properties":{},"routing_key":"payments.created","payload":"{\"event\":\"payments.created\"}","payload_encoding":"string"}' 2>/dev/null || echo '{}')"
+routed="$(printf '%s' "$publish" | jq -r '.routed // false' 2>/dev/null || echo false)"
+result "$([[ "$routed" == "true" ]] && echo 1 || echo 0)" "Published payments.created event is routed"
+
+messages="$(curl -fsS "${AUTH[@]}" -X POST "$BASE/queues/%2F/payments/get" -d '{"count":1,"ackmode":"ack_requeue_false","encoding":"auto","truncate":50000}' 2>/dev/null || echo '[]')"
+payload="$(printf '%s' "$messages" | jq -r '.[0].payload // ""' 2>/dev/null || true)"
+if [[ "$payload" == *"payments.created"* ]]; then result 1 "payments queue receives the expected event"; else result 0 "payments queue receives the expected event"; fi
+
+echo
+if (( fail_count == 0 )); then echo "LAB COMPLETED"; exit 0; fi
+echo "LAB NOT COMPLETE"
+echo "Use 'hint' if you need help."
+exit 1

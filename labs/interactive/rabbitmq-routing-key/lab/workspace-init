@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euo pipefail
+[[ -f /workspace/routing-key.txt ]] || cp "$LAB_ROOT/routing-key.txt.template" /workspace/routing-key.txt

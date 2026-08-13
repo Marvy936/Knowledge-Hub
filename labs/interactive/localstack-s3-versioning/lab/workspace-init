@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+[[ -f /workspace/config-v1.json ]] || cp "$LAB_ROOT/config-v1.json.template" /workspace/config-v1.json
+[[ -f /workspace/config-v2.json ]] || cp "$LAB_ROOT/config-v2.json.template" /workspace/config-v2.json

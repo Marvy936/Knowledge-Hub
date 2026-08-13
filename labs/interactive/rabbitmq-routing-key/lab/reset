@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cp "$LAB_ROOT/routing-key.txt.template" /workspace/routing-key.txt
+rm -f /workspace/.hint-level
+apply >/dev/null
+curl -fsS -u lab:labpass -X DELETE http://127.0.0.1:15672/api/queues/%2F/payments/contents >/dev/null 2>&1 || true
+echo "Lab reset. Run: status"

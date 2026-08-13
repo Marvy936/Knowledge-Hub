@@ -1,0 +1,11 @@
+name: kh-localstack-s3-versioning
+
+services:
+  localstack:
+    image: localstack/localstack:3.8.1
+    container_name: kh-lab-localstack
+    environment:
+      SERVICES: s3
+      DEBUG: "0"
+    ports:
+      - "127.0.0.1:4566:4566"

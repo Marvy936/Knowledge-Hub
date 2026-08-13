@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+printf '\n[1/4] Proving initial S3 state is incomplete...\n'
+if check; then echo "Initial scenario unexpectedly passed." >&2; exit 1; fi
+printf '\n[2/4] Enabling versioning and uploading v2...\n'
+aws s3api put-bucket-versioning --bucket kh-lab-bucket --versioning-configuration Status=Enabled >/dev/null
+aws s3api put-object --bucket kh-lab-bucket --key app/config.json --body /workspace/config-v2.json >/dev/null
+printf '\n[3/4] Proving versioned state passes...\n'
+check
+printf '\n[4/4] Proving reset restores unversioned state...\n'
+reset >/dev/null
+if check; then echo "Reset scenario unexpectedly passed." >&2; exit 1; fi
+echo
+echo "SELF-TEST PASSED"

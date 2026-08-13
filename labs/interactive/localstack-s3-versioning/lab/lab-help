@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+────────────────────────────────────────────────────
+LocalStack / S3: Object Versioning
+
+Scenario
+  A bucket contains app/config.json, but versioning is disabled.
+  A second release must be uploaded without losing version history.
+
+Goal
+  1. Inspect bucket versioning and current versions.
+  2. Enable versioning on kh-lab-bucket.
+  3. Upload /workspace/config-v2.json as app/config.json.
+  4. Prove the new body and a real VersionId exist.
+
+Start here
+  status
+  aws s3api get-bucket-versioning --bucket kh-lab-bucket
+  aws s3api list-object-versions --bucket kh-lab-bucket --prefix app/config.json
+
+Lab commands
+  aws      AWS CLI wrapper pointed at LocalStack
+  status   inspect bucket state
+  check    validate versioning + latest object + VersionId
+  hint     reveal progressive help
+  reset    recreate the LocalStack scenario
+  help     show this assignment again
+
+Boundary
+  This is a local LocalStack exercise, not a real AWS-account execution claim.
+EOF

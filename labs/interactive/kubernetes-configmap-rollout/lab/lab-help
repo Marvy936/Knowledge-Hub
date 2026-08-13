@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+────────────────────────────────────────────────────
+Kubernetes: ConfigMap Rollout
+
+Scenario
+  A Deployment reads APP_MESSAGE from a ConfigMap, but the value is stale.
+  Updating the ConfigMap alone does not change the environment of an existing Pod.
+
+Goal
+  1. Inspect the ConfigMap and running Pod.
+  2. Change APP_MESSAGE to: production-ready
+  3. Apply the ConfigMap.
+  4. Roll the Deployment so the new Pod receives the corrected value.
+
+Start here
+  status
+  kubectl get configmap kh-config -n kh-lab -o yaml
+  kubectl exec -n kh-lab deploy/kh-demo -- printenv APP_MESSAGE
+  nano configmap.yaml
+
+Lab commands
+  status   inspect cluster state
+  check    validate ConfigMap + live Pod state
+  hint     reveal progressive help
+  apply    apply configmap.yaml and restart the Deployment
+  reset    restore the broken scenario
+  help     show this assignment again
+EOF

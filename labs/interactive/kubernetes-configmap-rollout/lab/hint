@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LEVEL_FILE=/workspace/.hint-level
+level=0; [[ -f "$LEVEL_FILE" ]] && level="$(cat "$LEVEL_FILE")"
+level=$((level+1)); echo "$level" > "$LEVEL_FILE"
+case "$level" in
+  1) echo "Inspect both the ConfigMap and the value inside the running Pod." ;;
+  2) echo "Environment variables sourced from a ConfigMap are fixed when the Pod is created." ;;
+  3) echo "Edit configmap.yaml so APP_MESSAGE is production-ready, then apply it." ;;
+  *) echo "After kubectl apply -f configmap.yaml, restart the Deployment rollout so a new Pod receives the value. The 'apply' helper performs both operations." ;;
+esac

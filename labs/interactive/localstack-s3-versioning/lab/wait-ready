@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "Waiting for LocalStack S3..."
+for _ in $(seq 1 90); do
+  if aws s3api list-buckets >/dev/null 2>&1; then break; fi
+  sleep 1
+done
+aws s3api list-buckets >/dev/null
+aws s3api create-bucket --bucket kh-lab-bucket >/dev/null 2>&1 || true
+aws s3api put-object --bucket kh-lab-bucket --key app/config.json --body /workspace/config-v1.json >/dev/null
+echo "LocalStack S3 scenario is ready."

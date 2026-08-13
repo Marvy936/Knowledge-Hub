@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kh-lab
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kh-config
+  namespace: kh-lab
+data:
+  APP_MESSAGE: stale-value

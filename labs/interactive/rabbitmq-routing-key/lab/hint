@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LEVEL_FILE=/workspace/.hint-level
+level=0; [[ -f "$LEVEL_FILE" ]] && level="$(cat "$LEVEL_FILE")"
+level=$((level+1)); echo "$level" > "$LEVEL_FILE"
+case "$level" in
+  1) echo "Inspect the binding between the direct exchange 'events' and queue 'payments'." ;;
+  2) echo "A direct exchange routes only when the publish routing key exactly matches the binding key." ;;
+  3) echo "The publisher emits payments.created. Compare that with routing-key.txt." ;;
+  *) echo "Change routing-key.txt to payments.created, run apply, then check." ;;
+esac

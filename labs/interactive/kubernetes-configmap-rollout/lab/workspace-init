@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+[[ -f /workspace/configmap.yaml ]] || cp "$LAB_ROOT/configmap.yaml.template" /workspace/configmap.yaml
+[[ -f /workspace/deployment.yaml ]] || cp "$LAB_ROOT/deployment.yaml.template" /workspace/deployment.yaml

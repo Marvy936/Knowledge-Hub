@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -u
+pass_count=0
+fail_count=0
+result() { if [[ "$1" == "1" ]]; then printf '[PASS] %s\n' "$2"; pass_count=$((pass_count+1)); else printf '[FAIL] %s\n' "$2"; fail_count=$((fail_count+1)); fi; }
+
+available="$(kubectl get deployment kh-demo -n kh-lab -o jsonpath='{.status.availableReplicas}' 2>/dev/null || true)"
+result "$([[ "$available" == "1" ]] && echo 1 || echo 0)" "Deployment has one available replica"
+
+config_value="$(kubectl get configmap kh-config -n kh-lab -o jsonpath='{.data.APP_MESSAGE}' 2>/dev/null || true)"
+result "$([[ "$config_value" == "production-ready" ]] && echo 1 || echo 0)" "ConfigMap contains APP_MESSAGE=production-ready"
+
+pod_value="$(kubectl exec -n kh-lab deploy/kh-demo -- printenv APP_MESSAGE 2>/dev/null | tr -d '\r' || true)"
+result "$([[ "$pod_value" == "production-ready" ]] && echo 1 || echo 0)" "Running Pod consumes the corrected ConfigMap value"
+
+echo
+if (( fail_count == 0 )); then echo "LAB COMPLETED"; exit 0; fi
+echo "LAB NOT COMPLETE"
+echo "Use 'hint' if you need help."
+exit 1

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+network="$(docker inspect kh-lab-localstack --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}}{{end}}')"
+exec docker run --rm \
+  --network "$network" \
+  -e AWS_ACCESS_KEY_ID=test \
+  -e AWS_SECRET_ACCESS_KEY=test \
+  -e AWS_DEFAULT_REGION=us-east-1 \
+  -v /workspace:/workspace \
+  amazon/aws-cli:2.17.33 \
+  --endpoint-url http://localstack:4566 "$@"

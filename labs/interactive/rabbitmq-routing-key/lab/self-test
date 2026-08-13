@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+printf '\n[1/4] Proving initial routing is broken...\n'
+if check; then echo "Initial scenario unexpectedly passed." >&2; exit 1; fi
+printf '\n[2/4] Applying intended routing-key repair...\n'
+printf 'payments.created\n' > /workspace/routing-key.txt
+apply >/dev/null
+printf '\n[3/4] Proving event is routed and delivered...\n'
+check
+printf '\n[4/4] Proving reset restores wrong binding...\n'
+reset >/dev/null
+if check; then echo "Reset scenario unexpectedly passed." >&2; exit 1; fi
+echo
+echo "SELF-TEST PASSED"

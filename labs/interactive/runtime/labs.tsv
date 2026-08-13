@@ -7,3 +7,6 @@ nginx-reverse-proxy	Repair a broken Nginx upstream and restore reverse-proxy tra
 redis-cache-ttl	Repair stale Redis cache data and enforce a bounded TTL.
 tls-certificate-hostname	Repair a TLS certificate SAN and restore hostname-verified HTTPS.
 terraform-state-drift	Detect Terraform drift and reconcile the managed resource.
+kubernetes-configmap-rollout	Repair a ConfigMap value and roll a Deployment onto the new configuration.
+localstack-s3-versioning	Enable S3 versioning in LocalStack and create a real second object version.
+rabbitmq-routing-key	Repair a RabbitMQ direct-exchange binding so events reach the intended queue.

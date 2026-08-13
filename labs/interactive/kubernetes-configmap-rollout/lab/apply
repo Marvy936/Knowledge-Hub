@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+kubectl apply -f /workspace/configmap.yaml
+kubectl rollout restart deployment/kh-demo -n kh-lab
+kubectl rollout status deployment/kh-demo -n kh-lab --timeout=120s
+echo "Configuration applied. Run: check"

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+────────────────────────────────────────────────────
+RabbitMQ: Direct Exchange Routing Key
+
+Scenario
+  Exchange 'events' and queue 'payments' exist, but the binding key is wrong.
+  A publisher emits routing key payments.created and the event is lost.
+
+Goal
+  Repair the binding so payments.created reaches queue payments.
+
+Start here
+  status
+  cat routing-key.txt
+  nano routing-key.txt
+  apply
+  check
+
+Lab commands
+  status   inspect queue and binding state
+  check    publish a real event and verify routing + delivery
+  hint     reveal progressive help
+  apply    recreate the binding from routing-key.txt
+  reset    restore the wrong binding
+  help     show this assignment again
+EOF
