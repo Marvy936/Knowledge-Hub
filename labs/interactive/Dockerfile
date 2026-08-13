@@ -2,7 +2,11 @@ FROM hashicorp/terraform:1.15.6 AS terraform
 
 FROM docker:27-dind
 
-RUN apk add --no-cache \
+# docker:27-dind can contain older Alpine base packages than the current
+# repository index. Upgrade the base first so Python/libexpat and aws-cli
+# are installed from one consistent package set.
+RUN apk upgrade --no-cache \
+ && apk add --no-cache \
       aws-cli \
       bash \
       bind-tools \
@@ -11,9 +15,12 @@ RUN apk add --no-cache \
       iputils \
       jq \
       nano \
-      openssl
+      openssl \
+ && aws --version
 
 COPY --from=terraform /bin/terraform /usr/local/bin/terraform
+
+RUN terraform version >/dev/null
 
 LABEL org.opencontainers.image.source="https://github.com/Marvy936/Knowledge-Hub" \
       org.opencontainers.image.description="Knowledge Hub one-command interactive lab runtime"
