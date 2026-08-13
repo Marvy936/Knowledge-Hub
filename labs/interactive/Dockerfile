@@ -19,7 +19,6 @@ RUN apk upgrade --no-cache \
  && aws --version
 
 COPY --from=terraform /bin/terraform /usr/local/bin/terraform
-
 RUN terraform version >/dev/null
 
 LABEL org.opencontainers.image.source="https://github.com/Marvy936/Knowledge-Hub" \
@@ -38,6 +37,12 @@ COPY terraform-state-drift /opt/knowledge-hub/labs/terraform-state-drift
 COPY kubernetes-configmap-rollout /opt/knowledge-hub/labs/kubernetes-configmap-rollout
 COPY s3-versioning-minio /opt/knowledge-hub/labs/s3-versioning-minio
 COPY rabbitmq-routing-key /opt/knowledge-hub/labs/rabbitmq-routing-key
+COPY postgres-backup-restore /opt/knowledge-hub/labs/postgres-backup-restore
+
+# New labs may use README as their canonical assignment source; generate the
+# tiny executable wrapper in the image instead of duplicating the text.
+RUN printf '%s\n' '#!/usr/bin/env bash' 'cat "$LAB_ROOT/README.md"' \
+      > /opt/knowledge-hub/labs/postgres-backup-restore/lab/lab-help
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
