@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+reset-lab >/dev/null
+if verify; then
+  echo "Starter state unexpectedly passed"
+  exit 1
+fi
+
+cp "$LAB_ROOT/site.yml.solution.template" /workspace/site.yml
+verify
+
+reset-lab >/dev/null
+if verify; then
+  echo "Reset state unexpectedly passed"
+  exit 1
+fi
+
+echo "SELF-TEST PASSED"
