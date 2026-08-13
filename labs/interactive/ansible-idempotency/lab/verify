@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd /workspace
+first="$(ANSIBLE_NOCOLOR=1 ansible-playbook -i inventory.ini site.yml)"
+second="$(ANSIBLE_NOCOLOR=1 ansible-playbook -i inventory.ini site.yml)"
+
+content_ok=false
+idempotent_ok=false
+[[ "$(cat target/app.conf 2>/dev/null)" == "MODE=production" ]] && content_ok=true
+grep -Eq 'changed=0([[:space:]]|$)' <<<"$second" && idempotent_ok=true
+
+$content_ok && echo "[PASS] Managed configuration remains MODE=production" || echo "[FAIL] Managed configuration remains MODE=production"
+$idempotent_ok && echo "[PASS] Second identical Ansible run reports changed=0" || echo "[FAIL] Second identical Ansible run reports changed=0"
+
+if $content_ok && $idempotent_ok; then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+exit 1
