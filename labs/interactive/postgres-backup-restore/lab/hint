@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+state=/workspace/.hint-level
+level=0
+[[ -f "$state" ]] && level="$(cat "$state")"
+level=$((level + 1)); (( level > 3 )) && level=3
+echo "$level" > "$state"
+case "$level" in
+  1) echo "Hint 1: inspect the live table and customers-backup.sql; one row is missing." ;;
+  2) echo "Hint 2: the backup is a column-insert pg_dump. Find the INSERT for customer id 2." ;;
+  3) echo "Hint 3: pipe only Bob's INSERT statement from the backup into psql in kh-lab-postgres-restore." ;;
+esac
