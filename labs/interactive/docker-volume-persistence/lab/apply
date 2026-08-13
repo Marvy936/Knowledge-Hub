@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Recreating writer from your Compose definition..."
+docker compose -f "${LAB_SCENARIO:?}" --env-file "${LAB_ENV_FILE:?}" up -d --force-recreate writer >/dev/null
+echo "Applied. Run: check"

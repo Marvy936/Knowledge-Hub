@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+
+Knowledge Hub Interactive Lab
+────────────────────────────────────────────────────
+Docker: Volume Persistence Troubleshooting
+
+Scenario
+  A service is supposed to keep files under /data across container recreation.
+  A named volume exists, but persistence is broken.
+
+Start here
+  status
+  docker inspect kh-lab-writer
+  docker inspect kh-lab-writer --format '{{json .Mounts}}' | jq
+  cat scenario.compose.yaml
+
+Learner file
+  /workspace/scenario.compose.yaml
+
+Lab commands
+  help      show this screen again
+  status    show the container and mounts
+  check     run a real persistence probe
+  hint      reveal progressive help
+  apply     recreate the service from your edited Compose file
+  reset     restore the broken Compose definition
+  labs      list all bundled labs
+
+Suggested editor
+  nano scenario.compose.yaml
+
+Goal
+  Repair the volume configuration so `check` ends with LAB COMPLETED.
+
+EOF

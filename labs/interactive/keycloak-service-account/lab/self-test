@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "${LAB_ENV_FILE:?}"
+
+printf '\n[1/4] Proving the guided lab starts incomplete...\n'
+if check; then
+  echo "Lab unexpectedly passed without a token." >&2
+  exit 1
+fi
+
+printf '\n[2/4] Obtaining a real client-credentials token...\n'
+curl -fsS -X POST \
+  "http://127.0.0.1:8080/realms/$REALM/protocol/openid-connect/token" \
+  -d grant_type=client_credentials \
+  -d client_id="$CLIENT_ID" \
+  -d client_secret="$CLIENT_SECRET" \
+  | jq -r '.access_token' > "$LAB_WORKSPACE/token.txt"
+
+printf '\n[3/4] Proving the real token passes validation...\n'
+check
+
+printf '\n[4/4] Proving reset clears learner completion...\n'
+reset
+if check; then
+  echo "Reset lab unexpectedly passed." >&2
+  exit 1
+fi
+
+lab-help >/dev/null
+echo
+echo "SELF-TEST PASSED"

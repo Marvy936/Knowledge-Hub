@@ -1,0 +1,35 @@
+{
+  "realm": "kh-lab",
+  "enabled": true,
+  "sslRequired": "none",
+  "roles": {
+    "realm": [
+      {"name": "lab.read", "description": "Read access used by the interactive service-account lab."}
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "lab-cli",
+      "name": "Knowledge Hub interactive service account",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "lab-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "fullScopeAllowed": true,
+      "defaultClientScopes": ["roles"]
+    }
+  ],
+  "users": [
+    {
+      "username": "service-account-lab-cli",
+      "enabled": true,
+      "serviceAccountClientId": "lab-cli",
+      "realmRoles": ["lab.read"]
+    }
+  ]
+}

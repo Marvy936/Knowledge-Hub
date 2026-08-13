@@ -1,0 +1,20 @@
+name: kh-docker-volume-persistence
+
+services:
+  writer:
+    image: alpine:3.21
+    container_name: kh-lab-writer
+    command:
+      - /bin/sh
+      - -ec
+      - |
+        mkdir -p /data
+        echo "writer ready"
+        sleep 3600
+    volumes:
+      - type: volume
+        source: appdata
+        target: /cache
+
+volumes:
+  appdata:

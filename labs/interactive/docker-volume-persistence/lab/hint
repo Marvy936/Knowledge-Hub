@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+FILE="${LAB_WORKSPACE:-/workspace}/.hint-level"
+level=0
+[[ -f "$FILE" ]] && level="$(cat "$FILE")"
+level=$((level + 1))
+echo "$level" > "$FILE"
+
+case "$level" in
+  1) echo "Hint 1: inspect the writer container's Mounts and compare them with the path the application writes to." ;;
+  2) echo "Hint 2: the application writes to /data. A volume only persists files written below its mount destination." ;;
+  *) echo "Hint 3: inspect scenario.compose.yaml and correct the named volume target, then run: apply && check" ;;
+esac

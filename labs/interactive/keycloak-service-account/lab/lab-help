@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+
+Knowledge Hub Interactive Lab
+────────────────────────────────────────────────────
+Keycloak: Client Credentials / Service Account
+
+Goal
+  Obtain a real machine-to-machine access token from Keycloak,
+  inspect its claims, save it to /workspace/token.txt, and prove it is active.
+
+Start here
+  status
+  cat scenario.env
+
+Task
+  1. Read REALM, CLIENT_ID and CLIENT_SECRET from scenario.env.
+  2. POST grant_type=client_credentials to:
+       http://127.0.0.1:8080/realms/<REALM>/protocol/openid-connect/token
+  3. Save only the access_token value into token.txt.
+  4. Run: decode-jwt token.txt
+  5. Run: check
+
+Useful tools already installed
+  curl, jq, nano, docker, docker compose
+
+Lab commands
+  help       show this assignment again
+  status     verify Keycloak and realm readiness
+  check      validate token activity and lab.read role
+  hint       reveal progressive help
+  decode-jwt decode a JWT payload for inspection
+  reset      remove learner token/hint state
+  labs       list all bundled labs
+
+EOF

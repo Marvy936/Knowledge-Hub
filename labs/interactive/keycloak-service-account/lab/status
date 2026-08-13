@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "${LAB_ENV_FILE:?}"
+docker ps --filter name=kh-lab-keycloak
+echo
+if curl -fsS "http://127.0.0.1:8080/realms/$REALM" >/dev/null; then
+  echo "Realm $REALM: ready"
+else
+  echo "Realm $REALM: not ready"
+  exit 1
+fi

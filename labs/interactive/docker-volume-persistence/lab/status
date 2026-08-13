@@ -2,3 +2,6 @@
 set -euo pipefail
 
 docker compose -f "${LAB_SCENARIO:?}" --env-file "${LAB_ENV_FILE:?}" ps
+echo
+echo "Mounts:"
+docker inspect kh-lab-writer --format '{{json .Mounts}}' 2>/dev/null | jq . || true

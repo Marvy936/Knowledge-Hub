@@ -6,7 +6,7 @@ Knowledge Hub Interactive Lab
 Docker: Service Discovery Troubleshooting
 
 Scenario
-  An application container cannot connect to PostgreSQL.
+  The application container cannot connect to PostgreSQL.
   Diagnose the failure and restore connectivity.
 
 Start here
@@ -15,29 +15,23 @@ Start here
   docker logs kh-lab-app
   docker inspect kh-lab-app
 
-Learner workspace
+Learner files
   /workspace/scenario.env
-
-Edit configuration
-  nano scenario.env
+  /workspace/scenario.compose.yaml
 
 Lab commands
   help      show this screen again
-  lab-help  show this screen again
-  task      show this screen again
-  status    show the scenario containers
+  status    show scenario containers
   check     validate your current solution
-  hint      reveal the next progressive hint
-  apply     re-apply scenario.env after you edit it
+  hint      reveal progressive help
+  apply     re-apply scenario.env after editing it
   reset     restore the intentionally broken scenario
+  labs      list all labs bundled in this image
 
-A correct repair ends with:
-  LAB COMPLETED
+Suggested editor
+  nano scenario.env
 
-Everything here, including Docker CLI and the nested Docker engine,
-runs inside this disposable container.
-
-Exit with:
-  exit
+Goal
+  Make `check` end with: LAB COMPLETED
 
 EOF

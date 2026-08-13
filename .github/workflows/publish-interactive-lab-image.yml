@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "labs/interactive/docker-network-debug/**"
+      - "labs/interactive/**"
       - ".github/workflows/publish-interactive-lab-image.yml"
   workflow_dispatch:
 
@@ -19,20 +19,20 @@ env:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - name: Checkout exact subject
         uses: actions/checkout@v4
 
-      - name: Build image
-        run: |
-          docker build \
-            -t "$IMAGE_NAME:test" \
-            -f labs/interactive/docker-network-debug/lab/Dockerfile \
-            labs/interactive/docker-network-debug
+      - name: Build multi-lab image
+        run: docker build -t "$IMAGE_NAME:test" -f labs/interactive/Dockerfile labs/interactive
 
-      - name: Prove image before publication
-        run: docker run --rm --privileged "$IMAGE_NAME:test" self-test
+      - name: Prove every lab before publication
+        run: |
+          docker run --rm "$IMAGE_NAME:test" list
+          docker run --rm --privileged "$IMAGE_NAME:test" docker-network-debug self-test
+          docker run --rm --privileged "$IMAGE_NAME:test" docker-volume-persistence self-test
+          docker run --rm --privileged "$IMAGE_NAME:test" keycloak-service-account self-test
 
       - name: Log in to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
@@ -45,13 +45,11 @@ jobs:
           docker push "$IMAGE_NAME:latest"
           docker push "$IMAGE_NAME:sha-$SHORT_SHA"
 
-      - name: Prove anonymous public pull
+      - name: Prove anonymous public pull and registry runtime
         run: |
           SHORT_SHA="${GITHUB_SHA::12}"
           docker logout ghcr.io || true
-          docker image rm \
-            "$IMAGE_NAME:test" \
-            "$IMAGE_NAME:latest" \
-            "$IMAGE_NAME:sha-$SHORT_SHA" || true
+          docker image rm "$IMAGE_NAME:test" "$IMAGE_NAME:latest" "$IMAGE_NAME:sha-$SHORT_SHA" || true
           docker pull "$IMAGE_NAME:latest"
-          docker run --rm --privileged "$IMAGE_NAME:latest" self-test
+          docker run --rm "$IMAGE_NAME:latest" list
+          docker run --rm --privileged "$IMAGE_NAME:latest" docker-volume-persistence self-test

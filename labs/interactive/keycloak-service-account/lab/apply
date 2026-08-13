@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+echo "This guided lab has no configuration apply step. Obtain a token, save it to token.txt, then run: check"

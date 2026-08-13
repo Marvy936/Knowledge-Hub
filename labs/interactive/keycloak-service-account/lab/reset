@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+rm -f "$LAB_WORKSPACE/token.txt" "$LAB_WORKSPACE/.hint-level"
+echo "Learner state reset. Keycloak remains ready. Run: help"

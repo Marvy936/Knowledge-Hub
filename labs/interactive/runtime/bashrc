@@ -1,0 +1,5 @@
+export PS1="lab@knowledgehub(${LAB_ID}):\w$ "
+alias help='lab-help'
+alias task='lab-help'
+alias labs='list-labs'
+echo "Type 'help' to show the assignment again, or 'labs' to list available labs."

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "${LAB_ENV_FILE:?}"
+
+printf 'Waiting for Keycloak realm %s...\n' "$REALM"
+for _ in $(seq 1 120); do
+  if curl -fsS "http://127.0.0.1:8080/realms/$REALM" >/dev/null 2>&1; then
+    echo "Keycloak is ready."
+    exit 0
+  fi
+  sleep 1
+done
+
+echo "Keycloak did not become ready." >&2
+exit 1

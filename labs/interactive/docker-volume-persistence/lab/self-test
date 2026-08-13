@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+printf '\n[1/4] Proving the initial volume challenge is broken...\n'
+if check; then
+  echo "Initial scenario unexpectedly passed." >&2
+  exit 1
+fi
+
+printf '\n[2/4] Applying intended repair...\n'
+sed -i 's|target: /cache|target: /data|' "$LAB_SCENARIO"
+apply
+
+printf '\n[3/4] Proving persistence now passes...\n'
+check
+
+printf '\n[4/4] Proving reset restores the challenge...\n'
+reset
+if check; then
+  echo "Reset scenario unexpectedly passed." >&2
+  exit 1
+fi
+
+lab-help >/dev/null
+echo
+echo "SELF-TEST PASSED"

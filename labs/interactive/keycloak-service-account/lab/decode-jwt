@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+FILE="${1:-token.txt}"
+[[ -s "$FILE" ]] || { echo "Missing or empty token file: $FILE" >&2; exit 1; }
+TOKEN="$(tr -d '\r\n' < "$FILE")"
+PART="$(printf '%s' "$TOKEN" | cut -d. -f2 | sed 's/-/+/g; s/_/\//g')"
+case $((${#PART} % 4)) in
+  2) PART="${PART}==" ;;
+  3) PART="${PART}=" ;;
+esac
+printf '%s' "$PART" | base64 -d 2>/dev/null | jq .

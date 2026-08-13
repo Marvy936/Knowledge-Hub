@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "Resetting the lab to its intentionally broken state..."
+echo "Resetting volume challenge..."
 docker compose -f "${LAB_SCENARIO:?}" --env-file "${LAB_ENV_FILE:?}" down -v --remove-orphans >/dev/null 2>&1 || true
 cp "${LAB_ROOT:?}/scenario.compose.yaml" "$LAB_SCENARIO"
 cp "$LAB_ROOT/scenario.env.template" "$LAB_ENV_FILE"

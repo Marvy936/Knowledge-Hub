@@ -16,26 +16,34 @@ on:
 permissions:
   contents: read
 
+env:
+  IMAGE_NAME: kh-interactive-labs:test
+
 jobs:
-  one-command-reference-lab:
+  multi-lab-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 30
     steps:
       - name: Checkout exact subject
         uses: actions/checkout@v4
 
-      - name: Build self-contained lab image
-        run: |
-          docker build \
-            -t kh-docker-network-debug:test \
-            -f labs/interactive/docker-network-debug/lab/Dockerfile \
-            labs/interactive/docker-network-debug
+      - name: Build multi-lab image
+        run: docker build -t "$IMAGE_NAME" -f labs/interactive/Dockerfile labs/interactive
 
-      - name: Prove complete one-container lifecycle
-        run: docker run --rm --privileged kh-docker-network-debug:test self-test
+      - name: List bundled labs without privileged mode
+        run: docker run --rm "$IMAGE_NAME" list
 
-      - name: Prove learner help is embedded
+      - name: Self-test Docker service discovery
+        run: docker run --rm --privileged "$IMAGE_NAME" docker-network-debug self-test
+
+      - name: Self-test Docker volume persistence
+        run: docker run --rm --privileged "$IMAGE_NAME" docker-volume-persistence self-test
+
+      - name: Self-test Keycloak client credentials
+        run: docker run --rm --privileged "$IMAGE_NAME" keycloak-service-account self-test
+
+      - name: Prove help is embedded
         run: |
-          docker run --rm --privileged kh-docker-network-debug:test lab-help > /tmp/lab-help.txt
-          grep -F "help      show this screen again" /tmp/lab-help.txt
-          grep -F "reset     restore the intentionally broken scenario" /tmp/lab-help.txt
+          docker run --rm --privileged "$IMAGE_NAME" docker-network-debug lab-help | grep -F "Docker: Service Discovery Troubleshooting"
+          docker run --rm --privileged "$IMAGE_NAME" docker-volume-persistence lab-help | grep -F "Docker: Volume Persistence Troubleshooting"
+          docker run --rm --privileged "$IMAGE_NAME" keycloak-service-account lab-help | grep -F "Keycloak: Client Credentials"

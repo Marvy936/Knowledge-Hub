@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -u
+
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+if docker inspect kh-lab-writer >/dev/null 2>&1; then
+  result 1 "Writer container exists"
+else
+  result 0 "Writer container exists"
+fi
+
+if docker inspect kh-lab-writer --format '{{json .Mounts}}' 2>/dev/null | jq -e '.[] | select(.Destination == "/data")' >/dev/null 2>&1; then
+  result 1 "Named volume is mounted at /data"
+  docker exec kh-lab-writer sh -ec 'echo knowledge-hub > /data/persistence-proof.txt'
+  docker compose -f "${LAB_SCENARIO:?}" --env-file "${LAB_ENV_FILE:?}" up -d --force-recreate writer >/dev/null
+  sleep 1
+  if docker exec kh-lab-writer sh -ec 'test "$(cat /data/persistence-proof.txt)" = knowledge-hub' >/dev/null 2>&1; then
+    result 1 "Data survives container recreation"
+  else
+    result 0 "Data survives container recreation"
+  fi
+else
+  result 0 "Named volume is mounted at /data"
+  result 0 "Data survives container recreation"
+fi
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "Use 'hint' if you need help."
+exit 1

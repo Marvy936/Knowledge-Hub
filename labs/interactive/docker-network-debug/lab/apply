@@ -1,17 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ENV_FILE="${LAB_WORKSPACE:-/workspace}/scenario.env"
-
-if [[ ! -f "$ENV_FILE" ]]; then
-  echo "Missing $ENV_FILE" >&2
-  exit 1
-fi
-
 echo "Re-applying learner configuration..."
 docker compose \
-  -f /opt/knowledge-hub/scenario.compose.yaml \
-  --env-file "$ENV_FILE" \
+  -f "${LAB_SCENARIO:?}" \
+  --env-file "${LAB_ENV_FILE:?}" \
   up -d --force-recreate app >/dev/null
 
 echo "Configuration applied. Run: check"

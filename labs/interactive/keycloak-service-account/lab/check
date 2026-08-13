@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -u
+source "${LAB_ENV_FILE:?}"
+
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+TOKEN_FILE="$LAB_WORKSPACE/token.txt"
+if [[ -s "$TOKEN_FILE" ]]; then
+  result 1 "Access token saved to token.txt"
+  TOKEN="$(tr -d '\r\n' < "$TOKEN_FILE")"
+else
+  result 0 "Access token saved to token.txt"
+  TOKEN=""
+fi
+
+if [[ -n "$TOKEN" ]]; then
+  INTROSPECTION="$(curl -sS -u "$CLIENT_ID:$CLIENT_SECRET" \
+    -d "token=$TOKEN" \
+    "http://127.0.0.1:8080/realms/$REALM/protocol/openid-connect/token/introspect" 2>/dev/null || true)"
+  if printf '%s' "$INTROSPECTION" | jq -e '.active == true' >/dev/null 2>&1; then
+    result 1 "Keycloak reports the token active"
+  else
+    result 0 "Keycloak reports the token active"
+  fi
+
+  PAYLOAD="$(decode-jwt "$TOKEN_FILE" 2>/dev/null || true)"
+  if printf '%s' "$PAYLOAD" | jq -e '((.realm_access.roles // []) | index("lab.read")) != null' >/dev/null 2>&1; then
+    result 1 "Token contains the lab.read realm role"
+  else
+    result 0 "Token contains the lab.read realm role"
+  fi
+else
+  result 0 "Keycloak reports the token active"
+  result 0 "Token contains the lab.read realm role"
+fi
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "Use 'hint' if you need help."
+exit 1

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Labs
+
+  docker-network-debug         Diagnose Docker service discovery / DNS.
+  docker-volume-persistence    Repair a named-volume mount so data survives recreation.
+  keycloak-service-account     Obtain and validate a Keycloak client-credentials token.
+
+Run a lab with:
+  docker run --pull=always --rm -it --privileged ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <lab-id>
+EOF

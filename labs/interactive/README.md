@@ -1,49 +1,37 @@
 # Knowledge Hub Interactive Labs
 
-Interactive Labs are disposable hands-on environments distributed as container images. The learner should need only Docker on the host; lab-specific CLIs, services, validation, hints, reset logic and editors live inside the image.
+Interactive Labs are disposable hands-on environments distributed through one public GHCR runtime image. The learner needs only Docker on the host. Lab-specific CLIs, services, editors, hints, reset logic and validators run inside the container.
 
-## User contract
-
-A published lab should be runnable from any terminal with one command of this form:
+## List labs
 
 ```bash
-docker run --pull=always --rm -it --privileged ghcr.io/marvy936/<lab-image>:latest
+docker run --pull=always --rm ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest list
 ```
 
-Not every future lab will require `--privileged`; the first Docker troubleshooting lab does because it runs a nested Docker daemon. Public GHCR packages can be pulled anonymously.
+## Run a lab
 
-Inside a lab, the common learner commands are:
-
-```text
-help      show the assignment and command list
-status    inspect the current scenario
-check     validate the learner solution
-hint      reveal progressive help
-apply     re-apply learner configuration when relevant
-reset     restore the initial scenario
+```bash
+docker run --pull=always --rm -it --privileged ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <lab-id>
 ```
 
-`lab-help` and `task` are aliases for the full help screen in the reference implementation.
+Current labs:
 
-## Reference lab
+| Lab | Type | Goal |
+|---|---|---|
+| `docker-network-debug` | challenge | Diagnose Docker service discovery and fix an invalid database hostname. |
+| `docker-volume-persistence` | challenge | Repair a named-volume mount and prove data survives recreation. |
+| `keycloak-service-account` | guided | Obtain, inspect and validate a real Keycloak client-credentials token. |
 
-[`docker-network-debug`](docker-network-debug/README.md) is the first reference implementation. It packages the Docker CLI, Docker Compose plugin, troubleshooting utilities, a nested Docker engine, PostgreSQL scenario, progressive hints and automated validation in one image.
+If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility with the first published image.
 
-The reference challenge is valid only if:
+Inside a lab, type `help` at any time. The common commands are `status`, `check`, `hint`, `reset`, and `apply` where the scenario has editable runtime configuration. `labs` lists the bundled labs.
 
-1. the initial scenario fails meaningful validation,
-2. the intended learner repair makes validation pass,
-3. `reset` restores the failing initial state,
-4. the complete lifecycle runs without host-side tooling other than Docker.
+The runtime starts a private Docker-in-Docker daemon, so these labs currently require `--privileged`. Scenario containers never use the host Docker socket.
 
-CI enforces this contract by running the image's built-in `self-test`.
+## Runtime contract
 
-## Registry
+A lab is accepted only when its built-in `self-test` proves the intended lifecycle. Challenge labs must fail in their initial state, pass after the intended repair, and fail again after `reset`. Guided labs must prove the real external component and validation path they teach, then return to incomplete learner state after reset.
 
-The initial registry target is GitHub Container Registry (GHCR). The repository workflow publishes:
+CI builds the exact multi-lab image, executes every bundled `self-test`, publishes `latest` plus an immutable SHA tag to GHCR, logs out, deletes local tags, anonymously pulls `latest` again, and smoke-tests the registry copy.
 
-```text
-ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest
-```
-
-GitHub creates a new GHCR package as private by default. After its first publication, package visibility must be changed to Public once in GitHub Package settings so learners can run it without authentication.
+The current GHCR repository name is retained from the first pilot package so its already-public visibility can be reused for all subsequent labs.
