@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+wait-ready
+echo "Lab reset. Run: check"
