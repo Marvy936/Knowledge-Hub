@@ -7,6 +7,7 @@ FROM docker:27-dind
 # are installed from one consistent package set.
 RUN apk upgrade --no-cache \
  && apk add --no-cache \
+      ansible-core \
       aws-cli \
       bash \
       bind-tools \
@@ -16,7 +17,8 @@ RUN apk upgrade --no-cache \
       jq \
       nano \
       openssl \
- && aws --version
+ && aws --version \
+ && ansible-playbook --version >/dev/null
 
 COPY --from=terraform /bin/terraform /usr/local/bin/terraform
 RUN terraform version >/dev/null
@@ -39,6 +41,7 @@ COPY s3-versioning-minio /opt/knowledge-hub/labs/s3-versioning-minio
 COPY rabbitmq-routing-key /opt/knowledge-hub/labs/rabbitmq-routing-key
 COPY postgres-backup-restore /opt/knowledge-hub/labs/postgres-backup-restore
 COPY localstack-s3-versioning /opt/knowledge-hub/labs/localstack-s3-versioning
+COPY ansible-idempotency /opt/knowledge-hub/labs/ansible-idempotency
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -49,6 +52,14 @@ RUN printf '%s\n' \
       > /opt/knowledge-hub/labs/postgres-backup-restore/lab/lab-help \
  && printf '%s\n' '#!/usr/bin/env bash' 'check || true' \
       > /opt/knowledge-hub/labs/postgres-backup-restore/lab/status
+
+# Source helper names avoid GitHub write-path restrictions; expose the normal
+# lab UX names in the built image.
+RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
+ && ln -s hints /opt/knowledge-hub/labs/ansible-idempotency/lab/hint \
+ && ln -s reset-lab /opt/knowledge-hub/labs/ansible-idempotency/lab/reset \
+ && ln -s status-lab /opt/knowledge-hub/labs/ansible-idempotency/lab/status \
+ && ln -s selftest /opt/knowledge-hub/labs/ansible-idempotency/lab/self-test
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
