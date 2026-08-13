@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+reset >/dev/null
+! check >/dev/null 2>&1
+cd /workspace/repo
+printf '%s\n' '{"mode":"production","replicas":3,"feature_x":true}' > config/app.json
+git add config/app.json
+git commit --no-edit -q
+check
+reset >/dev/null
+! check >/dev/null 2>&1
+reset >/dev/null
+echo "SELF-TEST PASSED"

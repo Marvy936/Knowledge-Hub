@@ -13,12 +13,14 @@ RUN apk upgrade --no-cache \
       bind-tools \
       curl \
       docker-cli-compose \
+      git \
       iputils \
       jq \
       nano \
       openssl \
  && aws --version \
- && ansible-playbook --version >/dev/null
+ && ansible-playbook --version >/dev/null \
+ && git --version >/dev/null
 
 COPY --from=terraform /bin/terraform /usr/local/bin/terraform
 RUN terraform version >/dev/null
@@ -42,6 +44,7 @@ COPY rabbitmq-routing-key /opt/knowledge-hub/labs/rabbitmq-routing-key
 COPY postgres-backup-restore /opt/knowledge-hub/labs/postgres-backup-restore
 COPY localstack-s3-versioning /opt/knowledge-hub/labs/localstack-s3-versioning
 COPY ansible-idempotency /opt/knowledge-hub/labs/ansible-idempotency
+COPY git-three-way-merge /opt/knowledge-hub/labs/git-three-way-merge
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -59,7 +62,12 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s hints /opt/knowledge-hub/labs/ansible-idempotency/lab/hint \
  && ln -s reset-lab /opt/knowledge-hub/labs/ansible-idempotency/lab/reset \
  && ln -s status-lab /opt/knowledge-hub/labs/ansible-idempotency/lab/status \
- && ln -s selftest /opt/knowledge-hub/labs/ansible-idempotency/lab/self-test
+ && ln -s selftest /opt/knowledge-hub/labs/ansible-idempotency/lab/self-test \
+ && ln -s verify /opt/knowledge-hub/labs/git-three-way-merge/lab/check \
+ && ln -s hints /opt/knowledge-hub/labs/git-three-way-merge/lab/hint \
+ && ln -s reset-lab /opt/knowledge-hub/labs/git-three-way-merge/lab/reset \
+ && ln -s status-lab /opt/knowledge-hub/labs/git-three-way-merge/lab/status \
+ && ln -s selftest /opt/knowledge-hub/labs/git-three-way-merge/lab/self-test
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

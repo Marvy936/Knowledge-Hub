@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euo pipefail
+/opt/knowledge-hub/labs/git-three-way-merge/lab/reset

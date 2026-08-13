@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+state=/workspace/.hint-level
+level=0
+[[ -f "$state" ]] && level="$(cat "$state")"
+level=$((level + 1))
+(( level > 3 )) && level=3
+printf '%s\n' "$level" > "$state"
+case "$level" in
+  1) echo "Hint 1: inspect git status and git ls-files -u." ;;
+  2) echo "Hint 2: inspect config/app.json from index stages 1, 2 and 3 with git show." ;;
+  3) echo "Hint 3: produce production mode, 3 replicas and feature_x=true; stage the file, review the staged diff and finish the merge commit." ;;
+esac

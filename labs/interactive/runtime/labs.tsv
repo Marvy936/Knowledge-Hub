@@ -13,3 +13,4 @@ rabbitmq-routing-key	Repair a RabbitMQ direct-exchange binding so events reach t
 postgres-backup-restore	Recover a missing PostgreSQL row from a real pg_dump logical backup.
 localstack-s3-versioning	Practice versioned object storage with LocalStack.
 ansible-idempotency	Repair an Ansible file task so repeated runs converge with changed=0.
+git-three-way-merge	Resolve a real Git three-way merge while preserving the required integrated configuration.
