@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mkdir -p /workspace/target
+printf 'MODE=production\n' > /workspace/target/app.conf
+[[ -f /workspace/inventory.ini ]] || cp "$LAB_ROOT/inventory.ini.template" /workspace/inventory.ini
+[[ -f /workspace/site.yml ]] || cp "$LAB_ROOT/site.yml.template" /workspace/site.yml
