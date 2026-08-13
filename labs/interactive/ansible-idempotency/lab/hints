@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state=/workspace/.hint-level
+level=0
+[[ -f "$state" ]] && level="$(cat "$state")"
+level=$((level + 1))
+(( level > 3 )) && level=3
+printf '%s\n' "$level" > "$state"
+
+case "$level" in
+  1) echo "Hint 1: compare the changed count after two identical runs." ;;
+  2) echo "Hint 2: touch intentionally updates file timestamps every time." ;;
+  3) echo "Hint 3: use the declarative file state for an existing file instead of touch." ;;
+esac
