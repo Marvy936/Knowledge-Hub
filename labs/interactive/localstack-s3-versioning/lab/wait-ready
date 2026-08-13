@@ -1,10 +1,32 @@
 #!/usr/bin/env bash
 set -euo pipefail
-echo "Waiting for LocalStack S3..."
-for _ in $(seq 1 90); do
-  if aws s3api list-buckets >/dev/null 2>&1; then break; fi
+
+echo "Waiting for LocalStack S3 health endpoint..."
+ready=0
+for _ in $(seq 1 60); do
+  if curl -fsS http://127.0.0.1:4566/_localstack/health 2>/dev/null \
+    | jq -e '.services.s3 == "available" or .services.s3 == "running"' >/dev/null 2>&1; then
+    ready=1
+    break
+  fi
+
+  if [[ "$(docker inspect -f '{{.State.Running}}' kh-lab-localstack 2>/dev/null || true)" != "true" ]]; then
+    echo "LocalStack container exited before S3 became ready." >&2
+    docker logs kh-lab-localstack >&2 || true
+    exit 1
+  fi
   sleep 1
 done
+
+if [[ "$ready" != "1" ]]; then
+  echo "LocalStack S3 did not become ready within 60 seconds." >&2
+  docker logs kh-lab-localstack >&2 || true
+  exit 1
+fi
+
+echo "Pre-pulling the pinned AWS CLI image once..."
+timeout -k 10s 3m docker pull amazon/aws-cli:2.17.33 >/dev/null
+
 aws s3api list-buckets >/dev/null
 aws s3api create-bucket --bucket kh-lab-bucket >/dev/null 2>&1 || true
 aws s3api put-object --bucket kh-lab-bucket --key app/config.json --body /workspace/config-v1.json >/dev/null

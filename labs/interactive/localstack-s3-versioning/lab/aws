@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 network="$(docker inspect kh-lab-localstack --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}}{{end}}')"
-exec docker run --rm \
+name="kh-lab-aws-${RANDOM}-$$"
+cleanup() {
+  docker rm -f "$name" >/dev/null 2>&1 || true
+}
+trap cleanup EXIT
+
+timeout -k 10s 2m docker run --rm \
+  --name "$name" \
   --network "$network" \
   -e AWS_ACCESS_KEY_ID=test \
   -e AWS_SECRET_ACCESS_KEY=test \

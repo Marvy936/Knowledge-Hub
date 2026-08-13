@@ -29,16 +29,26 @@ jobs:
 
       - name: Preflight Kubernetes cgroup runtime
         run: |
-          timeout 10m docker run --rm --privileged \
+          NAME="kh-ci-kubernetes-${GITHUB_RUN_ID}"
+          trap 'docker rm -f "$NAME" >/dev/null 2>&1 || true' EXIT
+          timeout -k 30s 10m docker run --rm --name "$NAME" --privileged \
             --cgroupns=host \
             -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
             "$IMAGE_NAME:test" kubernetes-configmap-rollout self-test
 
       - name: Preflight LocalStack S3 runtime
-        run: timeout 8m docker run --rm --privileged "$IMAGE_NAME:test" localstack-s3-versioning self-test
+        run: |
+          NAME="kh-ci-localstack-${GITHUB_RUN_ID}"
+          trap 'docker rm -f "$NAME" >/dev/null 2>&1 || true' EXIT
+          timeout -k 30s 8m docker run --rm --name "$NAME" --privileged \
+            "$IMAGE_NAME:test" localstack-s3-versioning self-test
 
       - name: Preflight RabbitMQ routing runtime
-        run: timeout 8m docker run --rm --privileged "$IMAGE_NAME:test" rabbitmq-routing-key self-test
+        run: |
+          NAME="kh-ci-rabbitmq-${GITHUB_RUN_ID}"
+          trap 'docker rm -f "$NAME" >/dev/null 2>&1 || true' EXIT
+          timeout -k 30s 8m docker run --rm --name "$NAME" --privileged \
+            "$IMAGE_NAME:test" rabbitmq-routing-key self-test
 
       - name: Prove established labs before publication
         run: |
@@ -50,7 +60,11 @@ jobs:
               kubernetes-configmap-rollout|localstack-s3-versioning|rabbitmq-routing-key) continue ;;
             esac
             echo "=== self-test: $LAB ==="
-            timeout 8m docker run --rm --privileged "$IMAGE_NAME:test" "$LAB" self-test
+            NAME="kh-ci-${LAB}-${GITHUB_RUN_ID}"
+            if ! timeout -k 30s 8m docker run --rm --name "$NAME" --privileged "$IMAGE_NAME:test" "$LAB" self-test; then
+              docker rm -f "$NAME" >/dev/null 2>&1 || true
+              exit 1
+            fi
           done < /tmp/kh-lab-ids
 
       - name: Log in to GHCR
@@ -74,4 +88,7 @@ jobs:
           LAST_LAB="$(docker run --rm "$IMAGE_NAME:latest" ids | tail -n 1)"
           test -n "$LAST_LAB"
           docker run --rm "$IMAGE_NAME:latest" "$LAST_LAB" help | grep -F "Knowledge Hub Interactive Lab"
-          timeout 8m docker run --rm --privileged "$IMAGE_NAME:latest" "$LAST_LAB" self-test
+          NAME="kh-ci-registry-${GITHUB_RUN_ID}"
+          trap 'docker rm -f "$NAME" >/dev/null 2>&1 || true' EXIT
+          timeout -k 30s 8m docker run --rm --name "$NAME" --privileged \
+            "$IMAGE_NAME:latest" "$LAST_LAB" self-test
