@@ -38,6 +38,7 @@ Current labs:
 | `kubernetes-configmap-rollout` | challenge | Repair a ConfigMap and roll a Deployment so the running Pod consumes the corrected value. |
 | `s3-versioning-minio` | challenge | Use AWS CLI S3 API commands against MinIO, enable versioning and create a second object version. |
 | `rabbitmq-routing-key` | challenge | Repair a direct-exchange binding so a published event reaches the correct RabbitMQ queue. |
+| `postgres-backup-restore` | challenge | Inspect a real data-only `pg_dump` and recover a missing PostgreSQL row without duplicating intact data. |
 
 If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
