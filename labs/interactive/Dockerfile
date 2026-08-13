@@ -3,6 +3,7 @@ FROM hashicorp/terraform:1.15.6 AS terraform
 FROM docker:27-dind
 
 RUN apk add --no-cache \
+      aws-cli \
       bash \
       bind-tools \
       curl \
@@ -28,7 +29,7 @@ COPY redis-cache-ttl /opt/knowledge-hub/labs/redis-cache-ttl
 COPY tls-certificate-hostname /opt/knowledge-hub/labs/tls-certificate-hostname
 COPY terraform-state-drift /opt/knowledge-hub/labs/terraform-state-drift
 COPY kubernetes-configmap-rollout /opt/knowledge-hub/labs/kubernetes-configmap-rollout
-COPY localstack-s3-versioning /opt/knowledge-hub/labs/localstack-s3-versioning
+COPY s3-versioning-minio /opt/knowledge-hub/labs/s3-versioning-minio
 COPY rabbitmq-routing-key /opt/knowledge-hub/labs/rabbitmq-routing-key
 
 RUN chmod +x \

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ok=1
+pass() { printf '[PASS] %s\n' "$1"; }
+fail() { printf '[FAIL] %s\n' "$1"; ok=0; }
+
+if aws s3api head-bucket --bucket kh-lab-bucket >/dev/null 2>&1; then pass 'S3 bucket exists'; else fail 'S3 bucket exists'; fi
+
+versioning="$(aws s3api get-bucket-versioning --bucket kh-lab-bucket --query Status --output text 2>/dev/null || true)"
+if [[ "$versioning" == "Enabled" ]]; then pass 'Bucket versioning is enabled'; else fail 'Bucket versioning is enabled'; fi
+
+version_count="$(aws s3api list-object-versions --bucket kh-lab-bucket --prefix app/config.json --query 'length(Versions)' --output text 2>/dev/null || true)"
+if [[ "$version_count" =~ ^[0-9]+$ ]] && (( version_count >= 2 )); then pass 'app/config.json has at least two versions'; else fail 'app/config.json has at least two versions'; fi
+
+tmp="$(mktemp)"
+if aws s3api get-object --bucket kh-lab-bucket --key app/config.json "$tmp" >/dev/null 2>&1 && cmp -s "$tmp" /workspace/config-v2.json; then
+  pass 'Latest object content is revision 2'
+else
+  fail 'Latest object content is revision 2'
+fi
+rm -f "$tmp"
+
+if [[ "$ok" == "1" ]]; then
+  echo
+  echo 'LAB COMPLETED'
+  exit 0
+fi
+
+echo
+echo 'LAB NOT COMPLETE'
+echo "Use 'hint' if you need help."
+exit 1

@@ -42,12 +42,12 @@ jobs:
             -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
             "$IMAGE_NAME" kubernetes-configmap-rollout self-test
 
-      - name: Preflight LocalStack S3 runtime
+      - name: Preflight MinIO S3 runtime
         run: |
-          NAME="kh-ci-localstack-${GITHUB_RUN_ID}"
+          NAME="kh-ci-minio-${GITHUB_RUN_ID}"
           trap 'docker rm -f "$NAME" >/dev/null 2>&1 || true' EXIT
-          timeout -k 30s 8m docker run --rm --name "$NAME" --privileged \
-            "$IMAGE_NAME" localstack-s3-versioning self-test
+          timeout -k 30s 5m docker run --rm --name "$NAME" --privileged \
+            "$IMAGE_NAME" s3-versioning-minio self-test
 
       - name: Preflight RabbitMQ routing runtime
         run: |
@@ -62,7 +62,7 @@ jobs:
           while IFS= read -r LAB; do
             [ -n "$LAB" ] || continue
             case "$LAB" in
-              kubernetes-configmap-rollout|localstack-s3-versioning|rabbitmq-routing-key) continue ;;
+              kubernetes-configmap-rollout|s3-versioning-minio|rabbitmq-routing-key) continue ;;
             esac
             echo "=== self-test: $LAB ==="
             NAME="kh-ci-${LAB}-${GITHUB_RUN_ID}"

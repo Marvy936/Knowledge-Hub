@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo 'Resetting S3 versioning challenge...'
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" down -v --remove-orphans >/dev/null 2>&1 || true
+cp "$LAB_ROOT/scenario.compose.yaml" "$LAB_SCENARIO"
+cp "$LAB_ROOT/scenario.env.template" "$LAB_ENV_FILE"
+cp "$LAB_ROOT/config-v1.json.template" /workspace/config-v1.json
+cp "$LAB_ROOT/config-v2.json.template" /workspace/config-v2.json
+rm -f /workspace/.hint-level
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" up -d >/dev/null
+wait-ready
+echo 'Lab reset. Run: status'

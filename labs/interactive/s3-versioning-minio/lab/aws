@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export AWS_ACCESS_KEY_ID="${MINIO_ROOT_USER:-lab}"
+export AWS_SECRET_ACCESS_KEY="${MINIO_ROOT_PASSWORD:-knowledgehub123}"
+export AWS_DEFAULT_REGION=us-east-1
+export AWS_EC2_METADATA_DISABLED=true
+exec timeout -k 5s 45s /usr/bin/aws --endpoint-url http://127.0.0.1:9000 "$@"

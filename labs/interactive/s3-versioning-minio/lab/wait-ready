@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+set -a
+source /workspace/scenario.env
+set +a
+
+echo "Waiting for MinIO S3 endpoint..."
+ready=0
+for _ in $(seq 1 60); do
+  if curl -fsS http://127.0.0.1:9000/minio/health/live >/dev/null 2>&1; then
+    ready=1
+    break
+  fi
+  if [[ "$(docker inspect -f '{{.State.Running}}' kh-lab-minio 2>/dev/null || true)" != "true" ]]; then
+    echo "MinIO container exited before S3 became ready." >&2
+    docker logs kh-lab-minio >&2 || true
+    exit 1
+  fi
+  sleep 1
+done
+
+if [[ "$ready" != "1" ]]; then
+  echo "MinIO did not become ready within 60 seconds." >&2
+  docker logs kh-lab-minio >&2 || true
+  exit 1
+fi
+
+aws s3api list-buckets >/dev/null
+aws s3api create-bucket --bucket kh-lab-bucket >/dev/null 2>&1 || true
+aws s3api put-object --bucket kh-lab-bucket --key app/config.json --body /workspace/config-v1.json >/dev/null
+echo "MinIO S3 scenario is ready."

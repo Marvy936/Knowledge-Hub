@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+printf 'Scenario container:\n'
+docker ps --filter name=kh-lab-minio --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
+printf '\nBucket versioning:\n'
+aws s3api get-bucket-versioning --bucket kh-lab-bucket || true
+printf '\nObject versions:\n'
+aws s3api list-object-versions --bucket kh-lab-bucket --prefix app/config.json --query '{Versions: Versions[].{VersionId:VersionId,IsLatest:IsLatest,LastModified:LastModified}}' || true

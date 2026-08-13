@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+state=/workspace/.hint-level
+level=0
+[[ -f "$state" ]] && level="$(cat "$state")"
+case "$level" in
+  0) echo 'Hint 1: inspect the current bucket setting with aws s3api get-bucket-versioning.' ;;
+  1) echo 'Hint 2: S3 versioning is enabled with put-bucket-versioning and Status=Enabled.' ;;
+  *) echo 'Hint 3: after enabling versioning, upload config-v2.json to the same app/config.json key, then inspect list-object-versions.' ;;
+esac
+printf '%s\n' "$((level + 1))" > "$state"

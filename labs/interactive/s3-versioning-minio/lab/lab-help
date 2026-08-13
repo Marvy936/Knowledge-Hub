@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+────────────────────────────────────────
+S3: Object Versioning with MinIO
+
+Scenario
+  A configuration object already exists in an S3-compatible bucket, but
+  bucket versioning is disabled. A new revision must be published without
+  losing the previous object revision.
+
+Goal
+  1. Inspect the current bucket versioning state.
+  2. Enable bucket versioning.
+  3. Upload /workspace/config-v2.json to app/config.json.
+  4. Prove that at least two versions exist and revision 2 is latest.
+
+Useful commands
+  aws s3api get-bucket-versioning --bucket kh-lab-bucket
+  aws s3api list-object-versions --bucket kh-lab-bucket --prefix app/config.json
+  cat /workspace/config-v2.json
+
+Lab commands
+  help      show this assignment again
+  status    show MinIO and current versioning state
+  check     validate the current solution
+  hint      reveal the next progressive hint
+  reset     restore the original unversioned state
+  labs      list all bundled labs
+
+Note
+  MinIO is S3-compatible local training infrastructure, not a real AWS account.
+EOF
