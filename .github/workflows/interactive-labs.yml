@@ -13,6 +13,10 @@ on:
       - ".github/workflows/interactive-labs.yml"
   workflow_dispatch:
 
+concurrency:
+  group: knowledge-hub-interactive-labs
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
