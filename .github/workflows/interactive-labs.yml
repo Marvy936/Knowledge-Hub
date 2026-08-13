@@ -17,46 +17,25 @@ permissions:
   contents: read
 
 jobs:
-  docker-only-reference-lab:
+  one-command-reference-lab:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    defaults:
-      run:
-        working-directory: labs/interactive/docker-network-debug
-
+    timeout-minutes: 12
     steps:
       - name: Checkout exact subject
         uses: actions/checkout@v4
 
-      - name: Validate outer Compose model
-        run: docker compose config >/dev/null
-
-      - name: Build Docker-only lab image
-        run: docker compose build lab
-
-      - name: Prove initial scenario fails
+      - name: Build self-contained lab image
         run: |
-          if docker compose run --rm lab check; then
-            echo "Reference challenge unexpectedly passed before the learner repair." >&2
-            exit 1
-          fi
+          docker build \
+            -t kh-docker-network-debug:test \
+            -f labs/interactive/docker-network-debug/lab/Dockerfile \
+            labs/interactive/docker-network-debug
 
-      - name: Apply intended learner repair inside the lab
+      - name: Prove complete one-container lifecycle
+        run: docker run --rm --privileged kh-docker-network-debug:test self-test
+
+      - name: Prove learner help is embedded
         run: |
-          docker compose run --rm lab bash -c \
-            "sed -i 's/^DB_HOST=.*/DB_HOST=postgres/' /workspace/scenario.env && apply"
-
-      - name: Prove repaired scenario passes
-        run: docker compose run --rm lab check
-
-      - name: Prove reset restores the broken state
-        run: |
-          docker compose run --rm lab reset
-          if docker compose run --rm lab check; then
-            echo "Reset did not restore the intentionally broken challenge." >&2
-            exit 1
-          fi
-
-      - name: Cleanup complete sandbox
-        if: always()
-        run: docker compose down -v --remove-orphans || true
+          docker run --rm --privileged kh-docker-network-debug:test lab-help > /tmp/lab-help.txt
+          grep -F "help      show this screen again" /tmp/lab-help.txt
+          grep -F "reset     restore the intentionally broken scenario" /tmp/lab-help.txt

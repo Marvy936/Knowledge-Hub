@@ -1,22 +1,22 @@
 # Docker service discovery troubleshooting
 
-This is the first Docker-only Knowledge Hub interactive lab.
+This is the first one-command Knowledge Hub interactive lab.
 
-## Host requirement
+## Requirement
 
-Only Docker with Docker Compose v2 is required. You do not need Python, Git, `curl`, `jq`, PostgreSQL tools, or any other lab dependency installed on the host.
+Only Docker is required on the host. You do not need this repository, Git, Docker Compose, Python, `curl`, `jq`, PostgreSQL tools, or any other lab dependency.
 
-Open this directory and run:
+Once the GHCR package is public, run from any terminal:
 
 ```bash
-docker compose run --build --rm lab
+docker run --pull=always --rm -it --privileged ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest
 ```
 
-The command builds the lab image, starts an isolated Docker-in-Docker sandbox, creates the intentionally broken PostgreSQL scenario, and drops you into the lab terminal.
+The image starts its own isolated Docker engine, creates the intentionally broken PostgreSQL scenario, and drops you directly into the lab terminal.
 
 ## Inside the lab
 
-You will see a prompt similar to:
+You will see:
 
 ```text
 lab@knowledgehub:/workspace$
@@ -56,6 +56,14 @@ Progressive help is available through:
 hint
 ```
 
+To display the assignment and command list again at any time:
+
+```bash
+help
+```
+
+`lab-help` and `task` show the same screen.
+
 To restore the intentionally broken state:
 
 ```bash
@@ -68,20 +76,14 @@ A correct repair ends with:
 LAB COMPLETED
 ```
 
-## Isolation model
+## Isolation and security model
 
-The Docker CLI inside the lab talks to a nested Docker daemon running in a disposable `docker:dind` service. It does not mount the host Docker socket. Scenario containers and learner state therefore stay inside the lab's Compose project and named volumes.
+The image runs a nested Docker daemon inside the lab container. Scenario containers never use the host Docker socket. The lab therefore needs `--privileged`, which gives the lab container elevated privileges inside the Docker host/VM. Run only trusted Knowledge Hub lab images and keep the image reference explicit.
 
-When you are finished, exit the lab shell:
+Because the outer container is started with `--rm`, exiting the lab removes the complete disposable sandbox:
 
 ```bash
 exit
-```
-
-Then remove the complete sandbox from the host:
-
-```bash
-docker compose down -v
 ```
 
 ## Learning objective

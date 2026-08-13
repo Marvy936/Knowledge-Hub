@@ -1,0 +1,11 @@
+export PS1='lab@knowledgehub:\w$ '
+
+help() {
+  lab-help
+}
+
+task() {
+  lab-help
+}
+
+export -f help task

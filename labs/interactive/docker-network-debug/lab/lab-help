@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+
+Knowledge Hub Interactive Lab
+────────────────────────────────────────────────────
+Docker: Service Discovery Troubleshooting
+
+Scenario
+  An application container cannot connect to PostgreSQL.
+  Diagnose the failure and restore connectivity.
+
+Start here
+  status
+  docker ps
+  docker logs kh-lab-app
+  docker inspect kh-lab-app
+
+Learner workspace
+  /workspace/scenario.env
+
+Edit configuration
+  nano scenario.env
+
+Lab commands
+  help      show this screen again
+  lab-help  show this screen again
+  task      show this screen again
+  status    show the scenario containers
+  check     validate your current solution
+  hint      reveal the next progressive hint
+  apply     re-apply scenario.env after you edit it
+  reset     restore the intentionally broken scenario
+
+A correct repair ends with:
+  LAB COMPLETED
+
+Everything here, including Docker CLI and the nested Docker engine,
+runs inside this disposable container.
+
+Exit with:
+  exit
+
+EOF

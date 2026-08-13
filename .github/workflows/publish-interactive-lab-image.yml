@@ -1,0 +1,46 @@
+name: Publish Interactive Lab Image
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "labs/interactive/docker-network-debug/**"
+      - ".github/workflows/publish-interactive-lab-image.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_NAME: ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact subject
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: |
+          docker build \
+            -t "$IMAGE_NAME:test" \
+            -f labs/interactive/docker-network-debug/lab/Dockerfile \
+            labs/interactive/docker-network-debug
+
+      - name: Prove image before publication
+        run: docker run --rm --privileged "$IMAGE_NAME:test" self-test
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Publish latest and immutable SHA tag
+        run: |
+          SHORT_SHA="${GITHUB_SHA::12}"
+          docker tag "$IMAGE_NAME:test" "$IMAGE_NAME:latest"
+          docker tag "$IMAGE_NAME:test" "$IMAGE_NAME:sha-$SHORT_SHA"
+          docker push "$IMAGE_NAME:latest"
+          docker push "$IMAGE_NAME:sha-$SHORT_SHA"

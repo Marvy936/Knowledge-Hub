@@ -1,45 +1,49 @@
 # Knowledge Hub Interactive Labs
 
-Interactive Labs are disposable hands-on environments where the learner runs real commands, changes a scenario, and validates the result.
+Interactive Labs are disposable hands-on environments distributed as container images. The learner should need only Docker on the host; lab-specific CLIs, services, validation, hints, reset logic and editors live inside the image.
 
-## Docker-only host contract
+## User contract
 
-The host requirement is intentionally small:
-
-- Docker Engine or Docker Desktop,
-- Docker Compose v2 (`docker compose`).
-
-Lab-specific tools belong inside containers. A lab may contain Docker CLI, `curl`, `jq`, editors, `kubectl`, Helm, Terraform, Ansible, AWS CLI, or other tooling without requiring those programs on the learner's host.
-
-The standard entry point for a lab is:
+A published lab should be runnable from any terminal with one command of this form:
 
 ```bash
-docker compose run --build --rm lab
+docker run --pull=always --rm -it --privileged ghcr.io/marvy936/<lab-image>:latest
 ```
 
-After that command the learner works inside the prepared lab terminal.
+Not every future lab will require `--privileged`; the first Docker troubleshooting lab does because it runs a nested Docker daemon. Public GHCR packages can be pulled anonymously.
 
-## Framework direction
+Inside a lab, the common learner commands are:
 
-Each interactive lab owns its Compose environment and a `lab` image that provides:
+```text
+help      show the assignment and command list
+status    inspect the current scenario
+check     validate the learner solution
+hint      reveal progressive help
+apply     re-apply learner configuration when relevant
+reset     restore the initial scenario
+```
 
-- the interactive shell,
-- tools required by the exercise,
-- learner workspace,
-- progressive hints,
-- automated validation,
-- reset/recovery commands.
-
-The host is only responsible for running Docker.
-
-For labs that teach Docker itself, the preferred isolation model is Docker-in-Docker rather than exposing `/var/run/docker.sock`. This keeps the exercise daemon and its scenario containers inside the lab project.
+`lab-help` and `task` are aliases for the full help screen in the reference implementation.
 
 ## Reference lab
 
-[`docker-network-debug`](docker-network-debug/README.md) is the first reference implementation. It provides a deliberately broken PostgreSQL connectivity scenario and supports the lifecycle:
+[`docker-network-debug`](docker-network-debug/README.md) is the first reference implementation. It packages the Docker CLI, Docker Compose plugin, troubleshooting utilities, a nested Docker engine, PostgreSQL scenario, progressive hints and automated validation in one image.
+
+The reference challenge is valid only if:
+
+1. the initial scenario fails meaningful validation,
+2. the intended learner repair makes validation pass,
+3. `reset` restores the failing initial state,
+4. the complete lifecycle runs without host-side tooling other than Docker.
+
+CI enforces this contract by running the image's built-in `self-test`.
+
+## Registry
+
+The initial registry target is GitHub Container Registry (GHCR). The repository workflow publishes:
 
 ```text
-run -> inspect -> edit -> apply -> check -> reset
+ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest
 ```
 
-CI proves both sides of the teaching contract: the initial state must fail validation, and the intended learner repair must pass.
+GitHub creates a new GHCR package as private by default. After its first publication, package visibility must be changed to Public once in GitHub Package settings so learners can run it without authentication.
