@@ -39,10 +39,11 @@ COPY s3-versioning-minio /opt/knowledge-hub/labs/s3-versioning-minio
 COPY rabbitmq-routing-key /opt/knowledge-hub/labs/rabbitmq-routing-key
 COPY postgres-backup-restore /opt/knowledge-hub/labs/postgres-backup-restore
 
-# New labs may use README as their canonical assignment source; generate the
-# tiny executable wrapper in the image instead of duplicating the text.
+# README remains the canonical assignment; generate tiny runtime wrappers.
 RUN printf '%s\n' '#!/usr/bin/env bash' 'cat "$LAB_ROOT/README.md"' \
-      > /opt/knowledge-hub/labs/postgres-backup-restore/lab/lab-help
+      > /opt/knowledge-hub/labs/postgres-backup-restore/lab/lab-help \
+ && printf '%s\n' '#!/usr/bin/env bash' 'check || true' \
+      > /opt/knowledge-hub/labs/postgres-backup-restore/lab/status
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
