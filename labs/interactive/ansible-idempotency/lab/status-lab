@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ansible-playbook --version | head -n 1
+echo "Playbook: /workspace/site.yml"
+cat /workspace/target/app.conf
