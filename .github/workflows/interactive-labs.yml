@@ -31,6 +31,13 @@ jobs:
       - name: Checkout exact subject
         uses: actions/checkout@v4
 
+      - name: Prepare isolated Docker client config
+        run: |
+          DOCKER_CONFIG="$RUNNER_TEMP/kh-docker-${GITHUB_RUN_ID}"
+          rm -rf "$DOCKER_CONFIG"
+          mkdir -p "$DOCKER_CONFIG"
+          echo "DOCKER_CONFIG=$DOCKER_CONFIG" >> "$GITHUB_ENV"
+
       - name: Build multi-lab image
         run: docker build -t "$IMAGE_NAME" -f labs/interactive/Dockerfile labs/interactive
 
@@ -83,3 +90,10 @@ jobs:
             [ -n "$LAB" ] || continue
             docker run --rm "$IMAGE_NAME" "$LAB" help | grep -F "Knowledge Hub Interactive Lab"
           done < /tmp/kh-lab-ids
+
+      - name: Remove temporary Docker client config
+        if: always()
+        run: |
+          if [[ -n "${DOCKER_CONFIG:-}" ]]; then
+            rm -rf "$DOCKER_CONFIG"
+          fi
