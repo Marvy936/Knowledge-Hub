@@ -21,8 +21,8 @@ env:
 
 jobs:
   multi-lab-runtime:
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 60
     steps:
       - name: Checkout exact subject
         uses: actions/checkout@v4
