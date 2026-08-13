@@ -27,12 +27,20 @@ jobs:
       - name: Build multi-lab image
         run: docker build -t "$IMAGE_NAME:test" -f labs/interactive/Dockerfile labs/interactive
 
-      - name: Prove every lab before publication
+      - name: Preflight Kubernetes cgroup runtime
+        run: |
+          docker run --rm --privileged \
+            --cgroupns=host \
+            -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
+            "$IMAGE_NAME:test" kubernetes-configmap-rollout self-test
+
+      - name: Prove every remaining lab before publication
         run: |
           docker run --rm "$IMAGE_NAME:test" list
           docker run --rm "$IMAGE_NAME:test" ids > /tmp/kh-lab-ids
           while IFS= read -r LAB; do
             [ -n "$LAB" ] || continue
+            [ "$LAB" != "kubernetes-configmap-rollout" ] || continue
             echo "=== self-test: $LAB ==="
             docker run --rm --privileged "$IMAGE_NAME:test" "$LAB" self-test
           done < /tmp/kh-lab-ids

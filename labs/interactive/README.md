@@ -10,8 +10,16 @@ docker run --pull=always --rm ghcr.io/marvy936/knowledge-hub-lab-docker-network-
 
 ## Run a lab
 
+For most labs:
+
 ```bash
 docker run --pull=always --rm -it --privileged ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <lab-id>
+```
+
+The Kubernetes lab additionally needs access to the Docker host cgroup-v2 hierarchy used by the disposable nested K3s node:
+
+```bash
+docker run --pull=always --rm -it --privileged --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest kubernetes-configmap-rollout
 ```
 
 Current labs:
@@ -41,12 +49,12 @@ docker run --rm ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <
 
 Inside a lab, type `help` at any time. The common commands are `status`, `check`, `hint`, `reset`, and `apply` where the scenario has editable runtime configuration. `labs` lists the bundled labs. Lab-specific wrappers such as `kubectl` and `aws` live inside the image, so the corresponding host CLI is not required.
 
-The runtime starts a private Docker-in-Docker daemon, so executable labs currently require `--privileged`. Scenario containers never use the host Docker socket.
+The runtime starts a private Docker-in-Docker daemon. Scenario containers never use the host Docker socket. Most executable labs need only `--privileged`; the nested K3s lab also needs the host cgroup namespace and writable cgroup-v2 mount shown above.
 
 ## Runtime contract
 
 A lab is accepted only when its built-in `self-test` proves the intended lifecycle. Challenge labs must fail in their initial state, pass after the intended repair, and fail again after `reset`. Guided labs must prove the real external component and validation path they teach, then return to incomplete learner state after reset.
 
-The lab registry is stored in `runtime/labs.tsv`. CI derives the lab IDs from that registry and executes every bundled `self-test`, so adding a lab does not require a separate workflow job. The publish workflow builds the same multi-lab image, publishes `latest` plus an immutable SHA tag to GHCR, logs out, removes local tags, anonymously pulls `latest` again and smoke-tests the registry copy. The registry smoke-test chooses the last lab ID dynamically so the newest bundled scenario is always exercised after an anonymous pull.
+The lab registry is stored in `runtime/labs.tsv`. CI derives the lab IDs from that registry. Kubernetes is preflighted first because its cgroup requirements are the most environment-sensitive; the remaining lab IDs are then executed automatically. The publish workflow builds the same multi-lab image, publishes `latest` plus an immutable SHA tag to GHCR, logs out, removes local tags, anonymously pulls `latest` again and smoke-tests the registry copy.
 
 The LocalStack lab is a local AWS-compatible training environment; it is not evidence of behavior in a real AWS account. The Kubernetes lab runs a disposable K3s server inside the isolated nested Docker engine. The current GHCR repository name is retained from the first pilot package so its public visibility can be reused for all subsequent labs.
