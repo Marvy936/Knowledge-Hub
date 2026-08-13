@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cp "$LAB_ROOT/site.yml.template" /workspace/site.yml
+cp "$LAB_ROOT/inventory.ini.template" /workspace/inventory.ini
+echo "Lab reset. Run: status"
