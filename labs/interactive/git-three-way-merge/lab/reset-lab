@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo=/workspace/repo
+rm -rf "$repo"
+mkdir -p "$repo/config"
+cd "$repo"
+
+git init -q -b main
+git config user.name "Knowledge Hub Lab"
+git config user.email "lab@knowledgehub.invalid"
+
+printf '%s\n' '{"mode":"development","replicas":1,"feature_x":false}' > config/app.json
+git add config/app.json
+git commit -qm "base application configuration"
+
+git checkout -q -b feature
+printf '%s\n' '{"mode":"development","replicas":1,"feature_x":true}' > config/app.json
+git commit -qam "enable feature_x"
+
+git checkout -q main
+printf '%s\n' '{"mode":"production","replicas":3,"feature_x":false}' > config/app.json
+git commit -qam "set production runtime profile"
+
+set +e
+git merge --no-ff feature -m "merge feature configuration" >/tmp/kh-git-merge.log 2>&1
+merge_rc=$?
+set -e
+if [[ "$merge_rc" -eq 0 ]]; then
+  echo "Expected merge conflict was not created." >&2
+  exit 1
+fi
+if [[ -z "$(git ls-files -u -- config/app.json)" ]]; then
+  echo "Merge stopped, but config/app.json is not unmerged." >&2
+  exit 1
+fi
+
+rm -f /workspace/.hint-level
+echo "Git merge lab reset. Run: cd /workspace/repo && git status"

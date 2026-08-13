@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /workspace/repo
+
+echo "Repository status"
+git status --short --branch
+
+echo
+echo "Unmerged index stages"
+git ls-files -u -- config/app.json || true
+
+echo
+echo "Working tree file"
+cat config/app.json

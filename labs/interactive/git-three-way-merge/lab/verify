@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -u
+cd /workspace/repo || exit 1
+
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+if [[ ! -f .git/MERGE_HEAD ]]; then
+  result 1 "Merge operation is completed"
+else
+  result 0 "Merge operation is completed"
+fi
+
+if [[ -z "$(git ls-files -u)" ]]; then
+  result 1 "Git index has no unmerged entries"
+else
+  result 0 "Git index has no unmerged entries"
+fi
+
+if ! grep -Eq '^(<<<<<<<|=======|>>>>>>>)' config/app.json 2>/dev/null; then
+  result 1 "Conflict markers are absent"
+else
+  result 0 "Conflict markers are absent"
+fi
+
+if jq -e '.mode == "production" and .replicas == 3 and .feature_x == true' config/app.json >/dev/null 2>&1; then
+  result 1 "Resolved JSON preserves the required domain contract"
+else
+  result 0 "Resolved JSON preserves the required domain contract"
+fi
+
+if git merge-base --is-ancestor feature HEAD >/dev/null 2>&1; then
+  result 1 "Feature branch is integrated into HEAD"
+else
+  result 0 "Feature branch is integrated into HEAD"
+fi
+
+parent_count="$(git rev-list --parents -n 1 HEAD 2>/dev/null | awk '{print NF-1}')"
+if [[ "$parent_count" == "2" ]]; then
+  result 1 "HEAD is a completed merge commit with two parents"
+else
+  result 0 "HEAD is a completed merge commit with two parents"
+fi
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "Use 'status' to inspect the merge state or 'hint' for progressive help."
+exit 1
