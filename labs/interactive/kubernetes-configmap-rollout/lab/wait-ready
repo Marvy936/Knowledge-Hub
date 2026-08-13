@@ -3,13 +3,24 @@ set -euo pipefail
 
 echo "Waiting for K3s API..."
 for _ in $(seq 1 120); do
+  running="$(docker inspect --format '{{.State.Running}}' kh-lab-k3s 2>/dev/null || echo false)"
+  if [[ "$running" != "true" ]]; then
+    echo "K3s container exited before the API became ready." >&2
+    docker logs kh-lab-k3s >&2 || true
+    exit 1
+  fi
   if docker exec kh-lab-k3s kubectl get --raw=/readyz >/dev/null 2>&1; then
     break
   fi
   sleep 1
 done
 
-docker exec kh-lab-k3s kubectl get --raw=/readyz >/dev/null
+if ! docker exec kh-lab-k3s kubectl get --raw=/readyz >/dev/null 2>&1; then
+  echo "K3s API did not become ready before timeout." >&2
+  docker logs kh-lab-k3s >&2 || true
+  exit 1
+fi
+
 kubectl apply -f /workspace/configmap.yaml >/dev/null
 kubectl apply -f /workspace/deployment.yaml >/dev/null
 kubectl rollout status deployment/kh-demo -n kh-lab --timeout=120s >/dev/null

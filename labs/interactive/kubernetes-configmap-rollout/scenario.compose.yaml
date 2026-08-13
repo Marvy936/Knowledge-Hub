@@ -5,11 +5,18 @@ services:
     image: rancher/k3s:v1.30.6-k3s1
     container_name: kh-lab-k3s
     privileged: true
+    entrypoint:
+      - /bin/sh
+      - -c
     command:
-      - server
-      - --disable=traefik
-      - --disable=servicelb
-      - --write-kubeconfig-mode=644
+      - |
+        /bin/k3s server \
+          --disable=traefik \
+          --disable=servicelb \
+          --write-kubeconfig-mode=644 &
+        child=$$!
+        trap 'kill -TERM "$$child" 2>/dev/null || true' TERM INT
+        wait "$$child"
     tmpfs:
       - /run
       - /var/run
