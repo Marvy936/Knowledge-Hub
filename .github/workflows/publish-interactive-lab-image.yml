@@ -19,7 +19,7 @@ env:
 jobs:
   publish:
     runs-on: [self-hosted, Linux, X64]
-    timeout-minutes: 75
+    timeout-minutes: 55
     steps:
       - name: Checkout exact subject
         uses: actions/checkout@v4
@@ -29,20 +29,28 @@ jobs:
 
       - name: Preflight Kubernetes cgroup runtime
         run: |
-          docker run --rm --privileged \
+          timeout 10m docker run --rm --privileged \
             --cgroupns=host \
             -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
             "$IMAGE_NAME:test" kubernetes-configmap-rollout self-test
 
-      - name: Prove every remaining lab before publication
+      - name: Preflight LocalStack S3 runtime
+        run: timeout 8m docker run --rm --privileged "$IMAGE_NAME:test" localstack-s3-versioning self-test
+
+      - name: Preflight RabbitMQ routing runtime
+        run: timeout 8m docker run --rm --privileged "$IMAGE_NAME:test" rabbitmq-routing-key self-test
+
+      - name: Prove established labs before publication
         run: |
           docker run --rm "$IMAGE_NAME:test" list
           docker run --rm "$IMAGE_NAME:test" ids > /tmp/kh-lab-ids
           while IFS= read -r LAB; do
             [ -n "$LAB" ] || continue
-            [ "$LAB" != "kubernetes-configmap-rollout" ] || continue
+            case "$LAB" in
+              kubernetes-configmap-rollout|localstack-s3-versioning|rabbitmq-routing-key) continue ;;
+            esac
             echo "=== self-test: $LAB ==="
-            docker run --rm --privileged "$IMAGE_NAME:test" "$LAB" self-test
+            timeout 8m docker run --rm --privileged "$IMAGE_NAME:test" "$LAB" self-test
           done < /tmp/kh-lab-ids
 
       - name: Log in to GHCR
@@ -66,4 +74,4 @@ jobs:
           LAST_LAB="$(docker run --rm "$IMAGE_NAME:latest" ids | tail -n 1)"
           test -n "$LAST_LAB"
           docker run --rm "$IMAGE_NAME:latest" "$LAST_LAB" help | grep -F "Knowledge Hub Interactive Lab"
-          docker run --rm --privileged "$IMAGE_NAME:latest" "$LAST_LAB" self-test
+          timeout 8m docker run --rm --privileged "$IMAGE_NAME:latest" "$LAST_LAB" self-test
