@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[1/4] Proving the initial recovery state is incomplete..."
+if check; then echo "Initial scenario unexpectedly passed." >&2; exit 1; fi
+
+echo "[2/4] Applying the reference recovery..."
+recover-reference
+
+echo "[3/4] Proving the recovered table passes..."
+check
+
+echo "[4/4] Proving reset recreates the missing-row state..."
+reset
+if check; then echo "Reset scenario unexpectedly passed." >&2; exit 1; fi
+
+echo "SELF-TEST PASSED"
