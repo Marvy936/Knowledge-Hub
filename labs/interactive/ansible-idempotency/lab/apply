@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd /workspace
+ANSIBLE_NOCOLOR=1 ansible-playbook -i inventory.ini site.yml
