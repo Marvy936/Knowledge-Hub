@@ -19,7 +19,7 @@ env:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Checkout exact subject
         uses: actions/checkout@v4
@@ -44,3 +44,14 @@ jobs:
           docker tag "$IMAGE_NAME:test" "$IMAGE_NAME:sha-$SHORT_SHA"
           docker push "$IMAGE_NAME:latest"
           docker push "$IMAGE_NAME:sha-$SHORT_SHA"
+
+      - name: Prove anonymous public pull
+        run: |
+          SHORT_SHA="${GITHUB_SHA::12}"
+          docker logout ghcr.io || true
+          docker image rm \
+            "$IMAGE_NAME:test" \
+            "$IMAGE_NAME:latest" \
+            "$IMAGE_NAME:sha-$SHORT_SHA" || true
+          docker pull "$IMAGE_NAME:latest"
+          docker run --rm --privileged "$IMAGE_NAME:latest" self-test
