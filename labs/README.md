@@ -29,7 +29,7 @@ Practical v1.0.0 is released at tag `v1.0.0`. Post-v1.0 development continues on
 - Index: [`interactive/README.md`](interactive/README.md)
 - Host contract: Docker only; no clone, Git, Compose, Python or lab-specific CLI is required on the learner host.
 - Public one-command runtime: `ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest`.
-- Current tracks cover Docker networking/storage, Keycloak client credentials, PostgreSQL indexing, Prometheus target/alert troubleshooting and Nginx reverse proxy troubleshooting.
+- The authoritative current lab set is the registry in `interactive/runtime/labs.tsv`; coverage spans Docker, Git, IaC/configuration management, Kubernetes, identity, databases, messaging, observability, reverse proxy/TLS and S3-compatible object storage.
 - Interactive Labs are post-v1.0 development and do not alter the immutable `v1.0.0` release subject.
 
 ## Manual environment labs

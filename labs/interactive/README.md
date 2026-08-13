@@ -39,6 +39,9 @@ Current labs:
 | `s3-versioning-minio` | challenge | Use AWS CLI S3 API commands against MinIO, enable versioning and create a second object version. |
 | `rabbitmq-routing-key` | challenge | Repair a direct-exchange binding so a published event reaches the correct RabbitMQ queue. |
 | `postgres-backup-restore` | challenge | Inspect a real data-only `pg_dump` and recover a missing PostgreSQL row without duplicating intact data. |
+| `localstack-s3-versioning` | challenge | Use the bundled AWS CLI against LocalStack, enable S3 bucket versioning and create a second object version. |
+| `ansible-idempotency` | challenge | Repair a non-idempotent Ansible file task so an identical second run converges with `changed=0`. |
+| `git-three-way-merge` | challenge | Resolve a real Git three-way merge while preserving the required integrated configuration. |
 
 If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
@@ -48,7 +51,7 @@ A lab assignment can be shown without starting Docker-in-Docker:
 docker run --rm ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <lab-id> help
 ```
 
-Inside a lab, type `help` at any time. The common commands are `status`, `check`, `hint`, `reset`, and `apply` where the scenario has editable runtime configuration. `labs` lists the bundled labs. Lab-specific tools such as `kubectl`, `aws`, Terraform and Docker CLI live inside the image, so corresponding host tools are not required.
+Inside a lab, type `help` at any time. The common commands are `status`, `check`, `hint`, `reset`, and `apply` where the scenario has editable runtime configuration. `labs` lists the bundled labs. Lab-specific tools such as `kubectl`, `aws`, `ansible-playbook`, `git`, Terraform and Docker CLI live inside the image, so corresponding host tools are not required.
 
 The runtime starts a private Docker-in-Docker daemon. Scenario containers never use the host Docker socket. Most executable labs need only `--privileged`; the nested K3s lab also needs the host cgroup namespace and writable cgroup-v2 mount shown above.
 
@@ -58,4 +61,4 @@ A lab is accepted only when its built-in `self-test` proves the intended lifecyc
 
 The lab registry is stored in `runtime/labs.tsv`. CI derives the lab IDs from that registry. Kubernetes, MinIO S3 and RabbitMQ are preflighted separately because they exercise distinct platform runtimes; the remaining lab IDs are then executed automatically. The publish workflow builds the same multi-lab image, publishes `latest` plus an immutable SHA tag to GHCR, logs out, removes local tags, anonymously pulls `latest` again and smoke-tests the registry copy.
 
-The MinIO lab is an S3-compatible local training environment and is not evidence of behavior in a real AWS account. The Kubernetes lab runs a disposable K3s server inside the isolated nested Docker engine. The current GHCR repository name is retained from the first pilot package so its public visibility can be reused for all subsequent labs.
+The MinIO and LocalStack labs are S3-compatible local training environments and are not evidence of behavior in a real AWS account. The Kubernetes lab runs a disposable K3s server inside the isolated nested Docker engine. The current GHCR repository name is retained from the first pilot package so its public visibility can be reused for all subsequent labs.
