@@ -38,6 +38,7 @@ COPY kubernetes-configmap-rollout /opt/knowledge-hub/labs/kubernetes-configmap-r
 COPY s3-versioning-minio /opt/knowledge-hub/labs/s3-versioning-minio
 COPY rabbitmq-routing-key /opt/knowledge-hub/labs/rabbitmq-routing-key
 COPY postgres-backup-restore /opt/knowledge-hub/labs/postgres-backup-restore
+COPY localstack-s3-versioning /opt/knowledge-hub/labs/localstack-s3-versioning
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
