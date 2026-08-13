@@ -10,3 +10,4 @@ terraform-state-drift	Detect Terraform drift and reconcile the managed resource.
 kubernetes-configmap-rollout	Repair a ConfigMap value and roll a Deployment onto the new configuration.
 s3-versioning-minio	Enable S3-compatible versioning in MinIO and create a real second object version.
 rabbitmq-routing-key	Repair a RabbitMQ direct-exchange binding so events reach the intended queue.
+postgres-backup-restore	Recover a missing PostgreSQL row from a real pg_dump logical backup.
