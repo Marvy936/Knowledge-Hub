@@ -1,0 +1,20 @@
+name: kh-postgres-backup-restore
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: kh-lab-postgres-restore
+    environment:
+      POSTGRES_DB: labdb
+      POSTGRES_USER: labuser
+      POSTGRES_HOST_AUTH_METHOD: trust
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labuser -d labdb"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
