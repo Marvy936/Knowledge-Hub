@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+for _ in $(seq 1 60); do
+  health="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{end}}' kh-lab-postgres-restore 2>/dev/null || true)"
+  [[ "$health" == "healthy" ]] && break
+  sleep 1
+done
+
+if [[ "$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{end}}' kh-lab-postgres-restore 2>/dev/null || true)" != "healthy" ]]; then
+  echo "PostgreSQL did not become healthy." >&2
+  exit 1
+fi
+
+docker exec -i kh-lab-postgres-restore psql -U labuser -d labdb -v ON_ERROR_STOP=1 >/dev/null < "$LAB_ROOT/seed.sql"
+docker exec kh-lab-postgres-restore pg_dump -U labuser -d labdb --data-only --column-inserts --table=customers > /workspace/customers-backup.sql
+docker exec -i kh-lab-postgres-restore psql -U labuser -d labdb -v ON_ERROR_STOP=1 >/dev/null < "$LAB_ROOT/corrupt.sql"
+printf 'PostgreSQL recovery scenario is ready. Backup: /workspace/customers-backup.sql\n'
