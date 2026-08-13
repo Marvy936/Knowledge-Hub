@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Knowledge Hub Interactive Lab"
+echo "Ansible: Idempotency"
+echo
+echo "Goal: repair /workspace/site.yml so a second identical run reports changed=0."
+echo "The managed file must remain exactly MODE=production."
+echo
+echo "Start with:"
+echo "  status"
+echo "  cat site.yml"
+echo "  apply"
+echo "  check"
+echo
+echo "Commands: status, apply, check, hint, reset"
