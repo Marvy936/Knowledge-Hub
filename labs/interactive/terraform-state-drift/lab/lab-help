@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+Terraform: State Drift and Reconciliation
+
+Scenario
+  Terraform manages /workspace/managed.txt.
+  After the last successful apply, somebody changed that file manually.
+  The configuration and state still describe desired-v1.
+
+Goal
+  Use Terraform to detect the drift and reconcile the managed resource so:
+    - terraform validate succeeds
+    - local_file.managed exists in state
+    - terraform plan reports no changes
+    - managed.txt contains desired-v1
+
+Start here
+  terraform version
+  cat main.tf
+  cat managed.txt
+  terraform state show local_file.managed
+  terraform plan
+
+Useful commands
+  terraform plan
+  terraform apply
+  terraform state show local_file.managed
+
+Lab commands
+  help    show this assignment again
+  status  show current file, state and plan
+  check   validate state, content and a clean plan
+  hint    reveal progressive help
+  reset   recreate the out-of-band drift
+
+When finished, run: check
+EOF

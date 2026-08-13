@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "Redis container:"
+docker ps --filter name=kh-lab-redis --format 'table {{.Names}}\t{{.Status}}'
+echo
+echo "catalog:item:42 value:"
+docker exec kh-lab-redis redis-cli --raw GET catalog:item:42
+echo "catalog:item:42 TTL:"
+docker exec kh-lab-redis redis-cli TTL catalog:item:42

@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+TLS: Certificate Hostname Verification
+
+Scenario
+  Nginx serves HTTPS correctly, and the certificate is signed by the lab CA.
+  Clients connect as app.internal, but the certificate SAN names the wrong host.
+
+Goal
+  Repair /workspace/tls.cnf so the issued server certificate is valid for:
+    app.internal
+
+Start here
+  status
+  openssl x509 -in tls/server.crt -noout -subject -ext subjectAltName
+  openssl x509 -in tls/server.crt -noout -checkhost app.internal
+  cat tls.cnf
+
+Workflow
+  nano tls.cnf
+  apply
+  check
+
+Lab commands
+  help    show this assignment again
+  status  inspect the certificate and HTTPS endpoint
+  check   verify chain, hostname and a real HTTPS request
+  hint    reveal progressive help
+  apply   regenerate the certificate and restart Nginx
+  reset   restore the wrong hostname certificate
+
+When finished, run: check
+EOF

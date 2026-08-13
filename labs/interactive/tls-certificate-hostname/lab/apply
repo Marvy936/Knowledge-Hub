@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "Regenerating the server certificate from tls.cnf..."
+generate-cert
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" up -d --force-recreate tls >/dev/null
+wait-ready
+echo "Certificate applied. Run: check"

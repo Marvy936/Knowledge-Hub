@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /workspace
+printf '\n[1/4] Proving Terraform detects the initial drift...\n'
+if check; then
+  echo "Initial Terraform drift scenario unexpectedly passed." >&2
+  exit 1
+fi
+
+printf '\n[2/4] Reconciling through Terraform...\n'
+terraform apply -auto-approve -input=false -no-color >/dev/null
+
+printf '\n[3/4] Proving the reconciled state is clean...\n'
+check
+
+printf '\n[4/4] Proving reset recreates drift...\n'
+reset
+if check; then
+  echo "Reset Terraform scenario unexpectedly passed." >&2
+  exit 1
+fi
+
+echo
+echo "SELF-TEST PASSED"

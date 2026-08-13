@@ -24,6 +24,9 @@ Current labs:
 | `postgres-index-performance` | challenge | Diagnose a sequential scan and add a useful composite PostgreSQL index. |
 | `prometheus-target-alert` | challenge | Repair a broken Prometheus scrape target and resolve the resulting alert. |
 | `nginx-reverse-proxy` | challenge | Repair an invalid Nginx upstream and restore proxy traffic. |
+| `redis-cache-ttl` | challenge | Repair stale Redis data and enforce an explicit bounded TTL. |
+| `tls-certificate-hostname` | challenge | Repair a certificate SAN and restore hostname-verified HTTPS. |
+| `terraform-state-drift` | challenge | Detect out-of-band Terraform drift and reconcile the managed resource. |
 
 If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 

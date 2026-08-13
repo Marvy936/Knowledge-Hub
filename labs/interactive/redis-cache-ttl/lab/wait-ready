@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+for _ in $(seq 1 30); do
+  if docker exec kh-lab-redis redis-cli ping 2>/dev/null | grep -q PONG; then
+    docker exec kh-lab-redis redis-cli SET catalog:item:42 price=10 >/dev/null
+    docker exec kh-lab-redis redis-cli PERSIST catalog:item:42 >/dev/null
+    rm -f /workspace/.hint-level
+    exit 0
+  fi
+  sleep 1
+done
+echo "Redis did not become ready." >&2
+exit 1

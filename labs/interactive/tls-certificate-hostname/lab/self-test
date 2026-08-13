@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+printf '\n[1/4] Proving the initial TLS hostname is wrong...\n'
+if check; then
+  echo "Initial TLS scenario unexpectedly passed." >&2
+  exit 1
+fi
+
+printf '\n[2/4] Applying the intended SAN repair...\n'
+sed -i 's/wrong\.internal/app.internal/g' /workspace/tls.cnf
+apply
+
+printf '\n[3/4] Proving hostname-verified HTTPS passes...\n'
+check
+
+printf '\n[4/4] Proving reset restores the mismatch...\n'
+reset
+if check; then
+  echo "Reset TLS scenario unexpectedly passed." >&2
+  exit 1
+fi
+
+echo
+echo "SELF-TEST PASSED"

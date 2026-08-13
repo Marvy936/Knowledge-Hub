@@ -1,0 +1,7 @@
+name: kh-terraform-state-drift
+
+services:
+  helper:
+    image: alpine:3.21
+    container_name: kh-lab-terraform-helper
+    command: ["sh", "-c", "while true; do sleep 3600; done"]

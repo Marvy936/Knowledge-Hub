@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+Redis: Cache TTL and Stale Data
+
+Scenario
+  The catalog origin now says item 42 costs price=12.
+  Redis still contains price=10 and the key never expires.
+
+Goal
+  Repair catalog:item:42 so:
+    - value is exactly price=12
+    - TTL is greater than 0 and no more than 300 seconds
+
+Start here
+  status
+  docker exec kh-lab-redis redis-cli GET catalog:item:42
+  docker exec kh-lab-redis redis-cli TTL catalog:item:42
+
+Useful Redis commands
+  docker exec kh-lab-redis redis-cli SET ...
+  docker exec kh-lab-redis redis-cli EXPIRE ...
+  docker exec kh-lab-redis redis-cli TTL ...
+
+Lab commands
+  help    show this assignment again
+  status  show the cached value and TTL
+  check   validate value and expiration policy
+  hint    reveal progressive help
+  reset   restore the stale non-expiring cache entry
+
+When finished, run: check
+EOF

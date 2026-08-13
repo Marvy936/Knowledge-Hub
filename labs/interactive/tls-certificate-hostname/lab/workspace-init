@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+[[ -f /workspace/nginx.conf ]] || cp "$LAB_ROOT/nginx.conf.template" /workspace/nginx.conf
+[[ -f /workspace/tls.cnf ]] || cp "$LAB_ROOT/tls.cnf.template" /workspace/tls.cnf
+mkdir -p /workspace/tls
+
+if [[ ! -f /workspace/tls/ca.crt || ! -f /workspace/tls/ca.key ]]; then
+  openssl req \
+    -x509 \
+    -newkey rsa:2048 \
+    -nodes \
+    -days 7 \
+    -keyout /workspace/tls/ca.key \
+    -out /workspace/tls/ca.crt \
+    -subj '/CN=Knowledge Hub Lab CA' \
+    -addext 'basicConstraints=critical,CA:TRUE' \
+    -addext 'keyUsage=critical,keyCertSign,cRLSign' >/dev/null 2>&1
+fi
+
+if [[ ! -f /workspace/tls/server.crt || ! -f /workspace/tls/server.key ]]; then
+  "$LAB_BIN/generate-cert"
+fi

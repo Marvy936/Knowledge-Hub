@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+for _ in $(seq 1 40); do
+  if curl --noproxy '*' -skf https://127.0.0.1:8443/ >/dev/null 2>&1; then
+    exit 0
+  fi
+  sleep 1
+done
+echo "TLS endpoint did not become ready." >&2
+docker logs kh-lab-tls >&2 || true
+exit 1

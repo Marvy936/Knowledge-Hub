@@ -1,3 +1,5 @@
+FROM hashicorp/terraform:1.15.6 AS terraform
+
 FROM docker:27-dind
 
 RUN apk add --no-cache \
@@ -7,7 +9,10 @@ RUN apk add --no-cache \
       docker-cli-compose \
       iputils \
       jq \
-      nano
+      nano \
+      openssl
+
+COPY --from=terraform /bin/terraform /usr/local/bin/terraform
 
 LABEL org.opencontainers.image.source="https://github.com/Marvy936/Knowledge-Hub" \
       org.opencontainers.image.description="Knowledge Hub one-command interactive lab runtime"
@@ -19,6 +24,9 @@ COPY keycloak-service-account /opt/knowledge-hub/labs/keycloak-service-account
 COPY postgres-index-performance /opt/knowledge-hub/labs/postgres-index-performance
 COPY prometheus-target-alert /opt/knowledge-hub/labs/prometheus-target-alert
 COPY nginx-reverse-proxy /opt/knowledge-hub/labs/nginx-reverse-proxy
+COPY redis-cache-ttl /opt/knowledge-hub/labs/redis-cache-ttl
+COPY tls-certificate-hostname /opt/knowledge-hub/labs/tls-certificate-hostname
+COPY terraform-state-drift /opt/knowledge-hub/labs/terraform-state-drift
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

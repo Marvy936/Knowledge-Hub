@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "Restoring the wrong-hostname certificate..."
+cp "$LAB_ROOT/tls.cnf.template" /workspace/tls.cnf
+generate-cert
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" up -d --force-recreate tls >/dev/null
+wait-ready
+rm -f /workspace/.hint-level
+echo "Lab reset. Run: status"

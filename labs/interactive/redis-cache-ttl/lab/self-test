@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+printf '\n[1/4] Proving the initial cache policy is broken...\n'
+if check; then
+  echo "Initial Redis scenario unexpectedly passed." >&2
+  exit 1
+fi
+
+printf '\n[2/4] Applying the intended Redis repair...\n'
+docker exec kh-lab-redis redis-cli SET catalog:item:42 price=12 EX 120 >/dev/null
+
+printf '\n[3/4] Proving the repaired cache passes...\n'
+check
+
+printf '\n[4/4] Proving reset restores stale state...\n'
+reset
+if check; then
+  echo "Reset Redis scenario unexpectedly passed." >&2
+  exit 1
+fi
+
+echo
+echo "SELF-TEST PASSED"

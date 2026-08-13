@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /workspace
+echo "Initializing Terraform 1.15.6 and hashicorp/local 2.9.0..."
+terraform init -input=false -no-color >/tmp/kh-terraform-init.log
+if ! terraform state show local_file.managed >/dev/null 2>&1; then
+  terraform apply -auto-approve -input=false -no-color >/tmp/kh-terraform-apply.log
+fi
+printf 'drifted-manual-change\n' > /workspace/managed.txt
+rm -f /workspace/.hint-level

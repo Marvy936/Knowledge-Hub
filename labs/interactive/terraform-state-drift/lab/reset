@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /workspace
+echo "Restoring desired state, then introducing manual drift again..."
+terraform apply -auto-approve -input=false -no-color >/dev/null
+printf 'drifted-manual-change\n' > managed.txt
+rm -f /workspace/.hint-level
+echo "Lab reset. Run: terraform plan"

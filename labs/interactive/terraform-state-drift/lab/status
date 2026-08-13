@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /workspace
+echo "Terraform version:"
+terraform version | head -n 1
+echo
+echo "Current managed.txt:"
+cat managed.txt 2>/dev/null || echo '<missing>'
+echo
+echo "Resource state:"
+terraform state show -no-color local_file.managed 2>/dev/null || true
+echo
+echo "Current plan:"
+terraform plan -input=false -no-color || true

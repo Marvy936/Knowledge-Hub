@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -u
+cd /workspace
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+if terraform validate -no-color >/dev/null 2>&1; then
+  result 1 "Terraform configuration validates"
+else
+  result 0 "Terraform configuration validates"
+fi
+
+if terraform state show local_file.managed >/dev/null 2>&1; then
+  result 1 "local_file.managed exists in Terraform state"
+else
+  result 0 "local_file.managed exists in Terraform state"
+fi
+
+content="$(cat managed.txt 2>/dev/null || true)"
+result "$([[ "$content" == "desired-v1" ]] && echo 1 || echo 0)" "Managed file contains desired-v1"
+
+set +e
+terraform plan -detailed-exitcode -input=false -no-color >/tmp/kh-terraform-plan.log 2>&1
+plan_rc=$?
+set -e
+result "$([[ "$plan_rc" -eq 0 ]] && echo 1 || echo 0)" "Terraform plan reports no changes"
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+if [[ "$plan_rc" -eq 2 ]]; then
+  echo "Terraform detected drift or pending changes."
+elif [[ "$plan_rc" -eq 1 ]]; then
+  echo "Terraform plan returned an error; inspect: terraform plan"
+fi
+echo "Use 'hint' if you need help."
+exit 1

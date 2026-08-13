@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -u
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+if openssl verify -CAfile /workspace/tls/ca.crt /workspace/tls/server.crt >/dev/null 2>&1; then
+  result 1 "Server certificate chains to the lab CA"
+else
+  result 0 "Server certificate chains to the lab CA"
+fi
+
+if openssl x509 -in /workspace/tls/server.crt -noout -checkhost app.internal >/dev/null 2>&1; then
+  result 1 "Certificate is valid for app.internal"
+else
+  result 0 "Certificate is valid for app.internal"
+fi
+
+body="$(curl --noproxy '*' -fsS \
+  --cacert /workspace/tls/ca.crt \
+  --resolve app.internal:8443:127.0.0.1 \
+  https://app.internal:8443/ 2>/dev/null || true)"
+result "$([[ "$body" == "tls-ok" ]] && echo 1 || echo 0)" "Hostname-verified HTTPS request succeeds"
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "Use 'hint' if you need help."
+exit 1

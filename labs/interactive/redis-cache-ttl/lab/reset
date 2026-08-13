@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "Restoring stale cache state..."
+docker exec kh-lab-redis redis-cli SET catalog:item:42 price=10 >/dev/null
+docker exec kh-lab-redis redis-cli PERSIST catalog:item:42 >/dev/null
+rm -f /workspace/.hint-level
+echo "Lab reset. Run: status"

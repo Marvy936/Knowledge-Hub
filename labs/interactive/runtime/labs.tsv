@@ -4,3 +4,6 @@ keycloak-service-account	Obtain and validate a Keycloak client-credentials token
 postgres-index-performance	Diagnose a sequential scan and add the right PostgreSQL index.
 prometheus-target-alert	Repair a broken Prometheus scrape target and resolve its alert.
 nginx-reverse-proxy	Repair a broken Nginx upstream and restore reverse-proxy traffic.
+redis-cache-ttl	Repair stale Redis cache data and enforce a bounded TTL.
+tls-certificate-hostname	Repair a TLS certificate SAN and restore hostname-verified HTTPS.
+terraform-state-drift	Detect Terraform drift and reconcile the managed resource.

@@ -1,0 +1,16 @@
+terraform {
+  required_version = "= 1.15.6"
+
+  required_providers {
+    local = {
+      source  = "hashicorp/local"
+      version = "2.9.0"
+    }
+  }
+}
+
+resource "local_file" "managed" {
+  filename        = "${path.module}/managed.txt"
+  content         = "desired-v1\n"
+  file_permission = "0644"
+}

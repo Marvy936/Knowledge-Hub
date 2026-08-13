@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+FILE=/workspace/.hint-level
+level=0
+[[ -f "$FILE" ]] && level="$(cat "$FILE")"
+level=$((level + 1))
+printf '%s\n' "$level" > "$FILE"
+case "$level" in
+  1) echo "Hint 1: Modern hostname validation uses Subject Alternative Name (SAN), not only the certificate CN." ;;
+  2) echo "Hint 2: Inspect both [dn] and [alt_names] in tls.cnf. The client connects as app.internal." ;;
+  *) echo "Hint 3: Replace wrong.internal with app.internal in tls.cnf, then run apply and check." ;;
+esac

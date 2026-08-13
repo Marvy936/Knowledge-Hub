@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "Certificate subject and SAN:"
+openssl x509 -in /workspace/tls/server.crt -noout -subject -ext subjectAltName || true
+echo
+echo "Hostname check for app.internal:"
+openssl x509 -in /workspace/tls/server.crt -noout -checkhost app.internal || true
+echo
+echo "Nginx container:"
+docker ps --filter name=kh-lab-tls --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
