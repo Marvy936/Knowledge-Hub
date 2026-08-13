@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Recreating Nginx gateway with your configuration..."
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" up -d --force-recreate gateway >/dev/null
+sleep 2
+echo "Applied. Run: check"

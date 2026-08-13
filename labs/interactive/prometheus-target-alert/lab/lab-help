@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+────────────────────────────────────────────
+Prometheus: Scrape Target + Alert Troubleshooting
+
+Scenario
+  Prometheus is configured to scrape node-exporter, but the target is DOWN and
+  the NodeExporterDown alert fires. The service itself is healthy.
+
+Goal
+  Diagnose the scrape configuration, restore target health and resolve the alert.
+
+Start here
+  status
+  cat prometheus.yml
+  nano prometheus.yml
+  docker logs kh-lab-prometheus
+  docker inspect kh-lab-node-exporter
+
+Lab commands
+  help      show this assignment again
+  status    show target health and active alerts
+  apply     recreate Prometheus with your edited config
+  check     validate target health, the up metric and alert resolution
+  hint      reveal progressive help
+  reset     restore the broken scrape target
+  labs      list all bundled labs
+EOF

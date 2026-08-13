@@ -1,0 +1,19 @@
+name: kh-prometheus-target-alert
+
+services:
+  node-exporter:
+    image: prom/node-exporter:v1.8.2
+    container_name: kh-lab-node-exporter
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    container_name: kh-lab-prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.enable-lifecycle
+    volumes:
+      - /workspace/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - /workspace/alerts.yml:/etc/prometheus/alerts.yml:ro
+    depends_on:
+      - node-exporter

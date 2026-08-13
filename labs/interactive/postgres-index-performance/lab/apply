@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Applying solution.sql..."
+docker exec -i kh-lab-postgres-index psql -v ON_ERROR_STOP=1 -U labuser -d labdb < /workspace/solution.sql
+docker exec kh-lab-postgres-index psql -U labuser -d labdb -c "ANALYZE orders;" >/dev/null
+echo "Applied. Run: check"

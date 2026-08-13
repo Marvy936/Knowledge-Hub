@@ -22,7 +22,7 @@ env:
 jobs:
   multi-lab-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Checkout exact subject
         uses: actions/checkout@v4
@@ -33,17 +33,19 @@ jobs:
       - name: List bundled labs without privileged mode
         run: docker run --rm "$IMAGE_NAME" list
 
-      - name: Self-test Docker service discovery
-        run: docker run --rm --privileged "$IMAGE_NAME" docker-network-debug self-test
-
-      - name: Self-test Docker volume persistence
-        run: docker run --rm --privileged "$IMAGE_NAME" docker-volume-persistence self-test
-
-      - name: Self-test Keycloak client credentials
-        run: docker run --rm --privileged "$IMAGE_NAME" keycloak-service-account self-test
-
-      - name: Prove help is embedded
+      - name: Self-test every bundled lab
         run: |
-          docker run --rm --privileged "$IMAGE_NAME" docker-network-debug lab-help | grep -F "Docker: Service Discovery Troubleshooting"
-          docker run --rm --privileged "$IMAGE_NAME" docker-volume-persistence lab-help | grep -F "Docker: Volume Persistence Troubleshooting"
-          docker run --rm --privileged "$IMAGE_NAME" keycloak-service-account lab-help | grep -F "Keycloak: Client Credentials"
+          docker run --rm "$IMAGE_NAME" ids > /tmp/kh-lab-ids
+          while IFS= read -r LAB; do
+            [ -n "$LAB" ] || continue
+            echo "=== self-test: $LAB ==="
+            docker run --rm --privileged "$IMAGE_NAME" "$LAB" self-test
+          done < /tmp/kh-lab-ids
+
+      - name: Prove help is embedded without starting sandbox
+        run: |
+          docker run --rm "$IMAGE_NAME" ids > /tmp/kh-lab-ids
+          while IFS= read -r LAB; do
+            [ -n "$LAB" ] || continue
+            docker run --rm "$IMAGE_NAME" "$LAB" help | grep -F "Knowledge Hub Interactive Lab"
+          done < /tmp/kh-lab-ids

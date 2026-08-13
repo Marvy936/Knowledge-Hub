@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[1/4] Proving the initial gateway is broken..."
+if check; then echo "Initial scenario unexpectedly passed." >&2; exit 1; fi
+
+echo "[2/4] Repairing the upstream hostname..."
+sed -i 's/backend-api/backend/' /workspace/nginx.conf
+apply
+
+echo "[3/4] Proving proxy traffic passes..."
+check
+
+echo "[4/4] Proving reset restores the broken upstream..."
+reset
+if check; then echo "Reset scenario unexpectedly passed." >&2; exit 1; fi
+
+echo "SELF-TEST PASSED"

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+for _ in $(seq 1 60); do
+  ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-backend 2>/dev/null || true)"
+  if [[ -n "$ip" ]] && [[ "$(curl -fsS "http://$ip/" 2>/dev/null || true)" == "backend-ok" ]]; then
+    exit 0
+  fi
+  sleep 1
+done
+echo "Backend did not become ready." >&2
+exit 1

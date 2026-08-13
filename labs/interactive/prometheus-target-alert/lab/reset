@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Resetting Prometheus target challenge..."
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" down -v --remove-orphans >/dev/null 2>&1 || true
+cp "$LAB_ROOT/prometheus.yml.template" /workspace/prometheus.yml
+cp "$LAB_ROOT/alerts.yml.template" /workspace/alerts.yml
+rm -f /workspace/.hint-level
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" up -d >/dev/null
+wait-ready
+echo "Lab reset. Run: status"

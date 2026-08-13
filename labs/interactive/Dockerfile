@@ -16,9 +16,15 @@ COPY runtime /opt/knowledge-hub/runtime
 COPY docker-network-debug /opt/knowledge-hub/labs/docker-network-debug
 COPY docker-volume-persistence /opt/knowledge-hub/labs/docker-volume-persistence
 COPY keycloak-service-account /opt/knowledge-hub/labs/keycloak-service-account
+COPY postgres-index-performance /opt/knowledge-hub/labs/postgres-index-performance
+COPY prometheus-target-alert /opt/knowledge-hub/labs/prometheus-target-alert
+COPY nginx-reverse-proxy /opt/knowledge-hub/labs/nginx-reverse-proxy
 
-RUN chmod +x /opt/knowledge-hub/runtime/entrypoint.sh /opt/knowledge-hub/runtime/list-labs \
- && find /opt/knowledge-hub/labs -type f -path '*/lab/*' ! -name Dockerfile -exec chmod +x {} +
+RUN chmod +x \
+      /opt/knowledge-hub/runtime/entrypoint.sh \
+      /opt/knowledge-hub/runtime/list-labs \
+      /opt/knowledge-hub/runtime/list-lab-ids \
+ && find /opt/knowledge-hub/labs -type f -path '*/lab/*' -exec chmod +x {} +
 
 ENV DOCKER_TLS_CERTDIR=""
 WORKDIR /workspace

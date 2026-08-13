@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Recreating Prometheus with the learner configuration..."
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" up -d --force-recreate prometheus >/dev/null
+wait-ready
+
+for _ in $(seq 1 20); do
+  ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-prometheus 2>/dev/null || true)"
+  targets="$(curl -fsS "http://$ip:9090/api/v1/targets" 2>/dev/null || echo '{}')"
+  if jq -e '.data.activeTargets[]? | select(.labels.job == "node" and .health == "up")' <<<"$targets" >/dev/null; then
+    sleep 3
+    break
+  fi
+  sleep 1
+done
+
+echo "Applied. Run: check"

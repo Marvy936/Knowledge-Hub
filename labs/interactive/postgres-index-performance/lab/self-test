@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[1/4] Proving the initial query plan is incomplete..."
+if check; then echo "Initial scenario unexpectedly passed." >&2; exit 1; fi
+
+echo "[2/4] Applying the intended composite index..."
+echo "CREATE INDEX idx_orders_customer_status ON orders(customer_id, status);" > /workspace/solution.sql
+apply
+
+echo "[3/4] Proving the indexed plan passes..."
+check
+
+echo "[4/4] Proving reset removes the repair..."
+reset
+if check; then echo "Reset scenario unexpectedly passed." >&2; exit 1; fi
+
+echo "SELF-TEST PASSED"

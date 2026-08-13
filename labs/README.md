@@ -27,9 +27,9 @@ Practical v1.0.0 is released at tag `v1.0.0`. Post-v1.0 development continues on
 ## Interactive Labs
 
 - Index: [`interactive/README.md`](interactive/README.md)
-- Host contract: Docker only.
-- Distribution: one public multi-lab GHCR image; no clone, ZIP, Python, Compose, Keycloak or lab-specific CLI required on the host.
-- Current labs: Docker service discovery, Docker volume persistence, and Keycloak client credentials.
+- Host contract: Docker only; no clone, Git, Compose, Python or lab-specific CLI is required on the learner host.
+- Public one-command runtime: `ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest`.
+- Current tracks cover Docker networking/storage, Keycloak client credentials, PostgreSQL indexing, Prometheus target/alert troubleshooting and Nginx reverse proxy troubleshooting.
 - Interactive Labs are post-v1.0 development and do not alter the immutable `v1.0.0` release subject.
 
 ## Manual environment labs

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Current indexes:"
+docker exec kh-lab-postgres-index psql -U labuser -d labdb -c "\di+ orders*" || true
+echo
+echo "Target query plan:"
+docker exec kh-lab-postgres-index psql -U labuser -d labdb -c "EXPLAIN (COSTS OFF) SELECT * FROM orders WHERE customer_id = 4240 AND status = 'paid';"

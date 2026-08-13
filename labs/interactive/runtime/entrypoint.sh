@@ -9,6 +9,9 @@ DOCKERD_LOG="/tmp/knowledge-hub-dockerd.log"
 if [[ "${1:-}" == "list" || "${1:-}" == "labs" ]]; then
   exec "$ROOT/runtime/list-labs"
 fi
+if [[ "${1:-}" == "ids" ]]; then
+  exec "$ROOT/runtime/list-lab-ids"
+fi
 
 LAB_ID="${KH_LAB:-$DEFAULT_LAB}"
 if [[ $# -gt 0 && -d "$LABS_ROOT/$1" ]]; then
@@ -31,9 +34,17 @@ fi
 export LAB_ID LAB_ROOT LAB_BIN LAB_WORKSPACE LAB_SCENARIO LAB_ENV_FILE
 export PATH="$LAB_BIN:$ROOT/runtime:$PATH"
 
+if [[ "${1:-}" == "help" || "${1:-}" == "task" || "${1:-}" == "lab-help" ]]; then
+  shift || true
+  exec lab-help "$@"
+fi
+
 mkdir -p "$LAB_WORKSPACE"
 [[ -f "$LAB_SCENARIO" ]] || cp "$LAB_ROOT/scenario.compose.yaml" "$LAB_SCENARIO"
 [[ -f "$LAB_ENV_FILE" ]] || cp "$LAB_ROOT/scenario.env.template" "$LAB_ENV_FILE"
+if [[ -x "$LAB_BIN/workspace-init" ]]; then
+  "$LAB_BIN/workspace-init"
+fi
 
 rm -f /var/run/docker.pid
 printf 'Starting isolated Docker engine for %s...\n' "$LAB_ID"
@@ -69,10 +80,6 @@ if [[ -x "$LAB_BIN/wait-ready" ]]; then
 fi
 
 if [[ $# -gt 0 ]]; then
-  if [[ "$1" == "help" || "$1" == "task" ]]; then
-    shift
-    exec lab-help "$@"
-  fi
   exec "$@"
 fi
 

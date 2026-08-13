@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+────────────────────────────────────────────
+PostgreSQL: Index Performance Troubleshooting
+
+Scenario
+  The orders table contains 100000 rows. A common lookup filters by
+  customer_id and status, but PostgreSQL currently performs a sequential scan.
+
+Goal
+  Add an index that makes the target query use an index-backed plan without
+  changing the query result.
+
+Start here
+  status
+  docker exec -it kh-lab-postgres-index psql -U labuser -d labdb
+  cat solution.sql
+  nano solution.sql
+
+Lab commands
+  help      show this assignment again
+  status    show current indexes and EXPLAIN plan
+  apply     execute solution.sql and ANALYZE the table
+  check     validate index existence, query plan and result
+  hint      reveal progressive help
+  reset     restore the no-index state
+  labs      list all bundled labs
+
+Target query
+  SELECT * FROM orders WHERE customer_id = 4240 AND status = 'paid';
+EOF

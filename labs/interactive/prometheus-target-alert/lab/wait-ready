@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+for _ in $(seq 1 90); do
+  ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-prometheus 2>/dev/null || true)"
+  if [[ -n "$ip" ]] && curl -fsS "http://$ip:9090/-/ready" >/dev/null 2>&1; then
+    exit 0
+  fi
+  sleep 1
+done
+
+echo "Prometheus did not become ready." >&2
+exit 1

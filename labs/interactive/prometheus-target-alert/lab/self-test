@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[1/4] Proving the initial target is unhealthy..."
+if check; then echo "Initial scenario unexpectedly passed." >&2; exit 1; fi
+
+echo "[2/4] Repairing the scrape port..."
+sed -i 's/node-exporter:9101/node-exporter:9100/' /workspace/prometheus.yml
+apply
+
+echo "[3/4] Proving target and alert state pass..."
+check
+
+echo "[4/4] Proving reset restores the broken target..."
+reset
+if check; then echo "Reset scenario unexpectedly passed." >&2; exit 1; fi
+
+echo "SELF-TEST PASSED"

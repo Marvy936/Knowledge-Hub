@@ -1,0 +1,2 @@
+-- Put your index repair here, then run: apply
+-- Example shape: CREATE INDEX ... ON orders (...);

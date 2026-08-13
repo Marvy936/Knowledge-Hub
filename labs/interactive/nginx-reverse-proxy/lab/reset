@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Resetting Nginx reverse-proxy challenge..."
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" down -v --remove-orphans >/dev/null 2>&1 || true
+cp "$LAB_ROOT/nginx.conf.template" /workspace/nginx.conf
+rm -f /workspace/.hint-level
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" up -d >/dev/null
+wait-ready
+echo "Lab reset. Run: status"

@@ -1,0 +1,10 @@
+groups:
+  - name: knowledge-hub-lab
+    rules:
+      - alert: NodeExporterDown
+        expr: up{job="node"} == 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: Node exporter target is down

@@ -1,0 +1,6 @@
+docker-network-debug	Diagnose Docker service discovery / DNS.
+docker-volume-persistence	Repair a named-volume mount so data survives recreation.
+keycloak-service-account	Obtain and validate a Keycloak client-credentials token.
+postgres-index-performance	Diagnose a sequential scan and add the right PostgreSQL index.
+prometheus-target-alert	Repair a broken Prometheus scrape target and resolve its alert.
+nginx-reverse-proxy	Repair a broken Nginx upstream and restore reverse-proxy traffic.

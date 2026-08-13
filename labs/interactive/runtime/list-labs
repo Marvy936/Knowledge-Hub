@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
-cat <<'EOF'
-Knowledge Hub Interactive Labs
+set -euo pipefail
 
-  docker-network-debug         Diagnose Docker service discovery / DNS.
-  docker-volume-persistence    Repair a named-volume mount so data survives recreation.
-  keycloak-service-account     Obtain and validate a Keycloak client-credentials token.
+REGISTRY="/opt/knowledge-hub/runtime/labs.tsv"
 
-Run a lab with:
-  docker run --pull=always --rm -it --privileged ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <lab-id>
-EOF
+echo "Knowledge Hub Interactive Labs"
+echo
+while IFS=$'\t' read -r id description; do
+  [[ -n "$id" ]] || continue
+  printf '  %-30s %s\n' "$id" "$description"
+done < "$REGISTRY"
+echo
+echo "Run a lab with:"
+echo "  docker run --pull=always --rm -it --privileged ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <lab-id>"
+echo
+echo "Show a lab assignment without starting it:"
+echo "  docker run --rm ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <lab-id> help"

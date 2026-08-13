@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+level_file=/workspace/.hint-level
+level=0
+[[ -f "$level_file" ]] && level="$(cat "$level_file")"
+level=$((level+1)); echo "$level" > "$level_file"
+case "$level" in
+  1) echo "Hint 1: run 'status' and compare the scrape URL with the node-exporter service port." ;;
+  2) echo "Hint 2: inspect prometheus.yml. The service name is correct, but the target port is not." ;;
+  *) echo "Hint 3: node-exporter listens on 9100. Change node-exporter:9101 to node-exporter:9100, then run 'apply' and 'check'." ;;
+esac

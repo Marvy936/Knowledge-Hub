@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -u
+pass=0
+fail=0
+result(){ if [[ "$1" == 1 ]]; then echo "[PASS] $2"; pass=$((pass+1)); else echo "[FAIL] $2"; fail=$((fail+1)); fi; }
+
+backend_ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-backend 2>/dev/null || true)"
+if [[ -n "$backend_ip" ]] && [[ "$(curl -fsS "http://$backend_ip/" 2>/dev/null || true)" == "backend-ok" ]]; then result 1 "Backend service is healthy"; else result 0 "Backend service is healthy"; fi
+
+running="$(docker inspect -f '{{.State.Running}}' kh-lab-gateway 2>/dev/null || echo false)"
+[[ "$running" == "true" ]] && result 1 "Nginx gateway is running" || result 0 "Nginx gateway is running"
+
+gateway_ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-gateway 2>/dev/null || true)"
+body=""
+[[ -n "$gateway_ip" ]] && body="$(curl -fsS "http://$gateway_ip/" 2>/dev/null || true)"
+[[ "$body" == "backend-ok" ]] && result 1 "Gateway proxies requests to backend" || result 0 "Gateway proxies requests to backend"
+
+echo
+if (( fail == 0 )); then echo "LAB COMPLETED"; exit 0; fi
+echo "LAB NOT COMPLETE"
+echo "Use 'hint' if you need help."
+exit 1

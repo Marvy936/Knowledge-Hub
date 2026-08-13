@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+────────────────────────────────────────────
+Nginx: Reverse Proxy Troubleshooting
+
+Scenario
+  The backend service is healthy, but the Nginx gateway cannot start because
+  its upstream hostname does not resolve in the Compose network.
+
+Goal
+  Diagnose the gateway logs and configuration, then restore proxy traffic.
+
+Start here
+  status
+  cat nginx.conf
+  nano nginx.conf
+  docker logs kh-lab-gateway
+  docker inspect kh-lab-backend
+
+Lab commands
+  help      show this assignment again
+  status    show containers and gateway logs
+  apply     recreate the gateway with your edited config
+  check     validate backend, gateway and proxied response
+  hint      reveal progressive help
+  reset     restore the broken upstream
+  labs      list all bundled labs
+EOF

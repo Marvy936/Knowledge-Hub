@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-prometheus)"
+echo "Scrape targets:"
+curl -fsS "http://$ip:9090/api/v1/targets" | jq -r '.data.activeTargets[] | [.labels.job, .scrapeUrl, .health, (.lastError // "")] | @tsv'
+echo
+echo "Alerts:"
+curl -fsS "http://$ip:9090/api/v1/alerts" | jq -r '.data.alerts[]? | [.labels.alertname, .state, (.annotations.summary // "")] | @tsv'

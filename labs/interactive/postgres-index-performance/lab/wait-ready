@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+for _ in $(seq 1 60); do
+  health="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{end}}' kh-lab-postgres-index 2>/dev/null || true)"
+  [[ "$health" == "healthy" ]] && break
+  sleep 1
+done
+
+if [[ "$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{end}}' kh-lab-postgres-index 2>/dev/null || true)" != "healthy" ]]; then
+  echo "PostgreSQL did not become healthy." >&2
+  exit 1
+fi
+
+exists="$(docker exec kh-lab-postgres-index psql -U labuser -d labdb -Atqc "SELECT to_regclass('public.orders') IS NOT NULL;")"
+if [[ "$exists" != "t" ]]; then
+  echo "Seeding 100000 orders and collecting planner statistics..."
+  docker exec -i kh-lab-postgres-index psql -U labuser -d labdb >/dev/null <<'SQL'
+CREATE TABLE orders (
+  id bigserial PRIMARY KEY,
+  customer_id integer NOT NULL,
+  status text NOT NULL,
+  total numeric(10,2) NOT NULL,
+  created_at timestamptz NOT NULL
+);
+INSERT INTO orders (customer_id, status, total, created_at)
+SELECT
+  g % 10000,
+  CASE WHEN g % 4 = 0 THEN 'paid' WHEN g % 4 = 1 THEN 'pending' ELSE 'cancelled' END,
+  ((g % 5000) + 100) / 100.0,
+  now() - make_interval(secs => g)
+FROM generate_series(1, 100000) AS g;
+ANALYZE orders;
+SQL
+fi

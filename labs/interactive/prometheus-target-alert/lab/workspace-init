@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+[[ -f /workspace/prometheus.yml ]] || cp "$LAB_ROOT/prometheus.yml.template" /workspace/prometheus.yml
+[[ -f /workspace/alerts.yml ]] || cp "$LAB_ROOT/alerts.yml.template" /workspace/alerts.yml

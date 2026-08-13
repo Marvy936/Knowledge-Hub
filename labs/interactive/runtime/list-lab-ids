@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cut -f1 /opt/knowledge-hub/runtime/labs.tsv | sed '/^$/d'

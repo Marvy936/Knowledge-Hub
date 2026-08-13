@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -u
+pass=0
+fail=0
+result(){ if [[ "$1" == 1 ]]; then echo "[PASS] $2"; pass=$((pass+1)); else echo "[FAIL] $2"; fail=$((fail+1)); fi; }
+
+ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-prometheus 2>/dev/null || true)"
+if [[ -z "$ip" ]]; then
+  result 0 "Prometheus is reachable"
+  result 0 "node scrape target is healthy"
+  result 0 "NodeExporterDown alert is resolved"
+else
+  targets="$(curl -fsS "http://$ip:9090/api/v1/targets" 2>/dev/null || echo '{}')"
+  if jq -e '.data.activeTargets[]? | select(.labels.job == "node" and .health == "up")' <<<"$targets" >/dev/null; then result 1 "node scrape target is healthy"; else result 0 "node scrape target is healthy"; fi
+
+  query="$(curl -fsS --get --data-urlencode 'query=up{job="node"}' "http://$ip:9090/api/v1/query" 2>/dev/null || echo '{}')"
+  if [[ "$(jq -r '.data.result[0].value[1] // "0"' <<<"$query")" == "1" ]]; then result 1 "Prometheus records up{job=\"node\"} = 1"; else result 0 "Prometheus records up{job=\"node\"} = 1"; fi
+
+  alerts="$(curl -fsS "http://$ip:9090/api/v1/alerts" 2>/dev/null || echo '{}')"
+  if jq -e '[.data.alerts[]? | select(.labels.alertname == "NodeExporterDown" and (.state == "firing" or .state == "pending"))] | length == 0' <<<"$alerts" >/dev/null; then result 1 "NodeExporterDown alert is resolved"; else result 0 "NodeExporterDown alert is resolved"; fi
+fi
+
+echo
+if (( fail == 0 )); then echo "LAB COMPLETED"; exit 0; fi
+echo "LAB NOT COMPLETE"
+echo "Use 'hint' if you need help."
+exit 1

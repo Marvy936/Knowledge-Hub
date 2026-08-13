@@ -1,0 +1,20 @@
+name: kh-nginx-reverse-proxy
+
+services:
+  backend:
+    image: nginx:1.27-alpine
+    container_name: kh-lab-backend
+    command:
+      - /bin/sh
+      - -ec
+      - |
+        printf 'backend-ok\n' > /usr/share/nginx/html/index.html
+        exec nginx -g 'daemon off;'
+
+  gateway:
+    image: nginx:1.27-alpine
+    container_name: kh-lab-gateway
+    volumes:
+      - /workspace/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
