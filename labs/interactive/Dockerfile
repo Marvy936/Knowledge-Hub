@@ -40,7 +40,11 @@ COPY rabbitmq-routing-key /opt/knowledge-hub/labs/rabbitmq-routing-key
 COPY postgres-backup-restore /opt/knowledge-hub/labs/postgres-backup-restore
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
-RUN printf '%s\n' '#!/usr/bin/env bash' 'cat "$LAB_ROOT/README.md"' \
+# Every help entrypoint starts with the shared marker used by registry smoke tests.
+RUN printf '%s\n' \
+      '#!/usr/bin/env bash' \
+      'echo "Knowledge Hub Interactive Lab"' \
+      'cat "$LAB_ROOT/README.md"' \
       > /opt/knowledge-hub/labs/postgres-backup-restore/lab/lab-help \
  && printf '%s\n' '#!/usr/bin/env bash' 'check || true' \
       > /opt/knowledge-hub/labs/postgres-backup-restore/lab/status
