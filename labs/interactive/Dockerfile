@@ -19,11 +19,11 @@ RUN apk upgrade --no-cache \
       jq \
       nano \
       openssl \
-      shadow \
  && aws --version \
  && ansible-playbook --version >/dev/null \
  && git --version >/dev/null \
- && su --version >/dev/null
+ && stat --version >/dev/null \
+ && su -s /bin/sh root -c 'true'
 
 COPY --from=terraform /bin/terraform /usr/local/bin/terraform
 RUN terraform version >/dev/null
