@@ -1,12 +1,6 @@
 name: Interactive Labs
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "labs/interactive/**"
-      - ".github/workflows/interactive-labs.yml"
   pull_request:
     paths:
       - "labs/interactive/**"

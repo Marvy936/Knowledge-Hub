@@ -38,6 +38,9 @@ jobs:
       - name: Build multi-lab image
         run: docker build -t "$IMAGE_NAME:test" -f labs/interactive/Dockerfile labs/interactive
 
+      - name: List bundled labs without privileged mode
+        run: docker run --rm "$IMAGE_NAME:test" list
+
       - name: Prove shell-only labs without privileged mode
         run: |
           docker run --rm "$IMAGE_NAME:test" ids shell > /tmp/kh-shell-lab-ids
@@ -82,7 +85,6 @@ jobs:
 
       - name: Prove established Docker-backed labs before publication
         run: |
-          docker run --rm "$IMAGE_NAME:test" list
           docker run --rm "$IMAGE_NAME:test" ids docker > /tmp/kh-docker-lab-ids
           test -s /tmp/kh-docker-lab-ids
           while IFS= read -r LAB; do
@@ -97,6 +99,14 @@ jobs:
               exit 1
             fi
           done < /tmp/kh-docker-lab-ids
+
+      - name: Prove help is embedded without starting sandbox
+        run: |
+          docker run --rm "$IMAGE_NAME:test" ids > /tmp/kh-lab-ids
+          while IFS= read -r LAB; do
+            [ -n "$LAB" ] || continue
+            docker run --rm "$IMAGE_NAME:test" "$LAB" help | grep -F "Knowledge Hub Interactive Lab"
+          done < /tmp/kh-lab-ids
 
       - name: Log in to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
