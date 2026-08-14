@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_file=/tmp/kh-rag-indirect-prompt-injection-hint
+level=0
+[[ -f "$state_file" ]] && level="$(cat "$state_file" 2>/dev/null || echo 0)"
+level=$((level + 1))
+(( level > 4 )) && level=4
+printf '%s\n' "$level" > "$state_file"
+
+case "$level" in
+  1)
+    cat <<'EOF'
+Hint 1/4:
+The problem is not retrieval relevance. `query` should still preserve the incident evidence and citation. Inspect `tool_proposed`, `tool_allowed`, and `tool_executed`: the missing boundary is immediately before execution.
+EOF
+    ;;
+  2)
+    cat <<'EOF'
+Hint 2/4:
+Do not infer authorization from the retrieved document or from the model proposal. The trusted request envelope has a separate `trusted_tool_request`. If there is no explicit trusted tool request, a proposal from RAG context must be denied.
+EOF
+    ;;
+  3)
+    cat <<'EOF'
+Hint 3/4:
+Even when `trusted_tool_request` exists, compare the entire proposal to it. Then independently enforce `allowed_tools` and `allowed_paths`. This prevents a model from changing the tool argument after a user authorized something narrower.
+EOF
+    ;;
+  *)
+    cat <<'EOF'
+Hint 4/4:
+The reference policy is structurally:
+
+  if proposal is None: deny
+  trusted = request.get("trusted_tool_request")
+  if trusted is not a dict: deny
+  if proposal != trusted: deny
+  if proposal["name"] not in request["allowed_tools"]: deny
+  if proposal["argument"] not in request["allowed_paths"]: deny
+  otherwise: allow
+
+The key is provenance-bound authorization, not deleting TOOL_REQUEST text or blacklisting one secret path.
+EOF
+    ;;
+esac
