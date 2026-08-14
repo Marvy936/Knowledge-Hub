@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: knowledge-hub-interactive-labs
+  group: knowledge-hub-interactive-labs-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
