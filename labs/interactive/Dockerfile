@@ -94,7 +94,9 @@ RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
       /opt/knowledge-hub/runtime/list-labs \
       /opt/knowledge-hub/runtime/list-lab-ids \
- && find /opt/knowledge-hub/labs -type f -path '*/lab/*' -exec chmod +x {} +
+      /opt/knowledge-hub/runtime/validate-registry \
+ && find /opt/knowledge-hub/labs -type f -path '*/lab/*' -exec chmod +x {} + \
+ && /opt/knowledge-hub/runtime/validate-registry
 
 ENV DOCKER_TLS_CERTDIR=""
 WORKDIR /workspace

@@ -1,19 +1,19 @@
-docker-network-debug	Diagnose Docker service discovery / DNS.
-docker-volume-persistence	Repair a named-volume mount so data survives recreation.
-keycloak-service-account	Obtain and validate a Keycloak client-credentials token.
-postgres-index-performance	Diagnose a sequential scan and add the right PostgreSQL index.
-prometheus-target-alert	Repair a broken Prometheus scrape target and resolve its alert.
-nginx-reverse-proxy	Repair a broken Nginx upstream and restore reverse-proxy traffic.
-redis-cache-ttl	Repair stale Redis cache data and enforce a bounded TTL.
-tls-certificate-hostname	Repair a TLS certificate SAN and restore hostname-verified HTTPS.
-terraform-state-drift	Detect Terraform drift and reconcile the managed resource.
-kubernetes-configmap-rollout	Repair a ConfigMap value and roll a Deployment onto the new configuration.
-s3-versioning-minio	Enable S3-compatible versioning in MinIO and create a real second object version.
-rabbitmq-routing-key	Repair a RabbitMQ direct-exchange binding so events reach the intended queue.
-postgres-backup-restore	Recover a missing PostgreSQL row from a real pg_dump logical backup.
-localstack-s3-versioning	Practice versioned object storage with LocalStack.
-ansible-idempotency	Repair an Ansible file task so repeated runs converge with changed=0.
-git-three-way-merge	Resolve a real Git three-way merge while preserving the required integrated configuration.
-bash-pipeline-failure	Repair Bash pipeline failure propagation so a failed build cannot publish a release marker.
-linux-file-permissions	Repair Unix owner/group/mode semantics for deploy, app and guest service accounts.
-nginx-rate-limiting	Enforce per-client Nginx request throttling with burst handling and HTTP 429 responses.
+docker-network-debug	docker	Diagnose Docker service discovery / DNS.
+docker-volume-persistence	docker	Repair a named-volume mount so data survives recreation.
+keycloak-service-account	docker	Obtain and validate a Keycloak client-credentials token.
+postgres-index-performance	docker	Diagnose a sequential scan and add the right PostgreSQL index.
+prometheus-target-alert	docker	Repair a broken Prometheus scrape target and resolve its alert.
+nginx-reverse-proxy	docker	Repair a broken Nginx upstream and restore reverse-proxy traffic.
+redis-cache-ttl	docker	Repair stale Redis cache data and enforce a bounded TTL.
+tls-certificate-hostname	docker	Repair a TLS certificate SAN and restore hostname-verified HTTPS.
+terraform-state-drift	shell	Detect Terraform drift and reconcile the managed resource.
+kubernetes-configmap-rollout	k3s	Repair a ConfigMap value and roll a Deployment onto the new configuration.
+s3-versioning-minio	docker	Enable S3-compatible versioning in MinIO and create a real second object version.
+rabbitmq-routing-key	docker	Repair a RabbitMQ direct-exchange binding so events reach the intended queue.
+postgres-backup-restore	docker	Recover a missing PostgreSQL row from a real pg_dump logical backup.
+localstack-s3-versioning	docker	Practice versioned object storage with LocalStack.
+ansible-idempotency	shell	Repair an Ansible file task so repeated runs converge with changed=0.
+git-three-way-merge	shell	Resolve a real Git three-way merge while preserving the required integrated configuration.
+bash-pipeline-failure	shell	Repair Bash pipeline failure propagation so a failed build cannot publish a release marker.
+linux-file-permissions	shell	Repair Unix owner/group/mode semantics for deploy, app and guest service accounts.
+nginx-rate-limiting	docker	Enforce per-client Nginx request throttling with burst handling and HTTP 429 responses.
