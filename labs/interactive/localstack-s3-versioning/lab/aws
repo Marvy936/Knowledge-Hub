@@ -1,18 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
-network="$(docker inspect kh-lab-localstack --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}}{{end}}')"
-name="kh-lab-aws-${RANDOM}-$$"
-cleanup() {
-  docker rm -f "$name" >/dev/null 2>&1 || true
-}
-trap cleanup EXIT
 
-timeout -k 10s 2m docker run --rm \
-  --name "$name" \
-  --network "$network" \
-  -e AWS_ACCESS_KEY_ID=test \
-  -e AWS_SECRET_ACCESS_KEY=test \
-  -e AWS_DEFAULT_REGION=us-east-1 \
-  -v /workspace:/workspace \
-  amazon/aws-cli:2.17.33 \
-  --endpoint-url http://localstack:4566 "$@"
+export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID:-test}"
+export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY:-test}"
+export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-1}"
+
+exec /usr/bin/aws --endpoint-url http://127.0.0.1:4566 "$@"
