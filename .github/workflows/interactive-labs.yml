@@ -44,6 +44,13 @@ jobs:
       - name: List bundled labs without privileged mode
         run: docker run --rm "$IMAGE_NAME" list
 
+      - name: Prove shell-only labs without privileged mode
+        run: |
+          for LAB in ansible-idempotency git-three-way-merge bash-pipeline-failure; do
+            echo "=== unprivileged self-test: $LAB ==="
+            timeout -k 10s 5m docker run --rm "$IMAGE_NAME" "$LAB" self-test
+          done
+
       - name: Preflight Kubernetes cgroup runtime
         run: |
           NAME="kh-ci-kubernetes-${GITHUB_RUN_ID}"
@@ -67,13 +74,13 @@ jobs:
           timeout -k 30s 8m docker run --rm --name "$NAME" --privileged \
             "$IMAGE_NAME" rabbitmq-routing-key self-test
 
-      - name: Self-test established bundled labs
+      - name: Self-test established Docker-backed labs
         run: |
           docker run --rm "$IMAGE_NAME" ids > /tmp/kh-lab-ids
           while IFS= read -r LAB; do
             [ -n "$LAB" ] || continue
             case "$LAB" in
-              kubernetes-configmap-rollout|s3-versioning-minio|rabbitmq-routing-key) continue ;;
+              ansible-idempotency|git-three-way-merge|bash-pipeline-failure|kubernetes-configmap-rollout|s3-versioning-minio|rabbitmq-routing-key) continue ;;
             esac
             echo "=== self-test: $LAB ==="
             NAME="kh-ci-${LAB}-${GITHUB_RUN_ID}"
