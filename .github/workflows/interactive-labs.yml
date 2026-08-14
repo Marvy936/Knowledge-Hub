@@ -1,20 +1,15 @@
 name: Interactive Labs
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "labs/interactive/**"
-      - ".github/workflows/interactive-labs.yml"
   pull_request:
     paths:
       - "labs/interactive/**"
       - ".github/workflows/interactive-labs.yml"
+      - ".github/workflows/publish-interactive-lab-image.yml"
   workflow_dispatch:
 
 concurrency:
-  group: knowledge-hub-interactive-labs
+  group: knowledge-hub-interactive-labs-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -44,14 +39,33 @@ jobs:
       - name: List bundled labs without privileged mode
         run: docker run --rm "$IMAGE_NAME" list
 
-      - name: Preflight Kubernetes cgroup runtime
+      - name: Prove shell-only labs without privileged mode
         run: |
-          NAME="kh-ci-kubernetes-${GITHUB_RUN_ID}"
-          trap 'docker rm -f "$NAME" >/dev/null 2>&1 || true' EXIT
-          timeout -k 30s 10m docker run --rm --name "$NAME" --privileged \
-            --cgroupns=host \
-            -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
-            "$IMAGE_NAME" kubernetes-configmap-rollout self-test
+          docker run --rm "$IMAGE_NAME" ids shell > /tmp/kh-shell-lab-ids
+          test -s /tmp/kh-shell-lab-ids
+          while IFS= read -r LAB; do
+            [ -n "$LAB" ] || continue
+            echo "=== unprivileged self-test: $LAB ==="
+            timeout -k 10s 5m docker run --rm "$IMAGE_NAME" "$LAB" self-test
+          done < /tmp/kh-shell-lab-ids
+
+      - name: Preflight K3s runtimes
+        run: |
+          docker run --rm "$IMAGE_NAME" ids k3s > /tmp/kh-k3s-lab-ids
+          test -s /tmp/kh-k3s-lab-ids
+          while IFS= read -r LAB; do
+            [ -n "$LAB" ] || continue
+            echo "=== k3s self-test: $LAB ==="
+            NAME="kh-ci-${LAB}-${GITHUB_RUN_ID}"
+            trap 'docker rm -f "$NAME" >/dev/null 2>&1 || true' EXIT
+            if ! timeout -k 30s 10m docker run --rm --name "$NAME" --privileged \
+              --cgroupns=host \
+              -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
+              "$IMAGE_NAME" "$LAB" self-test; then
+              docker rm -f "$NAME" >/dev/null 2>&1 || true
+              exit 1
+            fi
+          done < /tmp/kh-k3s-lab-ids
 
       - name: Preflight MinIO S3 runtime
         run: |
@@ -67,13 +81,14 @@ jobs:
           timeout -k 30s 8m docker run --rm --name "$NAME" --privileged \
             "$IMAGE_NAME" rabbitmq-routing-key self-test
 
-      - name: Self-test established bundled labs
+      - name: Self-test established Docker-backed labs
         run: |
-          docker run --rm "$IMAGE_NAME" ids > /tmp/kh-lab-ids
+          docker run --rm "$IMAGE_NAME" ids docker > /tmp/kh-docker-lab-ids
+          test -s /tmp/kh-docker-lab-ids
           while IFS= read -r LAB; do
             [ -n "$LAB" ] || continue
             case "$LAB" in
-              kubernetes-configmap-rollout|s3-versioning-minio|rabbitmq-routing-key) continue ;;
+              s3-versioning-minio|rabbitmq-routing-key) continue ;;
             esac
             echo "=== self-test: $LAB ==="
             NAME="kh-ci-${LAB}-${GITHUB_RUN_ID}"
@@ -81,7 +96,7 @@ jobs:
               docker rm -f "$NAME" >/dev/null 2>&1 || true
               exit 1
             fi
-          done < /tmp/kh-lab-ids
+          done < /tmp/kh-docker-lab-ids
 
       - name: Prove help is embedded without starting sandbox
         run: |
