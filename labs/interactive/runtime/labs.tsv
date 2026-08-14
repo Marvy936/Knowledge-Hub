@@ -7,7 +7,7 @@ nginx-reverse-proxy	docker	Repair a broken Nginx upstream and restore reverse-pr
 redis-cache-ttl	docker	Repair stale Redis cache data and enforce a bounded TTL.
 tls-certificate-hostname	docker	Repair a TLS certificate SAN and restore hostname-verified HTTPS.
 terraform-state-drift	docker	Detect Terraform drift and reconcile the managed resource.
-kubernetes-configmap-rollout	docker	Repair a ConfigMap value and roll a Deployment onto the new configuration.
+kubernetes-configmap-rollout	k3s	Repair a ConfigMap value and roll a Deployment onto the new configuration.
 s3-versioning-minio	docker	Enable S3-compatible versioning in MinIO and create a real second object version.
 rabbitmq-routing-key	docker	Repair a RabbitMQ direct-exchange binding so events reach the intended queue.
 postgres-backup-restore	docker	Recover a missing PostgreSQL row from a real pg_dump logical backup.

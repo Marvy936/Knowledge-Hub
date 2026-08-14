@@ -8,26 +8,30 @@ Interactive Labs are disposable hands-on environments distributed through one pu
 docker run --pull=always --rm ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest list
 ```
 
-The list shows each lab's runtime mode. `shell` labs run entirely inside the outer image and do not start nested Docker. `docker` labs start an isolated Docker-in-Docker daemon and therefore require privileged mode.
+The list shows each lab's runtime profile:
+
+- `shell` runs entirely inside the outer image and does not start nested Docker;
+- `docker` starts an isolated Docker-in-Docker daemon and requires `--privileged`;
+- `k3s` starts the same isolated nested Docker runtime plus a disposable K3s node and additionally needs the host cgroup namespace and writable cgroup-v2 mount.
 
 ## Run a lab
 
-Shell-only labs do not need `--privileged`:
+Shell-only lab:
 
 ```bash
 docker run --pull=always --rm -it ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <shell-lab-id>
 ```
 
-Docker-backed labs use the isolated nested Docker engine:
+Docker-backed lab:
 
 ```bash
 docker run --pull=always --rm -it --privileged ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <docker-lab-id>
 ```
 
-The Kubernetes lab additionally needs access to the Docker host cgroup-v2 hierarchy used by the disposable nested K3s node:
+K3s-backed lab:
 
 ```bash
-docker run --pull=always --rm -it --privileged --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest kubernetes-configmap-rollout
+docker run --pull=always --rm -it --privileged --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <k3s-lab-id>
 ```
 
 Current labs:
@@ -52,11 +56,11 @@ Current labs:
 | `git-three-way-merge` | challenge | Resolve a real Git three-way merge while preserving the required integrated configuration. |
 | `bash-pipeline-failure` | challenge | Repair pipeline failure propagation so a failed build cannot be reported as a successful release. |
 
-The current shell-only labs are `ansible-idempotency`, `git-three-way-merge`, and `bash-pipeline-failure`. The authoritative runtime mode is stored in `runtime/labs.tsv`, not duplicated in this table.
+The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command.
 
 If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
-A lab assignment can be shown without starting either runtime mode:
+A lab assignment can be shown without starting any runtime profile:
 
 ```bash
 docker run --rm ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <lab-id> help
@@ -64,12 +68,12 @@ docker run --rm ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <
 
 Inside a lab, type `help` at any time. The common commands are `status`, `check`, `hint`, `reset`, and `apply` where the scenario has editable runtime configuration. `labs` lists the bundled labs. Lab-specific tools such as `kubectl`, `aws`, `ansible-playbook`, `git`, Terraform and Docker CLI live inside the image, so corresponding host tools are not required.
 
-For `docker` labs, the runtime starts a private Docker-in-Docker daemon and scenario containers never use the host Docker socket. For `shell` labs, the runtime deliberately skips `dockerd`, so those labs do not need the expanded privileges associated with `--privileged`. The nested K3s lab additionally needs the host cgroup namespace and writable cgroup-v2 mount shown above.
+Container-backed profiles start a private Docker-in-Docker daemon and scenario containers never use the host Docker socket. `shell` deliberately skips `dockerd`, removing the need for the expanded privileges associated with `--privileged`.
 
 ## Runtime contract
 
 A lab is accepted only when its built-in `self-test` proves the intended lifecycle. Challenge labs must fail in their initial state, pass after the intended repair, and fail again after `reset`. Guided labs must prove the real external component and validation path they teach, then return to incomplete learner state after reset.
 
-The lab registry is stored in `runtime/labs.tsv` as `lab-id`, `runtime-mode`, and description. CI derives the lab IDs and runtime expectations from that contract. Shell-only labs are explicitly self-tested without privileged mode. Kubernetes, MinIO S3 and RabbitMQ are preflighted separately because they exercise distinct platform runtimes; the remaining Docker-backed lab IDs are then executed automatically. The publish workflow builds the same multi-lab image, publishes `latest` plus an immutable SHA tag to GHCR, logs out, removes local tags, anonymously pulls `latest` again and proves an unprivileged shell lab from the registry copy.
+The lab registry is stored in `runtime/labs.tsv` as `lab-id`, `runtime-profile`, and description. CI derives the lab sets and host requirements from that contract: `shell` is self-tested unprivileged, `k3s` receives the cgroup flags, and ordinary `docker` labs use the isolated nested daemon. MinIO S3 and RabbitMQ retain explicit preflight steps because of their service-specific startup/timeout characteristics. The publish workflow builds the same multi-lab image, publishes `latest` plus an immutable SHA tag to GHCR, logs out, removes local tags, anonymously pulls `latest` again and proves an unprivileged shell lab from the registry copy.
 
-The MinIO and LocalStack labs are S3-compatible local training environments and are not evidence of behavior in a real AWS account. The Kubernetes lab runs a disposable K3s server inside the isolated nested Docker engine. The current GHCR repository name is retained from the first pilot package so its public visibility can be reused for all subsequent labs.
+The MinIO and LocalStack labs are S3-compatible local training environments and are not evidence of behavior in a real AWS account. The Kubernetes labs run disposable K3s servers inside the isolated nested Docker engine. The current GHCR repository name is retained from the first pilot package so its public visibility can be reused for all subsequent labs.

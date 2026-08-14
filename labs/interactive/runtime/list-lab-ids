@@ -2,20 +2,20 @@
 set -euo pipefail
 
 REGISTRY="/opt/knowledge-hub/runtime/labs.tsv"
-MODE="${1:-}"
+PROFILE="${1:-}"
 
-if [[ -z "$MODE" ]]; then
+if [[ -z "$PROFILE" ]]; then
   cut -f1 "$REGISTRY" | sed '/^$/d'
   exit 0
 fi
 
-case "$MODE" in
-  shell|docker) ;;
+case "$PROFILE" in
+  shell|docker|k3s) ;;
   *)
-    echo "Unknown runtime mode: $MODE" >&2
-    echo "Expected: shell or docker" >&2
+    echo "Unknown runtime profile: $PROFILE" >&2
+    echo "Expected: shell, docker or k3s" >&2
     exit 2
     ;;
 esac
 
-awk -F $'\t' -v mode="$MODE" '$2 == mode { print $1 }' "$REGISTRY"
+awk -F $'\t' -v profile="$PROFILE" '$2 == profile { print $1 }' "$REGISTRY"

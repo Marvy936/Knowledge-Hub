@@ -5,10 +5,10 @@ REGISTRY="/opt/knowledge-hub/runtime/labs.tsv"
 
 echo "Knowledge Hub Interactive Labs"
 echo
-printf '  %-30s %-7s %s\n' "LAB" "MODE" "DESCRIPTION"
-while IFS=$'\t' read -r id runtime description; do
+printf '  %-30s %-8s %s\n' "LAB" "PROFILE" "DESCRIPTION"
+while IFS=$'\t' read -r id profile description; do
   [[ -n "$id" ]] || continue
-  printf '  %-30s %-7s %s\n' "$id" "$runtime" "$description"
+  printf '  %-30s %-8s %s\n' "$id" "$profile" "$description"
 done < "$REGISTRY"
 echo
 echo "Run a shell-only lab (no privileged mode):"
@@ -16,6 +16,8 @@ echo "  docker run --pull=always --rm -it ghcr.io/marvy936/knowledge-hub-lab-doc
 echo
 echo "Run a Docker-backed lab:"
 echo "  docker run --pull=always --rm -it --privileged ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <docker-lab-id>"
+echo
+echo "K3s labs additionally need --cgroupns=host and /sys/fs/cgroup mounted read-write; see the README."
 echo
 echo "Show a lab assignment without starting it:"
 echo "  docker run --rm ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug:latest <lab-id> help"

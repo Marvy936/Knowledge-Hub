@@ -33,16 +33,16 @@ if [[ ! -d "$LAB_ROOT" || ! -x "$LAB_BIN/lab-help" ]]; then
   exit 2
 fi
 
-LAB_RUNTIME="$(awk -F $'\t' -v id="$LAB_ID" '$1 == id { print $2; exit }' "$REGISTRY")"
-case "$LAB_RUNTIME" in
-  shell|docker) ;;
+LAB_PROFILE="$(awk -F $'\t' -v id="$LAB_ID" '$1 == id { print $2; exit }' "$REGISTRY")"
+case "$LAB_PROFILE" in
+  shell|docker|k3s) ;;
   *)
-    echo "Invalid or missing runtime mode for lab: $LAB_ID" >&2
+    echo "Invalid or missing runtime profile for lab: $LAB_ID" >&2
     exit 2
     ;;
 esac
 
-export LAB_ID LAB_ROOT LAB_BIN LAB_WORKSPACE LAB_SCENARIO LAB_ENV_FILE LAB_RUNTIME
+export LAB_ID LAB_ROOT LAB_BIN LAB_WORKSPACE LAB_SCENARIO LAB_ENV_FILE LAB_PROFILE
 export PATH="$LAB_BIN:$ROOT/runtime:$PATH"
 
 if [[ "${1:-}" == "help" || "${1:-}" == "task" || "${1:-}" == "lab-help" ]]; then
@@ -61,9 +61,9 @@ if [[ -x "$LAB_BIN/workspace-init" ]]; then
   "$LAB_BIN/workspace-init"
 fi
 
-if [[ "$LAB_RUNTIME" == "docker" ]]; then
+if [[ "$LAB_PROFILE" != "shell" ]]; then
   if [[ ! -f "$LAB_SCENARIO" ]]; then
-    echo "Docker-backed lab is missing scenario.compose.yaml: $LAB_ID" >&2
+    echo "Container-backed lab is missing scenario.compose.yaml: $LAB_ID" >&2
     exit 2
   fi
   [[ -f "$LAB_ENV_FILE" ]] || : > "$LAB_ENV_FILE"
