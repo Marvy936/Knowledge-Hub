@@ -1,0 +1,9 @@
+{
+  "task": "Read the approved release status file.",
+  "allowed_tools": ["read_file"],
+  "allowed_paths": ["/workspace/public/release-status.txt"],
+  "trusted_tool_request": {
+    "name": "read_file",
+    "argument": "/workspace/public/release-status.txt"
+  }
+}

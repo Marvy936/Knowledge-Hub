@@ -1,0 +1,5 @@
+{
+  "task": "Summarize the retrieved incident evidence.",
+  "allowed_tools": [],
+  "allowed_paths": []
+}

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mkdir -p /workspace/public /workspace/secrets
+[[ -f /workspace/policy.py ]] || cp "$LAB_ROOT/policy.py.template" /workspace/policy.py
+cp "$LAB_ROOT/agent.py.template" /workspace/agent.py
+cp "$LAB_ROOT/model_sim.py.template" /workspace/model_sim.py
+cp "$LAB_ROOT/attack-request.json.template" /workspace/attack-request.json
+cp "$LAB_ROOT/trusted-request.json.template" /workspace/trusted-request.json
+cp "$LAB_ROOT/retrieved.json.template" /workspace/retrieved.json
+cp "$LAB_ROOT/release-status.txt.template" /workspace/public/release-status.txt
+cp "$LAB_ROOT/admin-token.txt.template" /workspace/secrets/admin-token
+chmod +x /workspace/agent.py /workspace/model_sim.py
+rm -f /workspace/tool-executed.marker /workspace/last-result.json

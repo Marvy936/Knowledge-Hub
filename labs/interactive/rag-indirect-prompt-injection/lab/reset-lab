@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+rm -f /workspace/policy.py /workspace/tool-executed.marker /workspace/last-result.json
+rm -f /tmp/kh-rag-*.json /tmp/kh-rag-indirect-prompt-injection-hint
+"$LAB_ROOT/lab/workspace-init"
+
+echo "RAG authorization challenge reset. Run: query"
