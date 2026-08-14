@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+printf '\n[1/4] Proving the initial API is not rate-limited...\n'
+if verify; then
+  echo "Initial scenario unexpectedly passed." >&2
+  exit 1
+fi
+
+printf '\n[2/4] Applying the intended Nginx rate limit...\n'
+cat > /workspace/nginx.conf <<'EOF'
+limit_req_zone $binary_remote_addr zone=api_limit:1m rate=2r/s;
+
+server {
+    listen 80;
+    limit_req_status 429;
+
+    location /api/ {
+        limit_req zone=api_limit burst=2 nodelay;
+        proxy_pass http://backend/;
+    }
+}
+EOF
+apply
+
+printf '\n[3/4] Proving burst throttling and recovery...\n'
+verify
+
+printf '\n[4/4] Proving reset restores unlimited traffic...\n'
+reset-lab >/dev/null
+if verify; then
+  echo "Reset scenario unexpectedly passed." >&2
+  exit 1
+fi
+
+echo
+echo "SELF-TEST PASSED"
