@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+state=/workspace/.hint-level
+level=0
+[[ -f "$state" ]] && level="$(cat "$state")"
+level=$((level + 1))
+(( level > 3 )) && level=3
+printf '%s\n' "$level" > "$state"
+case "$level" in
+  1) echo "Hint 1: identify which process should match the owner class, which should match the group class, and which must fall through to other." ;;
+  2) echo "Hint 2: kh-deploy needs owner rw, kh-app needs group r only, and kh-guest must receive no permissions from other." ;;
+  3) echo "Hint 3: set owner/group to kh-deploy:kh-app and choose a mode that maps to rw-r-----; then run check." ;;
+esac
