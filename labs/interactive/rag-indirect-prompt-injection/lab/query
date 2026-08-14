@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /workspace
+rm -f tool-executed.marker
+python3 agent.py --request attack-request.json --sources retrieved.json | tee last-result.json | jq .
