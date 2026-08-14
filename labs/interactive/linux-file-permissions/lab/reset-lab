@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ensure_group() {
-  getent group "$1" >/dev/null 2>&1 || addgroup -S "$1" >/dev/null
+  grep -q "^$1:" /etc/group || addgroup -S "$1" >/dev/null
 }
 ensure_user() {
   if ! id "$1" >/dev/null 2>&1; then
