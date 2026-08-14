@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cp "$LAB_ROOT/nginx.conf.template" /workspace/nginx.conf
+rm -f /workspace/.hint-level /tmp/kh-rate-*
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" up -d --force-recreate gateway >/dev/null
+wait-ready
+echo "Lab reset. Run: status"
