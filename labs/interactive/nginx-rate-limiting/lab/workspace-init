@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euo pipefail
+[[ -f /workspace/nginx.conf ]] || cp "$LAB_ROOT/nginx.conf.template" /workspace/nginx.conf
