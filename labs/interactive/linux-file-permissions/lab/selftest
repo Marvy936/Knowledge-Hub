@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+reset-lab >/dev/null
+if verify >/tmp/kh-linux-permissions-initial.log 2>&1; then
+  echo "Initial over-permissive state unexpectedly passed validation." >&2
+  exit 1
+fi
+
+chown kh-deploy:kh-app /workspace/config/app.conf
+chmod 0640 /workspace/config/app.conf
+verify
+
+reset-lab >/dev/null
+if verify >/tmp/kh-linux-permissions-reset.log 2>&1; then
+  echo "Reset did not restore the broken permission state." >&2
+  exit 1
+fi
+reset-lab >/dev/null
+
+echo "SELF-TEST PASSED"
