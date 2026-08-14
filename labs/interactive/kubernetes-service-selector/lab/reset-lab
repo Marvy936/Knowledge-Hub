@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+cp "$LAB_ROOT/workload.yaml.template" /workspace/workload.yaml
 cp "$LAB_ROOT/service.yaml.template" /workspace/service.yaml
 kubectl apply -f /workspace/workload.yaml >/dev/null
 kubectl apply -f /workspace/service.yaml >/dev/null
