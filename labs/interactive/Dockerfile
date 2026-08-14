@@ -11,6 +11,7 @@ RUN apk upgrade --no-cache \
       aws-cli \
       bash \
       bind-tools \
+      coreutils \
       curl \
       docker-cli-compose \
       git \
@@ -18,9 +19,11 @@ RUN apk upgrade --no-cache \
       jq \
       nano \
       openssl \
+      shadow \
  && aws --version \
  && ansible-playbook --version >/dev/null \
- && git --version >/dev/null
+ && git --version >/dev/null \
+ && su --version >/dev/null
 
 COPY --from=terraform /bin/terraform /usr/local/bin/terraform
 RUN terraform version >/dev/null
@@ -46,6 +49,7 @@ COPY localstack-s3-versioning /opt/knowledge-hub/labs/localstack-s3-versioning
 COPY ansible-idempotency /opt/knowledge-hub/labs/ansible-idempotency
 COPY git-three-way-merge /opt/knowledge-hub/labs/git-three-way-merge
 COPY bash-pipeline-failure /opt/knowledge-hub/labs/bash-pipeline-failure
+COPY linux-file-permissions /opt/knowledge-hub/labs/linux-file-permissions
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -73,7 +77,12 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s hints /opt/knowledge-hub/labs/bash-pipeline-failure/lab/hint \
  && ln -s reset-lab /opt/knowledge-hub/labs/bash-pipeline-failure/lab/reset \
  && ln -s status-lab /opt/knowledge-hub/labs/bash-pipeline-failure/lab/status \
- && ln -s selftest /opt/knowledge-hub/labs/bash-pipeline-failure/lab/self-test
+ && ln -s selftest /opt/knowledge-hub/labs/bash-pipeline-failure/lab/self-test \
+ && ln -s verify /opt/knowledge-hub/labs/linux-file-permissions/lab/check \
+ && ln -s hints /opt/knowledge-hub/labs/linux-file-permissions/lab/hint \
+ && ln -s reset-lab /opt/knowledge-hub/labs/linux-file-permissions/lab/reset \
+ && ln -s status-lab /opt/knowledge-hub/labs/linux-file-permissions/lab/status \
+ && ln -s selftest /opt/knowledge-hub/labs/linux-file-permissions/lab/self-test
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
