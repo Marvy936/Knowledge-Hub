@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+set -u
+cd /workspace || exit 1
+
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+proc_live() {
+  local pid="$1"
+  [[ "$pid" =~ ^[0-9]+$ ]] || return 1
+  [[ -r "/proc/$pid/stat" ]] || return 1
+  [[ "$(awk '{print $3}' "/proc/$pid/stat" 2>/dev/null)" != "Z" ]]
+}
+
+cleanup_pid() {
+  local pid="$1"
+  if proc_live "$pid"; then
+    kill -KILL "$pid" 2>/dev/null || true
+  fi
+}
+
+wait_until_ready() {
+  local wrapper_pid="$1"
+  for _ in $(seq 1 80); do
+    if [[ -s worker.pid && -f worker-ready ]]; then
+      local worker_pid
+      worker_pid="$(cat worker.pid 2>/dev/null || true)"
+      if proc_live "$wrapper_pid" && proc_live "$worker_pid"; then
+        return 0
+      fi
+    fi
+    sleep 0.05
+  done
+  return 1
+}
+
+wait_until_stopped() {
+  local pid="$1"
+  for _ in $(seq 1 80); do
+    proc_live "$pid" || return 0
+    sleep 0.05
+  done
+  return 1
+}
+
+rm -f service.pid worker.pid worker-ready shutdown.marker
+
+# 1. A child failure must be observable by the service caller.
+WORKER_MODE=fail ./service.sh >/tmp/kh-process-signals-fail.out 2>/tmp/kh-process-signals-fail.err
+fail_rc=$?
+failed_worker_pid="$(cat worker.pid 2>/dev/null || true)"
+result "$([[ "$fail_rc" -eq 42 ]] && echo 1 || echo 0)" "Worker exit status 42 propagates through the wrapper"
+result "$(! proc_live "$failed_worker_pid" && echo 1 || echo 0)" "Failed worker is not left running"
+cleanup_pid "$failed_worker_pid"
+
+# 2. TERM to the wrapper must become graceful TERM to the child.
+rm -f service.pid worker.pid worker-ready shutdown.marker
+WORKER_MODE=run ./service.sh >/tmp/kh-process-signals-term.out 2>/tmp/kh-process-signals-term.err &
+wrapper_pid=$!
+started=0
+if wait_until_ready "$wrapper_pid"; then
+  started=1
+fi
+worker_pid="$(cat worker.pid 2>/dev/null || true)"
+recorded_service_pid="$(cat service.pid 2>/dev/null || true)"
+result "$started" "Wrapper and worker start as distinct live processes"
+result "$([[ "$recorded_service_pid" == "$wrapper_pid" ]] && echo 1 || echo 0)" "Wrapper records its own PID"
+
+term_rc=999
+wrapper_stopped=0
+if [[ "$started" == "1" ]]; then
+  kill -TERM "$wrapper_pid" 2>/dev/null || true
+  if wait_until_stopped "$wrapper_pid"; then
+    wrapper_stopped=1
+    wait "$wrapper_pid"
+    term_rc=$?
+  else
+    cleanup_pid "$wrapper_pid"
+    wait "$wrapper_pid" 2>/dev/null || true
+  fi
+fi
+
+result "$wrapper_stopped" "Wrapper exits after SIGTERM"
+result "$([[ "$term_rc" -eq 0 ]] && echo 1 || echo 0)" "Graceful SIGTERM path returns the worker exit status 0"
+result "$(! proc_live "$worker_pid" && echo 1 || echo 0)" "SIGTERM is forwarded and the worker is reaped"
+result "$([[ -f shutdown.marker ]] && [[ "$(cat shutdown.marker 2>/dev/null)" == 'shutdown=graceful' ]] && echo 1 || echo 0)" "Worker graceful-shutdown handler completes before exit"
+
+cleanup_pid "$wrapper_pid"
+cleanup_pid "$worker_pid"
+
+# 3. Demonstrate the semantic difference: SIGKILL cannot run a trap.
+rm -f worker-ready shutdown.marker
+WORKER_MODE=run ./worker-sim >/tmp/kh-process-signals-kill.out 2>/tmp/kh-process-signals-kill.err &
+kill_pid=$!
+kill_ready=0
+for _ in $(seq 1 80); do
+  if [[ -f worker-ready ]] && proc_live "$kill_pid"; then
+    kill_ready=1
+    break
+  fi
+  sleep 0.05
+done
+kill_rc=999
+if [[ "$kill_ready" == "1" ]]; then
+  kill -KILL "$kill_pid" 2>/dev/null || true
+  wait "$kill_pid" 2>/dev/null
+  kill_rc=$?
+fi
+result "$([[ "$kill_ready" == "1" && "$kill_rc" -eq 137 ]] && echo 1 || echo 0)" "SIGKILL terminates the worker with status 128+9"
+result "$([[ ! -e shutdown.marker ]] && echo 1 || echo 0)" "SIGKILL bypasses the graceful-shutdown trap"
+cleanup_pid "$kill_pid"
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "The wrapper must preserve child failures and forward SIGTERM before waiting for the child to exit."
+echo "Use 'hint' if you need progressive help."
+exit 1
