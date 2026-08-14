@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -u
+
+file=/workspace/config/app.conf
+pass_count=0
+fail_count=0
+
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+if [[ -f "$file" ]]; then
+  result 1 "Managed configuration file exists"
+else
+  result 0 "Managed configuration file exists"
+fi
+
+content="$(cat "$file" 2>/dev/null || true)"
+result "$([[ "$content" == 'MODE=production' ]] && echo 1 || echo 0)" "Configuration content remains MODE=production"
+
+deploy_uid="$(id -u kh-deploy 2>/dev/null || true)"
+app_gid="$(id -g kh-app 2>/dev/null || true)"
+file_uid="$(stat -c '%u' "$file" 2>/dev/null || true)"
+file_gid="$(stat -c '%g' "$file" 2>/dev/null || true)"
+file_mode="$(stat -c '%a' "$file" 2>/dev/null || true)"
+
+result "$([[ -n "$deploy_uid" && "$file_uid" == "$deploy_uid" ]] && echo 1 || echo 0)" "kh-deploy owns the file"
+result "$([[ -n "$app_gid" && "$file_gid" == "$app_gid" ]] && echo 1 || echo 0)" "kh-app group owns the group slot"
+result "$([[ "$file_mode" == '640' ]] && echo 1 || echo 0)" "File mode is 0640"
+
+run_as() {
+  local user="$1"
+  shift
+  su -s /bin/sh -c "$*" "$user" >/dev/null 2>&1
+}
+
+run_as kh-deploy "test -r '$file'"; deploy_read=$?
+run_as kh-deploy "test -w '$file'"; deploy_write=$?
+run_as kh-app "test -r '$file'"; app_read=$?
+run_as kh-app "test -w '$file'"; app_write=$?
+run_as kh-guest "test -r '$file'"; guest_read=$?
+run_as kh-guest "test -w '$file'"; guest_write=$?
+
+result "$([[ "$deploy_read" -eq 0 && "$deploy_write" -eq 0 ]] && echo 1 || echo 0)" "kh-deploy can read and write"
+result "$([[ "$app_read" -eq 0 && "$app_write" -ne 0 ]] && echo 1 || echo 0)" "kh-app can read but not write"
+result "$([[ "$guest_read" -ne 0 && "$guest_write" -ne 0 ]] && echo 1 || echo 0)" "kh-guest has no read or write access"
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "Use 'status' to inspect owner/group/mode or 'hint' for progressive help."
+exit 1
