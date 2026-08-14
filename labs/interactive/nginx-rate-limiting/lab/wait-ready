@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+for _ in $(seq 1 60); do
+  backend_ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-rate-backend 2>/dev/null || true)"
+  gateway_ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-rate-gateway 2>/dev/null || true)"
+
+  backend_ok=0
+  gateway_ok=0
+  if [[ -n "$backend_ip" ]] && [[ "$(curl -fsS "http://$backend_ip/" 2>/dev/null || true)" == "api-ok" ]]; then
+    backend_ok=1
+  fi
+  if [[ -n "$gateway_ip" ]] && [[ "$(curl -fsS "http://$gateway_ip/api/" 2>/dev/null || true)" == "api-ok" ]]; then
+    gateway_ok=1
+  fi
+
+  if [[ "$backend_ok" == "1" && "$gateway_ok" == "1" ]]; then
+    exit 0
+  fi
+
+  if [[ "$(docker inspect -f '{{.State.Running}}' kh-lab-rate-gateway 2>/dev/null || true)" == "false" ]]; then
+    echo "Nginx gateway exited before becoming ready." >&2
+    docker logs kh-lab-rate-gateway >&2 || true
+    exit 1
+  fi
+  sleep 1
+done
+
+echo "Nginx rate-limiting scenario did not become ready." >&2
+docker logs kh-lab-rate-gateway >&2 || true
+exit 1
