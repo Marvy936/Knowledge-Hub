@@ -51,6 +51,7 @@ COPY git-three-way-merge /opt/knowledge-hub/labs/git-three-way-merge
 COPY bash-pipeline-failure /opt/knowledge-hub/labs/bash-pipeline-failure
 COPY linux-file-permissions /opt/knowledge-hub/labs/linux-file-permissions
 COPY nginx-rate-limiting /opt/knowledge-hub/labs/nginx-rate-limiting
+COPY linux-process-signals /opt/knowledge-hub/labs/linux-process-signals
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -88,7 +89,12 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s hints /opt/knowledge-hub/labs/nginx-rate-limiting/lab/hint \
  && ln -s reset-lab /opt/knowledge-hub/labs/nginx-rate-limiting/lab/reset \
  && ln -s status-lab /opt/knowledge-hub/labs/nginx-rate-limiting/lab/status \
- && ln -s selftest /opt/knowledge-hub/labs/nginx-rate-limiting/lab/self-test
+ && ln -s selftest /opt/knowledge-hub/labs/nginx-rate-limiting/lab/self-test \
+ && ln -s verify /opt/knowledge-hub/labs/linux-process-signals/lab/check \
+ && ln -s hints /opt/knowledge-hub/labs/linux-process-signals/lab/hint \
+ && ln -s reset-lab /opt/knowledge-hub/labs/linux-process-signals/lab/reset \
+ && ln -s status-lab /opt/knowledge-hub/labs/linux-process-signals/lab/status \
+ && ln -s selftest /opt/knowledge-hub/labs/linux-process-signals/lab/self-test
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
