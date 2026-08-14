@@ -9,10 +9,14 @@ services:
       POSTGRES_USER: labuser
       POSTGRES_HOST_AUTH_METHOD: trust
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U labuser -d labdb"]
+      # The official image briefly runs a temporary Unix-socket-only server
+      # while initializing the data directory. Probe TCP so healthy means the
+      # final PostgreSQL server is accepting normal client connections.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U labuser -d labdb"]
       interval: 2s
       timeout: 3s
       retries: 30
+      start_period: 2s
     volumes:
       - pgdata:/var/lib/postgresql/data
 
