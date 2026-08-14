@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -u
+cd /workspace || exit 1
+
+printf '%s\n' "$$" > service.pid
+./worker-sim &
+worker_pid=$!
+printf '%s\n' "$worker_pid" > worker.pid
+
+forward_term() {
+  kill -TERM "$worker_pid" 2>/dev/null || true
+  wait "$worker_pid"
+  exit $?
+}
+
+trap forward_term TERM INT
+wait "$worker_pid"
+exit $?

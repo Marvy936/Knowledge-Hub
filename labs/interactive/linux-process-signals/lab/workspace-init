@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+[[ -f /workspace/service.sh ]] || cp "$LAB_ROOT/service.sh.template" /workspace/service.sh
+cp "$LAB_ROOT/worker-sim.template" /workspace/worker-sim
+chmod +x /workspace/service.sh /workspace/worker-sim

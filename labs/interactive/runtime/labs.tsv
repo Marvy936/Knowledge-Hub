@@ -17,3 +17,4 @@ git-three-way-merge	shell	Resolve a real Git three-way merge while preserving th
 bash-pipeline-failure	shell	Repair Bash pipeline failure propagation so a failed build cannot publish a release marker.
 linux-file-permissions	shell	Repair Unix owner/group/mode semantics for deploy, app and guest service accounts.
 nginx-rate-limiting	docker	Enforce per-client Nginx request throttling with burst handling and HTTP 429 responses.
+linux-process-signals	shell	Repair signal forwarding and exit-status propagation in a Bash service wrapper.

@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_file=/tmp/kh-linux-process-signals-hint
+level=0
+[[ -f "$state_file" ]] && level="$(cat "$state_file" 2>/dev/null || echo 0)"
+level=$((level + 1))
+(( level > 4 )) && level=4
+printf '%s\n' "$level" > "$state_file"
+
+case "$level" in
+  1)
+    cat <<'EOF'
+Hint 1/4:
+Look at the final `wait` path in service.sh. `wait "$worker_pid" || true` deliberately throws away a non-zero child status, so WORKER_MODE=fail cannot propagate 42 to the caller.
+EOF
+    ;;
+  2)
+    cat <<'EOF'
+Hint 2/4:
+A signal delivered to the Bash wrapper is not automatically a graceful shutdown request for its child. Install a `trap` for TERM (and usually INT) after you know the child PID.
+EOF
+    ;;
+  3)
+    cat <<'EOF'
+Hint 3/4:
+The signal handler should forward TERM to the child and then `wait` for that exact PID. Waiting is important: it lets the child run its cleanup trap and lets the wrapper return the child's final exit status instead of leaving an orphan.
+EOF
+    ;;
+  *)
+    cat <<'EOF'
+Hint 4/4:
+A minimal repair has this shape:
+
+  forward_term() {
+    kill -TERM "$worker_pid" 2>/dev/null || true
+    wait "$worker_pid"
+    exit $?
+  }
+
+  trap forward_term TERM INT
+  wait "$worker_pid"
+  exit $?
+
+Do not replace TERM with KILL. SIGKILL cannot be trapped, so the worker would never write its graceful-shutdown marker.
+EOF
+    ;;
+esac
