@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -u
+cd /workspace || exit 1
+
+printf '%s\n' "$$" > service.pid
+./worker-sim &
+worker_pid=$!
+printf '%s\n' "$worker_pid" > worker.pid
+
+# Intentionally broken: the wrapper neither forwards termination signals nor
+# preserves a non-zero worker exit status.
+wait "$worker_pid" || true
+exit 0
