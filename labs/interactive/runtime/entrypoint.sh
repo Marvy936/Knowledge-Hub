@@ -11,7 +11,8 @@ if [[ "${1:-}" == "list" || "${1:-}" == "labs" ]]; then
   exec "$ROOT/runtime/list-labs"
 fi
 if [[ "${1:-}" == "ids" ]]; then
-  exec "$ROOT/runtime/list-lab-ids"
+  shift
+  exec "$ROOT/runtime/list-lab-ids" "$@"
 fi
 
 LAB_ID="${KH_LAB:-$DEFAULT_LAB}"

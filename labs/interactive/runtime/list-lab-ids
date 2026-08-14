@@ -1,3 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
-cut -f1 /opt/knowledge-hub/runtime/labs.tsv | sed '/^$/d'
+
+REGISTRY="/opt/knowledge-hub/runtime/labs.tsv"
+MODE="${1:-}"
+
+if [[ -z "$MODE" ]]; then
+  cut -f1 "$REGISTRY" | sed '/^$/d'
+  exit 0
+fi
+
+case "$MODE" in
+  shell|docker) ;;
+  *)
+    echo "Unknown runtime mode: $MODE" >&2
+    echo "Expected: shell or docker" >&2
+    exit 2
+    ;;
+esac
+
+awk -F $'\t' -v mode="$MODE" '$2 == mode { print $1 }' "$REGISTRY"
