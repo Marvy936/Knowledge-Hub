@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+cat <<'EOF'
+Knowledge Hub Interactive Lab
+
+Lab: Nginx Rate Limiting
+
+Scenario:
+  Nginx proxies /api/ correctly, but there is no effective request limit.
+  A burst client can overload the backend.
+
+Goal:
+  - limit /api/ to 2 requests/second per client IP
+  - allow burst=2 without delaying accepted requests
+  - return HTTP 429 when the burst budget is exceeded
+  - preserve successful proxy traffic to the backend
+
+Workspace:
+  /workspace/nginx.conf
+
+Commands:
+  status   Show containers and current Nginx config
+  check    Send real HTTP traffic and validate throttling behavior
+  hint     Show progressively stronger hints
+  apply    Recreate the gateway with your edited config
+  reset    Restore the intentionally unlimited starter config
+
+Suggested loop:
+  status
+  check
+  nano /workspace/nginx.conf
+  apply
+  check
+EOF
