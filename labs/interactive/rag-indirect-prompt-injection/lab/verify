@@ -47,8 +47,8 @@ python3 agent.py --request trusted-request.json --sources retrieved.json > /tmp/
 result "$(jq -e '.tool_allowed == true and .tool_executed == true and (.answer | contains("release=green"))' /tmp/kh-rag-trusted.json >/dev/null && echo 1 || echo 0)" "Exact trusted request can execute the approved read_file action"
 result "$(jq -e '.argument == "/workspace/public/release-status.txt" and .name == "read_file"' tool-executed.marker >/dev/null 2>&1 && echo 1 || echo 0)" "Trusted execution records the exact approved tool and argument"
 
-# 4. A proposal that differs from trusted intent must be refused, and allowlists
-# remain independently enforced. These execute the learner policy directly.
+# 4. A proposal that differs from trusted intent must be refused, and both
+# allowlists remain independently enforced. These execute learner policy only.
 python3 - <<'PY'
 import policy
 request = {
@@ -82,6 +82,23 @@ raise SystemExit(0 if not allowed else 1)
 PY
 allowlist_rc=$?
 result "$([[ "$allowlist_rc" -eq 0 ]] && echo 1 || echo 0)" "Trusted intent still requires the tool allowlist"
+
+python3 - <<'PY'
+import policy
+request = {
+    "allowed_tools": ["read_file"],
+    "allowed_paths": [],
+    "trusted_tool_request": {
+        "name": "read_file",
+        "argument": "/workspace/public/release-status.txt",
+    },
+}
+proposal = dict(request["trusted_tool_request"])
+allowed, _ = policy.authorize_tool(request, proposal)
+raise SystemExit(0 if not allowed else 1)
+PY
+path_rc=$?
+result "$([[ "$path_rc" -eq 0 ]] && echo 1 || echo 0)" "Trusted intent still requires the argument allowlist"
 
 rm -f tool-executed.marker
 
