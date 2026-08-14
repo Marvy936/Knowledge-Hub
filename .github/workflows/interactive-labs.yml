@@ -5,6 +5,7 @@ on:
     paths:
       - "labs/interactive/**"
       - ".github/workflows/interactive-labs.yml"
+      - ".github/workflows/publish-interactive-lab-image.yml"
   workflow_dispatch:
 
 concurrency:
