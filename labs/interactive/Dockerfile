@@ -19,9 +19,11 @@ RUN apk upgrade --no-cache \
       jq \
       nano \
       openssl \
+      python3 \
  && aws --version \
  && ansible-playbook --version >/dev/null \
  && git --version >/dev/null \
+ && python3 --version >/dev/null \
  && stat --version >/dev/null \
  && su -s /bin/sh root -c 'true'
 
@@ -52,6 +54,7 @@ COPY bash-pipeline-failure /opt/knowledge-hub/labs/bash-pipeline-failure
 COPY linux-file-permissions /opt/knowledge-hub/labs/linux-file-permissions
 COPY nginx-rate-limiting /opt/knowledge-hub/labs/nginx-rate-limiting
 COPY linux-process-signals /opt/knowledge-hub/labs/linux-process-signals
+COPY rag-indirect-prompt-injection /opt/knowledge-hub/labs/rag-indirect-prompt-injection
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -94,7 +97,12 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s hints /opt/knowledge-hub/labs/linux-process-signals/lab/hint \
  && ln -s reset-lab /opt/knowledge-hub/labs/linux-process-signals/lab/reset \
  && ln -s status-lab /opt/knowledge-hub/labs/linux-process-signals/lab/status \
- && ln -s selftest /opt/knowledge-hub/labs/linux-process-signals/lab/self-test
+ && ln -s selftest /opt/knowledge-hub/labs/linux-process-signals/lab/self-test \
+ && ln -s verify /opt/knowledge-hub/labs/rag-indirect-prompt-injection/lab/check \
+ && ln -s hints /opt/knowledge-hub/labs/rag-indirect-prompt-injection/lab/hint \
+ && ln -s reset-lab /opt/knowledge-hub/labs/rag-indirect-prompt-injection/lab/reset \
+ && ln -s status-lab /opt/knowledge-hub/labs/rag-indirect-prompt-injection/lab/status \
+ && ln -s selftest /opt/knowledge-hub/labs/rag-indirect-prompt-injection/lab/self-test
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
