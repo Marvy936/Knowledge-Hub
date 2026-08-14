@@ -24,9 +24,6 @@ if [[ "$ready" != "1" ]]; then
   exit 1
 fi
 
-echo "Pre-pulling the pinned AWS CLI image once..."
-timeout -k 10s 3m docker pull amazon/aws-cli:2.17.33 >/dev/null
-
 aws s3api list-buckets >/dev/null
 aws s3api create-bucket --bucket kh-lab-bucket >/dev/null 2>&1 || true
 aws s3api put-object --bucket kh-lab-bucket --key app/config.json --body /workspace/config-v1.json >/dev/null
