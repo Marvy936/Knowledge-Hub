@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+[[ -f /workspace/workload.yaml ]] || cp "$LAB_ROOT/workload.yaml.template" /workspace/workload.yaml
+[[ -f /workspace/service.yaml ]] || cp "$LAB_ROOT/service.yaml.template" /workspace/service.yaml

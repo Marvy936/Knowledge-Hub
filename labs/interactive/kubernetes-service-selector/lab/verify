@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -u
+
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+available="$(kubectl get deployment kh-web -n kh-selector -o jsonpath='{.status.availableReplicas}' 2>/dev/null || true)"
+result "$([[ "$available" == "2" ]] && echo 1 || echo 0)" "Deployment has two available Pods"
+
+selector="$(kubectl get service kh-web -n kh-selector -o jsonpath='{.spec.selector.app}' 2>/dev/null || true)"
+result "$([[ "$selector" == "kh-web" ]] && echo 1 || echo 0)" "Service selector matches app=kh-web"
+
+port="$(kubectl get service kh-web -n kh-selector -o jsonpath='{.spec.ports[0].port}' 2>/dev/null || true)"
+target_port="$(kubectl get service kh-web -n kh-selector -o jsonpath='{.spec.ports[0].targetPort}' 2>/dev/null || true)"
+result "$([[ "$port:$target_port" == "80:8080" ]] && echo 1 || echo 0)" "Service maps port 80 to targetPort 8080"
+
+endpoint_count=0
+if [[ "$selector" == "kh-web" ]]; then
+  for _ in $(seq 1 30); do
+    endpoint_count="$(kubectl get endpoints kh-web -n kh-selector -o json 2>/dev/null | jq '[.subsets[]?.addresses[]?] | length' 2>/dev/null || echo 0)"
+    [[ "$endpoint_count" == "2" ]] && break
+    sleep 1
+  done
+fi
+result "$([[ "$endpoint_count" == "2" ]] && echo 1 || echo 0)" "Service has two ready backend endpoints"
+
+response=""
+pod="$(kubectl get pods -n kh-selector -l app=kh-web -o jsonpath='{.items[0].metadata.name}' 2>/dev/null || true)"
+if [[ -n "$pod" && "$endpoint_count" == "2" ]]; then
+  for _ in $(seq 1 10); do
+    response="$(kubectl exec -n kh-selector "$pod" -- wget -qO- http://kh-web 2>/dev/null || true)"
+    [[ "$response" == "selector-ok" ]] && break
+    sleep 1
+  done
+fi
+result "$([[ "$response" == "selector-ok" ]] && echo 1 || echo 0)" "HTTP traffic through the Service reaches the application"
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "Compare Pod labels with the Service selector, then inspect Endpoints."
+echo "Use 'hint' if you need progressive help."
+exit 1

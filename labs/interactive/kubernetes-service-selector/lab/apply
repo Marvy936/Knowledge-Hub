@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+kubectl apply -f /workspace/workload.yaml >/dev/null
+kubectl apply -f /workspace/service.yaml >/dev/null
+kubectl rollout status deployment/kh-web -n kh-selector --timeout=120s
