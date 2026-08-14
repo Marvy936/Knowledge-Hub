@@ -1,0 +1,8 @@
+def authorize_tool(request, proposal):
+    """Return (allowed, reason) for a proposed local lab tool call."""
+    if proposal is None:
+        return False, "no_tool_proposed"
+
+    # Exercise starter: this decision is intentionally too permissive.
+    # Replace it with request-bound authorization.
+    return True, "proposal_allowed"
