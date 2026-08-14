@@ -23,7 +23,7 @@ Start with:
 cat service.sh
 ./service.sh &
 cat service.pid worker.pid
-ps -o pid,ppid,stat,comm,args -p "$(cat service.pid),$(cat worker.pid)"
+ps -o pid,ppid,stat,comm,args | grep -E "PID|$(cat service.pid)|$(cat worker.pid)"
 kill -TERM "$(cat service.pid)"
 ```
 
