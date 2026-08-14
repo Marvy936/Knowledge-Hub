@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -u
+
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+gateway_ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-rate-gateway 2>/dev/null || true)"
+backend_ip="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kh-lab-rate-backend 2>/dev/null || true)"
+
+backend_body=""
+if [[ -n "$backend_ip" ]]; then
+  backend_body="$(curl -fsS "http://$backend_ip/" 2>/dev/null || true)"
+fi
+result "$([[ "$backend_body" == "api-ok" ]] && echo 1 || echo 0)" "Backend service is healthy"
+
+sleep 1
+normal_code="000"
+normal_body=""
+if [[ -n "$gateway_ip" ]]; then
+  rm -f /tmp/kh-rate-normal-body
+  normal_code="$(curl -sS -o /tmp/kh-rate-normal-body -w '%{http_code}' "http://$gateway_ip/api/" 2>/dev/null || true)"
+  normal_body="$(cat /tmp/kh-rate-normal-body 2>/dev/null || true)"
+fi
+result "$([[ "$normal_code" == "200" && "$normal_body" == "api-ok" ]] && echo 1 || echo 0)" "Normal API request is proxied successfully"
+
+# Let any readiness/normal request debt drain before the burst probe.
+sleep 2
+rm -f /tmp/kh-rate-codes
+: > /tmp/kh-rate-codes
+if [[ -n "$gateway_ip" ]]; then
+  for _ in $(seq 1 12); do
+    code="$(curl -sS -o /dev/null -w '%{http_code}' "http://$gateway_ip/api/" 2>/dev/null || true)"
+    [[ -n "$code" ]] || code="000"
+    printf '%s\n' "$code" >> /tmp/kh-rate-codes
+  done
+fi
+
+accepted="$(grep -c '^200$' /tmp/kh-rate-codes 2>/dev/null || true)"
+limited="$(grep -c '^429$' /tmp/kh-rate-codes 2>/dev/null || true)"
+other="$(grep -Evc '^(200|429)$' /tmp/kh-rate-codes 2>/dev/null || true)"
+[[ "$accepted" =~ ^[0-9]+$ ]] || accepted=0
+[[ "$limited" =~ ^[0-9]+$ ]] || limited=0
+[[ "$other" =~ ^[0-9]+$ ]] || other=12
+
+result "$(( accepted >= 1 ))" "Burst still allows requests within the budget"
+result "$(( limited >= 1 ))" "Excess burst requests are throttled with HTTP 429"
+result "$(( other == 0 ))" "Burst produces only expected 200/429 responses"
+
+# After the configured rate window drains, ordinary traffic must recover.
+sleep 2
+recovery_code="000"
+recovery_body=""
+if [[ -n "$gateway_ip" ]]; then
+  rm -f /tmp/kh-rate-recovery-body
+  recovery_code="$(curl -sS -o /tmp/kh-rate-recovery-body -w '%{http_code}' "http://$gateway_ip/api/" 2>/dev/null || true)"
+  recovery_body="$(cat /tmp/kh-rate-recovery-body 2>/dev/null || true)"
+fi
+result "$([[ "$recovery_code" == "200" && "$recovery_body" == "api-ok" ]] && echo 1 || echo 0)" "Normal traffic recovers after the burst"
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "Use 'hint' if you need help."
+exit 1

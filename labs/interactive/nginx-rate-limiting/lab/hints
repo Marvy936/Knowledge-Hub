@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+level_file=/workspace/.hint-level
+level=0
+[[ -f "$level_file" ]] && level="$(cat "$level_file" 2>/dev/null || echo 0)"
+[[ "$level" =~ ^[0-9]+$ ]] || level=0
+level=$((level + 1))
+printf '%s\n' "$level" > "$level_file"
+
+case "$level" in
+  1)
+    echo "Hint 1: Nginx request limiting needs both a shared limit_req_zone and a limit_req attached to the /api/ location."
+    ;;
+  2)
+    echo "Hint 2: Define the zone in http context (this conf.d file is included there): rate=2r/s. Then use burst=2 nodelay inside /api/."
+    ;;
+  3)
+    echo "Hint 3: Set limit_req_status 429 so rejected requests are distinguishable from backend/server errors."
+    ;;
+  *)
+    cat <<'EOF'
+Reference shape:
+
+limit_req_zone $binary_remote_addr zone=api_limit:1m rate=2r/s;
+
+server {
+    listen 80;
+    limit_req_status 429;
+
+    location /api/ {
+        limit_req zone=api_limit burst=2 nodelay;
+        proxy_pass http://backend/;
+    }
+}
+
+After editing /workspace/nginx.conf, run: apply && check
+EOF
+    ;;
+esac

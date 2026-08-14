@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "=== Containers ==="
+docker compose -f "$LAB_SCENARIO" --env-file "$LAB_ENV_FILE" ps
+
+echo
+echo "=== /workspace/nginx.conf ==="
+cat /workspace/nginx.conf
