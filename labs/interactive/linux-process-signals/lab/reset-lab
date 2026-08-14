@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /workspace
+
+kill_known_pid() {
+  local pid_file="$1"
+  local pid=""
+  [[ -f "$pid_file" ]] || return 0
+  pid="$(cat "$pid_file" 2>/dev/null || true)"
+  [[ "$pid" =~ ^[0-9]+$ ]] || return 0
+  [[ -r "/proc/$pid/cmdline" ]] || return 0
+  if tr '\0' ' ' < "/proc/$pid/cmdline" | grep -Eq '(service\.sh|worker-sim)'; then
+    kill -KILL "$pid" 2>/dev/null || true
+  fi
+}
+
+kill_known_pid service.pid
+kill_known_pid worker.pid
+sleep 0.05
+
+rm -f service.pid worker.pid worker-ready shutdown.marker
+rm -f /tmp/kh-process-signals-*.out /tmp/kh-process-signals-*.err
+rm -f /tmp/kh-linux-process-signals-hint
+cp "$LAB_ROOT/service.sh.template" service.sh
+cp "$LAB_ROOT/worker-sim.template" worker-sim
+chmod +x service.sh worker-sim
+
+echo "Process-signal challenge reset. Run: status"
