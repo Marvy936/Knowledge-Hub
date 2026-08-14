@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
-docker exec -i kh-lab-postgres-restore psql -U labuser -d labdb -v ON_ERROR_STOP=1 >/dev/null < "$LAB_ROOT/solution.sql"
+docker exec -i kh-lab-postgres-restore \
+  psql -h 127.0.0.1 -U labuser -d labdb -v ON_ERROR_STOP=1 >/dev/null < "$LAB_ROOT/solution.sql"
