@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+file=/workspace/config/app.conf
+
+echo "File metadata"
+ls -l "$file"
+stat -c 'owner=%U group=%G mode=%a (%A)' "$file"
+
+echo
+echo "Service accounts"
+id kh-deploy
+id kh-app
+id kh-guest
+
+echo
+echo "Current content"
+cat "$file"
