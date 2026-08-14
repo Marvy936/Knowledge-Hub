@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /workspace
+
+mode="${WORKER_MODE:-run}"
+rm -f worker-ready shutdown.marker
+printf 'ready\n' > worker-ready
+
+case "$mode" in
+  run)
+    ;;
+  fail)
+    sleep 0.15
+    exit 42
+    ;;
+  *)
+    echo "Unknown WORKER_MODE: $mode" >&2
+    exit 64
+    ;;
+esac
+
+graceful_shutdown() {
+  printf 'shutdown=graceful\n' > shutdown.marker
+  rm -f worker-ready
+  exit 0
+}
+
+trap graceful_shutdown TERM INT
+
+while :; do
+  sleep 0.2
+done
