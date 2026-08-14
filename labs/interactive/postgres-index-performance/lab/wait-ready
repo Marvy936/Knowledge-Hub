@@ -12,10 +12,40 @@ if [[ "$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{
   exit 1
 fi
 
-exists="$(docker exec kh-lab-postgres-index psql -U labuser -d labdb -Atqc "SELECT to_regclass('public.orders') IS NOT NULL;")"
+# Use the same TCP path as the healthcheck. During first initialization the
+# official postgres image runs a temporary Unix-socket-only server and then
+# shuts it down. TCP avoids racing that temporary server.
+psql_tcp() {
+  docker exec -e PGPASSWORD=labpass "$@" kh-lab-postgres-index \
+    psql -h 127.0.0.1 -U labuser -d labdb
+}
+
+# Require two successful SQL round-trips so the readiness contract is about a
+# usable final database, not merely a container health transition.
+for _ in $(seq 1 30); do
+  if docker exec -e PGPASSWORD=labpass kh-lab-postgres-index \
+      psql -h 127.0.0.1 -U labuser -d labdb -Atqc 'SELECT 1;' >/dev/null 2>&1; then
+    sleep 1
+    if docker exec -e PGPASSWORD=labpass kh-lab-postgres-index \
+        psql -h 127.0.0.1 -U labuser -d labdb -Atqc 'SELECT 1;' >/dev/null 2>&1; then
+      break
+    fi
+  fi
+  sleep 1
+done
+
+if ! docker exec -e PGPASSWORD=labpass kh-lab-postgres-index \
+    psql -h 127.0.0.1 -U labuser -d labdb -Atqc 'SELECT 1;' >/dev/null 2>&1; then
+  echo "PostgreSQL TCP SQL endpoint did not become stable." >&2
+  exit 1
+fi
+
+exists="$(docker exec -e PGPASSWORD=labpass kh-lab-postgres-index \
+  psql -h 127.0.0.1 -U labuser -d labdb -Atqc "SELECT to_regclass('public.orders') IS NOT NULL;")"
 if [[ "$exists" != "t" ]]; then
   echo "Seeding 100000 orders and collecting planner statistics..."
-  docker exec -i kh-lab-postgres-index psql -U labuser -d labdb >/dev/null <<'SQL'
+  docker exec -e PGPASSWORD=labpass -i kh-lab-postgres-index \
+    psql -h 127.0.0.1 -U labuser -d labdb >/dev/null <<'SQL'
 CREATE TABLE orders (
   id bigserial PRIMARY KEY,
   customer_id integer NOT NULL,
