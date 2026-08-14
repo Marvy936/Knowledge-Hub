@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+reset >/dev/null
+if check >/tmp/kh-k3s-selector-initial.log 2>&1; then
+  echo "Broken Service selector unexpectedly passed." >&2
+  exit 1
+fi
+sed -i 's/app: kh-api/app: kh-web/' /workspace/service.yaml
+apply >/dev/null
+check
+reset >/dev/null
+if check >/tmp/kh-k3s-selector-reset.log 2>&1; then
+  echo "Reset did not restore the broken Service selector." >&2
+  exit 1
+fi
+reset >/dev/null
+echo "SELF-TEST PASSED"

@@ -48,6 +48,7 @@ Current labs:
 | `tls-certificate-hostname` | challenge | Repair a certificate SAN and restore hostname-verified HTTPS. |
 | `terraform-state-drift` | challenge | Detect out-of-band Terraform drift and reconcile the managed resource. |
 | `kubernetes-configmap-rollout` | challenge | Repair a ConfigMap and roll a Deployment so the running Pod consumes the corrected value. |
+| `kubernetes-service-selector` | challenge | Repair a Service selector so healthy Pods become endpoints and receive real Service traffic. |
 | `s3-versioning-minio` | challenge | Use AWS CLI S3 API commands against MinIO, enable versioning and create a second object version. |
 | `rabbitmq-routing-key` | challenge | Repair a direct-exchange binding so a published event reaches the correct RabbitMQ queue. |
 | `postgres-backup-restore` | challenge | Inspect a real data-only `pg_dump` and recover a missing PostgreSQL row without duplicating intact data. |

@@ -39,6 +39,7 @@ COPY redis-cache-ttl /opt/knowledge-hub/labs/redis-cache-ttl
 COPY tls-certificate-hostname /opt/knowledge-hub/labs/tls-certificate-hostname
 COPY terraform-state-drift /opt/knowledge-hub/labs/terraform-state-drift
 COPY kubernetes-configmap-rollout /opt/knowledge-hub/labs/kubernetes-configmap-rollout
+COPY kubernetes-service-selector /opt/knowledge-hub/labs/kubernetes-service-selector
 COPY s3-versioning-minio /opt/knowledge-hub/labs/s3-versioning-minio
 COPY rabbitmq-routing-key /opt/knowledge-hub/labs/rabbitmq-routing-key
 COPY postgres-backup-restore /opt/knowledge-hub/labs/postgres-backup-restore
@@ -73,7 +74,12 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s hints /opt/knowledge-hub/labs/bash-pipeline-failure/lab/hint \
  && ln -s reset-lab /opt/knowledge-hub/labs/bash-pipeline-failure/lab/reset \
  && ln -s status-lab /opt/knowledge-hub/labs/bash-pipeline-failure/lab/status \
- && ln -s selftest /opt/knowledge-hub/labs/bash-pipeline-failure/lab/self-test
+ && ln -s selftest /opt/knowledge-hub/labs/bash-pipeline-failure/lab/self-test \
+ && ln -s verify /opt/knowledge-hub/labs/kubernetes-service-selector/lab/check \
+ && ln -s hints /opt/knowledge-hub/labs/kubernetes-service-selector/lab/hint \
+ && ln -s reset-lab /opt/knowledge-hub/labs/kubernetes-service-selector/lab/reset \
+ && ln -s status-lab /opt/knowledge-hub/labs/kubernetes-service-selector/lab/status \
+ && ln -s selftest /opt/knowledge-hub/labs/kubernetes-service-selector/lab/self-test
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

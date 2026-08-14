@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cp "$LAB_ROOT/service.yaml.template" /workspace/service.yaml
+kubectl apply -f /workspace/workload.yaml >/dev/null
+kubectl apply -f /workspace/service.yaml >/dev/null
+kubectl rollout status deployment/kh-web -n kh-selector --timeout=120s >/dev/null
+rm -f /workspace/.hint-level
+echo "Kubernetes Service selector lab reset. Run: status"

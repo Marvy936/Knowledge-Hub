@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+state=/workspace/.hint-level
+level=0
+[[ -f "$state" ]] && level="$(cat "$state")"
+level=$((level + 1))
+(( level > 3 )) && level=3
+printf '%s\n' "$level" > "$state"
+case "$level" in
+  1) echo "Hint 1: a Service does not route to a Deployment object; it selects individual Pods by labels." ;;
+  2) echo "Hint 2: compare 'kubectl get pods --show-labels' with '.spec.selector' on Service kh-web, then inspect the Endpoints object." ;;
+  3) echo "Hint 3: the intended Pods have app=kh-web. Make the Service selector match that label and apply the change." ;;
+esac
