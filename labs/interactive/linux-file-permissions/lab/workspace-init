@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ ! -f /workspace/config/app.conf ]]; then
+  reset-lab >/dev/null
+fi
