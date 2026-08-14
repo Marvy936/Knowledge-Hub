@@ -4,11 +4,11 @@ pass=0
 fail=0
 result(){ if [[ "$1" == 1 ]]; then echo "[PASS] $2"; pass=$((pass+1)); else echo "[FAIL] $2"; fail=$((fail+1)); fi; }
 
-if docker exec kh-lab-postgres-restore pg_isready -U labuser -d labdb >/dev/null 2>&1; then result 1 "PostgreSQL is healthy"; else result 0 "PostgreSQL is healthy"; fi
+if docker exec kh-lab-postgres-restore pg_isready -h 127.0.0.1 -U labuser -d labdb >/dev/null 2>&1; then result 1 "PostgreSQL is healthy"; else result 0 "PostgreSQL is healthy"; fi
 if [[ -s /workspace/customers-backup.sql ]]; then result 1 "Logical pg_dump backup exists"; else result 0 "Logical pg_dump backup exists"; fi
-row_count="$(docker exec kh-lab-postgres-restore psql -U labuser -d labdb -Atqc 'SELECT count(*) FROM customers;' 2>/dev/null || true)"
+row_count="$(docker exec kh-lab-postgres-restore psql -h 127.0.0.1 -U labuser -d labdb -Atqc 'SELECT count(*) FROM customers;' 2>/dev/null || true)"
 [[ "$row_count" == "3" ]] && result 1 "customers contains all three expected rows" || result 0 "customers contains all three expected rows"
-bob="$(docker exec kh-lab-postgres-restore psql -U labuser -d labdb -Atqc "SELECT name FROM customers WHERE id = 2;" 2>/dev/null || true)"
+bob="$(docker exec kh-lab-postgres-restore psql -h 127.0.0.1 -U labuser -d labdb -Atqc "SELECT name FROM customers WHERE id = 2;" 2>/dev/null || true)"
 [[ "$bob" == "Bob" ]] && result 1 "Bob was recovered" || result 0 "Bob was recovered"
 
 echo
