@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="/opt/knowledge-hub"
+REGISTRY="$ROOT/runtime/labs.tsv"
+LABS_ROOT="$ROOT/labs"
+
+awk -F '\t' '
+  BEGIN { ok = 1 }
+  NF != 3 {
+    printf "invalid registry field count on line %d: expected 3, got %d\n", NR, NF
+    ok = 0
+    next
+  }
+  $1 !~ /^[a-z0-9][a-z0-9-]*$/ {
+    printf "invalid lab id on line %d: %s\n", NR, $1
+    ok = 0
+  }
+  $2 != "shell" && $2 != "docker" && $2 != "k3s" {
+    printf "invalid runtime profile on line %d: %s\n", NR, $2
+    ok = 0
+  }
+  $3 == "" {
+    printf "empty lab description on line %d\n", NR
+    ok = 0
+  }
+  seen[$1]++ {
+    printf "duplicate lab id on line %d: %s\n", NR, $1
+    ok = 0
+  }
+  END { exit(ok ? 0 : 1) }
+' "$REGISTRY"
+
+while IFS=$'\t' read -r id profile description; do
+  [[ -n "$id" ]] || continue
+  lab_root="$LABS_ROOT/$id"
+  [[ -d "$lab_root" ]] || { echo "registered lab directory missing: $id" >&2; exit 1; }
+  [[ -x "$lab_root/lab/lab-help" ]] || { echo "lab-help missing or not executable: $id" >&2; exit 1; }
+  [[ -x "$lab_root/lab/self-test" ]] || { echo "self-test missing or not executable: $id" >&2; exit 1; }
+done < "$REGISTRY"
+
+for lab_root in "$LABS_ROOT"/*; do
+  [[ -d "$lab_root" ]] || continue
+  id="${lab_root##*/}"
+  if ! awk -F '\t' -v id="$id" '$1 == id { found = 1 } END { exit(found ? 0 : 1) }' "$REGISTRY"; then
+    echo "bundled lab is not registered: $id" >&2
+    exit 1
+  fi
+done
+
+echo "Interactive lab registry validated."
