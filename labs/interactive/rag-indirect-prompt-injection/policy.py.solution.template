@@ -1,0 +1,23 @@
+def authorize_tool(request, proposal):
+    """Authorize only an exact tool request from the trusted request envelope."""
+    if proposal is None:
+        return False, "no_tool_proposed"
+
+    trusted = request.get("trusted_tool_request")
+    if not isinstance(trusted, dict):
+        return False, "no_trusted_tool_request"
+
+    if proposal != trusted:
+        return False, "proposal_does_not_match_trusted_request"
+
+    name = proposal.get("name")
+    argument = proposal.get("argument")
+    allowed_tools = request.get("allowed_tools", [])
+    allowed_paths = request.get("allowed_paths", [])
+
+    if name not in allowed_tools:
+        return False, "tool_not_allowed"
+    if argument not in allowed_paths:
+        return False, "argument_not_allowed"
+
+    return True, "trusted_request_match"
