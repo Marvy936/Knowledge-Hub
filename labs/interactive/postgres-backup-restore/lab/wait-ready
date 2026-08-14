@@ -12,7 +12,31 @@ if [[ "$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{
   exit 1
 fi
 
-docker exec -i kh-lab-postgres-restore psql -U labuser -d labdb -v ON_ERROR_STOP=1 >/dev/null < "$LAB_ROOT/seed.sql"
-docker exec kh-lab-postgres-restore pg_dump -U labuser -d labdb --data-only --column-inserts --table=customers > /workspace/customers-backup.sql
-docker exec -i kh-lab-postgres-restore psql -U labuser -d labdb -v ON_ERROR_STOP=1 >/dev/null < "$LAB_ROOT/corrupt.sql"
+# Match the TCP healthcheck and require two consecutive SQL round-trips. The
+# official image uses a temporary Unix-socket-only server during first-time
+# initialization and then shuts it down before launching the final server.
+for _ in $(seq 1 30); do
+  if docker exec kh-lab-postgres-restore \
+      psql -h 127.0.0.1 -U labuser -d labdb -Atqc 'SELECT 1;' >/dev/null 2>&1; then
+    sleep 1
+    if docker exec kh-lab-postgres-restore \
+        psql -h 127.0.0.1 -U labuser -d labdb -Atqc 'SELECT 1;' >/dev/null 2>&1; then
+      break
+    fi
+  fi
+  sleep 1
+done
+
+if ! docker exec kh-lab-postgres-restore \
+    psql -h 127.0.0.1 -U labuser -d labdb -Atqc 'SELECT 1;' >/dev/null 2>&1; then
+  echo "PostgreSQL TCP SQL endpoint did not become stable." >&2
+  exit 1
+fi
+
+docker exec -i kh-lab-postgres-restore \
+  psql -h 127.0.0.1 -U labuser -d labdb -v ON_ERROR_STOP=1 >/dev/null < "$LAB_ROOT/seed.sql"
+docker exec kh-lab-postgres-restore \
+  pg_dump -h 127.0.0.1 -U labuser -d labdb --data-only --column-inserts --table=customers > /workspace/customers-backup.sql
+docker exec -i kh-lab-postgres-restore \
+  psql -h 127.0.0.1 -U labuser -d labdb -v ON_ERROR_STOP=1 >/dev/null < "$LAB_ROOT/corrupt.sql"
 printf 'PostgreSQL recovery scenario is ready. Backup: /workspace/customers-backup.sql\n'
