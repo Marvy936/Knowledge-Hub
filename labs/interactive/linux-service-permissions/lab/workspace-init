@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! grep -q '^khapp:' /etc/group; then
+  addgroup -S khapp >/dev/null
+fi
+if ! id khapp >/dev/null 2>&1; then
+  adduser -S -D -H -s /sbin/nologin -G khapp khapp >/dev/null
+fi
+
+mkdir -p /workspace/secure
+"$LAB_BIN/reset-lab" >/dev/null

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mkdir -p /workspace/secure
+printf 'API_MODE=production\n' > /workspace/secure/app.env
+chown root:root /workspace/secure /workspace/secure/app.env
+chmod 0700 /workspace/secure
+chmod 0600 /workspace/secure/app.env
+rm -f /workspace/.hint-level
+
+echo "Linux permissions lab reset. Run: status"

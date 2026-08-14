@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+reset-lab >/dev/null
+! verify >/dev/null 2>&1
+chgrp khapp /workspace/secure /workspace/secure/app.env
+chmod 0750 /workspace/secure
+chmod 0640 /workspace/secure/app.env
+verify
+reset-lab >/dev/null
+! verify >/dev/null 2>&1
+reset-lab >/dev/null
+echo "SELF-TEST PASSED"

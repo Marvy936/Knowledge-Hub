@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -u
+cd /workspace || exit 1
+
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+if id khapp >/dev/null 2>&1; then
+  result 1 "Service identity khapp exists"
+else
+  result 0 "Service identity khapp exists"
+fi
+
+dir_owner="$(stat -c '%U' secure 2>/dev/null || true)"
+dir_group="$(stat -c '%G' secure 2>/dev/null || true)"
+dir_mode="$(stat -c '%a' secure 2>/dev/null || true)"
+file_owner="$(stat -c '%U' secure/app.env 2>/dev/null || true)"
+file_group="$(stat -c '%G' secure/app.env 2>/dev/null || true)"
+file_mode="$(stat -c '%a' secure/app.env 2>/dev/null || true)"
+
+result "$([[ "$dir_owner:$dir_group:$dir_mode" == 'root:khapp:750' ]] && echo 1 || echo 0)" "secure directory is root:khapp mode 0750"
+result "$([[ "$file_owner:$file_group:$file_mode" == 'root:khapp:640' ]] && echo 1 || echo 0)" "app.env is root:khapp mode 0640"
+
+service_content="$(su-exec khapp:khapp cat /workspace/secure/app.env 2>/dev/null || true)"
+result "$([[ "$service_content" == 'API_MODE=production' ]] && echo 1 || echo 0)" "khapp can read the exact application configuration"
+
+if su-exec khapp:khapp sh -c "printf 'tamper\n' >> /workspace/secure/app.env" >/dev/null 2>&1; then
+  result 0 "khapp cannot modify the root-owned configuration"
+else
+  result 1 "khapp cannot modify the root-owned configuration"
+fi
+
+if [[ "$(cat secure/app.env 2>/dev/null || true)" == 'API_MODE=production' ]]; then
+  result 1 "Configuration content remains unchanged"
+else
+  result 0 "Configuration content remains unchanged"
+fi
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "Grant only the traversal/read access required by the khapp group."
+echo "Use 'hint' if you need progressive help."
+exit 1

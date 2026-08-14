@@ -15,3 +15,4 @@ localstack-s3-versioning	docker	Practice versioned object storage with LocalStac
 ansible-idempotency	shell	Repair an Ansible file task so repeated runs converge with changed=0.
 git-three-way-merge	shell	Resolve a real Git three-way merge while preserving the required integrated configuration.
 bash-pipeline-failure	shell	Repair Bash pipeline failure propagation so a failed build cannot publish a release marker.
+linux-service-permissions	shell	Repair Linux owner, group and mode bits so a service gets read-only least-privilege access.

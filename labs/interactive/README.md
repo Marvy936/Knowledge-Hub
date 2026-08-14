@@ -55,6 +55,7 @@ Current labs:
 | `ansible-idempotency` | challenge | Repair a non-idempotent Ansible file task so an identical second run converges with `changed=0`. |
 | `git-three-way-merge` | challenge | Resolve a real Git three-way merge while preserving the required integrated configuration. |
 | `bash-pipeline-failure` | challenge | Repair pipeline failure propagation so a failed build cannot be reported as a successful release. |
+| `linux-service-permissions` | challenge | Repair Linux owner, group and mode bits so a service gets read-only least-privilege access. |
 
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command.
 
