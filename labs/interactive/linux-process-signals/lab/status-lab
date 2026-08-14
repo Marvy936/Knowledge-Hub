@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -u
+cd /workspace || exit 1
+
+for entry in service.pid worker.pid; do
+  if [[ -s "$entry" ]]; then
+    pid="$(cat "$entry" 2>/dev/null || true)"
+    printf '%-12s %s\n' "$entry" "$pid"
+    if [[ "$pid" =~ ^[0-9]+$ ]] && [[ -r "/proc/$pid/stat" ]]; then
+      ps -o pid,ppid,stat,comm,args -p "$pid" || true
+    fi
+  else
+    printf '%-12s %s\n' "$entry" "not present"
+  fi
+done
+
+echo
+verify || true
