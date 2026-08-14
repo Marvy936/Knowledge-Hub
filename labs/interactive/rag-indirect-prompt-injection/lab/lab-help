@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "Knowledge Hub Interactive Lab"
+cat "$LAB_ROOT/README.md"
