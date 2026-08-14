@@ -42,6 +42,7 @@ Current labs:
 | `localstack-s3-versioning` | challenge | Use the bundled AWS CLI against LocalStack, enable S3 bucket versioning and create a second object version. |
 | `ansible-idempotency` | challenge | Repair a non-idempotent Ansible file task so an identical second run converges with `changed=0`. |
 | `git-three-way-merge` | challenge | Resolve a real Git three-way merge while preserving the required integrated configuration. |
+| `bash-pipeline-failure` | challenge | Repair pipeline failure propagation so a failed build cannot be reported as a successful release. |
 
 If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 

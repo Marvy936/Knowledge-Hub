@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+state=/workspace/.hint-level
+level=0
+[[ -f "$state" ]] && level="$(cat "$state")"
+level=$((level + 1))
+(( level > 3 )) && level=3
+printf '%s\n' "$level" > "$state"
+case "$level" in
+  1) echo "Hint 1: compare the exit code of the build command with the exit code of the complete pipeline." ;;
+  2) echo "Hint 2: without pipefail, a Bash pipeline normally reports the status of its last command; tee succeeds even if the producer failed." ;;
+  3) echo "Hint 3: make the pipeline itself fail when any member fails, or explicitly inspect the producer status immediately after the pipeline." ;;
+esac

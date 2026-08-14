@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+cd /workspace
+rm -f release.marker
+./build-sim | tee build.log
+printf 'release=ready\n' > release.marker
+echo "Deployment marked ready."

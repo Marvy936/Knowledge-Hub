@@ -14,3 +14,4 @@ postgres-backup-restore	Recover a missing PostgreSQL row from a real pg_dump log
 localstack-s3-versioning	Practice versioned object storage with LocalStack.
 ansible-idempotency	Repair an Ansible file task so repeated runs converge with changed=0.
 git-three-way-merge	Resolve a real Git three-way merge while preserving the required integrated configuration.
+bash-pipeline-failure	Repair Bash pipeline failure propagation so a failed build cannot publish a release marker.

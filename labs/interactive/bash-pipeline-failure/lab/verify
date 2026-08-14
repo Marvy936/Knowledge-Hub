@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -u
+cd /workspace || exit 1
+
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+rm -f release.marker build.log
+set +e
+BUILD_OUTCOME=fail ./deploy.sh >/tmp/kh-bash-fail.out 2>/tmp/kh-bash-fail.err
+fail_rc=$?
+set -e
+result "$([[ "$fail_rc" -ne 0 ]] && echo 1 || echo 0)" "Failed upstream build propagates a non-zero script status"
+result "$([[ ! -e release.marker ]] && echo 1 || echo 0)" "Failed build does not create release.marker"
+result "$([[ -f build.log ]] && grep -Fq 'BUILD FAILED' build.log && echo 1 || echo 0)" "Failed build output is preserved in build.log"
+
+rm -f release.marker build.log
+set +e
+BUILD_OUTCOME=success ./deploy.sh >/tmp/kh-bash-success.out 2>/tmp/kh-bash-success.err
+success_rc=$?
+set -e
+result "$([[ "$success_rc" -eq 0 ]] && echo 1 || echo 0)" "Successful build returns zero"
+result "$([[ -f release.marker ]] && [[ "$(cat release.marker 2>/dev/null)" == 'release=ready' ]] && echo 1 || echo 0)" "Successful build creates the release marker"
+result "$([[ -f build.log ]] && grep -Fq 'BUILD OK' build.log && echo 1 || echo 0)" "Successful build output is preserved in build.log"
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "The failed build must stop the deployment even though tee itself succeeds."
+echo "Use 'hint' if you need progressive help."
+exit 1

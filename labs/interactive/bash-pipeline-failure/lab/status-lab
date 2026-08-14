@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /workspace
+echo "deploy.sh"
+sed -n '1,120p' deploy.sh
+echo
+echo "Current artifacts"
+ls -l build.log release.marker 2>/dev/null || true
+echo
+echo "Syntax check"
+bash -n deploy.sh && echo "bash -n: OK"

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+reset-lab >/dev/null
+! verify >/dev/null 2>&1
+cp "$LAB_ROOT/deploy.sh.solution.template" /workspace/deploy.sh
+chmod +x /workspace/deploy.sh
+verify
+reset-lab >/dev/null
+! verify >/dev/null 2>&1
+reset-lab >/dev/null
+echo "SELF-TEST PASSED"

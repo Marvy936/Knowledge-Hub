@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+case "${BUILD_OUTCOME:-fail}" in
+  success)
+    echo "BUILD OK: artifact compiled"
+    exit 0
+    ;;
+  fail)
+    echo "BUILD FAILED: compiler exited with code 42"
+    exit 42
+    ;;
+  *)
+    echo "Unknown BUILD_OUTCOME: ${BUILD_OUTCOME:-}" >&2
+    exit 64
+    ;;
+esac
