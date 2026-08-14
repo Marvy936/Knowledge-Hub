@@ -5,7 +5,7 @@ ROOT="/opt/knowledge-hub"
 REGISTRY="$ROOT/runtime/labs.tsv"
 LABS_ROOT="$ROOT/labs"
 
-awk -F '\t' '
+awk -F $'\t' '
   BEGIN { ok = 1 }
   NF != 3 {
     printf "invalid registry field count on line %d: expected 3, got %d\n", NR, NF
@@ -42,7 +42,7 @@ done < "$REGISTRY"
 for lab_root in "$LABS_ROOT"/*; do
   [[ -d "$lab_root" ]] || continue
   id="${lab_root##*/}"
-  if ! awk -F '\t' -v id="$id" '$1 == id { found = 1 } END { exit(found ? 0 : 1) }' "$REGISTRY"; then
+  if ! awk -F $'\t' -v id="$id" '$1 == id { found = 1 } END { exit(found ? 0 : 1) }' "$REGISTRY"; then
     echo "bundled lab is not registered: $id" >&2
     exit 1
   fi
