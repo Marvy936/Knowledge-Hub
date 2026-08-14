@@ -15,3 +15,4 @@ localstack-s3-versioning	Practice versioned object storage with LocalStack.
 ansible-idempotency	Repair an Ansible file task so repeated runs converge with changed=0.
 git-three-way-merge	Resolve a real Git three-way merge while preserving the required integrated configuration.
 bash-pipeline-failure	Repair Bash pipeline failure propagation so a failed build cannot publish a release marker.
+linux-file-permissions	Repair Unix owner/group/mode semantics for deploy, app and guest service accounts.
