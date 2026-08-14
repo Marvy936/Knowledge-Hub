@@ -37,7 +37,7 @@ result "$([[ "$file_mode" == '640' ]] && echo 1 || echo 0)" "File mode is 0640"
 run_as() {
   local user="$1"
   shift
-  su -s /bin/sh -c "$*" "$user" >/dev/null 2>&1
+  su -s /bin/sh "$user" -c "$*" >/dev/null 2>&1
 }
 
 run_as kh-deploy "test -r '$file'"; deploy_read=$?
