@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
+mkdir -p /workspace/target
 cp "$LAB_ROOT/site.yml.template" /workspace/site.yml
 cp "$LAB_ROOT/inventory.ini.template" /workspace/inventory.ini
-echo "Lab reset. Run: status"
+printf 'MODE=production\n' > /workspace/target/app.conf
+chmod 0644 /workspace/target/app.conf
+rm -f /workspace/.hint-level
+echo "Ansible idempotency lab reset. Run: status"

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "Knowledge Hub Interactive Lab"
+cat "$LAB_ROOT/README.md"

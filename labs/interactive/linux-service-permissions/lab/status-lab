@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd /workspace
+id khapp
+echo
+stat -c '%U:%G %a %n' secure secure/app.env
+echo
+echo "Service read test"
+if su-exec khapp:khapp cat secure/app.env; then
+  echo "khapp can read app.env"
+else
+  echo "khapp cannot read app.env"
+fi

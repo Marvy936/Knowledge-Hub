@@ -1,22 +1,82 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -u
 
-cd /workspace
-first="$(ANSIBLE_NOCOLOR=1 ansible-playbook -i inventory.ini site.yml)"
-second="$(ANSIBLE_NOCOLOR=1 ansible-playbook -i inventory.ini site.yml)"
+cd /workspace || exit 1
+pass_count=0
+fail_count=0
 
-content_ok=false
-idempotent_ok=false
-[[ "$(cat target/app.conf 2>/dev/null)" == "MODE=production" ]] && content_ok=true
-grep -Eq 'changed=0([[:space:]]|$)' <<<"$second" && idempotent_ok=true
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
 
-$content_ok && echo "[PASS] Managed configuration remains MODE=production" || echo "[FAIL] Managed configuration remains MODE=production"
-$idempotent_ok && echo "[PASS] Second identical Ansible run reports changed=0" || echo "[FAIL] Second identical Ansible run reports changed=0"
+restore_fixture() {
+  mkdir -p /workspace/target
+  printf 'MODE=production\n' > /workspace/target/app.conf
+  chmod 0644 /workspace/target/app.conf
+}
 
-if $content_ok && $idempotent_ok; then
+syntax_log=/tmp/kh-ansible-syntax.log
+first_log=/tmp/kh-ansible-first.log
+second_log=/tmp/kh-ansible-second.log
+
+if ANSIBLE_NOCOLOR=1 ansible-playbook -i inventory.ini site.yml --syntax-check >"$syntax_log" 2>&1; then
+  result 1 "Playbook syntax is valid"
+else
+  result 0 "Playbook syntax is valid"
+fi
+
+# Inject controlled content drift. A valid solution must actually reconcile
+# desired content; merely replacing state: touch with state: file is not enough.
+printf 'MODE=validation-probe\n' > target/app.conf
+chmod 0644 target/app.conf
+trap restore_fixture EXIT
+
+set +e
+ANSIBLE_NOCOLOR=1 ansible-playbook -i inventory.ini site.yml >"$first_log" 2>&1
+first_rc=$?
+set -e
+result "$([[ "$first_rc" -eq 0 ]] && echo 1 || echo 0)" "First convergence run succeeds"
+result "$([[ "$(cat target/app.conf 2>/dev/null || true)" == 'MODE=production' ]] && echo 1 || echo 0)" "Playbook restores MODE=production from content drift"
+result "$([[ "$(stat -c '%a' target/app.conf 2>/dev/null || true)" == '644' ]] && echo 1 || echo 0)" "Managed configuration converges to mode 0644"
+if [[ "$first_rc" -eq 0 ]] && grep -Eq '^localhost[[:space:]]*:.*changed=[1-9][0-9]*([[:space:]]|$)' "$first_log"; then
+  result 1 "First convergence run reports a real change"
+else
+  result 0 "First convergence run reports a real change"
+fi
+
+set +e
+ANSIBLE_NOCOLOR=1 ansible-playbook -i inventory.ini site.yml >"$second_log" 2>&1
+second_rc=$?
+set -e
+result "$([[ "$second_rc" -eq 0 ]] && echo 1 || echo 0)" "Second identical run succeeds"
+if [[ "$second_rc" -eq 0 ]] && grep -Eq '^localhost[[:space:]]*:.*changed=0([[:space:]]|$)' "$second_log"; then
+  result 1 "Second identical run reports changed=0"
+else
+  result 0 "Second identical run reports changed=0"
+fi
+
+echo
+if (( fail_count == 0 )); then
   echo "LAB COMPLETED"
   exit 0
 fi
 
 echo "LAB NOT COMPLETE"
+if [[ "$first_rc" -ne 0 ]]; then
+  echo
+  echo "First run output:"
+  cat "$first_log"
+fi
+if [[ "$second_rc" -ne 0 ]] || ! grep -Eq '^localhost[[:space:]]*:.*changed=0([[:space:]]|$)' "$second_log"; then
+  echo
+  echo "Second run output:"
+  cat "$second_log"
+fi
+echo "Use 'hint' for progressive help."
 exit 1

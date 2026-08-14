@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Pods"
+kubectl get pods -n kh-selector --show-labels
+echo
+echo "Service"
+kubectl get service kh-web -n kh-selector -o wide
+echo
+echo "Endpoints"
+kubectl get endpoints kh-web -n kh-selector -o wide
+echo
+echo "Live selector"
+kubectl get service kh-web -n kh-selector -o jsonpath='{.spec.selector}'
+echo

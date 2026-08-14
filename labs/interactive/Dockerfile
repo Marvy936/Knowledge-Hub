@@ -18,6 +18,7 @@ RUN apk upgrade --no-cache \
       jq \
       nano \
       openssl \
+      su-exec \
  && aws --version \
  && ansible-playbook --version >/dev/null \
  && git --version >/dev/null
@@ -39,6 +40,7 @@ COPY redis-cache-ttl /opt/knowledge-hub/labs/redis-cache-ttl
 COPY tls-certificate-hostname /opt/knowledge-hub/labs/tls-certificate-hostname
 COPY terraform-state-drift /opt/knowledge-hub/labs/terraform-state-drift
 COPY kubernetes-configmap-rollout /opt/knowledge-hub/labs/kubernetes-configmap-rollout
+COPY kubernetes-service-selector /opt/knowledge-hub/labs/kubernetes-service-selector
 COPY s3-versioning-minio /opt/knowledge-hub/labs/s3-versioning-minio
 COPY rabbitmq-routing-key /opt/knowledge-hub/labs/rabbitmq-routing-key
 COPY postgres-backup-restore /opt/knowledge-hub/labs/postgres-backup-restore
@@ -46,6 +48,7 @@ COPY localstack-s3-versioning /opt/knowledge-hub/labs/localstack-s3-versioning
 COPY ansible-idempotency /opt/knowledge-hub/labs/ansible-idempotency
 COPY git-three-way-merge /opt/knowledge-hub/labs/git-three-way-merge
 COPY bash-pipeline-failure /opt/knowledge-hub/labs/bash-pipeline-failure
+COPY linux-service-permissions /opt/knowledge-hub/labs/linux-service-permissions
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -73,7 +76,17 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s hints /opt/knowledge-hub/labs/bash-pipeline-failure/lab/hint \
  && ln -s reset-lab /opt/knowledge-hub/labs/bash-pipeline-failure/lab/reset \
  && ln -s status-lab /opt/knowledge-hub/labs/bash-pipeline-failure/lab/status \
- && ln -s selftest /opt/knowledge-hub/labs/bash-pipeline-failure/lab/self-test
+ && ln -s selftest /opt/knowledge-hub/labs/bash-pipeline-failure/lab/self-test \
+ && ln -s verify /opt/knowledge-hub/labs/linux-service-permissions/lab/check \
+ && ln -s hints /opt/knowledge-hub/labs/linux-service-permissions/lab/hint \
+ && ln -s reset-lab /opt/knowledge-hub/labs/linux-service-permissions/lab/reset \
+ && ln -s status-lab /opt/knowledge-hub/labs/linux-service-permissions/lab/status \
+ && ln -s selftest /opt/knowledge-hub/labs/linux-service-permissions/lab/self-test \
+ && ln -s verify /opt/knowledge-hub/labs/kubernetes-service-selector/lab/check \
+ && ln -s hints /opt/knowledge-hub/labs/kubernetes-service-selector/lab/hint \
+ && ln -s reset-lab /opt/knowledge-hub/labs/kubernetes-service-selector/lab/reset \
+ && ln -s status-lab /opt/knowledge-hub/labs/kubernetes-service-selector/lab/status \
+ && ln -s selftest /opt/knowledge-hub/labs/kubernetes-service-selector/lab/self-test
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

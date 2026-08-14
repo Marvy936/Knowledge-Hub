@@ -8,10 +8,12 @@ redis-cache-ttl	docker	Repair stale Redis cache data and enforce a bounded TTL.
 tls-certificate-hostname	docker	Repair a TLS certificate SAN and restore hostname-verified HTTPS.
 terraform-state-drift	shell	Detect Terraform drift and reconcile the managed resource.
 kubernetes-configmap-rollout	k3s	Repair a ConfigMap value and roll a Deployment onto the new configuration.
+kubernetes-service-selector	k3s	Repair a Service selector so healthy Pods become endpoints and receive real Service traffic.
 s3-versioning-minio	docker	Enable S3-compatible versioning in MinIO and create a real second object version.
 rabbitmq-routing-key	docker	Repair a RabbitMQ direct-exchange binding so events reach the intended queue.
 postgres-backup-restore	docker	Recover a missing PostgreSQL row from a real pg_dump logical backup.
 localstack-s3-versioning	docker	Practice versioned object storage with LocalStack.
-ansible-idempotency	shell	Repair an Ansible file task so repeated runs converge with changed=0.
+ansible-idempotency	shell	Repair an Ansible playbook so desired file content converges and repeated runs report changed=0.
 git-three-way-merge	shell	Resolve a real Git three-way merge while preserving the required integrated configuration.
 bash-pipeline-failure	shell	Repair Bash pipeline failure propagation so a failed build cannot publish a release marker.
+linux-service-permissions	shell	Repair Linux owner, group and mode bits so a service gets read-only least-privilege access.
