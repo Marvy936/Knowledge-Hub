@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cmd="$(basename "$0")"
+case "$cmd" in
+  lab-help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$LAB_ROOT/README.md"
+    ;;
+  check)
+    exec python3 "$LAB_ROOT/canary_validator.py"
+    ;;
+  decide)
+    exec python3 /workspace/canary_decider.py \
+      --contract /workspace/rollout-contract.json \
+      --known-good /workspace/known-good-release.json \
+      --exposure /workspace/exposure-window.json \
+      --state /workspace/routing-state.json
+    ;;
+  status)
+    set +e
+    python3 "$LAB_ROOT/canary_validator.py"
+    rc=$?
+    set -e
+    if [[ $rc -eq 0 ]]; then
+      echo "Canary rollout contract: repaired"
+    else
+      echo "Canary rollout contract: still broken"
+    fi
+    ;;
+  hint)
+    level_file=/workspace/.hint-level
+    level=0
+    [[ -f "$level_file" ]] && level="$(cat "$level_file")"
+    case "$level" in
+      0)
+        echo "Hint 1: configured traffic is intent, not evidence. Build the denominator from unique eligible merchant_id assignments in the complete event-time window."
+        next=1
+        ;;
+      1)
+        echo "Hint 2: aggregate endpoint health mixes control and candidate. Compute error, fallback and latency on candidate requests; compare action/review rate against control separately."
+        next=2
+        ;;
+      *)
+        echo "Hint 3: validate subject/release/router/assignment identity first. Invalid or incomplete telemetry must fail closed. Rollback must reconcile candidate exposure to zero on the exact known-good release and be idempotent."
+        next=2
+        ;;
+    esac
+    printf '%s' "$next" > "$level_file"
+    ;;
+  reset)
+    rm -f /workspace/.hint-level
+    KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+    echo "Canary rollback lab reset to the aggregate-metrics ramp starter."
+    ;;
+  self-test)
+    KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+    if python3 "$LAB_ROOT/canary_validator.py" >/tmp/kh-mlops-canary-starter.out 2>&1; then
+      echo "SELF-TEST FAILED: starter decider unexpectedly passed"
+      cat /tmp/kh-mlops-canary-starter.out
+      exit 1
+    fi
+    echo "Starter correctly demonstrates aggregate-metrics canary authority failure."
+
+    cp "$LAB_ROOT/canary_decider.py.solution.template" /workspace/canary_decider.py
+    cp "$LAB_ROOT/routing-state.json.template" /workspace/routing-state.json
+    chmod +x /workspace/canary_decider.py
+    python3 "$LAB_ROOT/canary_validator.py"
+    echo "Reference repair restores exact canary exposure, guardrail and rollback semantics."
+
+    KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+    if python3 "$LAB_ROOT/canary_validator.py" >/tmp/kh-mlops-canary-reset.out 2>&1; then
+      echo "SELF-TEST FAILED: reset did not restore the broken learner state"
+      cat /tmp/kh-mlops-canary-reset.out
+      exit 1
+    fi
+    echo "Reset restores the unsafe aggregate-metrics ramp starter."
+    echo "SELF-TEST PASSED"
+    ;;
+  *)
+    echo "Unknown lab driver command: $cmd" >&2
+    exit 2
+    ;;
+esac

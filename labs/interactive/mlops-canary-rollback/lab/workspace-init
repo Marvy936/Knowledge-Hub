@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+force="${KH_FORCE_RESET:-0}"
+
+copy_if_needed() {
+  local src="$1"
+  local dst="$2"
+  if [[ ! -f "$dst" || "$force" == "1" ]]; then
+    cp "$src" "$dst"
+  fi
+}
+
+copy_if_needed "$LAB_ROOT/rollout-contract.json.template" /workspace/rollout-contract.json
+copy_if_needed "$LAB_ROOT/known-good-release.json.template" /workspace/known-good-release.json
+copy_if_needed "$LAB_ROOT/exposure-window.json.template" /workspace/exposure-window.json
+copy_if_needed "$LAB_ROOT/routing-state.json.template" /workspace/routing-state.json
+copy_if_needed "$LAB_ROOT/canary_decider.py.template" /workspace/canary_decider.py
+
+chmod +x /workspace/canary_decider.py

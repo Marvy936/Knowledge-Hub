@@ -1,0 +1,228 @@
+#!/usr/bin/env python3
+import argparse
+import hashlib
+import json
+import math
+from datetime import datetime
+from pathlib import Path
+
+def fail(message):
+    raise ValueError(message)
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+def sha256(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def parse_ts(value):
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+def p95(values):
+    if not values:
+        fail("candidate latency population is empty")
+    ordered = sorted(float(v) for v in values)
+    return ordered[max(0, math.ceil(0.95 * len(ordered)) - 1)]
+
+def rounded(value):
+    return round(float(value), 6)
+
+def write_if_changed(path, value):
+    wanted = json.dumps(value, indent=2, sort_keys=True) + "\n"
+    p = Path(path)
+    if not p.exists() or p.read_text() != wanted:
+        p.write_text(wanted)
+
+def evaluate(contract_path, known_good_path, exposure_path, state_path):
+    contract = load(contract_path)
+    known_good = load(known_good_path)
+    exposure = load(exposure_path)
+    state = load(state_path)
+
+    if contract.get("contract_id") != "payment-risk-canary-v4":
+        fail("unsupported canary contract")
+    if known_good.get("release_id") != contract["control_release"]:
+        fail("known-good release identity does not match control release")
+    if sha256(known_good_path) != contract["known_good_release_sha256"]:
+        fail("known-good release bytes do not match pinned digest")
+    if contract["rollback"]["target_release"] != contract["control_release"]:
+        fail("rollback target is not the exact control release")
+
+    identity_fields = [
+        "rollout_subject_id", "candidate_release", "control_release",
+        "assignment_unit", "eligibility_policy", "routing_generation",
+    ]
+    for field in identity_fields:
+        if exposure.get(field) != contract.get(field):
+            fail(f"exposure {field} does not match rollout contract")
+
+    if state.get("rollout_subject_id") != contract["rollout_subject_id"]:
+        fail("routing state belongs to another rollout subject")
+    if state.get("candidate_release") != contract["candidate_release"]:
+        fail("routing state candidate release mismatch")
+    if state.get("active_release") != contract["control_release"]:
+        fail("routing state does not preserve known-good primary release")
+
+    start = parse_ts(contract["window"]["start"])
+    end = parse_ts(contract["window"]["end"])
+    if exposure.get("window_start") != contract["window"]["start"] or exposure.get("window_end") != contract["window"]["end"]:
+        fail("exposure window identity mismatch")
+    if parse_ts(exposure["completeness_watermark"]) < end:
+        fail("exposure window is not complete")
+    duration_minutes = (end - start).total_seconds() / 60.0
+    if duration_minutes < contract["current_step"]["minimum_duration_minutes"]:
+        fail("configured canary window is shorter than minimum duration")
+
+    eligible = []
+    required = {
+        "request_id", "event_time", "merchant_id", "eligible", "eligibility_policy",
+        "assigned_release", "actual_release", "routing_generation", "error",
+        "feature_fallback", "latency_ms", "action",
+    }
+    for row in exposure.get("records", []):
+        if not required.issubset(row):
+            fail("exposure record is missing required telemetry")
+        event_time = parse_ts(row["event_time"])
+        if row.get("eligible") is not True or not (start <= event_time < end):
+            continue
+        if row["eligibility_policy"] != contract["eligibility_policy"]:
+            fail("eligible record used another eligibility policy")
+        if row["routing_generation"] != contract["routing_generation"]:
+            fail("eligible record used another routing generation")
+        if row["assigned_release"] not in {contract["candidate_release"], contract["control_release"]}:
+            fail("eligible record assigned an unknown release")
+        if row["actual_release"] != row["assigned_release"]:
+            fail("actual release does not match stable assignment")
+        eligible.append(row)
+
+    if not eligible:
+        fail("eligible exposure population is empty")
+
+    assignments = {}
+    for row in eligible:
+        unit = row[contract["assignment_unit"]]
+        release = row["assigned_release"]
+        previous = assignments.setdefault(unit, release)
+        if previous != release:
+            fail("assignment unit crossed candidate/control variants")
+
+    candidate = [r for r in eligible if r["actual_release"] == contract["candidate_release"]]
+    control = [r for r in eligible if r["actual_release"] == contract["control_release"]]
+    if not control:
+        fail("control population is empty")
+
+    candidate_units = {r[contract["assignment_unit"]] for r in candidate}
+    eligible_units = set(assignments)
+    actual_unit_exposure = len(candidate_units) / len(eligible_units)
+
+    candidate_error_rate = sum(bool(r["error"]) for r in candidate) / len(candidate) if candidate else 0.0
+    candidate_fallback_rate = sum(bool(r["feature_fallback"]) for r in candidate) / len(candidate) if candidate else 0.0
+    candidate_p95_latency = p95([r["latency_ms"] for r in candidate]) if candidate else 0.0
+    candidate_review_rate = sum(r["action"] == "manual_review" for r in candidate) / len(candidate) if candidate else 0.0
+    control_review_rate = sum(r["action"] == "manual_review" for r in control) / len(control)
+    review_rate_delta = abs(candidate_review_rate - control_review_rate)
+
+    breached = []
+    guardrails = contract["guardrails"]
+    if candidate_error_rate > guardrails["candidate_error_rate_max"]:
+        breached.append("candidate_error_rate")
+    if candidate_fallback_rate > guardrails["candidate_fallback_rate_max"]:
+        breached.append("candidate_fallback_rate")
+    if candidate_p95_latency > guardrails["candidate_p95_latency_ms_max"]:
+        breached.append("candidate_p95_latency_ms")
+    if review_rate_delta > guardrails["review_rate_delta_max"]:
+        breached.append("review_rate_delta")
+
+    enough_evidence = (
+        len(candidate) >= contract["current_step"]["minimum_candidate_requests"]
+        and len(candidate_units) >= contract["current_step"]["minimum_candidate_units"]
+    )
+
+    if actual_unit_exposure > contract["current_step"]["maximum_actual_unit_exposure"]:
+        decision = "rollback"
+        reason = "actual_exposure_exceeded"
+        target_exposure = 0.0
+        state_generation = contract["rollback"]["state_generation"]
+    elif breached:
+        decision = "rollback"
+        reason = "guardrail_breach"
+        target_exposure = 0.0
+        state_generation = contract["rollback"]["state_generation"]
+    elif not enough_evidence:
+        decision = "hold"
+        reason = "minimum_evidence_not_met"
+        target_exposure = state.get("candidate_exposure", contract["current_step"]["configured_candidate_exposure"])
+        state_generation = state.get("routing_generation", contract["routing_generation"])
+    else:
+        decision = "ramp"
+        reason = "step_accepted"
+        target_exposure = contract["next_step"]["candidate_exposure"]
+        state_generation = contract["next_step"]["state_generation"]
+
+    result = {
+        "contract_id": contract["contract_id"],
+        "contract_sha256": sha256(contract_path),
+        "rollout_subject_id": contract["rollout_subject_id"],
+        "known_good_release": {
+            "release_id": known_good["release_id"],
+            "sha256": contract["known_good_release_sha256"],
+        },
+        "exposure": {
+            "window_id": exposure["window_id"],
+            "window_complete": True,
+            "eligible_requests": len(eligible),
+            "eligible_units": len(eligible_units),
+            "candidate_requests": len(candidate),
+            "candidate_units": len(candidate_units),
+            "actual_candidate_unit_exposure": rounded(actual_unit_exposure),
+            "assignment_unit": contract["assignment_unit"],
+        },
+        "guardrails": {
+            "candidate_error_rate": rounded(candidate_error_rate),
+            "candidate_fallback_rate": rounded(candidate_fallback_rate),
+            "candidate_p95_latency_ms": rounded(candidate_p95_latency),
+            "candidate_review_rate": rounded(candidate_review_rate),
+            "control_review_rate": rounded(control_review_rate),
+            "review_rate_delta": rounded(review_rate_delta),
+            "breached": breached,
+        },
+        "decision": decision,
+        "reason": reason,
+        "target_release": contract["control_release"],
+        "target_candidate_exposure": rounded(target_exposure),
+        "state_generation": state_generation,
+    }
+
+    new_state = {
+        "active_release": contract["control_release"],
+        "candidate_exposure": rounded(target_exposure),
+        "candidate_release": contract["candidate_release"],
+        "last_decision": result,
+        "rollout_subject_id": contract["rollout_subject_id"],
+        "routing_generation": state_generation,
+        "status": {
+            "rollback": "rolled_back",
+            "hold": "canary_active",
+            "ramp": "ramped",
+        }[decision],
+    }
+    write_if_changed(state_path, new_state)
+    return result
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--contract", required=True)
+    parser.add_argument("--known-good", required=True)
+    parser.add_argument("--exposure", required=True)
+    parser.add_argument("--state", required=True)
+    args = parser.parse_args()
+    try:
+        result = evaluate(args.contract, args.known_good, args.exposure, args.state)
+    except (ValueError, KeyError, TypeError, ZeroDivisionError) as exc:
+        print(f"ERROR: {exc}", file=__import__("sys").stderr)
+        return 2
+    print(json.dumps(result, sort_keys=True))
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,9 @@
+{
+  "active_release": "risk-serving-r39",
+  "candidate_exposure": 0.2,
+  "candidate_release": "risk-serving-r42",
+  "last_decision": null,
+  "rollout_subject_id": "MLOPS-PAY-ROLLOUT-2026-08-r42-step20",
+  "routing_generation": "risk-rollout-router-v8",
+  "status": "canary_active"
+}

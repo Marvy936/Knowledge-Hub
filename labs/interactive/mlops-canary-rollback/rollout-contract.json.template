@@ -1,0 +1,37 @@
+{
+  "assignment_unit": "merchant_id",
+  "candidate_release": "risk-serving-r42",
+  "contract_id": "payment-risk-canary-v4",
+  "control_release": "risk-serving-r39",
+  "current_step": {
+    "configured_candidate_exposure": 0.2,
+    "maximum_actual_unit_exposure": 0.25,
+    "minimum_candidate_requests": 6,
+    "minimum_candidate_units": 3,
+    "minimum_duration_minutes": 30,
+    "name": "20_percent"
+  },
+  "eligibility_policy": "eligible-card-not-present-v5",
+  "guardrails": {
+    "candidate_error_rate_max": 0.05,
+    "candidate_fallback_rate_max": 0.1,
+    "candidate_p95_latency_ms_max": 180,
+    "review_rate_delta_max": 0.15
+  },
+  "known_good_release_sha256": "f08f5416df77adff8d4833b3a496e2eabc77473487504cc89cd4ecd85a9e00bc",
+  "next_step": {
+    "candidate_exposure": 0.5,
+    "name": "50_percent",
+    "state_generation": "risk-rollout-router-v8-step50"
+  },
+  "rollback": {
+    "state_generation": "rollback-r42-step20-v1",
+    "target_release": "risk-serving-r39"
+  },
+  "rollout_subject_id": "MLOPS-PAY-ROLLOUT-2026-08-r42-step20",
+  "routing_generation": "risk-rollout-router-v8",
+  "window": {
+    "end": "2026-08-15T13:00:00Z",
+    "start": "2026-08-15T12:00:00Z"
+  }
+}
