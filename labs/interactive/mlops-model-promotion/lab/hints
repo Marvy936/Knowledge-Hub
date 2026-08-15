@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state=/tmp/kh-mlops-model-promotion-hint
+level=0
+[[ -f "$state" ]] && level="$(cat "$state" 2>/dev/null || echo 0)"
+level=$((level + 1))
+(( level > 4 )) && level=4
+printf '%s\n' "$level" > "$state"
+
+case "$level" in
+  1)
+    cat <<'EOF'
+Hint 1/4:
+Start from identity, not quality. Recompute SHA-256 from candidate/model.json and from the evaluation dataset. A manifest claim is evidence only after it reconciles with the actual bytes.
+EOF
+    ;;
+  2)
+    cat <<'EOF'
+Hint 2/4:
+The evaluation must describe the exact artifact and dataset being promoted. Compare artifact digest, model ID, dataset ID/digest and source revision across manifest, evaluation and policy.
+EOF
+    ;;
+  3)
+    cat <<'EOF'
+Hint 3/4:
+An aggregate F1 pass can hide a critical segment regression. Require every policy.required_segments entry and enforce min_segment_f1, plus the feature schema, package format and evaluator generation.
+EOF
+    ;;
+  *)
+    cat <<'EOF'
+Hint 4/4:
+Validate everything before touching release/current.json. Build a release subject from immutable IDs/digests, derive a deterministic release ID from canonical JSON, write to a temporary sibling file and atomically replace current.json only after all gates pass.
+EOF
+    ;;
+esac
