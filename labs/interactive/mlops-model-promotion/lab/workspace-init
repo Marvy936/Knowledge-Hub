@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mkdir -p /workspace/candidate /workspace/evidence /workspace/release
+
+if [[ ! -f /workspace/promote.py || "${KH_FORCE_RESET:-0}" == "1" ]]; then
+  cp "$LAB_ROOT/promote.py.template" /workspace/promote.py
+fi
+cp "$LAB_ROOT/model.json.template" /workspace/candidate/model.json
+cp "$LAB_ROOT/eval-dataset.json.template" /workspace/evidence/eval-dataset.json
+cp "$LAB_ROOT/scenario.json.template" /workspace/scenario.json
+chmod +x /workspace/promote.py
+
+python3 - <<'PY'
+import hashlib
+import json
+from pathlib import Path
+
+root = Path('/workspace')
+scenario = json.loads((root / 'scenario.json').read_text())
+model_path = root / 'candidate/model.json'
+dataset_path = root / 'evidence/eval-dataset.json'
+
+
+def sha256(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def write(path, value):
+    path.write_text(json.dumps(value, indent=2, sort_keys=True) + '\n')
+
+artifact_sha = sha256(model_path)
+dataset_sha = sha256(dataset_path)
+
+manifest = {
+    'model_id': scenario['model_id'],
+    'artifact_sha256': artifact_sha,
+    'dataset_id': scenario['dataset_id'],
+    'dataset_sha256': dataset_sha,
+    'feature_schema_id': scenario['feature_schema_id'],
+    'source_revision': scenario['source_revision'],
+    'package_format': scenario['package_format'],
+}
+
+evaluation = {
+    'evaluation_id': scenario['evaluation_id'],
+    'model_id': scenario['model_id'],
+    'candidate_artifact_sha256': artifact_sha,
+    'dataset_id': scenario['dataset_id'],
+    'dataset_sha256': dataset_sha,
+    'source_revision': scenario['source_revision'],
+    'evaluator_generation': scenario['evaluator_generation'],
+    'metrics': scenario['metrics'],
+}
+
+policy = {
+    **scenario['policy'],
+    'approved_dataset_id': scenario['dataset_id'],
+    'approved_dataset_sha256': dataset_sha,
+    'required_feature_schema_id': scenario['feature_schema_id'],
+    'required_package_format': scenario['package_format'],
+    'required_evaluator_generation': scenario['evaluator_generation'],
+}
+
+known_good = {
+    'release_id': 'known-good-release-181',
+    'model_id': 'risk-model-baseline-181',
+    'artifact_sha256': 'baseline-artifact',
+    'dataset_id': 'previous-eval-snapshot',
+    'source_revision': 'previous-release',
+}
+
+write(root / 'candidate/manifest.json', manifest)
+write(root / 'candidate/evaluation.json', evaluation)
+write(root / 'promotion-policy.json', policy)
+write(root / 'release/current.json', known_good)
+PY
