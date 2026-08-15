@@ -1,5 +1,5 @@
 {
-  "model_id": "fraud-risk-candidate-184",
+  "model_id": "risk-model-candidate-184",
   "format": "linear-score-v1",
   "feature_order": ["amount_eur", "merchant_velocity_7d"],
   "weights": [0.018, 0.74],
