@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cmd="$(basename "$0")"
+case "$cmd" in
+  lab-help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$LAB_ROOT/README.md"
+    ;;
+  check)
+    exec python3 "$LAB_ROOT/lab_runtime.py" verify --workspace /workspace
+    ;;
+  analyze)
+    exec python3 /workspace/drift_monitor.py "$@"
+    ;;
+  status)
+    set +e
+    python3 "$LAB_ROOT/lab_runtime.py" verify --workspace /workspace
+    rc=$?
+    set -e
+    if [[ $rc -eq 0 ]]; then
+      echo "Drift monitoring contract: repaired"
+    else
+      echo "Drift monitoring contract: still broken"
+    fi
+    ;;
+  hint)
+    level_file=/workspace/.hint-level
+    level=0
+    [[ -f "$level_file" ]] && level="$(cat "$level_file")"
+    case "$level" in
+      0) echo "Hint 1: establish the authoritative population before reading the metric. Compare event_time, ingest_time, eligible, and serving_status."; next=1 ;;
+      1) echo "Hint 2: input/data drift uses all eligible event-time rows; prediction drift uses scored rows, while fallback remains a separate service-health signal."; next=2 ;;
+      *) echo "Hint 3: validate release/feature/policy identity and completeness first. Without mature labels, concept drift is not evaluable and a drift alert has no retraining authority."; next=2 ;;
+    esac
+    printf '%s' "$next" > "$level_file"
+    ;;
+  reset)
+    rm -f /workspace/.hint-level /workspace/retrain-request.json
+    KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+    echo "Drift monitoring lab reset to the biased auto-retraining starter."
+    ;;
+  self-test)
+    KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+    rm -f /workspace/retrain-request.json
+    if python3 "$LAB_ROOT/lab_runtime.py" verify --workspace /workspace >/tmp/kh-mlops-drift-starter.out 2>&1; then
+      echo "SELF-TEST FAILED: starter monitor unexpectedly passed"
+      cat /tmp/kh-mlops-drift-starter.out
+      exit 1
+    fi
+    echo "Starter correctly exposes biased drift population and unsupported retraining authority."
+    python3 "$LAB_ROOT/lab_runtime.py" write-solution /workspace/drift_monitor.py
+    chmod +x /workspace/drift_monitor.py
+    python3 "$LAB_ROOT/lab_runtime.py" verify --workspace /workspace
+    echo "Reference repair restores authoritative drift monitoring semantics."
+    KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+    rm -f /workspace/retrain-request.json
+    if python3 "$LAB_ROOT/lab_runtime.py" verify --workspace /workspace >/tmp/kh-mlops-drift-reset.out 2>&1; then
+      echo "SELF-TEST FAILED: reset did not restore the broken learner state"
+      cat /tmp/kh-mlops-drift-reset.out
+      exit 1
+    fi
+    echo "Reset restores the biased monitor."
+    echo "SELF-TEST PASSED"
+    ;;
+  *) echo "Unknown lab driver command: $cmd" >&2; exit 2 ;;
+esac
