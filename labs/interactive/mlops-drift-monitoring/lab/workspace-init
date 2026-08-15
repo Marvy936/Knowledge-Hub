@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+python3 "$LAB_ROOT/lab_runtime.py" materialize --workspace /workspace
+if [[ ! -f /workspace/drift_monitor.py || "${KH_FORCE_RESET:-0}" == "1" ]]; then
+  cp "$LAB_ROOT/drift_monitor.py.template" /workspace/drift_monitor.py
+fi
+chmod +x /workspace/drift_monitor.py
