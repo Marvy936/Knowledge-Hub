@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+rm -f /workspace/.hint-level
+KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+echo "Feature parity lab reset to the drifted serving implementation."

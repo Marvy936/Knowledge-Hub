@@ -1,0 +1,37 @@
+[
+  {
+    "operation_id": "op-92117",
+    "amount_minor": 12345,
+    "merchant_velocity_minor_7d": 192050,
+    "customer_country": "SK",
+    "merchant_country": "SK"
+  },
+  {
+    "operation_id": "op-92118",
+    "amount_minor": 999,
+    "merchant_velocity_minor_7d": 250155,
+    "customer_country": " sk ",
+    "merchant_country": "SK"
+  },
+  {
+    "operation_id": "op-92119",
+    "amount_minor": 50701,
+    "merchant_velocity_minor_7d": 987654,
+    "customer_country": "sk",
+    "merchant_country": "CZ"
+  },
+  {
+    "operation_id": "op-92120",
+    "amount_minor": 0,
+    "merchant_velocity_minor_7d": 1,
+    "customer_country": "DE",
+    "merchant_country": " de "
+  },
+  {
+    "operation_id": "op-92121",
+    "amount_minor": 1000000,
+    "merchant_velocity_minor_7d": 123456789,
+    "customer_country": "",
+    "merchant_country": "AT"
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "contract_id": "payment-risk-features-v6",
+  "schema_id": "risk-inference-v6",
+  "feature_order": [
+    "amount_eur",
+    "merchant_velocity_eur_7d",
+    "cross_border"
+  ],
+  "rules": {
+    "amount_eur": {
+      "source": "amount_minor",
+      "minor_units_per_major": 100,
+      "round_digits": 2
+    },
+    "merchant_velocity_eur_7d": {
+      "source": "merchant_velocity_minor_7d",
+      "minor_units_per_major": 100,
+      "round_digits": 2
+    },
+    "cross_border": {
+      "customer_country_source": "customer_country",
+      "merchant_country_source": "merchant_country",
+      "normalization": "strip_upper",
+      "unknown_value": 0
+    }
+  },
+  "input_schema": {
+    "operation_id": "non-empty string",
+    "amount_minor": "non-negative integer",
+    "merchant_velocity_minor_7d": "non-negative integer",
+    "customer_country": "string",
+    "merchant_country": "string"
+  }
+}

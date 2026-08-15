@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cp "$LAB_ROOT/feature_contract.json.template" /workspace/feature_contract.json
+cp "$LAB_ROOT/feature_runtime.py.template" /workspace/feature_runtime.py
+cp "$LAB_ROOT/offline_transform.py.template" /workspace/offline_transform.py
+cp "$LAB_ROOT/matched-requests.json.template" /workspace/matched-requests.json
+
+if [[ ! -f /workspace/serving_transform.py || "${KH_FORCE_RESET:-0}" == "1" ]]; then
+  cp "$LAB_ROOT/serving_transform.py.template" /workspace/serving_transform.py
+fi
+
+chmod +x /workspace/feature_runtime.py /workspace/offline_transform.py /workspace/serving_transform.py

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+
+if "$LAB_ROOT/lab/verify" >/tmp/kh-mlops-feature-parity-starter.out 2>&1; then
+  echo "SELF-TEST FAILED: starter serving implementation unexpectedly passed"
+  cat /tmp/kh-mlops-feature-parity-starter.out
+  exit 1
+fi
+
+echo "Starter correctly exposes training-serving skew."
+
+cp "$LAB_ROOT/serving_transform.py.solution.template" /workspace/serving_transform.py
+chmod +x /workspace/serving_transform.py
+
+"$LAB_ROOT/lab/verify"
+
+echo "Reference repair restores exact feature parity."
+
+KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+if "$LAB_ROOT/lab/verify" >/tmp/kh-mlops-feature-parity-reset.out 2>&1; then
+  echo "SELF-TEST FAILED: reset did not restore the broken learner state"
+  cat /tmp/kh-mlops-feature-parity-reset.out
+  exit 1
+fi
+
+echo "Reset restores the drifted serving implementation."
+echo "SELF-TEST PASSED"
