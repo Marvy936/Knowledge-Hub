@@ -22,3 +22,4 @@ rag-indirect-prompt-injection	shell	Block retrieved prompt injection from author
 mlops-model-promotion	shell	Bind model promotion to exact artifact, evaluation, dataset, schema and segment evidence.
 mlops-feature-parity	shell	Repair training-serving feature skew and bind serving to the exact versioned feature contract.
 mlops-drift-monitoring	shell	Repair biased drift monitoring and prevent unsupported concept-drift or automatic retraining claims.
+mlops-canary-rollback	shell	Repair canary rollout authority using actual stable-unit exposure, candidate guardrails and exact rollback state.
