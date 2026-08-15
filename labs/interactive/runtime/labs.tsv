@@ -20,3 +20,4 @@ nginx-rate-limiting	docker	Enforce per-client Nginx request throttling with burs
 linux-process-signals	shell	Repair signal forwarding and exit-status propagation in a Bash service wrapper.
 rag-indirect-prompt-injection	shell	Block retrieved prompt injection from authorizing tools while preserving explicit trusted actions.
 mlops-model-promotion	shell	Bind model promotion to exact artifact, evaluation, dataset, schema and segment evidence.
+mlops-feature-parity	shell	Repair training-serving feature skew and bind serving to the exact versioned feature contract.
