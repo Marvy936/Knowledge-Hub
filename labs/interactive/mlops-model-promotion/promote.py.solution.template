@@ -45,6 +45,7 @@ def main():
     dataset_path = Path(args.dataset)
     release_path = Path(args.release)
 
+    model = load_json(model_path)
     manifest = load_json(manifest_path)
     evaluation = load_json(evaluation_path)
     policy = load_json(Path(args.policy))
@@ -54,6 +55,10 @@ def main():
 
     if manifest.get("artifact_sha256") != artifact_sha:
         return deny("model bytes do not match manifest digest")
+    if model.get("model_id") != manifest.get("model_id"):
+        return deny("model package identity does not match manifest")
+    if model.get("format") != manifest.get("package_format"):
+        return deny("model package format does not match manifest")
     if evaluation.get("candidate_artifact_sha256") != artifact_sha:
         return deny("evaluation is not bound to the promoted artifact")
     if manifest.get("model_id") != evaluation.get("model_id"):
