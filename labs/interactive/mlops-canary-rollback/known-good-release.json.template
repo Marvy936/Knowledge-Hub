@@ -1,0 +1,7 @@
+{
+  "artifact_sha256": "6f7e71f7f18d432af93505fc35bf1bf2ba3ae798424489ef90a7f10f0f6d9a39",
+  "feature_generation": "payment-risk-features-v6",
+  "model_release_id": "MLOPS-PAY-RISK-PROD-2026-07-r39",
+  "release_id": "risk-serving-r39",
+  "threshold_policy": "review-capacity-2500-v4"
+}
