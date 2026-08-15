@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+reset-lab >/dev/null
+! verify >/dev/null 2>&1
+cp "$LAB_ROOT/promote.py.solution.template" /workspace/promote.py
+chmod +x /workspace/promote.py
+verify
+reset-lab >/dev/null
+! verify >/dev/null 2>&1
+reset-lab >/dev/null
+echo "SELF-TEST PASSED"
