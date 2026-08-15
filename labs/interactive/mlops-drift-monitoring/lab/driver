@@ -7,14 +7,14 @@ case "$cmd" in
     cat "$LAB_ROOT/README.md"
     ;;
   check)
-    exec python3 "$LAB_ROOT/lab_runtime.py" verify --workspace /workspace
+    exec python3 "$LAB_ROOT/drift_validator.py"
     ;;
   analyze)
     exec python3 /workspace/drift_monitor.py "$@"
     ;;
   status)
     set +e
-    python3 "$LAB_ROOT/lab_runtime.py" verify --workspace /workspace
+    python3 "$LAB_ROOT/drift_validator.py"
     rc=$?
     set -e
     if [[ $rc -eq 0 ]]; then
@@ -42,19 +42,19 @@ case "$cmd" in
   self-test)
     KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
     rm -f /workspace/retrain-request.json
-    if python3 "$LAB_ROOT/lab_runtime.py" verify --workspace /workspace >/tmp/kh-mlops-drift-starter.out 2>&1; then
+    if python3 "$LAB_ROOT/drift_validator.py" >/tmp/kh-mlops-drift-starter.out 2>&1; then
       echo "SELF-TEST FAILED: starter monitor unexpectedly passed"
       cat /tmp/kh-mlops-drift-starter.out
       exit 1
     fi
     echo "Starter correctly exposes biased drift population and unsupported retraining authority."
-    python3 "$LAB_ROOT/lab_runtime.py" write-solution /workspace/drift_monitor.py
+    cp "$LAB_ROOT/drift_monitor.py.solution.template" /workspace/drift_monitor.py
     chmod +x /workspace/drift_monitor.py
-    python3 "$LAB_ROOT/lab_runtime.py" verify --workspace /workspace
+    python3 "$LAB_ROOT/drift_validator.py"
     echo "Reference repair restores authoritative drift monitoring semantics."
     KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
     rm -f /workspace/retrain-request.json
-    if python3 "$LAB_ROOT/lab_runtime.py" verify --workspace /workspace >/tmp/kh-mlops-drift-reset.out 2>&1; then
+    if python3 "$LAB_ROOT/drift_validator.py" >/tmp/kh-mlops-drift-reset.out 2>&1; then
       echo "SELF-TEST FAILED: reset did not restore the broken learner state"
       cat /tmp/kh-mlops-drift-reset.out
       exit 1
