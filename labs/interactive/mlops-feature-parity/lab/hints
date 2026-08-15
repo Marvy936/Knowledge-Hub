@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state=/workspace/.hint-level
+level=0
+if [[ -f "$state" ]]; then
+  level="$(cat "$state" 2>/dev/null || echo 0)"
+fi
+level=$((level + 1))
+if (( level > 4 )); then
+  level=4
+fi
+printf '%s\n' "$level" > "$state"
+
+case "$level" in
+  1)
+    cat <<'EOF'
+Compare the exact same request through `offline` and `serve`.
+A matching schema name is not enough: inspect contract identity and the resulting vector.
+EOF
+    ;;
+  2)
+    cat <<'EOF'
+Inspect `feature_contract.json` and `serving_transform.py`.
+The starter serving path has stale contract metadata and duplicated transformation logic. Pay attention to minor currency units, rounding, and country normalization.
+EOF
+    ;;
+  3)
+    cat <<'EOF'
+The canonical implementation already exists in `feature_runtime.py`.
+A robust repair can import `load_contract`, `contract_sha256`, and `transform_record`, then use `/workspace/feature_contract.json` exactly as the offline path does.
+EOF
+    ;;
+  4)
+    cat <<'EOF'
+Reference shape:
+
+from pathlib import Path
+from feature_runtime import contract_sha256, load_contract, transform_record
+
+contract_path = Path('/workspace/feature_contract.json')
+contract = load_contract(contract_path)
+result = transform_record(record, contract)
+result['contract_id'] = contract['contract_id']
+result['contract_sha256'] = contract_sha256(contract_path)
+
+Keep strict input validation; do not coerce malformed strings or booleans into numeric feature values.
+EOF
+    ;;
+esac
