@@ -1,0 +1,160 @@
+#!/usr/bin/env bash
+set -u
+cd /workspace || exit 1
+
+pass_count=0
+fail_count=0
+result() {
+  if [[ "$1" == "1" ]]; then
+    printf '[PASS] %s\n' "$2"
+    pass_count=$((pass_count + 1))
+  else
+    printf '[FAIL] %s\n' "$2"
+    fail_count=$((fail_count + 1))
+  fi
+}
+
+hash_file() {
+  sha256sum "$1" | awk '{print $1}'
+}
+
+baseline=/tmp/kh-mlops-model-promotion-baseline.json
+cp release/current.json "$baseline"
+
+run_invalid() {
+  local label="$1"
+  local candidate="$2"
+  cp "$baseline" release/current.json
+  local before after rc
+  before="$(hash_file release/current.json)"
+  python3 promote.py --candidate "$candidate" >/tmp/kh-mlops-model-promotion-invalid.out 2>/tmp/kh-mlops-model-promotion-invalid.err
+  rc=$?
+  after="$(hash_file release/current.json)"
+  result "$([[ "$rc" -ne 0 ]] && echo 1 || echo 0)" "$label is rejected"
+  result "$([[ "$before" == "$after" ]] && echo 1 || echo 0)" "$label leaves current release byte-for-byte unchanged"
+}
+
+make_variant() {
+  local name="$1"
+  local target="/tmp/kh-mlops-candidate-$name"
+  rm -rf "$target"
+  cp -a candidate "$target"
+  printf '%s\n' "$target"
+}
+
+# 1. Actual bytes changed after manifest/eval creation.
+variant="$(make_variant tampered-bytes)"
+printf '\n' >> "$variant/model.json"
+run_invalid "Tampered model bytes" "$variant"
+
+# 2. Evaluation references a different artifact even though aggregate quality passes.
+variant="$(make_variant wrong-artifact-eval)"
+python3 - "$variant/evaluation.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1]); v = json.loads(p.read_text())
+v['candidate_artifact_sha256'] = '0' * 64
+p.write_text(json.dumps(v, indent=2, sort_keys=True) + '\n')
+PY
+run_invalid "Evaluation for another artifact" "$variant"
+
+# 3. Evaluation dataset subject differs from the approved/manifest subject.
+variant="$(make_variant wrong-dataset)"
+python3 - "$variant/evaluation.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1]); v = json.loads(p.read_text())
+v['dataset_id'] = 'different-eval-snapshot'
+p.write_text(json.dumps(v, indent=2, sort_keys=True) + '\n')
+PY
+run_invalid "Mismatched evaluation dataset" "$variant"
+
+# 4. Package has a serving-incompatible feature schema.
+variant="$(make_variant wrong-schema)"
+python3 - "$variant/manifest.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1]); v = json.loads(p.read_text())
+v['feature_schema_id'] = 'risk-inference-v7'
+p.write_text(json.dumps(v, indent=2, sort_keys=True) + '\n')
+PY
+run_invalid "Incompatible feature schema" "$variant"
+
+# 5. Aggregate metric remains strong but one required segment regresses.
+variant="$(make_variant weak-segment)"
+python3 - "$variant/evaluation.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1]); v = json.loads(p.read_text())
+v['metrics']['f1_score'] = 0.90
+v['metrics']['segments']['eu'] = 0.61
+p.write_text(json.dumps(v, indent=2, sort_keys=True) + '\n')
+PY
+run_invalid "Critical segment regression" "$variant"
+
+# 6. Evaluation was produced from a different source revision.
+variant="$(make_variant wrong-revision)"
+python3 - "$variant/evaluation.json" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1]); v = json.loads(p.read_text())
+v['source_revision'] = 'fedcba9876543210fedcba9876543210fedcba98'
+p.write_text(json.dumps(v, indent=2, sort_keys=True) + '\n')
+PY
+run_invalid "Source revision mismatch" "$variant"
+
+# 7. The exact valid candidate must promote and pin immutable evidence.
+cp "$baseline" release/current.json
+python3 promote.py >/tmp/kh-mlops-model-promotion-valid.out 2>/tmp/kh-mlops-model-promotion-valid.err
+valid_rc=$?
+result "$([[ "$valid_rc" -eq 0 ]] && echo 1 || echo 0)" "Exact candidate passes the promotion gate"
+
+python3 - <<'PY'
+import hashlib, json
+from pathlib import Path
+root = Path('/workspace')
+release = json.loads((root / 'release/current.json').read_text())
+manifest = json.loads((root / 'candidate/manifest.json').read_text())
+evaluation = json.loads((root / 'candidate/evaluation.json').read_text())
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+subject = {
+    'model_id': manifest['model_id'],
+    'artifact_sha256': sha(root / 'candidate/model.json'),
+    'manifest_sha256': sha(root / 'candidate/manifest.json'),
+    'evaluation_id': evaluation['evaluation_id'],
+    'evaluation_sha256': sha(root / 'candidate/evaluation.json'),
+    'dataset_id': manifest['dataset_id'],
+    'dataset_sha256': sha(root / 'evidence/eval-dataset.json'),
+    'feature_schema_id': manifest['feature_schema_id'],
+    'source_revision': manifest['source_revision'],
+    'package_format': manifest['package_format'],
+    'evaluator_generation': evaluation['evaluator_generation'],
+}
+release_hash = hashlib.sha256(json.dumps(subject, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+expected = {'release_id': 'release-sha256:' + release_hash, **subject}
+raise SystemExit(0 if release == expected else 1)
+PY
+release_contract_rc=$?
+result "$([[ "$release_contract_rc" -eq 0 ]] && echo 1 || echo 0)" "Successful release pins exact artifact, eval, dataset, schema and source provenance"
+
+first_valid_hash="$(hash_file release/current.json)"
+python3 promote.py >/tmp/kh-mlops-model-promotion-repeat.out 2>/tmp/kh-mlops-model-promotion-repeat.err
+repeat_rc=$?
+second_valid_hash="$(hash_file release/current.json)"
+result "$([[ "$repeat_rc" -eq 0 && "$first_valid_hash" == "$second_valid_hash" ]] && echo 1 || echo 0)" "Repeating the same immutable promotion is deterministic"
+
+rm -rf /tmp/kh-mlops-candidate-*
+
+echo
+if (( fail_count == 0 )); then
+  echo "LAB COMPLETED"
+  exit 0
+fi
+
+echo "LAB NOT COMPLETE"
+echo "Bind promotion to the exact artifact, dataset, evaluation, schema and segment gates before mutating the release."
+echo "Use 'hint' if you need progressive help."
+exit 1
