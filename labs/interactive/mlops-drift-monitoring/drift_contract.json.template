@@ -1,0 +1,32 @@
+{
+  "claims": {
+    "automatic_retraining_from_drift_signal": false,
+    "concept_drift_without_labels": "forbidden",
+    "mature_labels_available": false
+  },
+  "contract_id": "payment-risk-drift-v3",
+  "current_release_id": "risk-serving-2026-08-14.4",
+  "current_window": {
+    "end": "2026-08-15T11:00:00Z",
+    "require_complete": true,
+    "start": "2026-08-15T10:00:00Z"
+  },
+  "feature_generation": "payment-risk-features-v6",
+  "metrics": {
+    "data_alert_threshold": 0.08,
+    "data_feature": "amount_eur",
+    "data_metric": "normalized_mean_shift",
+    "fallback_rate_alert_threshold": 0.2,
+    "prediction_alert_threshold": 0.01,
+    "prediction_metric": "mean_score_shift"
+  },
+  "population": {
+    "eligibility_field": "eligible",
+    "eligible_value": true,
+    "time_basis": "event_time"
+  },
+  "reference_dataset_id": "stable-prod-2026-W32",
+  "reference_release_id": "risk-serving-2026-08-07.2",
+  "reference_sha256": "532af4d9864ac9965c603ec5bc0aea108df64703de03500bdf0dd9bf7861ba8b",
+  "threshold_policy": "review-capacity-2500-v4"
+}

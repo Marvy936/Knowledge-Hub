@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+import argparse
+import hashlib
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+def load_json(path):
+    return json.loads(Path(path).read_text())
+
+
+def sha256_file(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def parse_ts(value):
+    if not isinstance(value, str) or not value.endswith("Z"):
+        raise ValueError(f"timestamp must be UTC RFC3339 with Z: {value!r}")
+    return datetime.fromisoformat(value[:-1] + "+00:00").astimezone(timezone.utc)
+
+
+def mean(values):
+    if not values:
+        raise ValueError("metric population is empty")
+    return sum(values) / len(values)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--contract", default="/workspace/drift_contract.json")
+    parser.add_argument("--reference", default="/workspace/reference-window.json")
+    parser.add_argument("--current", default="/workspace/current-window.json")
+    args = parser.parse_args()
+
+    contract_path = Path(args.contract)
+    reference_path = Path(args.reference)
+    current_path = Path(args.current)
+    contract = load_json(contract_path)
+    reference = load_json(reference_path)
+    current = load_json(current_path)
+
+    if contract.get("contract_id") != "payment-risk-drift-v3":
+        raise ValueError("unexpected drift contract identity")
+    if reference.get("dataset_id") != contract["reference_dataset_id"]:
+        raise ValueError("reference dataset identity mismatch")
+    if sha256_file(reference_path) != contract["reference_sha256"]:
+        raise ValueError("reference dataset digest mismatch")
+    if reference.get("release_id") != contract["reference_release_id"]:
+        raise ValueError("reference release mismatch")
+    if current.get("release_id") != contract["current_release_id"]:
+        raise ValueError("current release mismatch")
+
+    for subject in (reference, current):
+        if subject.get("feature_generation") != contract["feature_generation"]:
+            raise ValueError("feature generation mismatch")
+        if subject.get("threshold_policy") != contract["threshold_policy"]:
+            raise ValueError("threshold policy mismatch")
+
+    start = parse_ts(contract["current_window"]["start"])
+    end = parse_ts(contract["current_window"]["end"])
+    watermark = parse_ts(current["completeness_watermark"])
+    if current.get("window_start") != contract["current_window"]["start"] or current.get("window_end") != contract["current_window"]["end"]:
+        raise ValueError("current window identity mismatch")
+    if contract["current_window"].get("require_complete") and watermark < end:
+        raise ValueError("current event-time window is incomplete")
+
+    ref_eligible = [r for r in reference["records"] if r.get("eligible") is True]
+    cur_eligible = []
+    for row in current["records"]:
+        if row.get("eligible") is not True:
+            continue
+        event_time = parse_ts(row["event_time"])
+        if start <= event_time < end:
+            cur_eligible.append(row)
+
+    ref_scored = [r for r in ref_eligible if r.get("serving_status") == "scored" and r.get("score") is not None]
+    cur_scored = [r for r in cur_eligible if r.get("serving_status") == "scored" and r.get("score") is not None]
+    cur_fallback = [r for r in cur_eligible if r.get("serving_status") == "fallback"]
+
+    data_feature = contract["metrics"]["data_feature"]
+    ref_amount_mean = mean([float(r[data_feature]) for r in ref_eligible])
+    cur_amount_mean = mean([float(r[data_feature]) for r in cur_eligible])
+    data_shift = abs(cur_amount_mean - ref_amount_mean) / abs(ref_amount_mean)
+
+    ref_score_mean = mean([float(r["score"]) for r in ref_scored])
+    cur_score_mean = mean([float(r["score"]) for r in cur_scored])
+    prediction_shift = abs(cur_score_mean - ref_score_mean)
+    fallback_rate = len(cur_fallback) / len(cur_eligible)
+
+    data_alert = data_shift >= float(contract["metrics"]["data_alert_threshold"])
+    prediction_alert = prediction_shift >= float(contract["metrics"]["prediction_alert_threshold"])
+    fallback_alert = fallback_rate >= float(contract["metrics"]["fallback_rate_alert_threshold"])
+
+    if fallback_alert:
+        action = "investigate_serving_fallback"
+    elif data_alert:
+        action = "investigate_data_drift"
+    elif prediction_alert:
+        action = "investigate_prediction_drift"
+    else:
+        action = "stable"
+
+    result = {
+        "contract_id": contract["contract_id"],
+        "contract_sha256": sha256_file(contract_path),
+        "reference": {
+            "dataset_id": reference["dataset_id"],
+            "sha256": contract["reference_sha256"],
+            "release_id": reference["release_id"],
+            "eligible_count": len(ref_eligible),
+            "scored_count": len(ref_scored),
+        },
+        "current": {
+            "window_id": current["window_id"],
+            "release_id": current["release_id"],
+            "eligible_count": len(cur_eligible),
+            "scored_count": len(cur_scored),
+            "fallback_count": len(cur_fallback),
+            "fallback_rate": round(fallback_rate, 6),
+        },
+        "population_basis": "eligible_event_time",
+        "window_basis": "event_time",
+        "window_complete": True,
+        "feature_generation": contract["feature_generation"],
+        "threshold_policy": contract["threshold_policy"],
+        "data_drift": {
+            "metric": contract["metrics"]["data_metric"],
+            "value": round(data_shift, 6),
+            "alert": data_alert,
+        },
+        "prediction_drift": {
+            "metric": contract["metrics"]["prediction_metric"],
+            "value": round(prediction_shift, 6),
+            "alert": prediction_alert,
+        },
+        "concept_drift": {
+            "status": "not_evaluable",
+            "reason": "mature_labels_unavailable",
+        },
+        "recommended_action": action,
+        "retraining_triggered": False,
+    }
+    print(json.dumps(result, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        raise SystemExit(main())
+    except Exception as exc:
+        print(f"DRIFT MONITOR ERROR: {exc}", file=__import__('sys').stderr)
+        raise SystemExit(2)

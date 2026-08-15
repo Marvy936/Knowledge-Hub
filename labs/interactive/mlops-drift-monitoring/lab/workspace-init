@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cp "$LAB_ROOT/drift_contract.json.template" /workspace/drift_contract.json
+cp "$LAB_ROOT/reference-window.json.template" /workspace/reference-window.json
+cp "$LAB_ROOT/current-window.json.template" /workspace/current-window.json
+if [[ ! -f /workspace/drift_monitor.py || "${KH_FORCE_RESET:-0}" == "1" ]]; then
+  cp "$LAB_ROOT/drift_monitor.py.template" /workspace/drift_monitor.py
+fi
+chmod +x /workspace/drift_monitor.py

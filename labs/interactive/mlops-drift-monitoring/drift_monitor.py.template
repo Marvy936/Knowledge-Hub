@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+import argparse
+import json
+from pathlib import Path
+
+
+def mean(values):
+    return sum(values) / len(values)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--contract", default="/workspace/drift_contract.json")
+    parser.add_argument("--reference", default="/workspace/reference-window.json")
+    parser.add_argument("--current", default="/workspace/current-window.json")
+    args = parser.parse_args()
+
+    contract = json.loads(Path(args.contract).read_text())
+    reference = json.loads(Path(args.reference).read_text())
+    current = json.loads(Path(args.current).read_text())
+
+    # Broken legacy monitor: it compares the reference with only requests that
+    # reached the model and were ingested before the wall-clock window ended.
+    ref_rows = [row for row in reference["records"] if row.get("eligible")]
+    cur_rows = [
+        row for row in current["records"]
+        if row.get("eligible")
+        and row.get("serving_status") == "scored"
+        and row.get("ingest_time", "") < current["window_end"]
+    ]
+
+    data_shift = abs(mean([r["amount_eur"] for r in cur_rows]) - mean([r["amount_eur"] for r in ref_rows])) / mean([r["amount_eur"] for r in ref_rows])
+    ref_scores = [r["score"] for r in ref_rows if r.get("score") is not None]
+    cur_scores = [r["score"] for r in cur_rows if r.get("score") is not None]
+    prediction_shift = abs(mean(cur_scores) - mean(ref_scores))
+
+    data_drift = data_shift >= contract["metrics"]["data_alert_threshold"]
+    prediction_drift = prediction_shift >= contract["metrics"]["prediction_alert_threshold"]
+    concept_drift = data_drift or prediction_drift
+
+    if concept_drift:
+        Path("/workspace/retrain-request.json").write_text(json.dumps({"reason": "concept-drift"}) + "\n")
+
+    print(json.dumps({
+        "contract_id": "payment-risk-drift-v2",
+        "population_basis": "successful_processing_time",
+        "data_drift": data_drift,
+        "prediction_drift": prediction_drift,
+        "concept_drift": concept_drift,
+        "retraining_triggered": concept_drift,
+    }, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
