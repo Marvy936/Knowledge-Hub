@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+import argparse
+import hashlib
+import json
+import os
+import re
+from pathlib import Path
+
+HEX40 = re.compile(r"^[0-9a-f]{40}$")
+
+
+def load_json(path: Path):
+    return json.loads(path.read_text())
+
+
+def sha256_file(path: Path):
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(65536), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def canonical_bytes(value):
+    return json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
+
+
+def deny(message):
+    print("PROMOTION DENIED:", message)
+    return 4
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--candidate", default="/workspace/candidate")
+    parser.add_argument("--dataset", default="/workspace/evidence/eval-dataset.json")
+    parser.add_argument("--policy", default="/workspace/promotion-policy.json")
+    parser.add_argument("--release", default="/workspace/release/current.json")
+    args = parser.parse_args()
+
+    candidate = Path(args.candidate)
+    model_path = candidate / "model.json"
+    manifest_path = candidate / "manifest.json"
+    evaluation_path = candidate / "evaluation.json"
+    dataset_path = Path(args.dataset)
+    release_path = Path(args.release)
+
+    model = load_json(model_path)
+    manifest = load_json(manifest_path)
+    evaluation = load_json(evaluation_path)
+    policy = load_json(Path(args.policy))
+
+    artifact_sha = sha256_file(model_path)
+    dataset_sha = sha256_file(dataset_path)
+
+    if manifest.get("artifact_sha256") != artifact_sha:
+        return deny("model bytes do not match manifest digest")
+    if model.get("model_id") != manifest.get("model_id"):
+        return deny("model package identity does not match manifest")
+    if model.get("format") != manifest.get("package_format"):
+        return deny("model package format does not match manifest")
+    if evaluation.get("candidate_artifact_sha256") != artifact_sha:
+        return deny("evaluation is not bound to the promoted artifact")
+    if manifest.get("model_id") != evaluation.get("model_id"):
+        return deny("manifest/evaluation model identity mismatch")
+
+    if manifest.get("dataset_id") != policy.get("approved_dataset_id"):
+        return deny("dataset ID is not approved")
+    if evaluation.get("dataset_id") != manifest.get("dataset_id"):
+        return deny("evaluation dataset ID does not match manifest")
+    if dataset_sha != policy.get("approved_dataset_sha256"):
+        return deny("local evaluation dataset bytes are not approved")
+    if manifest.get("dataset_sha256") != dataset_sha:
+        return deny("manifest dataset digest mismatch")
+    if evaluation.get("dataset_sha256") != dataset_sha:
+        return deny("evaluation dataset digest mismatch")
+
+    revision = manifest.get("source_revision", "")
+    if not HEX40.fullmatch(revision):
+        return deny("source revision is not an exact lowercase 40-hex commit")
+    if evaluation.get("source_revision") != revision:
+        return deny("evaluation source revision mismatch")
+
+    if manifest.get("feature_schema_id") != policy.get("required_feature_schema_id"):
+        return deny("feature schema is not approved")
+    if manifest.get("package_format") != policy.get("required_package_format"):
+        return deny("package format is not approved")
+    if evaluation.get("evaluator_generation") != policy.get("required_evaluator_generation"):
+        return deny("evaluator generation is not approved")
+
+    metrics = evaluation.get("metrics", {})
+    if metrics.get("f1_score", -1) < policy.get("min_f1_score", 1):
+        return deny("aggregate F1 below threshold")
+    segments = metrics.get("segments", {})
+    for segment in policy.get("required_segments", []):
+        if segment not in segments:
+            return deny(f"required segment missing: {segment}")
+        if segments[segment] < policy.get("min_segment_f1", 1):
+            return deny(f"segment below threshold: {segment}")
+
+    release_subject = {
+        "model_id": manifest["model_id"],
+        "artifact_sha256": artifact_sha,
+        "manifest_sha256": sha256_file(manifest_path),
+        "evaluation_id": evaluation["evaluation_id"],
+        "evaluation_sha256": sha256_file(evaluation_path),
+        "dataset_id": manifest["dataset_id"],
+        "dataset_sha256": dataset_sha,
+        "feature_schema_id": manifest["feature_schema_id"],
+        "source_revision": revision,
+        "package_format": manifest["package_format"],
+        "evaluator_generation": evaluation["evaluator_generation"],
+    }
+    release_hash = hashlib.sha256(canonical_bytes(release_subject)).hexdigest()
+    release = {"release_id": "release-sha256:" + release_hash, **release_subject}
+
+    release_path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = release_path.with_name(release_path.name + ".next")
+    temp_path.write_text(json.dumps(release, indent=2, sort_keys=True) + "\n")
+    os.replace(temp_path, release_path)
+    print("PROMOTED", release["release_id"])
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -57,6 +57,9 @@ Current labs:
 | `bash-pipeline-failure` | challenge | `shell` | Repair pipeline failure propagation so a failed build cannot be reported as a successful release. |
 | `linux-file-permissions` | challenge | `shell` | Repair Unix owner/group/other access so deploy can write, the app can only read, and an unrelated account has no access. |
 | `nginx-rate-limiting` | challenge | `docker` | Enforce per-client request throttling with burst handling and HTTP 429 responses. |
+| `linux-process-signals` | challenge | `shell` | Repair child exit propagation, graceful signal forwarding and process reaping. |
+| `rag-indirect-prompt-injection` | challenge | `shell` | Keep retrieved content as evidence while binding tool execution to explicit trusted intent. |
+| `mlops-model-promotion` | challenge | `shell` | Reconcile exact model, evaluation, dataset, schema and segment evidence before promotion. |
 
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 

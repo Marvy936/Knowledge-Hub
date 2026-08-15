@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -u
+cd /workspace || exit 1
+
+echo "Current release:"
+cat release/current.json
+echo
+echo "Candidate identity:"
+python3 - <<'PY'
+import hashlib, json
+from pathlib import Path
+root = Path('/workspace')
+manifest = json.loads((root / 'candidate/manifest.json').read_text())
+evaluation = json.loads((root / 'candidate/evaluation.json').read_text())
+print('model_id:', manifest['model_id'])
+print('actual_artifact_sha256:', hashlib.sha256((root / 'candidate/model.json').read_bytes()).hexdigest())
+print('manifest_artifact_sha256:', manifest['artifact_sha256'])
+print('evaluation_artifact_sha256:', evaluation['candidate_artifact_sha256'])
+print('aggregate_f1:', evaluation['metrics']['f1_score'])
+print('segment_f1:', evaluation['metrics']['segments'])
+PY
+
+echo
+verify || true

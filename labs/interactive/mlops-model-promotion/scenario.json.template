@@ -1,0 +1,22 @@
+{
+  "model_id": "risk-model-candidate-184",
+  "dataset_id": "eval-snapshot-2026-08-01",
+  "feature_schema_id": "risk-inference-v6",
+  "source_revision": "0123456789abcdef0123456789abcdef01234567",
+  "package_format": "linear-score-v1",
+  "evaluator_generation": "classic-eval-v6",
+  "evaluation_id": "model-eval-184",
+  "metrics": {
+    "f1_score": 0.87,
+    "segments": {
+      "eu": 0.84,
+      "us": 0.83,
+      "card_present": 0.82
+    }
+  },
+  "policy": {
+    "min_f1_score": 0.82,
+    "min_segment_f1": 0.80,
+    "required_segments": ["eu", "us", "card_present"]
+  }
+}

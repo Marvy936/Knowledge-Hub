@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+rm -rf /workspace/candidate /workspace/evidence /workspace/release
+rm -f /workspace/scenario.json /workspace/promotion-policy.json /workspace/promote.py
+rm -rf /tmp/kh-mlops-model-promotion-* /tmp/kh-mlops-candidate-*
+KH_FORCE_RESET=1 "$LAB_BIN/workspace-init"
+echo "MLOps model-promotion challenge reset. Run: status"
