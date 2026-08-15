@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+from pathlib import Path
+
+
+def load_contract(path: Path):
+    value = json.loads(path.read_text())
+    required = {"contract_id", "schema_id", "feature_order", "rules", "input_schema"}
+    missing = sorted(required.difference(value))
+    if missing:
+        raise ValueError(f"feature contract missing keys: {', '.join(missing)}")
+    return value
+
+
+def contract_sha256(path: Path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def require_non_empty_string(record, name):
+    value = record.get(name)
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{name} must be a non-empty string")
+    return value
+
+
+def require_non_negative_int(record, name):
+    value = record.get(name)
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise ValueError(f"{name} must be a non-negative integer")
+    return value
+
+
+def require_string(record, name):
+    value = record.get(name)
+    if not isinstance(value, str):
+        raise ValueError(f"{name} must be a string")
+    return value
+
+
+def normalized_country(value, rule):
+    if rule != "strip_upper":
+        raise ValueError(f"unsupported country normalization: {rule}")
+    return value.strip().upper()
+
+
+def transform_record(record, contract):
+    operation_id = require_non_empty_string(record, "operation_id")
+    amount_minor = require_non_negative_int(record, "amount_minor")
+    velocity_minor = require_non_negative_int(record, "merchant_velocity_minor_7d")
+    customer_country = require_string(record, "customer_country")
+    merchant_country = require_string(record, "merchant_country")
+
+    amount_rule = contract["rules"]["amount_eur"]
+    velocity_rule = contract["rules"]["merchant_velocity_eur_7d"]
+    border_rule = contract["rules"]["cross_border"]
+
+    amount_eur = round(
+        amount_minor / amount_rule["minor_units_per_major"],
+        amount_rule["round_digits"],
+    )
+    merchant_velocity_eur_7d = round(
+        velocity_minor / velocity_rule["minor_units_per_major"],
+        velocity_rule["round_digits"],
+    )
+
+    customer = normalized_country(customer_country, border_rule["normalization"])
+    merchant = normalized_country(merchant_country, border_rule["normalization"])
+    if not customer or not merchant:
+        cross_border = border_rule["unknown_value"]
+    else:
+        cross_border = int(customer != merchant)
+
+    values = {
+        "amount_eur": amount_eur,
+        "merchant_velocity_eur_7d": merchant_velocity_eur_7d,
+        "cross_border": cross_border,
+    }
+    order = list(contract["feature_order"])
+    return {
+        "operation_id": operation_id,
+        "schema_id": contract["schema_id"],
+        "feature_order": order,
+        "vector": [values[name] for name in order],
+    }
