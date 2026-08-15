@@ -55,6 +55,7 @@ COPY linux-file-permissions /opt/knowledge-hub/labs/linux-file-permissions
 COPY nginx-rate-limiting /opt/knowledge-hub/labs/nginx-rate-limiting
 COPY linux-process-signals /opt/knowledge-hub/labs/linux-process-signals
 COPY rag-indirect-prompt-injection /opt/knowledge-hub/labs/rag-indirect-prompt-injection
+COPY mlops-model-promotion /opt/knowledge-hub/labs/mlops-model-promotion
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -102,7 +103,12 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s hints /opt/knowledge-hub/labs/rag-indirect-prompt-injection/lab/hint \
  && ln -s reset-lab /opt/knowledge-hub/labs/rag-indirect-prompt-injection/lab/reset \
  && ln -s status-lab /opt/knowledge-hub/labs/rag-indirect-prompt-injection/lab/status \
- && ln -s selftest /opt/knowledge-hub/labs/rag-indirect-prompt-injection/lab/self-test
+ && ln -s selftest /opt/knowledge-hub/labs/rag-indirect-prompt-injection/lab/self-test \
+ && ln -s verify /opt/knowledge-hub/labs/mlops-model-promotion/lab/check \
+ && ln -s hints /opt/knowledge-hub/labs/mlops-model-promotion/lab/hint \
+ && ln -s reset-lab /opt/knowledge-hub/labs/mlops-model-promotion/lab/reset \
+ && ln -s status-lab /opt/knowledge-hub/labs/mlops-model-promotion/lab/status \
+ && ln -s selftest /opt/knowledge-hub/labs/mlops-model-promotion/lab/self-test
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
