@@ -1,0 +1,26 @@
+#!/usr/bin/env python3
+import json
+import sys
+from pathlib import Path
+
+from feature_runtime import contract_sha256, load_contract, transform_record
+
+CONTRACT_PATH = Path("/workspace/feature_contract.json")
+
+
+def main():
+    try:
+        record = json.load(sys.stdin)
+        contract = load_contract(CONTRACT_PATH)
+        result = transform_record(record, contract)
+        result["contract_id"] = contract["contract_id"]
+        result["contract_sha256"] = contract_sha256(CONTRACT_PATH)
+        print(json.dumps(result, sort_keys=True))
+        return 0
+    except Exception as exc:
+        print(f"SERVING TRANSFORM ERROR: {exc}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
