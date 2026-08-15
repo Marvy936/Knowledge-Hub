@@ -62,6 +62,7 @@ Current labs:
 | `mlops-model-promotion` | challenge | `shell` | Reconcile exact model, evaluation, dataset, schema and segment evidence before promotion. |
 | `mlops-feature-parity` | challenge | `shell` | Repair training-serving skew by binding serving to the exact feature contract and reproducing offline vectors. |
 | `mlops-drift-monitoring` | challenge | `shell` | Repair biased drift population/window semantics and separate drift evidence from retraining authority. |
+| `mlops-canary-rollback` | challenge | `shell` | Repair canary rollout authority using actual stable-unit exposure, candidate-only guardrails and exact rollback state. |
 
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
