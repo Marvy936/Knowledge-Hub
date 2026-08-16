@@ -1,0 +1,328 @@
+#!/usr/bin/env python3
+import argparse, hashlib, json, math, sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+SUPPORTED_CONTRACT = 'payment-risk-offline-evaluation-v4'
+
+
+def load_json(path):
+    return json.loads(Path(path).read_text())
+
+
+def sha256(path):
+    return 'sha256:' + hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def jbytes(obj):
+    return (json.dumps(obj, indent=2, sort_keys=True) + '\n').encode()
+
+
+def parse_ts(value):
+    if not isinstance(value, str) or not value.endswith('Z'):
+        raise ValueError('timestamp')
+    return datetime.fromisoformat(value[:-1] + '+00:00').astimezone(timezone.utc)
+
+
+def reject(reasons):
+    print(json.dumps({'decision': 'rejected', 'promotion_authorized': False, 'reasons': sorted(set(reasons))}, sort_keys=True))
+    raise SystemExit(2)
+
+
+def binary_metrics(model, rows, threshold):
+    weights = model['weights']
+    tp = fp = fn = tn = 0
+    for row in rows:
+        score = float(model['bias']) + sum(float(weights[k]) * float(row['features'][k]) for k in weights)
+        pred = 1 if score >= threshold else 0
+        label = int(row['label'])
+        if pred == 1 and label == 1:
+            tp += 1
+        elif pred == 1 and label == 0:
+            fp += 1
+        elif pred == 0 and label == 1:
+            fn += 1
+        else:
+            tn += 1
+    precision = tp / (tp + fp) if tp + fp else 0.0
+    recall = tp / (tp + fn) if tp + fn else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    return {
+        'tp': tp, 'fp': fp, 'fn': fn, 'tn': tn,
+        'precision': round(precision, 6), 'recall': round(recall, 6), 'f1': round(f1, 6),
+    }
+
+
+def metric_bundle(model, rows, segments, threshold):
+    return {
+        'overall': binary_metrics(model, rows, threshold),
+        'segments': {segment: binary_metrics(model, [r for r in rows if r['segment'] == segment], threshold) for segment in segments},
+    }
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument('--contract', required=True)
+    p.add_argument('--candidate', required=True)
+    p.add_argument('--candidate-model', required=True)
+    p.add_argument('--baseline-model', required=True)
+    p.add_argument('--dataset-manifest', required=True)
+    p.add_argument('--dataset', required=True)
+    p.add_argument('--training-membership', required=True)
+    p.add_argument('--run', required=True)
+    p.add_argument('--report', required=True)
+    a = p.parse_args()
+
+    try:
+        c = load_json(a.contract)
+        candidate = load_json(a.candidate)
+        cand_model = load_json(a.candidate_model)
+        base_model = load_json(a.baseline_model)
+        manifest = load_json(a.dataset_manifest)
+        dataset = load_json(a.dataset)
+        membership = load_json(a.training_membership)
+        run = load_json(a.run)
+    except Exception as e:
+        reject(['invalid_json_or_input:' + type(e).__name__])
+
+    reasons = []
+    if c.get('contract_id') != SUPPORTED_CONTRACT:
+        reasons.append('unsupported_contract')
+
+    ed = c.get('evaluation_dataset', {})
+    ex = c.get('execution', {})
+    policy = c.get('decision_policy', {})
+
+    # Exact upstream candidate handoff and authority boundary.
+    if sha256(a.candidate) != c.get('candidate_manifest_sha256'):
+        reasons.append('candidate_manifest_digest_mismatch')
+    if candidate.get('candidate_id') != c.get('candidate_id'):
+        reasons.append('candidate_id_mismatch')
+    if candidate.get('model_family') != c.get('model_family'):
+        reasons.append('candidate_model_family_mismatch')
+    if candidate.get('baseline_release') != c.get('baseline_release'):
+        reasons.append('candidate_baseline_mismatch')
+    if candidate.get('candidate_state') != 'evaluation-required':
+        reasons.append('candidate_state_mismatch')
+    if candidate.get('lineage_verified') is not True:
+        reasons.append('candidate_lineage_not_verified')
+    if candidate.get('evaluation_required') is not True:
+        reasons.append('candidate_evaluation_requirement_missing')
+    if candidate.get('promotion_authorized') is not False:
+        reasons.append('candidate_promotion_authority_forbidden')
+    if candidate.get('promotion_mode') != 'validation-required':
+        reasons.append('candidate_promotion_mode_mismatch')
+
+    candidate_model_sha = sha256(a.candidate_model)
+    baseline_model_sha = sha256(a.baseline_model)
+    if candidate.get('model_artifact_sha256') != candidate_model_sha:
+        reasons.append('candidate_model_bytes_mismatch')
+    if c.get('baseline_model_sha256') != baseline_model_sha:
+        reasons.append('baseline_model_bytes_mismatch')
+
+    # Exact independent evaluation snapshot and exclusion-set identity.
+    manifest_sha = sha256(a.dataset_manifest)
+    dataset_sha = sha256(a.dataset)
+    membership_sha = sha256(a.training_membership)
+    if manifest_sha != ed.get('manifest_sha256'):
+        reasons.append('evaluation_manifest_digest_mismatch')
+    for key, expected, message in [
+        ('dataset_id', ed.get('dataset_id'), 'evaluation_dataset_id_mismatch'),
+        ('manifest_id', ed.get('manifest_id'), 'evaluation_manifest_id_mismatch'),
+        ('purpose', ed.get('purpose'), 'evaluation_purpose_mismatch'),
+        ('split_generation', ed.get('split_generation'), 'split_generation_mismatch'),
+        ('observation_unit', ed.get('observation_unit'), 'observation_unit_mismatch'),
+        ('group_key', ed.get('group_key'), 'group_key_mismatch'),
+        ('label_contract', ed.get('label_contract'), 'label_contract_mismatch'),
+        ('label_cutoff', ed.get('label_cutoff'), 'label_cutoff_mismatch'),
+    ]:
+        if manifest.get(key) != expected:
+            reasons.append(message)
+    if manifest.get('dataset_sha256') != dataset_sha:
+        reasons.append('evaluation_dataset_bytes_mismatch')
+    if manifest.get('training_membership_sha256') != membership_sha:
+        reasons.append('training_membership_digest_mismatch')
+    if ed.get('training_membership_sha256') != membership_sha:
+        reasons.append('contract_training_membership_digest_mismatch')
+    if membership.get('group_key') != ed.get('group_key'):
+        reasons.append('membership_group_key_mismatch')
+    if membership.get('training_dataset_generation_id') != candidate.get('dataset_generation_id'):
+        reasons.append('membership_training_dataset_mismatch')
+
+    # Actual evaluation execution must resolve the same evidence generation.
+    if run.get('status') != 'succeeded':
+        reasons.append('evaluation_status_not_succeeded')
+    run_pairs = [
+        ('evaluation_subject_id', c.get('evaluation_subject_id'), 'run_subject_mismatch'),
+        ('evaluation_contract_sha256', sha256(a.contract), 'run_contract_digest_mismatch'),
+        ('candidate_id', c.get('candidate_id'), 'run_candidate_id_mismatch'),
+        ('candidate_manifest_sha256', sha256(a.candidate), 'run_candidate_manifest_digest_mismatch'),
+        ('candidate_model_sha256', candidate_model_sha, 'run_candidate_model_digest_mismatch'),
+        ('baseline_release', c.get('baseline_release'), 'run_baseline_release_mismatch'),
+        ('baseline_model_sha256', baseline_model_sha, 'run_baseline_model_digest_mismatch'),
+        ('evaluation_dataset_id', ed.get('dataset_id'), 'run_dataset_id_mismatch'),
+        ('evaluation_dataset_manifest_sha256', manifest_sha, 'run_dataset_manifest_digest_mismatch'),
+        ('evaluation_dataset_sha256', dataset_sha, 'run_dataset_digest_mismatch'),
+        ('training_membership_sha256', membership_sha, 'run_membership_digest_mismatch'),
+        ('evaluator_generation', ex.get('evaluator_generation'), 'evaluator_generation_mismatch'),
+        ('evaluator_image_digest', ex.get('evaluator_image_digest'), 'evaluator_image_digest_mismatch'),
+        ('metric_contract', ex.get('metric_contract'), 'metric_contract_mismatch'),
+        ('decision_threshold', ex.get('decision_threshold'), 'decision_threshold_mismatch'),
+    ]
+    for key, expected, message in run_pairs:
+        if run.get(key) != expected:
+            reasons.append(message)
+
+    if policy.get('promotion_authorized') is not False:
+        reasons.append('contract_promotion_authority_forbidden')
+    if policy.get('promotion_mode') != 'validation-required':
+        reasons.append('contract_promotion_mode_mismatch')
+
+    # Semantic holdout checks operate on actual rows, not a dashboard claim.
+    rows = dataset.get('rows') if isinstance(dataset, dict) else None
+    if dataset.get('dataset_id') != ed.get('dataset_id'):
+        reasons.append('dataset_payload_id_mismatch')
+    if not isinstance(rows, list) or not rows:
+        reasons.append('evaluation_rows_missing')
+        rows = []
+
+    try:
+        label_cutoff = parse_ts(ed.get('label_cutoff'))
+        label_watermark = parse_ts(manifest.get('label_watermark'))
+        if label_watermark < label_cutoff:
+            reasons.append('label_watermark_not_mature')
+    except Exception:
+        reasons.append('invalid_label_time')
+        label_cutoff = datetime.min.replace(tzinfo=timezone.utc)
+
+    feature_keys = set(cand_model.get('weights', {}).keys())
+    if not feature_keys or feature_keys != set(base_model.get('weights', {}).keys()):
+        reasons.append('model_feature_contract_mismatch')
+
+    seen_ops = set()
+    duplicate_count = 0
+    training_groups = set(membership.get('merchant_ids', [])) if isinstance(membership.get('merchant_ids'), list) else set()
+    segment_counts = {segment: 0 for segment in ed.get('required_segments', [])}
+    group_overlap = False
+    future_feature = False
+    immature_label = False
+
+    for row in rows:
+        try:
+            op = row['operation_id']
+            if op in seen_ops:
+                duplicate_count += 1
+            seen_ops.add(op)
+            if row['merchant_id'] in training_groups:
+                group_overlap = True
+            segment = row['segment']
+            if segment in segment_counts:
+                segment_counts[segment] += 1
+            if row['label'] not in (0, 1):
+                reasons.append('invalid_label_value')
+            event_time = parse_ts(row['event_time'])
+            prediction_time = parse_ts(row['prediction_time'])
+            if event_time > prediction_time:
+                reasons.append('event_after_prediction')
+            available = row['feature_availability']
+            features = row['features']
+            if set(features.keys()) != feature_keys or set(available.keys()) != feature_keys:
+                reasons.append('row_feature_contract_mismatch')
+            for key in feature_keys:
+                if not isinstance(features[key], (int, float)) or not math.isfinite(float(features[key])):
+                    reasons.append('invalid_feature_value')
+                if parse_ts(available[key]) > prediction_time:
+                    future_feature = True
+            if parse_ts(row['label_mature_at']) > label_cutoff:
+                immature_label = True
+        except Exception:
+            reasons.append('malformed_evaluation_row')
+
+    if duplicate_count > int(ed.get('maximum_duplicate_events', 0)):
+        reasons.append('duplicate_evaluation_events')
+    if group_overlap:
+        reasons.append('group_overlap_with_training')
+    if future_feature:
+        reasons.append('feature_available_after_prediction')
+    if immature_label:
+        reasons.append('label_not_mature_by_cutoff')
+    minimum_rows = int(ed.get('minimum_rows_per_segment', 0))
+    for segment, count in segment_counts.items():
+        if count < minimum_rows:
+            reasons.append('segment_population_too_small:' + segment)
+    if manifest.get('row_count') != len(rows):
+        reasons.append('manifest_row_count_mismatch')
+
+    if reasons:
+        reject(reasons)
+
+    segments = ed['required_segments']
+    threshold = float(ex['decision_threshold'])
+    metrics = {
+        'candidate': metric_bundle(cand_model, rows, segments, threshold),
+        'baseline': metric_bundle(base_model, rows, segments, threshold),
+    }
+    if run.get('reported_metrics') != metrics:
+        reject(['reported_metrics_mismatch'])
+
+    f1_improvement = round(metrics['candidate']['overall']['f1'] - metrics['baseline']['overall']['f1'], 6)
+    segment_regressions = {
+        segment: round(metrics['baseline']['segments'][segment]['recall'] - metrics['candidate']['segments'][segment]['recall'], 6)
+        for segment in segments
+    }
+    quality_pass = (
+        f1_improvement >= float(policy['minimum_f1_improvement'])
+        and all(regression <= float(policy['maximum_segment_recall_regression']) for regression in segment_regressions.values())
+    )
+    decision = 'evaluation_passed' if quality_pass else 'failed_quality'
+    evaluation_id = 'evaluation-' + hashlib.sha256(
+        (c['evaluation_subject_id'] + '|' + candidate_model_sha + '|' + baseline_model_sha + '|' + dataset_sha + '|' + ex['metric_contract']).encode()
+    ).hexdigest()[:16]
+    report = {
+        'evaluation_id': evaluation_id,
+        'evaluation_subject_id': c['evaluation_subject_id'],
+        'decision': decision,
+        'candidate_id': c['candidate_id'],
+        'candidate_manifest_sha256': sha256(a.candidate),
+        'candidate_model_sha256': candidate_model_sha,
+        'baseline_release': c['baseline_release'],
+        'baseline_model_sha256': baseline_model_sha,
+        'evaluation_dataset_id': ed['dataset_id'],
+        'evaluation_dataset_manifest_sha256': manifest_sha,
+        'evaluation_dataset_sha256': dataset_sha,
+        'training_membership_sha256': membership_sha,
+        'split_generation': ed['split_generation'],
+        'label_contract': ed['label_contract'],
+        'label_cutoff': ed['label_cutoff'],
+        'evaluator_generation': ex['evaluator_generation'],
+        'evaluator_image_digest': ex['evaluator_image_digest'],
+        'metric_contract': ex['metric_contract'],
+        'decision_threshold': threshold,
+        'metrics': metrics,
+        'quality': {
+            'minimum_f1_improvement': policy['minimum_f1_improvement'],
+            'observed_f1_improvement': f1_improvement,
+            'maximum_segment_recall_regression': policy['maximum_segment_recall_regression'],
+            'observed_segment_recall_regression': segment_regressions,
+        },
+        'independent_holdout_verified': True,
+        'leakage_checks_passed': True,
+        'evaluation_complete': True,
+        'promotion_mode': policy['promotion_mode'],
+        'promotion_authorized': False,
+    }
+    desired = jbytes(report)
+    rp = Path(a.report)
+    if rp.exists():
+        if rp.read_bytes() != desired:
+            reject(['evaluation_report_state_conflict'])
+    else:
+        rp.write_bytes(desired)
+    print(json.dumps({'decision': decision, 'evaluation_id': evaluation_id, 'promotion_authorized': False}, sort_keys=True))
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except (KeyError, TypeError, ValueError) as e:
+        reject(['invalid_evidence:' + type(e).__name__])
