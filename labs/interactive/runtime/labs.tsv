@@ -25,3 +25,4 @@ mlops-drift-monitoring	shell	Repair biased drift monitoring and prevent unsuppor
 mlops-canary-rollback	shell	Repair canary rollout authority using actual stable-unit exposure, candidate guardrails and exact rollback state.
 mlops-ab-experiment-integrity	shell	Repair A/B experiment authority using stable-unit randomization, SRM, interference and mature fixed-horizon evidence.
 mlops-retraining-trigger	shell	Repair Continuous Training authority using persistent degradation, mature data readiness and semantic retraining deduplication.
+mlops-training-run-lineage	shell	Bind an approved retraining subject to exact loaded dataset, code, trainer image, config and output artifact lineage before candidate registration.

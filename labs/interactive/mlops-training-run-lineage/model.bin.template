@@ -1,0 +1,3 @@
+KH-PAYMENT-RISK-XGB-CANDIDATE
+format=xgboost-binary-simulated
+weights_digest=8f44b4a2f31e

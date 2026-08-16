@@ -1,0 +1,14 @@
+{
+  "baseline_release": "risk-serving-r39",
+  "dataset_generation_id": "pay-train-2026-08-g42",
+  "deduplication_key": "payment-risk:pay-train-2026-08-g42:confirmed_loss_within_30d-v2",
+  "label_contract": "confirmed_loss_within_30d-v2",
+  "label_cutoff": "2026-08-15T00:00:00Z",
+  "model_family": "payment-risk",
+  "operation_id": "ct-op-7d1d41d319be",
+  "promotion_authorized": false,
+  "promotion_mode": "validation-required",
+  "request_id": "train-request-pay-2026-08-16-042",
+  "retraining_subject_id": "MLOPS-PAY-CT-2026-08-16-028",
+  "training_data_manifest_sha256": "sha256:9f853a4796db5521bc4a9189cc3c2d4653bdfb61e661d6c64d692bac414ad458"
+}

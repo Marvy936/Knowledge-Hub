@@ -1,0 +1,33 @@
+{
+  "approved_request_sha256": "sha256:4fecc18c96ba2bec8386a8bc5ca214900f3e9781d078a37afc9ea694c8c204d3",
+  "baseline_release": "risk-serving-r39",
+  "completed_at": "2026-08-16T13:24:30Z",
+  "dataset_generation_id": "pay-train-2026-08-g42",
+  "dependency_lock_sha256": "sha256:b7f5fb9ecab864ec962c0268c45a1504e05eb63aab6b846858d7ce879566cde2",
+  "entrypoint": [
+    "python3",
+    "-m",
+    "payment_risk.train",
+    "--config",
+    "/run/trainer-config.json"
+  ],
+  "label_contract": "confirmed_loss_within_30d-v2",
+  "model_family": "payment-risk",
+  "operation_id": "ct-op-7d1d41d319be",
+  "output": {
+    "artifact_filename": "model.bin",
+    "artifact_sha256": "sha256:bb0000335a33e72bd63addb2c7c80185698b8ba8764f9a88c7e4cd39a83ed4df",
+    "artifact_type": "xgboost-model"
+  },
+  "random_seed": 731,
+  "request_id": "train-request-pay-2026-08-16-042",
+  "run_id": "train-pay-2026-08-16-0042",
+  "source_revision": "1111111111111111111111111111111111111111",
+  "started_at": "2026-08-16T13:10:00Z",
+  "status": "succeeded",
+  "trainer_config_id": "payment-risk-xgb-v12",
+  "trainer_config_sha256": "sha256:13f1f5a49114ca3b6373bc466db618cc57fd642034376543208138eca8871963",
+  "trainer_image_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "training_data_manifest_sha256": "sha256:9f853a4796db5521bc4a9189cc3c2d4653bdfb61e661d6c64d692bac414ad458",
+  "training_subject_id": "MLOPS-PAY-CT-2026-08-16-028"
+}

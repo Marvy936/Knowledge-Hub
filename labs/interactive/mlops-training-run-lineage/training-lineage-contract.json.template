@@ -1,0 +1,33 @@
+{
+  "baseline_release": "risk-serving-r39",
+  "contract_id": "payment-risk-training-lineage-v3",
+  "dataset_generation_id": "pay-train-2026-08-g42",
+  "execution": {
+    "dependency_lock_sha256": "sha256:b7f5fb9ecab864ec962c0268c45a1504e05eb63aab6b846858d7ce879566cde2",
+    "entrypoint": [
+      "python3",
+      "-m",
+      "payment_risk.train",
+      "--config",
+      "/run/trainer-config.json"
+    ],
+    "random_seed": 731,
+    "source_revision": "9e5a58c618cda63c2ff89ef78fa2a6c2ae9b831d",
+    "trainer_config_id": "payment-risk-xgb-v12",
+    "trainer_config_sha256": "sha256:13f1f5a49114ca3b6373bc466db618cc57fd642034376543208138eca8871963",
+    "trainer_image_digest": "sha256:7f55d6f68d925611799a94f0e3fbe50e4385144de2f0f138fd6b4103f18660ca"
+  },
+  "label_contract": "confirmed_loss_within_30d-v2",
+  "model_family": "payment-risk",
+  "operation_id": "ct-op-7d1d41d319be",
+  "output_policy": {
+    "artifact_filename": "model.bin",
+    "artifact_type": "xgboost-model",
+    "candidate_state": "evaluation-required",
+    "promotion_authorized": false,
+    "promotion_mode": "validation-required"
+  },
+  "request_id": "train-request-pay-2026-08-16-042",
+  "training_data_manifest_sha256": "sha256:9f853a4796db5521bc4a9189cc3c2d4653bdfb61e661d6c64d692bac414ad458",
+  "training_subject_id": "MLOPS-PAY-CT-2026-08-16-028"
+}

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cp "$LAB_ROOT/lineage_gate.py.template" /workspace/lineage_gate.py
+cp "$LAB_ROOT/training-lineage-contract.json.template" /workspace/training-lineage-contract.json
+cp "$LAB_ROOT/approved-training-request.json.template" /workspace/approved-training-request.json
+cp "$LAB_ROOT/training-run.json.template" /workspace/training-run.json
+cp "$LAB_ROOT/trainer-config.json.template" /workspace/trainer-config.json
+cp "$LAB_ROOT/model.bin.template" /workspace/model.bin
+rm -f /workspace/candidate-manifest.json /workspace/promotion-request.json
+chmod +x /workspace/lineage_gate.py

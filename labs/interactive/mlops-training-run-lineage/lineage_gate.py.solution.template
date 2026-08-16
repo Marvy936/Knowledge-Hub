@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+import argparse, hashlib, json, sys
+from pathlib import Path
+
+SUPPORTED_CONTRACT='payment-risk-training-lineage-v3'
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+def sha256(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def jbytes(obj):
+    return (json.dumps(obj,indent=2,sort_keys=True)+'\n').encode()
+
+def rejected(reasons):
+    out={'decision':'rejected','reasons':reasons,'promotion_authorized':False}
+    print(json.dumps(out,sort_keys=True))
+    raise SystemExit(2)
+
+def main():
+    p=argparse.ArgumentParser()
+    p.add_argument('--contract',required=True); p.add_argument('--request',required=True); p.add_argument('--run',required=True)
+    p.add_argument('--config',required=True); p.add_argument('--model',required=True); p.add_argument('--candidate',required=True)
+    a=p.parse_args()
+    try:
+        c=load(a.contract); q=load(a.request); r=load(a.run); cfg=load(a.config)
+    except Exception as e:
+        rejected(['invalid_json_or_input:'+type(e).__name__])
+
+    reasons=[]
+    if c.get('contract_id')!=SUPPORTED_CONTRACT: reasons.append('unsupported_contract')
+
+    # Approved request must be the exact retraining subject authorized upstream.
+    pairs=[
+      ('retraining_subject_id','training_subject_id','request_subject_mismatch'),
+      ('request_id','request_id','request_id_mismatch'),
+      ('operation_id','operation_id','operation_id_mismatch'),
+      ('model_family','model_family','request_model_family_mismatch'),
+      ('baseline_release','baseline_release','request_baseline_mismatch'),
+      ('dataset_generation_id','dataset_generation_id','request_dataset_generation_mismatch'),
+      ('training_data_manifest_sha256','training_data_manifest_sha256','request_data_manifest_mismatch'),
+      ('label_contract','label_contract','request_label_contract_mismatch'),
+    ]
+    for qk,ck,msg in pairs:
+        if q.get(qk)!=c.get(ck): reasons.append(msg)
+    if q.get('promotion_authorized') is not False: reasons.append('request_promotion_authority_forbidden')
+    if q.get('promotion_mode')!='validation-required': reasons.append('request_promotion_mode_mismatch')
+
+    ex=c.get('execution',{}); op=c.get('output_policy',{})
+    actual_cfg_sha='sha256:'+sha256(a.config)
+    if cfg.get('config_id')!=ex.get('trainer_config_id'): reasons.append('config_id_mismatch')
+    if actual_cfg_sha!=ex.get('trainer_config_sha256'): reasons.append('config_bytes_mismatch')
+    if cfg.get('random_seed')!=ex.get('random_seed'): reasons.append('config_seed_mismatch')
+    if op.get('promotion_authorized') is not False: reasons.append('contract_promotion_authority_forbidden')
+    if op.get('promotion_mode')!='validation-required': reasons.append('contract_promotion_mode_mismatch')
+
+    # Loaded/executed evidence must match the approved subject exactly.
+    if r.get('status')!='succeeded': reasons.append('training_status_not_succeeded')
+    run_pairs=[
+      ('training_subject_id','training_subject_id','run_subject_mismatch'),
+      ('request_id','request_id','run_request_id_mismatch'),
+      ('operation_id','operation_id','run_operation_id_mismatch'),
+      ('model_family','model_family','run_model_family_mismatch'),
+      ('baseline_release','baseline_release','run_baseline_mismatch'),
+      ('dataset_generation_id','dataset_generation_id','run_dataset_generation_mismatch'),
+      ('training_data_manifest_sha256','training_data_manifest_sha256','run_data_manifest_mismatch'),
+      ('label_contract','label_contract','run_label_contract_mismatch'),
+    ]
+    for rk,ck,msg in run_pairs:
+        if r.get(rk)!=c.get(ck): reasons.append(msg)
+    if r.get('approved_request_sha256')!='sha256:'+sha256(a.request): reasons.append('approved_request_digest_mismatch')
+    if r.get('source_revision')!=ex.get('source_revision'): reasons.append('source_revision_mismatch')
+    if r.get('trainer_image_digest')!=ex.get('trainer_image_digest'): reasons.append('trainer_image_digest_mismatch')
+    if r.get('dependency_lock_sha256')!=ex.get('dependency_lock_sha256'): reasons.append('dependency_lock_mismatch')
+    if r.get('trainer_config_id')!=ex.get('trainer_config_id'): reasons.append('run_config_id_mismatch')
+    if r.get('trainer_config_sha256')!=ex.get('trainer_config_sha256'): reasons.append('run_config_digest_mismatch')
+    if r.get('random_seed')!=ex.get('random_seed'): reasons.append('run_seed_mismatch')
+    if r.get('entrypoint')!=ex.get('entrypoint'): reasons.append('entrypoint_mismatch')
+
+    output=r.get('output',{})
+    model_sha='sha256:'+sha256(a.model)
+    if output.get('artifact_type')!=op.get('artifact_type'): reasons.append('artifact_type_mismatch')
+    if output.get('artifact_filename')!=op.get('artifact_filename'): reasons.append('artifact_filename_mismatch')
+    if output.get('artifact_sha256')!=model_sha: reasons.append('artifact_bytes_mismatch')
+
+    if reasons:
+        rejected(reasons)
+
+    candidate_id='candidate-'+hashlib.sha256((c['training_subject_id']+'|'+r['run_id']+'|'+model_sha).encode()).hexdigest()[:16]
+    candidate={
+      'candidate_id':candidate_id,
+      'candidate_state':op['candidate_state'],
+      'training_subject_id':c['training_subject_id'],
+      'request_id':c['request_id'],
+      'operation_id':c['operation_id'],
+      'run_id':r['run_id'],
+      'model_family':c['model_family'],
+      'baseline_release':c['baseline_release'],
+      'dataset_generation_id':c['dataset_generation_id'],
+      'training_data_manifest_sha256':c['training_data_manifest_sha256'],
+      'label_contract':c['label_contract'],
+      'source_revision':ex['source_revision'],
+      'trainer_image_digest':ex['trainer_image_digest'],
+      'dependency_lock_sha256':ex['dependency_lock_sha256'],
+      'trainer_config_id':ex['trainer_config_id'],
+      'trainer_config_sha256':ex['trainer_config_sha256'],
+      'random_seed':ex['random_seed'],
+      'model_artifact_sha256':model_sha,
+      'contract_sha256':'sha256:'+sha256(a.contract),
+      'approved_request_sha256':'sha256:'+sha256(a.request),
+      'training_run_sha256':'sha256:'+sha256(a.run),
+      'lineage_verified':True,
+      'evaluation_required':True,
+      'promotion_mode':op['promotion_mode'],
+      'promotion_authorized':False
+    }
+    desired=jbytes(candidate); cp=Path(a.candidate)
+    if cp.exists():
+        current=cp.read_bytes()
+        if current!=desired:
+            rejected(['candidate_state_conflict'])
+    else:
+        cp.write_bytes(desired)
+    print(json.dumps({'candidate_id':candidate_id,'decision':'candidate_ready_for_evaluation','lineage_verified':True,'promotion_authorized':False},sort_keys=True))
+
+if __name__=='__main__':
+    try: main()
+    except (KeyError, TypeError, ValueError) as e:
+        rejected(['invalid_evidence:'+type(e).__name__])
