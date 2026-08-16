@@ -62,6 +62,7 @@ COPY mlops-canary-rollback /opt/knowledge-hub/labs/mlops-canary-rollback
 COPY mlops-ab-experiment-integrity /opt/knowledge-hub/labs/mlops-ab-experiment-integrity
 COPY mlops-retraining-trigger /opt/knowledge-hub/labs/mlops-retraining-trigger
 COPY mlops-training-run-lineage /opt/knowledge-hub/labs/mlops-training-run-lineage
+COPY mlops-offline-evaluation-integrity /opt/knowledge-hub/labs/mlops-offline-evaluation-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -154,7 +155,14 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s driver /opt/knowledge-hub/labs/mlops-training-run-lineage/lab/reset \
  && ln -s driver /opt/knowledge-hub/labs/mlops-training-run-lineage/lab/status \
  && ln -s driver /opt/knowledge-hub/labs/mlops-training-run-lineage/lab/self-test \
- && ln -s driver /opt/knowledge-hub/labs/mlops-training-run-lineage/lab/attest
+ && ln -s driver /opt/knowledge-hub/labs/mlops-training-run-lineage/lab/attest \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-offline-evaluation-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-offline-evaluation-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-offline-evaluation-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-offline-evaluation-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-offline-evaluation-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-offline-evaluation-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-offline-evaluation-integrity/lab/evaluate
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

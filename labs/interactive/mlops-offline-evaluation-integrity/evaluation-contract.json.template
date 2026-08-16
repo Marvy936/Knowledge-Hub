@@ -1,0 +1,40 @@
+{
+  "baseline_model_sha256": "sha256:3638105d39af708394c00fda174cdbe12f785dd95862edea9b460e5ce06000a9",
+  "baseline_release": "risk-serving-r39",
+  "candidate_id": "candidate-9c3e2c97ef2a7d31",
+  "candidate_manifest_sha256": "sha256:9ba4028d3692c89e6a98f2eb1ffedd5a5f6677c9b6c0f4040412d1b99e703753",
+  "contract_id": "payment-risk-offline-evaluation-v4",
+  "decision_policy": {
+    "maximum_segment_recall_regression": 0.05,
+    "minimum_f1_improvement": 0.05,
+    "promotion_authorized": false,
+    "promotion_mode": "validation-required"
+  },
+  "evaluation_dataset": {
+    "dataset_id": "risk-holdout-2026-08-unseen-merchants-v3",
+    "group_key": "merchant_id",
+    "label_contract": "confirmed_loss_within_30d-v2",
+    "label_cutoff": "2026-07-01T00:00:00Z",
+    "manifest_id": "risk-holdout-manifest-v3",
+    "manifest_sha256": "sha256:20f319ee29b65b89b6645e66f2c5e3968e04bbd3c080e222abd12340cd34f08c",
+    "maximum_duplicate_events": 0,
+    "minimum_rows_per_segment": 2,
+    "observation_unit": "payment_operation_id",
+    "purpose": "independent-holdout",
+    "required_segments": [
+      "new_merchant",
+      "established_merchant"
+    ],
+    "split_generation": "merchant-group-time-v4",
+    "split_policy": "unseen-merchant",
+    "training_membership_sha256": "sha256:06144591208a192261488918e59e6f58a4a0dca2a210fb3b1f7fa459afc4853c"
+  },
+  "evaluation_subject_id": "MLOPS-PAY-EVAL-2026-08-16-029",
+  "execution": {
+    "decision_threshold": 0.5,
+    "evaluator_generation": "risk-evaluator-v7",
+    "evaluator_image_digest": "sha256:3a054c11717f56813d78afcded4e43546681a43aaf87dbd7a87940ff97d5d8f1",
+    "metric_contract": "payment-risk-metrics-v7"
+  },
+  "model_family": "payment-risk"
+}

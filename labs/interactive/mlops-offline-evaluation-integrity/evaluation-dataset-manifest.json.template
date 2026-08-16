@@ -1,0 +1,14 @@
+{
+  "dataset_id": "risk-holdout-2026-08-unseen-merchants-v3",
+  "dataset_sha256": "sha256:8d138746b62157ba27252d6e1e2d360176ff873fc2b28c5b0dd05072b44589ea",
+  "group_key": "merchant_id",
+  "label_contract": "confirmed_loss_within_30d-v2",
+  "label_cutoff": "2026-07-01T00:00:00Z",
+  "label_watermark": "2026-07-01T00:00:00Z",
+  "manifest_id": "risk-holdout-manifest-v3",
+  "observation_unit": "payment_operation_id",
+  "purpose": "independent-holdout",
+  "row_count": 8,
+  "split_generation": "merchant-group-time-v4",
+  "training_membership_sha256": "sha256:06144591208a192261488918e59e6f58a4a0dca2a210fb3b1f7fa459afc4853c"
+}

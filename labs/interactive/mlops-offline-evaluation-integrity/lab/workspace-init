@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+mkdir -p /workspace
+cp "$LAB_ROOT/evaluate.py.template" /workspace/evaluate.py
+cp "$LAB_ROOT/evaluation-contract.json.template" /workspace/evaluation-contract.json
+cp "$LAB_ROOT/candidate-manifest.json.template" /workspace/candidate-manifest.json
+cp "$LAB_ROOT/candidate-model.bin.template" /workspace/candidate-model.bin
+cp "$LAB_ROOT/baseline-model.bin.template" /workspace/baseline-model.bin
+cp "$LAB_ROOT/evaluation-dataset-manifest.json.template" /workspace/evaluation-dataset-manifest.json
+cp "$LAB_ROOT/evaluation-dataset.json.template" /workspace/evaluation-dataset.json
+cp "$LAB_ROOT/training-membership.json.template" /workspace/training-membership.json
+cp "$LAB_ROOT/evaluation-run.json.template" /workspace/evaluation-run.json
+rm -f /workspace/evaluation-report.json /workspace/promotion-request.json
+chmod +x /workspace/evaluate.py
