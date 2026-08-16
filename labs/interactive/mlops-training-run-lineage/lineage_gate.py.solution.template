@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, hashlib, json
+import argparse, hashlib, json, sys
 from pathlib import Path
 
 SUPPORTED_CONTRACT='payment-risk-training-lineage-v3'
@@ -31,6 +31,7 @@ def main():
     reasons=[]
     if c.get('contract_id')!=SUPPORTED_CONTRACT: reasons.append('unsupported_contract')
 
+    # Approved request must be the exact retraining subject authorized upstream.
     pairs=[
       ('retraining_subject_id','training_subject_id','request_subject_mismatch'),
       ('request_id','request_id','request_id_mismatch'),
@@ -54,6 +55,7 @@ def main():
     if op.get('promotion_authorized') is not False: reasons.append('contract_promotion_authority_forbidden')
     if op.get('promotion_mode')!='validation-required': reasons.append('contract_promotion_mode_mismatch')
 
+    # Loaded/executed evidence must match the approved subject exactly.
     if r.get('status')!='succeeded': reasons.append('training_status_not_succeeded')
     run_pairs=[
       ('training_subject_id','training_subject_id','run_subject_mismatch'),
