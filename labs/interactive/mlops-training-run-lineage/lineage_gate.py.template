@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import argparse, hashlib, json
+from pathlib import Path
+
+p=argparse.ArgumentParser()
+p.add_argument('--contract',required=True); p.add_argument('--request',required=True); p.add_argument('--run',required=True)
+p.add_argument('--config',required=True); p.add_argument('--model',required=True); p.add_argument('--candidate',required=True)
+a=p.parse_args()
+run=json.loads(Path(a.run).read_text())
+if run.get('status')!='succeeded':
+    raise SystemExit('training did not succeed')
+# Unsafe: trusts whatever the successful run claims it loaded and produced.
+artifact=run.get('output',{}).get('artifact_sha256','unknown')
+candidate={
+    'candidate_id':'candidate-'+hashlib.sha256((run.get('run_id','')+'|'+artifact).encode()).hexdigest()[:16],
+    'run_id':run.get('run_id'),
+    'artifact_sha256':artifact,
+    'lineage_verified':True,
+    'candidate_state':'candidate',
+    'evaluation_required':False,
+    'promotion_authorized':False
+}
+Path(a.candidate).write_text(json.dumps(candidate,indent=2,sort_keys=True)+'\n')
+print(json.dumps({'decision':'candidate_registered','lineage_verified':True,'run_id':run.get('run_id')},sort_keys=True))
