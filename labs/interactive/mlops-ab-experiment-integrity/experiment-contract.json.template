@@ -1,0 +1,37 @@
+{
+  "analysis_policy": {
+    "alpha": 0.05,
+    "direction": "higher_is_better",
+    "minimum_absolute_lift": 0.2,
+    "minimum_mature_outcomes_per_variant": 6,
+    "mode": "fixed_horizon",
+    "primary_metric": "conversion_after_60m",
+    "winner_authority_stage": "final"
+  },
+  "assignment_policy": "merchant-hash-50-v3",
+  "assignment_unit": "merchant_id",
+  "candidate_release": "risk-serving-r42",
+  "contract_id": "payment-risk-ab-v5",
+  "control_release": "risk-serving-r39",
+  "eligibility_policy": "eligible-card-not-present-v5",
+  "expected_allocation": {
+    "candidate": 0.5,
+    "control": 0.5
+  },
+  "experiment_subject_id": "MLOPS-PAY-EXP-2026-08-r42-vs-r39",
+  "sample_ratio_mismatch": {
+    "alpha": 0.05,
+    "minimum_total_units": 20
+  },
+  "shared_resource": {
+    "capacity_slots": 10,
+    "maximum_utilization_for_independence": 0.8,
+    "outcome_can_be_affected": true,
+    "resource_id": "manual-review-pool-v4"
+  },
+  "window": {
+    "end": "2026-08-15T15:00:00Z",
+    "required_outcome_watermark": "2026-08-15T16:00:00Z",
+    "start": "2026-08-15T14:00:00Z"
+  }
+}

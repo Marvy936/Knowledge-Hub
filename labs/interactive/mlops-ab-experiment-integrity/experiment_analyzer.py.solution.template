@@ -1,0 +1,277 @@
+#!/usr/bin/env python3
+import argparse
+import hashlib
+import json
+import math
+from datetime import datetime
+from pathlib import Path
+
+
+def fail(message):
+    raise ValueError(message)
+
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+
+def sha256(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def parse_ts(value):
+    try:
+        return datetime.fromisoformat(value.replace('Z', '+00:00'))
+    except Exception as exc:
+        fail(f'invalid timestamp {value!r}: {exc}')
+
+
+def rounded(value):
+    return round(float(value), 6)
+
+
+def chi_square_p_two(observed_candidate, observed_control, expected_candidate_share):
+    total = observed_candidate + observed_control
+    if total <= 0:
+        return 1.0, 0.0
+    exp_candidate = total * expected_candidate_share
+    exp_control = total * (1.0 - expected_candidate_share)
+    if exp_candidate <= 0 or exp_control <= 0:
+        fail('invalid expected allocation')
+    chi2 = ((observed_candidate - exp_candidate) ** 2) / exp_candidate
+    chi2 += ((observed_control - exp_control) ** 2) / exp_control
+    # df=1 survival function.
+    p_value = math.erfc(math.sqrt(chi2 / 2.0))
+    return p_value, chi2
+
+
+def two_proportion_p(candidate_success, candidate_n, control_success, control_n):
+    if candidate_n <= 0 or control_n <= 0:
+        return None
+    candidate_rate = candidate_success / candidate_n
+    control_rate = control_success / control_n
+    pooled = (candidate_success + control_success) / (candidate_n + control_n)
+    variance = pooled * (1.0 - pooled) * (1.0 / candidate_n + 1.0 / control_n)
+    if variance <= 0:
+        return 1.0 if candidate_rate == control_rate else 0.0
+    z = (candidate_rate - control_rate) / math.sqrt(variance)
+    return math.erfc(abs(z) / math.sqrt(2.0))
+
+
+def write_if_changed(path, value):
+    wanted = json.dumps(value, indent=2, sort_keys=True) + '\n'
+    p = Path(path)
+    if not p.exists() or p.read_text() != wanted:
+        p.write_text(wanted)
+
+
+def analyze(contract_path, evidence_path, state_path):
+    contract = load(contract_path)
+    evidence = load(evidence_path)
+    state = load(state_path)
+
+    if contract.get('contract_id') != 'payment-risk-ab-v5':
+        fail('unsupported experiment contract')
+    if contract['expected_allocation'] != {'candidate': 0.5, 'control': 0.5}:
+        fail('unsupported expected allocation')
+    if contract['analysis_policy'].get('mode') != 'fixed_horizon':
+        fail('unsupported analysis policy')
+    if contract['analysis_policy'].get('direction') != 'higher_is_better':
+        fail('unsupported primary metric direction')
+
+    identity_fields = [
+        'experiment_subject_id', 'control_release', 'candidate_release',
+        'assignment_unit', 'assignment_policy', 'eligibility_policy',
+    ]
+    for field in identity_fields:
+        if evidence.get(field) != contract.get(field):
+            fail(f'evidence {field} does not match experiment contract')
+    if evidence.get('shared_resource_id') != contract['shared_resource']['resource_id']:
+        fail('shared resource identity mismatch')
+    if state.get('experiment_subject_id') != contract['experiment_subject_id']:
+        fail('experiment state belongs to another subject')
+
+    start = parse_ts(contract['window']['start'])
+    end = parse_ts(contract['window']['end'])
+    required_outcome_watermark = parse_ts(contract['window']['required_outcome_watermark'])
+    if evidence.get('window_start') != contract['window']['start'] or evidence.get('window_end') != contract['window']['end']:
+        fail('experiment window identity mismatch')
+    if parse_ts(evidence.get('completeness_watermark', '')) < end:
+        fail('assignment/exposure window is incomplete')
+    if evidence.get('analysis_stage') not in {'interim', 'final'}:
+        fail('unknown analysis stage')
+
+    required = {
+        'request_id', 'event_time', 'merchant_id', 'eligible', 'eligibility_policy',
+        'assignment_policy', 'assigned_release', 'actual_release', 'outcome_status',
+        'converted', 'manual_review_slot_consumed',
+    }
+    seen_request_ids = set()
+    eligible = []
+    for row in evidence.get('records', []):
+        if not required.issubset(row):
+            fail('experiment record is missing required telemetry')
+        request_id = row['request_id']
+        if not isinstance(request_id, str) or not request_id or request_id in seen_request_ids:
+            fail('request_id must be unique and non-empty')
+        seen_request_ids.add(request_id)
+        event_time = parse_ts(row['event_time'])
+        if row['eligible'] is not True or not (start <= event_time < end):
+            continue
+        if row['eligibility_policy'] != contract['eligibility_policy']:
+            fail('eligible row used another eligibility policy')
+        if row['assignment_policy'] != contract['assignment_policy']:
+            fail('eligible row used another assignment policy')
+        if row['assigned_release'] not in {contract['candidate_release'], contract['control_release']}:
+            fail('eligible row assigned an unknown release')
+        if row['actual_release'] not in {contract['candidate_release'], contract['control_release']}:
+            fail('eligible row served an unknown release')
+        if row['outcome_status'] not in {'mature', 'pending'}:
+            fail('unknown outcome status')
+        if row['outcome_status'] == 'mature' and not isinstance(row['converted'], bool):
+            fail('mature outcome must contain a boolean converted value')
+        if row['outcome_status'] == 'pending' and row['converted'] is not None:
+            fail('pending outcome must not contain a converted value')
+        if not isinstance(row['manual_review_slot_consumed'], bool):
+            fail('manual_review_slot_consumed must be boolean')
+        unit = row[contract['assignment_unit']]
+        if not isinstance(unit, str) or not unit:
+            fail('assignment unit must be a non-empty string')
+        eligible.append(row)
+
+    if not eligible:
+        fail('eligible experiment population is empty')
+
+    unit_release_sets = {}
+    unit_rows = {}
+    release_delivery_mismatch_units = set()
+    for row in eligible:
+        unit = row[contract['assignment_unit']]
+        unit_release_sets.setdefault(unit, set()).add(row['assigned_release'])
+        unit_rows.setdefault(unit, []).append(row)
+        if row['actual_release'] != row['assigned_release']:
+            release_delivery_mismatch_units.add(unit)
+
+    contaminated_units = sorted(unit for unit, releases in unit_release_sets.items() if len(releases) > 1)
+    duplicate_same_variant_units = sorted(
+        unit for unit, rows in unit_rows.items()
+        if len(rows) > 1 and len(unit_release_sets[unit]) == 1
+    )
+    if duplicate_same_variant_units:
+        fail('duplicate unit-level outcome rows are not allowed')
+
+    first_assignment = {unit: rows[0]['assigned_release'] for unit, rows in unit_rows.items()}
+    candidate_units = sum(1 for release in first_assignment.values() if release == contract['candidate_release'])
+    control_units = sum(1 for release in first_assignment.values() if release == contract['control_release'])
+    total_units = candidate_units + control_units
+    srm_p, srm_chi2 = chi_square_p_two(candidate_units, control_units, contract['expected_allocation']['candidate'])
+
+    invalidity_reasons = []
+    if contaminated_units:
+        invalidity_reasons.append('assignment_contamination')
+    if release_delivery_mismatch_units:
+        invalidity_reasons.append('release_delivery_mismatch')
+    srm_policy = contract['sample_ratio_mismatch']
+    if total_units >= srm_policy['minimum_total_units'] and srm_p < srm_policy['alpha']:
+        invalidity_reasons.append('sample_ratio_mismatch')
+
+    consumed_slots = sum(1 for row in eligible if row['manual_review_slot_consumed'])
+    shared = contract['shared_resource']
+    utilization = consumed_slots / shared['capacity_slots']
+    if shared.get('outcome_can_be_affected') is True and utilization > shared['maximum_utilization_for_independence']:
+        invalidity_reasons.append('shared_capacity_interference')
+
+    # For observation only, use one unit-level row per unit. Contaminated units keep their
+    # first observation but cannot authorize a causal claim because invalidity is already set.
+    observations = [rows[0] for rows in unit_rows.values()]
+    candidate_mature = [r for r in observations if r['assigned_release'] == contract['candidate_release'] and r['outcome_status'] == 'mature']
+    control_mature = [r for r in observations if r['assigned_release'] == contract['control_release'] and r['outcome_status'] == 'mature']
+    candidate_success = sum(r['converted'] for r in candidate_mature)
+    control_success = sum(r['converted'] for r in control_mature)
+    candidate_rate = candidate_success / len(candidate_mature) if candidate_mature else 0.0
+    control_rate = control_success / len(control_mature) if control_mature else 0.0
+    lift = candidate_rate - control_rate
+    primary_p = two_proportion_p(candidate_success, len(candidate_mature), control_success, len(control_mature))
+
+    readiness_reasons = []
+    policy = contract['analysis_policy']
+    if evidence['analysis_stage'] != policy['winner_authority_stage']:
+        readiness_reasons.append('interim_analysis_only')
+    outcome_watermark = parse_ts(evidence.get('outcome_watermark', ''))
+    if outcome_watermark < required_outcome_watermark or any(r['outcome_status'] != 'mature' for r in observations):
+        readiness_reasons.append('outcome_maturity_incomplete')
+    if len(candidate_mature) < policy['minimum_mature_outcomes_per_variant'] or len(control_mature) < policy['minimum_mature_outcomes_per_variant']:
+        readiness_reasons.append('minimum_mature_outcomes_not_met')
+
+    if invalidity_reasons:
+        decision = 'invalidate'
+    elif readiness_reasons:
+        decision = 'continue'
+    else:
+        significant = primary_p is not None and primary_p < policy['alpha']
+        sufficient_lift = lift >= policy['minimum_absolute_lift']
+        decision = 'winner_candidate' if significant and sufficient_lift else 'no_winner'
+
+    causal_claim_supported = decision in {'winner_candidate', 'no_winner'}
+    result = {
+        'contract_id': contract['contract_id'],
+        'contract_sha256': sha256(contract_path),
+        'experiment_subject_id': contract['experiment_subject_id'],
+        'evidence_sha256': sha256(evidence_path),
+        'assignment': {
+            'assignment_unit': contract['assignment_unit'],
+            'eligible_units': total_units,
+            'candidate_units': candidate_units,
+            'control_units': control_units,
+            'contaminated_units': contaminated_units,
+            'release_delivery_mismatch_units': sorted(release_delivery_mismatch_units),
+            'srm_chi_square': rounded(srm_chi2),
+            'srm_p_value': rounded(srm_p),
+        },
+        'shared_resource': {
+            'resource_id': shared['resource_id'],
+            'capacity_slots': shared['capacity_slots'],
+            'consumed_slots': consumed_slots,
+            'utilization': rounded(utilization),
+        },
+        'outcomes': {
+            'primary_metric': policy['primary_metric'],
+            'candidate_mature_units': len(candidate_mature),
+            'control_mature_units': len(control_mature),
+            'candidate_rate': rounded(candidate_rate),
+            'control_rate': rounded(control_rate),
+            'absolute_lift': rounded(lift),
+            'two_sided_p_value': None if primary_p is None else rounded(primary_p),
+        },
+        'invalidity_reasons': invalidity_reasons,
+        'readiness_reasons': readiness_reasons,
+        'decision': decision,
+        'causal_claim_supported': causal_claim_supported,
+        'winner_claim_supported': decision == 'winner_candidate',
+        'promotion_authorized': False,
+    }
+    new_state = {
+        'experiment_subject_id': contract['experiment_subject_id'],
+        'status': {'invalidate':'invalidated', 'continue':'running', 'winner_candidate':'completed', 'no_winner':'completed'}[decision],
+        'last_analysis': result,
+    }
+    write_if_changed(state_path, new_state)
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--contract', required=True)
+    parser.add_argument('--evidence', required=True)
+    parser.add_argument('--state', required=True)
+    args = parser.parse_args()
+    result = analyze(args.contract, args.evidence, args.state)
+    print(json.dumps(result, sort_keys=True))
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as exc:
+        print(f'ERROR: {exc}', file=__import__('sys').stderr)
+        raise SystemExit(2)
