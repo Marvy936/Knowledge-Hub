@@ -1,0 +1,10 @@
+{
+  "group_key": "merchant_id",
+  "merchant_ids": [
+    "m-train-001",
+    "m-train-002",
+    "m-train-003",
+    "m-train-004"
+  ],
+  "training_dataset_generation_id": "pay-train-2026-08-g42"
+}
