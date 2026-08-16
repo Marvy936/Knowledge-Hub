@@ -1,0 +1,10 @@
+{
+  "operations": [
+    {
+      "deduplication_key": "payment-risk:pay-train-2026-07-g16:confirmed_loss_within_30d-v2",
+      "operation_id": "ct-op-020",
+      "status": "candidate_created",
+      "training_data_generation": "pay-train-2026-07-g16"
+    }
+  ]
+}
