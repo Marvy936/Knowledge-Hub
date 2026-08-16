@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CMD="$(basename "$0")"
+init() { "$LAB_ROOT/lab/workspace-init"; }
+run_eval() {
+  python3 /workspace/evaluate.py \
+    --contract /workspace/evaluation-contract.json \
+    --candidate /workspace/candidate-manifest.json \
+    --candidate-model /workspace/candidate-model.bin \
+    --baseline-model /workspace/baseline-model.bin \
+    --dataset-manifest /workspace/evaluation-dataset-manifest.json \
+    --dataset /workspace/evaluation-dataset.json \
+    --training-membership /workspace/training-membership.json \
+    --run /workspace/evaluation-run.json \
+    --report /workspace/evaluation-report.json
+}
+case "$CMD" in
+  lab-help|help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$LAB_ROOT/README.md"
+    ;;
+  check|status)
+    python3 "$LAB_ROOT/evaluation_validator.py"
+    ;;
+  hint)
+    cat <<'HINT'
+Do not trust status=succeeded, quality_passed or reported metrics as evaluation authority.
+Bind the exact candidate/baseline/model/data bytes first. Then prove the holdout is independent of training groups, labels are mature, and every feature was available by prediction time. Recompute metrics yourself.
+An evaluation pass still must keep promotion_authorized=false and must never create promotion-request.json.
+HINT
+    ;;
+  reset)
+    init
+    echo "Reset restores the unsafe success-only offline evaluator starter."
+    ;;
+  evaluate)
+    run_eval
+    ;;
+  self-test)
+    init
+    starter_output="$(run_eval)"
+    test -f /workspace/evaluation-report.json
+    test -f /workspace/promotion-request.json
+    echo "$starter_output" | grep -F '"promotion_authorized": true' >/dev/null
+    grep -F '"promotion_authorized": true' /workspace/evaluation-report.json >/dev/null
+    echo "Starter correctly demonstrates unsafe quality-flag evaluation and promotion authority."
+    cp "$LAB_ROOT/evaluate.py.solution.template" /workspace/evaluate.py
+    chmod +x /workspace/evaluate.py
+    rm -f /workspace/evaluation-report.json /workspace/promotion-request.json
+    python3 "$LAB_ROOT/evaluation_validator.py"
+    echo "Reference repair binds exact candidate/baseline/holdout execution and recomputes leakage-safe offline evidence."
+    init
+    reset_output="$(run_eval)"
+    test -f /workspace/evaluation-report.json
+    test -f /workspace/promotion-request.json
+    echo "$reset_output" | grep -F '"promotion_authorized": true' >/dev/null
+    echo "Reset restores the unsafe success-only offline evaluator starter."
+    echo "SELF-TEST PASSED"
+    ;;
+  *) echo "Unknown lab command: $CMD" >&2; exit 2 ;;
+esac
