@@ -24,3 +24,4 @@ mlops-feature-parity	shell	Repair training-serving feature skew and bind serving
 mlops-drift-monitoring	shell	Repair biased drift monitoring and prevent unsupported concept-drift or automatic retraining claims.
 mlops-canary-rollback	shell	Repair canary rollout authority using actual stable-unit exposure, candidate guardrails and exact rollback state.
 mlops-ab-experiment-integrity	shell	Repair A/B experiment authority using stable-unit randomization, SRM, interference and mature fixed-horizon evidence.
+mlops-retraining-trigger	shell	Repair Continuous Training authority using persistent degradation, mature data readiness and semantic retraining deduplication.
