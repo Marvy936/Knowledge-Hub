@@ -1,0 +1,11 @@
+{
+  "baseline_release": "risk-serving-r39",
+  "model_family": "payment-risk",
+  "retraining_subject_id": "MLOPS-PAY-CT-2026-08-16-021",
+  "trigger_policy_id": "performance-persistent-v4",
+  "windows": [
+    {"window_id":"w1","complete":true,"baseline_recall":0.91,"observed_recall":0.85,"mature_labels":18},
+    {"window_id":"w2","complete":true,"baseline_recall":0.91,"observed_recall":0.84,"mature_labels":17},
+    {"window_id":"w3","complete":true,"baseline_recall":0.91,"observed_recall":0.83,"mature_labels":16}
+  ]
+}

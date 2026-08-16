@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cp "$LAB_ROOT/retraining_coordinator.py.template" /workspace/retraining_coordinator.py
+cp "$LAB_ROOT/retraining-contract.json.template" /workspace/retraining-contract.json
+cp "$LAB_ROOT/trigger-evidence.json.template" /workspace/trigger-evidence.json
+cp "$LAB_ROOT/readiness-evidence.json.template" /workspace/readiness-evidence.json
+cp "$LAB_ROOT/operations-ledger.json.template" /workspace/operations-ledger.json
+rm -f /workspace/training-request.json /workspace/promotion-request.json
+chmod +x /workspace/retraining_coordinator.py

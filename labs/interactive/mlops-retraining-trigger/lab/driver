@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CMD="$(basename "$0")"
+init() { "$LAB_ROOT/lab/workspace-init"; }
+case "$CMD" in
+  lab-help|help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$LAB_ROOT/README.md"
+    ;;
+  check|status)
+    python3 "$LAB_ROOT/retraining_validator.py"
+    ;;
+  hint)
+    cat <<'HINT'
+Inspect the contract before changing code. A recall drop is not enough.
+Check consecutive complete windows, mature-label counts, source/label watermarks, dataset identity, and the operations ledger before creating any training request.
+A retraining request must keep promotion_authorized=false.
+HINT
+    ;;
+  reset)
+    init
+    echo "Reset restores the unsafe latest-window retraining starter."
+    ;;
+  coordinate)
+    python3 /workspace/retraining_coordinator.py --contract /workspace/retraining-contract.json --trigger /workspace/trigger-evidence.json --readiness /workspace/readiness-evidence.json --ledger /workspace/operations-ledger.json --request /workspace/training-request.json
+    ;;
+  self-test)
+    init
+    rm -f /workspace/training-request.json /workspace/promotion-request.json
+    coordinate_output="$(python3 /workspace/retraining_coordinator.py --contract /workspace/retraining-contract.json --trigger /workspace/trigger-evidence.json --readiness /workspace/readiness-evidence.json --ledger /workspace/operations-ledger.json --request /workspace/training-request.json)"
+    test -f /workspace/training-request.json
+    echo "$coordinate_output" | grep -F '"promotion_authorized": true' >/dev/null
+    echo "Starter correctly demonstrates unsafe latest-window retraining authority."
+    cp "$LAB_ROOT/retraining_coordinator.py.solution.template" /workspace/retraining_coordinator.py
+    chmod +x /workspace/retraining_coordinator.py
+    rm -f /workspace/training-request.json
+    python3 "$LAB_ROOT/retraining_validator.py"
+    echo "Reference repair restores persistent-trigger, readiness and semantic-dedup boundaries."
+    init
+    rm -f /workspace/training-request.json
+    reset_output="$(python3 /workspace/retraining_coordinator.py --contract /workspace/retraining-contract.json --trigger /workspace/trigger-evidence.json --readiness /workspace/readiness-evidence.json --ledger /workspace/operations-ledger.json --request /workspace/training-request.json)"
+    test -f /workspace/training-request.json
+    echo "$reset_output" | grep -F '"promotion_authorized": true' >/dev/null
+    echo "Reset restores the unsafe retraining starter."
+    echo "SELF-TEST PASSED"
+    ;;
+  *) echo "Unknown lab command: $CMD" >&2; exit 2 ;;
+esac
