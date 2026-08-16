@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CMD="$(basename "$0")"
+init() { "$LAB_ROOT/lab/workspace-init"; }
+run_gate() {
+  python3 /workspace/lineage_gate.py \
+    --contract /workspace/training-lineage-contract.json \
+    --request /workspace/approved-training-request.json \
+    --run /workspace/training-run.json \
+    --config /workspace/trainer-config.json \
+    --model /workspace/model.bin \
+    --candidate /workspace/candidate-manifest.json
+}
+case "$CMD" in
+  lab-help|help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$LAB_ROOT/README.md"
+    ;;
+  check|status)
+    python3 "$LAB_ROOT/lineage_validator.py"
+    ;;
+  hint)
+    cat <<'HINT'
+Do not treat training status as lineage evidence.
+Compare the approved request and lineage contract with what the run actually loaded: dataset manifest, source revision, immutable trainer image digest, dependency lock, config bytes/ID, seed and entrypoint.
+Finally hash model.bin itself. Candidate creation still must preserve evaluation_required=true and promotion_authorized=false.
+HINT
+    ;;
+  reset)
+    init
+    echo "Reset restores the unsafe success-only training lineage starter."
+    ;;
+  attest)
+    run_gate
+    ;;
+  self-test)
+    init
+    rm -f /workspace/candidate-manifest.json /workspace/promotion-request.json
+    starter_output="$(run_gate)"
+    test -f /workspace/candidate-manifest.json
+    echo "$starter_output" | grep -F '"lineage_verified": true' >/dev/null
+    grep -F '"evaluation_required": false' /workspace/candidate-manifest.json >/dev/null
+    echo "Starter correctly demonstrates unsafe success-only candidate lineage authority."
+    cp "$LAB_ROOT/lineage_gate.py.solution.template" /workspace/lineage_gate.py
+    chmod +x /workspace/lineage_gate.py
+    rm -f /workspace/candidate-manifest.json
+    python3 "$LAB_ROOT/lineage_validator.py"
+    echo "Reference repair binds approved request, loaded execution and exact artifact bytes before candidate registration."
+    init
+    rm -f /workspace/candidate-manifest.json
+    reset_output="$(run_gate)"
+    test -f /workspace/candidate-manifest.json
+    echo "$reset_output" | grep -F '"lineage_verified": true' >/dev/null
+    grep -F '"evaluation_required": false' /workspace/candidate-manifest.json >/dev/null
+    echo "Reset restores the unsafe success-only training lineage starter."
+    echo "SELF-TEST PASSED"
+    ;;
+  *) echo "Unknown lab command: $CMD" >&2; exit 2 ;;
+esac
