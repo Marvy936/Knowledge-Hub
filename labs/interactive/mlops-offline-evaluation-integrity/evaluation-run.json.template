@@ -1,0 +1,84 @@
+{
+  "baseline_model_sha256": "sha256:3638105d39af708394c00fda174cdbe12f785dd95862edea9b460e5ce06000a9",
+  "baseline_release": "risk-serving-r39",
+  "candidate_id": "candidate-9c3e2c97ef2a7d31",
+  "candidate_manifest_sha256": "sha256:9ba4028d3692c89e6a98f2eb1ffedd5a5f6677c9b6c0f4040412d1b99e703753",
+  "candidate_model_sha256": "sha256:86a000b26f31dc9a96d454896a8c01b6e0c42657a554b396bf30c915c69bab67",
+  "decision_threshold": 0.5,
+  "evaluation_contract_sha256": "sha256:d19e8459ed52aa0a1759141dfb353c27de23f3cfaa20e500899987ac87a6d6e8",
+  "evaluation_dataset_id": "risk-holdout-2026-08-unseen-merchants-v3",
+  "evaluation_dataset_manifest_sha256": "sha256:20f319ee29b65b89b6645e66f2c5e3968e04bbd3c080e222abd12340cd34f08c",
+  "evaluation_dataset_sha256": "sha256:8d138746b62157ba27252d6e1e2d360176ff873fc2b28c5b0dd05072b44589ea",
+  "evaluation_subject_id": "MLOPS-PAY-EVAL-2026-08-16-029",
+  "evaluator_generation": "risk-evaluator-v7",
+  "evaluator_image_digest": "sha256:3a054c11717f56813d78afcded4e43546681a43aaf87dbd7a87940ff97d5d8f1",
+  "metric_contract": "payment-risk-metrics-v7",
+  "quality_passed": true,
+  "reported_metrics": {
+    "baseline": {
+      "overall": {
+        "f1": 0.4,
+        "fn": 3,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 0.25,
+        "tn": 4,
+        "tp": 1
+      },
+      "segments": {
+        "established_merchant": {
+          "f1": 0.0,
+          "fn": 2,
+          "fp": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "tn": 2,
+          "tp": 0
+        },
+        "new_merchant": {
+          "f1": 0.666667,
+          "fn": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 0.5,
+          "tn": 2,
+          "tp": 1
+        }
+      }
+    },
+    "candidate": {
+      "overall": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tn": 4,
+        "tp": 4
+      },
+      "segments": {
+        "established_merchant": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tn": 2,
+          "tp": 2
+        },
+        "new_merchant": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tn": 2,
+          "tp": 2
+        }
+      }
+    }
+  },
+  "run_id": "eval-run-pay-2026-08-16-029-a1",
+  "status": "succeeded",
+  "training_membership_sha256": "sha256:06144591208a192261488918e59e6f58a4a0dca2a210fb3b1f7fa459afc4853c"
+}
