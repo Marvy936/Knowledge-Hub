@@ -1,0 +1,16 @@
+{
+  "config_id": "payment-risk-xgb-v12",
+  "early_stopping_rounds": 35,
+  "feature_contract_id": "payment-risk-features-v6",
+  "hyperparameters": {
+    "colsample_bytree": 0.8,
+    "eta": 0.05,
+    "max_depth": 6,
+    "min_child_weight": 4,
+    "n_estimators": 420,
+    "subsample": 0.85
+  },
+  "metric": "aucpr",
+  "objective": "binary:logistic",
+  "random_seed": 731
+}
