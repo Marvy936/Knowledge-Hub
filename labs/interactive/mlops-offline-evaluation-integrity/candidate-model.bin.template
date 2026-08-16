@@ -1,0 +1,8 @@
+{
+  "bias": -0.25,
+  "model_id": "payment-risk-candidate-g42",
+  "weights": {
+    "amount_norm": 0.6,
+    "velocity_24h": 0.6
+  }
+}
