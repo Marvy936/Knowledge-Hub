@@ -1,0 +1,26 @@
+{
+  "baseline_release": "risk-serving-r39",
+  "contract_id": "payment-risk-retraining-v5",
+  "label_contract": "confirmed_loss_within_30d-v2",
+  "label_cutoff": "2026-08-15T00:00:00Z",
+  "logical_interval": {
+    "end_exclusive": "2026-08-01T00:00:00Z",
+    "start": "2026-06-01T00:00:00Z"
+  },
+  "model_family": "payment-risk",
+  "promotion_mode": "validation-required",
+  "readiness_policy": {
+    "maximum_duplicate_rows": 0,
+    "minimum_eligible_rows": 16,
+    "required_feature_generation": "payment-risk-features-v6",
+    "required_schema_id": "payment-risk-training-v8",
+    "source_watermark_required": "2026-08-01T00:00:00Z"
+  },
+  "retraining_subject_id": "MLOPS-PAY-CT-2026-08-16-021",
+  "trigger_policy": {
+    "minimum_consecutive_failed_windows": 3,
+    "minimum_mature_labels_per_window": 12,
+    "recall_drop_min": 0.04,
+    "trigger_policy_id": "performance-persistent-v4"
+  }
+}
