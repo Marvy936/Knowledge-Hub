@@ -144,9 +144,11 @@ def main():
         bad_model=tmp/'bad-model.bin'; bad_model.write_bytes(Path(model).read_bytes()+b'TAMPERED\n')
         invoke(contract,request,healthy_run,config,bad_model,tmp/'bad-model-candidate.json',False)
 
+        # Generated valid executions prove run identity can vary while lineage authority remains exact.
         for i in range(8):
             x=copy.deepcopy(healthy); x['run_id']=f'train-pay-generated-{i:02d}'
             x['started_at']=f'2026-08-16T14:{i:02d}:00Z'; x['completed_at']=f'2026-08-16T14:{i:02d}:30Z'
+            # Vary JSON insertion-neutral metadata order by recreating a dict in shuffled key order.
             items=list(x.items()); rng.shuffle(items); x=dict(items)
             rp=temp_json(tmp,f'generated-{i}.json',x); cp=tmp/f'generated-{i}-candidate.json'
             out=invoke(contract,request,rp,config,model,cp,True)
