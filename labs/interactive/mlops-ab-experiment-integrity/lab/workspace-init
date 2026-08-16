@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+force="${KH_FORCE_RESET:-0}"
+
+copy_if_needed() {
+  local src="$1"
+  local dst="$2"
+  if [[ ! -f "$dst" || "$force" == "1" ]]; then
+    cp "$src" "$dst"
+  fi
+}
+
+copy_if_needed "$LAB_ROOT/experiment-contract.json.template" /workspace/experiment-contract.json
+copy_if_needed "$LAB_ROOT/experiment-evidence.json.template" /workspace/experiment-evidence.json
+copy_if_needed "$LAB_ROOT/experiment-state.json.template" /workspace/experiment-state.json
+copy_if_needed "$LAB_ROOT/experiment_analyzer.py.template" /workspace/experiment_analyzer.py
+if [[ "$force" == "1" ]]; then
+  rm -f /workspace/promotion-request.json /workspace/.hint-level
+fi
+chmod +x /workspace/experiment_analyzer.py

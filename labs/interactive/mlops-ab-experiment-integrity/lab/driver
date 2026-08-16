@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cmd="$(basename "$0")"
+case "$cmd" in
+  lab-help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$LAB_ROOT/README.md"
+    ;;
+  check)
+    exec python3 "$LAB_ROOT/experiment_validator.py"
+    ;;
+  analyze)
+    exec python3 /workspace/experiment_analyzer.py \
+      --contract /workspace/experiment-contract.json \
+      --evidence /workspace/experiment-evidence.json \
+      --state /workspace/experiment-state.json
+    ;;
+  status)
+    set +e
+    python3 "$LAB_ROOT/experiment_validator.py"
+    rc=$?
+    set -e
+    if [[ $rc -eq 0 ]]; then
+      echo "A/B experiment integrity contract: repaired"
+    else
+      echo "A/B experiment integrity contract: still broken"
+    fi
+    ;;
+  hint)
+    level_file=/workspace/.hint-level
+    level=0
+    [[ -f "$level_file" ]] && level="$(cat "$level_file")"
+    case "$level" in
+      0)
+        echo "Hint 1: observed candidate lift is not causal authority. Start with the randomization unit: one merchant must not cross variants, and expected 50/50 assignment must survive an SRM check."
+        next=1
+        ;;
+      1)
+        echo "Hint 2: a valid assignment can still be causally contaminated by shared resources. Measure manual-review capacity utilization before interpreting outcome differences."
+        next=2
+        ;;
+      *)
+        echo "Hint 3: this is a fixed-horizon experiment. Interim or immature outcomes can only continue, never declare a winner. Even a valid final winner has promotion_authorized=false."
+        next=2
+        ;;
+    esac
+    printf '%s' "$next" > "$level_file"
+    ;;
+  reset)
+    KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+    echo "A/B experiment lab reset to the unsafe request-weighted winner starter."
+    ;;
+  self-test)
+    KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+    if python3 "$LAB_ROOT/experiment_validator.py" >/tmp/kh-mlops-ab-starter.out 2>&1; then
+      echo "SELF-TEST FAILED: starter analyzer unexpectedly passed"
+      cat /tmp/kh-mlops-ab-starter.out
+      exit 1
+    fi
+    echo "Starter correctly demonstrates a biased premature A/B winner claim."
+
+    cp "$LAB_ROOT/experiment_analyzer.py.solution.template" /workspace/experiment_analyzer.py
+    cp "$LAB_ROOT/experiment-state.json.template" /workspace/experiment-state.json
+    rm -f /workspace/promotion-request.json
+    chmod +x /workspace/experiment_analyzer.py
+    python3 "$LAB_ROOT/experiment_validator.py"
+    echo "Reference repair restores exact assignment, SRM, interference and fixed-horizon semantics."
+
+    KH_FORCE_RESET=1 "$LAB_ROOT/lab/workspace-init"
+    if python3 "$LAB_ROOT/experiment_validator.py" >/tmp/kh-mlops-ab-reset.out 2>&1; then
+      echo "SELF-TEST FAILED: reset did not restore the broken learner state"
+      cat /tmp/kh-mlops-ab-reset.out
+      exit 1
+    fi
+    echo "Reset restores the unsafe winner starter."
+    echo "SELF-TEST PASSED"
+    ;;
+  *)
+    echo "Unknown lab driver command: $cmd" >&2
+    exit 2
+    ;;
+esac
