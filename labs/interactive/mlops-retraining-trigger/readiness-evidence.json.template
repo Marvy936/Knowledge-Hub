@@ -1,0 +1,15 @@
+{
+  "dataset_generation_id": "pay-train-2026-08-g17",
+  "duplicate_rows": 0,
+  "eligible_rows": 24,
+  "feature_generation": "payment-risk-features-v6",
+  "label_contract": "confirmed_loss_within_30d-v2",
+  "label_watermark": "2026-08-14T00:00:00Z",
+  "logical_interval": {
+    "end_exclusive": "2026-08-01T00:00:00Z",
+    "start": "2026-06-01T00:00:00Z"
+  },
+  "schema_id": "payment-risk-training-v8",
+  "source_watermark": "2026-08-01T00:00:00Z",
+  "source_snapshot_id": "payments-prod-snapshot-2026-08-g17"
+}
