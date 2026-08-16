@@ -56,7 +56,11 @@ def main():
  bt=load(WORKSPACE/'trigger-evidence.json');br=load(WORKSPACE/'readiness-evidence.json');rng=random.Random(270816)
  with tempfile.TemporaryDirectory(prefix='kh-ct-') as td:
   tmp=Path(td);ready=copy.deepcopy(br);ready['label_watermark']='2026-08-15T00:00:00Z'; vt=tj(tmp,'valid-trigger.json',bt);vr=tj(tmp,'valid-ready.json',ready);l=fl(tmp,'valid-ledger.json');q=tmp/'valid-request.json';first=case(vt,vr,l,q)
-  if first['decision']!='start_training':fail('valid trigger did not start'); lb=l.read_bytes();qb=q.read_bytes();second=run(vt,vr,l,q)
+  if first['decision']!='start_training':
+   fail('valid trigger did not start')
+  lb=l.read_bytes()
+  qb=q.read_bytes()
+  second=run(vt,vr,l,q)
   if second!=first or l.read_bytes()!=lb or q.read_bytes()!=qb:fail('exact replay not idempotent')
   if load(q)['promotion_authorized'] is not False:fail('request bypassed promotion boundary')
   dl=fl(tmp,'dup-ledger.json');d=load(dl);dedup=f"payment-risk:{ready['dataset_generation_id']}:confirmed_loss_within_30d-v2";d['operations'].append({'deduplication_key':dedup,'operation_id':'ct-op-existing','status':'running','training_data_generation':ready['dataset_generation_id'],'retraining_subject_id':'OTHER-SUBJECT'});write_json(dl,d);dq=tmp/'dup-request.json'
