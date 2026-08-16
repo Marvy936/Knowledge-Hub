@@ -1,0 +1,179 @@
+#!/usr/bin/env python3
+import argparse, hashlib, json, sys
+from datetime import datetime
+from pathlib import Path
+
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+def digest(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def parse_ts(value):
+    return datetime.fromisoformat(value.replace('Z', '+00:00'))
+
+def emit(value):
+    print(json.dumps(value, sort_keys=True, separators=(',', ':')))
+
+def fail(message):
+    print(message, file=sys.stderr)
+    raise SystemExit(2)
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument('--contract', required=True)
+    p.add_argument('--trigger', required=True)
+    p.add_argument('--readiness', required=True)
+    p.add_argument('--ledger', required=True)
+    p.add_argument('--request', required=True)
+    a = p.parse_args()
+    try:
+        contract = load(a.contract)
+        trigger = load(a.trigger)
+        readiness = load(a.readiness)
+        ledger = load(a.ledger)
+    except Exception as exc:
+        fail(f'invalid JSON evidence: {exc}')
+
+    required_contract = ['contract_id','retraining_subject_id','model_family','baseline_release','trigger_policy','logical_interval','label_contract','label_cutoff','readiness_policy','promotion_mode']
+    for key in required_contract:
+        if key not in contract:
+            fail(f'missing contract field: {key}')
+    if contract['promotion_mode'] != 'validation-required':
+        fail('unsupported promotion mode')
+    if trigger.get('retraining_subject_id') != contract['retraining_subject_id']:
+        fail('trigger subject mismatch')
+    if trigger.get('model_family') != contract['model_family']:
+        fail('trigger model family mismatch')
+    if trigger.get('baseline_release') != contract['baseline_release']:
+        fail('trigger baseline mismatch')
+    if trigger.get('trigger_policy_id') != contract['trigger_policy']['trigger_policy_id']:
+        fail('trigger policy mismatch')
+    windows = trigger.get('windows')
+    if not isinstance(windows, list) or not windows:
+        fail('trigger windows missing')
+    for row in windows:
+        for key in ['window_id','complete','baseline_recall','observed_recall','mature_labels']:
+            if key not in row:
+                fail(f'missing trigger window field: {key}')
+        if not isinstance(row['complete'], bool):
+            fail('window completeness must be boolean')
+        if row['mature_labels'] < 0:
+            fail('negative mature label count')
+        if not (0 <= row['baseline_recall'] <= 1 and 0 <= row['observed_recall'] <= 1):
+            fail('recall outside [0,1]')
+
+    if readiness.get('logical_interval') != contract['logical_interval']:
+        fail('logical interval mismatch')
+    if readiness.get('label_contract') != contract['label_contract']:
+        fail('label contract mismatch')
+    rp = contract['readiness_policy']
+    if readiness.get('schema_id') != rp['required_schema_id']:
+        fail('training schema mismatch')
+    if readiness.get('feature_generation') != rp['required_feature_generation']:
+        fail('feature generation mismatch')
+    for key in ['dataset_generation_id','source_snapshot_id','source_watermark','label_watermark','eligible_rows','duplicate_rows']:
+        if key not in readiness:
+            fail(f'missing readiness field: {key}')
+    if readiness['eligible_rows'] < 0 or readiness['duplicate_rows'] < 0:
+        fail('negative readiness counts')
+    if not isinstance(ledger.get('operations'), list):
+        fail('operations ledger malformed')
+
+    policy = contract['trigger_policy']
+    min_windows = policy['minimum_consecutive_failed_windows']
+    selected = windows[-min_windows:] if len(windows) >= min_windows else windows
+    complete = len(selected) >= min_windows and all(row['complete'] for row in selected)
+    mature = complete and all(row['mature_labels'] >= policy['minimum_mature_labels_per_window'] for row in selected)
+    failed = mature and all((row['baseline_recall'] - row['observed_recall']) >= policy['recall_drop_min'] for row in selected)
+
+    base = {
+        'baseline_release': contract['baseline_release'],
+        'contract_id': contract['contract_id'],
+        'contract_sha256': digest(a.contract),
+        'model_family': contract['model_family'],
+        'promotion_authorized': False,
+        'retraining_subject_id': contract['retraining_subject_id'],
+        'trigger_evidence_sha256': digest(a.trigger),
+        'readiness_evidence_sha256': digest(a.readiness),
+    }
+
+    if not complete:
+        emit({**base, 'decision':'blocked', 'reason':'trigger_evidence_incomplete'})
+        return 0
+    if not mature:
+        emit({**base, 'decision':'blocked', 'reason':'mature_label_count_insufficient'})
+        return 0
+    if not failed:
+        emit({**base, 'decision':'no_op', 'reason':'persistence_not_met'})
+        return 0
+
+    if parse_ts(readiness['source_watermark']) < parse_ts(rp['source_watermark_required']):
+        emit({**base, 'decision':'blocked', 'reason':'source_watermark_incomplete'})
+        return 0
+    if parse_ts(readiness['label_watermark']) < parse_ts(contract['label_cutoff']):
+        emit({**base, 'decision':'blocked', 'reason':'label_watermark_not_mature'})
+        return 0
+    if readiness['eligible_rows'] < rp['minimum_eligible_rows']:
+        emit({**base, 'decision':'blocked', 'reason':'training_population_too_small'})
+        return 0
+    if readiness['duplicate_rows'] > rp['maximum_duplicate_rows']:
+        emit({**base, 'decision':'blocked', 'reason':'duplicate_rows_present'})
+        return 0
+
+    dedup = f"{contract['model_family']}:{readiness['dataset_generation_id']}:{contract['label_contract']}"
+    operation_id = 'ct-op-' + hashlib.sha256((contract['retraining_subject_id'] + '|' + dedup).encode()).hexdigest()[:12]
+    result = {
+        **base,
+        'decision': 'start_training',
+        'reason': 'persistent_degradation_and_ready_data',
+        'deduplication_key': dedup,
+        'operation_id': operation_id,
+        'dataset_generation_id': readiness['dataset_generation_id'],
+        'training_data_manifest_sha256': digest(a.readiness),
+    }
+
+    existing = None
+    for op in ledger['operations']:
+        if op.get('deduplication_key') == dedup:
+            existing = op
+            break
+    if existing is not None:
+        if existing.get('retraining_subject_id') == contract['retraining_subject_id'] and existing.get('operation_id') == operation_id:
+            emit(result)
+            return 0
+        emit({**base, 'decision':'reuse_existing', 'reason':'semantic_duplicate_training_subject', 'deduplication_key':dedup, 'operation_id':existing.get('operation_id')})
+        return 0
+
+    request = {
+        'baseline_release': contract['baseline_release'],
+        'dataset_generation_id': readiness['dataset_generation_id'],
+        'deduplication_key': dedup,
+        'label_contract': contract['label_contract'],
+        'label_cutoff': contract['label_cutoff'],
+        'logical_interval': contract['logical_interval'],
+        'model_family': contract['model_family'],
+        'operation_id': operation_id,
+        'promotion_authorized': False,
+        'promotion_mode': 'validation-required',
+        'readiness_evidence_sha256': digest(a.readiness),
+        'retraining_subject_id': contract['retraining_subject_id'],
+        'training_data_manifest_sha256': digest(a.readiness),
+        'trigger_evidence_sha256': digest(a.trigger),
+    }
+    operation = {
+        'deduplication_key': dedup,
+        'operation_id': operation_id,
+        'retraining_subject_id': contract['retraining_subject_id'],
+        'status': 'requested',
+        'training_data_generation': readiness['dataset_generation_id'],
+    }
+    ledger['operations'].append(operation)
+    Path(a.ledger).write_text(json.dumps(ledger, indent=2, sort_keys=True) + '\n')
+    Path(a.request).write_text(json.dumps(request, indent=2, sort_keys=True) + '\n')
+    emit(result)
+    return 0
+
+if __name__ == '__main__':
+    raise SystemExit(main())
