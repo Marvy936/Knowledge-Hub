@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+mkdir -p /workspace
+cp "$LAB_ROOT/feedback_gate.py.template" /workspace/feedback_gate.py
+cp "$LAB_ROOT/feedback-contract.json.template" /workspace/feedback-contract.json
+cp "$LAB_ROOT/prediction-snapshot.json.template" /workspace/prediction-snapshot.json
+cp "$LAB_ROOT/label-contract.json.template" /workspace/label-contract.json
+cp "$LAB_ROOT/label-events.json.template" /workspace/label-events.json
+rm -f /workspace/feedback-report.json /workspace/retraining-request.json /workspace/promotion-request.json
+chmod +x /workspace/feedback_gate.py
