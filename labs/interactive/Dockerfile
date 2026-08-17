@@ -64,6 +64,7 @@ COPY mlops-retraining-trigger /opt/knowledge-hub/labs/mlops-retraining-trigger
 COPY mlops-training-run-lineage /opt/knowledge-hub/labs/mlops-training-run-lineage
 COPY mlops-offline-evaluation-integrity /opt/knowledge-hub/labs/mlops-offline-evaluation-integrity
 COPY mlops-release-delivery-integrity /opt/knowledge-hub/labs/mlops-release-delivery-integrity
+COPY mlops-feedback-ground-truth-integrity /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -170,7 +171,14 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s driver /opt/knowledge-hub/labs/mlops-release-delivery-integrity/lab/reset \
  && ln -s driver /opt/knowledge-hub/labs/mlops-release-delivery-integrity/lab/status \
  && ln -s driver /opt/knowledge-hub/labs/mlops-release-delivery-integrity/lab/self-test \
- && ln -s driver /opt/knowledge-hub/labs/mlops-release-delivery-integrity/lab/deliver
+ && ln -s driver /opt/knowledge-hub/labs/mlops-release-delivery-integrity/lab/deliver \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/analyze
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
