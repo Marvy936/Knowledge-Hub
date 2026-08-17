@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CMD="$(basename "$0")"
+
+init() {
+  "$LAB_ROOT/lab/workspace-init"
+}
+
+run_feedback() {
+  python3 /workspace/feedback_gate.py \
+    --contract /workspace/feedback-contract.json \
+    --predictions /workspace/prediction-snapshot.json \
+    --label-contract /workspace/label-contract.json \
+    --labels /workspace/label-events.json \
+    --report /workspace/feedback-report.json
+}
+
+case "$CMD" in
+  lab-help|help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$LAB_ROOT/README.md"
+    ;;
+  check|status)
+    python3 "$LAB_ROOT/feedback_validator.py"
+    ;;
+  hint)
+    cat <<'HINT'
+Do not build realized performance from WHERE label IS NOT NULL and do not join delayed outcomes by entity/customer identity.
+Bind the exact prediction snapshot and versioned label contract, require the fixed cohort to be mature, join final outcomes by operation_id, apply source_sequence corrections idempotently, and measure coverage overall plus by action.
+A trustworthy feedback report is evidence only: keep promotion_authorized=false and retraining_authorized=false.
+HINT
+    ;;
+  reset)
+    init
+    echo "Reset restores the unsafe entity-join/provisional-label feedback starter."
+    ;;
+  analyze)
+    run_feedback
+    ;;
+  self-test)
+    init
+    starter_output="$(run_feedback)"
+    test -f /workspace/feedback-report.json
+    test -f /workspace/retraining-request.json
+    echo "$starter_output" | grep -F '"decision": "accepted"' >/dev/null
+    grep -F '"join_key": "entity_id"' /workspace/feedback-report.json >/dev/null
+    grep -F '"retraining_authorized": true' /workspace/feedback-report.json >/dev/null
+    echo "Starter correctly demonstrates unsafe entity-level joins, provisional truth and feedback-to-retraining authority."
+
+    cp "$LAB_ROOT/feedback_gate.py.solution.template" /workspace/feedback_gate.py
+    chmod +x /workspace/feedback_gate.py
+    rm -f /workspace/feedback-report.json /workspace/retraining-request.json /workspace/promotion-request.json
+    python3 "$LAB_ROOT/feedback_validator.py"
+    echo "Reference repair binds exact prediction operations to mature corrected ground truth and action-conditioned coverage."
+
+    init
+    reset_output="$(run_feedback)"
+    test -f /workspace/feedback-report.json
+    test -f /workspace/retraining-request.json
+    echo "$reset_output" | grep -F '"decision": "accepted"' >/dev/null
+    echo "Reset restores the unsafe entity-join/provisional-label feedback starter."
+    echo "SELF-TEST PASSED"
+    ;;
+  *)
+    echo "Unknown lab command: $CMD" >&2
+    exit 2
+    ;;
+esac
