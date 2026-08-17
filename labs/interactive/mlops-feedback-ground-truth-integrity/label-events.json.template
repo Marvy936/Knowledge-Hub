@@ -1,0 +1,68 @@
+{
+  "events": [
+    {
+      "entity_id": "merchant-101",
+      "event_id": "label-001",
+      "label": "loss",
+      "label_event_time": "2026-08-05T09:00:00Z",
+      "label_source": "chargeback_confirmed",
+      "maturity": "final",
+      "operation_id": "pay-op-001",
+      "source_sequence": 1
+    },
+    {
+      "entity_id": "merchant-102",
+      "event_id": "label-002",
+      "label": "no_loss",
+      "label_event_time": "2026-08-06T09:00:00Z",
+      "label_source": "settlement_final",
+      "maturity": "final",
+      "operation_id": "pay-op-002",
+      "source_sequence": 1
+    },
+    {
+      "entity_id": "merchant-104",
+      "event_id": "label-004",
+      "label": "no_loss",
+      "label_event_time": "2026-08-08T09:00:00Z",
+      "label_source": "settlement_final",
+      "maturity": "final",
+      "operation_id": "pay-op-004",
+      "source_sequence": 1
+    },
+    {
+      "entity_id": "merchant-105",
+      "event_id": "label-005p",
+      "label": "no_loss",
+      "label_event_time": "2026-07-05T16:00:00Z",
+      "label_source": "review_verdict",
+      "maturity": "provisional",
+      "operation_id": "pay-op-005",
+      "source_sequence": 1
+    },
+    {
+      "entity_id": "merchant-300",
+      "event_id": "label-006a",
+      "label": "loss",
+      "label_event_time": "2026-08-10T09:00:00Z",
+      "label_source": "chargeback_confirmed",
+      "maturity": "final",
+      "operation_id": "pay-op-006",
+      "source_sequence": 1
+    },
+    {
+      "entity_id": "merchant-300",
+      "event_id": "label-006b",
+      "label": "no_loss",
+      "label_event_time": "2026-08-12T09:00:00Z",
+      "label_source": "settlement_final",
+      "maturity": "final",
+      "operation_id": "pay-op-006",
+      "source_sequence": 2,
+      "supersedes_event_id": "label-006a"
+    }
+  ],
+  "label_contract_id": "confirmed_loss_within_30d-v2",
+  "source_watermark": "2026-08-16T23:59:59Z",
+  "stream_id": "pay-ground-truth-2026-08-16"
+}
