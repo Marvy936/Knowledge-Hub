@@ -2,6 +2,10 @@
 set -euo pipefail
 LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CMD="$(basename "$0")"
+if [[ "$CMD" == "driver" && $# -gt 0 ]]; then
+  CMD="$1"
+  shift
+fi
 
 init() {
   "$LAB_ROOT/lab/workspace-init"
