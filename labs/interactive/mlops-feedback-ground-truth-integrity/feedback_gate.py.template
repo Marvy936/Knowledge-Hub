@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+import argparse
+import json
+from pathlib import Path
+
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--contract", default="/workspace/feedback-contract.json")
+    parser.add_argument("--predictions", default="/workspace/prediction-snapshot.json")
+    parser.add_argument("--label-contract", default="/workspace/label-contract.json")
+    parser.add_argument("--labels", default="/workspace/label-events.json")
+    parser.add_argument("--report", default="/workspace/feedback-report.json")
+    args = parser.parse_args()
+
+    contract = load(args.contract)
+    predictions = load(args.predictions)
+    labels = load(args.labels)
+
+    # UNSAFE: collapse feedback by entity_id, take the latest event, and treat
+    # provisional feedback as if it were final ground truth.
+    latest_by_entity = {}
+    for event in labels.get("events", []):
+        entity_id = event.get("entity_id")
+        if not entity_id:
+            continue
+        old = latest_by_entity.get(entity_id)
+        if old is None or int(event.get("source_sequence", 0)) >= int(old.get("source_sequence", 0)):
+            latest_by_entity[entity_id] = event
+
+    observed = 0
+    correct = 0
+    for row in predictions.get("rows", []):
+        event = latest_by_entity.get(row.get("entity_id"))
+        if not event:
+            continue
+        observed += 1
+        if row.get("prediction") == event.get("label"):
+            correct += 1
+
+    total = len(predictions.get("rows", []))
+    coverage = observed / total if total else 0.0
+    accuracy = correct / observed if observed else 0.0
+
+    report = {
+        "feedback_subject_id": contract.get("feedback_subject_id"),
+        "release_id": contract.get("release_id"),
+        "join_key": "entity_id",
+        "coverage": round(coverage, 6),
+        "accuracy": round(accuracy, 6),
+        "realized_performance_verified": coverage >= contract.get("minimum_coverage", {}).get("overall", 0.0),
+        "promotion_authorized": False,
+        "retraining_authorized": coverage >= contract.get("minimum_coverage", {}).get("overall", 0.0),
+    }
+    Path(args.report).write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+
+    if report["retraining_authorized"]:
+        Path(Path(args.report).with_name("retraining-request.json")).write_text(
+            json.dumps(
+                {
+                    "feedback_subject_id": contract.get("feedback_subject_id"),
+                    "release_id": contract.get("release_id"),
+                    "reason": "realized_feedback_ready",
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n"
+        )
+
+    print(json.dumps({"decision": "accepted", "coverage": report["coverage"], "accuracy": report["accuracy"]}))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

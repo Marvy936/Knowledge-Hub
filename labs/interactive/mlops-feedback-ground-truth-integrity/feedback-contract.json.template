@@ -1,0 +1,24 @@
+{
+  "contract_id": "payment-risk-feedback-v3",
+  "feature_contract_id": "payment-risk-features-v6",
+  "feedback_subject_id": "MLOPS-PAY-FEEDBACK-2026-08-W31",
+  "label_contract_id": "confirmed_loss_within_30d-v2",
+  "label_contract_sha256": "sha256:2a5a63c4525047a3746277a33af075e49dad7b6c81bc6f20a982c9c9d4850cfc",
+  "maturity_as_of": "2026-08-16T23:59:59Z",
+  "minimum_coverage": {
+    "by_action": {
+      "approve": 0.75,
+      "manual_review": 0.8
+    },
+    "overall": 0.8
+  },
+  "model_family": "payment-risk",
+  "prediction_snapshot_id": "pay-feedback-predictions-2026-07-w27",
+  "prediction_snapshot_sha256": "sha256:a18d3c2a1c21ff872ad6ce4adad41d2f6e9483c78a48d62bfaccc8e52935439f",
+  "promotion_authorized": false,
+  "release_id": "MLOPS-PAY-RISK-PROD-2026-07-r31",
+  "report_mode": "realized",
+  "required_action_policy": "review-capacity-v4",
+  "required_maturity_days": 30,
+  "retraining_authorized": false
+}

@@ -1,0 +1,63 @@
+{
+  "feature_contract_id": "payment-risk-features-v6",
+  "model_family": "payment-risk",
+  "release_id": "MLOPS-PAY-RISK-PROD-2026-07-r31",
+  "rows": [
+    {
+      "action": "manual_review",
+      "action_policy": "review-capacity-v4",
+      "entity_id": "merchant-101",
+      "event_time": "2026-07-01T10:00:00Z",
+      "operation_id": "pay-op-001",
+      "prediction": "loss",
+      "score": 0.92
+    },
+    {
+      "action": "manual_review",
+      "action_policy": "review-capacity-v4",
+      "entity_id": "merchant-102",
+      "event_time": "2026-07-02T11:00:00Z",
+      "operation_id": "pay-op-002",
+      "prediction": "loss",
+      "score": 0.83
+    },
+    {
+      "action": "approve",
+      "action_policy": "review-capacity-v4",
+      "entity_id": "merchant-300",
+      "event_time": "2026-07-03T12:00:00Z",
+      "operation_id": "pay-op-003",
+      "prediction": "no_loss",
+      "score": 0.21
+    },
+    {
+      "action": "approve",
+      "action_policy": "review-capacity-v4",
+      "entity_id": "merchant-104",
+      "event_time": "2026-07-04T13:00:00Z",
+      "operation_id": "pay-op-004",
+      "prediction": "no_loss",
+      "score": 0.15
+    },
+    {
+      "action": "approve",
+      "action_policy": "review-capacity-v4",
+      "entity_id": "merchant-105",
+      "event_time": "2026-07-05T14:00:00Z",
+      "operation_id": "pay-op-005",
+      "prediction": "no_loss",
+      "score": 0.44
+    },
+    {
+      "action": "approve",
+      "action_policy": "review-capacity-v4",
+      "entity_id": "merchant-300",
+      "event_time": "2026-07-06T15:00:00Z",
+      "operation_id": "pay-op-006",
+      "prediction": "no_loss",
+      "score": 0.35
+    }
+  ],
+  "snapshot_id": "pay-feedback-predictions-2026-07-w27",
+  "source_watermark": "2026-07-17T00:00:00Z"
+}
