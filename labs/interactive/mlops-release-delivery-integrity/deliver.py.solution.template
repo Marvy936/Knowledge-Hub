@@ -1,0 +1,134 @@
+#!/usr/bin/env python3
+import argparse, hashlib, json, re
+from pathlib import Path
+
+SUPPORTED_CONTRACT = "payment-risk-delivery-v3"
+DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
+IMAGE_RE = re.compile(r"^[A-Za-z0-9._/-]+@sha256:[0-9a-f]{64}$")
+
+def invalid(reasons):
+    print(json.dumps({"decision":"invalid_evidence","delivery_verified":False,"rollout_authorized":False,"reasons":sorted(set(reasons))}, sort_keys=True))
+    raise SystemExit(2)
+
+def load_json(path):
+    try:
+        value = json.loads(Path(path).read_text())
+    except Exception:
+        invalid(["malformed_json"])
+    if not isinstance(value, dict):
+        invalid(["json_object_required"])
+    return value
+
+def sha256(path):
+    return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def jbytes(obj):
+    return (json.dumps(obj, indent=2, sort_keys=True) + "\n").encode()
+
+def write_report(path, report):
+    target = Path(path)
+    content = jbytes(report)
+    if target.exists():
+        if target.read_bytes() == content:
+            print(json.dumps(report, sort_keys=True)); return
+        invalid(["conflicting_existing_delivery_report"])
+    target.write_bytes(content)
+    print(json.dumps(report, sort_keys=True))
+
+def blocked(args, release, approval, deployment, controller, fleet, current, reason):
+    report = {
+        "decision":"blocked","reason":reason,"release_subject":release["release_subject"],"operation_id":approval["operation_id"],
+        "delivery_verified":False,"rollout_authorized":False,"promotion_authorized":bool(release["promotion_authorized"]),
+        "release_manifest_sha256":sha256(args.release),"deployment_spec_sha256":sha256(args.deployment),
+        "controller_state_sha256":sha256(args.controller),"fleet_readback_sha256":sha256(args.fleet),"current_state_sha256":sha256(args.current)
+    }
+    write_report(args.report, report)
+
+p = argparse.ArgumentParser()
+for name in ("contract","release","approval","deployment","controller","fleet","current","report"):
+    p.add_argument("--"+name, required=True)
+args = p.parse_args()
+contract=load_json(args.contract); release=load_json(args.release); approval=load_json(args.approval); deployment=load_json(args.deployment)
+controller=load_json(args.controller); fleet=load_json(args.fleet); current=load_json(args.current)
+errors=[]
+if contract.get("contract_id") != SUPPORTED_CONTRACT: errors.append("unsupported_contract")
+for key in ("model_family","environment","delivery_policy_id","required_registry_prefix","required_feature_contract","required_inference_protocol"):
+    if not isinstance(contract.get(key),str) or not contract.get(key): errors.append("malformed_contract")
+if contract.get("require_fleet_complete") is not True: errors.append("fleet_completeness_not_required")
+if contract.get("require_immutable_model_uri") is not True: errors.append("immutable_model_uri_not_required")
+if contract.get("require_image_digest") is not True: errors.append("image_digest_not_required")
+if not isinstance(contract.get("maximum_initial_percent"),int) or contract["maximum_initial_percent"] < 0: errors.append("malformed_routing_limit")
+required_release=("release_subject","model_family","registry_version","model_package_digest","serving_image","feature_contract","feature_registry_digest","preprocessing_digest","policy_id","policy_digest","inference_protocol","environment","routing","promotion_evidence_digest","promotion_authorized")
+if any(k not in release for k in required_release): errors.append("malformed_release_manifest")
+if release.get("model_family") != contract.get("model_family"): errors.append("foreign_model_family")
+if release.get("environment") != contract.get("environment"): errors.append("foreign_environment")
+if release.get("feature_contract") != contract.get("required_feature_contract"): errors.append("wrong_feature_contract")
+if release.get("inference_protocol") != contract.get("required_inference_protocol"): errors.append("wrong_inference_protocol")
+if release.get("promotion_authorized") is not True: errors.append("release_not_promoted")
+if not DIGEST_RE.match(str(release.get("model_package_digest",""))): errors.append("invalid_model_digest")
+if not IMAGE_RE.match(str(release.get("serving_image",""))): errors.append("mutable_or_invalid_serving_image")
+if not str(release.get("serving_image","")).startswith(contract.get("required_registry_prefix","")): errors.append("wrong_serving_registry")
+for key in ("feature_registry_digest","preprocessing_digest","policy_digest","promotion_evidence_digest"):
+    if not DIGEST_RE.match(str(release.get(key,""))): errors.append("invalid_release_digest")
+routing=release.get("routing")
+if not isinstance(routing,dict) or routing.get("mode") != "canary" or not isinstance(routing.get("initial_percent"),int): errors.append("malformed_routing")
+elif routing["initial_percent"] > contract.get("maximum_initial_percent",-1): errors.append("initial_routing_exceeds_policy")
+required_approval=("approval_id","release_subject","release_manifest_sha256","environment","delivery_policy_id","operation_id","expected_current_release","approved")
+if any(k not in approval for k in required_approval): errors.append("malformed_approval")
+if approval.get("approved") is not True: errors.append("delivery_not_approved")
+if approval.get("release_subject") != release.get("release_subject"): errors.append("approval_subject_mismatch")
+if approval.get("release_manifest_sha256") != sha256(args.release): errors.append("approval_release_digest_mismatch")
+if approval.get("environment") != release.get("environment") or approval.get("environment") != contract.get("environment"): errors.append("approval_environment_mismatch")
+if approval.get("delivery_policy_id") != contract.get("delivery_policy_id"): errors.append("approval_policy_mismatch")
+if not isinstance(approval.get("operation_id"),str) or not approval.get("operation_id"): errors.append("malformed_operation_id")
+if not isinstance(approval.get("expected_current_release"),str) or not approval.get("expected_current_release"): errors.append("malformed_expected_current_release")
+model_digest=str(release.get("model_package_digest","")); model_hex=model_digest.split(":",1)[1] if DIGEST_RE.match(model_digest) else ""
+expected_deployment={
+    "operation_id":approval.get("operation_id"),"release_subject":release.get("release_subject"),"expected_current_release":approval.get("expected_current_release"),
+    "environment":release.get("environment"),"source_release_manifest_sha256":approval.get("release_manifest_sha256"),
+    "model_uri":f"s3://ml-prod/models/risk/sha256-{model_hex}/","model_package_digest":release.get("model_package_digest"),
+    "serving_image":release.get("serving_image"),"feature_contract":release.get("feature_contract"),"feature_registry_digest":release.get("feature_registry_digest"),
+    "preprocessing_digest":release.get("preprocessing_digest"),"policy_id":release.get("policy_id"),"policy_digest":release.get("policy_digest"),
+    "inference_protocol":release.get("inference_protocol"),"routing":release.get("routing")}
+if deployment != expected_deployment: errors.append("deployment_render_mismatch")
+if not str(deployment.get("model_uri","")).startswith("s3://ml-prod/models/risk/sha256-"): errors.append("mutable_model_uri")
+if not IMAGE_RE.match(str(deployment.get("serving_image",""))): errors.append("mutable_or_invalid_deployment_image")
+if errors: invalid(errors)
+if current.get("environment") != contract["environment"]: invalid(["current_state_environment_mismatch"])
+if current.get("release_subject") != approval["expected_current_release"]:
+    blocked(args,release,approval,deployment,controller,fleet,current,"current_release_changed"); raise SystemExit(0)
+if controller.get("operation_id") != approval["operation_id"]: invalid(["controller_operation_mismatch"])
+if controller.get("observed_release_subject") != release["release_subject"]: invalid(["controller_subject_mismatch"])
+if controller.get("observed_spec_sha256") != sha256(args.deployment): invalid(["controller_spec_digest_mismatch"])
+if not isinstance(controller.get("observed_generation"),int) or controller["observed_generation"] <= 0: invalid(["malformed_controller_generation"])
+if controller.get("reconciled_generation") != controller.get("observed_generation"):
+    blocked(args,release,approval,deployment,controller,fleet,current,"controller_generation_not_reconciled"); raise SystemExit(0)
+if controller.get("ready") is not True or controller.get("health_status") != 200:
+    blocked(args,release,approval,deployment,controller,fleet,current,"controller_not_ready"); raise SystemExit(0)
+if fleet.get("release_subject") != release["release_subject"] or fleet.get("operation_id") != approval["operation_id"]: invalid(["fleet_subject_mismatch"])
+count=fleet.get("expected_instance_count"); instances=fleet.get("instances")
+if not isinstance(count,int) or count <= 0 or not isinstance(instances,list): invalid(["malformed_fleet_readback"])
+if len(instances) != count:
+    blocked(args,release,approval,deployment,controller,fleet,current,"fleet_readback_incomplete"); raise SystemExit(0)
+expected_fp={"release_subject":release["release_subject"],"model_package_digest":release["model_package_digest"],"serving_image":release["serving_image"],
+"feature_contract":release["feature_contract"],"feature_registry_digest":release["feature_registry_digest"],"preprocessing_digest":release["preprocessing_digest"],
+"policy_id":release["policy_id"],"policy_digest":release["policy_digest"],"inference_protocol":release["inference_protocol"]}
+seen=set()
+for instance in instances:
+    if not isinstance(instance,dict) or not isinstance(instance.get("instance_id"),str) or not instance.get("instance_id"): invalid(["malformed_fleet_instance"])
+    if instance["instance_id"] in seen: invalid(["duplicate_fleet_instance"])
+    seen.add(instance["instance_id"])
+    for key,value in expected_fp.items():
+        if instance.get(key) != value:
+            blocked(args,release,approval,deployment,controller,fleet,current,"fleet_fingerprint_mismatch"); raise SystemExit(0)
+    if instance.get("ready") is not True:
+        blocked(args,release,approval,deployment,controller,fleet,current,"fleet_instance_not_ready"); raise SystemExit(0)
+    if not isinstance(instance.get("request_trace_count"),int) or instance["request_trace_count"] < 1:
+        blocked(args,release,approval,deployment,controller,fleet,current,"fleet_readback_unexercised"); raise SystemExit(0)
+fingerprint=hashlib.sha256(jbytes(expected_fp)).hexdigest()
+report={"decision":"verified","reason":"exact_release_loaded_everywhere","release_subject":release["release_subject"],"operation_id":approval["operation_id"],
+"delivery_verified":True,"rollout_authorized":False,"promotion_authorized":True,"release_fingerprint_sha256":"sha256:"+fingerprint,
+"release_manifest_sha256":sha256(args.release),"approval_sha256":sha256(args.approval),"deployment_spec_sha256":sha256(args.deployment),
+"controller_state_sha256":sha256(args.controller),"fleet_readback_sha256":sha256(args.fleet),"current_state_sha256":sha256(args.current),
+"verified_instance_ids":sorted(seen)}
+write_report(args.report,report)

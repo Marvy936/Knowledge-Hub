@@ -1,0 +1,9 @@
+{
+  "health_status": 200,
+  "observed_generation": 31,
+  "observed_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r31",
+  "observed_spec_sha256": "sha256:93e3921f1c2bd71d3a4feddc10e72cc51e9b2c86c5db9b0b6d9ae7d94ec44ffe",
+  "operation_id": "MLOPS-PAY-92-DEPLOY-R31",
+  "ready": true,
+  "reconciled_generation": 31
+}

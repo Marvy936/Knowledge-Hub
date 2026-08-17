@@ -1,0 +1,10 @@
+{
+  "approval_id": "MLOPS-PAY-CD-APPROVAL-031",
+  "approved": true,
+  "delivery_policy_id": "ml-delivery-prod-v3",
+  "environment": "production",
+  "expected_current_release": "MLOPS-PAY-RISK-PROD-2026-07-r29",
+  "operation_id": "MLOPS-PAY-92-DEPLOY-R31",
+  "release_manifest_sha256": "sha256:8af792f3e33d0c349233467300bb1ea6836b96cf8076e8024b0e01fc030ac775",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r31"
+}

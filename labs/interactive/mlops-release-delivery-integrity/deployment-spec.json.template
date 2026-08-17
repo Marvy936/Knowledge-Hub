@@ -1,0 +1,20 @@
+{
+  "environment": "production",
+  "expected_current_release": "MLOPS-PAY-RISK-PROD-2026-07-r29",
+  "feature_contract": "payment-risk-features-v6",
+  "feature_registry_digest": "sha256:19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac",
+  "inference_protocol": "v2",
+  "model_package_digest": "sha256:7ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab2",
+  "model_uri": "s3://ml-prod/models/risk/sha256-7ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab2/",
+  "operation_id": "MLOPS-PAY-92-DEPLOY-R31",
+  "policy_digest": "sha256:2f912f912f912f912f912f912f912f912f912f912f912f912f912f912f912f91",
+  "policy_id": "review-capacity-v4",
+  "preprocessing_digest": "sha256:44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r31",
+  "routing": {
+    "initial_percent": 5,
+    "mode": "canary"
+  },
+  "serving_image": "registry.example/ml/risk-server@sha256:91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce",
+  "source_release_manifest_sha256": "sha256:8af792f3e33d0c349233467300bb1ea6836b96cf8076e8024b0e01fc030ac775"
+}
