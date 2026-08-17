@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CMD="$(basename "$0")"
+init() { "$LAB_ROOT/lab/workspace-init"; }
+run_delivery() {
+  python3 /workspace/deliver.py \
+    --contract /workspace/delivery-contract.json \
+    --release /workspace/release-manifest.json \
+    --approval /workspace/release-approval.json \
+    --deployment /workspace/deployment-spec.json \
+    --controller /workspace/controller-state.json \
+    --fleet /workspace/fleet-readback.json \
+    --current /workspace/current-runtime.json \
+    --report /workspace/delivery-report.json
+}
+case "$CMD" in
+  lab-help|help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$LAB_ROOT/README.md"
+    ;;
+  check|status)
+    python3 "$LAB_ROOT/delivery_validator.py"
+    ;;
+  hint)
+    cat <<'HINT'
+Ready=true and HTTP 200 prove only a control-plane/health boundary.
+Start from the exact promoted release bytes and approval. Reconcile the deployment render, controller-observed spec digest, expected current release and every serving-instance fingerprint.
+A fully verified delivery still does not own traffic: keep rollout_authorized=false and never create traffic-change-request.json.
+HINT
+    ;;
+  reset)
+    init
+    echo "Reset restores the unsafe control-plane-only delivery starter."
+    ;;
+  deliver)
+    run_delivery
+    ;;
+  self-test)
+    init
+    starter_output="$(run_delivery)"
+    test -f /workspace/delivery-report.json
+    test -f /workspace/traffic-change-request.json
+    echo "$starter_output" | grep -F '"rollout_authorized": true' >/dev/null
+    grep -F '"rollout_authorized": true' /workspace/delivery-report.json >/dev/null
+    echo "Starter correctly demonstrates unsafe Ready/HTTP-200 delivery and traffic authority."
+    cp "$LAB_ROOT/deliver.py.solution.template" /workspace/deliver.py
+    chmod +x /workspace/deliver.py
+    rm -f /workspace/delivery-report.json /workspace/traffic-change-request.json
+    python3 "$LAB_ROOT/delivery_validator.py"
+    echo "Reference repair binds exact promoted release, immutable render, controller reconciliation and complete fleet fingerprints."
+    init
+    reset_output="$(run_delivery)"
+    test -f /workspace/delivery-report.json
+    test -f /workspace/traffic-change-request.json
+    echo "$reset_output" | grep -F '"rollout_authorized": true' >/dev/null
+    echo "Reset restores the unsafe control-plane-only delivery starter."
+    echo "SELF-TEST PASSED"
+    ;;
+  *) echo "Unknown lab command: $CMD" >&2; exit 2 ;;
+esac

@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+import argparse, json
+from pathlib import Path
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+p = argparse.ArgumentParser()
+for name in ("contract","release","approval","deployment","controller","fleet","current","report"):
+    p.add_argument("--"+name, required=True)
+a = p.parse_args()
+
+release = load(a.release)
+controller = load(a.controller)
+
+if controller.get("ready") is True and controller.get("health_status") == 200:
+    report = {
+        "decision": "verified",
+        "reason": "controller_ready_and_health_200",
+        "release_subject": release.get("release_subject"),
+        "delivery_verified": True,
+        "rollout_authorized": True
+    }
+    Path(a.report).write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+    traffic = {
+        "release_subject": release.get("release_subject"),
+        "requested_percent": 100,
+        "reason": "delivery_verified"
+    }
+    Path(a.report).with_name("traffic-change-request.json").write_text(
+        json.dumps(traffic, indent=2, sort_keys=True) + "\n"
+    )
+    print(json.dumps(report, sort_keys=True))
+else:
+    report = {
+        "decision": "blocked",
+        "reason": "controller_not_ready",
+        "delivery_verified": False,
+        "rollout_authorized": False
+    }
+    Path(a.report).write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+    print(json.dumps(report, sort_keys=True))

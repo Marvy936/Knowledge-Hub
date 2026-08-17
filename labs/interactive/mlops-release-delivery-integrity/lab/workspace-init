@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+mkdir -p /workspace
+cp "$LAB_ROOT/deliver.py.template" /workspace/deliver.py
+cp "$LAB_ROOT/delivery-contract.json.template" /workspace/delivery-contract.json
+cp "$LAB_ROOT/release-manifest.json.template" /workspace/release-manifest.json
+cp "$LAB_ROOT/release-approval.json.template" /workspace/release-approval.json
+cp "$LAB_ROOT/deployment-spec.json.template" /workspace/deployment-spec.json
+cp "$LAB_ROOT/controller-state.json.template" /workspace/controller-state.json
+cp "$LAB_ROOT/fleet-readback.json.template" /workspace/fleet-readback.json
+cp "$LAB_ROOT/current-runtime.json.template" /workspace/current-runtime.json
+rm -f /workspace/delivery-report.json /workspace/traffic-change-request.json
+chmod +x /workspace/deliver.py

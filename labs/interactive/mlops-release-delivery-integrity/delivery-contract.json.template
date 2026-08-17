@@ -1,0 +1,13 @@
+{
+  "contract_id": "payment-risk-delivery-v3",
+  "delivery_policy_id": "ml-delivery-prod-v3",
+  "environment": "production",
+  "maximum_initial_percent": 5,
+  "model_family": "payment-risk",
+  "require_fleet_complete": true,
+  "require_image_digest": true,
+  "require_immutable_model_uri": true,
+  "required_feature_contract": "payment-risk-features-v6",
+  "required_inference_protocol": "v2",
+  "required_registry_prefix": "registry.example/ml/"
+}

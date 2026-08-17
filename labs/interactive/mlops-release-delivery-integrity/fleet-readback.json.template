@@ -1,0 +1,49 @@
+{
+  "expected_instance_count": 3,
+  "instances": [
+    {
+      "feature_contract": "payment-risk-features-v6",
+      "feature_registry_digest": "sha256:19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac",
+      "inference_protocol": "v2",
+      "instance_id": "risk-predictor-7b9fd6f9d8-2cm2q",
+      "model_package_digest": "sha256:7ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab2",
+      "policy_digest": "sha256:2f912f912f912f912f912f912f912f912f912f912f912f912f912f912f912f91",
+      "policy_id": "review-capacity-v4",
+      "preprocessing_digest": "sha256:44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd",
+      "ready": true,
+      "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r31",
+      "request_trace_count": 12,
+      "serving_image": "registry.example/ml/risk-server@sha256:91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce"
+    },
+    {
+      "feature_contract": "payment-risk-features-v5",
+      "feature_registry_digest": "sha256:19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac",
+      "inference_protocol": "v2",
+      "instance_id": "risk-predictor-7b9fd6f9d8-6kt8m",
+      "model_package_digest": "sha256:7ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab2",
+      "policy_digest": "sha256:2f912f912f912f912f912f912f912f912f912f912f912f912f912f912f912f91",
+      "policy_id": "review-capacity-v4",
+      "preprocessing_digest": "sha256:44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd",
+      "ready": true,
+      "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r31",
+      "request_trace_count": 12,
+      "serving_image": "registry.example/ml/risk-server@sha256:91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce"
+    },
+    {
+      "feature_contract": "payment-risk-features-v6",
+      "feature_registry_digest": "sha256:19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac19ac",
+      "inference_protocol": "v2",
+      "instance_id": "risk-predictor-7b9fd6f9d8-qczlp",
+      "model_package_digest": "sha256:7ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab27ab2",
+      "policy_digest": "sha256:2f912f912f912f912f912f912f912f912f912f912f912f912f912f912f912f91",
+      "policy_id": "review-capacity-v4",
+      "preprocessing_digest": "sha256:44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd44bd",
+      "ready": true,
+      "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r31",
+      "request_trace_count": 12,
+      "serving_image": "registry.example/ml/risk-server@sha256:91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce91ce"
+    }
+  ],
+  "operation_id": "MLOPS-PAY-92-DEPLOY-R31",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r31"
+}

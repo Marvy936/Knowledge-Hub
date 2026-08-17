@@ -67,6 +67,7 @@ Current labs:
 | `mlops-retraining-trigger` | challenge | `shell` | Repair Continuous Training authority across persistent degradation, mature data readiness, semantic deduplication and explicit separation from promotion. |
 | `mlops-training-run-lineage` | challenge | `shell` | Bind the approved retraining subject to the exact loaded dataset, code, trainer image, config and resulting artifact bytes before candidate registration. |
 | `mlops-offline-evaluation-integrity` | challenge | `shell` | Bind a lineage-verified candidate to an immutable independent holdout, reject leakage or immature evidence, and recompute offline metrics before promotion review. |
+| `mlops-release-delivery-integrity` | challenge | `shell` | Verify an immutable promoted release across exact deployment rendering, controller reconciliation and complete fleet fingerprints without granting rollout authority. |
 
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
