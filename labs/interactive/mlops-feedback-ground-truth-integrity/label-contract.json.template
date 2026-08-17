@@ -1,0 +1,17 @@
+{
+  "contract_id": "confirmed_loss_within_30d-v2",
+  "corrections": {
+    "allowed": true,
+    "ordering": "source_sequence"
+  },
+  "final_sources": [
+    "chargeback_confirmed",
+    "settlement_final"
+  ],
+  "maturity_days": 30,
+  "negative_label": "no_loss",
+  "positive_label": "loss",
+  "provisional_sources": [
+    "review_verdict"
+  ]
+}
