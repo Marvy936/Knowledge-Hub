@@ -1,0 +1,380 @@
+#!/usr/bin/env python3
+import argparse
+import hashlib
+import json
+import re
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+
+SHA_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
+
+
+def load_json(path):
+    return json.loads(Path(path).read_text())
+
+
+def file_sha(path):
+    return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def parse_time(value):
+    if not isinstance(value, str) or not value.endswith("Z"):
+        raise ValueError("timestamp")
+    return datetime.fromisoformat(value[:-1] + "+00:00").astimezone(timezone.utc)
+
+
+def reject(reasons):
+    reasons = sorted(set(reasons))
+    print(json.dumps({"decision": "blocked", "reasons": reasons}, sort_keys=True))
+    return 2
+
+
+def rate(num, den):
+    return round(num / den, 6) if den else None
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--contract", default="/workspace/feedback-contract.json")
+    parser.add_argument("--predictions", default="/workspace/prediction-snapshot.json")
+    parser.add_argument("--label-contract", default="/workspace/label-contract.json")
+    parser.add_argument("--labels", default="/workspace/label-events.json")
+    parser.add_argument("--report", default="/workspace/feedback-report.json")
+    args = parser.parse_args()
+
+    paths = [args.contract, args.predictions, args.label_contract, args.labels]
+    try:
+        contract, predictions, label_contract, labels = [load_json(p) for p in paths]
+    except Exception:
+        return reject(["invalid_json"])
+
+    reasons = []
+
+    if contract.get("contract_id") != "payment-risk-feedback-v3":
+        reasons.append("unsupported_feedback_contract")
+    if contract.get("report_mode") != "realized":
+        reasons.append("report_mode_mismatch")
+    if contract.get("promotion_authorized") is not False:
+        reasons.append("promotion_authority_forbidden")
+    if contract.get("retraining_authorized") is not False:
+        reasons.append("retraining_authority_forbidden")
+
+    pred_pin = contract.get("prediction_snapshot_sha256")
+    label_contract_pin = contract.get("label_contract_sha256")
+    if not isinstance(pred_pin, str) or not SHA_RE.fullmatch(pred_pin):
+        reasons.append("prediction_snapshot_digest_invalid")
+    elif pred_pin != file_sha(args.predictions):
+        reasons.append("prediction_snapshot_digest_mismatch")
+    if not isinstance(label_contract_pin, str) or not SHA_RE.fullmatch(label_contract_pin):
+        reasons.append("label_contract_digest_invalid")
+    elif label_contract_pin != file_sha(args.label_contract):
+        reasons.append("label_contract_digest_mismatch")
+
+    if predictions.get("snapshot_id") != contract.get("prediction_snapshot_id"):
+        reasons.append("prediction_snapshot_id_mismatch")
+    if predictions.get("model_family") != contract.get("model_family"):
+        reasons.append("model_family_mismatch")
+    if predictions.get("release_id") != contract.get("release_id"):
+        reasons.append("release_id_mismatch")
+    if predictions.get("feature_contract_id") != contract.get("feature_contract_id"):
+        reasons.append("feature_contract_mismatch")
+
+    if label_contract.get("contract_id") != contract.get("label_contract_id"):
+        reasons.append("label_contract_id_mismatch")
+    if labels.get("label_contract_id") != contract.get("label_contract_id"):
+        reasons.append("label_stream_contract_mismatch")
+
+    positive = label_contract.get("positive_label")
+    negative = label_contract.get("negative_label")
+    allowed_labels = {positive, negative}
+    if None in allowed_labels or len(allowed_labels) != 2:
+        reasons.append("label_values_invalid")
+
+    maturity_days = label_contract.get("maturity_days")
+    if not isinstance(maturity_days, int) or maturity_days <= 0:
+        reasons.append("maturity_days_invalid")
+    if maturity_days != contract.get("required_maturity_days"):
+        reasons.append("maturity_policy_mismatch")
+
+    final_sources = label_contract.get("final_sources")
+    provisional_sources = label_contract.get("provisional_sources")
+    if not isinstance(final_sources, list) or not final_sources or len(set(final_sources)) != len(final_sources):
+        reasons.append("final_sources_invalid")
+        final_sources = []
+    if not isinstance(provisional_sources, list) or len(set(provisional_sources)) != len(provisional_sources):
+        reasons.append("provisional_sources_invalid")
+        provisional_sources = []
+    corrections = label_contract.get("corrections", {})
+    if corrections.get("allowed") is not True or corrections.get("ordering") != "source_sequence":
+        reasons.append("correction_policy_mismatch")
+
+    try:
+        maturity_as_of = parse_time(contract.get("maturity_as_of"))
+        source_watermark = parse_time(labels.get("source_watermark"))
+        prediction_watermark = parse_time(predictions.get("source_watermark"))
+        if source_watermark > maturity_as_of:
+            reasons.append("label_watermark_after_as_of")
+        if prediction_watermark > maturity_as_of:
+            reasons.append("prediction_watermark_after_as_of")
+    except Exception:
+        reasons.append("watermark_invalid")
+        maturity_as_of = None
+
+    rows = predictions.get("rows")
+    if not isinstance(rows, list) or not rows:
+        reasons.append("prediction_rows_invalid")
+        rows = []
+
+    min_cov = contract.get("minimum_coverage", {})
+    overall_min = min_cov.get("overall")
+    by_action_min = min_cov.get("by_action")
+    if not isinstance(overall_min, (int, float)) or not 0 <= overall_min <= 1:
+        reasons.append("overall_coverage_policy_invalid")
+    if not isinstance(by_action_min, dict) or not by_action_min:
+        reasons.append("action_coverage_policy_invalid")
+        by_action_min = {}
+    else:
+        for action, value in by_action_min.items():
+            if not isinstance(action, str) or not isinstance(value, (int, float)) or not 0 <= value <= 1:
+                reasons.append("action_coverage_policy_invalid")
+
+    required_action_policy = contract.get("required_action_policy")
+    seen_ops = set()
+    op_rows = {}
+    action_totals = {}
+    if maturity_as_of is not None and isinstance(maturity_days, int) and maturity_days > 0:
+        for row in rows:
+            if not isinstance(row, dict):
+                reasons.append("prediction_row_invalid")
+                continue
+            op = row.get("operation_id")
+            entity = row.get("entity_id")
+            action = row.get("action")
+            if not isinstance(op, str) or not op:
+                reasons.append("operation_id_invalid")
+                continue
+            if op in seen_ops:
+                reasons.append("duplicate_operation_id")
+                continue
+            seen_ops.add(op)
+            op_rows[op] = row
+            if not isinstance(entity, str) or not entity:
+                reasons.append("entity_id_invalid")
+            if row.get("action_policy") != required_action_policy:
+                reasons.append("action_policy_mismatch")
+            if action not in by_action_min:
+                reasons.append("unexpected_action")
+            else:
+                action_totals[action] = action_totals.get(action, 0) + 1
+            if row.get("prediction") not in allowed_labels:
+                reasons.append("prediction_value_invalid")
+            score = row.get("score")
+            if not isinstance(score, (int, float)) or not 0 <= score <= 1:
+                reasons.append("score_invalid")
+            try:
+                event_time = parse_time(row.get("event_time"))
+                if event_time + timedelta(days=maturity_days) > maturity_as_of:
+                    reasons.append("prediction_not_mature")
+            except Exception:
+                reasons.append("prediction_event_time_invalid")
+
+    events = labels.get("events")
+    if not isinstance(events, list):
+        reasons.append("label_events_invalid")
+        events = []
+
+    seen_event_ids = set()
+    seq_seen = {}
+    events_by_op = {}
+    provisional_ignored = 0
+    if maturity_as_of is not None:
+        for event in events:
+            if not isinstance(event, dict):
+                reasons.append("label_event_invalid")
+                continue
+            event_id = event.get("event_id")
+            op = event.get("operation_id")
+            seq = event.get("source_sequence")
+            if not isinstance(event_id, str) or not event_id:
+                reasons.append("label_event_id_invalid")
+            elif event_id in seen_event_ids:
+                reasons.append("duplicate_label_event_id")
+            else:
+                seen_event_ids.add(event_id)
+            if op not in op_rows:
+                reasons.append("unknown_label_operation")
+                continue
+            if event.get("entity_id") != op_rows[op].get("entity_id"):
+                reasons.append("label_entity_mismatch")
+            if not isinstance(seq, int) or seq <= 0:
+                reasons.append("source_sequence_invalid")
+                continue
+            key = (op, seq)
+            if key in seq_seen:
+                reasons.append("duplicate_source_sequence")
+            seq_seen[key] = event_id
+            if event.get("label") not in allowed_labels:
+                reasons.append("label_value_invalid")
+            maturity = event.get("maturity")
+            source = event.get("label_source")
+            if maturity == "final":
+                if source not in final_sources:
+                    reasons.append("final_label_source_invalid")
+            elif maturity == "provisional":
+                provisional_ignored += 1
+                if source not in provisional_sources:
+                    reasons.append("provisional_label_source_invalid")
+            else:
+                reasons.append("label_maturity_invalid")
+            try:
+                label_time = parse_time(event.get("label_event_time"))
+                if label_time > maturity_as_of:
+                    reasons.append("label_after_maturity_as_of")
+            except Exception:
+                reasons.append("label_event_time_invalid")
+            events_by_op.setdefault(op, []).append(event)
+
+        for op, op_events in events_by_op.items():
+            by_id = {e.get("event_id"): e for e in op_events if isinstance(e.get("event_id"), str)}
+            for event in op_events:
+                supersedes = event.get("supersedes_event_id")
+                if supersedes is None:
+                    continue
+                prior = by_id.get(supersedes)
+                if prior is None:
+                    reasons.append("supersedes_missing_event")
+                elif not isinstance(event.get("source_sequence"), int) or not isinstance(prior.get("source_sequence"), int) or event["source_sequence"] <= prior["source_sequence"]:
+                    reasons.append("supersedes_sequence_invalid")
+
+    if reasons:
+        return reject(reasons)
+
+    authoritative = {}
+    corrections_applied = 0
+    for op, op_events in events_by_op.items():
+        finals = [e for e in op_events if e.get("maturity") == "final"]
+        if not finals:
+            continue
+        finals.sort(key=lambda e: (e["source_sequence"], e["event_id"]))
+        authoritative[op] = finals[-1]
+        corrections_applied += sum(1 for e in finals if e.get("supersedes_event_id") is not None)
+
+    total = len(rows)
+    joined = len(authoritative)
+    overall_coverage = joined / total if total else 0.0
+    coverage_reasons = []
+    if overall_coverage < overall_min:
+        coverage_reasons.append("overall_coverage_below_minimum")
+
+    action_joined = {action: 0 for action in by_action_min}
+    for op in authoritative:
+        action = op_rows[op]["action"]
+        if action in action_joined:
+            action_joined[action] += 1
+
+    by_action_report = {}
+    for action in sorted(by_action_min):
+        denominator = action_totals.get(action, 0)
+        numerator = action_joined.get(action, 0)
+        cov = numerator / denominator if denominator else 0.0
+        by_action_report[action] = {
+            "eligible": denominator,
+            "joined_final": numerator,
+            "coverage": round(cov, 6),
+            "minimum": by_action_min[action],
+        }
+        if denominator == 0 or cov < by_action_min[action]:
+            coverage_reasons.append("action_coverage_below_minimum:" + action)
+
+    if coverage_reasons:
+        return reject(coverage_reasons)
+
+    tp = fp = tn = fn = 0
+    for op, event in authoritative.items():
+        prediction = op_rows[op]["prediction"]
+        truth = event["label"]
+        if prediction == positive and truth == positive:
+            tp += 1
+        elif prediction == positive and truth == negative:
+            fp += 1
+        elif prediction == negative and truth == negative:
+            tn += 1
+        elif prediction == negative and truth == positive:
+            fn += 1
+
+    pred_sha = file_sha(args.predictions)
+    label_contract_sha = file_sha(args.label_contract)
+    label_events_sha = file_sha(args.labels)
+    contract_sha = file_sha(args.contract)
+    report_seed = "|".join(
+        [
+            contract["feedback_subject_id"],
+            contract["release_id"],
+            pred_sha,
+            label_events_sha,
+            contract["maturity_as_of"],
+        ]
+    )
+    report_id = "feedback-" + hashlib.sha256(report_seed.encode()).hexdigest()[:16]
+
+    report = {
+        "report_id": report_id,
+        "feedback_subject_id": contract["feedback_subject_id"],
+        "model_family": contract["model_family"],
+        "release_id": contract["release_id"],
+        "feature_contract_id": contract["feature_contract_id"],
+        "prediction_snapshot_id": contract["prediction_snapshot_id"],
+        "label_contract_id": contract["label_contract_id"],
+        "maturity_as_of": contract["maturity_as_of"],
+        "join_key": "operation_id",
+        "performance_scope": "mature-fixed-cohort",
+        "evidence": {
+            "feedback_contract_sha256": contract_sha,
+            "prediction_snapshot_sha256": pred_sha,
+            "label_contract_sha256": label_contract_sha,
+            "label_events_sha256": label_events_sha,
+        },
+        "coverage": {
+            "eligible": total,
+            "joined_final": joined,
+            "overall": round(overall_coverage, 6),
+            "minimum_overall": overall_min,
+            "by_action": by_action_report,
+            "provisional_events_ignored": provisional_ignored,
+            "corrections_applied": corrections_applied,
+        },
+        "confusion_matrix": {"tp": tp, "fp": fp, "tn": tn, "fn": fn},
+        "metrics": {
+            "accuracy": rate(tp + tn, tp + fp + tn + fn),
+            "precision": rate(tp, tp + fp),
+            "recall": rate(tp, tp + fn),
+            "false_positive_rate": rate(fp, fp + tn),
+        },
+        "realized_performance_verified": True,
+        "promotion_authorized": False,
+        "retraining_authorized": False,
+    }
+
+    payload = json.dumps(report, indent=2, sort_keys=True) + "\n"
+    report_path = Path(args.report)
+    if report_path.exists():
+        current = report_path.read_text()
+        if current != payload:
+            return reject(["feedback_report_state_conflict"])
+    else:
+        report_path.write_text(payload)
+
+    forbidden = [
+        report_path.with_name("promotion-request.json"),
+        report_path.with_name("retraining-request.json"),
+    ]
+    if any(path.exists() for path in forbidden):
+        return reject(["forbidden_authority_side_effect"])
+
+    print(json.dumps({"decision": "verified", "report_id": report_id}, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
