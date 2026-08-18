@@ -1,0 +1,31 @@
+{
+  "action_idempotency_key": "action:payment-op-9001-risk-r42:risk-decision-policy-v12",
+  "actual_fallback_reason": "online_store_timeout",
+  "actual_feature_fallback": true,
+  "completed_at": "2026-08-16T12:00:02.700000Z",
+  "feature_contract_id": "payment-risk-features-v6",
+  "feature_contract_sha256": "sha256:8b9f6b258d2962dc566ca6b8b553fa6ad7670ef0dc5a23fd56f95c8d120a980d",
+  "feature_snapshot_id": "feat-payment-op-9001-115958",
+  "feature_snapshot_sha256": "sha256:e878bac3a919c8bdbb35126290ae4cb1ad814fea731a100508994c0124483963",
+  "http_status": 200,
+  "loaded_model_sha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "operation_id": "payment-op-9001-risk-r42",
+  "policy_id": "risk-decision-policy-v12",
+  "policy_sha256": "sha256:a7f3eb75634dcde890a60a47686171207e4a22d9fac83209d9fff8ad6cca666b",
+  "protocol": "kserve-v2-json",
+  "request_schema": "risk-request-v6",
+  "response": {
+    "action": "approve",
+    "actual_model_sha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "fallback_reason": null,
+    "feature_fallback": false,
+    "operation_id": "payment-op-9001-risk-r42",
+    "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+    "score": 0.72
+  },
+  "response_schema": "risk-response-v4",
+  "serving_image_digest": "sha256:22c4700cd807459cb71b63cfa5ab8c566d88af8a1f11e9ac58f2f0f775677e31",
+  "started_at": "2026-08-16T12:00:02.100000Z",
+  "status": "succeeded"
+}
