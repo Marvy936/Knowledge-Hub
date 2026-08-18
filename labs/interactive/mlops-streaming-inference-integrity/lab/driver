@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-streaming-inference-integrity}"
+CMD="${1:-help}"
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+  echo "Reset restores the unsafe delivery/checkpoint exactly-once starter."
+}
+
+case "$CMD" in
+  help|lab-help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$ROOT/README.md"
+    ;;
+  consume)
+    cd /workspace
+    python3 stream_gate.py
+    ;;
+  status)
+    cd /workspace
+    if [[ -f stream-report.json ]]; then cat stream-report.json; else echo "No stream report yet. Run: consume"; fi
+    ;;
+  check)
+    cd /workspace
+    python3 stream_validator.py
+    ;;
+  hint)
+    cat <<'TXT'
+Do not deduplicate only the model call. A rebalance can replay a delivery after a prediction exists but before or after the downstream action boundary. Bind the prediction to release/topic/partition/offset/event_id, bind the business mutation to operation_id, and advance the checkpoint only after both ledgers are durable. Use event time, not processing time, for the subject's lateness semantics.
+TXT
+    ;;
+  reset)
+    reset_lab
+    ;;
+  self-test)
+    reset_lab >/dev/null
+    cd /workspace
+    python3 stream_gate.py >/tmp/kh-stream-starter.out
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('stream-report.json').read_text())
+a=json.loads(Path('action-ledger.json').read_text())
+assert r['exactly_once_claimed'] is True
+assert len(a) == 4 and len({x['operation_id'] for x in a}) == 3
+print('Starter correctly demonstrates duplicate business action despite an exactly-once claim.')
+PY
+    cp "$ROOT/stream_gate.py.solution.template" /workspace/stream_gate.py
+    chmod +x /workspace/stream_gate.py
+    rm -f prediction-ledger.json action-ledger.json stream-checkpoint.json stream-report.json
+    python3 stream_validator.py
+    echo "Reference repair reconciles rebalance replay to unique durable prediction/action identities before checkpoint commit."
+    reset_lab >/dev/null
+    cd /workspace
+    python3 stream_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+a=json.loads(Path('action-ledger.json').read_text())
+assert len(a) == 4 and len({x['operation_id'] for x in a}) == 3
+print('Reset restores the unsafe duplicate-action stream starter.')
+PY
+    echo "SELF-TEST PASSED"
+    ;;
+  *)
+    echo "Unknown command: $CMD" >&2
+    exit 2
+    ;;
+esac
