@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CMD="$(basename "$0")"
+if [[ "$CMD" == "driver" && $# -gt 0 ]]; then CMD="$1"; shift; fi
+init(){ "$LAB_ROOT/lab/workspace-init"; }
+run_inference(){
+  python3 /workspace/inference_gate.py \
+    --contract /workspace/inference-contract.json \
+    --request /workspace/request.json \
+    --features /workspace/feature-snapshot.json \
+    --model /workspace/model.json \
+    --policy /workspace/policy.json \
+    --trace /workspace/runtime-trace.json \
+    --evidence /workspace/inference-evidence.json \
+    --action-ledger /workspace/action-ledger.json
+}
+case "$CMD" in
+  lab-help|help)
+    echo "Knowledge Hub Interactive Lab"; cat "$LAB_ROOT/README.md" ;;
+  check|status)
+    python3 "$LAB_ROOT/inference_validator.py" ;;
+  hint)
+    cat <<'HINT'
+HTTP 200 and response-declared release metadata are not execution proof.
+Bind operation_id to the exact loaded release/model/runtime, exact point-in-time feature snapshot bytes, exact policy bytes and request deadline/schema. Recompute non-fallback score/action; for fallback, require truthful reason reporting and the contract's fail-closed action.
+Only after all checks pass may you write deterministic prediction/action evidence. Exact replay must be a byte-identical no-op, and neither promotion nor retraining authority may be created.
+HINT
+    ;;
+  reset)
+    init; echo "Reset restores the unsafe HTTP-200/response-trust online inference starter." ;;
+  infer)
+    run_inference ;;
+  self-test)
+    init
+    starter_output="$(run_inference)"
+    test -f /workspace/inference-evidence.json
+    test -f /workspace/action-ledger.json
+    echo "$starter_output" | grep -F '"decision": "accepted"' >/dev/null
+    grep -F '"inference_verified": true' /workspace/inference-evidence.json >/dev/null
+    grep -F '"action": "approve"' /workspace/inference-evidence.json >/dev/null
+    run_inference >/dev/null
+    test "$(python3 - <<'PY'
+import json
+print(len(json.load(open('/workspace/action-ledger.json'))['actions']))
+PY
+)" = "2"
+    echo "Starter correctly demonstrates unsafe HTTP-200 trust, stale/silent execution metadata and duplicate action side effects."
+    cp "$LAB_ROOT/inference_gate.py.solution.template" /workspace/inference_gate.py
+    chmod +x /workspace/inference_gate.py
+    rm -f /workspace/inference-evidence.json /workspace/action-ledger.json /workspace/promotion-request.json /workspace/retraining-request.json
+    python3 "$LAB_ROOT/inference_validator.py"
+    echo "Reference repair binds exact request/runtime/features/model/policy execution and idempotent action evidence."
+    init
+    reset_output="$(run_inference)"
+    test -f /workspace/inference-evidence.json
+    test -f /workspace/action-ledger.json
+    echo "$reset_output" | grep -F '"decision": "accepted"' >/dev/null
+    echo "Reset restores the unsafe HTTP-200/response-trust online inference starter."
+    echo "SELF-TEST PASSED" ;;
+  *) echo "Unknown lab command: $CMD" >&2; exit 2 ;;
+esac
