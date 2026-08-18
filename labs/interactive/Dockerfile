@@ -65,6 +65,7 @@ COPY mlops-training-run-lineage /opt/knowledge-hub/labs/mlops-training-run-linea
 COPY mlops-offline-evaluation-integrity /opt/knowledge-hub/labs/mlops-offline-evaluation-integrity
 COPY mlops-release-delivery-integrity /opt/knowledge-hub/labs/mlops-release-delivery-integrity
 COPY mlops-feedback-ground-truth-integrity /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity
+COPY mlops-online-inference-integrity /opt/knowledge-hub/labs/mlops-online-inference-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -178,7 +179,14 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/reset \
  && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/status \
  && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/self-test \
- && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/analyze
+ && ln -s driver /opt/knowledge-hub/labs/mlops-feedback-ground-truth-integrity/lab/analyze \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-online-inference-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-online-inference-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-online-inference-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-online-inference-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-online-inference-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-online-inference-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-online-inference-integrity/lab/infer
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
