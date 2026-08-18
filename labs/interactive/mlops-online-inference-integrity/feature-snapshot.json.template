@@ -1,0 +1,13 @@
+{
+  "as_of": "2026-08-16T11:59:58Z",
+  "feature_contract_id": "payment-risk-features-v6",
+  "feature_contract_sha256": "sha256:8b9f6b258d2962dc566ca6b8b553fa6ad7670ef0dc5a23fd56f95c8d120a980d",
+  "operation_id": "payment-op-9001-risk-r42",
+  "snapshot_id": "feat-payment-op-9001-115958",
+  "values": {
+    "account_age_days": 700.0,
+    "amount_eur": 120.0,
+    "device_risk": 0.2,
+    "velocity_1h": 3.0
+  }
+}
