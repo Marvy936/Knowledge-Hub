@@ -1,0 +1,8 @@
+{
+  "policy_id": "payment-risk-policy-v9",
+  "thresholds": {
+    "approve_below": 0.45,
+    "manual_review_below": 0.78
+  },
+  "actions": ["approve", "manual_review", "decline"]
+}
