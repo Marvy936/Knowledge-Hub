@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-streaming-inference-integrity}"
+mkdir -p /workspace
+for name in stream-contract events runtime-trace model policy; do
+  cp "$ROOT/$name.json.template" "/workspace/$name.json"
+done
+cp "$ROOT/stream_gate.py.template" /workspace/stream_gate.py
+cp "$ROOT/stream_validator.py" /workspace/stream_validator.py
+chmod +x /workspace/stream_gate.py /workspace/stream_validator.py
+rm -f /workspace/prediction-ledger.json /workspace/action-ledger.json /workspace/stream-checkpoint.json /workspace/stream-report.json /workspace/promotion-request.json /workspace/retraining-request.json
