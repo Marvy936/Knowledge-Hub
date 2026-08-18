@@ -65,9 +65,11 @@ def main():
     gate=WORK/'inference_gate.py'
     if not gate.exists(): fail('/workspace/inference_gate.py is missing; run reset')
     protected={k:TEMPLATES[k].read_bytes() for k in TEMPLATES}
+    # Canonical incident must be rejected before side effects with exact reasons.
     with tempfile.TemporaryDirectory(prefix='kh-inf-canon-') as x:
         td=seed(x); d=assert_reject(td)
         if d.get('reasons')!=CANON_REASONS: fail(f'canonical rejection reasons differ: {d.get("reasons")}')
+    # Healthy execution must bind exact bytes and produce deterministic prediction/action evidence.
     with tempfile.TemporaryDirectory(prefix='kh-inf-ok-') as x:
         td=seed(x); c=load(td/'inference-contract.json'); m=load(td/'model.json'); f=load(td/'feature-snapshot.json'); p=load(td/'policy.json'); t=load(td/'runtime-trace.json'); s,a=calc(m,f,p)
         t=healthy_trace(t,c['model']['sha256'],s,a); dump(td/'runtime-trace.json',t)
@@ -87,6 +89,7 @@ def main():
         cp2=run(td)
         if cp2.returncode!=0 or cp2.stdout!=out1 or (td/'inference-evidence.json').read_bytes()!=eb or (td/'action-ledger.json').read_bytes()!=lb: fail('exact replay is not byte-idempotent')
         if (td/'promotion-request.json').exists() or (td/'retraining-request.json').exists(): fail('healthy inference created forbidden authority artifacts')
+    # Conflicting pre-existing state must never be overwritten.
     with tempfile.TemporaryDirectory(prefix='kh-inf-conflict-') as x:
         td=seed(x); c=load(td/'inference-contract.json'); m=load(td/'model.json'); f=load(td/'feature-snapshot.json'); p=load(td/'policy.json'); t=load(td/'runtime-trace.json'); s,a=calc(m,f,p)
         dump(td/'runtime-trace.json',healthy_trace(t,c['model']['sha256'],s,a)); bad=b'{"foreign":true}\n'; (td/'inference-evidence.json').write_bytes(bad)
@@ -99,6 +102,7 @@ def main():
         cp=run(td); d=decision(cp)
         if cp.returncode==0 or d.get('reasons')!=['action_state_conflict'] or (td/'action-ledger.json').read_bytes()!=bad: fail('action conflict was not preserved')
         if (td/'inference-evidence.json').exists(): fail('action conflict created prediction side effect')
+    # Independent contract dimensions.
     mutation_case('foreign operation', lambda td: (lambda o:(o.__setitem__('operation_id','foreign-op'),dump(td/'runtime-trace.json',o)))(load(td/'runtime-trace.json')), 'runtime_operation_mismatch')
     mutation_case('wrong requested release', lambda td: (lambda o:(o.__setitem__('release_subject','MLOPS-FOREIGN'),dump(td/'request.json',o)))(load(td/'request.json')), 'requested_release_mismatch')
     mutation_case('wrong caller', lambda td: (lambda o:(o.__setitem__('authenticated_caller','unknown-client'),dump(td/'request.json',o)))(load(td/'request.json')), 'caller_not_allowed')
@@ -113,6 +117,7 @@ def main():
     mutation_case('idempotency key', lambda td: (lambda o:(o.__setitem__('action_idempotency_key','unstable-key'),dump(td/'runtime-trace.json',o)))(load(td/'runtime-trace.json')), 'action_idempotency_key_mismatch')
     mutation_case('tampered model bytes', lambda td: (lambda o:(o.__setitem__('bias',9.0),dump(td/'model.json',o)))(load(td/'model.json')), 'model_bytes_mismatch')
     mutation_case('tampered policy bytes', lambda td: (lambda o:(o['thresholds'].__setitem__('manual_review_at_or_above',0.1),dump(td/'policy.json',o)))(load(td/'policy.json')), 'policy_bytes_mismatch')
+    # A truthful fallback is valid but is forced to the contract's manual-review action.
     with tempfile.TemporaryDirectory(prefix='kh-inf-fallback-') as x:
         td=seed(x); c=load(td/'inference-contract.json'); t=load(td/'runtime-trace.json')
         t['loaded_model_sha256']=c['model']['sha256']; t['response']['actual_model_sha256']=c['model']['sha256']; t['response']['feature_fallback']=True; t['response']['fallback_reason']='online_store_timeout'; t['response']['action']='manual_review'
@@ -120,6 +125,7 @@ def main():
         if cp.returncode!=0: fail('truthful allowed fallback was rejected: '+cp.stdout+cp.stderr)
         ev=load(td/'inference-evidence.json')
         if ev.get('feature_fallback') is not True or ev.get('action')!='manual_review': fail('fallback evidence did not preserve fail-closed action')
+    # Generated valid executions prove operation identity is not hard-coded.
     for i in range(6):
         with tempfile.TemporaryDirectory(prefix='kh-inf-gen-') as x:
             td=seed(x); c=load(td/'inference-contract.json'); r=load(td/'request.json'); f=load(td/'feature-snapshot.json'); p=load(td/'policy.json'); m=load(td/'model.json'); t=load(td/'runtime-trace.json')
