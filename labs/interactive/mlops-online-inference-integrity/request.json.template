@@ -1,0 +1,14 @@
+{
+  "authenticated_caller": "payments-api",
+  "deadline_at": "2026-08-16T12:00:03Z",
+  "entity_id": "merchant-4021",
+  "event_time": "2026-08-16T12:00:00Z",
+  "operation_id": "payment-op-9001-risk-r42",
+  "payload": {
+    "amount_eur": 120.0,
+    "currency": "EUR"
+  },
+  "received_at": "2026-08-16T12:00:02Z",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "request_schema": "risk-request-v6"
+}

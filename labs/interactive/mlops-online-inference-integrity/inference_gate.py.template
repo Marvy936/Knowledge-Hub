@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+import argparse, json
+from pathlib import Path
+
+p=argparse.ArgumentParser()
+for name in ('contract','request','features','model','policy','trace','evidence','action_ledger'):
+    p.add_argument('--'+name.replace('_','-'), required=True)
+a=p.parse_args()
+contract=json.load(open(a.contract))
+request=json.load(open(a.request))
+trace=json.load(open(a.trace))
+
+# Unsafe starter: HTTP success and response-declared metadata are treated as proof.
+if trace.get('http_status') != 200:
+    print(json.dumps({'decision':'rejected','reasons':['http_not_200']}, sort_keys=True))
+    raise SystemExit(2)
+
+response=trace['response']
+evidence={
+    'operation_id': request['operation_id'],
+    'release_subject': response['release_subject'],
+    'score': response['score'],
+    'action': response['action'],
+    'feature_fallback': response.get('feature_fallback', False),
+    'inference_verified': True,
+    'promotion_authorized': False,
+    'retraining_authorized': False,
+}
+Path(a.evidence).write_text(json.dumps(evidence, indent=2, sort_keys=True)+'\n')
+ledger={'actions':[]}
+if Path(a.action_ledger).exists():
+    ledger=json.loads(Path(a.action_ledger).read_text())
+ledger.setdefault('actions',[]).append({
+    'operation_id':request['operation_id'],
+    'action':response['action'],
+    'source':'http_200_response'
+})
+Path(a.action_ledger).write_text(json.dumps(ledger, indent=2, sort_keys=True)+'\n')
+print(json.dumps({'decision':'accepted','action':response['action'],'reason':'http_200'}, sort_keys=True))

@@ -29,3 +29,4 @@ mlops-training-run-lineage	shell	Bind an approved retraining subject to exact lo
 mlops-offline-evaluation-integrity	shell	Repair offline evaluation authority using exact candidate/baseline bytes, independent holdout integrity, mature point-in-time evidence and recomputed metrics.
 mlops-release-delivery-integrity	shell	Verify that an immutable promoted release survives deployment rendering, controller reconciliation and complete fleet loading without gaining rollout authority.
 mlops-feedback-ground-truth-integrity	shell	Repair delayed ground-truth feedback using exact prediction identity, maturity, corrections and action-conditioned coverage without granting retraining or promotion authority.
+mlops-online-inference-integrity	shell	Bind each online prediction to exact request identity, loaded release/model/runtime, point-in-time features, fallback policy and idempotent action evidence.

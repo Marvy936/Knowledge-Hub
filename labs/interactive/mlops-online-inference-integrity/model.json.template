@@ -1,0 +1,12 @@
+{
+  "bias": -0.8,
+  "coefficients": {
+    "account_age_days": -0.0004,
+    "amount_eur": 0.004,
+    "device_risk": 1.2,
+    "velocity_1h": 0.35
+  },
+  "format": "linear-logit-simulated",
+  "model_family": "payment-risk",
+  "model_id": "payment-risk-linear-sim-v42"
+}

@@ -1,0 +1,129 @@
+#!/usr/bin/env python3
+import argparse, hashlib, json, math
+from datetime import datetime, timezone
+from pathlib import Path
+
+SUPPORTED='payment-risk-online-inference-v4'
+
+def read_json(path):
+    with open(path, encoding='utf-8') as f: return json.load(f)
+
+def sha_file(path): return 'sha256:'+hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def canon(obj): return (json.dumps(obj, indent=2, sort_keys=True)+'\n').encode()
+
+def parse_ts(v):
+    if v.endswith('Z'): v=v[:-1]+'+00:00'
+    dt=datetime.fromisoformat(v)
+    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+
+def reject(reasons):
+    print(json.dumps({'decision':'rejected','reasons':sorted(set(reasons))}, sort_keys=True))
+    raise SystemExit(2)
+
+def expected_score(model, features):
+    vals=features['values']; z=float(model['bias'])
+    for k,w in model['coefficients'].items(): z += float(w)*float(vals[k])
+    return round(1.0/(1.0+math.exp(-z)), 6)
+
+def expected_action(policy, score):
+    if score >= float(policy['thresholds']['decline_at_or_above']): return policy['actions']['decline']
+    if score >= float(policy['thresholds']['manual_review_at_or_above']): return policy['actions']['review']
+    return policy['actions']['below_review']
+
+def main():
+    p=argparse.ArgumentParser()
+    for name in ('contract','request','features','model','policy','trace','evidence','action_ledger'):
+        p.add_argument('--'+name.replace('_','-'), required=True)
+    a=p.parse_args()
+    c=read_json(a.contract); r=read_json(a.request); f=read_json(a.features); m=read_json(a.model); pol=read_json(a.policy); t=read_json(a.trace)
+    reasons=[]
+    if c.get('contract_id') != SUPPORTED: reasons.append('unsupported_contract')
+    out=c.get('output_policy',{})
+    if out.get('promotion_authorized') is not False: reasons.append('promotion_authority_not_preserved')
+    if out.get('retraining_authorized') is not False: reasons.append('retraining_authority_not_preserved')
+    model_sha=sha_file(a.model); policy_sha=sha_file(a.policy); feature_sha=sha_file(a.features)
+    if model_sha != c.get('model',{}).get('sha256'): reasons.append('model_bytes_mismatch')
+    if policy_sha != c.get('policy',{}).get('sha256'): reasons.append('policy_bytes_mismatch')
+    if m.get('model_id') != c.get('model',{}).get('model_id'): reasons.append('model_id_mismatch')
+    if pol.get('policy_id') != c.get('policy',{}).get('policy_id'): reasons.append('policy_id_mismatch')
+    if pol.get('fallback',{}).get('policy_id') != c.get('policy',{}).get('fallback_policy_id'): reasons.append('fallback_policy_id_mismatch')
+    if r.get('release_subject') != c.get('release_subject'): reasons.append('requested_release_mismatch')
+    if r.get('request_schema') != c.get('serving',{}).get('request_schema'): reasons.append('request_schema_mismatch')
+    if r.get('authenticated_caller') not in c.get('serving',{}).get('allowed_callers',[]): reasons.append('caller_not_allowed')
+    op=r.get('operation_id')
+    if not op: reasons.append('missing_operation_id')
+    if f.get('operation_id') != op: reasons.append('feature_operation_mismatch')
+    if f.get('feature_contract_id') != c.get('features',{}).get('contract_id'): reasons.append('feature_contract_id_mismatch')
+    if f.get('feature_contract_sha256') != c.get('features',{}).get('contract_sha256'): reasons.append('feature_contract_digest_mismatch')
+    try:
+        asof=parse_ts(f['as_of']); received=parse_ts(r['received_at']); event=parse_ts(r['event_time']); deadline=parse_ts(r['deadline_at'])
+        started=parse_ts(t['started_at']); completed=parse_ts(t['completed_at'])
+        if asof > event: reasons.append('feature_snapshot_from_future')
+        if (received-asof).total_seconds() > int(c['features']['max_age_seconds']): reasons.append('feature_snapshot_stale')
+        if started < received: reasons.append('runtime_started_before_request')
+        if completed > deadline: reasons.append('deadline_exceeded')
+        if completed < started: reasons.append('runtime_time_order_invalid')
+    except Exception:
+        reasons.append('timestamp_contract_invalid')
+    if t.get('operation_id') != op: reasons.append('runtime_operation_mismatch')
+    if t.get('status') != 'succeeded': reasons.append('runtime_not_succeeded')
+    if t.get('http_status') != 200: reasons.append('http_not_200')
+    if t.get('protocol') != c.get('serving',{}).get('protocol'): reasons.append('protocol_mismatch')
+    if t.get('request_schema') != c.get('serving',{}).get('request_schema'): reasons.append('runtime_request_schema_mismatch')
+    if t.get('response_schema') != c.get('serving',{}).get('response_schema'): reasons.append('runtime_response_schema_mismatch')
+    if t.get('loaded_release_subject') != c.get('release_subject'): reasons.append('loaded_release_mismatch')
+    if t.get('loaded_model_sha256') != model_sha: reasons.append('loaded_model_digest_mismatch')
+    if t.get('serving_image_digest') != c.get('serving',{}).get('image_digest'): reasons.append('serving_image_digest_mismatch')
+    if t.get('feature_snapshot_id') != f.get('snapshot_id'): reasons.append('feature_snapshot_id_mismatch')
+    if t.get('feature_snapshot_sha256') != feature_sha: reasons.append('feature_snapshot_digest_mismatch')
+    if t.get('feature_contract_id') != f.get('feature_contract_id'): reasons.append('runtime_feature_contract_id_mismatch')
+    if t.get('feature_contract_sha256') != f.get('feature_contract_sha256'): reasons.append('runtime_feature_contract_digest_mismatch')
+    if t.get('policy_id') != pol.get('policy_id'): reasons.append('runtime_policy_id_mismatch')
+    if t.get('policy_sha256') != policy_sha: reasons.append('runtime_policy_digest_mismatch')
+    expected_key='action:'+str(op)+':'+str(pol.get('policy_id'))
+    if t.get('action_idempotency_key') != expected_key: reasons.append('action_idempotency_key_mismatch')
+    resp=t.get('response',{})
+    if resp.get('operation_id') != op: reasons.append('response_operation_mismatch')
+    if resp.get('release_subject') != c.get('release_subject'): reasons.append('response_release_mismatch')
+    if resp.get('actual_model_sha256') != t.get('loaded_model_sha256'): reasons.append('response_model_reporting_mismatch')
+    actual_fb=bool(t.get('actual_feature_fallback',False)); reported_fb=bool(resp.get('feature_fallback',False))
+    if reported_fb != actual_fb: reasons.append('fallback_reporting_mismatch')
+    if resp.get('fallback_reason') != t.get('actual_fallback_reason'): reasons.append('fallback_reason_reporting_mismatch')
+    score=None; action=None
+    if actual_fb:
+        fb=pol.get('fallback',{})
+        if t.get('actual_fallback_reason') not in fb.get('allowed_reasons',[]): reasons.append('fallback_reason_not_allowed')
+        action=fb.get('action')
+        if resp.get('action') != action: reasons.append('fallback_action_not_allowed')
+    else:
+        if t.get('actual_fallback_reason') not in (None,''): reasons.append('unexpected_fallback_reason')
+        try: score=expected_score(m,f); action=expected_action(pol,score)
+        except Exception: reasons.append('model_feature_contract_invalid')
+        if score is not None and abs(float(resp.get('score'))-score) > 1e-9: reasons.append('score_mismatch')
+        if action is not None and resp.get('action') != action: reasons.append('action_mismatch')
+    if reasons: reject(reasons)
+    if actual_fb: score=resp.get('score')
+    pred_id='prediction-'+hashlib.sha256((str(op)+'|'+model_sha+'|'+feature_sha+'|'+policy_sha).encode()).hexdigest()[:16]
+    action_id='action-'+hashlib.sha256((str(op)+'|'+str(pol['policy_id'])+'|'+str(action)).encode()).hexdigest()[:16]
+    evidence={
+        'evidence_version':'online-inference-evidence-v1','prediction_id':pred_id,'operation_id':op,
+        'release_subject':c['release_subject'],'model_sha256':model_sha,'serving_image_digest':c['serving']['image_digest'],
+        'feature_contract_id':f['feature_contract_id'],'feature_snapshot_id':f['snapshot_id'],'feature_snapshot_sha256':feature_sha,
+        'feature_as_of':f['as_of'],'policy_id':pol['policy_id'],'policy_sha256':policy_sha,'score':score,'action':action,
+        'feature_fallback':actual_fb,'fallback_reason':t.get('actual_fallback_reason'),'inference_verified':True,
+        'contract_sha256':sha_file(a.contract),'request_sha256':sha_file(a.request),'runtime_trace_sha256':sha_file(a.trace),
+        'promotion_authorized':False,'retraining_authorized':False
+    }
+    ledger={'ledger_version':'online-action-ledger-v1','operation_id':op,'prediction_id':pred_id,'action_id':action_id,
+            'idempotency_key':expected_key,'release_subject':c['release_subject'],'policy_id':pol['policy_id'],'action':action}
+    eb=canon(evidence); lb=canon(ledger); ep=Path(a.evidence); lp=Path(a.action_ledger)
+    conflicts=[]
+    if ep.exists() and ep.read_bytes()!=eb: conflicts.append('prediction_state_conflict')
+    if lp.exists() and lp.read_bytes()!=lb: conflicts.append('action_state_conflict')
+    if conflicts: reject(conflicts)
+    if not ep.exists(): ep.write_bytes(eb)
+    if not lp.exists(): lp.write_bytes(lb)
+    print(json.dumps({'decision':'accepted','prediction_id':pred_id,'action':action,'feature_fallback':actual_fb}, sort_keys=True))
+
+if __name__=='__main__': main()

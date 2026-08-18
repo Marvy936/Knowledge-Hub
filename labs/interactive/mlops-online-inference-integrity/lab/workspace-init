@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+LAB_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+mkdir -p /workspace
+cp "$LAB_ROOT/inference_gate.py.template" /workspace/inference_gate.py
+cp "$LAB_ROOT/inference-contract.json.template" /workspace/inference-contract.json
+cp "$LAB_ROOT/request.json.template" /workspace/request.json
+cp "$LAB_ROOT/feature-snapshot.json.template" /workspace/feature-snapshot.json
+cp "$LAB_ROOT/model.json.template" /workspace/model.json
+cp "$LAB_ROOT/policy.json.template" /workspace/policy.json
+cp "$LAB_ROOT/runtime-trace.json.template" /workspace/runtime-trace.json
+rm -f /workspace/inference-evidence.json /workspace/action-ledger.json /workspace/promotion-request.json /workspace/retraining-request.json
+chmod +x /workspace/inference_gate.py

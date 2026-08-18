@@ -1,0 +1,22 @@
+{
+  "actions": {
+    "below_review": "approve",
+    "decline": "decline",
+    "review": "manual_review"
+  },
+  "fallback": {
+    "action": "manual_review",
+    "allowed_reasons": [
+      "model_timeout",
+      "online_store_timeout",
+      "resource_saturation"
+    ],
+    "policy_id": "fail-closed-to-manual-review-v3"
+  },
+  "policy_id": "risk-decision-policy-v12",
+  "score_semantics": "calibrated_probability_simulated",
+  "thresholds": {
+    "decline_at_or_above": 0.85,
+    "manual_review_at_or_above": 0.65
+  }
+}
