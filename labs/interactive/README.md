@@ -70,6 +70,7 @@ Current labs:
 | `mlops-release-delivery-integrity` | challenge | `shell` | Verify an immutable promoted release across exact deployment rendering, controller reconciliation and complete fleet fingerprints without granting rollout authority. |
 | `mlops-feedback-ground-truth-integrity` | challenge | `shell` | Bind delayed realized outcomes to exact prediction operations, maturity/correction semantics and action-conditioned coverage without granting retraining or promotion authority. |
 | `mlops-online-inference-integrity` | challenge | `shell` | Bind each online prediction to exact request identity, loaded release/model/runtime, point-in-time feature bytes, explicit fallback policy and idempotent action evidence. |
+| `mlops-streaming-inference-integrity` | challenge | `shell` | Reconcile event-time streaming inference across exact topic/partition/offset identity, rebalance replay, durable idempotent actions and checkpoint commit. |
 
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
