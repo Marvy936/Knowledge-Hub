@@ -1,0 +1,19 @@
+{
+  "stream_subject_id": "MLOPS-PAY-INF-STREAM-2026-08-r42",
+  "consumer_group": "risk-inference-prod-r42",
+  "topic": "payments.risk.v5",
+  "partition": 7,
+  "checkpoint_before": 918202,
+  "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "loaded_model_digest": "sha256:8053640fad0bc104a914f5e106498d3e84c45dd9688db9adc2e72170aed65839",
+  "loaded_runtime_image_digest": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+  "loaded_feature_contract_id": "payment-risk-features-v6",
+  "loaded_policy_digest": "sha256:5f9416c74ecadffc79ba9d1605a54bb7bb6265505f18ac173ceb17b9423d3dad",
+  "loaded_schema_id": "risk-event-v5",
+  "deliveries": [
+    {"generation": 44, "offset": 918201, "processed_at": "2026-08-18T10:00:05Z"},
+    {"generation": 44, "offset": 918202, "processed_at": "2026-08-18T10:01:04Z"},
+    {"generation": 45, "offset": 918202, "processed_at": "2026-08-18T10:01:30Z", "reason": "rebalance_replay"},
+    {"generation": 45, "offset": 918203, "processed_at": "2026-08-18T10:03:10Z"}
+  ]
+}
