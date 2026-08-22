@@ -1,0 +1,52 @@
+{
+  "container_runtime_generation": "nvidia-container-runtime-r9",
+  "device_plugin_generation": "nvidia-device-plugin-timeslice-r5",
+  "driver_generation": "nvidia-driver-prod-r17",
+  "extended_resource": "nvidia.com/gpu",
+  "gpu_capacity_subject": "MLOPS-PAY-GPU-CAP-2026-08-r42",
+  "isolation": {
+    "fault": "none",
+    "memory": "none"
+  },
+  "mig_strategy": "none",
+  "node_pool_generation": "gpu-shared-a100-gen22",
+  "observed_resource_class_id": "a100-shared-v5",
+  "physical_model": "A100-80GB",
+  "pod_running": true,
+  "ready_replicas": 2,
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "replicas": [
+    {
+      "accelerator_initialized": true,
+      "gpu_smoke_passed": true,
+      "loaded_feature_contract": "payment-risk-features-v6",
+      "loaded_image_sha256": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+      "loaded_model_sha256": "sha256:8053640fad0bc104a914f5e106498d3e84c45dd9688db9adc2e72170aed65839",
+      "loaded_policy_sha256": "sha256:5f9416c74ecadffc79ba9d1605a54bb7bb6265505f18ac173ceb17b9423d3dad",
+      "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+      "loaded_runtime_generation": "kserve-sklearn-v0.17",
+      "model_allocated": true,
+      "ready": true,
+      "replica_id": "fraud-gpu-00042-a"
+    },
+    {
+      "accelerator_initialized": true,
+      "gpu_smoke_passed": true,
+      "loaded_feature_contract": "payment-risk-features-v6",
+      "loaded_image_sha256": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+      "loaded_model_sha256": "sha256:8053640fad0bc104a914f5e106498d3e84c45dd9688db9adc2e72170aed65839",
+      "loaded_policy_sha256": "sha256:5f9416c74ecadffc79ba9d1605a54bb7bb6265505f18ac173ceb17b9423d3dad",
+      "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+      "loaded_runtime_generation": "kserve-sklearn-v0.17",
+      "model_allocated": true,
+      "ready": true,
+      "replica_id": "fraud-gpu-00042-b"
+    }
+  ],
+  "scheduler_allocated": true,
+  "sharing": {
+    "mode": "time-slicing",
+    "profile": "shared-8x"
+  },
+  "workload_class": "online-inference"
+}
