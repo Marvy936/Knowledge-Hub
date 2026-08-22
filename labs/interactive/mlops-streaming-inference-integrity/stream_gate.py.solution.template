@@ -1,0 +1,247 @@
+#!/usr/bin/env python3
+import argparse, hashlib, json, math, sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+
+def digest(path):
+    return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def ts(value):
+    return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
+
+
+def canonical(obj):
+    return json.dumps(obj, indent=2, sort_keys=True) + "\n"
+
+
+def score(model, features):
+    z = model["intercept"] + sum(model["weights"][k] * features[k] for k in model["weights"])
+    return round(1.0 / (1.0 + math.exp(-z)), 6)
+
+
+def choose_action(policy, value):
+    if value < policy["thresholds"]["approve_below"]:
+        return "approve"
+    if value < policy["thresholds"]["manual_review_below"]:
+        return "manual_review"
+    return "decline"
+
+
+def reject(reasons):
+    print(json.dumps({"decision": "rejected", "reasons": sorted(set(reasons))}, sort_keys=True))
+    return 2
+
+
+def existing_map(path, key):
+    p = Path(path)
+    if not p.exists():
+        return {}
+    data = json.loads(p.read_text())
+    if not isinstance(data, list):
+        raise ValueError(f"{p.name}_not_list")
+    out = {}
+    for row in data:
+        value = row.get(key)
+        if not value or value in out:
+            raise ValueError(f"{p.name}_duplicate_or_missing_key")
+        out[value] = row
+    return out
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--contract", default="stream-contract.json")
+    p.add_argument("--events", default="events.json")
+    p.add_argument("--trace", default="runtime-trace.json")
+    p.add_argument("--model", default="model.json")
+    p.add_argument("--policy", default="policy.json")
+    p.add_argument("--prediction-ledger", default="prediction-ledger.json")
+    p.add_argument("--action-ledger", default="action-ledger.json")
+    p.add_argument("--checkpoint", default="stream-checkpoint.json")
+    p.add_argument("--report", default="stream-report.json")
+    args = p.parse_args()
+
+    try:
+        contract, events, trace, model, policy = map(load, [args.contract, args.events, args.trace, args.model, args.policy])
+    except Exception as exc:
+        return reject([f"input_parse_error:{type(exc).__name__}"])
+
+    reasons = []
+    if contract.get("contract_id") != "payment-risk-streaming-inference-v3": reasons.append("unsupported_contract")
+    if contract.get("mode") != "streaming": reasons.append("mode_mismatch")
+    if contract.get("promotion_authorized") is not False: reasons.append("promotion_authority_violation")
+    if contract.get("retraining_authorized") is not False: reasons.append("retraining_authority_violation")
+    if contract.get("checkpoint_semantics") != "commit_end_exclusive_only_after_prediction_and_action_durable": reasons.append("checkpoint_semantics_mismatch")
+    if contract.get("prediction_key_fields") != ["release_subject", "topic", "partition", "offset", "event_id"]: reasons.append("prediction_key_contract_mismatch")
+    if contract.get("action_key_field") != "operation_id": reasons.append("action_key_contract_mismatch")
+
+    if digest(args.model) != contract.get("model_digest"): reasons.append("model_digest_mismatch")
+    if digest(args.policy) != contract.get("policy_digest"): reasons.append("policy_digest_mismatch")
+    if digest(args.events) != contract.get("events_sha256"): reasons.append("events_digest_mismatch")
+
+    subject = contract.get("stream_subject_id")
+    if events.get("stream_subject_id") != subject: reasons.append("events_subject_mismatch")
+    for field in ("topic", "partition", "offset_start", "offset_end_exclusive"):
+        if events.get(field) != contract.get(field): reasons.append(f"events_{field}_mismatch")
+
+    rows = events.get("events")
+    if not isinstance(rows, list):
+        reasons.append("events_not_list")
+        rows = []
+    by_offset, event_ids, operation_ids = {}, set(), set()
+    watermark = ts(contract["event_time_watermark"])
+    allowed = int(contract["allowed_lateness_seconds"])
+    for event in rows:
+        off = event.get("offset")
+        if off in by_offset: reasons.append("duplicate_source_offset")
+        by_offset[off] = event
+        if event.get("event_id") in event_ids: reasons.append("duplicate_event_id")
+        event_ids.add(event.get("event_id"))
+        if event.get("operation_id") in operation_ids: reasons.append("duplicate_operation_id")
+        operation_ids.add(event.get("operation_id"))
+        if event.get("schema_id") != contract.get("schema_id"): reasons.append("event_schema_mismatch")
+        try:
+            et, fa = ts(event["event_time"]), ts(event["feature_available_at"])
+            if et > watermark: reasons.append("event_after_watermark")
+            if (watermark - et).total_seconds() > allowed: reasons.append("event_beyond_allowed_lateness")
+            if fa > et: reasons.append("feature_time_travel")
+        except Exception:
+            reasons.append("event_time_invalid")
+    expected_offsets = list(range(contract["offset_start"], contract["offset_end_exclusive"]))
+    if sorted(by_offset) != expected_offsets: reasons.append("source_offset_range_incomplete")
+
+    if trace.get("stream_subject_id") != subject: reasons.append("trace_subject_mismatch")
+    if trace.get("consumer_group") != contract.get("consumer_group"): reasons.append("consumer_group_mismatch")
+    if trace.get("topic") != contract.get("topic"): reasons.append("trace_topic_mismatch")
+    if trace.get("partition") != contract.get("partition"): reasons.append("trace_partition_mismatch")
+    if trace.get("loaded_release_subject") != contract.get("release_subject"): reasons.append("loaded_release_mismatch")
+    if trace.get("loaded_model_digest") != contract.get("model_digest"): reasons.append("loaded_model_digest_mismatch")
+    if trace.get("loaded_runtime_image_digest") != contract.get("runtime_image_digest"): reasons.append("loaded_runtime_image_digest_mismatch")
+    if trace.get("loaded_feature_contract_id") != contract.get("feature_contract_id"): reasons.append("loaded_feature_contract_mismatch")
+    if trace.get("loaded_policy_digest") != contract.get("policy_digest"): reasons.append("loaded_policy_digest_mismatch")
+    if trace.get("loaded_schema_id") != contract.get("schema_id"): reasons.append("loaded_schema_mismatch")
+    checkpoint_before = trace.get("checkpoint_before")
+    if not isinstance(checkpoint_before, int) or not (contract["offset_start"] <= checkpoint_before <= contract["offset_end_exclusive"]): reasons.append("checkpoint_before_invalid")
+
+    deliveries = trace.get("deliveries")
+    if not isinstance(deliveries, list) or not deliveries:
+        reasons.append("deliveries_missing")
+        deliveries = []
+    seen_offsets, last_generation, first_generation = set(), None, {}
+    initial_generation = deliveries[0].get("generation") if deliveries else None
+    for delivery in deliveries:
+        off, generation = delivery.get("offset"), delivery.get("generation")
+        if off not in by_offset:
+            reasons.append("delivery_offset_outside_subject")
+            continue
+        seen_offsets.add(off)
+        if not isinstance(generation, int): reasons.append("generation_invalid")
+        if last_generation is not None and isinstance(generation, int) and generation < last_generation: reasons.append("generation_regression")
+        if isinstance(generation, int) and isinstance(initial_generation, int) and generation > initial_generation and off < checkpoint_before: reasons.append("rebalance_replay_before_checkpoint")
+        if isinstance(generation, int):
+            last_generation = generation
+            first_generation.setdefault(off, generation)
+        try:
+            if ts(delivery["processed_at"]) < ts(by_offset[off]["event_time"]): reasons.append("processed_before_event_time")
+        except Exception:
+            reasons.append("delivery_time_invalid")
+    if seen_offsets != set(expected_offsets): reasons.append("delivery_range_incomplete")
+
+    if reasons:
+        return reject(reasons)
+
+    expected_predictions = {}
+    expected_actions = {}
+    duplicate_deliveries = 0
+    seen_prediction_keys = set()
+    for delivery in deliveries:
+        event = by_offset[delivery["offset"]]
+        pred_key = "|".join(map(str, [contract["release_subject"], contract["topic"], contract["partition"], event["offset"], event["event_id"]]))
+        value = score(model, event["features"])
+        act = choose_action(policy, value)
+        row = {
+            "prediction_key": pred_key,
+            "stream_subject_id": subject,
+            "release_subject": contract["release_subject"],
+            "topic": contract["topic"],
+            "partition": contract["partition"],
+            "offset": event["offset"],
+            "event_id": event["event_id"],
+            "operation_id": event["operation_id"],
+            "event_time": event["event_time"],
+            "model_digest": contract["model_digest"],
+            "feature_contract_id": contract["feature_contract_id"],
+            "policy_digest": contract["policy_digest"],
+            "score": value,
+            "action": act
+        }
+        if pred_key in seen_prediction_keys:
+            duplicate_deliveries += 1
+        seen_prediction_keys.add(pred_key)
+        if pred_key in expected_predictions and expected_predictions[pred_key] != row:
+            return reject(["prediction_replay_conflict"])
+        expected_predictions[pred_key] = row
+        action_row = {
+            "operation_id": event["operation_id"],
+            "prediction_key": pred_key,
+            "release_subject": contract["release_subject"],
+            "action": act,
+            "executed_once": True
+        }
+        if event["operation_id"] in expected_actions and expected_actions[event["operation_id"]] != action_row:
+            return reject(["action_replay_conflict"])
+        expected_actions[event["operation_id"]] = action_row
+
+    try:
+        old_predictions = existing_map(args.prediction_ledger, "prediction_key")
+        old_actions = existing_map(args.action_ledger, "operation_id")
+    except ValueError as exc:
+        return reject([str(exc)])
+    for key, row in old_predictions.items():
+        if key not in expected_predictions or expected_predictions[key] != row:
+            return reject(["prediction_ledger_conflict"])
+    for key, row in old_actions.items():
+        if key not in expected_actions or expected_actions[key] != row:
+            return reject(["action_ledger_conflict"])
+
+    prediction_rows = [expected_predictions[k] for k in sorted(expected_predictions, key=lambda x: expected_predictions[x]["offset"])]
+    action_rows = [expected_actions[k] for k in sorted(expected_actions, key=lambda x: expected_predictions[expected_actions[x]["prediction_key"]]["offset"])]
+    checkpoint = {
+        "stream_subject_id": subject,
+        "consumer_group": contract["consumer_group"],
+        "topic": contract["topic"],
+        "partition": contract["partition"],
+        "committed_offset_exclusive": contract["offset_end_exclusive"],
+        "durable_predictions": len(prediction_rows),
+        "durable_actions": len(action_rows),
+        "checkpoint_semantics": contract["checkpoint_semantics"]
+    }
+    report = {
+        "decision": "accepted",
+        "stream_subject_id": subject,
+        "processed_deliveries": len(deliveries),
+        "unique_events": len(prediction_rows),
+        "replay_deliveries": duplicate_deliveries,
+        "business_action_idempotency_verified": True,
+        "broker_exactly_once_claimed": False,
+        "checkpoint_commit_verified": True,
+        "committed_offset_exclusive": contract["offset_end_exclusive"],
+        "promotion_authorized": False,
+        "retraining_authorized": False
+    }
+
+    Path(args.prediction_ledger).write_text(canonical(prediction_rows))
+    Path(args.action_ledger).write_text(canonical(action_rows))
+    Path(args.checkpoint).write_text(canonical(checkpoint))
+    Path(args.report).write_text(canonical(report))
+    print("accepted: stream replay reconciled to unique durable prediction/action identities before checkpoint commit")
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())

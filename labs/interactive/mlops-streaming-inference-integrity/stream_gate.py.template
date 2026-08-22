@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+import argparse, json, math
+from pathlib import Path
+
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+
+def score(model, features):
+    z = model["intercept"] + sum(model["weights"][k] * features[k] for k in model["weights"])
+    return round(1.0 / (1.0 + math.exp(-z)), 6)
+
+
+def action(policy, value):
+    if value < policy["thresholds"]["approve_below"]:
+        return "approve"
+    if value < policy["thresholds"]["manual_review_below"]:
+        return "manual_review"
+    return "decline"
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--contract", default="stream-contract.json")
+    p.add_argument("--events", default="events.json")
+    p.add_argument("--trace", default="runtime-trace.json")
+    p.add_argument("--model", default="model.json")
+    p.add_argument("--policy", default="policy.json")
+    p.add_argument("--prediction-ledger", default="prediction-ledger.json")
+    p.add_argument("--action-ledger", default="action-ledger.json")
+    p.add_argument("--checkpoint", default="stream-checkpoint.json")
+    p.add_argument("--report", default="stream-report.json")
+    args = p.parse_args()
+
+    contract, events, trace, model, policy = map(load, [args.contract, args.events, args.trace, args.model, args.policy])
+    by_offset = {e["offset"]: e for e in events["events"]}
+    predictions, actions = [], []
+    for delivery in trace["deliveries"]:
+        event = by_offset[delivery["offset"]]
+        s = score(model, event["features"])
+        a = action(policy, s)
+        predictions.append({"operation_id": event["operation_id"], "offset": event["offset"], "score": s, "action": a})
+        actions.append({"operation_id": event["operation_id"], "action": a})
+
+    Path(args.prediction_ledger).write_text(json.dumps(predictions, indent=2, sort_keys=True) + "\n")
+    Path(args.action_ledger).write_text(json.dumps(actions, indent=2, sort_keys=True) + "\n")
+    Path(args.checkpoint).write_text(json.dumps({"consumer_group": contract["consumer_group"], "partition": contract["partition"], "committed_offset_exclusive": contract["offset_end_exclusive"]}, indent=2, sort_keys=True) + "\n")
+    report = {
+        "decision": "accepted",
+        "exactly_once_claimed": True,
+        "processed_deliveries": len(trace["deliveries"]),
+        "unique_events": len(events["events"]),
+        "checkpoint_offset": contract["offset_end_exclusive"],
+        "promotion_authorized": False,
+        "retraining_authorized": False
+    }
+    Path(args.report).write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+    print("accepted: broker delivery/checkpoint success treated as exactly-once business execution")
+
+if __name__ == "__main__":
+    main()

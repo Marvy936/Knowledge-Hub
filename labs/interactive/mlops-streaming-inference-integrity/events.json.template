@@ -1,0 +1,36 @@
+{
+  "stream_subject_id": "MLOPS-PAY-INF-STREAM-2026-08-r42",
+  "topic": "payments.risk.v5",
+  "partition": 7,
+  "offset_start": 918201,
+  "offset_end_exclusive": 918204,
+  "events": [
+    {
+      "offset": 918201,
+      "event_id": "payment-event-9101",
+      "operation_id": "payment-9101-risk-r42",
+      "event_time": "2026-08-18T10:00:00Z",
+      "schema_id": "risk-event-v5",
+      "feature_available_at": "2026-08-18T09:59:58Z",
+      "features": {"amount_norm": 0.31, "velocity_1h": 0.22, "country_risk": 0.10}
+    },
+    {
+      "offset": 918202,
+      "event_id": "payment-event-9102",
+      "operation_id": "payment-9102-risk-r42",
+      "event_time": "2026-08-18T10:01:00Z",
+      "schema_id": "risk-event-v5",
+      "feature_available_at": "2026-08-18T10:00:57Z",
+      "features": {"amount_norm": 0.70, "velocity_1h": 0.55, "country_risk": 0.20}
+    },
+    {
+      "offset": 918203,
+      "event_id": "payment-event-9103",
+      "operation_id": "payment-9103-risk-r42",
+      "event_time": "2026-08-18T09:58:30Z",
+      "schema_id": "risk-event-v5",
+      "feature_available_at": "2026-08-18T09:58:27Z",
+      "features": {"amount_norm": 0.92, "velocity_1h": 0.81, "country_risk": 0.60}
+    }
+  ]
+}
