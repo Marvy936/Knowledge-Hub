@@ -1,0 +1,247 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+from pathlib import Path
+
+ROOT = Path.cwd()
+PROTECTED = [
+    "serving-contract.json",
+    "release-manifest.json",
+    "capacity-evidence.json",
+    "runtime-state.json",
+    "traffic-evidence.json",
+]
+
+
+def canonical_bytes(value):
+    return (json.dumps(value, sort_keys=True, indent=2, separators=(",", ": ")) + "\n").encode()
+
+
+def digest_file(path):
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def load_json(name):
+    return json.loads((ROOT / name).read_text())
+
+
+def add_reason(reasons, reason):
+    if reason not in reasons:
+        reasons.append(reason)
+
+
+def blocked_report(contract, reasons):
+    return {
+        "capacity_subject_id": contract.get("capacity_subject_id", "unknown"),
+        "decision": "blocked",
+        "reasons": reasons,
+        "capacity_verified": False,
+        "rollout_authorized": False,
+        "promotion_authorized": False,
+        "retraining_authorized": False,
+    }
+
+
+def write_blocked(contract, reasons):
+    report = blocked_report(contract, reasons)
+    data = canonical_bytes(report)
+    path = ROOT / "capacity-report.json"
+    if path.exists() and path.read_bytes() != data:
+        print("blocked / conflicting_existing_state:capacity-report.json")
+        return 1
+    path.write_bytes(data)
+    print("blocked / " + ",".join(reasons))
+    return 0
+
+
+def main():
+    loaded = {}
+    reasons = []
+    for name in PROTECTED:
+        try:
+            loaded[name] = load_json(name)
+        except Exception:
+            add_reason(reasons, f"invalid_json:{name}")
+    contract = loaded.get("serving-contract.json", {})
+    if reasons:
+        return write_blocked(contract, reasons)
+
+    release = loaded["release-manifest.json"]
+    benchmark = loaded["capacity-evidence.json"]
+    runtime = loaded["runtime-state.json"]
+    traffic = loaded["traffic-evidence.json"]
+
+    if digest_file(ROOT / "release-manifest.json") != contract.get("release_manifest_digest"):
+        add_reason(reasons, "release_manifest_digest_mismatch")
+    if digest_file(ROOT / "capacity-evidence.json") != contract.get("capacity_evidence_digest"):
+        add_reason(reasons, "capacity_evidence_digest_mismatch")
+
+    if release.get("release_subject") != contract.get("release_subject"):
+        add_reason(reasons, "release_subject_mismatch")
+    if release.get("deployment_mode") != contract.get("deployment_mode"):
+        add_reason(reasons, "release_deployment_mode_mismatch")
+
+    if benchmark.get("release_subject") != release.get("release_subject"):
+        add_reason(reasons, "benchmark_release_mismatch")
+    if benchmark.get("serving_image_digest") != release.get("serving_image_digest"):
+        add_reason(reasons, "benchmark_serving_image_mismatch")
+    if benchmark.get("runtime_generation") != release.get("runtime_generation"):
+        add_reason(reasons, "benchmark_runtime_generation_mismatch")
+    if benchmark.get("resource_profile") != release.get("resource_profile"):
+        add_reason(reasons, "benchmark_resource_profile_mismatch")
+    if benchmark.get("tested_container_concurrency") != contract.get("container_concurrency"):
+        add_reason(reasons, "benchmark_concurrency_mismatch")
+
+    steady = benchmark.get("steady", {})
+    burst = benchmark.get("burst", {})
+    if steady.get("p95_end_to_end_ms", float("inf")) > contract.get("warm_p95_ms_max", -1):
+        add_reason(reasons, "benchmark_warm_p95_above_maximum")
+    if steady.get("p99_queue_ms", float("inf")) > contract.get("queue_p99_ms_max", -1):
+        add_reason(reasons, "benchmark_queue_p99_above_maximum")
+    if steady.get("fallback_rate", 1.0) > contract.get("fallback_rate_max", -1):
+        add_reason(reasons, "benchmark_fallback_rate_above_maximum")
+    if burst.get("deadline_success_rate", 0.0) < contract.get("deadline_success_rate_min", 2.0):
+        add_reason(reasons, "benchmark_deadline_success_below_minimum")
+    if burst.get("replicas_converge_seconds", float("inf")) > contract.get("replicas_converge_seconds_max", -1):
+        add_reason(reasons, "benchmark_replica_convergence_too_slow")
+    if burst.get("max_safe_concurrency_per_replica", -1) < contract.get("container_concurrency", 0):
+        add_reason(reasons, "benchmark_safe_concurrency_below_contract")
+
+    for field in ("capacity_subject_id", "release_subject"):
+        if runtime.get(field) != contract.get(field):
+            add_reason(reasons, f"runtime_{field}_mismatch")
+    if runtime.get("deployment_mode") != contract.get("deployment_mode"):
+        add_reason(reasons, "runtime_deployment_mode_mismatch")
+    if runtime.get("autoscaler_controller") != contract.get("autoscaler_controller"):
+        add_reason(reasons, "autoscaler_controller_mismatch")
+    if runtime.get("control_plane_ready") is not True:
+        add_reason(reasons, "control_plane_not_ready")
+
+    scaling = runtime.get("resolved_scaling", {})
+    for key in ("min_replicas", "max_replicas", "container_concurrency", "target_concurrency"):
+        if scaling.get(key) != contract.get(key):
+            add_reason(reasons, f"{key}_mismatch")
+    if isinstance(scaling.get("target_concurrency"), int) and isinstance(scaling.get("container_concurrency"), int):
+        if scaling["target_concurrency"] > scaling["container_concurrency"]:
+            add_reason(reasons, "target_exceeds_container_concurrency")
+
+    replicas = runtime.get("replicas")
+    if not isinstance(replicas, list):
+        replicas = []
+        add_reason(reasons, "replicas_not_list")
+    observed = runtime.get("observed_ready_replicas")
+    if observed != len([r for r in replicas if isinstance(r, dict) and r.get("ready") is True]):
+        add_reason(reasons, "ready_replica_count_mismatch")
+    if len(replicas) < contract.get("min_replicas", 0):
+        add_reason(reasons, "insufficient_replicas")
+    ids = set()
+    expected_loaded = {
+        "loaded_release_subject": release.get("release_subject"),
+        "loaded_model_digest": release.get("model_digest"),
+        "loaded_serving_image_digest": release.get("serving_image_digest"),
+        "loaded_feature_contract_id": release.get("feature_contract_id"),
+        "loaded_policy_digest": release.get("policy_digest"),
+        "loaded_runtime_generation": release.get("runtime_generation"),
+    }
+    for replica in replicas:
+        if not isinstance(replica, dict):
+            add_reason(reasons, "invalid_replica")
+            continue
+        rid = replica.get("replica_id")
+        if not isinstance(rid, str) or not rid:
+            add_reason(reasons, "missing_replica_id")
+            continue
+        if rid in ids:
+            add_reason(reasons, f"duplicate_replica_id:{rid}")
+        ids.add(rid)
+        if replica.get("ready") is not True:
+            add_reason(reasons, f"replica_not_ready:{rid}")
+        if replica.get("exercised") is not True:
+            add_reason(reasons, f"replica_not_exercised:{rid}")
+        for key, expected in expected_loaded.items():
+            if replica.get(key) != expected:
+                add_reason(reasons, f"{key}_mismatch:{rid}")
+
+    if traffic.get("capacity_subject_id") != contract.get("capacity_subject_id"):
+        add_reason(reasons, "traffic_subject_mismatch")
+    if traffic.get("release_subject") != contract.get("release_subject"):
+        add_reason(reasons, "traffic_release_mismatch")
+    if traffic.get("window") != contract.get("traffic_window"):
+        add_reason(reasons, "traffic_window_mismatch")
+    requests = traffic.get("requests")
+    deadline_successes = traffic.get("deadline_successes")
+    fallbacks = traffic.get("fallback_requests")
+    if not all(isinstance(v, int) and not isinstance(v, bool) for v in (requests, deadline_successes, fallbacks)):
+        add_reason(reasons, "invalid_traffic_counts")
+        requests = 0
+        deadline_successes = 0
+        fallbacks = 0
+    if requests < contract.get("minimum_traffic_requests", 0):
+        add_reason(reasons, "insufficient_traffic_population")
+    if requests <= 0 or deadline_successes < 0 or fallbacks < 0 or deadline_successes > requests or fallbacks > requests:
+        add_reason(reasons, "invalid_traffic_counts")
+    if requests > 0:
+        if deadline_successes / requests < contract.get("deadline_success_rate_min", 2.0):
+            add_reason(reasons, "deadline_success_below_minimum")
+        if fallbacks / requests > contract.get("fallback_rate_max", -1):
+            add_reason(reasons, "fallback_rate_above_maximum")
+    if traffic.get("p95_end_to_end_ms", float("inf")) > contract.get("warm_p95_ms_max", -1):
+        add_reason(reasons, "p95_latency_above_maximum")
+    if traffic.get("p99_queue_ms", float("inf")) > contract.get("queue_p99_ms_max", -1):
+        add_reason(reasons, "queue_p99_above_maximum")
+    if traffic.get("replicas_converge_seconds", float("inf")) > contract.get("replicas_converge_seconds_max", -1):
+        add_reason(reasons, "replica_convergence_too_slow")
+
+    if reasons:
+        return write_blocked(contract, reasons)
+
+    report = {
+        "capacity_subject_id": contract["capacity_subject_id"],
+        "release_subject": contract["release_subject"],
+        "decision": "accepted",
+        "reasons": [],
+        "capacity_verified": True,
+        "ready_replicas": observed,
+        "deadline_success_rate": round(deadline_successes / requests, 6),
+        "fallback_rate": round(fallbacks / requests, 6),
+        "p95_end_to_end_ms": traffic["p95_end_to_end_ms"],
+        "p99_queue_ms": traffic["p99_queue_ms"],
+        "replicas_converge_seconds": traffic["replicas_converge_seconds"],
+        "rollout_authorized": False,
+        "promotion_authorized": False,
+        "retraining_authorized": False,
+    }
+    report_bytes = canonical_bytes(report)
+    ledger = {
+        "capacity_subject_id": contract["capacity_subject_id"],
+        "release_subject": contract["release_subject"],
+        "release_manifest_digest": contract["release_manifest_digest"],
+        "capacity_evidence_digest": contract["capacity_evidence_digest"],
+        "runtime_state_digest": digest_file(ROOT / "runtime-state.json"),
+        "traffic_evidence_digest": digest_file(ROOT / "traffic-evidence.json"),
+        "capacity_report_digest": "sha256:" + hashlib.sha256(report_bytes).hexdigest(),
+        "status": "durable",
+    }
+    ledger_bytes = canonical_bytes(ledger)
+    desired = {
+        "capacity-report.json": report_bytes,
+        "capacity-ledger.json": ledger_bytes,
+    }
+    conflicts = []
+    for name, data in desired.items():
+        path = ROOT / name
+        if path.exists() and path.read_bytes() != data:
+            conflicts.append(name)
+    if conflicts:
+        print("blocked / conflicting_existing_state:" + ",".join(sorted(conflicts)))
+        return 1
+    for name, data in desired.items():
+        path = ROOT / name
+        if not path.exists():
+            path.write_bytes(data)
+    print("accepted / exact serving capacity and exercised SLO evidence verified")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
