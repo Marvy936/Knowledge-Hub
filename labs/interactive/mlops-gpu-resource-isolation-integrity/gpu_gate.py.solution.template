@@ -1,0 +1,278 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+REPORT = ROOT / "gpu-capacity-report.json"
+LEDGER = ROOT / "gpu-capacity-ledger.json"
+
+def load(name):
+    return json.loads((ROOT / name).read_text())
+
+def raw_digest(path):
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+def json_bytes(obj):
+    return (json.dumps(obj, indent=2, sort_keys=True) + "\n").encode()
+
+def rate(num, den):
+    if not isinstance(num, int) or isinstance(num, bool):
+        raise ValueError("count must be an integer")
+    if not isinstance(den, int) or isinstance(den, bool) or den <= 0:
+        raise ValueError("population must be a positive integer")
+    if num < 0 or num > den:
+        raise ValueError("count must be inside population")
+    return num / den
+
+def same(a, b):
+    return a == b
+
+def add(reasons, condition, message):
+    if not condition:
+        reasons.append(message)
+
+contract = load("gpu-contract.json")
+release = load("release-manifest.json")
+resource = load("resource-class.json")
+runtime = load("runtime-state.json")
+capacity = load("capacity-evidence.json")
+
+reasons = []
+
+release_digest = raw_digest(ROOT / "release-manifest.json")
+resource_digest = raw_digest(ROOT / "resource-class.json")
+add(reasons, same(release_digest, contract.get("release_manifest_sha256")),
+    "release manifest digest does not match contract")
+add(reasons, same(resource_digest, contract.get("resource_class_sha256")),
+    "resource class digest does not match contract")
+add(reasons, same(release.get("release_subject"), contract.get("release_subject")),
+    "release subject does not match contract")
+add(reasons, same(resource.get("resource_class_id"), contract.get("resource_class_id")),
+    "resource class ID does not match contract")
+
+subject = contract.get("gpu_capacity_subject")
+add(reasons, runtime.get("gpu_capacity_subject") == subject,
+    "runtime evidence belongs to another GPU capacity subject")
+add(reasons, capacity.get("gpu_capacity_subject") == subject,
+    "capacity evidence belongs to another GPU capacity subject")
+add(reasons, runtime.get("release_subject") == contract.get("release_subject"),
+    "runtime evidence belongs to another release")
+add(reasons, capacity.get("release_subject") == contract.get("release_subject"),
+    "capacity evidence belongs to another release")
+
+add(reasons, runtime.get("scheduler_allocated") is True,
+    "scheduler did not allocate the requested accelerator")
+add(reasons, runtime.get("pod_running") is True,
+    "serving Pod is not Running")
+
+resource_fields = [
+    ("observed_resource_class_id", "resource_class_id", "runtime resource class"),
+    ("node_pool_generation", "node_pool_generation", "node-pool generation"),
+    ("physical_model", "physical_model", "physical GPU model"),
+    ("driver_generation", "driver_generation", "driver generation"),
+    ("container_runtime_generation", "container_runtime_generation", "container runtime generation"),
+    ("device_plugin_generation", "device_plugin_generation", "device-plugin generation"),
+    ("mig_strategy", "mig_strategy", "MIG strategy"),
+    ("extended_resource", "extended_resource", "extended resource name"),
+    ("workload_class", "workload_class", "workload class"),
+]
+for runtime_key, resource_key, label in resource_fields:
+    add(reasons, runtime.get(runtime_key) == resource.get(resource_key),
+        f"{label} does not match the exact resource class")
+
+add(reasons, runtime.get("sharing") == resource.get("sharing"),
+    "sharing mode/profile does not match the exact resource class")
+add(reasons, runtime.get("isolation") == resource.get("isolation"),
+    "memory/fault isolation does not match the exact resource class")
+add(reasons, capacity.get("resource_class_id_observed") == resource.get("resource_class_id"),
+    "capacity evidence was measured on another resource class")
+
+replicas = runtime.get("replicas")
+required_replicas = contract.get("required_ready_replicas")
+if not isinstance(replicas, list):
+    reasons.append("runtime replicas must be a list")
+    replicas = []
+if not isinstance(required_replicas, int) or isinstance(required_replicas, bool) or required_replicas < 1:
+    reasons.append("required ready replica count is invalid")
+    required_replicas = 1
+ready_count = runtime.get("ready_replicas")
+add(reasons, isinstance(ready_count, int) and not isinstance(ready_count, bool),
+    "ready replica count must be an integer")
+if isinstance(ready_count, int) and not isinstance(ready_count, bool):
+    add(reasons, ready_count == len(replicas),
+        "ready replica count does not reconcile with replica evidence")
+    add(reasons, ready_count >= required_replicas,
+        "not enough ready GPU replicas")
+
+ids = []
+for replica in replicas:
+    rid = replica.get("replica_id")
+    ids.append(rid)
+    add(reasons, isinstance(rid, str) and bool(rid),
+        "every replica needs a stable non-empty identity")
+    add(reasons, replica.get("ready") is True,
+        f"replica {rid!r} is not ready")
+    add(reasons, replica.get("accelerator_initialized") is True,
+        f"replica {rid!r} did not initialize the accelerator")
+    add(reasons, replica.get("model_allocated") is True,
+        f"replica {rid!r} did not allocate the model")
+    if contract.get("required_smoke_on_every_ready_replica") is True:
+        add(reasons, replica.get("gpu_smoke_passed") is True,
+            f"replica {rid!r} did not pass the GPU smoke test")
+    add(reasons, replica.get("loaded_release_subject") == release.get("release_subject"),
+        f"replica {rid!r} loaded another release")
+    add(reasons, replica.get("loaded_model_sha256") == release.get("model", {}).get("sha256"),
+        f"replica {rid!r} loaded another model")
+    add(reasons, replica.get("loaded_image_sha256") == release.get("serving_image_sha256"),
+        f"replica {rid!r} loaded another serving image")
+    add(reasons, replica.get("loaded_feature_contract") == release.get("feature_contract"),
+        f"replica {rid!r} loaded another feature contract")
+    add(reasons, replica.get("loaded_policy_sha256") == release.get("policy_sha256"),
+        f"replica {rid!r} loaded another policy")
+    add(reasons, replica.get("loaded_runtime_generation") == release.get("runtime_generation"),
+        f"replica {rid!r} loaded another runtime generation")
+add(reasons, len(ids) == len(set(ids)),
+    "replica identities are not unique")
+
+thresholds = contract.get("capacity_thresholds", {})
+primary = capacity.get("primary_window", {})
+try:
+    primary_deadline_rate = rate(primary.get("deadline_successes"), primary.get("requests"))
+except ValueError:
+    primary_deadline_rate = None
+    reasons.append("primary request/deadline counts are invalid")
+
+def number(v):
+    return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+p95 = primary.get("p95_latency_ms")
+queue = primary.get("p99_queue_age_ms")
+throughput = primary.get("useful_throughput_rps")
+memory = primary.get("memory_high_water_gib")
+for value, label in [(p95, "primary p95 latency"), (queue, "primary p99 queue age"),
+                     (throughput, "primary useful throughput"), (memory, "primary memory high-water")]:
+    add(reasons, number(value), f"{label} must be numeric")
+
+if primary_deadline_rate is not None:
+    add(reasons, primary_deadline_rate >= float(thresholds.get("min_deadline_success_rate", 1.0)),
+        "primary deadline-success rate is below threshold")
+if number(p95):
+    add(reasons, p95 <= float(thresholds.get("max_p95_latency_ms", 0)),
+        "primary p95 latency exceeds threshold")
+if number(queue):
+    add(reasons, queue <= float(thresholds.get("max_p99_queue_age_ms", 0)),
+        "primary p99 queue age exceeds threshold")
+if number(throughput):
+    add(reasons, throughput >= float(thresholds.get("min_useful_throughput_rps", float("inf"))),
+        "primary useful throughput is below threshold")
+if number(memory):
+    headroom = float(resource.get("profile_memory_gib", 0)) - float(memory)
+    add(reasons, headroom >= float(thresholds.get("min_memory_headroom_gib", 0)),
+        "primary GPU memory headroom is below threshold")
+else:
+    headroom = None
+
+second_cfg = contract.get("second_operation", {})
+second = capacity.get("second_operation", {})
+second_deadline_rate = None
+second_headroom = None
+if second_cfg.get("required") is True:
+    add(reasons, second.get("scheduled") is True,
+        "second operation was not scheduled")
+    add(reasons, second.get("accelerator_initialized") is True,
+        "second operation did not initialize the accelerator")
+    add(reasons, second.get("model_allocated") is True,
+        "second operation did not allocate the model")
+    if second_cfg.get("same_resource_class_required") is True:
+        add(reasons, second.get("resource_class_id_observed") == resource.get("resource_class_id"),
+            "second operation did not reproduce the exact resource class")
+    try:
+        second_deadline_rate = rate(second.get("deadline_successes"), second.get("requests"))
+    except ValueError:
+        reasons.append("second-operation request/deadline counts are invalid")
+    second_p95 = second.get("p95_latency_ms")
+    second_throughput = second.get("useful_throughput_rps")
+    second_memory = second.get("memory_high_water_gib")
+    for value, label in [(second_p95, "second-operation p95 latency"),
+                         (second_throughput, "second-operation useful throughput"),
+                         (second_memory, "second-operation memory high-water")]:
+        add(reasons, number(value), f"{label} must be numeric")
+    if second_deadline_rate is not None:
+        add(reasons, second_deadline_rate >= float(second_cfg.get("min_deadline_success_rate", 1.0)),
+            "second-operation deadline-success rate is below threshold")
+    if number(second_p95):
+        add(reasons, second_p95 <= float(second_cfg.get("max_p95_latency_ms", 0)),
+            "second-operation p95 latency exceeds threshold")
+    if number(second_throughput):
+        add(reasons, second_throughput >= float(second_cfg.get("min_useful_throughput_rps", float("inf"))),
+            "second-operation useful throughput is below threshold")
+    if number(second_memory):
+        second_headroom = float(resource.get("profile_memory_gib", 0)) - float(second_memory)
+        add(reasons, second_headroom >= float(thresholds.get("min_memory_headroom_gib", 0)),
+            "second-operation GPU memory headroom is below threshold")
+
+accepted = not reasons
+
+report = {
+    "gpu_capacity_subject": subject,
+    "release_subject": contract.get("release_subject"),
+    "resource_class_id": contract.get("resource_class_id"),
+    "result": "accepted" if accepted else "blocked",
+    "reasons": reasons,
+    "capacity_verified": accepted,
+    "exact_resource_class_verified": accepted,
+    "request_outcomes_verified": accepted,
+    "second_operation_verified": accepted,
+    "observed_metrics": {
+        "dashboard_average_gpu_utilization": capacity.get("dashboard", {}).get("average_gpu_utilization"),
+        "primary_deadline_success_rate": primary_deadline_rate,
+        "primary_p95_latency_ms": p95,
+        "primary_p99_queue_age_ms": queue,
+        "primary_useful_throughput_rps": throughput,
+        "primary_memory_headroom_gib": headroom,
+        "second_operation_deadline_success_rate": second_deadline_rate,
+        "second_operation_memory_headroom_gib": second_headroom
+    },
+    "rollout_authorized": False,
+    "promotion_authorized": False,
+    "retraining_authorized": False
+}
+report_bytes = json_bytes(report)
+
+if not accepted:
+    if LEDGER.exists():
+        print("BLOCKED: durable GPU capacity ledger already exists for invalid evidence", file=sys.stderr)
+        sys.exit(1)
+    if REPORT.exists() and REPORT.read_bytes() != report_bytes:
+        print("BLOCKED: conflicting GPU capacity report already exists", file=sys.stderr)
+        sys.exit(1)
+    REPORT.write_bytes(report_bytes)
+    print(json.dumps(report, indent=2, sort_keys=True))
+    sys.exit(2)
+
+ledger = {
+    "gpu_capacity_subject": subject,
+    "release_manifest_sha256": release_digest,
+    "resource_class_sha256": resource_digest,
+    "runtime_state_sha256": raw_digest(ROOT / "runtime-state.json"),
+    "capacity_evidence_sha256": raw_digest(ROOT / "capacity-evidence.json"),
+    "gpu_capacity_report_sha256": "sha256:" + hashlib.sha256(report_bytes).hexdigest(),
+    "capacity_verified": True,
+    "rollout_authorized": False,
+    "promotion_authorized": False,
+    "retraining_authorized": False
+}
+ledger_bytes = json_bytes(ledger)
+
+if REPORT.exists() and REPORT.read_bytes() != report_bytes:
+    print("BLOCKED: conflicting GPU capacity report already exists", file=sys.stderr)
+    sys.exit(1)
+if LEDGER.exists() and LEDGER.read_bytes() != ledger_bytes:
+    print("BLOCKED: conflicting durable GPU capacity ledger already exists", file=sys.stderr)
+    sys.exit(1)
+
+REPORT.write_bytes(report_bytes)
+LEDGER.write_bytes(ledger_bytes)
+print(json.dumps(report, indent=2, sort_keys=True))
