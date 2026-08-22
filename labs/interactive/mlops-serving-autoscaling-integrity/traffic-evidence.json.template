@@ -1,0 +1,14 @@
+{
+  "capacity_subject_id": "MLOPS-PAY-SERVE-CAP-2026-08-r42",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "window": {
+    "start": "2026-08-22T08:00:00Z",
+    "end_exclusive": "2026-08-22T08:02:00Z"
+  },
+  "requests": 200,
+  "deadline_successes": 130,
+  "fallback_requests": 70,
+  "p95_end_to_end_ms": 780,
+  "p99_queue_ms": 540,
+  "replicas_converge_seconds": 78
+}
