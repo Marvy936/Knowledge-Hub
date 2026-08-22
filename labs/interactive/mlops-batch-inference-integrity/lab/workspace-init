@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-batch-inference-integrity}"
+mkdir -p /workspace
+for name in batch-contract input-manifest runtime-trace model policy; do
+  cp "$ROOT/$name.json.template" "/workspace/$name.json"
+done
+cp "$ROOT/batch_gate.py.template" /workspace/batch_gate.py
+cp "$ROOT/batch_validator.py" /workspace/batch_validator.py
+chmod +x /workspace/batch_gate.py /workspace/batch_validator.py
+rm -rf /workspace/output
+rm -f /workspace/output-manifest.json /workspace/action-ledger.json /workspace/batch-ledger.json /workspace/batch-report.json /workspace/promotion-request.json /workspace/retraining-request.json
