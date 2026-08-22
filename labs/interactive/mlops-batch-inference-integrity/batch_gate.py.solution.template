@@ -1,0 +1,356 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+import math
+from datetime import datetime
+from pathlib import Path
+
+ROOT = Path.cwd()
+
+
+def canonical_bytes(value):
+    return (json.dumps(value, sort_keys=True, indent=2, separators=(",", ": ")) + "\n").encode()
+
+
+def digest_bytes(data):
+    return "sha256:" + hashlib.sha256(data).hexdigest()
+
+
+def digest_file(path):
+    return digest_bytes(path.read_bytes())
+
+
+def parse_time(value):
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def load_json(name):
+    return json.loads((ROOT / name).read_text())
+
+
+def add_reason(reasons, reason):
+    if reason not in reasons:
+        reasons.append(reason)
+
+
+def prediction_id(contract, row):
+    raw = "|".join([
+        contract["release_subject"],
+        contract["batch_operation_id"],
+        row["observation_id"],
+    ]).encode()
+    return "sha256:" + hashlib.sha256(raw).hexdigest()
+
+
+def action_id(contract, row):
+    raw = "|".join([
+        contract["batch_operation_id"],
+        row["business_operation_id"],
+    ]).encode()
+    return "sha256:" + hashlib.sha256(raw).hexdigest()
+
+
+def score(model, features):
+    logit = model["intercept"] + sum(model["weights"][k] * features[k] for k in model["weights"])
+    return 1.0 / (1.0 + math.exp(-logit))
+
+
+def action(policy, value):
+    t = policy["thresholds"]
+    if value < t["approve_below"]:
+        return "approve"
+    if value < t["manual_review_below"]:
+        return "manual_review"
+    return "decline"
+
+
+def protected_load():
+    names = ["batch-contract.json", "input-manifest.json", "runtime-trace.json", "model.json", "policy.json"]
+    loaded = {}
+    reasons = []
+    for name in names:
+        try:
+            loaded[name] = load_json(name)
+        except Exception:
+            add_reason(reasons, f"invalid_json:{name}")
+    return loaded, reasons
+
+
+def build_blocked_report(contract, reasons):
+    return {
+        "batch_operation_id": contract.get("batch_operation_id", "unknown"),
+        "decision": "blocked",
+        "reasons": reasons,
+        "batch_verified": False,
+        "promotion_authorized": False,
+        "retraining_authorized": False,
+    }
+
+
+def write_blocked_report(contract, reasons):
+    report = build_blocked_report(contract, reasons)
+    path = ROOT / "batch-report.json"
+    data = canonical_bytes(report)
+    if path.exists() and path.read_bytes() != data:
+        print("blocked / conflicting_existing_state:batch-report.json")
+        return 1
+    path.write_bytes(data)
+    print("blocked / " + ",".join(reasons))
+    return 0
+
+
+def main():
+    loaded, reasons = protected_load()
+    contract = loaded.get("batch-contract.json", {})
+    if reasons:
+        return write_blocked_report(contract, reasons)
+
+    manifest = loaded["input-manifest.json"]
+    trace = loaded["runtime-trace.json"]
+    model = loaded["model.json"]
+    policy = loaded["policy.json"]
+
+    # Exact immutable bytes and loaded runtime authority.
+    if digest_file(ROOT / "input-manifest.json") != contract.get("expected_input_manifest_digest"):
+        add_reason(reasons, "input_manifest_digest_mismatch")
+    if digest_file(ROOT / "model.json") != contract.get("model_digest"):
+        add_reason(reasons, "model_digest_mismatch")
+    if digest_file(ROOT / "policy.json") != contract.get("policy_digest"):
+        add_reason(reasons, "policy_digest_mismatch")
+
+    exact_trace = {
+        "batch_operation_id": "batch_operation_id",
+        "loaded_release_subject": "release_subject",
+        "loaded_model_digest": "model_digest",
+        "loaded_runtime_image_digest": "runtime_image_digest",
+        "loaded_feature_contract_id": "feature_contract_id",
+        "loaded_policy_digest": "policy_digest",
+        "loaded_input_schema_id": "input_schema_id",
+    }
+    for observed, expected in exact_trace.items():
+        if trace.get(observed) != contract.get(expected):
+            add_reason(reasons, f"{observed}_mismatch")
+
+    if trace.get("job_status") != "succeeded":
+        add_reason(reasons, "job_not_succeeded")
+    if trace.get("selection_basis") != contract.get("required_selection_basis"):
+        add_reason(reasons, "selection_basis_mismatch")
+
+    # Input subject semantics: bounded logical interval, schema, uniqueness and PIT features.
+    if manifest.get("schema_id") != contract.get("input_schema_id"):
+        add_reason(reasons, "input_schema_mismatch")
+    if manifest.get("logical_interval") != contract.get("logical_interval"):
+        add_reason(reasons, "logical_interval_mismatch")
+    if manifest.get("selection_basis") != contract.get("required_selection_basis"):
+        add_reason(reasons, "manifest_selection_basis_mismatch")
+
+    rows = manifest.get("rows")
+    if not isinstance(rows, list):
+        rows = []
+        add_reason(reasons, "rows_not_list")
+    if manifest.get("row_count") != len(rows):
+        add_reason(reasons, "manifest_row_count_mismatch")
+    if len(rows) != contract.get("expected_rows"):
+        add_reason(reasons, "input_row_count_mismatch")
+
+    start = end = None
+    try:
+        start = parse_time(contract["logical_interval"]["start"])
+        end = parse_time(contract["logical_interval"]["end_exclusive"])
+        if not start < end:
+            add_reason(reasons, "invalid_logical_interval")
+    except Exception:
+        add_reason(reasons, "invalid_logical_interval")
+
+    by_id = {}
+    business_ids = set()
+    feature_keys = set(model.get("weights", {}).keys())
+    for row in rows:
+        if not isinstance(row, dict):
+            add_reason(reasons, "invalid_row")
+            continue
+        oid = row.get("observation_id")
+        bop = row.get("business_operation_id")
+        if not isinstance(oid, str) or not oid:
+            add_reason(reasons, "missing_observation_id")
+            continue
+        if oid in by_id:
+            add_reason(reasons, f"duplicate_observation_id:{oid}")
+        by_id[oid] = row
+        if not isinstance(bop, str) or not bop:
+            add_reason(reasons, f"missing_business_operation_id:{oid}")
+        elif bop in business_ids:
+            add_reason(reasons, f"duplicate_business_operation_id:{bop}")
+        else:
+            business_ids.add(bop)
+        try:
+            event_time = parse_time(row["event_time"])
+            feature_time = parse_time(row["feature_available_at"])
+            if start is not None and end is not None and not (start <= event_time < end):
+                add_reason(reasons, f"observation_outside_logical_interval:{oid}")
+            if feature_time > event_time:
+                add_reason(reasons, f"feature_time_travel:{oid}")
+        except Exception:
+            add_reason(reasons, f"invalid_timestamp:{oid}")
+        features = row.get("features")
+        if not isinstance(features, dict) or set(features) != feature_keys:
+            add_reason(reasons, f"feature_contract_mismatch:{oid}")
+        else:
+            for key, value in features.items():
+                if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(float(value)):
+                    add_reason(reasons, f"invalid_feature:{oid}:{key}")
+
+    if len(by_id) != contract.get("expected_unique_observations"):
+        add_reason(reasons, "unique_observation_count_mismatch")
+
+    # Shard evidence must cover the bounded subject exactly once. Failed attempts may exist,
+    # but each shard has exactly one successful publication attempt.
+    shards = trace.get("shards")
+    if not isinstance(shards, list):
+        shards = []
+        add_reason(reasons, "shards_not_list")
+    expected_shards = contract.get("expected_shards")
+    success = {}
+    attempts_seen = set()
+    for item in shards:
+        if not isinstance(item, dict):
+            add_reason(reasons, "invalid_shard_attempt")
+            continue
+        sid = item.get("shard_id")
+        attempt = item.get("attempt")
+        key = (sid, attempt)
+        if key in attempts_seen:
+            add_reason(reasons, f"duplicate_shard_attempt:{sid}:{attempt}")
+        attempts_seen.add(key)
+        if not isinstance(sid, int) or not isinstance(attempt, int) or attempt < 1:
+            add_reason(reasons, "invalid_shard_attempt_identity")
+            continue
+        if item.get("status") == "succeeded":
+            if sid in success:
+                add_reason(reasons, f"multiple_successful_attempts:{sid}")
+            success[sid] = item
+    if not isinstance(expected_shards, int) or set(success) != set(range(expected_shards or 0)):
+        add_reason(reasons, "incomplete_successful_shards")
+
+    covered = []
+    for sid in sorted(success):
+        row_ids = success[sid].get("row_ids")
+        if not isinstance(row_ids, list):
+            add_reason(reasons, f"invalid_shard_rows:{sid}")
+            continue
+        covered.extend(row_ids)
+    if len(covered) != len(set(covered)):
+        add_reason(reasons, "duplicate_row_across_shards")
+    if set(covered) != set(by_id):
+        add_reason(reasons, "shard_row_coverage_mismatch")
+
+    if contract.get("publication_mode") != "atomic_manifest_after_complete_parts":
+        add_reason(reasons, "unsupported_publication_mode")
+
+    if reasons:
+        return write_blocked_report(contract, reasons)
+
+    # Build all state in memory first. No canonical manifest is visible until every part
+    # and business action has deterministic bytes.
+    part_payloads = {}
+    all_predictions = []
+    all_actions = []
+    for sid in sorted(success):
+        predictions = []
+        for oid in success[sid]["row_ids"]:
+            row = by_id[oid]
+            value = score(model, row["features"])
+            chosen = action(policy, value)
+            pred = {
+                "prediction_id": prediction_id(contract, row),
+                "batch_operation_id": contract["batch_operation_id"],
+                "observation_id": oid,
+                "business_operation_id": row["business_operation_id"],
+                "event_time": row["event_time"],
+                "release_subject": contract["release_subject"],
+                "model_digest": contract["model_digest"],
+                "feature_contract_id": contract["feature_contract_id"],
+                "policy_digest": contract["policy_digest"],
+                "score": round(value, 6),
+                "action": chosen,
+                "output_schema_id": contract["output_schema_id"],
+            }
+            predictions.append(pred)
+            all_predictions.append(pred)
+            all_actions.append({
+                "action_id": action_id(contract, row),
+                "business_operation_id": row["business_operation_id"],
+                "prediction_id": pred["prediction_id"],
+                "action": chosen,
+            })
+        payload = b"".join((json.dumps(p, sort_keys=True, separators=(",", ":")) + "\n").encode() for p in predictions)
+        part_payloads[f"output/part-{sid:03d}.jsonl"] = payload
+
+    part_entries = [
+        {"path": path, "sha256": digest_bytes(data), "rows": sum(1 for line in data.splitlines() if line)}
+        for path, data in sorted(part_payloads.items())
+    ]
+    output_manifest = {
+        "batch_operation_id": contract["batch_operation_id"],
+        "release_subject": contract["release_subject"],
+        "logical_interval": contract["logical_interval"],
+        "input_manifest_digest": contract["expected_input_manifest_digest"],
+        "output_schema_id": contract["output_schema_id"],
+        "complete": True,
+        "row_count": len(all_predictions),
+        "unique_observations": len({p["observation_id"] for p in all_predictions}),
+        "parts": part_entries,
+    }
+    output_manifest_bytes = canonical_bytes(output_manifest)
+    actions = sorted(all_actions, key=lambda x: x["business_operation_id"])
+    action_bytes = canonical_bytes(actions)
+    ledger = {
+        "batch_operation_id": contract["batch_operation_id"],
+        "output_manifest_digest": digest_bytes(output_manifest_bytes),
+        "row_count": len(all_predictions),
+        "action_count": len(actions),
+        "status": "durable",
+    }
+    ledger_bytes = canonical_bytes(ledger)
+    report = {
+        "batch_operation_id": contract["batch_operation_id"],
+        "decision": "accepted",
+        "reasons": [],
+        "batch_verified": True,
+        "output_manifest_digest": ledger["output_manifest_digest"],
+        "prediction_count": len(all_predictions),
+        "action_count": len(actions),
+        "promotion_authorized": False,
+        "retraining_authorized": False,
+    }
+    report_bytes = canonical_bytes(report)
+
+    desired = dict(part_payloads)
+    desired.update({
+        "output-manifest.json": output_manifest_bytes,
+        "action-ledger.json": action_bytes,
+        "batch-ledger.json": ledger_bytes,
+        "batch-report.json": report_bytes,
+    })
+
+    conflicts = []
+    for rel, data in desired.items():
+        path = ROOT / rel
+        if path.exists() and path.read_bytes() != data:
+            conflicts.append(rel)
+    if conflicts:
+        print("blocked / conflicting_existing_state:" + ",".join(sorted(conflicts)))
+        return 1
+
+    for rel, data in desired.items():
+        path = ROOT / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if not path.exists():
+            path.write_bytes(data)
+
+    print("accepted / complete batch subject published atomically and idempotently")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
