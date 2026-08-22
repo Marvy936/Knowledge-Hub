@@ -1,0 +1,11 @@
+{
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "model_digest": "sha256:8053640fad0bc104a914f5e106498d3e84c45dd9688db9adc2e72170aed65839",
+  "serving_image_digest": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+  "feature_contract_id": "payment-risk-features-v6",
+  "policy_digest": "sha256:5f9416c74ecadffc79ba9d1605a54bb7bb6265505f18ac173ceb17b9423d3dad",
+  "runtime_generation": "kserve-sklearn-v0.17",
+  "protocol": "kserve-v2",
+  "deployment_mode": "Serverless",
+  "resource_profile": "nvidia-mig-2g20gb"
+}

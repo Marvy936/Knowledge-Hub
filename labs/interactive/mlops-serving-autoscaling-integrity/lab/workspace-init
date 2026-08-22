@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-serving-autoscaling-integrity}"
+mkdir -p /workspace
+for name in serving-contract release-manifest capacity-evidence runtime-state traffic-evidence; do
+  cp "$ROOT/$name.json.template" "/workspace/$name.json"
+done
+cp "$ROOT/serving_gate.py.template" /workspace/serving_gate.py
+cp "$ROOT/serving_validator.py" /workspace/serving_validator.py
+chmod +x /workspace/serving_gate.py /workspace/serving_validator.py
+rm -f /workspace/capacity-report.json /workspace/capacity-ledger.json /workspace/promotion-request.json /workspace/retraining-request.json

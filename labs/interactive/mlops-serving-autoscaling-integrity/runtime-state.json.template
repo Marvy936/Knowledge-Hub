@@ -1,0 +1,60 @@
+{
+  "capacity_subject_id": "MLOPS-PAY-SERVE-CAP-2026-08-r42",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "control_plane_ready": true,
+  "deployment_mode": "Serverless",
+  "autoscaler_controller": "knative-pod-autoscaler",
+  "resolved_scaling": {
+    "min_replicas": 0,
+    "max_replicas": 12,
+    "container_concurrency": 16,
+    "target_concurrency": 8
+  },
+  "observed_ready_replicas": 4,
+  "replicas": [
+    {
+      "replica_id": "fraud-00042-a",
+      "ready": true,
+      "exercised": true,
+      "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+      "loaded_model_digest": "sha256:8053640fad0bc104a914f5e106498d3e84c45dd9688db9adc2e72170aed65839",
+      "loaded_serving_image_digest": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+      "loaded_feature_contract_id": "payment-risk-features-v6",
+      "loaded_policy_digest": "sha256:5f9416c74ecadffc79ba9d1605a54bb7bb6265505f18ac173ceb17b9423d3dad",
+      "loaded_runtime_generation": "kserve-sklearn-v0.17"
+    },
+    {
+      "replica_id": "fraud-00042-b",
+      "ready": true,
+      "exercised": true,
+      "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+      "loaded_model_digest": "sha256:8053640fad0bc104a914f5e106498d3e84c45dd9688db9adc2e72170aed65839",
+      "loaded_serving_image_digest": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+      "loaded_feature_contract_id": "payment-risk-features-v6",
+      "loaded_policy_digest": "sha256:5f9416c74ecadffc79ba9d1605a54bb7bb6265505f18ac173ceb17b9423d3dad",
+      "loaded_runtime_generation": "kserve-sklearn-v0.17"
+    },
+    {
+      "replica_id": "fraud-00042-c",
+      "ready": true,
+      "exercised": true,
+      "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+      "loaded_model_digest": "sha256:8053640fad0bc104a914f5e106498d3e84c45dd9688db9adc2e72170aed65839",
+      "loaded_serving_image_digest": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+      "loaded_feature_contract_id": "payment-risk-features-v6",
+      "loaded_policy_digest": "sha256:5f9416c74ecadffc79ba9d1605a54bb7bb6265505f18ac173ceb17b9423d3dad",
+      "loaded_runtime_generation": "kserve-sklearn-v0.17"
+    },
+    {
+      "replica_id": "fraud-00042-d",
+      "ready": true,
+      "exercised": true,
+      "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+      "loaded_model_digest": "sha256:8053640fad0bc104a914f5e106498d3e84c45dd9688db9adc2e72170aed65839",
+      "loaded_serving_image_digest": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+      "loaded_feature_contract_id": "payment-risk-features-v6",
+      "loaded_policy_digest": "sha256:5f9416c74ecadffc79ba9d1605a54bb7bb6265505f18ac173ceb17b9423d3dad",
+      "loaded_runtime_generation": "kserve-sklearn-v0.17"
+    }
+  ]
+}

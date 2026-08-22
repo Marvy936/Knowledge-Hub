@@ -1,0 +1,21 @@
+{
+  "benchmark_id": "payment-risk-r42-mig2g-load-v3",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "serving_image_digest": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+  "runtime_generation": "kserve-sklearn-v0.17",
+  "resource_profile": "nvidia-mig-2g20gb",
+  "tested_container_concurrency": 2,
+  "steady": {
+    "requests": 10000,
+    "p95_end_to_end_ms": 108,
+    "p99_queue_ms": 21,
+    "fallback_rate": 0.001
+  },
+  "burst": {
+    "arrival_multiplier": 20,
+    "duration_seconds": 90,
+    "deadline_success_rate": 0.997,
+    "replicas_converge_seconds": 48,
+    "max_safe_concurrency_per_replica": 2
+  }
+}

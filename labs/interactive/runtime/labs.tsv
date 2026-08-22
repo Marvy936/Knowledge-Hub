@@ -32,3 +32,4 @@ mlops-feedback-ground-truth-integrity	shell	Repair delayed ground-truth feedback
 mlops-online-inference-integrity	shell	Bind each online prediction to exact request identity, loaded release/model/runtime, point-in-time features, fallback policy and idempotent action evidence.
 mlops-streaming-inference-integrity	shell	Bind streaming inference to exact topic/partition/offset, event-time, loaded release and replay-safe prediction/action checkpoint evidence.
 mlops-batch-inference-integrity	shell	Bind a bounded batch to exact snapshot/event-time subject, complete shards, deterministic output bytes and retry-safe business actions.
+mlops-serving-autoscaling-integrity	shell	Bind serving capacity to exact release/runtime/load-test evidence, resolved autoscaling semantics and exercised deadline/fallback outcomes.

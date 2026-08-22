@@ -1,0 +1,23 @@
+{
+  "contract_id": "payment-risk-serving-capacity-v4",
+  "capacity_subject_id": "MLOPS-PAY-SERVE-CAP-2026-08-r42",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "release_manifest_digest": "sha256:5a9930ebe9ab7b3cb1a9cebce7cb65afb1b9c7c5598297baf3c317e14c17e2fe",
+  "capacity_evidence_digest": "sha256:9bfc944a0229f58d1885baad60dcc560c24f71c0a95e40ca07cadc7e43b65ed0",
+  "deployment_mode": "Serverless",
+  "autoscaler_controller": "knative-pod-autoscaler",
+  "traffic_window": {
+    "start": "2026-08-22T08:00:00Z",
+    "end_exclusive": "2026-08-22T08:02:00Z"
+  },
+  "min_replicas": 2,
+  "max_replicas": 12,
+  "container_concurrency": 2,
+  "target_concurrency": 1,
+  "minimum_traffic_requests": 100,
+  "warm_p95_ms_max": 120,
+  "queue_p99_ms_max": 25,
+  "deadline_success_rate_min": 0.99,
+  "fallback_rate_max": 0.005,
+  "replicas_converge_seconds_max": 60
+}
