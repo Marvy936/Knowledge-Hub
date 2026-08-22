@@ -1,0 +1,29 @@
+{
+  "dashboard": {
+    "average_gpu_utilization": 0.94
+  },
+  "gpu_capacity_subject": "MLOPS-PAY-GPU-CAP-2026-08-r42",
+  "neighbor_batch_active": true,
+  "primary_window": {
+    "deadline_successes": 456,
+    "memory_high_water_gib": 18.7,
+    "p95_latency_ms": 228,
+    "p99_queue_age_ms": 97,
+    "requests": 500,
+    "useful_throughput_rps": 62.4
+  },
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "resource_class_id_observed": "a100-shared-v5",
+  "second_operation": {
+    "accelerator_initialized": true,
+    "attempt_id": "gpu-second-op-2026-08-22T08:03Z",
+    "deadline_successes": 221,
+    "memory_high_water_gib": 19.1,
+    "model_allocated": true,
+    "p95_latency_ms": 241,
+    "requests": 250,
+    "resource_class_id_observed": "a100-shared-v5",
+    "scheduled": true,
+    "useful_throughput_rps": 59.8
+  }
+}
