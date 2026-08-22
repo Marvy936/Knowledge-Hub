@@ -1,0 +1,40 @@
+{
+  "snapshot_id": "payments-risk-snapshot-2026-08-22T00:05:00Z",
+  "schema_id": "risk-batch-row-v6",
+  "selection_basis": "processing_time",
+  "logical_interval": {
+    "start": "2026-08-21T00:00:00Z",
+    "end_exclusive": "2026-08-22T00:00:00Z"
+  },
+  "row_count": 4,
+  "rows": [
+    {
+      "observation_id": "payment-8201",
+      "business_operation_id": "payment-8201-risk-r42",
+      "event_time": "2026-08-21T03:12:10Z",
+      "feature_available_at": "2026-08-21T03:12:08Z",
+      "features": {"amount_norm": 0.31, "velocity_1h": 0.22, "country_risk": 0.10}
+    },
+    {
+      "observation_id": "payment-8202",
+      "business_operation_id": "payment-8202-risk-r42",
+      "event_time": "2026-08-21T14:30:00Z",
+      "feature_available_at": "2026-08-21T14:29:57Z",
+      "features": {"amount_norm": 0.70, "velocity_1h": 0.55, "country_risk": 0.20}
+    },
+    {
+      "observation_id": "payment-8203",
+      "business_operation_id": "payment-8203-risk-r42",
+      "event_time": "2026-08-21T23:59:30Z",
+      "feature_available_at": "2026-08-21T23:59:27Z",
+      "features": {"amount_norm": 0.92, "velocity_1h": 0.81, "country_risk": 0.60}
+    },
+    {
+      "observation_id": "payment-8204",
+      "business_operation_id": "payment-8204-risk-r42",
+      "event_time": "2026-08-22T00:02:00Z",
+      "feature_available_at": "2026-08-22T00:01:57Z",
+      "features": {"amount_norm": 0.48, "velocity_1h": 0.33, "country_risk": 0.15}
+    }
+  ]
+}

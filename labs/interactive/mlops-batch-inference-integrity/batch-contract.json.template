@@ -1,0 +1,21 @@
+{
+  "contract_id": "payment-risk-batch-inference-v4",
+  "batch_operation_id": "risk-score-2026-08-21-v4",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "logical_interval": {
+    "start": "2026-08-21T00:00:00Z",
+    "end_exclusive": "2026-08-22T00:00:00Z"
+  },
+  "expected_input_manifest_digest": "sha256:1ce6a449a72504b6e294dae7478e497301597f24766d4b156055166c82419a34",
+  "expected_rows": 3,
+  "expected_unique_observations": 3,
+  "expected_shards": 2,
+  "input_schema_id": "risk-batch-row-v6",
+  "output_schema_id": "risk-prediction-row-v4",
+  "model_digest": "sha256:8053640fad0bc104a914f5e106498d3e84c45dd9688db9adc2e72170aed65839",
+  "runtime_image_digest": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+  "feature_contract_id": "payment-risk-features-v6",
+  "policy_digest": "sha256:5f9416c74ecadffc79ba9d1605a54bb7bb6265505f18ac173ceb17b9423d3dad",
+  "publication_mode": "atomic_manifest_after_complete_parts",
+  "required_selection_basis": "event_time"
+}

@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+# Intentionally unsafe starter: Job succeeded + output prefix exists => complete batch.
+import hashlib
+import json
+import math
+from pathlib import Path
+
+ROOT = Path.cwd()
+contract = json.loads((ROOT / "batch-contract.json").read_text())
+manifest = json.loads((ROOT / "input-manifest.json").read_text())
+model = json.loads((ROOT / "model.json").read_text())
+policy = json.loads((ROOT / "policy.json").read_text())
+trace = json.loads((ROOT / "runtime-trace.json").read_text())
+
+
+def sigmoid(x):
+    return 1.0 / (1.0 + math.exp(-x))
+
+
+def choose(v):
+    if v < policy["thresholds"]["approve_below"]:
+        return "approve"
+    if v < policy["thresholds"]["manual_review_below"]:
+        return "manual_review"
+    return "decline"
+
+predictions = []
+actions = []
+for row in manifest["rows"]:
+    logit = model["intercept"] + sum(model["weights"][k] * row["features"][k] for k in model["weights"])
+    value = round(sigmoid(logit), 6)
+    pred_id = "sha256:" + hashlib.sha256((contract["release_subject"] + "|" + row["observation_id"]).encode()).hexdigest()
+    act = choose(value)
+    predictions.append({"observation_id": row["observation_id"], "prediction_id": pred_id, "score": value, "action": act})
+    actions.append({"business_operation_id": row["business_operation_id"], "prediction_id": pred_id, "action": act})
+
+(ROOT / "output-manifest.json").write_text(json.dumps({
+    "batch_operation_id": contract["batch_operation_id"],
+    "job_status": trace.get("job_status"),
+    "complete": trace.get("job_status") == "succeeded",
+    "row_count": len(predictions),
+    "predictions": predictions,
+}, indent=2) + "\n")
+(ROOT / "action-ledger.json").write_text(json.dumps(actions, indent=2) + "\n")
+(ROOT / "batch-report.json").write_text(json.dumps({
+    "batch_operation_id": contract["batch_operation_id"],
+    "decision": "accepted",
+    "batch_verified": True,
+    "promotion_authorized": True,
+    "retraining_authorized": False,
+    "reason": "job_succeeded_and_output_exists",
+}, indent=2) + "\n")
+print("accepted / trusted job success and published every selected row")

@@ -1,0 +1,26 @@
+{
+  "batch_operation_id": "risk-score-2026-08-21-v4",
+  "job_status": "succeeded",
+  "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "loaded_model_digest": "sha256:8053640fad0bc104a914f5e106498d3e84c45dd9688db9adc2e72170aed65839",
+  "loaded_runtime_image_digest": "sha256:3f655da249763f681b031f09524b98417f881a80192bc3984fc58f54fc299a3a",
+  "loaded_feature_contract_id": "payment-risk-features-v6",
+  "loaded_policy_digest": "sha256:5f9416c74ecadffc79ba9d1605a54bb7bb6265505f18ac173ceb17b9423d3dad",
+  "loaded_input_schema_id": "risk-batch-row-v6",
+  "selection_basis": "processing_time",
+  "query_cutoff": "2026-08-22T00:05:00Z",
+  "shards": [
+    {
+      "shard_id": 0,
+      "attempt": 1,
+      "status": "succeeded",
+      "row_ids": ["payment-8201", "payment-8202"]
+    },
+    {
+      "shard_id": 1,
+      "attempt": 1,
+      "status": "succeeded",
+      "row_ids": ["payment-8203", "payment-8204"]
+    }
+  ]
+}

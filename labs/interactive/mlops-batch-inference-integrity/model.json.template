@@ -1,0 +1,9 @@
+{
+  "model_id": "payment-risk-r42",
+  "intercept": -0.41,
+  "weights": {
+    "amount_norm": 1.2,
+    "velocity_1h": 0.8,
+    "country_risk": 1.5
+  }
+}

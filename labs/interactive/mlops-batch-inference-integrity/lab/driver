@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-batch-inference-integrity}"
+CMD="${1:-help}"
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+  echo "Reset restores the unsafe job-success / processing-time batch starter."
+}
+
+case "$CMD" in
+  help|lab-help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$ROOT/README.md"
+    ;;
+  run)
+    cd /workspace
+    python3 batch_gate.py
+    ;;
+  status)
+    cd /workspace
+    if [[ -f batch-report.json ]]; then cat batch-report.json; else echo "No batch report yet. Run: run"; fi
+    ;;
+  check)
+    cd /workspace
+    python3 batch_validator.py
+    ;;
+  hint)
+    cat <<'TXT'
+A successful Job proves execution, not the bounded business subject. Start with event-time interval identity and immutable input bytes. Then reconcile successful shard coverage, compute deterministic predictions/actions, and expose the canonical manifest only after every part and business mutation has durable bytes. A retry of the same batch operation must be a byte-level no-op.
+TXT
+    ;;
+  reset)
+    reset_lab
+    ;;
+  self-test)
+    reset_lab >/dev/null
+    cd /workspace
+    python3 batch_gate.py >/tmp/kh-batch-starter.out
+    python3 - <<'PY'
+import json
+from pathlib import Path
+m=json.loads(Path('output-manifest.json').read_text())
+a=json.loads(Path('action-ledger.json').read_text())
+r=json.loads(Path('batch-report.json').read_text())
+assert m['complete'] is True and m['row_count'] == 4
+assert len(a) == 4
+assert r['batch_verified'] is True and r['promotion_authorized'] is True
+print('Starter correctly demonstrates post-cutoff publication and false promotion authority from Job success.')
+PY
+    cp "$ROOT/batch_gate.py.solution.template" /workspace/batch_gate.py
+    chmod +x /workspace/batch_gate.py
+    rm -rf output
+    rm -f output-manifest.json action-ledger.json batch-ledger.json batch-report.json promotion-request.json retraining-request.json
+    python3 batch_validator.py
+    echo "Reference repair blocks the processing-time leak and proves atomic retry-safe publication for the exact healthy batch subject."
+    reset_lab >/dev/null
+    cd /workspace
+    python3 batch_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+m=json.loads(Path('output-manifest.json').read_text())
+a=json.loads(Path('action-ledger.json').read_text())
+r=json.loads(Path('batch-report.json').read_text())
+assert m['complete'] is True and m['row_count'] == 4
+assert len(a) == 4
+assert r['promotion_authorized'] is True
+print('Reset restores the unsafe post-cutoff batch starter.')
+PY
+    echo "SELF-TEST PASSED"
+    ;;
+  *)
+    echo "Unknown command: $CMD" >&2
+    exit 2
+    ;;
+esac
