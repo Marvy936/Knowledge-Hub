@@ -52,7 +52,7 @@ Current labs:
 | `rabbitmq-routing-key` | challenge | `docker` | Repair a direct-exchange binding so a published event reaches the correct RabbitMQ queue. |
 | `postgres-backup-restore` | challenge | `docker` | Inspect a real data-only `pg_dump` and recover a missing PostgreSQL row without duplicating intact data. |
 | `localstack-s3-versioning` | challenge | `docker` | Use the bundled AWS CLI against LocalStack, enable S3 bucket versioning and create a second object version. |
-| `ansible-idempotency` | challenge | `shell` | Repair a non-idempotent Ansible file task so an identical second run converges with `changed=0`. |
+| `ansible-idempotency` | challenge | `shell` | Repair an Ansible file task so an identical second run converges with `changed=0`. |
 | `git-three-way-merge` | challenge | `shell` | Resolve a real Git three-way merge while preserving the required integrated configuration. |
 | `bash-pipeline-failure` | challenge | `shell` | Repair pipeline failure propagation so a failed build cannot be reported as a successful release. |
 | `linux-file-permissions` | challenge | `shell` | Repair Unix owner/group/other access so deploy can write, the app can only read, and an unrelated account has no access. |
@@ -71,6 +71,7 @@ Current labs:
 | `mlops-feedback-ground-truth-integrity` | challenge | `shell` | Bind delayed realized outcomes to exact prediction operations, maturity/correction semantics and action-conditioned coverage without granting retraining or promotion authority. |
 | `mlops-online-inference-integrity` | challenge | `shell` | Bind each online prediction to exact request identity, loaded release/model/runtime, point-in-time feature bytes, explicit fallback policy and idempotent action evidence. |
 | `mlops-streaming-inference-integrity` | challenge | `shell` | Reconcile event-time streaming inference across exact topic/partition/offset identity, rebalance replay, durable idempotent actions and checkpoint commit. |
+| `mlops-batch-inference-integrity` | challenge | `shell` | Bind a bounded batch to immutable input bytes and event-time cutoff, complete shard coverage, deterministic outputs and retry-safe business actions. |
 
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
