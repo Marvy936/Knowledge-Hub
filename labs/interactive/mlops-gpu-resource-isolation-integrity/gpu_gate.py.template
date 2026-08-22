@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+
+def load(name):
+    return json.loads((ROOT / name).read_text())
+
+runtime = load("runtime-state.json")
+capacity = load("capacity-evidence.json")
+
+util = float(capacity.get("dashboard", {}).get("average_gpu_utilization", 0.0))
+accepted = bool(runtime.get("scheduler_allocated")) and bool(runtime.get("pod_running")) and util >= 0.80
+
+report = {
+    "gpu_capacity_subject": runtime.get("gpu_capacity_subject"),
+    "result": "accepted" if accepted else "blocked",
+    "reason": "scheduler allocation, Pod Running and aggregate GPU utilization are treated as sufficient capacity proof",
+    "average_gpu_utilization": util,
+    "capacity_verified": accepted,
+    "exact_resource_class_verified": False,
+    "request_outcomes_verified": False,
+    "second_operation_verified": False,
+    "rollout_authorized": accepted,
+    "promotion_authorized": False,
+    "retraining_authorized": False
+}
+(ROOT / "gpu-capacity-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+print(json.dumps(report, indent=2, sort_keys=True))
