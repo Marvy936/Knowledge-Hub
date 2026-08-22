@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-serving-autoscaling-integrity}"
+CMD="${1:-help}"
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+  echo "Reset restores the unsafe Ready/replica-count serving-capacity starter."
+}
+
+case "$CMD" in
+  help|lab-help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$ROOT/README.md"
+    ;;
+  assess)
+    cd /workspace
+    python3 serving_gate.py
+    ;;
+  status)
+    cd /workspace
+    if [[ -f capacity-report.json ]]; then cat capacity-report.json; else echo "No capacity report yet. Run: assess"; fi
+    ;;
+  check)
+    cd /workspace
+    python3 serving_validator.py
+    ;;
+  hint)
+    cat <<'TXT'
+Do not use Ready or replica count as capacity authority. Bind the exact release and pretested runtime/resource profile, compare resolved min/max/concurrency/target with that capacity contract, verify every loaded replica, then evaluate deadline success, fallback, queue latency and convergence on the exact exercised traffic window. Capacity verification is still not rollout authority.
+TXT
+    ;;
+  reset)
+    reset_lab
+    ;;
+  self-test)
+    reset_lab >/dev/null
+    cd /workspace
+    python3 serving_gate.py >/tmp/kh-serving-starter.out
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('capacity-report.json').read_text())
+assert r['capacity_verified'] is True
+assert r['rollout_authorized'] is True
+assert r['fallback_rate'] == 0.35
+print('Starter incorrectly trusts Ready/replica growth despite 35% fallback and grants rollout authority.')
+PY
+    cp "$ROOT/serving_gate.py.solution.template" /workspace/serving_gate.py
+    chmod +x /workspace/serving_gate.py
+    rm -f capacity-report.json capacity-ledger.json promotion-request.json retraining-request.json
+    python3 serving_validator.py
+    echo "Reference repair binds exact release/capacity/runtime/traffic evidence and preserves the no-rollout-authority boundary."
+    reset_lab >/dev/null
+    cd /workspace
+    python3 serving_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('capacity-report.json').read_text())
+assert r['capacity_verified'] is True
+assert r['rollout_authorized'] is True
+assert r['fallback_rate'] == 0.35
+print('Reset restores the unsafe Ready/replica-count serving starter.')
+PY
+    echo "SELF-TEST PASSED"
+    ;;
+  *)
+    echo "Unknown command: $CMD" >&2
+    exit 2
+    ;;
+esac
