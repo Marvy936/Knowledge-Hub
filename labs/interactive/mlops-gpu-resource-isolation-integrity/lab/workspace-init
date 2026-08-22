@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-gpu-resource-isolation-integrity}"
+mkdir -p /workspace
+for name in gpu-contract release-manifest resource-class runtime-state capacity-evidence; do
+  cp "$ROOT/$name.json.template" "/workspace/$name.json"
+done
+cp "$ROOT/gpu_gate.py.template" /workspace/gpu_gate.py
+cp "$ROOT/gpu_validator.py" /workspace/gpu_validator.py
+chmod +x /workspace/gpu_gate.py /workspace/gpu_validator.py
+rm -f /workspace/gpu-capacity-report.json /workspace/gpu-capacity-ledger.json /workspace/promotion-request.json /workspace/retraining-request.json /workspace/rollout-request.json

@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-gpu-resource-isolation-integrity}"
+CMD="${1:-help}"
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+  echo "Reset restores the unsafe scheduler/Running/utilization GPU-capacity starter."
+}
+
+case "$CMD" in
+  help|lab-help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$ROOT/README.md"
+    ;;
+  assess)
+    cd /workspace
+    python3 gpu_gate.py
+    ;;
+  status)
+    cd /workspace
+    if [[ -f gpu-capacity-report.json ]]; then cat gpu-capacity-report.json; else echo "No GPU capacity report yet. Run: assess"; fi
+    ;;
+  check)
+    cd /workspace
+    python3 gpu_validator.py
+    ;;
+  hint)
+    cat <<'TXT'
+Do not accept scheduler allocation, Pod Running, allocatable GPU count or aggregate utilization as capacity proof. Bind the exact release and resource-class bytes, verify the actual node/driver/device-plugin/sharing/isolation generation and every loaded replica, then evaluate request-level deadline, queue, throughput and peak-memory evidence. Finally require the second operation to reproduce the same isolated class and performance. High utilization is diagnostic, not authority.
+TXT
+    ;;
+  reset)
+    reset_lab
+    ;;
+  self-test)
+    reset_lab >/dev/null
+    cd /workspace
+    python3 gpu_gate.py >/tmp/kh-gpu-starter.out
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('gpu-capacity-report.json').read_text())
+assert r['capacity_verified'] is True
+assert r['exact_resource_class_verified'] is False
+assert r['request_outcomes_verified'] is False
+assert r['rollout_authorized'] is True
+assert r['average_gpu_utilization'] == 0.94
+print('Starter incorrectly accepts scheduler-green time-slicing at 94% utilization and grants rollout authority.')
+PY
+    cp "$ROOT/gpu_gate.py.solution.template" /workspace/gpu_gate.py
+    chmod +x /workspace/gpu_gate.py
+    rm -f gpu-capacity-report.json gpu-capacity-ledger.json promotion-request.json retraining-request.json rollout-request.json
+    python3 gpu_validator.py
+    echo "Reference repair binds exact resource/isolation generation, exercised outcomes and the second-operation test."
+    reset_lab >/dev/null
+    cd /workspace
+    python3 gpu_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('gpu-capacity-report.json').read_text())
+assert r['capacity_verified'] is True
+assert r['exact_resource_class_verified'] is False
+assert r['rollout_authorized'] is True
+assert r['average_gpu_utilization'] == 0.94
+print('Reset restores the unsafe utilization-based GPU capacity starter.')
+PY
+    echo "SELF-TEST PASSED"
+    ;;
+  *)
+    echo "Unknown command: $CMD" >&2
+    exit 2
+    ;;
+esac

@@ -1,0 +1,23 @@
+{
+  "container_runtime_generation": "nvidia-container-runtime-r9",
+  "device_plugin_generation": "nvidia-device-plugin-r12",
+  "driver_generation": "nvidia-driver-prod-r17",
+  "extended_resource": "nvidia.com/mig-2g.20gb",
+  "isolation": {
+    "fault": "hardware-instance",
+    "memory": "hardware"
+  },
+  "latency_slo_ms": 120,
+  "max_model_memory_gib": 14,
+  "mig_strategy": "mixed",
+  "node_pool_generation": "gpu-online-a100-gen17",
+  "physical_memory_gib": 80,
+  "physical_model": "A100-80GB",
+  "profile_memory_gib": 20,
+  "resource_class_id": "a100-online-v3",
+  "sharing": {
+    "mode": "MIG",
+    "profile": "2g.20gb"
+  },
+  "workload_class": "online-inference"
+}

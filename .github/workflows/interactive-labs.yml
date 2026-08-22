@@ -17,6 +17,7 @@ permissions:
 
 env:
   IMAGE_NAME: kh-interactive-labs:test
+  PUBLIC_IMAGE: ghcr.io/marvy936/knowledge-hub-lab-docker-network-debug
 
 jobs:
   multi-lab-runtime:
@@ -32,6 +33,44 @@ jobs:
           rm -rf "$DOCKER_CONFIG"
           mkdir -p "$DOCKER_CONFIG"
           echo "DOCKER_CONFIG=$DOCKER_CONFIG" >> "$GITHUB_ENV"
+
+      - name: Prove predecessor immutable image is publicly runnable
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          SHORT_SHA="${BASE_SHA::12}"
+          BASE_IMAGE="$PUBLIC_IMAGE:sha-$SHORT_SHA"
+
+          # Fetch the exact PR base so the public image inventory can be bound
+          # to the repository state that this PR was tested against.
+          git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          git show "$BASE_SHA:labs/interactive/runtime/labs.tsv" | cut -f1 > /tmp/kh-base-expected-lab-ids
+          test -s /tmp/kh-base-expected-lab-ids
+
+          # DOCKER_CONFIG is isolated and intentionally contains no GHCR login.
+          docker logout ghcr.io >/dev/null 2>&1 || true
+          docker pull "$BASE_IMAGE"
+          docker run --rm "$BASE_IMAGE" ids > /tmp/kh-base-public-lab-ids
+          diff -u /tmp/kh-base-expected-lab-ids /tmp/kh-base-public-lab-ids
+          docker run --rm "$BASE_IMAGE" list
+
+          LAST_SHELL_LAB="$(git show "$BASE_SHA:labs/interactive/runtime/labs.tsv" | awk -F '\t' '$2 == "shell" { id=$1 } END { print id }')"
+          test -n "$LAST_SHELL_LAB"
+          test "$(docker run --rm "$BASE_IMAGE" ids shell | tail -n 1)" = "$LAST_SHELL_LAB"
+          docker run --rm "$BASE_IMAGE" "$LAST_SHELL_LAB" help | grep -F "Knowledge Hub Interactive Lab"
+          timeout -k 10s 5m docker run --rm "$BASE_IMAGE" "$LAST_SHELL_LAB" self-test
+
+          LAST_DOCKER_LAB="$(git show "$BASE_SHA:labs/interactive/runtime/labs.tsv" | awk -F '\t' '$2 == "docker" { id=$1 } END { print id }')"
+          test -n "$LAST_DOCKER_LAB"
+          test "$(docker run --rm "$BASE_IMAGE" ids docker | tail -n 1)" = "$LAST_DOCKER_LAB"
+          docker run --rm "$BASE_IMAGE" "$LAST_DOCKER_LAB" help | grep -F "Knowledge Hub Interactive Lab"
+          NAME="kh-ci-base-publish-${GITHUB_RUN_ID}"
+          trap 'docker rm -f "$NAME" >/dev/null 2>&1 || true' EXIT
+          timeout -k 30s 8m docker run --rm --name "$NAME" --privileged \
+            "$BASE_IMAGE" "$LAST_DOCKER_LAB" self-test
+
+          docker image rm "$BASE_IMAGE" || true
 
       - name: Build multi-lab image
         run: docker build -t "$IMAGE_NAME" -f labs/interactive/Dockerfile labs/interactive
