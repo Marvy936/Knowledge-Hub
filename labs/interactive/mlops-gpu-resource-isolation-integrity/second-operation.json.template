@@ -1,0 +1,10 @@
+{
+  "allocation_reproducible": false,
+  "attempted": true,
+  "capacity_subject": "MLOPS-PAY-GPU-CAP-2026-08-r42",
+  "deadline_success_rate": 0.91,
+  "manual_node_cleanup_required": true,
+  "p95_latency_ms": 188,
+  "resource_class_id": "a100-online-v3",
+  "same_profile_observed": false
+}
