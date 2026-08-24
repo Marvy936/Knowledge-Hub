@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+
+def load(name):
+    return json.loads(Path(name).read_text())
+
+
+def digest(name):
+    return "sha256:" + hashlib.sha256(Path(name).read_bytes()).hexdigest()
+
+
+def write_exact(name, obj):
+    data = json.dumps(obj, indent=2, sort_keys=True) + "\n"
+    path = Path(name)
+    if path.exists() and path.read_text() != data:
+        raise SystemExit(f"conflicting durable state: {name}")
+    path.write_text(data)
+
+
+contract = load("gpu-contract.json")
+release = load("release-manifest.json")
+resource = load("resource-class.json")
+runtime = load("runtime-state.json")
+traffic = load("traffic-evidence.json")
+second = load("second-operation.json")
+reasons = []
+
+
+def need(ok, message):
+    if not ok:
+        reasons.append(message)
+
+
+need(digest("release-manifest.json") == contract["release_manifest_sha256"], "release manifest digest mismatch")
+need(digest("resource-class.json") == contract["resource_class_sha256"], "resource class digest mismatch")
+need(release.get("release_subject") == contract["release_subject"], "release subject mismatch")
+need(resource.get("resource_class_id") == contract["resource_class_id"], "resource class mismatch")
+need(resource.get("workload_class") == "online-inference", "unsupported workload class")
+need(resource.get("sharing") == {"mode": "MIG", "profile": "2g.20gb"}, "resource class is not the validated MIG profile")
+need(resource.get("isolation") == {"fault": "hardware-instance", "memory": "hardware"}, "resource class lacks hardware isolation")
+
+for key in [
+    "node_pool_generation",
+    "physical_model",
+    "driver_generation",
+    "container_runtime_generation",
+    "device_plugin_generation",
+    "mig_strategy",
+    "extended_resource",
+]:
+    need(runtime.get(key) == resource.get(key), f"{key} mismatch")
+
+need(runtime.get("sharing") == resource.get("sharing"), "sharing mode/profile mismatch")
+need(runtime.get("isolation") == resource.get("isolation"), "isolation policy mismatch")
+need(runtime.get("capacity_subject") == contract["capacity_subject"], "runtime capacity subject mismatch")
+need(runtime.get("release_subject") == contract["release_subject"], "runtime release subject mismatch")
+need(runtime.get("scheduler_bound") is True, "scheduler binding missing")
+
+replicas = runtime.get("replicas")
+need(isinstance(replicas, list), "replica evidence missing")
+if isinstance(replicas, list):
+    need(runtime.get("observed_ready_replicas") == len(replicas), "ready replica count mismatch")
+    need(len(replicas) >= contract["required_ready_replicas"], "insufficient ready replicas")
+    ids = [replica.get("replica_id") for replica in replicas]
+    need(len(ids) == len(set(ids)), "duplicate replica identity")
+    for replica in replicas:
+        rid = replica.get("replica_id")
+        need(replica.get("ready") is True, f"{rid} not ready")
+        need(replica.get("gpu_smoke_passed") is True, f"{rid} GPU smoke failed")
+        need(replica.get("loaded_release_subject") == contract["release_subject"], f"{rid} release mismatch")
+        need(replica.get("resource_class_id") == contract["resource_class_id"], f"{rid} resource class mismatch")
+
+need(traffic.get("capacity_subject") == contract["capacity_subject"], "traffic subject mismatch")
+need(traffic.get("release_subject") == contract["release_subject"], "traffic release mismatch")
+need(traffic.get("window") == contract["traffic_window"], "traffic window mismatch")
+requests = traffic.get("requests")
+deadline_successes = traffic.get("deadline_successes")
+need(isinstance(requests, int) and requests >= contract["thresholds"]["minimum_requests"], "traffic population too small")
+need(isinstance(deadline_successes, int) and isinstance(requests, int) and 0 <= deadline_successes <= requests, "invalid deadline counts")
+if isinstance(requests, int) and requests > 0 and isinstance(deadline_successes, int):
+    deadline_rate = deadline_successes / requests
+else:
+    deadline_rate = 0.0
+
+thresholds = contract["thresholds"]
+need(deadline_rate >= thresholds["minimum_deadline_success_rate"], "deadline success below threshold")
+need(traffic.get("useful_rps", 0) >= thresholds["minimum_useful_rps"], "useful throughput below threshold")
+need(traffic.get("p95_latency_ms", 10**9) <= thresholds["maximum_p95_latency_ms"], "p95 latency above threshold")
+need(traffic.get("p99_queue_ms", 10**9) <= thresholds["maximum_p99_queue_ms"], "p99 queue above threshold")
+need(traffic.get("memory_high_water_gib", 10**9) <= thresholds["maximum_memory_high_water_gib"], "memory high-water above threshold")
+memory_headroom = resource["profile_memory_gib"] - traffic.get("memory_high_water_gib", 10**9)
+need(memory_headroom >= thresholds["minimum_memory_headroom_gib"], "memory headroom below threshold")
+
+need(contract.get("second_operation_required") is True, "contract does not require second-operation proof")
+need(second.get("capacity_subject") == contract["capacity_subject"], "second-operation subject mismatch")
+need(second.get("resource_class_id") == contract["resource_class_id"], "second-operation resource class mismatch")
+need(second.get("attempted") is True, "second-operation test missing")
+need(second.get("allocation_reproducible") is True, "second-operation allocation not reproducible")
+need(second.get("same_profile_observed") is True, "second-operation profile mismatch")
+need(second.get("manual_node_cleanup_required") is False, "second-operation required manual cleanup")
+need(second.get("deadline_success_rate", 0) >= thresholds["minimum_deadline_success_rate"], "second-operation deadline failure")
+need(second.get("p95_latency_ms", 10**9) <= thresholds["maximum_p95_latency_ms"], "second-operation latency failure")
+
+accepted = not reasons
+report = {
+    "capacity_subject": contract["capacity_subject"],
+    "accepted": accepted,
+    "capacity_verified": accepted,
+    "reasons": reasons,
+    "deadline_success_rate": round(deadline_rate, 6),
+    "memory_headroom_gib": round(memory_headroom, 3),
+    "rollout_authorized": False,
+    "promotion_authorized": False,
+    "retraining_authorized": False,
+}
+write_exact("gpu-capacity-report.json", report)
+
+if accepted:
+    ledger = {
+        "capacity_subject": contract["capacity_subject"],
+        "release_manifest_sha256": contract["release_manifest_sha256"],
+        "resource_class_sha256": contract["resource_class_sha256"],
+        "runtime_state_sha256": digest("runtime-state.json"),
+        "traffic_evidence_sha256": digest("traffic-evidence.json"),
+        "second_operation_sha256": digest("second-operation.json"),
+        "report_sha256": digest("gpu-capacity-report.json"),
+    }
+    write_exact("gpu-capacity-ledger.json", ledger)
+
+print(json.dumps(report, indent=2, sort_keys=True))
+sys.exit(0 if accepted else 2)
