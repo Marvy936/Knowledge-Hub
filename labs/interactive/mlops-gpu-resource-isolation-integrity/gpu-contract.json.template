@@ -1,0 +1,22 @@
+{
+  "capacity_subject": "MLOPS-PAY-GPU-CAP-2026-08-r42",
+  "release_manifest_sha256": "sha256:d58e118edd096feb557dd03b3741ff8cacf278a882406d8ca35770b65a10c6db",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "required_ready_replicas": 2,
+  "resource_class_id": "a100-online-v3",
+  "resource_class_sha256": "sha256:fcd707a984c6faeeb03af07500a952cb2fa50ae682283a19c7f9ca54acc532e9",
+  "second_operation_required": true,
+  "thresholds": {
+    "maximum_memory_high_water_gib": 14.0,
+    "maximum_p95_latency_ms": 120,
+    "maximum_p99_queue_ms": 25,
+    "minimum_deadline_success_rate": 0.99,
+    "minimum_memory_headroom_gib": 6.0,
+    "minimum_requests": 200,
+    "minimum_useful_rps": 18.0
+  },
+  "traffic_window": {
+    "end": "2026-08-22T08:02:00Z",
+    "start": "2026-08-22T08:00:00Z"
+  }
+}
