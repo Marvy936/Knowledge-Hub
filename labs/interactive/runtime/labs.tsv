@@ -35,3 +35,4 @@ mlops-batch-inference-integrity	shell	Bind a bounded batch to exact snapshot/eve
 mlops-serving-autoscaling-integrity	shell	Bind serving capacity to exact release/runtime/load-test evidence, resolved autoscaling semantics and exercised deadline/fallback outcomes.
 mlops-gpu-resource-isolation-integrity	shell	Bind GPU capacity to an exact resource class, isolation generation, exercised request outcomes, memory headroom and reproducible second-operation evidence.
 mlops-model-monitoring-integrity	shell	Bind model monitoring to exact release/window identity, result-class denominators, telemetry freshness, drift exposure evidence and reproducible second-window proof.
+mlops-drift-population-integrity	shell	Bind drift interpretation to exact release, reference/current populations, fallback-inclusive denominators, complete event-time windows, method identity and non-authoritative causal claims.
