@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-gpu-resource-isolation-integrity}"
+CMD="${1:-help}"
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+}
+
+case "$CMD" in
+  help|lab-help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$ROOT/README.md"
+    ;;
+  assess)
+    cd /workspace
+    python3 gpu_gate.py
+    ;;
+  status)
+    cd /workspace
+    if [[ -f gpu-capacity-report.json ]]; then cat gpu-capacity-report.json; else echo "No GPU capacity report yet. Run: assess"; fi
+    ;;
+  check)
+    cd /workspace
+    python3 gpu_validator.py
+    ;;
+  hint)
+    echo "Do not trust Pod Running or utilization. Bind exact MIG class/isolation plus request-level and second-operation evidence."
+    ;;
+  reset)
+    reset_lab
+    echo "Lab reset."
+    ;;
+  self-test)
+    reset_lab
+    cd /workspace
+    python3 gpu_gate.py >/tmp/kh-gpu-starter.out
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('gpu-capacity-report.json').read_text())
+assert r['capacity_verified'] is True
+assert r['rollout_authorized'] is True
+print('Starter incorrectly trusts scheduler bind + high GPU utilization and grants rollout authority.')
+PY
+    cp "$ROOT/gpu_gate.py.solution.template" gpu_gate.py
+    chmod +x gpu_gate.py
+    rm -f gpu-capacity-report.json gpu-capacity-ledger.json
+    python3 gpu_validator.py
+    reset_lab
+    cd /workspace
+    python3 gpu_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('gpu-capacity-report.json').read_text())
+assert r['capacity_verified'] is True
+assert r['rollout_authorized'] is True
+print('Reset restores the unsafe scheduler/utilization starter.')
+PY
+    echo "SELF-TEST PASSED"
+    ;;
+  *)
+    echo "Unknown command: $CMD" >&2
+    exit 2
+    ;;
+esac

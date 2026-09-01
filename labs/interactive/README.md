@@ -73,6 +73,7 @@ Current labs:
 | `mlops-streaming-inference-integrity` | challenge | `shell` | Reconcile event-time streaming inference across exact topic/partition/offset identity, rebalance replay, durable idempotent actions and checkpoint commit. |
 | `mlops-batch-inference-integrity` | challenge | `shell` | Bind a bounded batch to immutable input bytes and event-time cutoff, complete shard coverage, deterministic outputs and retry-safe business actions. |
 | `mlops-serving-autoscaling-integrity` | challenge | `shell` | Bind serving capacity to exact release/runtime/load-test evidence, resolved autoscaling semantics and exercised deadline/fallback outcomes. |
+| `mlops-gpu-resource-isolation-integrity` | challenge | `shell` | Bind GPU capacity to an exact MIG resource class, hardware isolation, memory headroom, request-level SLO evidence and a reproducible second operation. |
 
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 

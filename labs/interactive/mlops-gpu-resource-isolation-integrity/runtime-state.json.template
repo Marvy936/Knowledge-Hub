@@ -1,0 +1,37 @@
+{
+  "capacity_subject": "MLOPS-PAY-GPU-CAP-2026-08-r42",
+  "container_runtime_generation": "nvidia-container-runtime-r9",
+  "device_plugin_generation": "nvidia-device-plugin-r12",
+  "driver_generation": "nvidia-driver-prod-r17",
+  "extended_resource": "nvidia.com/gpu",
+  "isolation": {
+    "fault": "shared-device",
+    "memory": "shared"
+  },
+  "mig_strategy": "none",
+  "node_pool_generation": "gpu-online-a100-gen17",
+  "observed_ready_replicas": 2,
+  "physical_model": "A100-80GB",
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "replicas": [
+    {
+      "gpu_smoke_passed": true,
+      "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+      "ready": true,
+      "replica_id": "risk-gpu-a",
+      "resource_class_id": "generic-a100-timeslice"
+    },
+    {
+      "gpu_smoke_passed": true,
+      "loaded_release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+      "ready": true,
+      "replica_id": "risk-gpu-b",
+      "resource_class_id": "generic-a100-timeslice"
+    }
+  ],
+  "scheduler_bound": true,
+  "sharing": {
+    "mode": "time-slicing",
+    "profile": null
+  }
+}

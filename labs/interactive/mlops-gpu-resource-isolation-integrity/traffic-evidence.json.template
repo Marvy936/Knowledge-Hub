@@ -1,0 +1,16 @@
+{
+  "average_gpu_utilization_pct": 91.0,
+  "capacity_subject": "MLOPS-PAY-GPU-CAP-2026-08-r42",
+  "deadline_successes": 192,
+  "fallback_rate": 0.2,
+  "memory_high_water_gib": 18.7,
+  "p95_latency_ms": 310,
+  "p99_queue_ms": 141,
+  "release_subject": "MLOPS-PAY-RISK-PROD-2026-08-r42",
+  "requests": 240,
+  "useful_rps": 16.4,
+  "window": {
+    "end": "2026-08-22T08:02:00Z",
+    "start": "2026-08-22T08:00:00Z"
+  }
+}

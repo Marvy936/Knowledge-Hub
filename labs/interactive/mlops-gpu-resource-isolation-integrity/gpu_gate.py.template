@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+runtime = json.loads(Path("runtime-state.json").read_text())
+traffic = json.loads(Path("traffic-evidence.json").read_text())
+
+accepted = (
+    bool(runtime.get("scheduler_bound"))
+    and runtime.get("observed_ready_replicas", 0) > 0
+    and traffic.get("average_gpu_utilization_pct", 0) >= 80
+)
+
+report = {
+    "capacity_subject": runtime.get("capacity_subject"),
+    "accepted": accepted,
+    "capacity_verified": accepted,
+    "reason": "scheduler bound and GPU utilization is high" if accepted else "scheduler/utilization check failed",
+    "rollout_authorized": accepted,
+    "promotion_authorized": False,
+    "retraining_authorized": False,
+}
+Path("gpu-capacity-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+print(json.dumps(report, indent=2, sort_keys=True))
