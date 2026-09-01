@@ -1,0 +1,33 @@
+{
+  "drift_run_id": "MLOPS-PAY-DRIFT-2026-09-01T10",
+  "release_id": "MLOPS-PAY-RISK-PROD-2026-09-r43",
+  "release_manifest_digest": "sha256:d01760a67aa52598db7a09525ecf71af570e0ed75bbc212d189e34ebf0fe4a8d",
+  "reference": {
+    "population_id": "stable-production-2026-W34",
+    "interval": "2026-08-17T00:00:00Z/2026-08-24T00:00:00Z",
+    "eligibility": "all_fraud_requests_v8"
+  },
+  "current": {
+    "interval": "2026-09-01T09:00:00Z/2026-09-01T10:00:00Z",
+    "eligibility": "all_fraud_requests_v8",
+    "include_fallback": true,
+    "completeness_watermark_required": true
+  },
+  "feature_generation": "payment-risk-features-v7",
+  "method": {
+    "numeric": "wasserstein",
+    "categorical": "jensen_shannon",
+    "multiple_testing": "benjamini_hochberg"
+  },
+  "thresholds": {
+    "minimum_rows": 5000,
+    "alert_if_share_drifted_gt": 0.20,
+    "minimum_label_coverage_for_concept_claim": 0.95
+  },
+  "authority": {
+    "drift_is_hypothesis_evidence_only": true,
+    "retraining_authorized": false,
+    "promotion_authorized": false,
+    "rollback_authorized": false
+  }
+}
