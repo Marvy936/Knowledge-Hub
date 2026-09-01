@@ -1,0 +1,210 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+from datetime import datetime
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST = "sha256:8c452909f5013c38e9790d4ade57d3c4403672441abb82b74642b3b3161ab065"
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+def digest(path):
+    return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def canonical(obj):
+    return json.dumps(obj, indent=2, sort_keys=True) + "\n"
+
+def text_digest(text):
+    return "sha256:" + hashlib.sha256(text.encode()).hexdigest()
+
+def event_hash(event):
+    body = {k: v for k, v in event.items() if k != "event_hash"}
+    payload = json.dumps(body, sort_keys=True, separators=(",", ":"))
+    return "sha256:" + hashlib.sha256(payload.encode()).hexdigest()
+
+def parse_time(value):
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+def require(condition, message, errors):
+    if not condition:
+        errors.append(message)
+
+def write_exact(path, text):
+    target = Path(path)
+    if target.exists() and target.read_text() != text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    target.write_text(text)
+
+release = load("release-manifest.json")
+bundle = load("evidence-bundle.json")
+contract = load("governance-contract.json")
+approvals = load("approval-records.json")
+override = load("emergency-override.json")
+runtime = load("runtime-state.json")
+audit = load("audit-events.json")
+second = load("second-operation.json")
+errors = []
+
+require(digest("governance-contract.json") == EXPECTED_CONTRACT_DIGEST, "governance contract digest mismatch", errors)
+require(digest("release-manifest.json") == contract["release_manifest_digest"], "release manifest digest mismatch", errors)
+require(digest("evidence-bundle.json") == contract["evidence_bundle_digest"], "evidence bundle digest mismatch", errors)
+require(release["release_id"] == contract["release_id"], "release id mismatch", errors)
+require(bundle["release_id"] == contract["release_id"], "evidence bundle release mismatch", errors)
+
+for field in ("model_digest", "feature_generation", "policy_generation", "telemetry_generation"):
+    require(release[field] == contract["changes"][field], f"release {field} mismatch", errors)
+
+require(bundle["privacy_review_scope"]["telemetry_generation"] == release["telemetry_generation"], "immutable evidence bundle privacy scope does not cover telemetry generation", errors)
+
+require(approvals["decision_id"] == contract["decision_id"], "approval decision id mismatch", errors)
+require(approvals["release_id"] == contract["release_id"], "approval release mismatch", errors)
+require(approvals["evidence_bundle_digest"] == contract["evidence_bundle_digest"], "approval evidence bundle mismatch", errors)
+require(approvals["decision_outcome"] == contract["decision"]["allowed_outcome"], "approval outcome mismatch", errors)
+require(approvals["conditions"] == contract["decision"]["required_conditions"], "approval conditions mismatch", errors)
+require(approvals["expires_at"] == contract["decision"]["expires_at"], "approval expiry mismatch", errors)
+require(parse_time(approvals["expires_at"]) > parse_time(contract["decision_evaluated_at"]), "approval decision is expired", errors)
+
+records = approvals["records"]
+roles = [record.get("role") for record in records]
+require(len(roles) == len(set(roles)), "duplicate approval role", errors)
+record_by_role = {record.get("role"): record for record in records}
+for role in contract["required_approvals"]["roles"]:
+    require(role in record_by_role, f"missing required approval role: {role}", errors)
+    if role in record_by_role:
+        require(record_by_role[role].get("approved") is True, f"role {role} did not approve", errors)
+
+actors = []
+for role in contract["required_approvals"]["separation_of_duties_roles"]:
+    if role in record_by_role:
+        actor = record_by_role[role].get("actor")
+        require(bool(actor), f"role {role} has no actor", errors)
+        require(actor != contract["change_author"], f"role {role} self-approved protected change", errors)
+        actors.append(actor)
+require(len(actors) == len(set(actors)), "protected approval roles are not separated", errors)
+
+if "model_owner" in record_by_role:
+    require(record_by_role["model_owner"].get("approved_model_digest") == release["model_digest"], "model owner approved different model bytes", errors)
+if "business_owner" in record_by_role:
+    require(record_by_role["business_owner"].get("approved_policy_generation") == contract["required_approvals"]["business_policy_generation"], "business owner did not approve exact policy generation", errors)
+    require(record_by_role["business_owner"].get("approved_review_capacity_per_hour") == contract["required_approvals"]["business_review_capacity_per_hour"], "business owner did not approve required review capacity", errors)
+if "privacy_reviewer" in record_by_role:
+    require(record_by_role["privacy_reviewer"].get("approved_telemetry_generation") == contract["required_approvals"]["privacy_telemetry_generation"], "privacy reviewer approved different telemetry scope", errors)
+if "risk_approver" in record_by_role:
+    require(record_by_role["risk_approver"].get("approved_release_id") == contract["release_id"], "risk approver approved different release", errors)
+    require(bool(record_by_role["risk_approver"].get("residual_risk_owner")), "risk approval lacks residual-risk owner", errors)
+
+require(override["decision_id"] == contract["decision_id"], "override decision mismatch", errors)
+if override["enabled"]:
+    require(override.get("scope") == contract["emergency_override"]["if_enabled_scope"], "emergency override scope is too broad", errors)
+    require(bool(override.get("reason")), "emergency override has no reason", errors)
+    require(bool(override.get("actor")), "emergency override has no actor", errors)
+    require(override.get("role") == "deployment_operator", "emergency override actor role mismatch", errors)
+    require(override.get("expires_at") is not None, "emergency override has no expiry", errors)
+    if override.get("expires_at"):
+        issued = parse_time(override["issued_at"])
+        expires = parse_time(override["expires_at"])
+        require(expires > issued, "emergency override expiry is invalid", errors)
+        require((expires - issued).total_seconds() <= contract["emergency_override"]["maximum_duration_seconds"], "emergency override exceeds maximum duration", errors)
+        require(expires > parse_time(contract["decision_evaluated_at"]), "emergency override is expired", errors)
+    require(override.get("post_review_complete") is True, "emergency override post-review is incomplete", errors)
+
+require(runtime["decision_id"] == contract["decision_id"], "runtime decision mismatch", errors)
+for field in ("release_id", "model_digest", "serving_image", "feature_generation", "schema_generation", "policy_generation", "telemetry_generation", "resource_class"):
+    require(runtime[field] == release[field], f"runtime {field} differs from approved composite", errors)
+require(runtime["canary_traffic_share"] <= contract["runtime"]["max_canary_traffic_share"], "runtime exceeds approved canary traffic condition", errors)
+require(runtime["human_review_capacity_per_hour"] >= contract["runtime"]["human_review_capacity_per_hour"], "runtime review capacity is below approved condition", errors)
+
+require(audit["decision_id"] == contract["decision_id"], "audit decision mismatch", errors)
+events = audit["events"]
+require(bool(events), "audit chain is empty", errors)
+seen_ids = set()
+prev = "GENESIS"
+for event in events:
+    event_id = event.get("event_id")
+    require(bool(event_id) and event_id not in seen_ids, "audit event id is missing or duplicated", errors)
+    seen_ids.add(event_id)
+    require(event.get("operation_id") == contract["operation_id"], f"audit event {event_id} operation id mismatch", errors)
+    require(event.get("decision_id") == contract["decision_id"], f"audit event {event_id} decision mismatch", errors)
+    require(event.get("subject_digest") == contract["release_manifest_digest"], f"audit event {event_id} subject digest mismatch", errors)
+    require(event.get("evidence_digest") == contract["evidence_bundle_digest"], f"audit event {event_id} evidence digest mismatch", errors)
+    require(bool(event.get("actor")) and bool(event.get("role")) and bool(event.get("timestamp")), f"audit event {event_id} missing accountability fields", errors)
+    require("previous_state" in event and "new_state" in event and "outcome" in event, f"audit event {event_id} missing state transition", errors)
+    require(event.get("prev_event_hash") == prev, f"audit event {event_id} breaks append-only chain", errors)
+    require(event.get("event_hash") == event_hash(event), f"audit event {event_id} hash mismatch", errors)
+    prev = event.get("event_hash")
+
+component_for_role = {
+    "model_owner": release["model_digest"],
+    "business_owner": contract["required_approvals"]["business_policy_generation"],
+    "risk_approver": release["release_id"],
+    "privacy_reviewer": contract["required_approvals"]["privacy_telemetry_generation"],
+}
+for role in contract["required_approvals"]["roles"]:
+    if role in record_by_role:
+        record = record_by_role[role]
+        require(any(
+            event.get("event") == "approval_recorded"
+            and event.get("role") == role
+            and event.get("actor") == record.get("actor")
+            and event.get("approved_component") == component_for_role[role]
+            and event.get("outcome") == "approved"
+            for event in events
+        ), f"audit chain lacks exact approval event for {role}", errors)
+
+if override["enabled"]:
+    require(any(
+        event.get("event") == "emergency_override_used"
+        and event.get("actor") == override.get("actor")
+        and event.get("approved_component") == override.get("scope")
+        for event in events
+    ), "audit chain lacks exact emergency override event", errors)
+
+require(any(
+    event.get("event") == "decision_recorded"
+    and event.get("approved_component") == approvals["decision_outcome"]
+    and event.get("outcome") == approvals["decision_outcome"]
+    for event in events
+), "audit chain lacks final approval decision", errors)
+
+require(second["decision_id"] == contract["decision_id"], "second-operation decision mismatch", errors)
+require(second["operation_type"] == contract["second_operation"]["required_type"], "second-operation type mismatch", errors)
+for field in ("same_subject_observed", "same_evidence_bundle_observed", "required_roles_available", "override_unexpired", "deterministic_decision_reproduced", "audit_chain_reconstructable"):
+    require(second[field] is True, f"second operation failed {field}", errors)
+
+accepted = not errors
+report = {
+    "decision_id": contract.get("decision_id"),
+    "governance_verified": accepted,
+    "approval_valid": accepted,
+    "separation_of_duties_verified": accepted,
+    "override_valid": accepted,
+    "runtime_conformity_verified": accepted,
+    "audit_chain_verified": accepted,
+    "second_operation_verified": accepted,
+    "decision_outcome": approvals.get("decision_outcome"),
+    "errors": errors,
+    "deployment_authorized": False,
+    "promotion_authorized": False,
+    "retraining_authorized": False,
+}
+report_text = canonical(report)
+write_exact("governance-report.json", report_text)
+
+if not accepted:
+    raise SystemExit("GOVERNANCE REJECTED: " + "; ".join(errors))
+
+ledger = {
+    "decision_id": contract["decision_id"],
+    "governance_contract_digest": digest("governance-contract.json"),
+    "release_manifest_digest": digest("release-manifest.json"),
+    "evidence_bundle_digest": digest("evidence-bundle.json"),
+    "approval_records_digest": digest("approval-records.json"),
+    "emergency_override_digest": digest("emergency-override.json"),
+    "runtime_state_digest": digest("runtime-state.json"),
+    "audit_events_digest": digest("audit-events.json"),
+    "second_operation_digest": digest("second-operation.json"),
+    "report_digest": text_digest(report_text),
+}
+write_exact("governance-evidence-ledger.json", canonical(ledger))
+print("GOVERNANCE VERIFIED")

@@ -1,0 +1,74 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-governance-approval-audit-integrity
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+}
+
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-governance-approval-audit-integrity
+
+Commands:
+  status     Show governance evidence/report state
+  review     Execute your current governance_gate.py
+  check      Validate your governance_gate.py
+  hint       Show the approval/audit authority boundary
+  assess     Alias for check
+  reset      Restore the unsafe generic-approval incident
+  self-test  Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'governance_gate.py: '; [ -f governance_gate.py ] && echo present || echo missing
+    printf 'governance-report.json: '; [ -f governance-report.json ] && echo present || echo missing
+    printf 'governance-evidence-ledger.json: '; [ -f governance-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint)
+    echo 'Bind the exact composite approval subject and immutable evidence; require independent business/risk/privacy/model decisions, bound emergency override scope+expiry, prove runtime conditions, and reconstruct a tamper-evident audit chain.'
+    ;;
+  review)
+    python3 ./governance_gate.py
+    ;;
+  check|assess)
+    python3 ./governance_validator.py
+    ;;
+  reset)
+    reset_lab
+    echo 'RESET COMPLETE'
+    ;;
+  self-test)
+    reset_lab
+    python3 ./governance_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('governance-report.json').read_text())
+assert r['governance_verified'] is True
+assert r['approval_valid'] is True
+assert r['deployment_authorized'] is True
+PY
+    cp "$ROOT/governance_gate.py.solution.template" ./governance_gate.py
+    chmod +x ./governance_gate.py
+    rm -f governance-report.json governance-evidence-ledger.json
+    python3 ./governance_validator.py
+    reset_lab
+    python3 ./governance_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('governance-report.json').read_text())
+assert r['governance_verified'] is True
+assert r['deployment_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *)
+    echo "unknown command: $1" >&2
+    exit 2
+    ;;
+esac

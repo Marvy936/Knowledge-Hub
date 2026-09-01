@@ -1,0 +1,10 @@
+{
+  "release_id": "fraud-serving-2026-09-r44",
+  "model_digest": "sha256:4f6d788f213291295b24a3608dd3dc124fab8be9b25f71e0478f0776a77f7110",
+  "serving_image": "sha256:847b970b9d44d81307e7f38ea4910a59593cdce049d4f8be7216e2a40b272da4",
+  "feature_generation": "fraud-features-v12",
+  "schema_generation": "fraud-request-v7",
+  "policy_generation": "review-capacity-v9",
+  "telemetry_generation": "fraud-monitor-v10",
+  "resource_class": "a100-mig-2g-v3"
+}
