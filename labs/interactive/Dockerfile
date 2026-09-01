@@ -73,6 +73,7 @@ COPY mlops-gpu-resource-isolation-integrity /opt/knowledge-hub/labs/mlops-gpu-re
 COPY mlops-model-monitoring-integrity /opt/knowledge-hub/labs/mlops-model-monitoring-integrity
 COPY mlops-drift-population-integrity /opt/knowledge-hub/labs/mlops-drift-population-integrity
 COPY mlops-performance-cost-integrity /opt/knowledge-hub/labs/mlops-performance-cost-integrity
+COPY mlops-rollback-recovery-integrity /opt/knowledge-hub/labs/mlops-rollback-recovery-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -244,6 +245,15 @@ RUN ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/la
  && ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/status \
  && ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/assess
+
+RUN ln -s driver /opt/knowledge-hub/labs/mlops-rollback-recovery-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-rollback-recovery-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-rollback-recovery-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-rollback-recovery-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-rollback-recovery-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-rollback-recovery-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-rollback-recovery-integrity/lab/assess \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-rollback-recovery-integrity/lab/recover
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

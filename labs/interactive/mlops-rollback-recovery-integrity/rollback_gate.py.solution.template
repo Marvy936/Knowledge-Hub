@@ -1,0 +1,177 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST = "sha256:afd32530ba04ffcc3dd4e84dba3869bc250869e4e5331ed7f34486d075b0154c"
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+def digest(path):
+    return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def text_digest(text):
+    return "sha256:" + hashlib.sha256(text.encode()).hexdigest()
+
+def canonical(obj):
+    return json.dumps(obj, indent=2, sort_keys=True) + "\n"
+
+def write_exact(path, text):
+    target = Path(path)
+    if target.exists() and target.read_text() != text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    target.write_text(text)
+
+def require(condition, message, errors):
+    if not condition:
+        errors.append(message)
+
+contract = load("rollback-contract.json")
+target = load("known-good-release.json")
+decision = load("decision-record.json")
+operation = load("rollback-operation.json")
+runtime = load("runtime-state.json")
+window = load("recovery-window.json")
+sidefx = load("side-effects.json")
+second = load("second-operation.json")
+errors = []
+
+require(digest("rollback-contract.json") == EXPECTED_CONTRACT_DIGEST, "rollback contract digest mismatch", errors)
+require(digest("known-good-release.json") == contract["target_release_digest"], "known-good release digest mismatch", errors)
+require(target["release_id"] == contract["target_release_id"], "target release id mismatch", errors)
+
+require(decision["rollback_operation_id"] == contract["rollback_operation_id"], "decision operation mismatch", errors)
+require(decision["incident_id"] == contract["incident_id"], "decision incident mismatch", errors)
+require(decision["affected_release_id"] == contract["affected_release_id"], "decision affected release mismatch", errors)
+require(decision["target_release_id"] == contract["target_release_id"], "decision target mismatch", errors)
+require(decision["decision_type"] == contract["decision"]["required_type"], "decision type mismatch", errors)
+require(decision["first_divergence"] == contract["decision"]["required_first_divergence"], "first divergence mismatch", errors)
+require(decision["approved"] is True, "rollback decision is not approved", errors)
+require(bool(decision.get("approver")), "rollback decision has no approver", errors)
+
+require(operation["rollback_operation_id"] == contract["rollback_operation_id"], "operation id mismatch", errors)
+require(operation["expected_previous_desired_release_id"] == contract["operation"]["expected_previous_desired_release_id"], "compare-and-set previous release mismatch", errors)
+require(operation["requested_target_release_id"] == contract["target_release_id"], "operation target mismatch", errors)
+require(operation["api_result"] in ("success", "timeout_unknown"), "unexpected rollback API result", errors)
+if operation["api_result"] == "timeout_unknown":
+    require(operation["read_before_retry_performed"] is True, "unknown rollback outcome was retried without read-before-retry", errors)
+    require(operation["observed_desired_release_id"] == contract["target_release_id"], "unknown rollback outcome did not reconcile desired state", errors)
+    require(operation["retry_submitted"] is False, "duplicate rollback retry submitted after target was already desired", errors)
+require(operation["compare_and_set_preserved"] is True, "rollback compare-and-set was not preserved", errors)
+require(bool(operation.get("audit_actor")), "rollback operation has no audit actor", errors)
+
+require(runtime["rollback_operation_id"] == contract["rollback_operation_id"], "runtime operation mismatch", errors)
+require(runtime["desired_release_id"] == contract["target_release_id"], "desired release mismatch", errors)
+require(runtime["registry_alias"]["points_to_release_id"] == contract["target_release_id"], "registry alias mismatch", errors)
+require(runtime["controller_reconciled"] is True, "controller did not reconcile rollback generation", errors)
+require(runtime["ready_replicas"] >= contract["runtime"]["required_ready_replicas"], "insufficient ready replicas", errors)
+require(len(runtime["replicas"]) == runtime["ready_replicas"], "replica evidence count mismatch", errors)
+require(runtime["target_traffic_share"] == contract["runtime"]["required_target_traffic_share"], "actual traffic is not fully on target release", errors)
+
+component_fields = ("model_digest", "serving_image", "feature_generation", "schema_generation", "threshold_policy", "fallback_policy", "resource_class")
+replica_ids = []
+for replica in runtime["replicas"]:
+    replica_ids.append(replica["replica_id"])
+    require(replica["ready"] is True, f"replica {replica['replica_id']} is not ready", errors)
+    require(replica["loaded_release_id"] == target["release_id"], f"replica {replica['replica_id']} loaded release mismatch", errors)
+    for field in component_fields:
+        require(replica[field] == target[field], f"replica {replica['replica_id']} {field} mismatch", errors)
+require(len(replica_ids) == len(set(replica_ids)), "duplicate replica identity", errors)
+
+for field, target_field in (
+    ("feature_service_generation", "feature_generation"),
+    ("threshold_policy", "threshold_policy"),
+    ("fallback_policy", "fallback_policy"),
+    ("resource_class", "resource_class"),
+):
+    require(runtime[field] == target[target_field], f"runtime {field} mismatch", errors)
+
+journey = runtime["synthetic_journey"]
+require(journey["executed"] is True, "synthetic journey not executed", errors)
+require(journey["http_status"] == 200, "synthetic journey did not return HTTP 200", errors)
+for field in ("target_release_verified", "feature_generation_verified", "policy_generation_verified", "fallback_generation_verified"):
+    require(journey[field] is True, f"synthetic journey {field} failed", errors)
+require(journey["authoritative_action_created"] is True, "synthetic journey did not exercise authoritative action", errors)
+
+rw = contract["recovery_window"]
+require(window["rollback_operation_id"] == contract["rollback_operation_id"], "recovery window operation mismatch", errors)
+require(window["release_id"] == contract["target_release_id"], "recovery window release mismatch", errors)
+require(window["interval"] == rw["interval"], "recovery window interval mismatch", errors)
+eligible = window["eligible_requests"]
+success = window["successful_model_predictions"]
+fallback = window["fallback_responses"]
+deadline = window["deadline_successful_predictions"]
+require(eligible >= rw["minimum_eligible_requests"], "insufficient recovery population", errors)
+require(success + fallback == eligible, "recovery result classes do not reconcile", errors)
+require(deadline <= success, "deadline-successful predictions exceed model successes", errors)
+deadline_rate = deadline / eligible if eligible else 0.0
+fallback_rate = fallback / eligible if eligible else 1.0
+require(deadline_rate >= rw["deadline_success_min"], "deadline success below recovery threshold", errors)
+require(fallback_rate <= rw["fallback_rate_max"], "fallback rate above recovery threshold", errors)
+require(window["p95_end_to_end_ms"] <= rw["p95_end_to_end_ms_max"], "recovery p95 latency above threshold", errors)
+observed = window["mature_outcomes_observed"]
+mature_success = window["mature_successful_outcomes"]
+coverage = observed / eligible if eligible else 0.0
+mature_rate = mature_success / observed if observed else 0.0
+require(coverage >= rw["minimum_mature_outcome_coverage"], "mature outcome coverage below threshold", errors)
+require(mature_rate >= rw["minimum_mature_success_rate"], "mature business success below threshold", errors)
+require(window["manual_backfill_used"] is False, "recovery window used manual backfill", errors)
+
+require(sidefx["rollback_operation_id"] == contract["rollback_operation_id"], "side-effect operation mismatch", errors)
+require(sidefx["resolved_operations"] == sidefx["affected_operations"], "affected operations are not fully reconciled", errors)
+require(sidefx["duplicate_compensations"] <= contract["reconciliation"]["duplicate_compensations_max"], "duplicate compensating action detected", errors)
+require(sidefx["irreversible_followups_completed"] is True, "irreversible side-effect followups incomplete", errors)
+require(sidefx["replay_safe"] is True, "side-effect reconciliation is not replay-safe", errors)
+
+require(second["rollback_operation_id"] == contract["rollback_operation_id"], "second-operation id mismatch", errors)
+require(second["operation_type"] == contract["second_operation"]["required_type"], "second-operation type mismatch", errors)
+require(second["target_release_id"] == contract["target_release_id"], "second-operation target mismatch", errors)
+require(second["artifact_available"] is True, "known-good artifact unavailable on second operation", errors)
+require(second["credentials_reusable"] is True, "rollback credentials are one-shot", errors)
+require(second["mutable_alias_dependency"] is False, "second operation depends on mutable alias resolution", errors)
+require(second["manual_step_required"] is False, "second operation requires a manual step", errors)
+require(second["loaded_parity_reproduced"] is True, "second operation did not reproduce loaded parity", errors)
+require(second["duplicate_side_effects_created"] == 0, "second operation created duplicate side effects", errors)
+
+accepted = not errors
+report = {
+    "rollback_operation_id": contract.get("rollback_operation_id"),
+    "recovery_verified": accepted,
+    "component_recovery_verified": accepted,
+    "journey_recovery_verified": accepted,
+    "business_recovery_verified": accepted,
+    "reconciliation_verified": accepted,
+    "second_operation_verified": accepted,
+    "incident_closed": accepted,
+    "root_cause_model_confirmed": False,
+    "deadline_success_rate": round(deadline_rate, 6),
+    "fallback_rate": round(fallback_rate, 6),
+    "mature_outcome_coverage": round(coverage, 6),
+    "mature_success_rate": round(mature_rate, 6),
+    "errors": errors,
+    "rollout_authorized": False,
+    "promotion_authorized": False,
+    "retraining_authorized": False,
+}
+report_text = canonical(report)
+write_exact("rollback-report.json", report_text)
+
+if not accepted:
+    raise SystemExit("ROLLBACK RECOVERY REJECTED: " + "; ".join(errors))
+
+ledger = {
+    "rollback_operation_id": contract["rollback_operation_id"],
+    "target_release_id": contract["target_release_id"],
+    "rollback_contract_digest": digest("rollback-contract.json"),
+    "target_release_digest": digest("known-good-release.json"),
+    "decision_record_digest": digest("decision-record.json"),
+    "rollback_operation_digest": digest("rollback-operation.json"),
+    "runtime_state_digest": digest("runtime-state.json"),
+    "recovery_window_digest": digest("recovery-window.json"),
+    "side_effects_digest": digest("side-effects.json"),
+    "second_operation_digest": digest("second-operation.json"),
+    "report_digest": text_digest(report_text),
+}
+write_exact("rollback-evidence-ledger.json", canonical(ledger))
+print("ROLLBACK RECOVERY VERIFIED")

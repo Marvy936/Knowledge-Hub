@@ -77,6 +77,7 @@ Current labs:
 | `mlops-model-monitoring-integrity` | challenge | `shell` | Bind model monitoring to exact release/window identity, mutually exclusive result-class denominators, telemetry freshness, drift exposure evidence and a reproducible second monitoring window. |
 | `mlops-drift-population-integrity` | challenge | `shell` | Bind drift interpretation to exact reference/current populations, fallback-inclusive denominators, event-time completeness, method identity and non-authoritative causal claims. |
 | `mlops-performance-cost-integrity` | challenge | `shell` | Bind performance/cost acceptance to exact runtime and traffic evidence, deadline-successful useful throughput, warm/cold tail latency, saturation, fallback and idle-inclusive cost. |
+| `mlops-rollback-recovery-integrity` | challenge | `shell` | Bind rollback recovery to an immutable composite known-good release, read-before-retry operation semantics, loaded fleet parity, stable business recovery, side-effect reconciliation and a repeatable second apply. |
 
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 

@@ -1,0 +1,11 @@
+{
+  "rollback_operation_id": "MLOPS-PAY-ROLLBACK-2026-09-r43-to-r41",
+  "expected_previous_desired_release_id": "fraud-serving-2026-09-r43",
+  "requested_target_release_id": "fraud-serving-2026-08-r41",
+  "api_result": "timeout_unknown",
+  "read_before_retry_performed": false,
+  "observed_desired_release_id": "fraud-serving-2026-08-r41",
+  "compare_and_set_preserved": false,
+  "retry_submitted": true,
+  "audit_actor": "oncall-ml-platform"
+}

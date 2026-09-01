@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+runtime = json.loads(Path("runtime-state.json").read_text())
+target = json.loads(Path("known-good-release.json").read_text())
+
+alias_rolled_back = runtime["registry_alias"]["points_to_release_id"] == target["release_id"]
+ready = runtime["ready_replicas"] > 0
+
+report = {
+    "rollback_operation_id": runtime["rollback_operation_id"],
+    "recovery_verified": bool(alias_rolled_back and ready),
+    "incident_closed": bool(alias_rolled_back and ready),
+    "root_cause_model_confirmed": bool(alias_rolled_back and ready),
+    "rollout_authorized": False,
+    "promotion_authorized": False,
+    "retraining_authorized": False,
+}
+Path("rollback-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+print("ROLLBACK ACCEPTED" if report["recovery_verified"] else "ROLLBACK BLOCKED")

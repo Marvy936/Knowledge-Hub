@@ -1,0 +1,63 @@
+{
+  "rollback_operation_id": "MLOPS-PAY-ROLLBACK-2026-09-r43-to-r41",
+  "desired_release_id": "fraud-serving-2026-08-r41",
+  "registry_alias": {
+    "name": "champion",
+    "points_to_release_id": "fraud-serving-2026-08-r41"
+  },
+  "controller_reconciled": true,
+  "rollout_generation": "rollback-gen-84",
+  "ready_replicas": 3,
+  "target_traffic_share": 0.67,
+  "feature_service_generation": "fraud-features-v11",
+  "threshold_policy": "review-threshold-v15-canary",
+  "fallback_policy": "rules-v6-canary",
+  "resource_class": "a100-mig-2g-v3",
+  "replicas": [
+    {
+      "replica_id": "fraud-r41-a",
+      "ready": true,
+      "loaded_release_id": "fraud-serving-2026-08-r41",
+      "model_digest": "sha256:2ec2254ec3d7a3f43bb983fa9f184f715b8b26e9f7d5e02897d5e3c0d2f5a93a",
+      "serving_image": "sha256:c4793dbcd5dd14925a279e49b9bc4cc0ee9e85923af76d216509602c85e8b8cb",
+      "feature_generation": "fraud-features-v11",
+      "schema_generation": "fraud-request-v6",
+      "threshold_policy": "review-threshold-v15-canary",
+      "fallback_policy": "rules-v6-canary",
+      "resource_class": "a100-mig-2g-v3"
+    },
+    {
+      "replica_id": "fraud-r43-b",
+      "ready": true,
+      "loaded_release_id": "fraud-serving-2026-09-r43",
+      "model_digest": "sha256:a32a1bd95e4de982b5d54a1c988f875e5b0ce66e9c947c71cd8a9124aaf3d16e",
+      "serving_image": "sha256:17bf6d480c9f22acb539b6be80bded9d0b0bfd0834539a972238e06bd30cb87b",
+      "feature_generation": "fraud-features-v11",
+      "schema_generation": "fraud-request-v6",
+      "threshold_policy": "review-threshold-v15-canary",
+      "fallback_policy": "rules-v6-canary",
+      "resource_class": "a100-mig-2g-v3"
+    },
+    {
+      "replica_id": "fraud-r41-c",
+      "ready": true,
+      "loaded_release_id": "fraud-serving-2026-08-r41",
+      "model_digest": "sha256:2ec2254ec3d7a3f43bb983fa9f184f715b8b26e9f7d5e02897d5e3c0d2f5a93a",
+      "serving_image": "sha256:c4793dbcd5dd14925a279e49b9bc4cc0ee9e85923af76d216509602c85e8b8cb",
+      "feature_generation": "fraud-features-v11",
+      "schema_generation": "fraud-request-v6",
+      "threshold_policy": "review-threshold-v15-canary",
+      "fallback_policy": "rules-v6-canary",
+      "resource_class": "a100-mig-2g-v3"
+    }
+  ],
+  "synthetic_journey": {
+    "executed": true,
+    "http_status": 200,
+    "target_release_verified": false,
+    "feature_generation_verified": false,
+    "policy_generation_verified": false,
+    "fallback_generation_verified": false,
+    "authoritative_action_created": true
+  }
+}

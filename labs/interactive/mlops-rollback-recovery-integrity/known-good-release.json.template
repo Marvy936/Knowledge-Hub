@@ -1,0 +1,11 @@
+{
+  "release_id": "fraud-serving-2026-08-r41",
+  "model_digest": "sha256:2ec2254ec3d7a3f43bb983fa9f184f715b8b26e9f7d5e02897d5e3c0d2f5a93a",
+  "serving_image": "sha256:c4793dbcd5dd14925a279e49b9bc4cc0ee9e85923af76d216509602c85e8b8cb",
+  "feature_generation": "fraud-features-v10",
+  "schema_generation": "fraud-request-v6",
+  "threshold_policy": "review-threshold-v14",
+  "fallback_policy": "rules-v5",
+  "resource_class": "a100-mig-2g-v3",
+  "monitoring_contract": "fraud-monitor-v8"
+}

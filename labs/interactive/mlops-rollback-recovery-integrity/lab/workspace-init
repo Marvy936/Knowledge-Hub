@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-rollback-recovery-integrity
+cp "$ROOT/known-good-release.json.template" ./known-good-release.json
+cp "$ROOT/rollback-contract.json.template" ./rollback-contract.json
+cp "$ROOT/decision-record.json.template" ./decision-record.json
+cp "$ROOT/rollback-operation.json.template" ./rollback-operation.json
+cp "$ROOT/runtime-state.json.template" ./runtime-state.json
+cp "$ROOT/recovery-window.json.template" ./recovery-window.json
+cp "$ROOT/side-effects.json.template" ./side-effects.json
+cp "$ROOT/second-operation.json.template" ./second-operation.json
+cp "$ROOT/rollback_gate.py.template" ./rollback_gate.py
+cp "$ROOT/rollback_validator.py" ./rollback_validator.py
+chmod +x ./rollback_gate.py ./rollback_validator.py
+rm -f ./rollback-report.json ./rollback-evidence-ledger.json
