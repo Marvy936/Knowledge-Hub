@@ -1,0 +1,40 @@
+{
+  "drift_evidence": {
+    "actual_exposure_denominator_required": true,
+    "retraining_authority": false,
+    "segment_breakdown_required": true
+  },
+  "monitoring_can_authorize_retraining": false,
+  "monitoring_generation": "fraud-monitoring-v12",
+  "monitoring_subject": "MLOPS-FRAUD-MON-2026-08-r42",
+  "primary_window": {
+    "end": "2026-08-03T09:20:00Z",
+    "start": "2026-08-03T09:10:00Z"
+  },
+  "release_id": "fraud-serving-2026-08-03.4",
+  "release_manifest_digest": "sha256:47fec5019f7d3e3819e07850573f7d68a728f36eb857cf4e803d851e5fade71b",
+  "result_classes": [
+    "model_success",
+    "fallback_timeout",
+    "fallback_runtime_error",
+    "abstain_low_confidence",
+    "rejected_schema",
+    "rejected_policy",
+    "action_suppressed_capacity"
+  ],
+  "second_window": {
+    "end": "2026-08-03T09:30:00Z",
+    "start": "2026-08-03T09:20:00Z"
+  },
+  "second_window_required": true,
+  "synthetic_required": true,
+  "thresholds": {
+    "max_duplicate_rate": 0.001,
+    "max_fallback_rate": 0.01,
+    "max_materialization_lag_seconds": 60,
+    "max_p95_latency_ms": 150,
+    "min_deadline_success_rate": 0.99,
+    "min_eligible_requests": 500,
+    "min_telemetry_coverage": 0.995
+  }
+}
