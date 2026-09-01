@@ -1,0 +1,186 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+from datetime import datetime
+from pathlib import Path
+
+
+def load(name):
+    return json.loads(Path(name).read_text())
+
+
+def digest(name):
+    return 'sha256:' + hashlib.sha256(Path(name).read_bytes()).hexdigest()
+
+
+def write_exact(path, payload):
+    data = (json.dumps(payload, indent=2, sort_keys=True) + '\n').encode()
+    p = Path(path)
+    if p.exists() and p.read_bytes() != data:
+        raise RuntimeError(f'conflicting durable state: {path}')
+    p.write_bytes(data)
+
+
+release = load('release-manifest.json')
+contract = load('monitoring-contract.json')
+window = load('monitoring-window.json')
+drift = load('drift-evidence.json')
+synthetic = load('synthetic-journey.json')
+second = load('second-window.json')
+reasons = []
+
+release_digest = digest('release-manifest.json')
+contract_digest = digest('monitoring-contract.json')
+
+if contract.get('release_manifest_digest') != release_digest:
+    reasons.append('release manifest bytes do not match monitoring contract')
+if contract.get('release_id') != release.get('release_id'):
+    reasons.append('release identity mismatch')
+if contract.get('monitoring_can_authorize_retraining') is not False:
+    reasons.append('monitoring contract must not own retraining authority')
+if contract.get('drift_evidence', {}).get('retraining_authority') is not False:
+    reasons.append('drift evidence must remain diagnostic only')
+
+subject = contract.get('monitoring_subject')
+release_id = release.get('release_id')
+revision = release.get('revision')
+for name, evidence in [
+    ('primary window', window),
+    ('drift evidence', drift),
+    ('synthetic journey', synthetic),
+    ('second window', second),
+]:
+    if evidence.get('contract_digest') != contract_digest:
+        reasons.append(f'{name} is not bound to exact monitoring contract bytes')
+    if evidence.get('monitoring_subject') != subject:
+        reasons.append(f'{name} monitoring subject mismatch')
+    if evidence.get('release_id') != release_id or evidence.get('revision') != revision:
+        reasons.append(f'{name} release/revision mismatch')
+
+thresholds = contract.get('thresholds', {})
+classes = contract.get('result_classes', [])
+class_set = set(classes)
+
+
+def validate_window(label, evidence, expected_window, require_no_backfill=False):
+    local = []
+    if evidence.get('window') != expected_window:
+        local.append(f'{label} time window mismatch')
+    eligible = evidence.get('eligible_requests')
+    events = evidence.get('telemetry_events')
+    duplicates = evidence.get('duplicate_events')
+    deadline = evidence.get('deadline_successes')
+    counts = evidence.get('result_class_counts')
+    if not isinstance(eligible, int) or eligible < thresholds['min_eligible_requests']:
+        local.append(f'{label} eligible request denominator too small')
+        return local
+    if not isinstance(events, int) or events < 0:
+        local.append(f'{label} telemetry event count invalid')
+        return local
+    if not isinstance(duplicates, int) or duplicates < 0:
+        local.append(f'{label} duplicate count invalid')
+    if not isinstance(deadline, int) or deadline < 0 or deadline > eligible:
+        local.append(f'{label} deadline-success count invalid')
+    if not isinstance(counts, dict) or set(counts) != class_set or any(not isinstance(v, int) or v < 0 for v in counts.values()):
+        local.append(f'{label} result classes do not match contract')
+    else:
+        if sum(counts.values()) != events:
+            local.append(f'{label} result-class counts do not reconcile to telemetry events')
+        fallback = counts.get('fallback_timeout', 0) + counts.get('fallback_runtime_error', 0)
+        if fallback / eligible > thresholds['max_fallback_rate']:
+            local.append(f'{label} fallback rate exceeds threshold')
+    coverage = events / eligible
+    if coverage < thresholds['min_telemetry_coverage']:
+        local.append(f'{label} telemetry coverage below threshold')
+    duplicate_rate = duplicates / events if events else 1.0
+    if duplicate_rate > thresholds['max_duplicate_rate']:
+        local.append(f'{label} duplicate rate exceeds threshold')
+    if deadline / eligible < thresholds['min_deadline_success_rate']:
+        local.append(f'{label} deadline success below threshold')
+    if evidence.get('p95_latency_ms', 0) > thresholds['max_p95_latency_ms']:
+        local.append(f'{label} p95 latency exceeds threshold')
+    try:
+        window_end = datetime.fromisoformat(expected_window['end'].replace('Z', '+00:00'))
+        materialized = datetime.fromisoformat(evidence['materialized_at'].replace('Z', '+00:00'))
+        lag = (materialized - window_end).total_seconds()
+    except (KeyError, TypeError, ValueError):
+        lag = float('inf')
+    if lag < 0 or lag > thresholds['max_materialization_lag_seconds']:
+        local.append(f'{label} telemetry materialization is stale')
+    if evidence.get('request_correlation_complete') is not True:
+        local.append(f'{label} request correlation incomplete')
+    if require_no_backfill and evidence.get('manual_backfill_required') is not False:
+        local.append(f'{label} requires manual backfill')
+    return local
+
+
+reasons.extend(validate_window('primary window', window, contract.get('primary_window')))
+if window.get('http_successes', 0) > window.get('eligible_requests', 0):
+    reasons.append('HTTP success count exceeds eligible requests')
+if window.get('model_invocations', 0) > window.get('eligible_requests', 0):
+    reasons.append('model invocation count exceeds eligible requests')
+if window.get('actioned_requests', 0) > window.get('eligible_requests', 0):
+    reasons.append('actioned request count exceeds eligible requests')
+
+if drift.get('window') != contract.get('primary_window'):
+    reasons.append('drift evidence window mismatch')
+if contract.get('drift_evidence', {}).get('actual_exposure_denominator_required'):
+    if drift.get('actual_exposure_denominator_present') is not True:
+        reasons.append('drift evidence lacks actual exposure denominator')
+    elif drift.get('actual_exposure_denominator') != window.get('eligible_requests'):
+        reasons.append('drift exposure denominator does not match eligible population')
+if contract.get('drift_evidence', {}).get('segment_breakdown_required') and drift.get('segment_breakdown_present') is not True:
+    reasons.append('drift evidence lacks required segment breakdown')
+if drift.get('current_prediction_events') != window.get('result_class_counts', {}).get('model_success'):
+    reasons.append('drift prediction population does not reconcile to model-success events')
+if drift.get('retraining_requested') is not False:
+    reasons.append('monitoring/drift path attempted to request retraining')
+
+if contract.get('synthetic_required'):
+    for key in ['attempted', 'deadline_success', 'observed_in_metrics', 'observed_in_logs', 'trace_joined', 'action_joined']:
+        if synthetic.get(key) is not True:
+            reasons.append(f'synthetic journey missing proof: {key}')
+    if synthetic.get('manual_backfill_required') is not False:
+        reasons.append('synthetic journey required manual backfill')
+    if synthetic.get('result_class') != 'model_success':
+        reasons.append('synthetic journey did not complete as model_success')
+    if synthetic.get('window') != contract.get('primary_window'):
+        reasons.append('synthetic journey window mismatch')
+
+if contract.get('second_window_required'):
+    reasons.extend(validate_window('second window', second, contract.get('second_window'), require_no_backfill=True))
+
+accepted = not reasons
+report = {
+    'accepted': accepted,
+    'monitoring_subject': subject,
+    'monitoring_verified': accepted,
+    'promotion_authorized': False,
+    'reasons': reasons,
+    'retraining_authorized': False,
+    'rollout_authorized': False,
+}
+report_bytes = (json.dumps(report, indent=2, sort_keys=True) + '\n').encode()
+Path('monitoring-report.json').write_bytes(report_bytes)
+
+if accepted:
+    ledger = {
+        'contract_digest': contract_digest,
+        'drift_evidence_digest': digest('drift-evidence.json'),
+        'monitoring_subject': subject,
+        'primary_window_digest': digest('monitoring-window.json'),
+        'release_manifest_digest': release_digest,
+        'report_digest': 'sha256:' + hashlib.sha256(report_bytes).hexdigest(),
+        'second_window_digest': digest('second-window.json'),
+        'synthetic_journey_digest': digest('synthetic-journey.json'),
+    }
+    try:
+        write_exact('monitoring-evidence-ledger.json', ledger)
+    except RuntimeError as exc:
+        report['accepted'] = False
+        report['monitoring_verified'] = False
+        report['reasons'] = [str(exc)]
+        Path('monitoring-report.json').write_text(json.dumps(report, indent=2, sort_keys=True) + '\n')
+        raise SystemExit(1)
+
+raise SystemExit(0 if accepted else 1)
