@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-drift-population-integrity
+cp "$ROOT/release-manifest.json.template" ./release-manifest.json
+cp "$ROOT/drift-contract.json.template" ./drift-contract.json
+cp "$ROOT/drift-evidence.json.template" ./drift-evidence.json
+cp "$ROOT/second-window.json.template" ./second-window.json
+cp "$ROOT/drift_gate.py.template" ./drift_gate.py
+cp "$ROOT/drift_validator.py" ./drift_validator.py
+chmod +x ./drift_gate.py ./drift_validator.py
+rm -f ./drift-report.json ./drift-evidence-ledger.json
