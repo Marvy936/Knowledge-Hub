@@ -1,0 +1,65 @@
+{
+  "supply_chain_subject_id": "MLOPS-PAY-SC-2026-09-r45",
+  "incident_id": "MLOPS-PAY-96",
+  "release_id": "fraud-serving-2026-09-r45",
+  "release_manifest_digest": "sha256:5585d608e294ef21f5d7e2af6abc3e35b1110d69cfe9534c479fe891e10ad20f",
+  "trust": {
+    "required_repository": "github.com/Marvy936/fraud-ml",
+    "required_source_commit": "5e3a4d2b7c8e9f10111213141516171819202122",
+    "required_workflow_digest": "sha256:9e88360a4621703593da97981cc541ea124a958b347e5d38dccdca35fcac8a35",
+    "required_dataset_snapshot": "fraud-train-2026-08-31-v7",
+    "required_dataset_manifest_digest": "sha256:4bd0b6207e90857767fc928e32ac19d43684dc0618300771090330493a296b46",
+    "required_dependency_lock_digest": "sha256:67a152b62e4a23756c07fb7f0f17cc9ca26c5a36cf0bcb2aab7ac0db6d661e7f",
+    "required_builder_identity": "gha://fraud/model-build@v5",
+    "require_isolated_ephemeral_builder": true,
+    "require_platform_generated_signed_provenance": true,
+    "require_digest_pinned_base_image": true,
+    "network_policy": "audited_proxy_only"
+  },
+  "dependencies": {
+    "require_transitive_lock": true,
+    "require_hash_checking_mode": true,
+    "require_binary_only": true,
+    "require_namespace_policy": true
+  },
+  "artifacts": {
+    "model_digest": "sha256:8f337b6096eca4d33c905e54336e102893ed911b3447cf1c93becc38dd7a7ba6",
+    "image_digest": "sha256:4b84276e03baebad1aa8e54d6f0560f74939544133331d49086239419fd4cf0e",
+    "sbom_digest": "sha256:3bcbdc0a9326ff39a1d36317f5e7c97cd6f012b621380c21bff6425e22820c35",
+    "model_bom_digest": "sha256:54a9e7680d75521eb45416be5345d22c1fdb61f94ae16bf22441ec0b11728e86",
+    "require_immutable_model_uri": true,
+    "require_model_attestation": true,
+    "require_image_signature": true,
+    "expected_certificate_identity": "https://github.com/example/fraud/.github/workflows/model-build.yml@refs/heads/main",
+    "expected_oidc_issuer": "https://token.actions.githubusercontent.com",
+    "require_sbom_bound_to_image": true,
+    "require_model_bom_bound_to_model": true
+  },
+  "admission": {
+    "policy_version": "ml-supply-chain-v8",
+    "verify_release_manifest": true,
+    "verify_image_digest_signature": true,
+    "verify_provenance_builder": true,
+    "verify_remote_model_digest": true,
+    "require_loaded_fingerprint": true,
+    "require_synthetic_inference": true
+  },
+  "second_operation": {
+    "required_type": "trusted_rebuild_and_deploy",
+    "same_immutable_inputs_required": true,
+    "trusted_builder_required": true,
+    "platform_provenance_required": true,
+    "composite_admission_required": true,
+    "loaded_match_required": true,
+    "mutable_package_index_dependency_forbidden": true,
+    "long_lived_secret_forbidden": true,
+    "manual_digest_edit_forbidden": true,
+    "old_subjects_quarantined_required": true
+  },
+  "authority": {
+    "supply_chain_verification_does_not_authorize_lifecycle_change": true,
+    "rollout_authorized": false,
+    "promotion_authorized": false,
+    "retraining_authorized": false
+  }
+}

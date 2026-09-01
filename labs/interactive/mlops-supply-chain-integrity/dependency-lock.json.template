@@ -1,0 +1,10 @@
+{
+  "lock_id": "fraud-runtime-lock-v18",
+  "direct_dependencies_pinned": true,
+  "transitive_dependencies_pinned": false,
+  "hash_checking_mode": false,
+  "only_binary": false,
+  "private_index": "https://packages.example.invalid/ml/simple",
+  "index_namespace_policy": "fraud-ml",
+  "lock_digest": "sha256:67a152b62e4a23756c07fb7f0f17cc9ca26c5a36cf0bcb2aab7ac0db6d661e7f"
+}

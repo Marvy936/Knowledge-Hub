@@ -1,0 +1,7 @@
+{
+  "snapshot_id": "fraud-train-2026-08-31-v7",
+  "manifest_digest": "sha256:4bd0b6207e90857767fc928e32ac19d43684dc0618300771090330493a296b46",
+  "schema_generation": "fraud-train-v12",
+  "label_definition": "chargeback-60d-v5",
+  "immutable": true
+}

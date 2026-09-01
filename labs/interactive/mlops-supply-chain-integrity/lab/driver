@@ -1,0 +1,73 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-supply-chain-integrity
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+}
+
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-supply-chain-integrity
+
+Commands:
+  status        Show supply-chain evidence/report state
+  verify-chain  Execute your current supply_chain_gate.py
+  check         Validate your supply_chain_gate.py
+  hint          Show the chain-of-custody boundary
+  assess        Alias for check
+  reset         Restore the unsafe signed-image-only incident
+  self-test     Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'supply_chain_gate.py: '; [ -f supply_chain_gate.py ] && echo present || echo missing
+    printf 'supply-chain-report.json: '; [ -f supply-chain-report.json ] && echo present || echo missing
+    printf 'supply-chain-evidence-ledger.json: '; [ -f supply-chain-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint)
+    echo 'A signed image is one node, not a chain of custody. Bind exact source/data/dependency inputs to a trusted builder and platform provenance, exact model/image attestations, composite admission + loaded model fingerprint, and a reproducible second trusted build/deploy.'
+    ;;
+  verify-chain)
+    python3 ./supply_chain_gate.py
+    ;;
+  check|assess)
+    python3 ./supply_chain_validator.py
+    ;;
+  reset)
+    reset_lab
+    echo 'RESET COMPLETE'
+    ;;
+  self-test)
+    reset_lab
+    python3 ./supply_chain_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('supply-chain-report.json').read_text())
+assert r['supply_chain_verified'] is True
+assert r['rollout_authorized'] is True
+PY
+    cp "$ROOT/supply_chain_gate.py.solution.template" ./supply_chain_gate.py
+    chmod +x ./supply_chain_gate.py
+    rm -f supply-chain-report.json supply-chain-evidence-ledger.json
+    python3 ./supply_chain_validator.py
+    reset_lab
+    python3 ./supply_chain_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('supply-chain-report.json').read_text())
+assert r['supply_chain_verified'] is True
+assert r['rollout_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *)
+    echo "unknown command: $1" >&2
+    exit 2
+    ;;
+esac

@@ -1,0 +1,20 @@
+{
+  "release_id": "fraud-serving-2026-09-r45",
+  "source": {
+    "repository": "github.com/Marvy936/fraud-ml",
+    "commit": "5e3a4d2b7c8e9f10111213141516171819202122",
+    "workflow_digest": "sha256:9e88360a4621703593da97981cc541ea124a958b347e5d38dccdca35fcac8a35"
+  },
+  "data": {
+    "snapshot_id": "fraud-train-2026-08-31-v7",
+    "manifest_digest": "sha256:4bd0b6207e90857767fc928e32ac19d43684dc0618300771090330493a296b46",
+    "schema_generation": "fraud-train-v12",
+    "label_definition": "chargeback-60d-v5"
+  },
+  "dependency_lock_digest": "sha256:67a152b62e4a23756c07fb7f0f17cc9ca26c5a36cf0bcb2aab7ac0db6d661e7f",
+  "model_digest": "sha256:8f337b6096eca4d33c905e54336e102893ed911b3447cf1c93becc38dd7a7ba6",
+  "image_digest": "sha256:4b84276e03baebad1aa8e54d6f0560f74939544133331d49086239419fd4cf0e",
+  "sbom_digest": "sha256:3bcbdc0a9326ff39a1d36317f5e7c97cd6f012b621380c21bff6425e22820c35",
+  "model_bom_digest": "sha256:54a9e7680d75521eb45416be5345d22c1fdb61f94ae16bf22441ec0b11728e86",
+  "deployment_manifest_digest": "sha256:b184e993e8f4720a3559c6df5f0561f1667b2a7e7b0c2f67645a9585e63fc430"
+}
