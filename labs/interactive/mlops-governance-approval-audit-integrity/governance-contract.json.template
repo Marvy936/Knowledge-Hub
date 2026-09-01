@@ -1,0 +1,71 @@
+{
+  "decision_id": "MLOPS-PAY-GOV-2026-09-r44",
+  "system_id": "fraud-decision-platform",
+  "intended_use": "transaction-risk-prioritization-v6",
+  "risk_profile": "high-impact-internal-v3",
+  "change_author": "ml-engineer-44",
+  "release_id": "fraud-serving-2026-09-r44",
+  "release_manifest_digest": "sha256:c3d1b7f23500a3fa878023eb05ab7c71f7c9340648510ae251567a2bf8252826",
+  "evidence_bundle_digest": "sha256:28efbd64b9cb9f8d492b43a2ff98559e6efdf123f0f0499b716aff0e1583f453",
+  "changes": {
+    "model_digest": "sha256:4f6d788f213291295b24a3608dd3dc124fab8be9b25f71e0478f0776a77f7110",
+    "feature_generation": "fraud-features-v12",
+    "policy_generation": "review-capacity-v9",
+    "telemetry_generation": "fraud-monitor-v10"
+  },
+  "required_approvals": {
+    "roles": [
+      "model_owner",
+      "business_owner",
+      "risk_approver",
+      "privacy_reviewer"
+    ],
+    "separation_of_duties_roles": [
+      "business_owner",
+      "risk_approver",
+      "privacy_reviewer"
+    ],
+    "business_policy_generation": "review-capacity-v9",
+    "business_review_capacity_per_hour": 500,
+    "privacy_telemetry_generation": "fraud-monitor-v10"
+  },
+  "decision": {
+    "allowed_outcome": "approved_with_conditions",
+    "required_conditions": {
+      "canary_max_traffic_share": 0.1,
+      "human_review_capacity_per_hour": 500
+    },
+    "expires_at": "2026-09-03T00:00:00Z"
+  },
+  "emergency_override": {
+    "if_enabled_scope": "deployment_gate",
+    "maximum_duration_seconds": 7200,
+    "post_review_required": true
+  },
+  "audit": {
+    "hash_algorithm": "sha256",
+    "append_only_chain_required": true
+  },
+  "runtime": {
+    "require_exact_composite": true,
+    "max_canary_traffic_share": 0.1,
+    "human_review_capacity_per_hour": 500
+  },
+  "second_operation": {
+    "required_type": "noop_approval",
+    "same_subject_required": true,
+    "same_evidence_required": true,
+    "required_roles_available": true,
+    "unexpired_override_required": true,
+    "deterministic_decision_required": true,
+    "audit_reconstruction_required": true
+  },
+  "authority": {
+    "governance_validation_does_not_execute_deployment": true,
+    "deployment_authorized": false,
+    "promotion_authorized": false,
+    "retraining_authorized": false
+  },
+  "operation_id": "MLOPS-PAY-GOV-OP-2026-09-r44",
+  "decision_evaluated_at": "2026-09-01T19:00:00Z"
+}

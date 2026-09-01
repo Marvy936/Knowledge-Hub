@@ -1,0 +1,10 @@
+{
+  "decision_id": "MLOPS-PAY-GOV-2026-09-r44",
+  "operation_type": "noop_approval",
+  "same_subject_observed": true,
+  "same_evidence_bundle_observed": false,
+  "required_roles_available": false,
+  "override_unexpired": false,
+  "deterministic_decision_reproduced": false,
+  "audit_chain_reconstructable": false
+}

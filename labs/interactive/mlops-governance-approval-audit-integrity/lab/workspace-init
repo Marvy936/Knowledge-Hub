@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-governance-approval-audit-integrity
+cp "$ROOT/release-manifest.json.template" ./release-manifest.json
+cp "$ROOT/evidence-bundle.json.template" ./evidence-bundle.json
+cp "$ROOT/governance-contract.json.template" ./governance-contract.json
+cp "$ROOT/approval-records.json.template" ./approval-records.json
+cp "$ROOT/emergency-override.json.template" ./emergency-override.json
+cp "$ROOT/runtime-state.json.template" ./runtime-state.json
+cp "$ROOT/audit-events.json.template" ./audit-events.json
+cp "$ROOT/second-operation.json.template" ./second-operation.json
+cp "$ROOT/governance_gate.py.template" ./governance_gate.py
+cp "$ROOT/governance_validator.py" ./governance_validator.py
+chmod +x ./governance_gate.py ./governance_validator.py
+rm -f ./governance-report.json ./governance-evidence-ledger.json

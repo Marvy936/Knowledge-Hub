@@ -1,0 +1,17 @@
+{
+  "bundle_id": "fraud-gov-evidence-2026-09-r44",
+  "release_id": "fraud-serving-2026-09-r44",
+  "lineage_digest": "sha256:46f80cd65e2a2a1440dba356e7aa6e392d8734521e489b6a57e0d43aa9fc1d12",
+  "evaluation_digest": "sha256:9fd2f32969a89e47116b18d28f55f2c0e44ce20da442835670e5a16ba2ce9926",
+  "security_review_digest": "sha256:eed4a5acf8fba5d7684896ce0afc3b77113ff09746f10d95f56b7fe94fb4b9a3",
+  "privacy_review_scope": {
+    "telemetry_generation": "fraud-monitor-v10",
+    "logging_fields": [
+      "release_id",
+      "result_class",
+      "coarse_segment"
+    ]
+  },
+  "rollback_test_digest": "sha256:13e197b01545fd8d5bd79d725098b322ad34920c742a351a5614289c6700c82f",
+  "capacity_evidence_digest": "sha256:b5e12a92d97d72fed9756aee27e8649eb06dad08002a4d31f9f678eb5e279e1f"
+}

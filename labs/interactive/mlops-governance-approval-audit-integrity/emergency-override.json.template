@@ -1,0 +1,12 @@
+{
+  "decision_id": "MLOPS-PAY-GOV-2026-09-r44",
+  "enabled": true,
+  "override_id": "MLOPS-PAY-GOV-OVERRIDE-2026-09-01-01",
+  "actor": "deploy-operator-3",
+  "role": "deployment_operator",
+  "reason": "emergency deployment pressure",
+  "scope": "all_governance_gates",
+  "issued_at": "2026-09-01T18:30:00Z",
+  "expires_at": null,
+  "post_review_complete": false
+}

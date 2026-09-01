@@ -1,0 +1,32 @@
+{
+  "decision_id": "MLOPS-PAY-GOV-2026-09-r44",
+  "release_id": "fraud-serving-2026-09-r44",
+  "evidence_bundle_digest": "sha256:28efbd64b9cb9f8d492b43a2ff98559e6efdf123f0f0499b716aff0e1583f453",
+  "records": [
+    {
+      "role": "model_owner",
+      "actor": "model-owner-17",
+      "approved": true,
+      "approved_model_digest": "sha256:4f6d788f213291295b24a3608dd3dc124fab8be9b25f71e0478f0776a77f7110"
+    },
+    {
+      "role": "risk_approver",
+      "actor": "risk-approver-12",
+      "approved": true,
+      "approved_release_id": "fraud-serving-2026-09-r44",
+      "residual_risk_owner": "risk-approver-12"
+    },
+    {
+      "role": "privacy_reviewer",
+      "actor": "privacy-reviewer-4",
+      "approved": true,
+      "approved_telemetry_generation": "fraud-monitor-v9"
+    }
+  ],
+  "decision_outcome": "approved_with_conditions",
+  "conditions": {
+    "canary_max_traffic_share": 0.1,
+    "human_review_capacity_per_hour": 500
+  },
+  "expires_at": "2026-09-03T00:00:00Z"
+}
