@@ -5,13 +5,20 @@
   "reference": {
     "population_id": "stable-production-2026-W34",
     "interval": "2026-08-17T00:00:00Z/2026-08-24T00:00:00Z",
-    "eligibility": "all_fraud_requests_v8"
+    "eligibility": "all_fraud_requests_v8",
+    "threshold_generation": "review-threshold-v11"
   },
   "current": {
     "interval": "2026-09-01T09:00:00Z/2026-09-01T10:00:00Z",
     "eligibility": "all_fraud_requests_v8",
-    "include_fallback": true,
+    "eligible_denominator_includes_fallback": true,
+    "prediction_distribution_population": "successfully_scored_requests",
+    "report_fallback_separately": true,
     "completeness_watermark_required": true
+  },
+  "second_window": {
+    "interval": "2026-09-01T10:00:00Z/2026-09-01T11:00:00Z",
+    "eligibility": "all_fraud_requests_v8"
   },
   "feature_generation": "payment-risk-features-v7",
   "method": {
@@ -26,6 +33,9 @@
   },
   "authority": {
     "drift_is_hypothesis_evidence_only": true,
+    "concept_claim_requires_mature_ground_truth_join": true,
+    "concept_claim_requires_compatible_label_definition": true,
+    "concept_claim_requires_recomputed_conditional_performance": true,
     "retraining_authorized": false,
     "promotion_authorized": false,
     "rollback_authorized": false
