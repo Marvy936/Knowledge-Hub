@@ -1,0 +1,64 @@
+{
+  "performance_run_id": "MLOPS-PAY-PERF-2026-09-r43",
+  "release_id": "fraud-serving-2026-09-r43",
+  "release_manifest_digest": "sha256:b382cdc077c6d1c914dc4f760ae7dad225506564f4a8233ebb4ecab8ecd91fe8",
+  "window": {
+    "interval": "2026-09-01T09:00:00Z/2026-09-01T09:02:00Z",
+    "duration_seconds": 120,
+    "traffic_source": "production-replay-v8",
+    "arrival_pattern": "burst",
+    "input_mix": "merchant-segments-v4",
+    "accepted_requests": 6000
+  },
+  "second_window": {
+    "interval": "2026-09-01T10:00:00Z/2026-09-01T10:02:00Z",
+    "duration_seconds": 120,
+    "traffic_source": "production-replay-v8",
+    "arrival_pattern": "burst",
+    "input_mix": "merchant-segments-v4",
+    "accepted_requests": 6000
+  },
+  "runtime": {
+    "resource_class": "a100-mig-2g-v3",
+    "resource_generation": "gpu-online-gen18",
+    "min_replicas": 2,
+    "max_replicas": 12,
+    "concurrency_target": 1,
+    "batch_policy": "dynamic-8-5ms",
+    "feature_generation": "fraud-features-v8",
+    "schema_generation": "fraud-request-v6"
+  },
+  "acceptance": {
+    "deadline_ms": 150,
+    "deadline_success_min": 0.99,
+    "fallback_rate_max": 0.005,
+    "warm_p95_ms_max": 120,
+    "cold_p95_ms_max": 600,
+    "end_to_end_p99_ms_max": 150,
+    "queue_p99_ms_max": 30,
+    "oldest_queue_age_ms_max": 50,
+    "useful_rps_min": 48.0,
+    "cost_per_deadline_successful_prediction_eur_max": 0.009,
+    "monitoring_coverage_min": 0.99,
+    "schema_rejection_rate_max": 0.001,
+    "duplicate_retry_rate_max": 0.001,
+    "in_flight_high_water_max": 20,
+    "queue_depth_high_water_max": 8,
+    "gpu_memory_high_water_gib_max": 14.0,
+    "downstream_p95_ms_max": 40
+  },
+  "cost": {
+    "currency": "EUR",
+    "include_idle": true,
+    "denominator": "deadline_successful_model_predictions",
+    "require_time_compatible_window": true,
+    "require_explicit_allocation_policy": true
+  },
+  "authority": {
+    "performance_and_cost_are_evidence_only": true,
+    "optimization_authorized": false,
+    "rollout_authorized": false,
+    "promotion_authorized": false,
+    "retraining_authorized": false
+  }
+}

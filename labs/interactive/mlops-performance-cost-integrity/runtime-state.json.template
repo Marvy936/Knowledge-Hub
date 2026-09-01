@@ -1,0 +1,17 @@
+{
+  "performance_run_id": "MLOPS-PAY-PERF-2026-09-r43",
+  "release_id": "fraud-serving-2026-09-r43",
+  "loaded_model_digest": "sha256:8c488b70162ea37f864b89cecf2a63e1d16a898ee54a75f8e8f6385d90636b51",
+  "loaded_runtime_image": "ghcr.io/acme/fraud-server@sha256:86540b716fa7e1bddda79adefddc4a8603e7cd9bbec9cbd5a102f13eeb5acb56",
+  "feature_generation": "fraud-features-v8",
+  "schema_generation": "fraud-request-v6",
+  "resource_class": "a100-mig-2g-v3",
+  "resource_generation": "gpu-online-gen18",
+  "min_replicas": 0,
+  "max_replicas": 12,
+  "ready_replicas_observed": 3,
+  "concurrency_target": 1,
+  "batch_policy": "dynamic-8-5ms",
+  "scale_to_zero_enabled": true,
+  "resolved": true
+}

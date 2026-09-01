@@ -1,0 +1,9 @@
+{
+  "release_id": "fraud-serving-2026-09-r43",
+  "model_digest": "sha256:8c488b70162ea37f864b89cecf2a63e1d16a898ee54a75f8e8f6385d90636b51",
+  "runtime_image": "ghcr.io/acme/fraud-server@sha256:86540b716fa7e1bddda79adefddc4a8603e7cd9bbec9cbd5a102f13eeb5acb56",
+  "feature_generation": "fraud-features-v8",
+  "resource_class": "a100-mig-2g-v3",
+  "schema_generation": "fraud-request-v6",
+  "batch_policy": "dynamic-8-5ms"
+}

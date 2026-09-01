@@ -1,0 +1,69 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-performance-cost-integrity
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+}
+
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-performance-cost-integrity
+
+Commands:
+  status     Show current runtime/evidence/report state
+  check      Validate your performance_gate.py
+  hint       Show the useful-work and cost denominator boundary
+  assess     Alias for check
+  reset      Restore the unsafe starter and incident fixtures
+  self-test  Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'performance_gate.py: '; [ -f performance_gate.py ] && echo present || echo missing
+    printf 'performance-report.json: '; [ -f performance-report.json ] && echo present || echo missing
+    printf 'performance-evidence-ledger.json: '; [ -f performance-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint)
+    echo 'HTTP 200 and raw QPS include fallback. Recompute useful throughput from deadline-successful model predictions, keep cold/tail/queue evidence, and divide explicit idle-inclusive cost by the same useful-work denominator.'
+    ;;
+  check|assess)
+    python3 ./performance_validator.py
+    ;;
+  reset)
+    reset_lab
+    echo 'RESET COMPLETE'
+    ;;
+  self-test)
+    reset_lab
+    python3 ./performance_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('performance-report.json').read_text())
+assert r['performance_evidence_verified'] is True
+assert r['cost_evidence_verified'] is True
+assert r['optimization_authorized'] is True
+PY
+    cp "$ROOT/performance_gate.py.solution.template" ./performance_gate.py
+    chmod +x ./performance_gate.py
+    rm -f performance-report.json performance-evidence-ledger.json
+    python3 ./performance_validator.py
+    reset_lab
+    python3 ./performance_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('performance-report.json').read_text())
+assert r['optimization_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *)
+    echo "unknown command: $1" >&2
+    exit 2
+    ;;
+esac
