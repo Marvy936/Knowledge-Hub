@@ -1,0 +1,51 @@
+{
+  "rollback_operation_id": "MLOPS-PAY-ROLLBACK-2026-09-r43-to-r41",
+  "incident_id": "MLOPS-PAY-95",
+  "affected_release_id": "fraud-serving-2026-09-r43",
+  "target_release_id": "fraud-serving-2026-08-r41",
+  "target_release_digest": "sha256:04824384429cab49110cd251211c9a292d944472ba67aaae306a22664643af97",
+  "decision": {
+    "required_type": "composite_release_rollback",
+    "required_first_divergence": "fallback_deadline_degradation",
+    "approval_required": true
+  },
+  "operation": {
+    "expected_previous_desired_release_id": "fraud-serving-2026-09-r43",
+    "read_before_retry_required": true,
+    "compare_and_set_required": true,
+    "unknown_outcome_must_reconcile": true
+  },
+  "runtime": {
+    "required_ready_replicas": 3,
+    "required_target_traffic_share": 1.0,
+    "require_all_replica_fingerprints": true,
+    "synthetic_journey_required": true
+  },
+  "recovery_window": {
+    "interval": "2026-09-01T18:30:00Z/2026-09-01T19:00:00Z",
+    "minimum_eligible_requests": 2000,
+    "deadline_success_min": 0.99,
+    "fallback_rate_max": 0.005,
+    "p95_end_to_end_ms_max": 150,
+    "minimum_mature_outcome_coverage": 0.95,
+    "minimum_mature_success_rate": 0.98
+  },
+  "reconciliation": {
+    "all_affected_operations_resolved": true,
+    "duplicate_compensations_max": 0,
+    "irreversible_followups_must_complete": true
+  },
+  "second_operation": {
+    "required_type": "noop_apply",
+    "same_target_required": true,
+    "artifact_available_required": true,
+    "no_manual_step_required": true,
+    "mutable_alias_dependency_forbidden": true
+  },
+  "authority": {
+    "recovery_does_not_confirm_model_root_cause": true,
+    "rollout_authorized": false,
+    "promotion_authorized": false,
+    "retraining_authorized": false
+  }
+}

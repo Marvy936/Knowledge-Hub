@@ -1,0 +1,74 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-rollback-recovery-integrity
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+}
+
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-rollback-recovery-integrity
+
+Commands:
+  status     Show rollback evidence/report state
+  recover    Execute your current rollback_gate.py
+  check      Validate your rollback_gate.py
+  hint       Show the composite recovery evidence boundary
+  assess     Alias for check
+  reset      Restore the unsafe alias-only rollback incident
+  self-test  Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'rollback_gate.py: '; [ -f rollback_gate.py ] && echo present || echo missing
+    printf 'rollback-report.json: '; [ -f rollback-report.json ] && echo present || echo missing
+    printf 'rollback-evidence-ledger.json: '; [ -f rollback-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint)
+    echo 'A Registry alias and Ready=True are control-plane evidence. Bind one immutable composite target, read-before-retry unknown outcomes, loaded parity, actual traffic/journey, stable business recovery, side-effect reconciliation and a repeatable second apply.'
+    ;;
+  recover)
+    python3 ./rollback_gate.py
+    ;;
+  check|assess)
+    python3 ./rollback_validator.py
+    ;;
+  reset)
+    reset_lab
+    echo 'RESET COMPLETE'
+    ;;
+  self-test)
+    reset_lab
+    python3 ./rollback_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('rollback-report.json').read_text())
+assert r['recovery_verified'] is True
+assert r['incident_closed'] is True
+assert r['root_cause_model_confirmed'] is True
+PY
+    cp "$ROOT/rollback_gate.py.solution.template" ./rollback_gate.py
+    chmod +x ./rollback_gate.py
+    rm -f rollback-report.json rollback-evidence-ledger.json
+    python3 ./rollback_validator.py
+    reset_lab
+    python3 ./rollback_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('rollback-report.json').read_text())
+assert r['recovery_verified'] is True
+assert r['root_cause_model_confirmed'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *)
+    echo "unknown command: $1" >&2
+    exit 2
+    ;;
+esac

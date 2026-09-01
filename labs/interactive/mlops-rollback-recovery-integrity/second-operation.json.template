@@ -1,0 +1,11 @@
+{
+  "rollback_operation_id": "MLOPS-PAY-ROLLBACK-2026-09-r43-to-r41",
+  "operation_type": "noop_apply",
+  "target_release_id": "fraud-serving-2026-08-r41",
+  "artifact_available": true,
+  "credentials_reusable": true,
+  "mutable_alias_dependency": true,
+  "manual_step_required": true,
+  "loaded_parity_reproduced": false,
+  "duplicate_side_effects_created": 0
+}

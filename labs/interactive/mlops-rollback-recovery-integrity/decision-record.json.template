@@ -1,0 +1,11 @@
+{
+  "rollback_operation_id": "MLOPS-PAY-ROLLBACK-2026-09-r43-to-r41",
+  "incident_id": "MLOPS-PAY-95",
+  "affected_release_id": "fraud-serving-2026-09-r43",
+  "target_release_id": "fraud-serving-2026-08-r41",
+  "decision_type": "composite_release_rollback",
+  "first_divergence": "fallback_deadline_degradation",
+  "approved": true,
+  "approver": "oncall-ml-platform",
+  "reason": "fallback and deadline degradation persisted after capacity containment; restore the last accepted composite release"
+}

@@ -1,0 +1,14 @@
+{
+  "rollback_operation_id": "MLOPS-PAY-ROLLBACK-2026-09-r43-to-r41",
+  "release_id": "fraud-serving-2026-08-r41",
+  "interval": "2026-09-01T18:30:00Z/2026-09-01T19:00:00Z",
+  "eligible_requests": 2000,
+  "successful_model_predictions": 1700,
+  "fallback_responses": 300,
+  "deadline_successful_predictions": 1650,
+  "p95_end_to_end_ms": 280,
+  "mature_outcome_coverage": 0.82,
+  "mature_successful_outcomes": 1540,
+  "mature_outcomes_observed": 1640,
+  "manual_backfill_used": false
+}

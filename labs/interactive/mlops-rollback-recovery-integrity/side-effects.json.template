@@ -1,0 +1,10 @@
+{
+  "rollback_operation_id": "MLOPS-PAY-ROLLBACK-2026-09-r43-to-r41",
+  "affected_operations": 12,
+  "resolved_operations": 5,
+  "compensated_operations": 4,
+  "irreversible_followup_operations": 2,
+  "irreversible_followups_completed": false,
+  "duplicate_compensations": 0,
+  "replay_safe": true
+}
