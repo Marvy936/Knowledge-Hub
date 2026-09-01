@@ -9,7 +9,7 @@ reset_lab() {
 case "${1:-help}" in
   help|lab-help)
     cat <<'EOF'
-KNOWLEDGE HUB INTERACTIVE LAB
+Knowledge Hub Interactive Lab
 Lab: mlops-drift-population-integrity
 
 Commands:
