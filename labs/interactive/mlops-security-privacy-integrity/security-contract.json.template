@@ -1,0 +1,101 @@
+{
+  "security_subject_id": "MLOPS-PAY-SEC-2026-09-r44",
+  "incident_id": "MLOPS-PAY-96",
+  "system_id": "fraud-decision-platform",
+  "release_id": "fraud-serving-2026-09-r44",
+  "release_manifest_digest": "sha256:eb717840e62c29739eda6b1f06562af6f9f22fb6a5a1aa58857b36e04c8e3679",
+  "intended_use": "transaction-risk-prioritization-v6",
+  "environment": "prod-online",
+  "privacy_population": "customers-and-merchants",
+  "principal": {
+    "principal_id": "analyst-risk-debug",
+    "actor_class": "internal_analyst",
+    "required_strong_identity": true,
+    "allowed_operations": [
+      "predict"
+    ],
+    "max_queries_per_hour": 500,
+    "max_adaptive_boundary_probes_per_hour": 25,
+    "rate_limit_key": "actor_and_operation",
+    "credential_sharing_forbidden": true
+  },
+  "output_policy": {
+    "max_score_precision_decimals": 3,
+    "external_explanations_allowed": false,
+    "external_confidence_allowed": false,
+    "model_version_metadata_allowed": false,
+    "error_detail": "generic"
+  },
+  "telemetry": {
+    "generation": "fraud-monitor-v10",
+    "privacy_policy": "fraud-privacy-v9",
+    "required_fields": [
+      "release_id",
+      "result_class",
+      "coarse_segment",
+      "schema_verdict",
+      "protected_trace_pointer"
+    ],
+    "prohibited_fields": [
+      "raw_features",
+      "raw_customer_id",
+      "raw_device_fingerprint",
+      "explanation_vector"
+    ],
+    "max_retention_days": 14,
+    "coverage_min": 0.99,
+    "redaction_required": true,
+    "protected_pointer_required": true,
+    "integrity_monitoring_required": true,
+    "access_class": "security-observability"
+  },
+  "feedback": {
+    "snapshot_id": "fraud-feedback-2026-09-01-v5",
+    "allowed_producers": [
+      "fraud-case-management-v7",
+      "chargeback-settlement-v4"
+    ],
+    "authenticated_producer_required": true,
+    "signature_required": true,
+    "provenance_required": true,
+    "immutable_landing_required": true,
+    "semantic_validation_required": true,
+    "deduplication_required": true,
+    "unknown_or_invalid_must_be_quarantined": true,
+    "accepted_unknown_producer_max": 0
+  },
+  "security_test": {
+    "test_id": "fraud-security-redteam-2026-09-r44",
+    "actor_class": "internal_analyst",
+    "minimum_query_budget": 500,
+    "membership_attack_auc_upper_ci_max": 0.57,
+    "extraction_agreement_max": 0.65,
+    "domain_valid_robust_accuracy_min": 0.9,
+    "invalid_input_rejection_min": 0.99,
+    "abuse_detection_required": true
+  },
+  "second_operation": {
+    "required_type": "post_containment_replay",
+    "prior_token_revoked_required": true,
+    "compromised_generation_inaccessible_required": true,
+    "same_privacy_policy_required": true,
+    "minimized_telemetry_required": true,
+    "clean_feedback_snapshot_required": true,
+    "no_stale_cache_required": true,
+    "mutable_alias_dependency_forbidden": true,
+    "manual_step_forbidden": true
+  },
+  "authority": {
+    "security_validation_does_not_authorize_lifecycle_change": true,
+    "rollout_authorized": false,
+    "promotion_authorized": false,
+    "retraining_authorized": false
+  },
+  "release_components": {
+    "model_digest": "sha256:4f6d788f213291295b24a3608dd3dc124fab8be9b25f71e0478f0776a77f7110",
+    "serving_image": "sha256:847b970b9d44d81307e7f38ea4910a59593cdce049d4f8be7216e2a40b272da4",
+    "feature_generation": "fraud-features-v12",
+    "schema_generation": "fraud-request-v7",
+    "action_policy": "fraud-action-v8"
+  }
+}

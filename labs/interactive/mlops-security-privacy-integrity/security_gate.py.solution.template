@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST = "sha256:e7eb3f12dc78da2c32c18231c3807ef4ce61ac8aaaf9dde79d22fcbc4f55bbcc"
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+def digest(path):
+    return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def canonical(obj):
+    return json.dumps(obj, indent=2, sort_keys=True) + "\n"
+
+def text_digest(text):
+    return "sha256:" + hashlib.sha256(text.encode()).hexdigest()
+
+def write_exact(path, text):
+    target = Path(path)
+    if target.exists() and target.read_text() != text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    target.write_text(text)
+
+def require(condition, message, errors):
+    if not condition:
+        errors.append(message)
+
+release = load("release-manifest.json")
+contract = load("security-contract.json")
+access = load("access-evidence.json")
+telemetry = load("telemetry-evidence.json")
+feedback = load("feedback-evidence.json")
+test = load("security-test-evidence.json")
+second = load("second-operation.json")
+errors = []
+
+require(digest("security-contract.json") == EXPECTED_CONTRACT_DIGEST, "security contract digest mismatch", errors)
+require(digest("release-manifest.json") == contract["release_manifest_digest"], "release manifest digest mismatch", errors)
+require(release["release_id"] == contract["release_id"], "release id mismatch", errors)
+for field in ("model_digest", "serving_image", "feature_generation", "schema_generation", "action_policy"):
+    require(release[field] == contract["release_components"][field], f"release {field} mismatch", errors)
+require(release["telemetry_generation"] == contract["telemetry"]["generation"], "release telemetry generation mismatch", errors)
+require(release["privacy_policy"] == contract["telemetry"]["privacy_policy"], "release privacy policy mismatch", errors)
+
+principal = contract["principal"]
+require(access["security_subject_id"] == contract["security_subject_id"], "access subject mismatch", errors)
+require(access["release_id"] == contract["release_id"], "access release mismatch", errors)
+require(access["principal_id"] == principal["principal_id"], "principal id mismatch", errors)
+require(access["actor_class"] == principal["actor_class"], "actor class mismatch", errors)
+require(access["strong_identity"] is principal["required_strong_identity"], "strong identity requirement not met", errors)
+require(access["token_scoped"] is True, "inference token is not scope-bound", errors)
+require(access["allowed_operations"] == principal["allowed_operations"], "principal has excess inference operations", errors)
+require(access["queries_last_hour"] <= principal["max_queries_per_hour"], "query budget exceeded", errors)
+require(access["adaptive_boundary_probes_last_hour"] <= principal["max_adaptive_boundary_probes_per_hour"], "adaptive probing budget exceeded", errors)
+require(access["rate_limit_key"] == principal["rate_limit_key"], "rate limit is not actor+operation scoped", errors)
+require(access["credential_sharing_detected"] is False, "credential sharing detected", errors)
+require(access["abuse_detection_enabled"] is True, "abuse detection is not enabled", errors)
+
+output = access["output"]
+policy = contract["output_policy"]
+require(output["score_precision_decimals"] <= policy["max_score_precision_decimals"], "external score precision exceeds policy", errors)
+require(output["explanations_returned"] is policy["external_explanations_allowed"], "external explanation policy violated", errors)
+require(output["confidence_returned"] is policy["external_confidence_allowed"], "external confidence policy violated", errors)
+require(output["model_version_metadata_returned"] is policy["model_version_metadata_allowed"], "model metadata exposure policy violated", errors)
+require(output["error_detail"] == policy["error_detail"], "error detail policy violated", errors)
+
+tpolicy = contract["telemetry"]
+require(telemetry["security_subject_id"] == contract["security_subject_id"], "telemetry subject mismatch", errors)
+require(telemetry["release_id"] == contract["release_id"], "telemetry release mismatch", errors)
+require(telemetry["generation"] == tpolicy["generation"], "telemetry generation mismatch", errors)
+require(telemetry["privacy_policy"] == tpolicy["privacy_policy"], "privacy policy mismatch", errors)
+fields = set(telemetry["fields"])
+require(set(tpolicy["required_fields"]).issubset(fields), "required privacy-safe telemetry fields missing", errors)
+require(fields.isdisjoint(set(tpolicy["prohibited_fields"])), "prohibited raw/privacy-sensitive telemetry field present", errors)
+require(telemetry["retention_days"] <= tpolicy["max_retention_days"], "telemetry retention exceeds policy", errors)
+require(telemetry["coverage"] >= tpolicy["coverage_min"], "telemetry coverage below threshold", errors)
+require(telemetry["redaction_applied"] is tpolicy["redaction_required"], "telemetry redaction missing", errors)
+require(telemetry["protected_trace_pointer_used"] is tpolicy["protected_pointer_required"], "protected trace pointer missing", errors)
+require(telemetry["integrity_monitoring_enabled"] is tpolicy["integrity_monitoring_required"], "telemetry integrity monitoring missing", errors)
+require(telemetry["access_class"] == tpolicy["access_class"], "telemetry access class mismatch", errors)
+
+fpolicy = contract["feedback"]
+require(feedback["security_subject_id"] == contract["security_subject_id"], "feedback subject mismatch", errors)
+require(feedback["snapshot_id"] == fpolicy["snapshot_id"], "feedback snapshot mismatch", errors)
+require(feedback["release_id"] == contract["release_id"], "feedback release mismatch", errors)
+total = feedback["total_records"]
+accepted = feedback["accepted_records"]
+quarantined = feedback["quarantined_records"]
+require(accepted + quarantined == total, "feedback accepted/quarantine counts do not reconcile", errors)
+require(feedback["authenticated_producer_records"] == accepted, "accepted feedback includes unauthenticated producers", errors)
+require(feedback["signed_records"] == accepted, "accepted feedback includes unsigned records", errors)
+require(feedback["provenance_complete_records"] == accepted, "accepted feedback lacks complete provenance", errors)
+require(feedback["unknown_producer_accepted_records"] <= fpolicy["accepted_unknown_producer_max"], "unknown producer feedback was accepted", errors)
+require(set(feedback["accepted_producers"]).issubset(set(fpolicy["allowed_producers"])), "unapproved feedback producer accepted", errors)
+require(feedback["immutable_landing"] is fpolicy["immutable_landing_required"], "feedback did not land immutably", errors)
+require(feedback["semantic_validation_complete"] is fpolicy["semantic_validation_required"], "feedback semantic validation incomplete", errors)
+require(feedback["deduplication_complete"] is fpolicy["deduplication_required"], "feedback deduplication incomplete", errors)
+require(quarantined >= feedback["duplicate_or_conflicting_records"], "duplicate/conflicting feedback is not quarantined", errors)
+require(feedback["training_snapshot_built_only_from_accepted_records"] is True, "training snapshot includes non-accepted feedback", errors)
+
+spolicy = contract["security_test"]
+require(test["security_subject_id"] == contract["security_subject_id"], "security test subject mismatch", errors)
+require(test["test_id"] == spolicy["test_id"], "security test id mismatch", errors)
+require(test["release_id"] == contract["release_id"], "security test release mismatch", errors)
+require(test["actor_class"] == spolicy["actor_class"], "security test actor mismatch", errors)
+require(test["query_budget"] >= spolicy["minimum_query_budget"], "security test used weaker query budget than production capability", errors)
+require(test["attacker_assumptions_documented"] is True, "security test attacker assumptions missing", errors)
+require(test["membership_attack"]["upper_confidence_bound_auc"] <= spolicy["membership_attack_auc_upper_ci_max"], "membership-inference privacy threshold exceeded", errors)
+require(test["model_extraction"]["agreement"] <= spolicy["extraction_agreement_max"], "model extraction agreement exceeds threshold", errors)
+require(test["robustness"]["domain_valid_accuracy"] >= spolicy["domain_valid_robust_accuracy_min"], "domain-valid adversarial robustness below threshold", errors)
+require(test["robustness"]["invalid_input_rejection_rate"] >= spolicy["invalid_input_rejection_min"], "invalid input rejection below threshold", errors)
+require(test["abuse_detection_exercised"] is spolicy["abuse_detection_required"], "abuse detection was not exercised", errors)
+
+sop = contract["second_operation"]
+require(second["security_subject_id"] == contract["security_subject_id"], "second-operation subject mismatch", errors)
+require(second["operation_type"] == sop["required_type"], "second-operation type mismatch", errors)
+require(second["release_id"] == contract["release_id"], "second-operation release mismatch", errors)
+require(second["prior_token_revoked"] is sop["prior_token_revoked_required"], "prior token remains usable", errors)
+require(second["compromised_generation_inaccessible"] is sop["compromised_generation_inaccessible_required"], "compromised generation remains accessible", errors)
+require(second["same_privacy_policy"] is sop["same_privacy_policy_required"], "second operation changed privacy policy", errors)
+require(second["minimized_telemetry_observed"] is sop["minimized_telemetry_required"], "privacy-safe telemetry not reproduced", errors)
+require(second["clean_feedback_snapshot_observed"] is sop["clean_feedback_snapshot_required"], "clean feedback snapshot not reproduced", errors)
+require(second["stale_cache_access_possible"] is False, "stale cache can still expose compromised data", errors)
+require(second["mutable_alias_dependency"] is False, "second operation depends on mutable alias", errors)
+require(second["manual_step_required"] is False, "second operation requires manual intervention", errors)
+require(second["clean_inference_completed"] is True, "clean inference replay did not complete", errors)
+require(second["clean_snapshot_build_completed"] is True, "clean feedback snapshot replay did not complete", errors)
+
+verified = not errors
+report = {
+    "security_subject_id": contract.get("security_subject_id"),
+    "security_verified": verified,
+    "access_control_verified": verified,
+    "output_privacy_verified": verified,
+    "telemetry_privacy_verified": verified,
+    "feedback_integrity_verified": verified,
+    "adversarial_test_verified": verified,
+    "second_operation_verified": verified,
+    "errors": errors,
+    "rollout_authorized": False,
+    "promotion_authorized": False,
+    "retraining_authorized": False,
+}
+report_text = canonical(report)
+write_exact("security-report.json", report_text)
+
+if not verified:
+    raise SystemExit("SECURITY/PRIVACY REJECTED: " + "; ".join(errors))
+
+ledger = {
+    "security_subject_id": contract["security_subject_id"],
+    "security_contract_digest": digest("security-contract.json"),
+    "release_manifest_digest": digest("release-manifest.json"),
+    "access_evidence_digest": digest("access-evidence.json"),
+    "telemetry_evidence_digest": digest("telemetry-evidence.json"),
+    "feedback_evidence_digest": digest("feedback-evidence.json"),
+    "security_test_evidence_digest": digest("security-test-evidence.json"),
+    "second_operation_digest": digest("second-operation.json"),
+    "report_digest": text_digest(report_text),
+}
+write_exact("security-evidence-ledger.json", canonical(ledger))
+print("SECURITY/PRIVACY VERIFIED")

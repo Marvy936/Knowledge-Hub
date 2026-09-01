@@ -1,0 +1,22 @@
+{
+  "security_subject_id": "MLOPS-PAY-SEC-2026-09-r44",
+  "snapshot_id": "fraud-feedback-2026-09-01-v5",
+  "release_id": "fraud-serving-2026-09-r44",
+  "total_records": 10000,
+  "accepted_records": 9900,
+  "quarantined_records": 100,
+  "authenticated_producer_records": 9400,
+  "signed_records": 9500,
+  "provenance_complete_records": 9000,
+  "unknown_producer_accepted_records": 500,
+  "duplicate_or_conflicting_records": 120,
+  "immutable_landing": true,
+  "semantic_validation_complete": false,
+  "deduplication_complete": false,
+  "accepted_producers": [
+    "fraud-case-management-v7",
+    "chargeback-settlement-v4",
+    "unknown-bulk-upload"
+  ],
+  "training_snapshot_built_only_from_accepted_records": true
+}
