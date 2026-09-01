@@ -1,0 +1,74 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-security-privacy-integrity
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+}
+
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-security-privacy-integrity
+
+Commands:
+  status     Show security/privacy evidence state
+  secure     Execute your current security_gate.py
+  check      Validate your security_gate.py
+  hint       Show the inference/telemetry/feedback trust boundary
+  assess     Alias for check
+  reset      Restore the unsafe internal-account incident
+  self-test  Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'security_gate.py: '; [ -f security_gate.py ] && echo present || echo missing
+    printf 'security-report.json: '; [ -f security-report.json ] && echo present || echo missing
+    printf 'security-evidence-ledger.json: '; [ -f security-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint)
+    echo 'Internal identity is not least privilege. Bound actor+operation query capability and external output detail, minimize telemetry, quarantine unauthenticated feedback, test realistic attacker capability, and prove containment with a clean second operation.'
+    ;;
+  secure)
+    python3 ./security_gate.py
+    ;;
+  check|assess)
+    python3 ./security_validator.py
+    ;;
+  reset)
+    reset_lab
+    echo 'RESET COMPLETE'
+    ;;
+  self-test)
+    reset_lab
+    python3 ./security_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('security-report.json').read_text())
+assert r['security_verified'] is True
+assert r['output_privacy_verified'] is True
+assert r['retraining_authorized'] is True
+PY
+    cp "$ROOT/security_gate.py.solution.template" ./security_gate.py
+    chmod +x ./security_gate.py
+    rm -f security-report.json security-evidence-ledger.json
+    python3 ./security_validator.py
+    reset_lab
+    python3 ./security_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('security-report.json').read_text())
+assert r['security_verified'] is True
+assert r['retraining_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *)
+    echo "unknown command: $1" >&2
+    exit 2
+    ;;
+esac

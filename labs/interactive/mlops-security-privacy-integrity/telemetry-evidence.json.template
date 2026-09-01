@@ -1,0 +1,21 @@
+{
+  "security_subject_id": "MLOPS-PAY-SEC-2026-09-r44",
+  "release_id": "fraud-serving-2026-09-r44",
+  "generation": "fraud-monitor-v10",
+  "privacy_policy": "fraud-privacy-v9",
+  "fields": [
+    "release_id",
+    "result_class",
+    "coarse_segment",
+    "schema_verdict",
+    "raw_features",
+    "raw_device_fingerprint",
+    "explanation_vector"
+  ],
+  "retention_days": 90,
+  "coverage": 0.997,
+  "redaction_applied": false,
+  "protected_trace_pointer_used": false,
+  "integrity_monitoring_enabled": true,
+  "access_class": "engineering-debug"
+}

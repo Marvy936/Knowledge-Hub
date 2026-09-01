@@ -1,0 +1,15 @@
+{
+  "security_subject_id": "MLOPS-PAY-SEC-2026-09-r44",
+  "operation_type": "post_containment_replay",
+  "release_id": "fraud-serving-2026-09-r44",
+  "prior_token_revoked": false,
+  "compromised_generation_inaccessible": false,
+  "same_privacy_policy": true,
+  "minimized_telemetry_observed": false,
+  "clean_feedback_snapshot_observed": false,
+  "stale_cache_access_possible": true,
+  "mutable_alias_dependency": true,
+  "manual_step_required": true,
+  "clean_inference_completed": true,
+  "clean_snapshot_build_completed": false
+}

@@ -1,0 +1,24 @@
+{
+  "security_subject_id": "MLOPS-PAY-SEC-2026-09-r44",
+  "release_id": "fraud-serving-2026-09-r44",
+  "principal_id": "analyst-risk-debug",
+  "actor_class": "internal_analyst",
+  "strong_identity": true,
+  "token_scoped": false,
+  "allowed_operations": [
+    "predict",
+    "explain"
+  ],
+  "queries_last_hour": 8000,
+  "adaptive_boundary_probes_last_hour": 4500,
+  "rate_limit_key": "source_ip",
+  "credential_sharing_detected": false,
+  "abuse_detection_enabled": false,
+  "output": {
+    "score_precision_decimals": 6,
+    "explanations_returned": true,
+    "confidence_returned": true,
+    "model_version_metadata_returned": true,
+    "error_detail": "debug"
+  }
+}

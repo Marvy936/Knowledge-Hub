@@ -1,0 +1,21 @@
+{
+  "security_subject_id": "MLOPS-PAY-SEC-2026-09-r44",
+  "test_id": "fraud-security-redteam-2026-09-r44",
+  "release_id": "fraud-serving-2026-09-r44",
+  "actor_class": "internal_analyst",
+  "query_budget": 500,
+  "membership_attack": {
+    "baseline_auc": 0.5,
+    "attack_auc": 0.53,
+    "upper_confidence_bound_auc": 0.56
+  },
+  "model_extraction": {
+    "agreement": 0.61
+  },
+  "robustness": {
+    "domain_valid_accuracy": 0.93,
+    "invalid_input_rejection_rate": 0.995
+  },
+  "abuse_detection_exercised": true,
+  "attacker_assumptions_documented": true
+}

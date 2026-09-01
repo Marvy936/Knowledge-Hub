@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-security-privacy-integrity
+cp "$ROOT/release-manifest.json.template" ./release-manifest.json
+cp "$ROOT/security-contract.json.template" ./security-contract.json
+cp "$ROOT/access-evidence.json.template" ./access-evidence.json
+cp "$ROOT/telemetry-evidence.json.template" ./telemetry-evidence.json
+cp "$ROOT/feedback-evidence.json.template" ./feedback-evidence.json
+cp "$ROOT/security-test-evidence.json.template" ./security-test-evidence.json
+cp "$ROOT/second-operation.json.template" ./second-operation.json
+cp "$ROOT/security_gate.py.template" ./security_gate.py
+cp "$ROOT/security_validator.py" ./security_validator.py
+chmod +x ./security_gate.py ./security_validator.py
+rm -f ./security-report.json ./security-evidence-ledger.json
