@@ -72,6 +72,7 @@ COPY mlops-serving-autoscaling-integrity /opt/knowledge-hub/labs/mlops-serving-a
 COPY mlops-gpu-resource-isolation-integrity /opt/knowledge-hub/labs/mlops-gpu-resource-isolation-integrity
 COPY mlops-model-monitoring-integrity /opt/knowledge-hub/labs/mlops-model-monitoring-integrity
 COPY mlops-drift-population-integrity /opt/knowledge-hub/labs/mlops-drift-population-integrity
+COPY mlops-performance-cost-integrity /opt/knowledge-hub/labs/mlops-performance-cost-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -235,6 +236,14 @@ RUN ln -s verify /opt/knowledge-hub/labs/ansible-idempotency/lab/check \
  && ln -s driver /opt/knowledge-hub/labs/mlops-drift-population-integrity/lab/status \
  && ln -s driver /opt/knowledge-hub/labs/mlops-drift-population-integrity/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/mlops-drift-population-integrity/lab/assess
+
+RUN ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-performance-cost-integrity/lab/assess
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
