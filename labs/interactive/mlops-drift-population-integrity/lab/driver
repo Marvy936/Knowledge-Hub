@@ -1,0 +1,69 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-drift-population-integrity
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+}
+
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+KNOWLEDGE HUB INTERACTIVE LAB
+Lab: mlops-drift-population-integrity
+
+Commands:
+  status     Show current evidence/report state
+  check      Validate your drift_gate.py
+  hint       Show the core evidence boundary
+  assess     Alias for check
+  reset      Restore the unsafe starter and incident fixtures
+  self-test  Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'drift_gate.py: '; [ -f drift_gate.py ] && echo present || echo missing
+    printf 'drift-report.json: '; [ -f drift-report.json ] && echo present || echo missing
+    printf 'drift-evidence-ledger.json: '; [ -f drift-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint)
+    echo 'Bind exact release/window/population/method evidence; fallback-excluding scored rows cannot stand in for eligible traffic, and prediction drift cannot prove concept drift or authorize retraining.'
+    ;;
+  check|assess)
+    python3 ./drift_validator.py
+    ;;
+  reset)
+    reset_lab
+    echo 'RESET COMPLETE'
+    ;;
+  self-test)
+    reset_lab
+    python3 ./drift_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('drift-report.json').read_text())
+assert r['drift_evidence_verified'] is True
+assert r['concept_drift_confirmed'] is True
+assert r['retraining_authorized'] is True
+PY
+    cp "$ROOT/drift_gate.py.solution.template" ./drift_gate.py
+    chmod +x ./drift_gate.py
+    rm -f drift-report.json drift-evidence-ledger.json
+    python3 ./drift_validator.py
+    reset_lab
+    python3 ./drift_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('drift-report.json').read_text())
+assert r['retraining_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *)
+    echo "unknown command: $1" >&2
+    exit 2
+    ;;
+esac
