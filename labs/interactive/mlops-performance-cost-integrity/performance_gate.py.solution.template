@@ -1,0 +1,203 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST = "sha256:62da6fd494552f9109a464531190fcd2957d670fa856f48e87e5b9ca425ed119"
+
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+
+def digest(path):
+    return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def canonical(obj):
+    return json.dumps(obj, indent=2, sort_keys=True) + "\n"
+
+
+def require(condition, message, errors):
+    if not condition:
+        errors.append(message)
+
+
+def nearly(a, b, eps=1e-9):
+    return abs(float(a) - float(b)) <= eps
+
+
+release = load("release-manifest.json")
+contract = load("performance-contract.json")
+runtime = load("runtime-state.json")
+traffic = load("traffic-evidence.json")
+cost = load("cost-evidence.json")
+second = load("second-window.json")
+errors = []
+
+require(digest("performance-contract.json") == EXPECTED_CONTRACT_DIGEST, "performance contract digest mismatch", errors)
+require(digest("release-manifest.json") == contract["release_manifest_digest"], "release manifest digest mismatch", errors)
+require(release["release_id"] == contract["release_id"], "release id mismatch", errors)
+
+for field in ("resource_class", "feature_generation", "schema_generation", "batch_policy"):
+    require(release[field] == contract["runtime"][field], f"release {field} mismatch", errors)
+
+require(runtime["performance_run_id"] == contract["performance_run_id"], "runtime performance run mismatch", errors)
+require(runtime["release_id"] == contract["release_id"], "runtime release mismatch", errors)
+require(runtime["loaded_model_digest"] == release["model_digest"], "loaded model digest mismatch", errors)
+require(runtime["loaded_runtime_image"] == release["runtime_image"], "loaded runtime image mismatch", errors)
+for field in ("resource_class", "resource_generation", "min_replicas", "max_replicas", "concurrency_target", "batch_policy", "feature_generation", "schema_generation"):
+    require(runtime[field] == contract["runtime"][field], f"runtime {field} mismatch", errors)
+require(runtime["resolved"] is True, "runtime is not resolved", errors)
+require(runtime["ready_replicas_observed"] >= contract["runtime"]["min_replicas"], "insufficient ready replicas", errors)
+
+w = contract["window"]
+require(traffic["performance_run_id"] == contract["performance_run_id"], "traffic performance run mismatch", errors)
+require(traffic["release_id"] == contract["release_id"], "traffic release mismatch", errors)
+for field in ("interval", "duration_seconds", "traffic_source", "arrival_pattern", "input_mix"):
+    require(traffic[field] == w[field], f"traffic {field} mismatch", errors)
+require(traffic["accepted_requests"] == w["accepted_requests"], "accepted request count mismatch", errors)
+require(traffic["eligible_requests"] == traffic["accepted_requests"], "eligible/accepted population mismatch", errors)
+require(
+    traffic["model_invocations"] + traffic["fallback_responses"] + traffic["schema_rejections"] == traffic["eligible_requests"],
+    "result classes do not reconcile to eligible requests",
+    errors,
+)
+require(traffic["successful_model_predictions"] == traffic["model_invocations"], "model invocation success count mismatch", errors)
+require(0 <= traffic["deadline_successful_model_predictions"] <= traffic["successful_model_predictions"], "invalid deadline-success count", errors)
+require(traffic["http_200_responses"] == traffic["successful_model_predictions"] + traffic["fallback_responses"], "HTTP 200 classes do not reconcile", errors)
+
+deadline_rate = traffic["deadline_successful_model_predictions"] / traffic["eligible_requests"]
+fallback_rate = traffic["fallback_responses"] / traffic["eligible_requests"]
+schema_rejection_rate = traffic["schema_rejections"] / traffic["eligible_requests"]
+duplicate_retry_rate = traffic["duplicate_retries"] / traffic["eligible_requests"]
+useful_rps = traffic["deadline_successful_model_predictions"] / traffic["duration_seconds"]
+raw_rps = traffic["http_200_responses"] / traffic["duration_seconds"]
+require(nearly(traffic["reported_useful_rps"], useful_rps), "reported useful throughput uses the wrong result class", errors)
+require(nearly(traffic["raw_response_rps"], raw_rps), "raw response throughput is inconsistent", errors)
+a = contract["acceptance"]
+require(deadline_rate >= a["deadline_success_min"], "deadline success below SLO", errors)
+require(fallback_rate <= a["fallback_rate_max"], "fallback rate above SLO", errors)
+require(schema_rejection_rate <= a["schema_rejection_rate_max"], "schema rejection rate above SLO", errors)
+require(duplicate_retry_rate <= a["duplicate_retry_rate_max"], "duplicate retry rate above SLO", errors)
+require(traffic["warm_p95_ms"] <= a["warm_p95_ms_max"], "warm p95 latency above SLO", errors)
+require(traffic["cold_p95_ms"] <= a["cold_p95_ms_max"], "cold p95 latency above SLO", errors)
+require(traffic["end_to_end_p99_ms"] <= a["end_to_end_p99_ms_max"], "end-to-end p99 latency above SLO", errors)
+require(traffic["queue_p99_ms"] <= a["queue_p99_ms_max"], "queue p99 above SLO", errors)
+require(traffic["oldest_queue_age_ms"] <= a["oldest_queue_age_ms_max"], "oldest queue age above SLO", errors)
+require(traffic["in_flight_high_water"] <= a["in_flight_high_water_max"], "in-flight high-water above saturation guardrail", errors)
+require(traffic["queue_depth_high_water"] <= a["queue_depth_high_water_max"], "queue depth high-water above saturation guardrail", errors)
+require(traffic["gpu_memory_high_water_gib"] <= a["gpu_memory_high_water_gib_max"], "GPU memory high-water above guardrail", errors)
+require(traffic["downstream_p95_ms"] <= a["downstream_p95_ms_max"], "downstream p95 above SLO", errors)
+require(useful_rps >= a["useful_rps_min"], "useful throughput below SLO", errors)
+require(traffic["monitoring_coverage"] >= a["monitoring_coverage_min"], "monitoring coverage below minimum", errors)
+
+require(cost["performance_run_id"] == contract["performance_run_id"], "cost performance run mismatch", errors)
+require(cost["release_id"] == contract["release_id"], "cost release mismatch", errors)
+require(cost["performance_interval"] == w["interval"], "cost performance interval mismatch", errors)
+require(cost["cost_interval"] == w["interval"], "cost/performance windows are incompatible", errors)
+require(cost["currency"] == contract["cost"]["currency"], "cost currency mismatch", errors)
+require(cost["allocation_policy"] == "idle_explicit", "cost allocation policy does not expose idle cost", errors)
+require(cost["reported_idle_included"] is contract["cost"]["include_idle"], "idle cost inclusion mismatch", errors)
+expected_cost = cost["allocated_workload_cost_eur"] + cost["idle_cost_eur"]
+require(nearly(cost["reported_total_cost_eur"], expected_cost), "reported cost numerator omits required allocation", errors)
+require(cost["reported_denominator"] == contract["cost"]["denominator"], "cost denominator is not useful model work", errors)
+require(cost["reported_denominator_count"] == traffic["deadline_successful_model_predictions"], "cost denominator count mismatch", errors)
+cost_per_useful = expected_cost / max(1, traffic["deadline_successful_model_predictions"])
+require(nearly(cost["reported_cost_per_operation_eur"], cost_per_useful), "reported cost per operation is not recomputed", errors)
+require(cost_per_useful <= a["cost_per_deadline_successful_prediction_eur_max"], "cost per useful prediction above guardrail", errors)
+
+sw = contract["second_window"]
+require(second["performance_run_id"] == contract["performance_run_id"], "second-window performance run mismatch", errors)
+require(second["release_id"] == contract["release_id"], "second-window release mismatch", errors)
+for field in ("interval", "duration_seconds", "traffic_source", "arrival_pattern", "input_mix", "accepted_requests"):
+    require(second[field] == sw[field], f"second-window {field} mismatch", errors)
+require(second["eligible_requests"] == second["accepted_requests"], "second-window eligible/accepted population mismatch", errors)
+require(
+    second["model_invocations"] + second["fallback_responses"] + second["schema_rejections"] == second["eligible_requests"],
+    "second-window result classes do not reconcile",
+    errors,
+)
+require(second["successful_model_predictions"] == second["model_invocations"], "second-window invocation success mismatch", errors)
+require(second["http_200_responses"] == second["successful_model_predictions"] + second["fallback_responses"], "second-window HTTP 200 classes do not reconcile", errors)
+for field in ("resource_class", "resource_generation", "min_replicas", "max_replicas", "concurrency_target", "batch_policy", "feature_generation", "schema_generation"):
+    require(second[field] == contract["runtime"][field], f"second-window {field} mismatch", errors)
+require(second["cost_currency"] == contract["cost"]["currency"], "second-window cost currency mismatch", errors)
+require(second["cost_denominator"] == contract["cost"]["denominator"], "second-window cost denominator mismatch", errors)
+require(second["idle_cost_included"] is contract["cost"]["include_idle"], "second-window idle cost inclusion mismatch", errors)
+require(second["allocation_policy"] == "idle_explicit", "second-window allocation policy mismatch", errors)
+require(second["complete_window"] is True, "second window incomplete", errors)
+require(second["cost_window_matches_performance"] is True, "second cost/performance windows mismatch", errors)
+require(second["warm_cache_preloaded"] is False, "second window depends on prewarmed cache", errors)
+require(second["manual_idle_reallocation"] is False, "second window uses manual idle-cost correction", errors)
+require(second["reproducible_from_saved_manifest"] is True, "second window is not reproducible from saved subject", errors)
+second_deadline = second["deadline_successful_model_predictions"] / second["eligible_requests"]
+second_fallback = second["fallback_responses"] / second["eligible_requests"]
+second_schema_rejection = second["schema_rejections"] / second["eligible_requests"]
+second_duplicate_retry = second["duplicate_retries"] / second["eligible_requests"]
+require(second_deadline >= a["deadline_success_min"], "second-window deadline success below SLO", errors)
+require(second_fallback <= a["fallback_rate_max"], "second-window fallback above SLO", errors)
+require(second_schema_rejection <= a["schema_rejection_rate_max"], "second-window schema rejection rate above SLO", errors)
+require(second_duplicate_retry <= a["duplicate_retry_rate_max"], "second-window duplicate retry rate above SLO", errors)
+require(second["warm_p95_ms"] <= a["warm_p95_ms_max"], "second-window warm p95 above SLO", errors)
+require(second["cold_p95_ms"] <= a["cold_p95_ms_max"], "second-window cold p95 above SLO", errors)
+require(second["end_to_end_p99_ms"] <= a["end_to_end_p99_ms_max"], "second-window p99 above SLO", errors)
+require(second["queue_p99_ms"] <= a["queue_p99_ms_max"], "second-window queue p99 above SLO", errors)
+require(second["oldest_queue_age_ms"] <= a["oldest_queue_age_ms_max"], "second-window queue age above SLO", errors)
+require(second["in_flight_high_water"] <= a["in_flight_high_water_max"], "second-window in-flight high-water above guardrail", errors)
+require(second["queue_depth_high_water"] <= a["queue_depth_high_water_max"], "second-window queue depth high-water above guardrail", errors)
+require(second["gpu_memory_high_water_gib"] <= a["gpu_memory_high_water_gib_max"], "second-window GPU memory high-water above guardrail", errors)
+require(second["downstream_p95_ms"] <= a["downstream_p95_ms_max"], "second-window downstream p95 above SLO", errors)
+require(second["monitoring_coverage"] >= a["monitoring_coverage_min"], "second-window monitoring coverage below minimum", errors)
+second_useful_rps = second["deadline_successful_model_predictions"] / second["duration_seconds"]
+require(nearly(second["useful_rps"], second_useful_rps), "second-window useful throughput is not recomputed", errors)
+require(second_useful_rps >= a["useful_rps_min"], "second-window useful throughput below SLO", errors)
+second_total_cost = second["allocated_workload_cost_eur"] + second["idle_cost_eur"]
+require(nearly(second["reported_total_cost_eur"], second_total_cost), "second-window total cost omits required allocation", errors)
+require(second["cost_denominator_count"] == second["deadline_successful_model_predictions"], "second-window cost denominator count mismatch", errors)
+second_cost_per_useful = second_total_cost / max(1, second["deadline_successful_model_predictions"])
+require(nearly(second["cost_per_deadline_successful_prediction_eur"], second_cost_per_useful), "second-window useful cost is not recomputed", errors)
+require(second_cost_per_useful <= a["cost_per_deadline_successful_prediction_eur_max"], "second-window useful cost above guardrail", errors)
+
+accepted = not errors
+report = {
+    "performance_evidence_verified": accepted,
+    "cost_evidence_verified": accepted,
+    "second_window_verified": accepted,
+    "investigation_required": not accepted,
+    "deadline_success_rate": round(deadline_rate, 6),
+    "fallback_rate": round(fallback_rate, 6),
+    "useful_rps": round(useful_rps, 6),
+    "cost_per_deadline_successful_prediction_eur": round(cost_per_useful, 6),
+    "optimization_authorized": False,
+    "rollout_authorized": False,
+    "promotion_authorized": False,
+    "retraining_authorized": False,
+    "errors": errors,
+}
+report_text = canonical(report)
+
+if accepted:
+    report_digest = "sha256:" + hashlib.sha256(report_text.encode()).hexdigest()
+    ledger = {
+        "performance_run_id": contract["performance_run_id"],
+        "release_id": contract["release_id"],
+        "release_manifest_digest": digest("release-manifest.json"),
+        "performance_contract_digest": digest("performance-contract.json"),
+        "runtime_state_digest": digest("runtime-state.json"),
+        "traffic_evidence_digest": digest("traffic-evidence.json"),
+        "cost_evidence_digest": digest("cost-evidence.json"),
+        "second_window_digest": digest("second-window.json"),
+        "performance_report_digest": report_digest,
+    }
+    ledger_text = canonical(ledger)
+    for path, text in (("performance-evidence-ledger.json", ledger_text), ("performance-report.json", report_text)):
+        p = Path(path)
+        if p.exists() and p.read_text() != text:
+            raise SystemExit(f"conflicting durable state: {path}")
+    Path("performance-evidence-ledger.json").write_text(ledger_text)
+    Path("performance-report.json").write_text(report_text)
+else:
+    Path("performance-report.json").write_text(report_text)
+
+raise SystemExit(0 if accepted else 1)

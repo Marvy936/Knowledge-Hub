@@ -36,3 +36,4 @@ mlops-serving-autoscaling-integrity	shell	Bind serving capacity to exact release
 mlops-gpu-resource-isolation-integrity	shell	Bind GPU capacity to an exact resource class, isolation generation, exercised request outcomes, memory headroom and reproducible second-operation evidence.
 mlops-model-monitoring-integrity	shell	Bind model monitoring to exact release/window identity, result-class denominators, telemetry freshness, drift exposure evidence and reproducible second-window proof.
 mlops-drift-population-integrity	shell	Bind drift interpretation to exact release, reference/current populations, fallback-inclusive denominators, complete event-time windows, method identity and non-authoritative causal claims.
+mlops-performance-cost-integrity	shell	Bind serving performance and cost evidence to exact runtime/traffic windows, useful-work denominators, warm/cold tails, saturation, fallback, idle-inclusive allocation and reproducible second-window proof.

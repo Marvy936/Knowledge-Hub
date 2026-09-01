@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+traffic = json.loads(Path("traffic-evidence.json").read_text())
+cost = json.loads(Path("cost-evidence.json").read_text())
+
+availability = traffic.get("http_200_responses", 0) == traffic.get("accepted_requests", 0) > 0
+cheap = cost.get("reported_cost_per_operation_eur", 999.0) <= 0.009
+accepted = availability and cheap
+
+report = {
+    "performance_evidence_verified": accepted,
+    "cost_evidence_verified": accepted,
+    "optimization_authorized": accepted,
+    "rollout_authorized": False,
+    "promotion_authorized": False,
+    "retraining_authorized": False,
+}
+Path("performance-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")

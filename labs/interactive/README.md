@@ -76,6 +76,7 @@ Current labs:
 | `mlops-gpu-resource-isolation-integrity` | challenge | `shell` | Bind GPU capacity to an exact MIG resource class, hardware isolation, memory headroom, request-level SLO evidence and a reproducible second operation. |
 | `mlops-model-monitoring-integrity` | challenge | `shell` | Bind model monitoring to exact release/window identity, mutually exclusive result-class denominators, telemetry freshness, drift exposure evidence and a reproducible second monitoring window. |
 | `mlops-drift-population-integrity` | challenge | `shell` | Bind drift interpretation to exact reference/current populations, fallback-inclusive denominators, event-time completeness, method identity and non-authoritative causal claims. |
+| `mlops-performance-cost-integrity` | challenge | `shell` | Bind performance/cost acceptance to exact runtime and traffic evidence, deadline-successful useful throughput, warm/cold tail latency, saturation, fallback and idle-inclusive cost. |
 
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 

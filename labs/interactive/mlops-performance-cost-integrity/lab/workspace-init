@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-performance-cost-integrity
+cp "$ROOT/release-manifest.json.template" ./release-manifest.json
+cp "$ROOT/performance-contract.json.template" ./performance-contract.json
+cp "$ROOT/runtime-state.json.template" ./runtime-state.json
+cp "$ROOT/traffic-evidence.json.template" ./traffic-evidence.json
+cp "$ROOT/cost-evidence.json.template" ./cost-evidence.json
+cp "$ROOT/second-window.json.template" ./second-window.json
+cp "$ROOT/performance_gate.py.template" ./performance_gate.py
+cp "$ROOT/performance_validator.py" ./performance_validator.py
+chmod +x ./performance_gate.py ./performance_validator.py
+rm -f ./performance-report.json ./performance-evidence-ledger.json
