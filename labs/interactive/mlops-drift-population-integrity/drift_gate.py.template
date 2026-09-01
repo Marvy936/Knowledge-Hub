@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+evidence = json.loads(Path("drift-evidence.json").read_text())
+accepted = evidence.get("prediction_drift_detected", False) and evidence.get("current_distribution_rows", 0) > 0
+report = {
+    "drift_evidence_verified": accepted,
+    "concept_drift_confirmed": accepted,
+    "investigation_required": accepted,
+    "retraining_authorized": accepted,
+    "promotion_authorized": False,
+    "rollback_authorized": False,
+}
+Path("drift-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+print(json.dumps(report, sort_keys=True))
