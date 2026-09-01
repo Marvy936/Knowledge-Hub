@@ -11,6 +11,15 @@ def run(expect_success):
     return proc
 
 
+def write_json(name, payload):
+    Path(name).write_text(json.dumps(payload, indent=2, sort_keys=True) + '\n')
+
+
+def clear_outputs():
+    Path('monitoring-report.json').unlink(missing_ok=True)
+    Path('monitoring-evidence-ledger.json').unlink(missing_ok=True)
+
+
 run(False)
 report = json.loads(Path('monitoring-report.json').read_text())
 assert report['accepted'] is False
@@ -29,7 +38,7 @@ window.update({
 })
 window['result_class_counts']['model_success'] = 995
 window['result_class_counts']['fallback_timeout'] = 5
-Path('monitoring-window.json').write_text(json.dumps(window, indent=2, sort_keys=True) + '\n')
+write_json('monitoring-window.json', window)
 
 drift = json.loads(Path('drift-evidence.json').read_text())
 drift.update({
@@ -39,7 +48,7 @@ drift.update({
     'retraining_requested': False,
     'segment_breakdown_present': True,
 })
-Path('drift-evidence.json').write_text(json.dumps(drift, indent=2, sort_keys=True) + '\n')
+write_json('drift-evidence.json', drift)
 
 second = json.loads(Path('second-window.json').read_text())
 second.update({
@@ -52,10 +61,9 @@ second.update({
 })
 second['result_class_counts']['model_success'] = 997
 second['result_class_counts']['fallback_timeout'] = 3
-Path('second-window.json').write_text(json.dumps(second, indent=2, sort_keys=True) + '\n')
+write_json('second-window.json', second)
 
-Path('monitoring-report.json').unlink(missing_ok=True)
-Path('monitoring-evidence-ledger.json').unlink(missing_ok=True)
+clear_outputs()
 run(True)
 first = Path('monitoring-report.json').read_bytes() + Path('monitoring-evidence-ledger.json').read_bytes()
 report = json.loads(Path('monitoring-report.json').read_text())
@@ -68,6 +76,40 @@ second_bytes = Path('monitoring-report.json').read_bytes() + Path('monitoring-ev
 assert first == second_bytes
 print('PASS request-correlated monitoring evidence and second window are byte-idempotent')
 
+release = json.loads(Path('release-manifest.json').read_text())
+release['runtime_generation'] = 'kserve-v2-r17-tampered'
+write_json('release-manifest.json', release)
+clear_outputs()
+run(False)
+assert not Path('monitoring-evidence-ledger.json').exists()
+release['runtime_generation'] = 'kserve-v2-r17'
+write_json('release-manifest.json', release)
+print('PASS release byte tampering is rejected')
+
+drift['actual_exposure_denominator'] = None
+drift['actual_exposure_denominator_present'] = False
+drift['retraining_requested'] = True
+write_json('drift-evidence.json', drift)
+clear_outputs()
+run(False)
+assert not Path('monitoring-evidence-ledger.json').exists()
+drift['actual_exposure_denominator'] = 1000
+drift['actual_exposure_denominator_present'] = True
+drift['retraining_requested'] = False
+write_json('drift-evidence.json', drift)
+print('PASS drift evidence cannot bypass exposure denominator or retraining authority boundary')
+
+second['manual_backfill_required'] = True
+write_json('second-window.json', second)
+clear_outputs()
+run(False)
+assert not Path('monitoring-evidence-ledger.json').exists()
+second['manual_backfill_required'] = False
+write_json('second-window.json', second)
+print('PASS second monitoring window must reproduce without manual backfill')
+
+clear_outputs()
+run(True)
 Path('monitoring-evidence-ledger.json').write_text('{"conflict":true}\n')
 proc = subprocess.run(['python3', 'monitoring_gate.py'], capture_output=True, text=True)
 assert proc.returncode != 0
