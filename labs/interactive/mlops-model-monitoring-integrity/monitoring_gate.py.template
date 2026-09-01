@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+window = json.loads(Path('monitoring-window.json').read_text())
+drift = json.loads(Path('drift-evidence.json').read_text())
+http_success_rate = window['http_successes'] / window['eligible_requests']
+accepted = http_success_rate >= 0.999 and window['average_latency_ms'] <= 100
+report = {
+    'accepted': accepted,
+    'monitoring_verified': accepted,
+    'promotion_authorized': False,
+    'retraining_authorized': bool(drift['drift_alert']),
+    'rollout_authorized': accepted,
+}
+Path('monitoring-report.json').write_text(json.dumps(report, indent=2, sort_keys=True) + '\n')
+raise SystemExit(0 if accepted else 1)

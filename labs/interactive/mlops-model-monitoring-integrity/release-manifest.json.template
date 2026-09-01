@@ -1,0 +1,9 @@
+{
+  "feature_generation": "fraud-request-v11",
+  "model_digest": "sha256:31d7af5445c1a8853853cf475e525a1b3d73eabec3f073395dc930a2cb766d13",
+  "model_id": "fraud-predictor-r42",
+  "release_id": "fraud-serving-2026-08-03.4",
+  "revision": "fraud-predictor-00042",
+  "runtime_generation": "kserve-v2-r17",
+  "serving_image_digest": "sha256:7b0870ed4699498c91b62d2f0809abf9ab182ea1e859d1dc4f9c7e41273d734f"
+}

@@ -1,0 +1,30 @@
+{
+  "actioned_requests": 1000,
+  "average_latency_ms": 80,
+  "contract_digest": "sha256:22b6165631d2b11656e10a173f91a1787e5fab96df4f2b07cc1ad197188fbdc6",
+  "deadline_successes": 860,
+  "duplicate_events": 0,
+  "eligible_requests": 1000,
+  "http_successes": 1000,
+  "materialized_at": "2026-08-03T09:20:30Z",
+  "model_invocations": 860,
+  "monitoring_subject": "MLOPS-FRAUD-MON-2026-08-r42",
+  "p95_latency_ms": 211,
+  "release_id": "fraud-serving-2026-08-03.4",
+  "request_correlation_complete": true,
+  "result_class_counts": {
+    "abstain_low_confidence": 0,
+    "action_suppressed_capacity": 0,
+    "fallback_runtime_error": 0,
+    "fallback_timeout": 140,
+    "model_success": 860,
+    "rejected_policy": 0,
+    "rejected_schema": 0
+  },
+  "revision": "fraud-predictor-00042",
+  "telemetry_events": 1000,
+  "window": {
+    "end": "2026-08-03T09:20:00Z",
+    "start": "2026-08-03T09:10:00Z"
+  }
+}

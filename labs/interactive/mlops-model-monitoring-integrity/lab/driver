@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-model-monitoring-integrity}"
+CMD="${1:-help}"
+
+reset_lab() {
+  "$ROOT/lab/workspace-init"
+}
+
+case "$CMD" in
+  help|lab-help)
+    echo "Knowledge Hub Interactive Lab"
+    cat "$ROOT/README.md"
+    ;;
+  assess)
+    cd /workspace
+    python3 monitoring_gate.py
+    ;;
+  status)
+    cd /workspace
+    if [[ -f monitoring-report.json ]]; then cat monitoring-report.json; else echo "No monitoring report yet. Run: assess"; fi
+    ;;
+  check)
+    cd /workspace
+    python3 monitoring_validator.py
+    ;;
+  hint)
+    echo "Do not trust HTTP 200, average latency or a drift alert. Reconcile exact release/window denominators, result classes, telemetry freshness and a second healthy window."
+    ;;
+  reset)
+    reset_lab
+    echo "Lab reset."
+    ;;
+  self-test)
+    reset_lab
+    cd /workspace
+    python3 monitoring_gate.py >/tmp/kh-monitoring-starter.out
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('monitoring-report.json').read_text())
+assert r['monitoring_verified'] is True
+assert r['rollout_authorized'] is True
+assert r['retraining_authorized'] is True
+print('Starter incorrectly trusts HTTP success + average latency and turns drift into retraining authority.')
+PY
+    cp "$ROOT/monitoring_gate.py.solution.template" monitoring_gate.py
+    chmod +x monitoring_gate.py
+    rm -f monitoring-report.json monitoring-evidence-ledger.json
+    python3 monitoring_validator.py
+    reset_lab
+    cd /workspace
+    python3 monitoring_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('monitoring-report.json').read_text())
+assert r['monitoring_verified'] is True
+assert r['retraining_authorized'] is True
+print('Reset restores the unsafe dashboard/drift starter.')
+PY
+    echo "SELF-TEST PASSED"
+    ;;
+  *)
+    echo "Unknown command: $CMD" >&2
+    exit 2
+    ;;
+esac

@@ -1,0 +1,19 @@
+{
+  "action_joined": true,
+  "attempted": true,
+  "contract_digest": "sha256:22b6165631d2b11656e10a173f91a1787e5fab96df4f2b07cc1ad197188fbdc6",
+  "deadline_success": true,
+  "manual_backfill_required": false,
+  "monitoring_subject": "MLOPS-FRAUD-MON-2026-08-r42",
+  "observed_in_logs": true,
+  "observed_in_metrics": true,
+  "operation_id": "synthetic-op-4f93",
+  "release_id": "fraud-serving-2026-08-03.4",
+  "result_class": "model_success",
+  "revision": "fraud-predictor-00042",
+  "trace_joined": true,
+  "window": {
+    "end": "2026-08-03T09:20:00Z",
+    "start": "2026-08-03T09:10:00Z"
+  }
+}

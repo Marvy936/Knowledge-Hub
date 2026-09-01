@@ -1,0 +1,22 @@
+{
+  "actual_exposure_denominator": null,
+  "actual_exposure_denominator_present": false,
+  "contract_digest": "sha256:22b6165631d2b11656e10a173f91a1787e5fab96df4f2b07cc1ad197188fbdc6",
+  "current_prediction_events": 860,
+  "drift_alert": true,
+  "drift_statistic": 0.23,
+  "monitoring_subject": "MLOPS-FRAUD-MON-2026-08-r42",
+  "reference_population": {
+    "digest": "sha256:781b1f5607c4df2ddebb08e87e4d5f1576347b1b9e1c70c604223c475fdc06f5",
+    "id": "fraud-train-2026-07",
+    "type": "monthly_training_dataset"
+  },
+  "release_id": "fraud-serving-2026-08-03.4",
+  "retraining_requested": true,
+  "revision": "fraud-predictor-00042",
+  "segment_breakdown_present": false,
+  "window": {
+    "end": "2026-08-03T09:20:00Z",
+    "start": "2026-08-03T09:10:00Z"
+  }
+}
