@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="${LAB_ROOT:-/opt/knowledge-hub/labs/mlops-model-monitoring-integrity}"
+mkdir -p /workspace
+cp "$ROOT/release-manifest.json.template" /workspace/release-manifest.json
+cp "$ROOT/monitoring-contract.json.template" /workspace/monitoring-contract.json
+cp "$ROOT/monitoring-window.json.template" /workspace/monitoring-window.json
+cp "$ROOT/drift-evidence.json.template" /workspace/drift-evidence.json
+cp "$ROOT/synthetic-journey.json.template" /workspace/synthetic-journey.json
+cp "$ROOT/second-window.json.template" /workspace/second-window.json
+cp "$ROOT/monitoring_gate.py.template" /workspace/monitoring_gate.py
+cp "$ROOT/monitoring_validator.py" /workspace/monitoring_validator.py
+chmod +x /workspace/monitoring_gate.py /workspace/monitoring_validator.py
+rm -f /workspace/monitoring-report.json /workspace/monitoring-evidence-ledger.json
