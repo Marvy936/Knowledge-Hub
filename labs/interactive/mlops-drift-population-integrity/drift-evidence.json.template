@@ -1,0 +1,37 @@
+{
+  "drift_run_id": "MLOPS-PAY-DRIFT-2026-09-01T10",
+  "release_id": "MLOPS-PAY-RISK-PROD-2026-09-r43",
+  "reference_population_id": "stable-production-2026-W34",
+  "reference_interval": "2026-08-17T00:00:00Z/2026-08-24T00:00:00Z",
+  "reference_rows": 24000,
+  "reference_eligibility": "all_fraud_requests_v8",
+  "reference_threshold_generation": "review-threshold-v11",
+  "current_interval": "2026-09-01T09:00:00Z/2026-09-01T10:00:00Z",
+  "current_eligibility": "all_fraud_requests_v8",
+  "current_eligible_requests": 6000,
+  "current_scored_requests": 4800,
+  "current_distribution_rows": 4800,
+  "fallback_requests": 1200,
+  "eligible_denominator_includes_fallback": false,
+  "fallback_reported_separately": false,
+  "completeness_watermark_reached": true,
+  "feature_generation": "payment-risk-features-v7",
+  "threshold_generation": "review-threshold-v12",
+  "policy_change_acknowledged": false,
+  "method": {
+    "numeric": "wasserstein",
+    "categorical": "jensen_shannon",
+    "multiple_testing": "benjamini_hochberg"
+  },
+  "share_drifted_features": 0.31,
+  "prediction_drift_detected": true,
+  "label_coverage": 0.42,
+  "concept_evidence": {
+    "mature_ground_truth_joined": false,
+    "compatible_label_definition": false,
+    "conditional_performance_degradation_recomputed": false
+  },
+  "concept_drift_claimed": true,
+  "first_divergence": "gpu_timeout_fallback",
+  "retraining_requested": true
+}

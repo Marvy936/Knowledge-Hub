@@ -72,7 +72,6 @@ if [[ "$LAB_PROFILE" != "shell" ]]; then
   printf 'Starting isolated Docker engine for %s...\n' "$LAB_ID"
   dockerd \
     --host=unix:///var/run/docker.sock \
-    --storage-driver=vfs \
     >"$DOCKERD_LOG" 2>&1 &
   DOCKERD_PID=$!
 

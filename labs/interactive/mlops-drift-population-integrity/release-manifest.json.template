@@ -1,0 +1,8 @@
+{
+  "feature_generation": "payment-risk-features-v7",
+  "model_digest": "sha256:6ab4ed1a6fd1fe11b6857dc5f39c4f724e8d028dba8a323fd9cf0d411e6bcbf0",
+  "model_id": "payment-risk-r43",
+  "policy_generation": "fraud-policy-v21",
+  "release_id": "MLOPS-PAY-RISK-PROD-2026-09-r43",
+  "threshold_generation": "review-threshold-v12"
+}

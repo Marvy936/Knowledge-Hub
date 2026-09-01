@@ -1,0 +1,24 @@
+{
+  "drift_run_id": "MLOPS-PAY-DRIFT-2026-09-01T11",
+  "release_id": "MLOPS-PAY-RISK-PROD-2026-09-r43",
+  "reference_population_id": "stable-production-2026-W34",
+  "current_interval": "2026-09-01T10:00:00Z/2026-09-01T11:00:00Z",
+  "current_eligibility": "all_fraud_requests_v8",
+  "eligible_requests": 6100,
+  "scored_requests": 6082,
+  "distribution_rows": 6082,
+  "fallback_requests": 18,
+  "eligible_denominator_includes_fallback": true,
+  "fallback_reported_separately": true,
+  "completeness_watermark_reached": true,
+  "feature_generation": "payment-risk-features-v7",
+  "threshold_generation": "review-threshold-v12",
+  "method": {
+    "numeric": "wasserstein",
+    "categorical": "jensen_shannon",
+    "multiple_testing": "benjamini_hochberg"
+  },
+  "share_drifted_features": 0.07,
+  "manual_filtering_or_backfill": false,
+  "reproducible_from_saved_manifest": true
+}

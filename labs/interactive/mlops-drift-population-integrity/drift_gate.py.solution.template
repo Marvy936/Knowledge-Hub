@@ -1,0 +1,154 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST = "sha256:d82d4352b6fa135818730df07c4c41efdb26d8b49dda77ffd1f18045188175d5"
+
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+
+def digest(path):
+    return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def canonical(obj):
+    return json.dumps(obj, indent=2, sort_keys=True) + "\n"
+
+
+def write_exact(path, text):
+    target = Path(path)
+    if target.exists() and target.read_text() != text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    target.write_text(text)
+
+
+release = load("release-manifest.json")
+contract = load("drift-contract.json")
+evidence = load("drift-evidence.json")
+second = load("second-window.json")
+errors = []
+
+
+def require(condition, message):
+    if not condition:
+        errors.append(message)
+
+
+require(digest("drift-contract.json") == EXPECTED_CONTRACT_DIGEST, "drift contract digest mismatch")
+require(digest("release-manifest.json") == contract["release_manifest_digest"], "release manifest digest mismatch")
+require(release["release_id"] == contract["release_id"], "release id mismatch")
+require(release["feature_generation"] == contract["feature_generation"], "release feature generation mismatch")
+
+require(evidence["drift_run_id"] == contract["drift_run_id"], "drift run id mismatch")
+require(evidence["release_id"] == contract["release_id"], "evidence release mismatch")
+require(evidence["reference_population_id"] == contract["reference"]["population_id"], "reference population mismatch")
+require(evidence["reference_interval"] == contract["reference"]["interval"], "reference interval mismatch")
+require(evidence["reference_eligibility"] == contract["reference"]["eligibility"], "reference eligibility mismatch")
+require(
+    evidence["reference_threshold_generation"] == contract["reference"]["threshold_generation"],
+    "reference threshold generation mismatch",
+)
+require(evidence["current_interval"] == contract["current"]["interval"], "current interval mismatch")
+require(evidence["current_eligibility"] == contract["current"]["eligibility"], "current eligibility mismatch")
+require(evidence["feature_generation"] == contract["feature_generation"], "feature generation mismatch")
+require(evidence["method"] == contract["method"], "drift method mismatch")
+require(evidence["threshold_generation"] == release["threshold_generation"], "current threshold generation mismatch")
+require(evidence["current_eligible_requests"] >= contract["thresholds"]["minimum_rows"], "insufficient current rows")
+require(evidence["reference_rows"] >= contract["thresholds"]["minimum_rows"], "insufficient reference rows")
+require(
+    evidence["eligible_denominator_includes_fallback"]
+    is contract["current"]["eligible_denominator_includes_fallback"],
+    "eligible denominator excludes fallback",
+)
+require(
+    evidence["fallback_reported_separately"] is contract["current"]["report_fallback_separately"],
+    "fallback share is not reported separately",
+)
+require(
+    evidence["current_scored_requests"] + evidence["fallback_requests"] == evidence["current_eligible_requests"],
+    "current result classes do not reconcile to eligible requests",
+)
+require(
+    evidence["current_distribution_rows"] == evidence["current_scored_requests"],
+    "prediction distribution must use successfully scored requests",
+)
+require(0 <= evidence["fallback_requests"] <= evidence["current_eligible_requests"], "invalid fallback count")
+require(evidence["completeness_watermark_reached"] is True, "current event-time window incomplete")
+
+policy_changed = evidence["threshold_generation"] != evidence["reference_threshold_generation"]
+if evidence["prediction_drift_detected"] and policy_changed:
+    require(evidence.get("policy_change_acknowledged") is True, "prediction drift ignores threshold generation change")
+
+if evidence["concept_drift_claimed"]:
+    concept = evidence["concept_evidence"]
+    require(
+        evidence["label_coverage"] >= contract["thresholds"]["minimum_label_coverage_for_concept_claim"],
+        "concept drift claimed without mature label coverage",
+    )
+    require(concept["mature_ground_truth_joined"] is True, "concept drift claimed without mature ground-truth join")
+    require(concept["compatible_label_definition"] is True, "concept drift claimed across incompatible label definitions")
+    require(
+        concept["conditional_performance_degradation_recomputed"] is True,
+        "concept drift claimed without recomputed conditional performance degradation",
+    )
+
+require(evidence["retraining_requested"] is False, "drift evidence cannot authorize retraining")
+
+require(second["release_id"] == contract["release_id"], "second-window release mismatch")
+require(second["reference_population_id"] == contract["reference"]["population_id"], "second-window reference mismatch")
+require(second["current_interval"] == contract["second_window"]["interval"], "second-window interval mismatch")
+require(second["current_eligibility"] == contract["second_window"]["eligibility"], "second-window eligibility mismatch")
+require(second["feature_generation"] == contract["feature_generation"], "second-window feature generation mismatch")
+require(second["threshold_generation"] == release["threshold_generation"], "second-window threshold generation mismatch")
+require(second["method"] == contract["method"], "second-window method mismatch")
+require(second["eligible_requests"] >= contract["thresholds"]["minimum_rows"], "second-window rows insufficient")
+require(
+    second["scored_requests"] + second["fallback_requests"] == second["eligible_requests"],
+    "second-window result classes do not reconcile",
+)
+require(
+    second["distribution_rows"] == second["scored_requests"],
+    "second-window prediction distribution must use scored requests",
+)
+require(
+    second["eligible_denominator_includes_fallback"] is True,
+    "second-window eligible denominator excludes fallback",
+)
+require(second["fallback_reported_separately"] is True, "second-window fallback share is hidden")
+require(second["completeness_watermark_reached"] is True, "second-window incomplete")
+require(second["manual_filtering_or_backfill"] is False, "second-window requires manual repair")
+require(second["reproducible_from_saved_manifest"] is True, "second-window is not reproducible")
+
+accepted = not errors
+investigation = accepted and evidence["share_drifted_features"] > contract["thresholds"]["alert_if_share_drifted_gt"]
+report = {
+    "drift_evidence_verified": accepted,
+    "concept_drift_confirmed": accepted and evidence["concept_drift_claimed"],
+    "investigation_required": investigation,
+    "retraining_authorized": False,
+    "promotion_authorized": False,
+    "rollback_authorized": False,
+    "errors": errors,
+}
+report_text = canonical(report)
+Path("drift-report.json").write_text(report_text)
+
+if accepted:
+    ledger = {
+        "drift_run_id": contract["drift_run_id"],
+        "release_manifest_digest": digest("release-manifest.json"),
+        "drift_contract_digest": digest("drift-contract.json"),
+        "drift_evidence_digest": digest("drift-evidence.json"),
+        "second_window_digest": digest("second-window.json"),
+        "report_digest": "sha256:" + hashlib.sha256(report_text.encode()).hexdigest(),
+        "retraining_authorized": False,
+        "promotion_authorized": False,
+        "rollback_authorized": False,
+    }
+    write_exact("drift-evidence-ledger.json", canonical(ledger))
+
+print(json.dumps(report, sort_keys=True))
+raise SystemExit(0 if accepted else 1)
