@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+artifacts = json.loads(Path("artifacts.json").read_text())
+runtime = json.loads(Path("runtime-evidence.json").read_text())
+build = json.loads(Path("build-provenance.json").read_text())
+
+signed_image = artifacts["image"]["signature_verified"]
+http_ok = runtime["synthetic_inference"]["http_status"] == 200
+registered_build = bool(build["build_id"])
+
+report = {
+    "supply_chain_subject_id": "MLOPS-PAY-SC-2026-09-r45",
+    "supply_chain_verified": bool(signed_image and http_ok and registered_build),
+    "source_data_dependency_verified": bool(registered_build),
+    "builder_provenance_verified": bool(build["provenance_signed"]),
+    "artifact_binding_verified": bool(signed_image),
+    "admission_runtime_verified": bool(http_ok),
+    "second_operation_verified": True,
+    "errors": [],
+    "rollout_authorized": True,
+    "promotion_authorized": False,
+    "retraining_authorized": False,
+}
+Path("supply-chain-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+print("SUPPLY CHAIN ACCEPTED" if report["supply_chain_verified"] else "SUPPLY CHAIN BLOCKED")

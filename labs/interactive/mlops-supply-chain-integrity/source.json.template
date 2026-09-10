@@ -1,0 +1,6 @@
+{
+  "repository": "github.com/Marvy936/fraud-ml",
+  "commit": "5e3a4d2b7c8e9f10111213141516171819202122",
+  "workflow_path": ".github/workflows/model-build.yml",
+  "workflow_digest": "sha256:9e88360a4621703593da97981cc541ea124a958b347e5d38dccdca35fcac8a35"
+}

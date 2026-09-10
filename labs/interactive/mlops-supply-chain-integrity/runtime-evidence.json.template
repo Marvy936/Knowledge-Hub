@@ -1,0 +1,23 @@
+{
+  "release_id": "fraud-serving-2026-09-r45",
+  "admission_policy_version": "ml-supply-chain-v8",
+  "admission": {
+    "image_digest_verified": true,
+    "image_signature_verified": true,
+    "provenance_verified": false,
+    "builder_identity_verified": false,
+    "release_manifest_verified": false,
+    "remote_model_digest_verified": false
+  },
+  "loaded": {
+    "image_digest": "sha256:4b84276e03baebad1aa8e54d6f0560f74939544133331d49086239419fd4cf0e",
+    "model_digest": "sha256:531e16c21b6f82e9d1481630d77c8d7542e793e088af5f9e0b46417e0a6ad59f",
+    "release_id": "fraud-serving-2026-09-r45"
+  },
+  "synthetic_inference": {
+    "executed": true,
+    "http_status": 200,
+    "loaded_fingerprint_reported": true,
+    "release_matches_manifest": false
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "release_id": "fraud-serving-2026-09-r45",
+  "operation_type": "trusted_rebuild_and_deploy",
+  "same_source_digest": true,
+  "same_dataset_digest": true,
+  "same_dependency_lock_digest": false,
+  "same_base_image_digest": false,
+  "trusted_builder_used": false,
+  "platform_provenance_verified": false,
+  "model_subject_bound": false,
+  "image_subject_bound": true,
+  "admission_verified_composite": false,
+  "loaded_model_matches_release": false,
+  "mutable_package_index_dependency": true,
+  "long_lived_secret_required": true,
+  "manual_digest_edit_required": true,
+  "old_subjects_quarantined": false
+}

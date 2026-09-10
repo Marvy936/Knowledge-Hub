@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+import re
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST = "sha256:973cc32ab7ce4021c06861a0852729742c0ce7a2c167bd5dbea6e558b4e3d9f1"
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+def digest(path):
+    return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def canonical(obj):
+    return json.dumps(obj, indent=2, sort_keys=True) + "\n"
+
+def text_digest(text):
+    return "sha256:" + hashlib.sha256(text.encode()).hexdigest()
+
+def write_exact(path, text):
+    target = Path(path)
+    if target.exists() and target.read_text() != text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    target.write_text(text)
+
+def require(condition, message, errors):
+    if not condition:
+        errors.append(message)
+
+contract = load("supply-chain-contract.json")
+release = load("release-manifest.json")
+source = load("source.json")
+dataset = load("dataset.json")
+lock = load("dependency-lock.json")
+build = load("build-provenance.json")
+artifacts = load("artifacts.json")
+runtime = load("runtime-evidence.json")
+second = load("second-operation.json")
+errors = []
+
+require(digest("supply-chain-contract.json") == EXPECTED_CONTRACT_DIGEST, "supply-chain contract digest mismatch", errors)
+require(digest("release-manifest.json") == contract["release_manifest_digest"], "release manifest digest mismatch", errors)
+require(release["release_id"] == contract["release_id"], "release id mismatch", errors)
+
+trust = contract["trust"]
+require(source["repository"] == trust["required_repository"] == release["source"]["repository"], "source repository mismatch", errors)
+require(source["commit"] == trust["required_source_commit"] == release["source"]["commit"], "source commit mismatch", errors)
+require(bool(re.fullmatch(r"[0-9a-f]{40}", source["commit"])), "source commit is not exact 40-hex", errors)
+require(source["workflow_digest"] == trust["required_workflow_digest"] == release["source"]["workflow_digest"], "workflow digest mismatch", errors)
+
+require(dataset["snapshot_id"] == trust["required_dataset_snapshot"] == release["data"]["snapshot_id"], "dataset snapshot mismatch", errors)
+require(dataset["manifest_digest"] == trust["required_dataset_manifest_digest"] == release["data"]["manifest_digest"], "dataset manifest mismatch", errors)
+require(dataset["schema_generation"] == release["data"]["schema_generation"], "dataset schema mismatch", errors)
+require(dataset["label_definition"] == release["data"]["label_definition"], "dataset label definition mismatch", errors)
+require(dataset["immutable"] is True, "dataset snapshot is mutable", errors)
+
+require(lock["lock_digest"] == trust["required_dependency_lock_digest"] == release["dependency_lock_digest"], "dependency lock identity mismatch", errors)
+deps = contract["dependencies"]
+require(lock["direct_dependencies_pinned"] is True, "direct dependencies are not pinned", errors)
+require(lock["transitive_dependencies_pinned"] is deps["require_transitive_lock"], "transitive dependencies are not locked", errors)
+require(lock["hash_checking_mode"] is deps["require_hash_checking_mode"], "dependency hashes are not enforced", errors)
+require(lock["only_binary"] is deps["require_binary_only"], "source distributions are still allowed", errors)
+require(bool(lock.get("private_index")), "dependency index is missing", errors)
+require(bool(lock.get("index_namespace_policy")) is deps["require_namespace_policy"], "dependency namespace policy missing", errors)
+
+require(build["build_id"] == "fraud-build-2026-09-r45", "build id mismatch", errors)
+require(build["builder_identity"] == trust["required_builder_identity"], "builder identity mismatch", errors)
+require(build["builder_isolated"] is trust["require_isolated_ephemeral_builder"], "builder is not isolated", errors)
+require(build["ephemeral_runner"] is trust["require_isolated_ephemeral_builder"], "builder is not ephemeral", errors)
+require(build["source_digest"] == digest("source.json"), "build source evidence digest mismatch", errors)
+require(build["dataset_digest"] == digest("dataset.json"), "build dataset evidence digest mismatch", errors)
+require(build["dependency_lock_digest"] == digest("dependency-lock.json"), "build dependency evidence digest mismatch", errors)
+require(build["workflow_digest"] == trust["required_workflow_digest"], "builder workflow mismatch", errors)
+require(bool(build.get("base_image_digest")), "base image is not digest-pinned", errors)
+require("@sha256:" in build.get("base_image_reference", ""), "base image reference is mutable", errors)
+require(build["network_policy"] == trust["network_policy"], "build network policy mismatch", errors)
+require(build["provenance_generated_by_platform"] is trust["require_platform_generated_signed_provenance"], "provenance is not platform-generated", errors)
+require(build["provenance_signed"] is trust["require_platform_generated_signed_provenance"], "provenance is not signed", errors)
+require(build["provenance_subjects"]["model_digest"] == release["model_digest"], "provenance model subject mismatch", errors)
+require(build["provenance_subjects"]["image_digest"] == release["image_digest"], "provenance image subject mismatch", errors)
+
+ap = contract["artifacts"]
+require(artifacts["release_id"] == contract["release_id"], "artifact release mismatch", errors)
+require(artifacts["model"]["digest"] == ap["model_digest"] == release["model_digest"], "model digest mismatch", errors)
+require(artifacts["image"]["digest"] == ap["image_digest"] == release["image_digest"], "image digest mismatch", errors)
+require(artifacts["model"]["immutable_uri"] is ap["require_immutable_model_uri"], "model URI is mutable", errors)
+require(artifacts["model"]["attestation_signed"] is ap["require_model_attestation"], "model attestation missing", errors)
+require(artifacts["model"]["attestation_subject_digest"] == release["model_digest"], "model attestation subject mismatch", errors)
+require(artifacts["image"]["signature_verified"] is ap["require_image_signature"], "image signature missing", errors)
+require(artifacts["image"]["certificate_identity"] == ap["expected_certificate_identity"], "image signer identity mismatch", errors)
+require(artifacts["image"]["oidc_issuer"] == ap["expected_oidc_issuer"], "image OIDC issuer mismatch", errors)
+require(artifacts["sbom"]["digest"] == ap["sbom_digest"] == release["sbom_digest"], "SBOM digest mismatch", errors)
+require(artifacts["sbom"]["bound_image_digest"] == release["image_digest"], "SBOM is not bound to image", errors)
+require(artifacts["model_bom"]["digest"] == ap["model_bom_digest"] == release["model_bom_digest"], "model BOM digest mismatch", errors)
+require(artifacts["model_bom"]["bound_model_digest"] == release["model_digest"], "model BOM is not bound to model", errors)
+
+admission = contract["admission"]
+require(runtime["release_id"] == contract["release_id"], "runtime release mismatch", errors)
+require(runtime["admission_policy_version"] == admission["policy_version"], "admission policy version mismatch", errors)
+for field, required in (
+    ("image_digest_verified", admission["verify_image_digest_signature"]),
+    ("image_signature_verified", admission["verify_image_digest_signature"]),
+    ("provenance_verified", admission["verify_provenance_builder"]),
+    ("builder_identity_verified", admission["verify_provenance_builder"]),
+    ("release_manifest_verified", admission["verify_release_manifest"]),
+    ("remote_model_digest_verified", admission["verify_remote_model_digest"]),
+):
+    require(runtime["admission"][field] is required, f"admission {field} failed", errors)
+require(runtime["loaded"]["release_id"] == contract["release_id"], "loaded release mismatch", errors)
+require(runtime["loaded"]["image_digest"] == release["image_digest"], "loaded image mismatch", errors)
+require(runtime["loaded"]["model_digest"] == release["model_digest"], "loaded remote model mismatch", errors)
+require(runtime["synthetic_inference"]["executed"] is admission["require_synthetic_inference"], "synthetic inference missing", errors)
+require(runtime["synthetic_inference"]["http_status"] == 200, "synthetic inference failed", errors)
+require(runtime["synthetic_inference"]["loaded_fingerprint_reported"] is admission["require_loaded_fingerprint"], "loaded fingerprint missing", errors)
+require(runtime["synthetic_inference"]["release_matches_manifest"] is True, "synthetic inference did not verify release fingerprint", errors)
+
+sop = contract["second_operation"]
+require(second["release_id"] == contract["release_id"], "second-operation release mismatch", errors)
+require(second["operation_type"] == sop["required_type"], "second-operation type mismatch", errors)
+for field in ("same_source_digest", "same_dataset_digest", "same_dependency_lock_digest", "same_base_image_digest"):
+    require(second[field] is sop["same_immutable_inputs_required"], f"second operation failed {field}", errors)
+require(second["trusted_builder_used"] is sop["trusted_builder_required"], "second build did not use trusted builder", errors)
+require(second["platform_provenance_verified"] is sop["platform_provenance_required"], "second build provenance not verified", errors)
+require(second["model_subject_bound"] is True, "second build model subject not bound", errors)
+require(second["image_subject_bound"] is True, "second build image subject not bound", errors)
+require(second["admission_verified_composite"] is sop["composite_admission_required"], "second deployment did not verify composite release", errors)
+require(second["loaded_model_matches_release"] is sop["loaded_match_required"], "second deployment loaded model mismatch", errors)
+require(second["mutable_package_index_dependency"] is False, "second build depends on mutable package index", errors)
+require(second["long_lived_secret_required"] is False, "second build requires long-lived secret", errors)
+require(second["manual_digest_edit_required"] is False, "second build requires manual digest edit", errors)
+require(second["old_subjects_quarantined"] is sop["old_subjects_quarantined_required"], "old compromised subjects not quarantined", errors)
+
+verified = not errors
+report = {
+    "supply_chain_subject_id": contract.get("supply_chain_subject_id"),
+    "supply_chain_verified": verified,
+    "source_data_dependency_verified": verified,
+    "builder_provenance_verified": verified,
+    "artifact_binding_verified": verified,
+    "admission_runtime_verified": verified,
+    "second_operation_verified": verified,
+    "errors": errors,
+    "rollout_authorized": False,
+    "promotion_authorized": False,
+    "retraining_authorized": False,
+}
+report_text = canonical(report)
+write_exact("supply-chain-report.json", report_text)
+
+if not verified:
+    raise SystemExit("SUPPLY CHAIN REJECTED: " + "; ".join(errors))
+
+ledger = {
+    "supply_chain_subject_id": contract["supply_chain_subject_id"],
+    "contract_digest": digest("supply-chain-contract.json"),
+    "release_manifest_digest": digest("release-manifest.json"),
+    "source_evidence_digest": digest("source.json"),
+    "dataset_evidence_digest": digest("dataset.json"),
+    "dependency_evidence_digest": digest("dependency-lock.json"),
+    "build_provenance_digest": digest("build-provenance.json"),
+    "artifacts_evidence_digest": digest("artifacts.json"),
+    "runtime_evidence_digest": digest("runtime-evidence.json"),
+    "second_operation_digest": digest("second-operation.json"),
+    "report_digest": text_digest(report_text),
+}
+write_exact("supply-chain-evidence-ledger.json", canonical(ledger))
+print("SUPPLY CHAIN VERIFIED")

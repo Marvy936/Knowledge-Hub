@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-supply-chain-integrity
+cp "$ROOT/release-manifest.json.template" ./release-manifest.json
+cp "$ROOT/supply-chain-contract.json.template" ./supply-chain-contract.json
+cp "$ROOT/source.json.template" ./source.json
+cp "$ROOT/dataset.json.template" ./dataset.json
+cp "$ROOT/dependency-lock.json.template" ./dependency-lock.json
+cp "$ROOT/build-provenance.json.template" ./build-provenance.json
+cp "$ROOT/artifacts.json.template" ./artifacts.json
+cp "$ROOT/runtime-evidence.json.template" ./runtime-evidence.json
+cp "$ROOT/second-operation.json.template" ./second-operation.json
+cp "$ROOT/supply_chain_gate.py.template" ./supply_chain_gate.py
+cp "$ROOT/supply_chain_validator.py" ./supply_chain_validator.py
+chmod +x ./supply_chain_gate.py ./supply_chain_validator.py
+rm -f ./supply-chain-report.json ./supply-chain-evidence-ledger.json

@@ -1,0 +1,25 @@
+{
+  "release_id": "fraud-serving-2026-09-r45",
+  "model": {
+    "digest": "sha256:8f337b6096eca4d33c905e54336e102893ed911b3447cf1c93becc38dd7a7ba6",
+    "format": "mlflow-pyfunc",
+    "storage_uri": "s3://ml-models/fraud/latest/model",
+    "immutable_uri": false,
+    "attestation_signed": true,
+    "attestation_subject_digest": "sha256:8f337b6096eca4d33c905e54336e102893ed911b3447cf1c93becc38dd7a7ba6"
+  },
+  "image": {
+    "digest": "sha256:4b84276e03baebad1aa8e54d6f0560f74939544133331d49086239419fd4cf0e",
+    "signature_verified": true,
+    "certificate_identity": "https://github.com/example/fraud/.github/workflows/image-build.yml@refs/heads/main",
+    "oidc_issuer": "https://token.actions.githubusercontent.com"
+  },
+  "sbom": {
+    "digest": "sha256:3bcbdc0a9326ff39a1d36317f5e7c97cd6f012b621380c21bff6425e22820c35",
+    "bound_image_digest": "sha256:4b84276e03baebad1aa8e54d6f0560f74939544133331d49086239419fd4cf0e"
+  },
+  "model_bom": {
+    "digest": "sha256:54a9e7680d75521eb45416be5345d22c1fdb61f94ae16bf22441ec0b11728e86",
+    "bound_model_digest": "sha256:8f337b6096eca4d33c905e54336e102893ed911b3447cf1c93becc38dd7a7ba6"
+  }
+}

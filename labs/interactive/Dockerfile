@@ -76,6 +76,7 @@ COPY mlops-performance-cost-integrity /opt/knowledge-hub/labs/mlops-performance-
 COPY mlops-rollback-recovery-integrity /opt/knowledge-hub/labs/mlops-rollback-recovery-integrity
 COPY mlops-governance-approval-audit-integrity /opt/knowledge-hub/labs/mlops-governance-approval-audit-integrity
 COPY mlops-security-privacy-integrity /opt/knowledge-hub/labs/mlops-security-privacy-integrity
+COPY mlops-supply-chain-integrity /opt/knowledge-hub/labs/mlops-supply-chain-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -274,6 +275,15 @@ RUN ln -s driver /opt/knowledge-hub/labs/mlops-security-privacy-integrity/lab/la
  && ln -s driver /opt/knowledge-hub/labs/mlops-security-privacy-integrity/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/mlops-security-privacy-integrity/lab/assess \
  && ln -s driver /opt/knowledge-hub/labs/mlops-security-privacy-integrity/lab/secure
+
+RUN ln -s driver /opt/knowledge-hub/labs/mlops-supply-chain-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-supply-chain-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-supply-chain-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-supply-chain-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-supply-chain-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-supply-chain-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-supply-chain-integrity/lab/assess \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-supply-chain-integrity/lab/verify-chain
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
