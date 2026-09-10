@@ -1,0 +1,12 @@
+{
+  "subject_id": "MLOPS-PAY-MLFLOW-2026-09-r45",
+  "operation_type": "register_load_reconcile",
+  "same_model_digest_observed": true,
+  "register_api_result": "success",
+  "existing_version_reused": false,
+  "duplicate_version_created": "186",
+  "read_before_retry_performed": false,
+  "fresh_load_version": "186",
+  "fresh_load_succeeded": true,
+  "fresh_load_model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020"
+}

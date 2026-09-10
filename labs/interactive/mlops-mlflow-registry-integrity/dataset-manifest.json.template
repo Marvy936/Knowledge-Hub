@@ -1,0 +1,7 @@
+{
+  "dataset_id": "fraud-train-2026-09-01",
+  "snapshot_uri": "s3://ml-data/fraud/snapshots/2026-09-01/manifest.json",
+  "manifest_digest": "sha256:1ed90c3fbd05ca135d21ef15275520578d23ce6b92931b9f36f73a4c0c9b2e15",
+  "schema_generation": "fraud-training-v13",
+  "label_definition": "chargeback-mature-v8"
+}

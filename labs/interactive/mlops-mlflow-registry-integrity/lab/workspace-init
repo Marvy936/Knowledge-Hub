@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-mlflow-registry-integrity
+cp "$ROOT/mlflow-contract.json.template" ./mlflow-contract.json
+cp "$ROOT/dataset-manifest.json.template" ./dataset-manifest.json
+cp "$ROOT/evaluation-evidence.json.template" ./evaluation-evidence.json
+cp "$ROOT/tracking-evidence.json.template" ./tracking-evidence.json
+cp "$ROOT/registry-evidence.json.template" ./registry-evidence.json
+cp "$ROOT/deployment-evidence.json.template" ./deployment-evidence.json
+cp "$ROOT/second-operation.json.template" ./second-operation.json
+cp "$ROOT/mlflow_gate.py.template" ./mlflow_gate.py
+cp "$ROOT/mlflow_validator.py" ./mlflow_validator.py
+chmod +x ./mlflow_gate.py ./mlflow_validator.py
+rm -f ./mlflow-report.json ./mlflow-evidence-ledger.json

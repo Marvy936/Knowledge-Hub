@@ -1,0 +1,44 @@
+{
+  "subject_id": "MLOPS-PAY-MLFLOW-2026-09-r45",
+  "registered_model": "fraud-prod",
+  "tracking_server_generation": "mlflow-3.5.1-prod-g7",
+  "registry_server_generation": "mlflow-3.5.1-prod-g7",
+  "run_id": "run-fraud-r45-001",
+  "experiment_id": "fraud-training-prod",
+  "source_commit": "1b6ea1ef9f8dd1374e81f93cf2d328380591c9c2",
+  "pipeline_generation": "fraud-train-v21",
+  "dataset_manifest_digest": "sha256:9520dae9a8ed3a8d3f20b3ca1d7e7ac8b0ff141d378cc6704c4941ab7d53c08f",
+  "logged_model": {
+    "model_id": "m-mlflow-185",
+    "model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+    "model_uri": "models:/m-mlflow-185",
+    "signature_digest": "sha256:9c56776bd677178c9135e9e928a9397471971124337ad4594863d4d25892fddd",
+    "environment_lock_digest": "sha256:e2a63dca0a6d8be8f147c01a481affbc3799f460252a2c65413009fe294e5eb2"
+  },
+  "evaluation_evidence_digest": "sha256:8877a2ced78c92dd9c7832be91561857e74445a88e630512249c820e4c2fb335",
+  "registry": {
+    "expected_version": "185",
+    "candidate_alias": "candidate",
+    "champion_alias": "champion",
+    "expected_previous_champion_version": "184",
+    "unknown_outcome_read_before_retry": true
+  },
+  "deployment": {
+    "release_id": "fraud-serving-2026-09-r45",
+    "required_replicas": 3,
+    "require_immutable_version_resolution": true,
+    "require_loaded_package_smoke": true
+  },
+  "second_operation": {
+    "operation_type": "register_load_reconcile",
+    "no_duplicate_version": true,
+    "same_model_digest": true,
+    "fresh_load_required": true
+  },
+  "authority": {
+    "registry_success_is_evidence_only": true,
+    "rollout_authorized": false,
+    "promotion_authorized": false,
+    "retraining_authorized": false
+  }
+}
