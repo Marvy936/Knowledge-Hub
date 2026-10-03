@@ -1,0 +1,20 @@
+{
+  "boot_id": "boot-2026-10-03-a",
+  "entries": [
+    {
+      "message": "starting backup run backup:2026-10-03",
+      "priority": 6,
+      "run_id": "backup:2026-10-03",
+      "unit": "backup.service"
+    },
+    {
+      "failure_class": "ENOSPC",
+      "message": "write failed: No space left on device",
+      "priority": 3,
+      "run_id": "backup:2026-10-03",
+      "unit": "backup.service"
+    }
+  ],
+  "query_unit": "backup.timer",
+  "subject_id": "LINUX-BACKUP-2026-10-r1"
+}

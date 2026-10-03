@@ -1,0 +1,17 @@
+{
+  "cgroup_cleanup_complete": false,
+  "exec_main_status": 1,
+  "result": "exit-code",
+  "subject_id": "LINUX-BACKUP-2026-10-r1",
+  "timer": {
+    "active_state": "active",
+    "last_trigger": "2026-10-03T02:30:00Z",
+    "persistent": true,
+    "schedule": "*-*-* 02:30:00",
+    "sub_state": "waiting",
+    "unit": "backup.timer"
+  },
+  "unit": "backup.service",
+  "unit_type": "oneshot",
+  "user": "backup"
+}

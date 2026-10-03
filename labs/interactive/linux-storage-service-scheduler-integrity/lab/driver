@@ -1,0 +1,63 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'HELP'
+Knowledge Hub Interactive Lab
+Lab: linux-storage-service-scheduler-integrity
+
+Commands:
+  status      Show Linux backup evidence/report state
+  diagnose    Execute your current linux_backup_gate.py
+  check       Validate your gate
+  hint        Show the mount/service/journal/timer boundary
+  assess      Alias for check
+  reset       Restore the unsafe timer-is-green incident
+  self-test   Prove the fixture and reference solution
+HELP
+    ;;
+  status)
+    printf 'linux_backup_gate.py: '; [ -f linux_backup_gate.py ] && echo present || echo missing
+    printf 'linux-backup-report.json: '; [ -f linux-backup-report.json ] && echo present || echo missing
+    printf 'linux-backup-evidence-ledger.json: '; [ -f linux-backup-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'Start from the exact target path and find its mount. Reconcile df vs du with deleted-open inodes, then separate timer state, service result, journal evidence and verified backup bytes.' ;;
+  diagnose) python3 ./linux_backup_gate.py ;;
+  check|assess) python3 ./linux_backup_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./linux_backup_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('linux-backup-report.json').read_text())
+assert r['backup_verified'] is True
+assert r['timer_active'] is True
+PY
+    cp "$ROOT/linux_backup_gate.py.solution.template" ./linux_backup_gate.py
+    chmod +x ./linux_backup_gate.py
+    rm -f linux-backup-report.json linux-backup-evidence-ledger.json
+    python3 - <<'PY'
+import json
+from pathlib import Path
+def rw(p,o): Path(p).write_text(json.dumps(o,indent=2,sort_keys=True)+'\n')
+c=json.loads(Path('linux-backup-contract.json').read_text())
+fs=json.loads(Path('filesystem-evidence.json').read_text())
+fs.update({'mount_source':c['filesystem']['mount_source'],'fs_type':c['filesystem']['fs_type'],'mount_options':['rw','relatime'],'writable':True,'deleted_open':[],'df_used_pct':41,'du_visible_used_pct':40})
+fs['target']={'path':c['filesystem']['target_path'],'exists':True,'inode':7711}
+fs['symlink']={'path':'/var/lib/backup/current','target':'snapshot-2026-10-03.tar','dangling':False}
+fs['hardlink']={'path':'/var/lib/backup/latest.tar','inode':7711,'link_count':2,'same_inode_as_target':True}; rw('filesystem-evidence.json',fs)
+svc=json.loads(Path('service-evidence.json').read_text()); svc.update({'unit':c['service']['unit'],'unit_type':c['service']['type'],'user':c['service']['user'],'result':'success','exec_main_status':0,'cgroup_cleanup_complete':True}); rw('service-evidence.json',svc)
+j=json.loads(Path('journal-evidence.json').read_text()); j['query_unit']=c['logging']['journal_unit']; j['entries']=[{'message':'starting backup run backup:2026-10-03','priority':6,'run_id':c['logging']['run_id'],'unit':c['logging']['journal_unit']},{'message':c['logging']['completion_event'],'priority':6,'run_id':c['logging']['run_id'],'unit':c['logging']['journal_unit']}]; rw('journal-evidence.json',j)
+o=json.loads(Path('backup-outcome.json').read_text()); o['artifact']={'path':c['filesystem']['target_path'],'exists':True,'sha256':c['outcome']['artifact_sha256'],'manifest_entries':c['outcome']['manifest_entries']}; o['remote_verified']=True; o['run_id']=c['logging']['run_id']; rw('backup-outcome.json',o)
+s=json.loads(Path('second-operation.json').read_text()); s.update({'same_run_id':True,'duplicate_artifacts':0,'report_byte_identical':True}); rw('second-operation.json',s)
+PY
+    python3 ./linux_backup_validator.py
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac

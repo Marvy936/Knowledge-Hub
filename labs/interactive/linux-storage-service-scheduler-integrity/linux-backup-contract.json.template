@@ -1,0 +1,46 @@
+{
+  "authority": {
+    "backup_verified_required": true,
+    "service_exit_zero_is_evidence_only": true,
+    "timer_active_is_evidence_only": true
+  },
+  "filesystem": {
+    "deleted_open_must_be_zero_after_recovery": true,
+    "fs_type": "xfs",
+    "mount_options_required": [
+      "rw"
+    ],
+    "mount_source": "/dev/mapper/vg-backup",
+    "target_path": "/var/lib/backup/snapshot-2026-10-03.tar"
+  },
+  "logging": {
+    "completion_event": "BACKUP_COMPLETE",
+    "journal_unit": "backup.service",
+    "run_id": "backup:2026-10-03"
+  },
+  "outcome": {
+    "artifact_sha256": "sha256:3e2d1adf3b8f7f8f0879f8179cdf92565da403529d06160bccf4f0ae9b84a199",
+    "manifest_entries": 1842,
+    "remote_verified": true
+  },
+  "second_operation": {
+    "duplicate_artifacts": 0,
+    "report_byte_identical": true,
+    "same_run_id": true
+  },
+  "service": {
+    "exec_main_status": 0,
+    "result": "success",
+    "type": "oneshot",
+    "unit": "backup.service",
+    "user": "backup"
+  },
+  "subject_id": "LINUX-BACKUP-2026-10-r1",
+  "timer": {
+    "active_state": "active",
+    "persistent": true,
+    "schedule": "*-*-* 02:30:00",
+    "sub_state": "waiting",
+    "unit": "backup.timer"
+  }
+}

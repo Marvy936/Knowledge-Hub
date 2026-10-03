@@ -1,0 +1,11 @@
+{
+  "artifact": {
+    "exists": false,
+    "manifest_entries": 0,
+    "path": "/var/lib/backup/snapshot-2026-10-03.tar",
+    "sha256": null
+  },
+  "remote_verified": false,
+  "run_id": "backup:2026-10-03",
+  "subject_id": "LINUX-BACKUP-2026-10-r1"
+}
