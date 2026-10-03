@@ -1,0 +1,14 @@
+{
+  "build_duration_minutes": {
+    "baseline": 14.3,
+    "improvement": 5.7
+  },
+  "claim": "build acceleration improved delivery performance",
+  "claimed_dora": {
+    "change_failure_rate": 0.0,
+    "deployment_frequency": 12,
+    "lead_time_minutes": 45,
+    "mean_recovery_minutes": 10
+  },
+  "status": "green"
+}

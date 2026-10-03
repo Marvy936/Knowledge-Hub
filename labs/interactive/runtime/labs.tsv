@@ -50,3 +50,4 @@ mlops-sagemaker-cloud-mapping-integrity	shell	Bind SageMaker Pipeline, Model Pac
 mlops-platform-architecture-integrity	shell	Bind one immutable release subject across MLOps authoritative stores, control/data planes, event bridges, observability and composite recovery.
 mlops-troubleshooting-integrity	shell	Diagnose the first divergence across exact incident state, preserved evidence, competing hypotheses, bounded containment, composite recovery and duplicate-safe second-operation proof.
 foundations-reconciliation-idempotency	shell	Repair unsafe imperative retry into stable-identity declarative reconciliation with authoritative read-back, effective-state verification and no-op replay.
+foundations-flow-feedback-dora	shell	Recompute end-to-end value-stream and DORA evidence, target the measured bottleneck, close feedback and standardize verified improvement.

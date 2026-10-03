@@ -86,6 +86,7 @@ COPY mlops-sagemaker-cloud-mapping-integrity /opt/knowledge-hub/labs/mlops-sagem
 COPY mlops-platform-architecture-integrity /opt/knowledge-hub/labs/mlops-platform-architecture-integrity
 COPY mlops-troubleshooting-integrity /opt/knowledge-hub/labs/mlops-troubleshooting-integrity
 COPY foundations-reconciliation-idempotency /opt/knowledge-hub/labs/foundations-reconciliation-idempotency
+COPY foundations-flow-feedback-dora /opt/knowledge-hub/labs/foundations-flow-feedback-dora
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -375,6 +376,15 @@ RUN ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/
  && ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/assess \
  && ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/reconcile
+
+RUN ln -s driver /opt/knowledge-hub/labs/foundations-flow-feedback-dora/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-flow-feedback-dora/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-flow-feedback-dora/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-flow-feedback-dora/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-flow-feedback-dora/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-flow-feedback-dora/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-flow-feedback-dora/lab/assess \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-flow-feedback-dora/lab/analyze
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

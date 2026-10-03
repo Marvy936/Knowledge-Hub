@@ -1,0 +1,10 @@
+{
+  "corrective_action": "none",
+  "decision": null,
+  "learning_recorded": false,
+  "observation": "build duration decreased",
+  "outcome_changed": false,
+  "owner": null,
+  "re_observed": false,
+  "signal": "dashboard green after build cache"
+}

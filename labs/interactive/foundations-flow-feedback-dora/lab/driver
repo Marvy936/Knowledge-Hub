@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/foundations-flow-feedback-dora
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'HELP'
+Knowledge Hub Interactive Lab
+Lab: foundations-flow-feedback-dora
+
+Commands:
+  status      Show flow evidence/report state
+  analyze     Execute your current flow_gate.py
+  check       Validate your flow_gate.py
+  hint        Show the system-flow/feedback boundary
+  assess      Alias for check
+  reset       Restore the unsafe local-optimization incident
+  self-test   Prove the lab fixture and reference solution
+HELP
+    ;;
+  status)
+    printf 'flow_gate.py: '; [ -f flow_gate.py ] && echo present || echo missing
+    printf 'flow-report.json: '; [ -f flow-report.json ] && echo present || echo missing
+    printf 'flow-evidence-ledger.json: '; [ -f flow-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'Do not optimize the fastest visible step. Recompute the end-to-end value stream and DORA signals from raw lifecycle events, identify the dominant queue, close the feedback loop, and verify the same population after the bounded change.' ;;
+  analyze) python3 ./flow_gate.py ;;
+  check|assess) python3 ./flow_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./flow_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('flow-report.json').read_text())
+assert r['flow_verified'] is True
+assert r['reason']=='build got faster and dashboard is green'
+PY
+    cp "$ROOT/flow_gate.py.solution.template" ./flow_gate.py
+    chmod +x ./flow_gate.py
+    rm -f flow-report.json flow-evidence-ledger.json
+    python3 ./flow_validator.py
+    reset_lab
+    python3 ./flow_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('flow-report.json').read_text())
+assert r['flow_verified'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac
