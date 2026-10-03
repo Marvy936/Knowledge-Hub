@@ -2,7 +2,7 @@
 set -eu
 ROOT=/opt/knowledge-hub/labs/mlops-troubleshooting-integrity
 reset_lab() { "$ROOT/lab/workspace-init"; }
-case "\${1:-help}" in
+case "${1:-help}" in
   help|lab-help)
     cat <<'EOF'
 Knowledge Hub Interactive Lab
