@@ -2,7 +2,7 @@ name: kh-s3-versioning-minio
 
 services:
   minio:
-    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    image: quay.io/minio/minio:RELEASE.2025-09-07T16-13-09Z
     container_name: kh-lab-minio
     command: server /data
     environment:
