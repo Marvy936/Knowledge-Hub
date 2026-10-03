@@ -7,9 +7,9 @@ This is the authoritative per-document practical coverage baseline for documenta
 ## Baseline summary
 
 - Total documentation topics: **377**
-- Covered: **13**
-- Partial: **37**
-- Planned: **327**
+- Covered: **15**
+- Partial: **40**
+- Planned: **322**
 - Not applicable: **0**
 
 | Section | Documentation topic | State | Interactive lab(s) | Supplemental | Coverage note |
@@ -21,18 +21,18 @@ This is the authoritative per-document practical coverage baseline for documenta
 | 00-foundations | [desired-state-and-reconciliation](docs/00-foundations/desired-state-and-reconciliation.md) | `covered` | `foundations-reconciliation-idempotency` | — | Recomputes desired vs observed state, reconciles partial state and verifies effective runtime convergence. |
 | 00-foundations | [devops](docs/00-foundations/devops.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [devops-anti-patterns](docs/00-foundations/devops-anti-patterns.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [devops-lifecycle](docs/00-foundations/devops-lifecycle.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [dora-metrics](docs/00-foundations/dora-metrics.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [devops-lifecycle](docs/00-foundations/devops-lifecycle.md) | `partial` | `foundations-delivery-flow-dora` | — | Traces one bounded source→production→recovery delivery slice; broader lifecycle ownership and operating model remain planned. |
+| 00-foundations | [dora-metrics](docs/00-foundations/dora-metrics.md) | `covered` | `foundations-delivery-flow-dora` | — | Recomputes deployment frequency, lead time for changes, change failure rate and time to restore from authoritative production events with explicit windows and denominators. |
 | 00-foundations | [feedback-loops](docs/00-foundations/feedback-loops.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [idempotency](docs/00-foundations/idempotency.md) | `covered` | `foundations-reconciliation-idempotency` | — | Requires stable operation/resource identity, read-before-retry and duplicate-free identical replay. |
 | 00-foundations | [immutable-vs-mutable-infrastructure](docs/00-foundations/immutable-vs-mutable-infrastructure.md) | `partial` | `foundations-reconciliation-idempotency` | — | Requires a digest-pinned artifact and rejects mutable references; full replacement/traffic-cutover lifecycle remains planned. |
 | 00-foundations | [ownership-mindset](docs/00-foundations/ownership-mindset.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [sdlc](docs/00-foundations/sdlc.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [sdlc](docs/00-foundations/sdlc.md) | `partial` | `foundations-delivery-flow-dora` | — | Exercises traceability from source change through production exposure and recovery; discovery, design, maintenance and retirement remain outside this lab. |
 | 00-foundations | [systems-thinking](docs/00-foundations/systems-thinking.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [t-shaped-engineer](docs/00-foundations/t-shaped-engineer.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [three-ways](docs/00-foundations/three-ways.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [three-ways](docs/00-foundations/three-ways.md) | `partial` | `foundations-delivery-flow-dora` | — | Exercises First-Way flow and production feedback measurement; Third-Way institutional learning remains planned. |
 | 00-foundations | [toil-and-technical-debt](docs/00-foundations/toil-and-technical-debt.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [value-stream-mapping](docs/00-foundations/value-stream-mapping.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [value-stream-mapping](docs/00-foundations/value-stream-mapping.md) | `covered` | `foundations-delivery-flow-dora` | — | Reconstructs active vs wait time, process efficiency and the true queue bottleneck instead of optimizing the most visible active-work stage. |
 | 00-foundations | [you-build-it-you-run-it](docs/00-foundations/you-build-it-you-run-it.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [cgroups](docs/01-linux-and-systems/cgroups.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [cpu-and-memory-fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md) | `planned` | — | — | Interactive backfill required. |
