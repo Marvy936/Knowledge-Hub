@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:bfe8ebca48f8de172d40f6b941b62217eabb8e3c8918ddd02d7c87d24b90d16a"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def td(s): return "sha256:"+hashlib.sha256(s.encode()).hexdigest()
+def req(c,m,e):
+    if not c: e.append(m)
+def exact_write(p,t):
+    q=Path(p)
+    if q.exists() and q.read_text()!=t: raise SystemExit(f"conflicting durable state: {p}")
+    q.write_text(t)
+
+c=load("mlflow-contract.json"); ds=load("dataset-manifest.json"); ev=load("evaluation-evidence.json")
+tr=load("tracking-evidence.json"); rg=load("registry-evidence.json"); dep=load("deployment-evidence.json"); second=load("second-operation.json")
+e=[]
+req(digest("mlflow-contract.json")==EXPECTED_CONTRACT_DIGEST,"contract digest mismatch",e)
+req(digest("dataset-manifest.json")==c["dataset_manifest_digest"],"dataset manifest digest mismatch",e)
+req(digest("evaluation-evidence.json")==c["evaluation_evidence_digest"],"evaluation evidence digest mismatch",e)
+req(len(c["source_commit"])==40 and all(x in "0123456789abcdef" for x in c["source_commit"]),"source commit is not exact 40-hex",e)
+req(tr["subject_id"]==c["subject_id"],"tracking subject mismatch",e)
+req(tr["tracking_server_generation"]==c["tracking_server_generation"],"tracking generation mismatch",e)
+req(tr["experiment_id"]==c["experiment_id"] and tr["run_id"]==c["run_id"],"run identity mismatch",e)
+req(tr["run_status"]=="FINISHED","run did not finish",e)
+req(tr["source_commit"]==c["source_commit"] and tr["pipeline_generation"]==c["pipeline_generation"],"run source/pipeline mismatch",e)
+inp=tr["dataset_input"]
+req(inp["dataset_id"]==ds["dataset_id"],"run dataset id mismatch",e)
+req(inp["source"]==ds["snapshot_uri"],"dataset source is not immutable snapshot",e)
+req(inp["manifest_digest"]==ds["manifest_digest"],"run dataset manifest digest missing/mismatch",e)
+lm=tr["logged_model"]
+for f in ("model_id","model_uri","model_digest","signature_digest","environment_lock_digest"):
+    req(lm[f]==c["logged_model"][f],f"logged model {f} mismatch",e)
+req(lm["fresh_load_smoke"] is True,"logged model lacks fresh load smoke",e)
+req(ev["candidate_model_id"]==c["logged_model"]["model_id"] and ev["candidate_model_digest"]==c["logged_model"]["model_digest"],"evaluation belongs to different model",e)
+req(ev["verdict"]=="passed" and bool(ev["signed_bundle_digest"]),"evaluation verdict/bundle invalid",e)
+
+req(rg["subject_id"]==c["subject_id"] and rg["registered_model"]==c["registered_model"],"registry subject/name mismatch",e)
+req(rg["registry_server_generation"]==c["registry_server_generation"],"registry generation mismatch",e)
+v=rg["version"]
+req(v["number"]==c["registry"]["expected_version"] and v["status"]=="READY","registry version not exact/ready",e)
+req(v["source_model_id"]==c["logged_model"]["model_id"] and v["source_model_digest"]==c["logged_model"]["model_digest"],"registry source model mismatch",e)
+req(v["run_id"]==c["run_id"] and v["evaluation_evidence_digest"]==c["evaluation_evidence_digest"],"registry run/evaluation linkage mismatch",e)
+req(rg["aliases"]["candidate"]==v["number"] and rg["aliases"]["champion"]==v["number"],"alias read-back mismatch",e)
+m=rg["mutation"]
+req(m["expected_previous_champion_version"]==c["registry"]["expected_previous_champion_version"],"alias CAS previous version mismatch",e)
+if m["api_result"]=="timeout_unknown":
+    req(m["read_before_retry_performed"] is True,"unknown alias mutation retried without read-before-retry",e)
+    req(m["readback_version"]==v["number"],"unknown alias mutation did not reconcile read-back",e)
+    req(m["retry_submitted"] is False,"duplicate alias retry submitted",e)
+fl=rg["fresh_version_load"]
+req(fl["version"]==v["number"] and fl["model_digest"]==c["logged_model"]["model_digest"],"fresh Registry load identity mismatch",e)
+req(fl["load_succeeded"] is True and fl["prediction_parity"] is True,"fresh Registry load/parity failed",e)
+
+req(dep["subject_id"]==c["subject_id"] and dep["release_id"]==c["deployment"]["release_id"],"deployment subject mismatch",e)
+req(dep["registry_resolution_mode"]=="immutable_version_once","deployment resolves mutable alias per replica",e)
+req(dep["resolved_registry_version"]==v["number"] and dep["resolved_model_digest"]==c["logged_model"]["model_digest"],"immutable deployment resolution mismatch",e)
+reps=dep["replicas"]; req(len(reps)==c["deployment"]["required_replicas"],"replica evidence count mismatch",e)
+ids=[]
+for r in reps:
+    ids.append(r["replica_id"]); req(r["ready"] is True,"replica not ready",e)
+    req(r["loaded_registry_version"]==v["number"],f"replica {r['replica_id']} version mismatch",e)
+    req(r["loaded_model_digest"]==c["logged_model"]["model_digest"],f"replica {r['replica_id']} model digest mismatch",e)
+    req(r["package_load_smoke"] is True,f"replica {r['replica_id']} package smoke failed",e)
+req(len(ids)==len(set(ids)),"duplicate replica id",e)
+syn=dep["synthetic_inference"]
+req(syn["executed"] is True and syn["http_status"]==200,"synthetic inference failed",e)
+req(syn["exact_version_verified"] is True and syn["exact_model_digest_verified"] is True,"synthetic inference did not verify exact model/version",e)
+
+req(second["subject_id"]==c["subject_id"] and second["operation_type"]==c["second_operation"]["operation_type"],"second operation identity mismatch",e)
+req(second["same_model_digest_observed"] is True,"second operation model digest changed",e)
+req(second["read_before_retry_performed"] is True,"second register operation lacks read-before-retry",e)
+req(second["existing_version_reused"] is True,"second operation did not reuse existing exact version",e)
+req(second["duplicate_version_created"] is None,"second operation created duplicate version",e)
+req(second["fresh_load_version"]==v["number"] and second["fresh_load_model_digest"]==c["logged_model"]["model_digest"],"second fresh load identity mismatch",e)
+req(second["fresh_load_succeeded"] is True,"second fresh load failed",e)
+
+ok=not e
+report={"subject_id":c["subject_id"],"mlflow_integrity_verified":ok,"dataset_lineage_verified":ok,"registry_readback_verified":ok,"immutable_deployment_resolution_verified":ok,"second_operation_verified":ok,"errors":e,"rollout_authorized":False,"promotion_authorized":False,"retraining_authorized":False}
+rt=canonical(report); exact_write("mlflow-report.json",rt)
+if not ok: raise SystemExit("MLFLOW INTEGRITY REJECTED: "+"; ".join(e))
+ledger={"subject_id":c["subject_id"],"contract_digest":digest("mlflow-contract.json"),"dataset_digest":digest("dataset-manifest.json"),"evaluation_digest":digest("evaluation-evidence.json"),"tracking_digest":digest("tracking-evidence.json"),"registry_digest":digest("registry-evidence.json"),"deployment_digest":digest("deployment-evidence.json"),"second_operation_digest":digest("second-operation.json"),"report_digest":td(rt)}
+exact_write("mlflow-evidence-ledger.json",canonical(ledger))
+print("MLFLOW INTEGRITY VERIFIED")

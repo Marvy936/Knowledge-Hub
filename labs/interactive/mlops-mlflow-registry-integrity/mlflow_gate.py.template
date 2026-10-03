@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+tr=json.loads(Path("tracking-evidence.json").read_text())
+rg=json.loads(Path("registry-evidence.json").read_text())
+dep=json.loads(Path("deployment-evidence.json").read_text())
+ok=tr["run_status"]=="FINISHED" and rg["aliases"]["champion"]==rg["version"]["number"] and dep["synthetic_inference"]["http_status"]==200
+report={"subject_id":tr["subject_id"],"mlflow_integrity_verified":ok,"rollout_authorized":ok,"promotion_authorized":False,"retraining_authorized":False}
+Path("mlflow-report.json").write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
+print("MLFLOW ACCEPTED" if ok else "MLFLOW BLOCKED")

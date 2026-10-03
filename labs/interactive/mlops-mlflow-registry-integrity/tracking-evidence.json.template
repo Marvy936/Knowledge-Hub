@@ -1,0 +1,22 @@
+{
+  "subject_id": "MLOPS-PAY-MLFLOW-2026-09-r45",
+  "tracking_server_generation": "mlflow-3.5.1-prod-g7",
+  "experiment_id": "fraud-training-prod",
+  "run_id": "run-fraud-r45-001",
+  "run_status": "FINISHED",
+  "source_commit": "1b6ea1ef9f8dd1374e81f93cf2d328380591c9c2",
+  "pipeline_generation": "fraud-train-v21",
+  "dataset_input": {
+    "dataset_id": "fraud-train-2026-09-01",
+    "source": "s3://ml-data/fraud/latest/manifest.json",
+    "manifest_digest": null
+  },
+  "logged_model": {
+    "model_id": "m-mlflow-185",
+    "model_uri": "models:/m-mlflow-185",
+    "model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+    "signature_digest": "sha256:9c56776bd677178c9135e9e928a9397471971124337ad4594863d4d25892fddd",
+    "environment_lock_digest": "sha256:e2a63dca0a6d8be8f147c01a481affbc3799f460252a2c65413009fe294e5eb2",
+    "fresh_load_smoke": true
+  }
+}

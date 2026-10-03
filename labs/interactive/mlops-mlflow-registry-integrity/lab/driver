@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-mlflow-registry-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-mlflow-registry-integrity
+
+Commands:
+  status      Show MLflow evidence/report state
+  reconcile   Execute your current mlflow_gate.py
+  check       Validate your mlflow_gate.py
+  hint        Show the MLflow identity/deployment boundary
+  assess      Alias for check
+  reset       Restore the unsafe green-run/alias incident
+  self-test   Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'mlflow_gate.py: '; [ -f mlflow_gate.py ] && echo present || echo missing
+    printf 'mlflow-report.json: '; [ -f mlflow-report.json ] && echo present || echo missing
+    printf 'mlflow-evidence-ledger.json: '; [ -f mlflow-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'A FINISHED run, Registry version and champion alias are control-plane metadata. Bind immutable dataset bytes, logged model/evaluation, exact version read-back, CAS/read-before-retry alias mutation, one immutable deployment resolution, loaded fleet parity and duplicate-safe second registration.' ;;
+  reconcile) python3 ./mlflow_gate.py ;;
+  check|assess) python3 ./mlflow_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./mlflow_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('mlflow-report.json').read_text())
+assert r['mlflow_integrity_verified'] is True
+assert r['rollout_authorized'] is True
+PY
+    cp "$ROOT/mlflow_gate.py.solution.template" ./mlflow_gate.py
+    chmod +x ./mlflow_gate.py
+    rm -f mlflow-report.json mlflow-evidence-ledger.json
+    python3 ./mlflow_validator.py
+    reset_lab
+    python3 ./mlflow_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('mlflow-report.json').read_text())
+assert r['rollout_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac

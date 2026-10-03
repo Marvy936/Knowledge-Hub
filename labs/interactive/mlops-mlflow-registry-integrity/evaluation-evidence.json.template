@@ -1,0 +1,10 @@
+{
+  "evaluation_id": "fraud-eval-r45",
+  "candidate_model_id": "m-mlflow-185",
+  "candidate_model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+  "dataset_id": "fraud-eval-2026-09-01",
+  "dataset_digest": "sha256:c550154021ce28a0ff3d82f807ad9c8f12a2d26a805e408ab9f3783253e20963",
+  "policy_generation": "fraud-promotion-v10",
+  "verdict": "passed",
+  "signed_bundle_digest": "sha256:11c43d531417d69228bc776ebd5196bdcc82226cb5f93f12f04e8bcfc87b04c4"
+}

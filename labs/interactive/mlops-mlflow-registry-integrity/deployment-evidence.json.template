@@ -1,0 +1,36 @@
+{
+  "subject_id": "MLOPS-PAY-MLFLOW-2026-09-r45",
+  "release_id": "fraud-serving-2026-09-r45",
+  "registry_resolution_mode": "resolve_alias_per_replica",
+  "resolved_registry_version": null,
+  "resolved_model_digest": null,
+  "replicas": [
+    {
+      "replica_id": "fraud-r45-a",
+      "ready": true,
+      "loaded_registry_version": "185",
+      "loaded_model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+      "package_load_smoke": true
+    },
+    {
+      "replica_id": "fraud-r44-b",
+      "ready": true,
+      "loaded_registry_version": "184",
+      "loaded_model_digest": "sha256:7a8b2f84f4adb163025583d7817f989032c78c3e8f20d23434728b849a1c8672",
+      "package_load_smoke": true
+    },
+    {
+      "replica_id": "fraud-r44-c",
+      "ready": true,
+      "loaded_registry_version": "184",
+      "loaded_model_digest": "sha256:7a8b2f84f4adb163025583d7817f989032c78c3e8f20d23434728b849a1c8672",
+      "package_load_smoke": true
+    }
+  ],
+  "synthetic_inference": {
+    "executed": true,
+    "http_status": 200,
+    "exact_version_verified": false,
+    "exact_model_digest_verified": false
+  }
+}
