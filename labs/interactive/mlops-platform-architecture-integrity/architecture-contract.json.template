@@ -1,0 +1,45 @@
+{
+  "authority": {
+    "audit": "approvals_waivers_and_decision_chain",
+    "dashboard_is_authoritative": false,
+    "deployment": "loaded_runtime_and_traffic",
+    "feature_store": "feature_definitions_and_materialization",
+    "git": "release_intent",
+    "object_store": "immutable_artifacts",
+    "observability": "actual_exposure_and_operational_evidence",
+    "registry": "candidate_versions_and_promotion_control"
+  },
+  "authority_boundary": {
+    "architecture_evidence_only": true,
+    "promotion_authorized": false,
+    "retraining_authorized": false,
+    "rollout_authorized": false
+  },
+  "event_bridge": {
+    "event_id": "evt-fraud-r51-promote",
+    "idempotency_key": "promote:fraud-2026-10-r51",
+    "read_before_retry_required": true
+  },
+  "recovery": {
+    "failover_is_new_runtime_generation": true,
+    "full_composite_required": true,
+    "known_good_feature_generation": "fraud-features-v15",
+    "known_good_release_id": "fraud-2026-09-r50",
+    "known_good_runtime_image_digest": "sha256:4c4f6391b5566299b8ce9c4e9536b6084ed81228e9f841a43aefbda55fbc99c0"
+  },
+  "release_id": "fraud-2026-10-r51",
+  "release_manifest_digest": "sha256:16121b69b800b683a866bdc46c6e9a6b78c8239c201e1199b09e9e8f95c5fc15",
+  "second_operation": {
+    "mutations_noop_or_reconciled": true,
+    "pure_operations_reproducible": true,
+    "same_subject": true
+  },
+  "subject_id": "MLOPS-PAY-ARCH-2026-10-r51",
+  "systems": {
+    "kfp_run_id": "kfp-fraud-r51",
+    "kserve_service": "fraud-classifier",
+    "registry_version": "fraud-prod/184",
+    "sagemaker_endpoint": "arn:aws:sagemaker:eu-central-1:123456789012:endpoint/fraud-fallback",
+    "trainer_job": "fraud-train-r51"
+  }
+}

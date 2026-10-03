@@ -1,0 +1,14 @@
+{
+  "dataset_digest": "sha256:9f8fbf2e48f56ed7c62b8c2ab8a0c914a7a9fe6b05a07d25b794f4e9f6e0cd11",
+  "deployment_profile": "fraud-serving-standard-v7",
+  "evaluation_bundle_digest": "sha256:2ba5c1df42163bf66d836319aa860e6f0efc8abe4ff12658c502acf324e399a1",
+  "feature_definition_digest": "sha256:0b4b3158ec684e46dcf5f8b7cf09ce25c6526f61f143a9c4e0b89571edab1d64",
+  "feature_generation": "fraud-features-v16",
+  "model_artifact_digest": "sha256:5a2c01fd80cb2dcb2921abe0cfbb617958462514ff041155c0e42b73929b7c8d",
+  "monitoring_generation": "fraud-monitor-v13",
+  "pipeline_ir_digest": "sha256:1c3f0a391fd7a83538ae0e5cd18a59e6bd3ec64b4598a5ecab93d8f7587a4cf8",
+  "policy_generation": "fraud-promotion-v11",
+  "release_id": "fraud-2026-10-r51",
+  "runtime_image_digest": "sha256:58da9d9ae73283ae9c6abb1a868ba9bbd25f07b4d6efb3bda694658a7cff42be",
+  "source_commit": "b7a3c21d89e34054a77f006e46b132f5064e3d21"
+}

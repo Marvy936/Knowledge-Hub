@@ -1,0 +1,112 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:5ff6d61f280380a0915e47ed6f4b988f4bd69733575728bac3f05530c316bf6f"
+
+def load(path): return json.loads(Path(path).read_text())
+def digest(path): return "sha256:"+hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def canonical(obj): return json.dumps(obj,indent=2,sort_keys=True)+"\n"
+def text_digest(text): return "sha256:"+hashlib.sha256(text.encode()).hexdigest()
+def req(condition,message,errors):
+    if not condition: errors.append(message)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("architecture-contract.json")
+release=load("release-manifest.json")
+authority=load("authority-map.json")
+systems=load("system-evidence.json")
+event=load("event-evidence.json")
+recovery=load("recovery-evidence.json")
+second=load("second-operation.json")
+errors=[]
+
+req(digest("architecture-contract.json")==EXPECTED_CONTRACT_DIGEST,"architecture contract digest mismatch",errors)
+req(digest("release-manifest.json")==c["release_manifest_digest"],"release manifest digest mismatch",errors)
+req(release["release_id"]==c["release_id"],"release id mismatch",errors)
+req(authority==c["authority"],"authority map mismatch",errors)
+req(authority["dashboard_is_authoritative"] is False,"dashboard must not be authoritative",errors)
+req(c["authority_boundary"]=={"architecture_evidence_only":True,"promotion_authorized":False,"retraining_authorized":False,"rollout_authorized":False},"architecture authority boundary mismatch",errors)
+
+req(systems["release_id"]==c["release_id"],"system evidence release mismatch",errors)
+req(systems["kfp"]["run_id"]==c["systems"]["kfp_run_id"],"KFP run identity mismatch",errors)
+req(systems["kfp"]["status"]=="Succeeded" and systems["kfp"]["release_id"]==c["release_id"],"KFP run/release mismatch",errors)
+req(systems["kfp"]["pipeline_ir_digest"]==release["pipeline_ir_digest"],"KFP IR mismatch",errors)
+req(systems["trainer"]["job"]==c["systems"]["trainer_job"],"Trainer job identity mismatch",errors)
+req(systems["trainer"]["status"]=="Succeeded" and systems["trainer"]["release_id"]==c["release_id"],"Trainer run/release mismatch",errors)
+req(systems["trainer"]["model_artifact_digest"]==release["model_artifact_digest"],"Trainer model mismatch",errors)
+req(systems["registry"]["version"]==c["systems"]["registry_version"],"Registry version mismatch",errors)
+req(systems["registry"]["release_id"]==c["release_id"] and systems["registry"]["model_artifact_digest"]==release["model_artifact_digest"],"Registry subject mismatch",errors)
+
+fs=systems["feature_store"]
+req(fs["definition_digest"]==release["feature_definition_digest"],"feature definition mismatch",errors)
+req(fs["expected_generation"]==release["feature_generation"],"feature expected generation mismatch",errors)
+req(fs["materialized_generation"]==release["feature_generation"],"feature materialization generation mismatch",errors)
+
+ks=systems["kserve"]
+req(ks["service"]==c["systems"]["kserve_service"],"KServe service mismatch",errors)
+req(ks["ready"] is True and ks["loaded_release_id"]==c["release_id"],"KServe loaded release mismatch",errors)
+req(ks["model_artifact_digest"]==release["model_artifact_digest"],"KServe model mismatch",errors)
+req(ks["feature_generation"]==release["feature_generation"],"KServe feature generation mismatch",errors)
+req(ks["runtime_image_digest"]==release["runtime_image_digest"],"KServe runtime image mismatch",errors)
+
+sm=systems["sagemaker"]
+req(sm["endpoint"]==c["systems"]["sagemaker_endpoint"],"SageMaker endpoint mismatch",errors)
+req(sm["in_service"] is True and sm["loaded_release_id"]==c["release_id"],"SageMaker loaded release mismatch",errors)
+req(sm["model_artifact_digest"]==release["model_artifact_digest"],"SageMaker model mismatch",errors)
+req(sm["feature_generation"]==release["feature_generation"],"SageMaker feature generation mismatch",errors)
+req(sm["runtime_image_digest"]==release["runtime_image_digest"],"SageMaker runtime image mismatch",errors)
+
+obs=systems["observability"]
+req(obs["correlation_key"]=="release_id","observability is not correlated by release identity",errors)
+req(obs["monitoring_generation"]==release["monitoring_generation"],"monitoring generation mismatch",errors)
+req(obs["actual_exposure_release_ids"]==[c["release_id"]],"actual exposure contains mixed releases",errors)
+req(obs["dropped_events"]==0,"observability dropped events",errors)
+
+bridge=c["event_bridge"]
+req(event["event_id"]==bridge["event_id"],"event identity mismatch",errors)
+req(event["subject_digest"]==c["release_manifest_digest"],"event subject digest mismatch",errors)
+req(event["idempotency_key"]==bridge["idempotency_key"],"event idempotency key mismatch",errors)
+req(event["authenticated"] is True and event["delivery_count"]>=1,"event ingestion/delivery mismatch",errors)
+req(event["deduplicated"] is True,"at-least-once event was not deduplicated",errors)
+if event["mutation_outcome"]=="timeout_unknown" and bridge["read_before_retry_required"]:
+    req(event["read_before_retry"] is True,"unknown mutation outcome retried without read-back",errors)
+req(event["duplicate_mutation_submitted"] is False,"event bridge submitted duplicate mutation",errors)
+req(event["target_readback_release_id"]==c["release_id"],"event target read-back mismatch",errors)
+
+rc=c["recovery"]
+req(recovery["target_release_id"]==rc["known_good_release_id"],"recovery target mismatch",errors)
+req(recovery["evidence_preserved"] is True and recovery["registry_pointer_updated"] is True,"recovery evidence/pointer mismatch",errors)
+req(recovery["feature_generation"]==rc["known_good_feature_generation"],"recovery feature generation mismatch",errors)
+req(recovery["kserve_loaded_release_id"]==rc["known_good_release_id"],"KServe recovery release mismatch",errors)
+req(recovery["kserve_runtime_image_digest"]==rc["known_good_runtime_image_digest"],"KServe recovery runtime mismatch",errors)
+req(recovery["sagemaker_loaded_release_id"]==rc["known_good_release_id"],"SageMaker recovery release mismatch",errors)
+req(recovery["sagemaker_runtime_image_digest"]==rc["known_good_runtime_image_digest"],"SageMaker recovery runtime mismatch",errors)
+req(recovery["all_loaded_parity"] is True,"composite recovery loaded parity failed",errors)
+req(recovery["actual_traffic_converged"] is True,"recovery traffic did not converge",errors)
+req(recovery["failover_runtime_generation_changed"] is rc["failover_is_new_runtime_generation"],"failover runtime generation semantics mismatch",errors)
+req(recovery["side_effects_reconciled"] is True,"recovery side effects not reconciled",errors)
+
+so=c["second_operation"]
+req(second["subject_id"]==c["subject_id"],"second operation subject id mismatch",errors)
+req(second["same_subject"] is so["same_subject"],"second operation changed subject",errors)
+req(second["pure_operation_outputs_reproducible"] is so["pure_operations_reproducible"],"pure operations not reproducible",errors)
+req(second["mutation_noop_or_reconciled"] is so["mutations_noop_or_reconciled"],"second mutation not no-op/reconciled",errors)
+req(second["read_before_retry"] is True,"second operation lacks read-before-retry",errors)
+req(second["duplicate_mutations"]==0,"second operation created duplicate mutations",errors)
+req(second["loaded_fingerprint_parity"] is True,"second operation loaded parity failed",errors)
+req(second["manual_pointer_edit"] is False,"second operation required manual pointer edit",errors)
+
+ok=not errors
+report={"subject_id":c["subject_id"],"release_id":c["release_id"],"architecture_integrity_verified":ok,"authority_verified":ok,"cross_system_lineage_verified":ok,"event_bridge_verified":ok,"composite_recovery_verified":ok,"second_operation_verified":ok,"errors":errors,"rollout_authorized":False,"promotion_authorized":False,"retraining_authorized":False}
+report_text=canonical(report)
+exact_write("architecture-report.json",report_text)
+if not ok:
+    raise SystemExit("ARCHITECTURE INTEGRITY REJECTED: "+"; ".join(errors))
+ledger={"subject_id":c["subject_id"],"contract_digest":digest("architecture-contract.json"),"release_manifest_digest":digest("release-manifest.json"),"authority_map_digest":digest("authority-map.json"),"system_evidence_digest":digest("system-evidence.json"),"event_evidence_digest":digest("event-evidence.json"),"recovery_evidence_digest":digest("recovery-evidence.json"),"second_operation_digest":digest("second-operation.json"),"report_digest":text_digest(report_text)}
+exact_write("architecture-evidence-ledger.json",canonical(ledger))
+print("ARCHITECTURE INTEGRITY VERIFIED")

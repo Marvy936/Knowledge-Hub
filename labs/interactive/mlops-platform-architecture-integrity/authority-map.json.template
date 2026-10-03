@@ -1,0 +1,10 @@
+{
+  "audit": "approvals_waivers_and_decision_chain",
+  "dashboard_is_authoritative": true,
+  "deployment": "candidate_versions_and_promotion_control",
+  "feature_store": "feature_definitions_and_materialization",
+  "git": "release_intent",
+  "object_store": "immutable_artifacts",
+  "observability": "actual_exposure_and_operational_evidence",
+  "registry": "loaded_runtime_and_traffic"
+}
