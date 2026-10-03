@@ -1,0 +1,12 @@
+{
+  "business_outcome_verified": false,
+  "corrective_control_generation": "manual-restart",
+  "corrective_control_held": false,
+  "duplicate_side_effects": 2,
+  "evidence_preserved_before_mutation": false,
+  "incident_id": "MLOPS-PAY-98-r51",
+  "loaded_fingerprint_parity": false,
+  "read_before_retry": false,
+  "same_expected_release": true,
+  "same_subject": false
+}

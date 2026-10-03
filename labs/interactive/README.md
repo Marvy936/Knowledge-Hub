@@ -94,6 +94,8 @@ Current labs:
 
 | `mlops-platform-architecture-integrity` | challenge | `shell` | Bind one immutable release manifest across KFP/Trainer/Registry/features/KServe/SageMaker, authoritative stores, event deduplication, actual exposure and composite recovery. |
 
+| `mlops-troubleshooting-integrity` | challenge | `shell` | Preserve incident evidence, find the first intended→configured→resolved→loaded→exercised→outcome divergence, test competing hypotheses and prove composite recovery plus a clean second operation. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:

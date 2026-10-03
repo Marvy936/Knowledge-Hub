@@ -1,0 +1,142 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:0ca20ca6fbb9e35f0e28ab0ef41eac4abcf4c087d975c497cba99db54facc9ee"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest_file(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def text_digest(s): return "sha256:"+hashlib.sha256(s.encode()).hexdigest()
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("troubleshooting-contract.json")
+i=load("incident-manifest.json")
+e=load("evidence-bundle.json")
+l=load("state-ladder.json")
+h=load("hypotheses.json")
+r=load("containment-recovery.json")
+s=load("second-operation.json")
+errors=[]
+
+req(digest_file("troubleshooting-contract.json")==EXPECTED_CONTRACT_DIGEST,"contract digest mismatch",errors)
+req(c["authority"]=={"promotion_authorized":False,"retraining_authorized":False,"rollout_authorized":False,"troubleshooting_evidence_only":True},"authority contract mismatch",errors)
+inc=c["incident"]
+req(i["incident_id"]==inc["incident_id"],"incident id mismatch",errors)
+req(i["affected_journey"]==inc["affected_journey"],"affected journey mismatch",errors)
+req(i["expected_release"]==inc["expected_release"],"expected release mismatch",errors)
+req(i["time_window"]==inc["time_window"],"incident time window mismatch",errors)
+req(i["change_freeze"] is True,"change freeze not established",errors)
+req(i["mutations_after_detection"]==[],"uncorrelated mutations occurred after detection",errors)
+ids=i["exact_ids"]
+for key in ("kfp_run_id","train_job","registry_version"):
+    req(bool(ids.get(key)),f"missing exact incident id: {key}",errors)
+req(ids["serving_release_ids"]==c["incident_observed"]["serving_release_ids"],"incident serving release set mismatch",errors)
+req(ids["feature_generation"]==c["incident_observed"]["loaded_feature_generation"],"incident feature generation mismatch",errors)
+
+req(e["preserved_before_mutation"] is True,"evidence was not preserved before mutation",errors)
+req(e["clock_context_recorded"] is True,"clock context missing",errors)
+for name in c["evidence_required"]:
+    item=e[name]
+    req(item["present"] is True,f"required evidence missing: {name}",errors)
+    req(bool(item["digest"]),f"required evidence digest missing: {name}",errors)
+mq=e["monitor_query"]
+req(mq["denominator_recorded"] is True and mq["sampling_recorded"] is True,"monitor query denominator/sampling not preserved",errors)
+
+req(l["order"]==c["state_ladder"],"state ladder order mismatch",errors)
+stages=l["stages"]
+seen_div=False
+first=None
+for name in c["state_ladder"]:
+    match=stages[name]["matches_expected"]
+    if not match and first is None:
+        first=name
+    if seen_div and match:
+        req(False,f"state ladder returned to expected after divergence at {name}",errors)
+    if not match:
+        seen_div=True
+req(first==c["expected_first_divergence"],"first divergence mismatch",errors)
+req(l["declared_first_divergence"]==first,"declared first divergence is unsupported",errors)
+for name in ("intended","configured","resolved"):
+    req(stages[name]["release_id"]==c["known_good"]["release_id"],f"{name} release mismatch",errors)
+req(stages["loaded"]["release_id"]==c["known_good"]["release_id"],"loaded release id mismatch",errors)
+req(stages["loaded"]["feature_generation"]==c["incident_observed"]["loaded_feature_generation"],"loaded feature generation does not match preserved incident evidence",errors)
+
+items={x["id"]:x for x in h["items"]}
+req(set(items)=={"mixed-serving-runtime","stale-feature-materialization","feedback-join-loss","concept-drift"},"competing hypothesis set mismatch",errors)
+req(h["root_cause_hypothesis_id"]==c["root_cause_hypothesis_id"],"root-cause hypothesis mismatch",errors)
+req(h["one_variable_tests"] is True,"hypothesis tests changed multiple variables",errors)
+req(items["stale-feature-materialization"]["result"]=="confirmed","root-cause hypothesis not confirmed",errors)
+req(items["mixed-serving-runtime"]["result"]=="confirmed","mixed serving runtime defect not confirmed",errors)
+req(items["feedback-join-loss"]["result"]=="confirmed","delayed-label feedback join defect not confirmed",errors)
+req(items["concept-drift"]["result"] in ("rejected","unknown"),"concept drift was asserted without clean mature evidence",errors)
+
+cont=r["containment"]
+req(cont["change_freeze"] is True,"containment did not preserve change freeze",errors)
+req(cont["traffic_increase_stopped"] is True,"traffic increase not stopped",errors)
+req(cont["unsafe_retraining_disabled"] is True,"unsafe retraining not disabled",errors)
+req(cont["operation_ids_recorded"] is True,"containment operations lack exact ids",errors)
+rec=r["recovery"]
+req(rec["known_good_release"]==c["known_good"]["release_id"],"recovery release mismatch",errors)
+req(rec["loaded_fingerprint_parity"] is True,"loaded fleet parity not restored",errors)
+req(rec["feature_generation"]==c["known_good"]["feature_generation"],"feature generation not restored",errors)
+req(rec["runtime_image"]==c["known_good"]["runtime_image"],"runtime image not restored",errors)
+req(rec["actual_traffic_verified"] is True,"actual traffic not verified",errors)
+req(rec["false_positive_rate_recovered"] is True,"business quality not recovered",errors)
+req(rec["p99_recovered"] is True,"latency not recovered",errors)
+req(rec["side_effects_reconciled"] is True,"external side effects not reconciled",errors)
+req(rec["duplicate_model_packages"]==0,"duplicate Model Packages remain",errors)
+ca=r["corrective_action"]
+req(ca["generation"]==c["corrective_control"]["generation"],"corrective control generation mismatch",errors)
+req(ca["mechanism_fixed"] is True,"root mechanism not corrected",errors)
+req(ca["acceptance_test_passed"] is True,"corrective action acceptance test failed",errors)
+
+req(s["incident_id"]==inc["incident_id"],"second operation incident mismatch",errors)
+req(s["same_subject"] is c["second_operation"]["same_subject_required"],"second operation changed subject",errors)
+req(s["same_expected_release"] is True,"second operation changed expected release",errors)
+req(s["read_before_retry"] is c["second_operation"]["read_before_retry_required"],"second operation skipped read-before-retry",errors)
+req(s["duplicate_side_effects"]==0,"second operation duplicated side effects",errors)
+req(s["evidence_preserved_before_mutation"] is True,"second operation did not preserve evidence first",errors)
+req(s["corrective_control_generation"]==c["corrective_control"]["generation"],"second operation corrective generation mismatch",errors)
+req(s["corrective_control_held"] is c["second_operation"]["corrective_control_must_hold"],"corrective control did not hold",errors)
+req(s["loaded_fingerprint_parity"] is True,"second operation loaded parity failed",errors)
+req(s["business_outcome_verified"] is True,"second operation business outcome not verified",errors)
+
+ok=not errors
+report={
+ "incident_id":inc["incident_id"],
+ "troubleshooting_verified":ok,
+ "evidence_preserved":ok,
+ "first_divergence_verified":ok,
+ "root_cause_verified":ok,
+ "containment_verified":ok,
+ "recovery_verified":ok,
+ "second_operation_verified":ok,
+ "errors":errors,
+ "rollout_authorized":False,
+ "promotion_authorized":False,
+ "retraining_authorized":False
+}
+rt=canonical(report)
+exact_write("troubleshooting-report.json",rt)
+if not ok:
+    raise SystemExit("TROUBLESHOOTING REJECTED: "+"; ".join(errors))
+ledger={
+ "incident_id":inc["incident_id"],
+ "contract_digest":digest_file("troubleshooting-contract.json"),
+ "incident_manifest_digest":digest_file("incident-manifest.json"),
+ "evidence_bundle_digest":digest_file("evidence-bundle.json"),
+ "state_ladder_digest":digest_file("state-ladder.json"),
+ "hypotheses_digest":digest_file("hypotheses.json"),
+ "containment_recovery_digest":digest_file("containment-recovery.json"),
+ "second_operation_digest":digest_file("second-operation.json"),
+ "report_digest":text_digest(rt)
+}
+exact_write("troubleshooting-evidence-ledger.json",canonical(ledger))
+print("TROUBLESHOOTING VERIFIED")

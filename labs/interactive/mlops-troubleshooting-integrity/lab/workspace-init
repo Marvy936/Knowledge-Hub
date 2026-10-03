@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-troubleshooting-integrity
+for f in troubleshooting-contract incident-manifest evidence-bundle state-ladder hypotheses containment-recovery second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/troubleshooting_gate.py.template" ./troubleshooting_gate.py
+cp "$ROOT/troubleshooting_validator.py" ./troubleshooting_validator.py
+chmod +x ./troubleshooting_gate.py ./troubleshooting_validator.py
+rm -f ./troubleshooting-report.json ./troubleshooting-evidence-ledger.json

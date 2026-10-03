@@ -48,3 +48,4 @@ mlops-kubeflow-trainer-distributed-integrity	shell	Bind Kubeflow Trainer success
 mlops-kserve-serving-integrity	shell	Bind KServe control-plane readiness to exact ServingRuntime, immutable model storage, loaded fleet parity, actual exposure, autoscaling policy and converged rollback evidence.
 mlops-sagemaker-cloud-mapping-integrity	shell	Bind SageMaker Pipeline, Model Package, Endpoint and Monitor evidence to exact account/Region, immutable S3/ECR identities, loaded variant parity and retry-safe cloud mutations.
 mlops-platform-architecture-integrity	shell	Bind one immutable release subject across MLOps authoritative stores, control/data planes, event bridges, observability and composite recovery.
+mlops-troubleshooting-integrity	shell	Diagnose the first divergence across exact incident state, preserved evidence, competing hypotheses, bounded containment, composite recovery and duplicate-safe second-operation proof.

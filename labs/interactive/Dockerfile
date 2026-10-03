@@ -84,6 +84,7 @@ COPY mlops-kubeflow-trainer-distributed-integrity /opt/knowledge-hub/labs/mlops-
 COPY mlops-kserve-serving-integrity /opt/knowledge-hub/labs/mlops-kserve-serving-integrity
 COPY mlops-sagemaker-cloud-mapping-integrity /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity
 COPY mlops-platform-architecture-integrity /opt/knowledge-hub/labs/mlops-platform-architecture-integrity
+COPY mlops-troubleshooting-integrity /opt/knowledge-hub/labs/mlops-troubleshooting-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -355,6 +356,15 @@ RUN ln -s driver /opt/knowledge-hub/labs/mlops-platform-architecture-integrity/l
  && ln -s driver /opt/knowledge-hub/labs/mlops-platform-architecture-integrity/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/mlops-platform-architecture-integrity/lab/assess \
  && ln -s driver /opt/knowledge-hub/labs/mlops-platform-architecture-integrity/lab/reconcile
+
+RUN ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/assess \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/diagnose
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
