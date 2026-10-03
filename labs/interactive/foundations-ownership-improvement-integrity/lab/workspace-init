@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/foundations-ownership-improvement-integrity
+for f in ownership-contract ownership-evidence toil-debt-evidence improvement-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/ownership_gate.py.template" ./ownership_gate.py
+cp "$ROOT/ownership_validator.py" ./ownership_validator.py
+chmod +x ./ownership_gate.py ./ownership_validator.py
+rm -f ./ownership-report.json ./ownership-evidence-ledger.json

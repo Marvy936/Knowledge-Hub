@@ -1,0 +1,15 @@
+{
+  "decision_rights": [
+    "view-dashboard"
+  ],
+  "direct_runtime_evidence": false,
+  "escalation_owner": "runtime-platform",
+  "owned_outcome": "successful_payment_processing",
+  "platform_ticket_required_for_mitigation": true,
+  "primary_incident_owner": "operations",
+  "runbook_validated_by_non_author": false,
+  "service": "payments-api",
+  "service_owner": "payments-team",
+  "subject_id": "FOUNDATIONS-OWNERSHIP-2026-10-r1",
+  "trained_responders": 1
+}

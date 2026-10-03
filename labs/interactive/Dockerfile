@@ -88,6 +88,7 @@ COPY mlops-troubleshooting-integrity /opt/knowledge-hub/labs/mlops-troubleshooti
 COPY foundations-reconciliation-idempotency /opt/knowledge-hub/labs/foundations-reconciliation-idempotency
 COPY foundations-delivery-flow-dora /opt/knowledge-hub/labs/foundations-delivery-flow-dora
 COPY foundations-feedback-system-dynamics /opt/knowledge-hub/labs/foundations-feedback-system-dynamics
+COPY foundations-ownership-improvement-integrity /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -395,6 +396,15 @@ RUN ln -s driver /opt/knowledge-hub/labs/foundations-feedback-system-dynamics/la
  && ln -s driver /opt/knowledge-hub/labs/foundations-feedback-system-dynamics/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/foundations-feedback-system-dynamics/lab/assess \
  && ln -s driver /opt/knowledge-hub/labs/foundations-feedback-system-dynamics/lab/analyze
+
+RUN ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/assess \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/review
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

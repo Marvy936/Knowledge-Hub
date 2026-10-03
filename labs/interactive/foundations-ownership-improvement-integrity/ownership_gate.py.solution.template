@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:d661d42825cd539d4cfc06ea100563719d28bab14bdcaf3b8c24ccadbbcc3d45"
+
+def load(p): return json.loads(Path(p).read_text())
+def file_digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("ownership-contract.json")
+o=load("ownership-evidence.json")
+t=load("toil-debt-evidence.json")
+i=load("improvement-evidence.json")
+second=load("second-operation.json")
+errors=[]
+
+req(file_digest("ownership-contract.json")==EXPECTED_CONTRACT_DIGEST,"ownership contract digest mismatch",errors)
+req(c["authority"]["improvement_evidence_only"] is True,"improvement evidence authority mismatch",errors)
+req(c["authority"]["task_done_is_not_outcome"] is True,"task/outcome authority mismatch",errors)
+
+for obj,name in [(o,"ownership"),(t,"toil/debt"),(i,"improvement"),(second,"second operation")]:
+    req(obj.get("subject_id")==c["subject_id"],f"{name} subject mismatch",errors)
+
+co=c["ownership"]
+req(o["service"]==co["service"],"service identity mismatch",errors)
+req(o["owned_outcome"]==co["owned_outcome"],"owned outcome mismatch",errors)
+req(o["service_owner"]==co["service_owner"],"service owner mismatch",errors)
+req(o["primary_incident_owner"]==co["primary_incident_owner"],"primary incident owner must remain with service team",errors)
+req(o["escalation_owner"]==co["escalation_owner"],"escalation owner mismatch",errors)
+req(set(o["decision_rights"])==set(co["required_decision_rights"]) and len(o["decision_rights"])==len(co["required_decision_rights"]),"required decision rights mismatch",errors)
+req(o["direct_runtime_evidence"] is True,"service owner lacks direct runtime evidence",errors)
+req(o["platform_ticket_required_for_mitigation"] is False,"bounded mitigation still requires platform ticket",errors)
+req(o["trained_responders"]>=co["min_trained_responders"],"collective ownership responder threshold not met",errors)
+req(o["runbook_validated_by_non_author"] is True,"runbook not validated by another responder",errors)
+
+req(t["intervention"]["symptom_automation"] is False,"symptom automation is forbidden",errors)
+req(t["intervention"]["mechanism"]=="connection-lifecycle-fix","systemic toil mechanism was not fixed",errors)
+d=t["debt"]
+req(d["debt_id"]==c["debt"]["debt_id"],"debt identity mismatch",errors)
+for field in c["debt"]["required_fields"]:
+    req(d.get(field) not in (None,""),f"debt field {field} missing",errors)
+req(d["status"]=="closed-after-effectiveness-review","debt closed without effectiveness review",errors)
+
+base=i["baseline"]; ev=i["evaluation"]; action=i["action"]; targets=c["improvement"]["targets"]
+req(base["window_days"]==c["improvement"]["baseline_window_days"],"baseline window mismatch",errors)
+req(ev["window_days"]==c["improvement"]["evaluation_window_days"],"evaluation window mismatch",errors)
+req(isinstance(i["hypothesis"],str) and len(i["hypothesis"].strip())>20,"falsifiable improvement hypothesis missing",errors)
+req(i["guardrails_defined"] is True,"improvement guardrails missing",errors)
+req(action["owner"]==co["service_owner"],"improvement action owner mismatch",errors)
+req(action.get("deadline") not in (None,""),"improvement action deadline missing",errors)
+req(action["mechanism"]=="connection-lifecycle-fix","improvement action does not remove the failure mechanism",errors)
+req(ev["manual_hours_per_week"]<=targets["manual_hours_per_week_max"],"manual toil target not met",errors)
+req(ev["recurring_pages_per_week"]<=targets["recurring_pages_per_week_max"],"recurring page target not met",errors)
+req(ev["payment_success_rate"]>=targets["payment_success_rate_min"],"payment success guardrail not met",errors)
+req(set(i["standardization"])==set(c["improvement"]["required_standardization"]) and len(i["standardization"])==len(c["improvement"]["required_standardization"]),"institutional standardization incomplete",errors)
+req(i["effectiveness_review"] is True,"effectiveness review missing",errors)
+
+req(second["same_subject"] is c["second_operation"]["same_subject"],"second operation subject changed",errors)
+req(second["evidence_mutations"]==c["second_operation"]["evidence_mutations"],"second operation mutated evidence",errors)
+req(second["report_byte_identical"] is True,"second operation report is not reproducible",errors)
+
+if errors:
+    print("OWNERSHIP REJECTED")
+    for e in errors: print("-",e)
+    raise SystemExit(1)
+
+report={
+  "subject_id":c["subject_id"],
+  "ownership_verified":True,
+  "improvement_verified":True,
+  "third_way_verified":True,
+  "improvement_evidence_only":True,
+  "task_done_is_not_outcome":True,
+  "service_owner":o["service_owner"],
+  "primary_incident_owner":o["primary_incident_owner"],
+  "trained_responders":o["trained_responders"],
+  "evaluation":ev,
+  "standardization":sorted(i["standardization"])
+}
+ledger={"subject_id":c["subject_id"],"contract_digest":EXPECTED_CONTRACT_DIGEST,"accepted":True}
+exact_write("ownership-report.json",canonical(report))
+exact_write("ownership-evidence-ledger.json",canonical(ledger))
+print("OWNERSHIP VERIFIED")

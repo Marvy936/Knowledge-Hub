@@ -1,0 +1,26 @@
+{
+  "action": {
+    "deadline": null,
+    "mechanism": "cron-restart",
+    "owner": "operations"
+  },
+  "baseline": {
+    "manual_hours_per_week": 10,
+    "payment_success_rate": 0.992,
+    "recurring_pages_per_week": 12,
+    "window_days": 7
+  },
+  "effectiveness_review": false,
+  "evaluation": {
+    "manual_hours_per_week": 0.5,
+    "payment_success_rate": 0.992,
+    "recurring_pages_per_week": 11,
+    "window_days": 1
+  },
+  "guardrails_defined": false,
+  "hypothesis": null,
+  "standardization": [
+    "cron-job"
+  ],
+  "subject_id": "FOUNDATIONS-OWNERSHIP-2026-10-r1"
+}

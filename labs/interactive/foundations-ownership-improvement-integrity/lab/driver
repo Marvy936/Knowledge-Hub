@@ -1,0 +1,49 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/foundations-ownership-improvement-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'HELP'
+Knowledge Hub Interactive Lab
+Lab: foundations-ownership-improvement-integrity
+
+Commands:
+  status      Show ownership/improvement evidence state
+  review      Execute your current ownership_gate.py
+  check       Validate your ownership_gate.py
+  hint        Show the ownership/toil/improvement boundary
+  assess      Alias for check
+  reset       Restore the unsafe symptom-automation incident
+  self-test   Prove the lab fixture and reference solution
+HELP
+    ;;
+  status)
+    printf 'ownership_gate.py: '; [ -f ownership_gate.py ] && echo present || echo missing
+    printf 'ownership-report.json: '; [ -f ownership-report.json ] && echo present || echo missing
+    printf 'ownership-evidence-ledger.json: '; [ -f ownership-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'A cron restart can reduce clicks while preserving the failure mechanism. Keep the service outcome with the team that builds it, give it bounded decision rights and direct evidence, remove the mechanism, then prove the improvement across a full effectiveness window and institutionalize the learning.' ;;
+  review) python3 ./ownership_gate.py ;;
+  check|assess) python3 ./ownership_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./ownership_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('ownership-report.json').read_text())
+assert r['ownership_verified'] is True
+assert r['improvement_verified'] is True
+assert r['third_way_verified'] is True
+PY
+    cp "$ROOT/ownership_gate.py.solution.template" ./ownership_gate.py
+    chmod +x ./ownership_gate.py
+    rm -f ownership-report.json ownership-evidence-ledger.json
+    python3 ./ownership_validator.py
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac
