@@ -4,6 +4,7 @@ services:
   minio:
     image: cleanstart/minio:0.20260330.001845
     container_name: kh-lab-minio
+    user: "0:0"
     command: server /data
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
