@@ -34,7 +34,12 @@
   "pipeline_root": "s3://ml-platform/pipelines/fraud/2026-10-r47/",
   "run": {
     "accepted_attempt_per_task": 1,
-    "required_tasks": ["preprocess", "train", "evaluate", "register"]
+    "required_tasks": [
+      "preprocess",
+      "train",
+      "evaluate",
+      "register"
+    ]
   },
   "sdk_lock_digest": "sha256:52facba07f10a21e6bdaf2b6cf58da62c7fd5a0eb05390722b57597680f5a59a",
   "second_operation": {
