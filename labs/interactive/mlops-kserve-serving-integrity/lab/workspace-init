@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-kserve-serving-integrity
+for f in kserve-contract inferenceservice-evidence runtime-evidence fleet-evidence traffic-evidence rollback-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/kserve_gate.py.template" ./kserve_gate.py
+cp "$ROOT/kserve_validator.py" ./kserve_validator.py
+chmod +x ./kserve_gate.py ./kserve_validator.py
+rm -f ./kserve-report.json ./kserve-evidence-ledger.json

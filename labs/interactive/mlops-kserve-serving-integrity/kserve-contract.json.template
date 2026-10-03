@@ -1,0 +1,51 @@
+{
+  "authority": {
+    "promotion_authorized": false,
+    "retraining_authorized": false,
+    "rollout_authorized": false,
+    "ready_status_is_evidence_only": true
+  },
+  "deployment_mode": "Standard",
+  "inference_service": "fraud-classifier",
+  "namespace": "fraud-prod",
+  "protocol": "v2",
+  "release": {
+    "release_id": "fraud-serving-2026-10-r49",
+    "model_digest": "sha256:5a2c01fd80cb2dcb2921abe0cfbb617958462514ff041155c0e42b73929b7c8d",
+    "runtime_image": "registry.example/sklearn-runtime@sha256:4de9bd17c47cf8b36ea05cc589592075f2909f264672ef6d2daec499d1ce1344",
+    "runtime_name": "kserve-sklearn",
+    "runtime_generation": "23",
+    "transformer_image": "registry.example/fraud-transformer@sha256:55e9c3ecab04dd337125f31892d54fdc0f861e06be9bdd373c1dad31ef10ed55",
+    "feature_generation": "fraud-features-v16",
+    "resource_profile": "cpu-4-mem-8gi"
+  },
+  "storage": {
+    "model_uri": "s3://ml-models/fraud/184/",
+    "immutable": true,
+    "manifest_digest": "sha256:3885eb981fe2d91b2191f100f9031147c00b6bc6ac7427db08631a0b6e4bd1b1"
+  },
+  "autoscaling": {
+    "policy_generation": "fraud-serving-hpa-v7",
+    "metric": "queue_depth",
+    "target": 24
+  },
+  "routing": {
+    "policy_generation": "fraud-canary-v5",
+    "candidate_release": "fraud-serving-2026-10-r49",
+    "control_release": "fraud-serving-2026-09-r48"
+  },
+  "fleet": {
+    "required_replicas": 3,
+    "warmup_required": true,
+    "all_loaded_fingerprints_equal": true
+  },
+  "rollback": {
+    "endpoint_convergence_required": true,
+    "old_candidate_endpoints_allowed": 0
+  },
+  "second_operation": {
+    "same_release_manifest": true,
+    "reconciliation_noop": true,
+    "fresh_synthetic_required": true
+  }
+}

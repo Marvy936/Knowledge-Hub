@@ -1,0 +1,8 @@
+{
+  "release_id": "fraud-serving-2026-10-r49",
+  "same_release_manifest": false,
+  "reconciliation_noop": false,
+  "fresh_synthetic_request": false,
+  "loaded_fingerprint_parity": false,
+  "manual_storage_edit": true
+}

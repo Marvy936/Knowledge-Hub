@@ -1,0 +1,15 @@
+{
+  "routing_policy_generation": "fraud-canary-v5",
+  "configured_candidate_percent": 10,
+  "eligible_requests": 1000,
+  "candidate_requests": 63,
+  "control_requests": 937,
+  "candidate_success": 60,
+  "candidate_errors": 2,
+  "candidate_fallbacks": 1,
+  "actual_exposure_reconciled": false,
+  "configured_percent_used_as_denominator": true,
+  "autoscaling_policy_generation": "fraud-serving-hpa-v6",
+  "autoscaling_metric": "cpu",
+  "autoscaling_target": 70
+}

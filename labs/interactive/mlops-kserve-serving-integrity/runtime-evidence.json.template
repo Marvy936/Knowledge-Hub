@@ -1,0 +1,8 @@
+{
+  "runtime_name": "kserve-sklearn",
+  "generation": "24",
+  "image": "registry.example/sklearn-runtime@sha256:4de9bd17c47cf8b36ea05cc589592075f2909f264672ef6d2daec499d1ce1344",
+  "image_pinned_by_digest": true,
+  "deployment_mode": "Standard",
+  "protocol": "v2"
+}
