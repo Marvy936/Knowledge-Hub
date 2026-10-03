@@ -1,0 +1,49 @@
+{
+  "artifact": {
+    "evaluation_digest": "sha256:98f3ce349615698c7cdd1e92ac76f6a77b14bb99e8a8af8f3b3c4d78bd46863b",
+    "model_digest": "sha256:f171218b11103055790fb658e26c13a8a49415d52a04738cbe79e5ed83e6acd5"
+  },
+  "authority": {
+    "promotion_authorized": false,
+    "retraining_authorized": false,
+    "rollout_authorized": false,
+    "run_success_is_evidence_only": true
+  },
+  "cache": {
+    "hidden_dependencies_forbidden": true,
+    "mutation_cacheable": false,
+    "preprocess_cacheable": true
+  },
+  "compiled_ir_digest": "sha256:1cb4c93f687b426515418df49132542075f4b3666410823cf79c2c3fe6d0eb28",
+  "components": {
+    "evaluate_image": "registry.example/evaluate@sha256:a6871fd2358767d09344f4b87c1245ad7d9162cb4a7a37d8fc0a662659ea4a89",
+    "preprocess_image": "registry.example/preprocess@sha256:4e53374066b247caa0da289bb889486c774776d12a2195300680d22272a32ae7",
+    "register_image": "registry.example/register@sha256:cc4bf4df3cc4c4910492ed875f6c02a97738203237cbe58af8a6db3f47003e12",
+    "train_image": "registry.example/train@sha256:07fc6b4fd65be626b5b4885015887999712def5294f703931446ea12ce1b47c9"
+  },
+  "external": {
+    "lookup_generation": "merchant-risk-table-v12",
+    "promotion_policy": "fraud-promotion-v11",
+    "registry_target": "fraud-prod"
+  },
+  "namespace": "fraud-prod",
+  "parameters": {
+    "data_snapshot": "fraud-events-2026-09-30",
+    "feature_generation": "fraud-features-v16"
+  },
+  "pipeline_root": "s3://ml-platform/pipelines/fraud/2026-10-r47/",
+  "run": {
+    "accepted_attempt_per_task": 1,
+    "required_tasks": ["preprocess", "train", "evaluate", "register"]
+  },
+  "sdk_lock_digest": "sha256:52facba07f10a21e6bdaf2b6cf58da62c7fd5a0eb05390722b57597680f5a59a",
+  "second_operation": {
+    "mutation_must_reconcile_noop": true,
+    "pure_cache_reuse_allowed": true,
+    "same_compiled_ir": true,
+    "same_parameters": true
+  },
+  "service_account": "kfp-fraud-training-v6",
+  "source_commit": "7f3ad9c6f44127c93f73127d131ea76223fb983a",
+  "subject_id": "MLOPS-PAY-KFP-2026-10-r47"
+}
