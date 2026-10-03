@@ -1,0 +1,27 @@
+{
+  "dataset_snapshot": "fraud-train-2026-09-30",
+  "sample_count": 12000,
+  "sampler_epoch": 8,
+  "workers": [
+    {
+      "rank": 0,
+      "start": 0,
+      "end": 2999
+    },
+    {
+      "rank": 1,
+      "start": 2500,
+      "end": 5499
+    },
+    {
+      "rank": 2,
+      "start": 5500,
+      "end": 8499
+    },
+    {
+      "rank": 3,
+      "start": 8500,
+      "end": 11499
+    }
+  ]
+}

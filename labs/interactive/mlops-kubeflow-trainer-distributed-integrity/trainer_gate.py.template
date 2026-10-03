@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+j=json.loads(Path("trainjob-evidence.json").read_text())
+top=json.loads(Path("topology-evidence.json").read_text())
+ck=json.loads(Path("checkpoint-evidence.json").read_text())
+ok=j["status"]=="Succeeded" and top["collective_preflight"] and ck["committed_manifest"]
+report={"subject_id":j["subject_id"],"trainer_integrity_verified":ok,"rollout_authorized":ok,"promotion_authorized":False,"retraining_authorized":False}
+Path("trainer-report.json").write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
+print("TRAINER ACCEPTED" if ok else "TRAINER BLOCKED")

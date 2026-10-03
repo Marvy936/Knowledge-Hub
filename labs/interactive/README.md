@@ -86,6 +86,8 @@ Current labs:
 
 | `mlops-kubeflow-pipelines-integrity` | challenge | `shell` | Bind a KFP run to reviewed source, compiled IR, complete cache subject, accepted task attempts, immutable artifacts and duplicate-safe external mutations. |
 
+| `mlops-kubeflow-trainer-distributed-integrity` | challenge | `shell` | Bind Trainer V2 execution to the resolved Runtime, exact rank/device topology, complete sample partition, state-complete checkpoint and reproducible resume. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:

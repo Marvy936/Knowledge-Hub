@@ -1,0 +1,40 @@
+{
+  "train_job": "fraud-train-2026-10-r48",
+  "collective_preflight": true,
+  "workers": [
+    {
+      "worker": "w0",
+      "rank": 0,
+      "local_rank": 0,
+      "world_size": 4,
+      "device": "cuda:0",
+      "gpu_allocated": true
+    },
+    {
+      "worker": "w1",
+      "rank": 1,
+      "local_rank": 0,
+      "world_size": 4,
+      "device": "cuda:0",
+      "gpu_allocated": true
+    },
+    {
+      "worker": "w2",
+      "rank": 2,
+      "local_rank": 0,
+      "world_size": 4,
+      "device": "cuda:0",
+      "gpu_allocated": true
+    },
+    {
+      "worker": "w3",
+      "rank": 3,
+      "local_rank": 0,
+      "world_size": 4,
+      "device": "cuda:0",
+      "gpu_allocated": true
+    }
+  ],
+  "observed_per_process_batch_size": 128,
+  "gradient_accumulation_steps": 1
+}

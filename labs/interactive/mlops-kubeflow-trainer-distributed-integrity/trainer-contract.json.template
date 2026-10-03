@@ -1,0 +1,48 @@
+{
+  "artifact": {
+    "model_digest": "sha256:72c605130b708f62133b9c630d73e8a7de0d89a92c660c2d61fd4fe4e5aa5448"
+  },
+  "authority": {
+    "promotion_authorized": false,
+    "retraining_authorized": false,
+    "rollout_authorized": false,
+    "trainjob_success_is_evidence_only": true
+  },
+  "checkpoint": {
+    "checkpoint_generation": "fraud-ckpt-v5",
+    "required_state": [
+      "model",
+      "optimizer",
+      "scheduler",
+      "sampler",
+      "rng"
+    ],
+    "restore_test_required": true
+  },
+  "dataset": {
+    "feature_generation": "fraud-features-v16",
+    "sample_count": 12000,
+    "snapshot": "fraud-train-2026-09-30"
+  },
+  "runtime": {
+    "generation": "18",
+    "name": "torch-distributed",
+    "resolved_manifest_digest": "sha256:8fa2468b759a95e2b8e16607fc2dc318fb6d4805b48cc8c40238067f27308b5b"
+  },
+  "second_operation": {
+    "duplicate_artifact_forbidden": true,
+    "duplicate_samples_forbidden": true,
+    "same_subject": true
+  },
+  "source_commit": "8c1e4c7d44835230496f1ef8ee540ff54d16a039",
+  "subject_id": "MLOPS-PAY-TRAINER-2026-10-r48",
+  "topology": {
+    "devices_per_node": 1,
+    "global_batch_size": 512,
+    "gradient_accumulation_steps": 1,
+    "nodes": 4,
+    "per_process_batch_size": 128,
+    "world_size": 4
+  },
+  "training_image": "registry.example/train@sha256:989572833662434e1c7a78c476701f61103ee69ef4342bf439d8034780d3bfc3"
+}

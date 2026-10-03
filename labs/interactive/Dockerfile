@@ -80,6 +80,7 @@ COPY mlops-supply-chain-integrity /opt/knowledge-hub/labs/mlops-supply-chain-int
 COPY mlops-mlflow-registry-integrity /opt/knowledge-hub/labs/mlops-mlflow-registry-integrity
 COPY mlops-mlflow-evaluation-tracing-deployment-integrity /opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity
 COPY mlops-kubeflow-pipelines-integrity /opt/knowledge-hub/labs/mlops-kubeflow-pipelines-integrity
+COPY mlops-kubeflow-trainer-distributed-integrity /opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -315,6 +316,15 @@ RUN ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-pipelines-integrity/lab/
  && ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-pipelines-integrity/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-pipelines-integrity/lab/assess \
  && ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-pipelines-integrity/lab/reconcile
+
+RUN ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity/lab/assess \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity/lab/reconcile
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \
