@@ -2,8 +2,9 @@ name: kh-s3-versioning-minio
 
 services:
   minio:
-    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    image: cleanstart/minio:0.20260330.001845
     container_name: kh-lab-minio
+    user: "0:0"
     command: server /data
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
