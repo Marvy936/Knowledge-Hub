@@ -1,0 +1,29 @@
+{
+  "boundary_id": "checkout-api-only",
+  "constraint_claim": "checkout-api",
+  "flow": [
+    "client",
+    "checkout-api"
+  ],
+  "global_before": {
+    "checkout_outcomes": 10000,
+    "checkout_requests": 10000,
+    "checkout_success_rate": 0.962,
+    "downstream_timeout_rate": 0.087,
+    "queue_age_seconds": 140
+  },
+  "local_after_scale": {
+    "api_cpu_pct": 42,
+    "api_p95_ms": 120,
+    "api_status": "green"
+  },
+  "queue_stock_after_local_change": 1200,
+  "queue_stock_before": 800,
+  "rates_before": {
+    "effective_downstream_demand_rps": 115,
+    "external_demand_rps": 80,
+    "payment_worker_capacity_rps": 70,
+    "retry_generated_rps": 35
+  },
+  "subject_id": "FOUNDATIONS-SYSTEM-2026-10-r1"
+}

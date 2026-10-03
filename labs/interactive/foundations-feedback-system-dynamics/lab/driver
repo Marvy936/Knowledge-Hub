@@ -1,0 +1,49 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/foundations-feedback-system-dynamics
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'HELP'
+Knowledge Hub Interactive Lab
+Lab: foundations-feedback-system-dynamics
+
+Commands:
+  status      Show system/feedback evidence state
+  analyze     Execute your current system_gate.py
+  check       Validate your system_gate.py
+  hint        Show the system-boundary and feedback-loop boundary
+  assess      Alias for check
+  reset       Restore the unsafe local-optimization incident
+  self-test   Prove the lab fixture and reference solution
+HELP
+    ;;
+  status)
+    printf 'system_gate.py: '; [ -f system_gate.py ] && echo present || echo missing
+    printf 'system-report.json: '; [ -f system-report.json ] && echo present || echo missing
+    printf 'system-evidence-ledger.json: '; [ -f system-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'A green component is local evidence. Expand the boundary to the business outcome, locate the constrained downstream stock/flow, classify retry amplification as reinforcing, apply a bounded correction, wait for propagation, then verify the same global boundary.' ;;
+  analyze) python3 ./system_gate.py ;;
+  check|assess) python3 ./system_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./system_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('system-report.json').read_text())
+assert r['system_integrity_verified'] is True
+assert r['optimization_authorized'] is True
+assert r['constraint'] == 'checkout-api'
+PY
+    cp "$ROOT/system_gate.py.solution.template" ./system_gate.py
+    chmod +x ./system_gate.py
+    rm -f system-report.json system-evidence-ledger.json
+    python3 ./system_validator.py
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac

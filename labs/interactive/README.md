@@ -100,6 +100,8 @@ Current labs:
 
 | `foundations-delivery-flow-dora` | challenge | `shell` | Recompute DORA metrics from production exposure/recovery evidence and identify the real value-stream bottleneck instead of trusting dashboard proxies. |
 
+| `foundations-feedback-system-dynamics` | challenge | `shell` | Repair a local-only optimization by identifying the real system constraint, retry-amplification loop and authoritative end-to-end recovery feedback. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:

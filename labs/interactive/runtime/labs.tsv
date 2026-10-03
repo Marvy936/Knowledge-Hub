@@ -51,3 +51,4 @@ mlops-platform-architecture-integrity	shell	Bind one immutable release subject a
 mlops-troubleshooting-integrity	shell	Diagnose the first divergence across exact incident state, preserved evidence, competing hypotheses, bounded containment, composite recovery and duplicate-safe second-operation proof.
 foundations-reconciliation-idempotency	shell	Repair unsafe imperative retry into stable-identity declarative reconciliation with authoritative read-back, effective-state verification and no-op replay.
 foundations-delivery-flow-dora	shell	Recompute DORA metrics from authoritative production events and find the real value-stream bottleneck from active/wait time.
+foundations-feedback-system-dynamics	shell	Repair a too-narrow local optimization by modeling the full system boundary, retry amplification, authoritative feedback and global recovery.

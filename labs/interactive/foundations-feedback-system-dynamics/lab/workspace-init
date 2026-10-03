@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/foundations-feedback-system-dynamics
+for f in system-contract system-evidence feedback-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/system_gate.py.template" ./system_gate.py
+cp "$ROOT/system_validator.py" ./system_validator.py
+chmod +x ./system_gate.py ./system_validator.py
+rm -f ./system-report.json ./system-evidence-ledger.json

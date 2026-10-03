@@ -1,0 +1,43 @@
+{
+  "authority": {
+    "local_component_green_is_evidence_only": true,
+    "optimization_authorized": false
+  },
+  "feedback": {
+    "required_elements": [
+      "observation",
+      "comparison",
+      "decision_owner",
+      "correction",
+      "verification"
+    ],
+    "verification_boundary": "checkout-end-to-end-v4"
+  },
+  "second_operation": {
+    "evidence_mutations": 0,
+    "same_subject": true
+  },
+  "subject_id": "FOUNDATIONS-SYSTEM-2026-10-r1",
+  "system": {
+    "boundary_id": "checkout-end-to-end-v4",
+    "constraint": "payment-worker",
+    "flow": [
+      "client",
+      "checkout-api",
+      "payment-worker",
+      "payment-db",
+      "business-outcome"
+    ],
+    "global_outcome": "completed_checkout",
+    "reinforcing_loop": [
+      "timeouts->retries",
+      "retries->downstream_load",
+      "downstream_load->timeouts"
+    ]
+  },
+  "targets": {
+    "checkout_success_rate_min": 0.995,
+    "downstream_timeout_rate_max": 0.01,
+    "queue_age_seconds_max": 30
+  }
+}
