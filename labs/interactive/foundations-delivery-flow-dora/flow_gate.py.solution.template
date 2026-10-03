@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+import hashlib, json, statistics
+from datetime import datetime
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:39a2758d6f23a9e6219e987077b19e5adcd45fdc36200b919a8904c28e9fe7da"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def dt(s): return datetime.fromisoformat(s.replace("Z","+00:00"))
+def hours(a,b): return (dt(b)-dt(a)).total_seconds()/3600
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("flow-contract.json")
+events=load("change-events.json")
+claims=load("metric-claims.json")
+flow=load("value-stream.json")
+second=load("second-operation.json")
+errors=[]
+
+req(digest("flow-contract.json")==EXPECTED_CONTRACT_DIGEST,"flow contract digest mismatch",errors)
+req(c["authority"]["metrics_are_evidence_only"] is True and c["authority"]["optimization_authorized"] is False,"authority contract mismatch",errors)
+for obj,name in [(events,"events"),(claims,"claims"),(flow,"value stream"),(second,"second operation")]:
+    req(obj.get("subject_id")==c["subject_id"],f"{name} subject mismatch",errors)
+req(events.get("source")=="production-change-event-log","non-authoritative event source",errors)
+
+start,end=dt(c["window"]["start"]),dt(c["window"]["end"])
+changes=events["changes"]
+ids=[x["change_id"] for x in changes]
+req(len(ids)==len(set(ids)),"duplicate change ids",errors)
+for x in changes:
+    exposed=dt(x["production_exposed_at"])
+    req(start<=exposed<end,f"change {x['change_id']} outside measurement window",errors)
+    req(dt(x["source_commit_at"])<=dt(x["pipeline_completed_at"])<=exposed,f"change {x['change_id']} timestamp order invalid",errors)
+
+deployment_count=len(changes)
+frequency=deployment_count/c["dora"]["deployment_frequency"]["window_days"]
+lead=statistics.median([hours(x["source_commit_at"],x["production_exposed_at"]) for x in changes])
+failures=[x for x in changes if x["outcome"] in c["dora"]["change_failure_rate"]["failure_outcomes"]]
+cfr=100.0*len(failures)/deployment_count
+incidents=events["incidents"]
+failed_ids={x["change_id"] for x in failures}
+req({x["change_id"] for x in incidents}==failed_ids,"incident/failure population mismatch",errors)
+for x in incidents:
+    req(dt(x["incident_detected_at"])<=dt(x["service_green_at"])<=dt(x["business_recovered_at"]),"incident recovery timestamp order invalid",errors)
+ttr=statistics.median([hours(x["incident_detected_at"],x["business_recovered_at"]) for x in incidents])
+
+req(claims["denominator"]=="production_deployments","DORA denominator must be production deployments",errors)
+req(claims["measurement_source"]=="production-change-event-log","DORA claims must use authoritative production event log",errors)
+req(abs(claims["deployment_frequency_per_day"]-frequency)<1e-6,"deployment frequency claim mismatch",errors)
+req(abs(claims["lead_time_for_changes_hours"]-lead)<1e-6,"lead time claim mismatch",errors)
+req(abs(claims["change_failure_rate_pct"]-cfr)<1e-6,"change failure rate claim mismatch",errors)
+req(abs(claims["time_to_restore_hours"]-ttr)<1e-6,"time to restore claim mismatch",errors)
+
+active=sum(x["active_hours"] for x in flow["stages"])
+wait=sum(x["wait_hours"] for x in flow["stages"])
+eff=100.0*active/(active+wait)
+bottleneck=max(flow["stages"],key=lambda x:x["wait_hours"])["stage"]
+req(flow["claimed_bottleneck"]==bottleneck,"value-stream bottleneck claim mismatch",errors)
+req(abs(flow["claimed_process_efficiency_pct"]-eff)<1e-6,"process efficiency claim mismatch",errors)
+
+req(second["same_subject"] is True,"second operation subject changed",errors)
+req(second["evidence_mutations"]==0,"measurement replay mutated evidence",errors)
+req(second["report_byte_identical"] is True,"second measurement is not reproducible",errors)
+
+if errors:
+    print("FLOW REJECTED")
+    for e in errors: print("-",e)
+    raise SystemExit(1)
+
+report={
+  "subject_id":c["subject_id"],
+  "flow_verified":True,
+  "optimization_authorized":False,
+  "metrics":{
+    "deployment_frequency_per_day":round(frequency,6),
+    "lead_time_for_changes_hours":round(lead,6),
+    "change_failure_rate_pct":round(cfr,6),
+    "time_to_restore_hours":round(ttr,6)
+  },
+  "value_stream":{
+    "active_hours":active,
+    "wait_hours":wait,
+    "total_lead_hours":active+wait,
+    "process_efficiency_pct":round(eff,6),
+    "bottleneck":bottleneck
+  }
+}
+ledger={"subject_id":c["subject_id"],"contract_digest":EXPECTED_CONTRACT_DIGEST,"accepted":True}
+exact_write("flow-report.json",canonical(report))
+exact_write("flow-evidence-ledger.json",canonical(ledger))
+print("FLOW VERIFIED")

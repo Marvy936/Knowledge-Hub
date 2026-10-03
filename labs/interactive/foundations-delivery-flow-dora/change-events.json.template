@@ -1,0 +1,18 @@
+{
+  "changes": [
+    {"change_id":"c101","source_commit_at":"2026-09-27T08:00:00Z","pipeline_completed_at":"2026-09-27T08:18:00Z","production_exposed_at":"2026-09-27T10:00:00Z","outcome":"success"},
+    {"change_id":"c102","source_commit_at":"2026-09-28T09:00:00Z","pipeline_completed_at":"2026-09-28T09:20:00Z","production_exposed_at":"2026-09-28T12:00:00Z","outcome":"success"},
+    {"change_id":"c103","source_commit_at":"2026-09-29T08:00:00Z","pipeline_completed_at":"2026-09-29T08:22:00Z","production_exposed_at":"2026-09-30T08:00:00Z","outcome":"rollback"},
+    {"change_id":"c104","source_commit_at":"2026-09-30T11:00:00Z","pipeline_completed_at":"2026-09-30T11:16:00Z","production_exposed_at":"2026-09-30T15:00:00Z","outcome":"success"},
+    {"change_id":"c105","source_commit_at":"2026-10-01T08:00:00Z","pipeline_completed_at":"2026-10-01T08:14:00Z","production_exposed_at":"2026-10-01T09:00:00Z","outcome":"success"},
+    {"change_id":"c106","source_commit_at":"2026-10-01T12:00:00Z","pipeline_completed_at":"2026-10-01T12:25:00Z","production_exposed_at":"2026-10-02T12:00:00Z","outcome":"success"},
+    {"change_id":"c107","source_commit_at":"2026-10-02T14:00:00Z","pipeline_completed_at":"2026-10-02T14:15:00Z","production_exposed_at":"2026-10-02T16:00:00Z","outcome":"incident"},
+    {"change_id":"c108","source_commit_at":"2026-10-03T08:00:00Z","pipeline_completed_at":"2026-10-03T08:12:00Z","production_exposed_at":"2026-10-03T09:00:00Z","outcome":"success"}
+  ],
+  "incidents": [
+    {"incident_id":"i103","change_id":"c103","incident_detected_at":"2026-09-30T08:10:00Z","service_green_at":"2026-09-30T08:35:00Z","business_recovered_at":"2026-09-30T10:10:00Z"},
+    {"incident_id":"i107","change_id":"c107","incident_detected_at":"2026-10-02T16:05:00Z","service_green_at":"2026-10-02T16:15:00Z","business_recovered_at":"2026-10-02T16:35:00Z"}
+  ],
+  "source": "production-change-event-log",
+  "subject_id": "FOUNDATIONS-FLOW-2026-W40"
+}

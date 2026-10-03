@@ -1,0 +1,38 @@
+{
+  "authority": {
+    "metrics_are_evidence_only": true,
+    "optimization_authorized": false
+  },
+  "dora": {
+    "change_failure_rate": {
+      "denominator": "production_deployments",
+      "failure_outcomes": [
+        "rollback",
+        "incident"
+      ]
+    },
+    "deployment_frequency": {
+      "event": "production_exposure",
+      "window_days": 7
+    },
+    "lead_time_for_changes": {
+      "end": "production_exposed_at",
+      "start": "source_commit_at",
+      "statistic": "median"
+    },
+    "time_to_restore": {
+      "end": "business_recovered_at",
+      "start": "incident_detected_at",
+      "statistic": "median"
+    }
+  },
+  "subject_id": "FOUNDATIONS-FLOW-2026-W40",
+  "value_stream": {
+    "bottleneck_metric": "wait_hours",
+    "process_efficiency": "active_hours/(active_hours+wait_hours)"
+  },
+  "window": {
+    "end": "2026-10-04T00:00:00Z",
+    "start": "2026-09-27T00:00:00Z"
+  }
+}

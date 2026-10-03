@@ -1,0 +1,12 @@
+{
+  "claimed_bottleneck": "implementation",
+  "claimed_process_efficiency_pct": 65.0,
+  "stages": [
+    {"active_hours":2.0,"stage":"discovery","wait_hours":6.0},
+    {"active_hours":10.0,"stage":"implementation","wait_hours":2.0},
+    {"active_hours":1.0,"stage":"review","wait_hours":18.0},
+    {"active_hours":0.5,"stage":"ci","wait_hours":1.0},
+    {"active_hours":0.5,"stage":"release","wait_hours":12.0}
+  ],
+  "subject_id": "FOUNDATIONS-FLOW-2026-W40"
+}

@@ -1,0 +1,59 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/foundations-delivery-flow-dora
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'HELP'
+Knowledge Hub Interactive Lab
+Lab: foundations-delivery-flow-dora
+
+Commands:
+  status      Show flow evidence/report state
+  measure     Execute your current flow_gate.py
+  check       Validate your flow_gate.py
+  hint        Show the DORA/value-stream measurement boundary
+  assess      Alias for check
+  reset       Restore the unsafe dashboard-proxy incident
+  self-test   Prove the lab fixture and reference solution
+HELP
+    ;;
+  status)
+    printf 'flow_gate.py: '; [ -f flow_gate.py ] && echo present || echo missing
+    printf 'flow-report.json: '; [ -f flow-report.json ] && echo present || echo missing
+    printf 'flow-evidence-ledger.json: '; [ -f flow-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'Count real production exposure, not CI jobs. Measure lead time to exposure, CFR over all production deployments, restore to business recovery, and find queues from wait time rather than active-work duration.' ;;
+  measure) python3 ./flow_gate.py ;;
+  check|assess) python3 ./flow_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./flow_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('flow-report.json').read_text())
+assert r['flow_verified'] is True
+assert r['optimization_authorized'] is True
+assert r['metrics']['change_failure_rate_pct'] == 0.0
+assert r['bottleneck'] == 'implementation'
+PY
+    cp "$ROOT/flow_gate.py.solution.template" ./flow_gate.py
+    chmod +x ./flow_gate.py
+    rm -f flow-report.json flow-evidence-ledger.json
+    python3 - <<'PY'
+import json
+from pathlib import Path
+p=Path('metric-claims.json'); o=json.loads(p.read_text())
+o.update({'deployment_frequency_per_day':8/7,'lead_time_for_changes_hours':2.5,'change_failure_rate_pct':25.0,'time_to_restore_hours':1.25,'denominator':'production_deployments','measurement_source':'production-change-event-log'})
+p.write_text(json.dumps(o,indent=2,sort_keys=True)+'\n')
+p=Path('value-stream.json'); o=json.loads(p.read_text()); o['claimed_bottleneck']='review'; o['claimed_process_efficiency_pct']=100.0*14.0/53.0; p.write_text(json.dumps(o,indent=2,sort_keys=True)+'\n')
+p=Path('second-operation.json'); o=json.loads(p.read_text()); o.update({'same_subject':True,'evidence_mutations':0,'report_byte_identical':True}); p.write_text(json.dumps(o,indent=2,sort_keys=True)+'\n')
+PY
+    python3 ./flow_validator.py
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac
