@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-kubeflow-trainer-distributed-integrity
+
+Commands:
+  status      Show Trainer evidence/report state
+  reconcile   Execute your current trainer_gate.py
+  check       Validate your trainer_gate.py
+  hint        Show the Runtime/topology/partition/checkpoint boundary
+  assess      Alias for check
+  reset       Restore the unsafe Succeeded TrainJob incident
+  self-test   Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'trainer_gate.py: '; [ -f trainer_gate.py ] && echo present || echo missing
+    printf 'trainer-report.json: '; [ -f trainer-report.json ] && echo present || echo missing
+    printf 'trainer-evidence-ledger.json: '; [ -f trainer-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'Succeeded TrainJob/Completed Pods are orchestration metadata. Bind the resolved Runtime, exact ranks/devices/world size, non-overlapping sample coverage, complete committed checkpoint and state-equivalent resume before accepting training integrity.' ;;
+  reconcile) python3 ./trainer_gate.py ;;
+  check|assess) python3 ./trainer_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./trainer_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('trainer-report.json').read_text())
+assert r['trainer_integrity_verified'] is True
+assert r['rollout_authorized'] is True
+PY
+    cp "$ROOT/trainer_gate.py.solution.template" ./trainer_gate.py
+    chmod +x ./trainer_gate.py
+    rm -f trainer-report.json trainer-evidence-ledger.json
+    python3 ./trainer_validator.py
+    reset_lab
+    python3 ./trainer_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('trainer-report.json').read_text())
+assert r['rollout_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac

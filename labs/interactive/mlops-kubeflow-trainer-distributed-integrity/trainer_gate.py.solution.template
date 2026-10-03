@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:2360a259de5b3164db6a1fe16369d5e0aebcee46dacffa6f5b36e267a431e74b"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def text_digest(s): return "sha256:"+hashlib.sha256(s.encode()).hexdigest()
+def req(c,m,e):
+    if not c: e.append(m)
+def exact_write(p,t):
+    q=Path(p)
+    if q.exists() and q.read_text()!=t: raise SystemExit(f"conflicting durable state: {p}")
+    q.write_text(t)
+
+c=load("trainer-contract.json"); j=load("trainjob-evidence.json"); top=load("topology-evidence.json")
+part=load("partition-evidence.json"); ck=load("checkpoint-evidence.json"); res=load("resume-evidence.json"); second=load("second-operation.json")
+e=[]
+
+req(digest("trainer-contract.json")==EXPECTED_CONTRACT_DIGEST,"contract digest mismatch",e)
+req(c["authority"]=={"promotion_authorized":False,"retraining_authorized":False,"rollout_authorized":False,"trainjob_success_is_evidence_only":True},"authority contract mismatch",e)
+req(j["subject_id"]==c["subject_id"],"TrainJob subject mismatch",e)
+req(j["status"]=="Succeeded","TrainJob did not succeed",e)
+for f in ("source_commit","training_image"): req(j[f]==c[f],f"TrainJob {f} mismatch",e)
+req(j["runtime_name"]==c["runtime"]["name"],"Runtime name mismatch",e)
+req(j["requested_runtime_generation"]==c["runtime"]["generation"],"requested Runtime generation mismatch",e)
+req(j["resolved_runtime_generation"]==c["runtime"]["generation"],"resolved Runtime generation mismatch",e)
+req(j["resolved_runtime_manifest_digest"]==c["runtime"]["resolved_manifest_digest"],"resolved Runtime manifest mismatch",e)
+req(j["dataset_snapshot"]==c["dataset"]["snapshot"] and j["feature_generation"]==c["dataset"]["feature_generation"],"training data subject mismatch",e)
+req(j["nodes"]==c["topology"]["nodes"] and j["devices_per_node"]==c["topology"]["devices_per_node"],"requested worker topology mismatch",e)
+req(j["global_batch_size"]==c["topology"]["global_batch_size"],"global batch mismatch",e)
+
+workers=top["workers"]; req(top["collective_preflight"] is True,"collective preflight failed",e)
+req(len(workers)==c["topology"]["world_size"],"worker count/world size mismatch",e)
+ranks=[w["rank"] for w in workers]; req(sorted(ranks)==list(range(c["topology"]["world_size"])),"global ranks are not exact unique range",e)
+for w in workers:
+    req(w["world_size"]==c["topology"]["world_size"],f"worker {w['worker']} world size mismatch",e)
+    req(w["local_rank"]==0 and w["device"]=="cuda:0" and w["gpu_allocated"] is True,f"worker {w['worker']} device allocation mismatch",e)
+req(top["observed_per_process_batch_size"]==c["topology"]["per_process_batch_size"],"per-process batch mismatch",e)
+req(top["gradient_accumulation_steps"]==c["topology"]["gradient_accumulation_steps"],"gradient accumulation mismatch",e)
+computed=top["observed_per_process_batch_size"]*c["topology"]["world_size"]*top["gradient_accumulation_steps"]
+req(computed==c["topology"]["global_batch_size"],"observed topology does not reproduce global batch",e)
+
+req(part["dataset_snapshot"]==c["dataset"]["snapshot"] and part["sample_count"]==c["dataset"]["sample_count"],"partition dataset mismatch",e)
+seen=set(); duplicate=0
+for s in part["workers"]:
+    req(s["rank"] in ranks,"partition rank absent from topology",e)
+    req(0 <= s["start"] <= s["end"] < part["sample_count"],f"rank {s['rank']} shard range invalid",e)
+    for i in range(s["start"],s["end"]+1):
+        if i in seen: duplicate += 1
+        seen.add(i)
+req(duplicate==0,"dataset shards overlap",e)
+req(len(seen)==part["sample_count"],"dataset partition is incomplete",e)
+
+req(ck["generation"]==c["checkpoint"]["checkpoint_generation"],"checkpoint generation mismatch",e)
+req(ck["committed_manifest"] is True,"checkpoint manifest not committed",e)
+req(set(ck["state_present"])==set(c["checkpoint"]["required_state"]),"checkpoint state incomplete",e)
+req(ck["dataset_snapshot"]==c["dataset"]["snapshot"] and ck["feature_generation"]==c["dataset"]["feature_generation"],"checkpoint data subject mismatch",e)
+req(ck["runtime_generation"]==c["runtime"]["generation"],"checkpoint Runtime generation mismatch",e)
+req(ck["world_size"]==c["topology"]["world_size"],"checkpoint world size mismatch",e)
+req(ck["fresh_restore_test"] is True and ck["restored_next_step"] is True,"checkpoint lacks clean restore/next-step proof",e)
+req(ck["model_digest"]==c["artifact"]["model_digest"],"checkpoint model digest mismatch",e)
+
+req(res["source_checkpoint_id"]==ck["checkpoint_id"],"resume checkpoint identity mismatch",e)
+req(res["source_world_size"]==ck["world_size"],"resume source topology mismatch",e)
+if res["resume_world_size"]!=res["source_world_size"]: req(res["topology_change_allowed"] is True,"undeclared world-size change on resume",e)
+req(res["optimizer_restored"] and res["scheduler_restored"] and res["sampler_cursor_restored"] and res["rng_restored"],"resume state incomplete",e)
+req(res["dataset_snapshot"]==c["dataset"]["snapshot"],"resume dataset mismatch",e)
+req(res["processed_sample_parity"] is True,"resume processed-sample parity failed",e)
+req(res["candidate_model_digest"]==c["artifact"]["model_digest"],"resume model digest mismatch",e)
+
+req(second["subject_id"]==c["subject_id"] and second["same_subject"] is True,"second operation changed subject",e)
+req(second["resume_from_committed_checkpoint"] is True and second["next_checkpoint_committed"] is True,"second operation checkpoint chain incomplete",e)
+req(second["duplicate_samples"]==0,"second operation duplicated samples",e)
+req(second["duplicate_model_artifact"] is False,"second operation duplicated model artifact",e)
+req(second["processed_sample_count"]==c["dataset"]["sample_count"],"second operation sample count mismatch",e)
+req(second["model_digest"]==c["artifact"]["model_digest"],"second operation model identity mismatch",e)
+req(second["manual_runtime_patch"] is False,"second operation required mutable Runtime patch",e)
+
+ok=not e
+report={"subject_id":c["subject_id"],"trainer_integrity_verified":ok,"runtime_verified":ok,"topology_verified":ok,"partition_verified":ok,"checkpoint_verified":ok,"resume_verified":ok,"second_operation_verified":ok,"errors":e,"rollout_authorized":False,"promotion_authorized":False,"retraining_authorized":False}
+rt=canonical(report); exact_write("trainer-report.json",rt)
+if not ok: raise SystemExit("TRAINER INTEGRITY REJECTED: "+"; ".join(e))
+ledger={"subject_id":c["subject_id"],"contract_digest":digest("trainer-contract.json"),"trainjob_digest":digest("trainjob-evidence.json"),"topology_digest":digest("topology-evidence.json"),"partition_digest":digest("partition-evidence.json"),"checkpoint_digest":digest("checkpoint-evidence.json"),"resume_digest":digest("resume-evidence.json"),"second_operation_digest":digest("second-operation.json"),"report_digest":text_digest(rt)}
+exact_write("trainer-evidence-ledger.json",canonical(ledger))
+print("TRAINER INTEGRITY VERIFIED")

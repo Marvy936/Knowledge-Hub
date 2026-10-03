@@ -1,0 +1,16 @@
+{
+  "subject_id": "MLOPS-PAY-TRAINER-2026-10-r48",
+  "train_job": "fraud-train-2026-10-r48",
+  "status": "Succeeded",
+  "source_commit": "8c1e4c7d44835230496f1ef8ee540ff54d16a039",
+  "training_image": "registry.example/train@sha256:989572833662434e1c7a78c476701f61103ee69ef4342bf439d8034780d3bfc3",
+  "runtime_name": "torch-distributed",
+  "requested_runtime_generation": "18",
+  "resolved_runtime_generation": "19",
+  "resolved_runtime_manifest_digest": "sha256:changed-runtime",
+  "dataset_snapshot": "fraud-train-2026-09-30",
+  "feature_generation": "fraud-features-v16",
+  "nodes": 4,
+  "devices_per_node": 1,
+  "global_batch_size": 512
+}

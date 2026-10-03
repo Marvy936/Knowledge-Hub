@@ -1,0 +1,11 @@
+{
+  "subject_id": "MLOPS-PAY-TRAINER-2026-10-r48",
+  "same_subject": false,
+  "resume_from_committed_checkpoint": true,
+  "next_checkpoint_committed": true,
+  "duplicate_samples": 120,
+  "duplicate_model_artifact": true,
+  "processed_sample_count": 12120,
+  "model_digest": "sha256:72c605130b708f62133b9c630d73e8a7de0d89a92c660c2d61fd4fe4e5aa5448",
+  "manual_runtime_patch": true
+}

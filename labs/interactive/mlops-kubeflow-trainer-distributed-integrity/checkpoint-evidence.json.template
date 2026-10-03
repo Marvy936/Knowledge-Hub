@@ -1,0 +1,16 @@
+{
+  "checkpoint_id": "fraud-ckpt-r48-step-8800",
+  "generation": "fraud-ckpt-v5",
+  "committed_manifest": true,
+  "state_present": [
+    "model"
+  ],
+  "dataset_snapshot": "fraud-train-2026-09-30",
+  "feature_generation": "fraud-features-v16",
+  "runtime_generation": "19",
+  "world_size": 4,
+  "global_step": 8800,
+  "fresh_restore_test": false,
+  "restored_next_step": false,
+  "model_digest": "sha256:72c605130b708f62133b9c630d73e8a7de0d89a92c660c2d61fd4fe4e5aa5448"
+}
