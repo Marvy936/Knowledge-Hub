@@ -1,0 +1,17 @@
+{
+  "name": "fraud-classifier",
+  "namespace": "fraud-prod",
+  "ready": true,
+  "deployment_mode": "Standard",
+  "knative_annotations_present": true,
+  "runtime_name": "kserve-sklearn",
+  "runtime_generation": "24",
+  "runtime_image": "registry.example/sklearn-runtime@sha256:4de9bd17c47cf8b36ea05cc589592075f2909f264672ef6d2daec499d1ce1344",
+  "protocol": "v2",
+  "model_uri": "s3://ml-models/fraud/latest/",
+  "storage_immutable": false,
+  "storage_manifest_digest": "sha256:mutable",
+  "transformer_image": "registry.example/fraud-transformer@sha256:55e9c3ecab04dd337125f31892d54fdc0f861e06be9bdd373c1dad31ef10ed55",
+  "feature_generation": "fraud-features-v16",
+  "resource_profile": "cpu-4-mem-8gi"
+}

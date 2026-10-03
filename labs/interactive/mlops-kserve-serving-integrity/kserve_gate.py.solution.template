@@ -1,0 +1,134 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:02761ab308371d340a9f41d40123aba9c1d21ffc4cfad549010d8a16021bbed7"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def text_digest(s): return "sha256:"+hashlib.sha256(s.encode()).hexdigest()
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("kserve-contract.json")
+isvc=load("inferenceservice-evidence.json")
+runtime=load("runtime-evidence.json")
+fleet=load("fleet-evidence.json")
+traffic=load("traffic-evidence.json")
+rollback=load("rollback-evidence.json")
+second=load("second-operation.json")
+e=[]
+
+req(digest("kserve-contract.json")==EXPECTED_CONTRACT_DIGEST,"contract digest mismatch",e)
+req(c["authority"]=={"promotion_authorized":False,"retraining_authorized":False,"rollout_authorized":False,"ready_status_is_evidence_only":True},"authority contract mismatch",e)
+
+req(isvc["name"]==c["inference_service"] and isvc["namespace"]==c["namespace"],"InferenceService identity mismatch",e)
+req(isvc["ready"] is True,"InferenceService not Ready",e)
+req(isvc["deployment_mode"]==c["deployment_mode"],"deployment mode mismatch",e)
+req(isvc["knative_annotations_present"] is False,"stale Knative annotations remain in Standard mode",e)
+req(isvc["runtime_name"]==c["release"]["runtime_name"],"InferenceService runtime mismatch",e)
+req(isvc["runtime_generation"]==c["release"]["runtime_generation"],"InferenceService runtime generation mismatch",e)
+req(isvc["runtime_image"]==c["release"]["runtime_image"],"InferenceService runtime image mismatch",e)
+req(isvc["protocol"]==c["protocol"],"InferenceService protocol mismatch",e)
+req(isvc["model_uri"]==c["storage"]["model_uri"],"model URI mismatch",e)
+req(isvc["storage_immutable"] is True and c["storage"]["immutable"] is True,"mutable model storage is forbidden",e)
+req(isvc["storage_manifest_digest"]==c["storage"]["manifest_digest"],"model storage manifest mismatch",e)
+req(isvc["transformer_image"]==c["release"]["transformer_image"],"transformer image mismatch",e)
+req(isvc["feature_generation"]==c["release"]["feature_generation"],"feature generation mismatch",e)
+req(isvc["resource_profile"]==c["release"]["resource_profile"],"resource profile mismatch",e)
+
+req(runtime["runtime_name"]==c["release"]["runtime_name"],"ServingRuntime name mismatch",e)
+req(runtime["generation"]==c["release"]["runtime_generation"],"ServingRuntime generation mismatch",e)
+req(runtime["image"]==c["release"]["runtime_image"],"ServingRuntime image mismatch",e)
+req(runtime["image_pinned_by_digest"] is True,"ServingRuntime image is mutable",e)
+req(runtime["deployment_mode"]==c["deployment_mode"],"ServingRuntime mode mismatch",e)
+req(runtime["protocol"]==c["protocol"],"ServingRuntime protocol mismatch",e)
+
+replicas=fleet["replicas"]
+req(fleet["service"]==c["inference_service"],"fleet service mismatch",e)
+req(len(replicas)==c["fleet"]["required_replicas"],"replica count mismatch",e)
+req(len({r["pod"] for r in replicas})==len(replicas),"duplicate replica identity",e)
+for r in replicas:
+    req(r["ready"] is True,f"replica {r['pod']} not Ready",e)
+    if c["fleet"]["warmup_required"]:
+        req(r["warmup_complete"] is True,f"replica {r['pod']} not warmed",e)
+    req(r["endpoint_active"] is True,f"replica {r['pod']} absent from active endpoints",e)
+    req(r["release_id"]==c["release"]["release_id"],f"replica {r['pod']} release mismatch",e)
+    req(r["model_digest"]==c["release"]["model_digest"],f"replica {r['pod']} model mismatch",e)
+    req(r["runtime_name"]==c["release"]["runtime_name"],f"replica {r['pod']} runtime name mismatch",e)
+    req(r["runtime_generation"]==c["release"]["runtime_generation"],f"replica {r['pod']} runtime generation mismatch",e)
+    req(r["runtime_image"]==c["release"]["runtime_image"],f"replica {r['pod']} runtime image mismatch",e)
+    req(r["transformer_image"]==c["release"]["transformer_image"],f"replica {r['pod']} transformer mismatch",e)
+    req(r["feature_generation"]==c["release"]["feature_generation"],f"replica {r['pod']} feature generation mismatch",e)
+    req(r["resource_profile"]==c["release"]["resource_profile"],f"replica {r['pod']} resource profile mismatch",e)
+    req(r["protocol"]==c["protocol"],f"replica {r['pod']} protocol mismatch",e)
+    req(r["fallback"] is False,f"replica {r['pod']} is serving fallback",e)
+
+syn=fleet["synthetic_request"]
+req(syn["ingress_end_to_end"] is True,"synthetic request did not exercise ingress path",e)
+req(syn["http_status"]==200 and syn["schema_valid"] is True,"synthetic protocol/schema check failed",e)
+req(syn["release_id"]==c["release"]["release_id"] and syn["model_digest"]==c["release"]["model_digest"],"synthetic loaded identity mismatch",e)
+req(syn["result_class"]=="success","synthetic inference result class failed",e)
+
+req(traffic["routing_policy_generation"]==c["routing"]["policy_generation"],"routing policy generation mismatch",e)
+req(traffic["candidate_requests"]+traffic["control_requests"]==traffic["eligible_requests"],"actual exposure denominator does not reconcile",e)
+req(traffic["candidate_success"]+traffic["candidate_errors"]+traffic["candidate_fallbacks"]==traffic["candidate_requests"],"candidate result classes do not reconcile",e)
+req(traffic["actual_exposure_reconciled"] is True,"actual exposure not reconciled",e)
+req(traffic["configured_percent_used_as_denominator"] is False,"configured canary percent used as observed exposure",e)
+req(traffic["autoscaling_policy_generation"]==c["autoscaling"]["policy_generation"],"autoscaling policy generation mismatch",e)
+req(traffic["autoscaling_metric"]==c["autoscaling"]["metric"],"autoscaling metric mismatch",e)
+req(traffic["autoscaling_target"]==c["autoscaling"]["target"],"autoscaling target mismatch",e)
+
+req(rollback["desired_release"]==c["routing"]["control_release"],"rollback target mismatch",e)
+req(rollback["control_plane_updated"] is True,"rollback desired state not updated",e)
+req(rollback["endpoint_converged"] is True,"rollback endpoints did not converge",e)
+req(rollback["candidate_endpoints_remaining"]==c["rollback"]["old_candidate_endpoints_allowed"],"candidate endpoints remain after rollback",e)
+req(rollback["stale_connections"]==0,"stale candidate connections remain",e)
+req(rollback["loaded_fingerprint_parity"] is True,"rollback loaded fingerprint parity failed",e)
+req(rollback["side_effects_reconciled"] is True,"rollback side effects not reconciled",e)
+
+req(second["release_id"]==c["release"]["release_id"],"second operation release mismatch",e)
+req(second["same_release_manifest"] is c["second_operation"]["same_release_manifest"],"second operation changed release manifest",e)
+req(second["reconciliation_noop"] is c["second_operation"]["reconciliation_noop"],"second apply was not a no-op",e)
+req(second["fresh_synthetic_request"] is c["second_operation"]["fresh_synthetic_required"],"second operation lacks fresh synthetic proof",e)
+req(second["loaded_fingerprint_parity"] is True,"second operation fleet parity failed",e)
+req(second["manual_storage_edit"] is False,"second operation required mutable storage edit",e)
+
+ok=not e
+report={
+  "subject_id":c["release"]["release_id"],
+  "kserve_integrity_verified":ok,
+  "control_plane_verified":ok,
+  "runtime_verified":ok,
+  "loaded_fleet_verified":ok,
+  "actual_exposure_verified":ok,
+  "rollback_verified":ok,
+  "second_operation_verified":ok,
+  "errors":e,
+  "rollout_authorized":False,
+  "promotion_authorized":False,
+  "retraining_authorized":False
+}
+rt=canonical(report)
+exact_write("kserve-report.json",rt)
+if not ok:
+    raise SystemExit("KSERVE INTEGRITY REJECTED: "+"; ".join(e))
+ledger={
+  "subject_id":c["release"]["release_id"],
+  "contract_digest":digest("kserve-contract.json"),
+  "inferenceservice_digest":digest("inferenceservice-evidence.json"),
+  "runtime_digest":digest("runtime-evidence.json"),
+  "fleet_digest":digest("fleet-evidence.json"),
+  "traffic_digest":digest("traffic-evidence.json"),
+  "rollback_digest":digest("rollback-evidence.json"),
+  "second_operation_digest":digest("second-operation.json"),
+  "report_digest":text_digest(rt)
+}
+exact_write("kserve-evidence-ledger.json",canonical(ledger))
+print("KSERVE INTEGRITY VERIFIED")

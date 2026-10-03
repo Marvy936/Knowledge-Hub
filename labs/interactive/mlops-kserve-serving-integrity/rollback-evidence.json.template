@@ -1,0 +1,9 @@
+{
+  "desired_release": "fraud-serving-2026-09-r48",
+  "control_plane_updated": true,
+  "endpoint_converged": false,
+  "candidate_endpoints_remaining": 2,
+  "stale_connections": 4,
+  "loaded_fingerprint_parity": false,
+  "side_effects_reconciled": true
+}

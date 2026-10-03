@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-kserve-serving-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-kserve-serving-integrity
+
+Commands:
+  status      Show KServe evidence/report state
+  reconcile   Execute your current kserve_gate.py
+  check       Validate your kserve_gate.py
+  hint        Show the control-plane/data-plane boundary
+  assess      Alias for check
+  reset       Restore the unsafe Ready=True incident
+  self-test   Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'kserve_gate.py: '; [ -f kserve_gate.py ] && echo present || echo missing
+    printf 'kserve-report.json: '; [ -f kserve-report.json ] && echo present || echo missing
+    printf 'kserve-evidence-ledger.json: '; [ -f kserve-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'InferenceService Ready=True is control-plane evidence. Verify the mode-specific ServingRuntime, immutable model bytes, every loaded replica, ingress protocol/schema, actual exposure and endpoint convergence after rollback.' ;;
+  reconcile) python3 ./kserve_gate.py ;;
+  check|assess) python3 ./kserve_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./kserve_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('kserve-report.json').read_text())
+assert r['kserve_integrity_verified'] is True
+assert r['rollout_authorized'] is True
+PY
+    cp "$ROOT/kserve_gate.py.solution.template" ./kserve_gate.py
+    chmod +x ./kserve_gate.py
+    rm -f kserve-report.json kserve-evidence-ledger.json
+    python3 ./kserve_validator.py
+    reset_lab
+    python3 ./kserve_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('kserve-report.json').read_text())
+assert r['rollout_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac
