@@ -7,16 +7,16 @@ This is the authoritative per-document practical coverage baseline for documenta
 ## Baseline summary
 
 - Total documentation topics: **377**
-- Covered: **17**
-- Partial: **40**
-- Planned: **320**
+- Covered: **22**
+- Partial: **39**
+- Planned: **316**
 - Not applicable: **0**
 
 | Section | Documentation topic | State | Interactive lab(s) | Supplemental | Coverage note |
 |---|---|---|---|---|---|
 | 00-foundations | [automation-mindset](docs/00-foundations/automation-mindset.md) | `covered` | `foundations-reconciliation-idempotency` | — | Exercises typed input, bounded mutation, authoritative state, verification, recovery and replay semantics. |
 | 00-foundations | [calms](docs/00-foundations/calms.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [continuous-improvement](docs/00-foundations/continuous-improvement.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [continuous-improvement](docs/00-foundations/continuous-improvement.md) | `covered` | `foundations-ownership-improvement-integrity` | — | Requires a baseline, falsifiable hypothesis, guardrails, owned action, full evaluation window, effectiveness review and institutionalized learning. |
 | 00-foundations | [declarative-vs-imperative](docs/00-foundations/declarative-vs-imperative.md) | `covered` | `foundations-reconciliation-idempotency` | — | Contrasts blind create sequencing with desired-state reconciliation over authoritative observed state. |
 | 00-foundations | [desired-state-and-reconciliation](docs/00-foundations/desired-state-and-reconciliation.md) | `covered` | `foundations-reconciliation-idempotency` | — | Recomputes desired vs observed state, reconciles partial state and verifies effective runtime convergence. |
 | 00-foundations | [devops](docs/00-foundations/devops.md) | `planned` | — | — | Interactive backfill required. |
@@ -26,14 +26,14 @@ This is the authoritative per-document practical coverage baseline for documenta
 | 00-foundations | [feedback-loops](docs/00-foundations/feedback-loops.md) | `covered` | `foundations-feedback-system-dynamics` | — | Closes an end-to-end feedback loop across authoritative observation, target comparison, decision authority, bounded correction, propagation delay and global outcome verification. |
 | 00-foundations | [idempotency](docs/00-foundations/idempotency.md) | `covered` | `foundations-reconciliation-idempotency` | — | Requires stable operation/resource identity, read-before-retry and duplicate-free identical replay. |
 | 00-foundations | [immutable-vs-mutable-infrastructure](docs/00-foundations/immutable-vs-mutable-infrastructure.md) | `partial` | `foundations-reconciliation-idempotency` | — | Requires a digest-pinned artifact and rejects mutable references; full replacement/traffic-cutover lifecycle remains planned. |
-| 00-foundations | [ownership-mindset](docs/00-foundations/ownership-mindset.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [ownership-mindset](docs/00-foundations/ownership-mindset.md) | `covered` | `foundations-ownership-improvement-integrity` | — | Binds a service outcome to an explicit owner, bounded decision rights, direct runtime evidence, escalation, collective recovery capability and verified follow-up. |
 | 00-foundations | [sdlc](docs/00-foundations/sdlc.md) | `partial` | `foundations-delivery-flow-dora` | — | Exercises traceability from source change through production exposure and recovery; discovery, design, maintenance and retirement remain outside this lab. |
 | 00-foundations | [systems-thinking](docs/00-foundations/systems-thinking.md) | `covered` | `foundations-feedback-system-dynamics` | — | Requires an explicit end-to-end system boundary, distinguishes local from global optimization, identifies the real downstream constraint, models queue stock and retry amplification, and verifies the global outcome. |
 | 00-foundations | [t-shaped-engineer](docs/00-foundations/t-shaped-engineer.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [three-ways](docs/00-foundations/three-ways.md) | `partial` | `foundations-delivery-flow-dora`, `foundations-feedback-system-dynamics` | — | Exercises First-Way flow plus a closed Second-Way production feedback loop; Third-Way institutional learning remains planned. |
-| 00-foundations | [toil-and-technical-debt](docs/00-foundations/toil-and-technical-debt.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [three-ways](docs/00-foundations/three-ways.md) | `covered` | `foundations-delivery-flow-dora`, `foundations-feedback-system-dynamics`, `foundations-ownership-improvement-integrity` | — | Exercises First-Way flow, Second-Way closed feedback and Third-Way verified institutional learning across the three Foundations labs. |
+| 00-foundations | [toil-and-technical-debt](docs/00-foundations/toil-and-technical-debt.md) | `covered` | `foundations-ownership-improvement-integrity` | — | Distinguishes recurring automatable toil from the underlying debt mechanism and requires debt owner, risk, interest metric, review date, exit condition and effectiveness-based closure. |
 | 00-foundations | [value-stream-mapping](docs/00-foundations/value-stream-mapping.md) | `covered` | `foundations-delivery-flow-dora` | — | Reconstructs active vs wait time, process efficiency and the true queue bottleneck instead of optimizing the most visible active-work stage. |
-| 00-foundations | [you-build-it-you-run-it](docs/00-foundations/you-build-it-you-run-it.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [you-build-it-you-run-it](docs/00-foundations/you-build-it-you-run-it.md) | `covered` | `foundations-ownership-improvement-integrity` | — | Keeps primary service incident ownership with the team that builds the service while preserving a bounded platform escalation interface and shared operational capability. |
 | 01-linux-and-systems | [cgroups](docs/01-linux-and-systems/cgroups.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [cpu-and-memory-fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [cron-and-systemd-timers](docs/01-linux-and-systems/cron-and-systemd-timers.md) | `planned` | — | — | Interactive backfill required. |

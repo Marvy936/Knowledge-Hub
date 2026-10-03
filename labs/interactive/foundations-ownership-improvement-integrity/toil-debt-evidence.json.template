@@ -1,0 +1,23 @@
+{
+  "debt": {
+    "debt_id": "PAY-DEBT-17",
+    "exit_condition": null,
+    "interest_metric": null,
+    "owner": null,
+    "review_date": null,
+    "risk": "Recurring connection leak creates payment pages and manual restarts.",
+    "status": "open"
+  },
+  "intervention": {
+    "mechanism": "cron-restart",
+    "symptom_automation": true
+  },
+  "subject_id": "FOUNDATIONS-OWNERSHIP-2026-10-r1",
+  "toil_before": {
+    "automatable": true,
+    "manual_hours_per_week": 10,
+    "recurring_pages_per_week": 12,
+    "repetitive": true,
+    "scales_with_service": true
+  }
+}

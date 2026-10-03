@@ -102,6 +102,8 @@ Current labs:
 
 | `foundations-feedback-system-dynamics` | challenge | `shell` | Repair a local-only optimization by identifying the real system constraint, retry-amplification loop and authoritative end-to-end recovery feedback. |
 
+| `foundations-ownership-improvement-integrity` | challenge | `shell` | Keep service outcome ownership with the build team, remove recurring toil at its mechanism, close technical debt deliberately and prove durable continuous improvement. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:

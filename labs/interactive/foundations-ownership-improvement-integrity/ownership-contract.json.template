@@ -1,0 +1,53 @@
+{
+  "authority": {
+    "improvement_evidence_only": true,
+    "task_done_is_not_outcome": true
+  },
+  "debt": {
+    "debt_id": "PAY-DEBT-17",
+    "required_fields": [
+      "owner",
+      "risk",
+      "interest_metric",
+      "review_date",
+      "exit_condition"
+    ]
+  },
+  "improvement": {
+    "baseline_window_days": 28,
+    "evaluation_window_days": 28,
+    "required_standardization": [
+      "regression-test",
+      "runbook",
+      "alert",
+      "ownership-catalog"
+    ],
+    "targets": {
+      "manual_hours_per_week_max": 1,
+      "payment_success_rate_min": 0.999,
+      "recurring_pages_per_week_max": 2
+    }
+  },
+  "ownership": {
+    "escalation_owner": "runtime-platform",
+    "min_trained_responders": 3,
+    "owned_outcome": "successful_payment_processing",
+    "primary_incident_owner": "payments-team",
+    "required_decision_rights": [
+      "rollback",
+      "traffic-control",
+      "alert-change",
+      "reliability-priority"
+    ],
+    "service": "payments-api",
+    "service_owner": "payments-team"
+  },
+  "second_operation": {
+    "evidence_mutations": 0,
+    "same_subject": true
+  },
+  "subject_id": "FOUNDATIONS-OWNERSHIP-2026-10-r1",
+  "toil": {
+    "symptom_automation_forbidden": true
+  }
+}
