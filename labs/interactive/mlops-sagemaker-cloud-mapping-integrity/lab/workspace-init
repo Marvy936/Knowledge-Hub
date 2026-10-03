@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity
+for f in sagemaker-contract pipeline-evidence registry-evidence endpoint-evidence monitor-evidence parity-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/sagemaker_gate.py.template" ./sagemaker_gate.py
+cp "$ROOT/sagemaker_validator.py" ./sagemaker_validator.py
+chmod +x ./sagemaker_gate.py ./sagemaker_validator.py
+rm -f ./sagemaker-report.json ./sagemaker-evidence-ledger.json

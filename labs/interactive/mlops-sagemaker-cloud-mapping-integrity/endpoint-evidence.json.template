@@ -1,0 +1,24 @@
+{
+  "account_id": "123456789012",
+  "region": "eu-central-1",
+  "endpoint_arn": "arn:aws:sagemaker:eu-central-1:123456789012:endpoint/fraud-prod",
+  "status": "InService",
+  "endpoint_config_arn": "arn:aws:sagemaker:eu-central-1:123456789012:endpoint-config/fraud-prod-r49",
+  "model_arn": "arn:aws:sagemaker:eu-central-1:123456789012:model/fraud-prod-r49",
+  "variant_name": "AllTraffic",
+  "configured_weight": 1,
+  "loaded_model_package_arn": "arn:aws:sagemaker:eu-central-1:123456789012:model-package/fraud-prod/183",
+  "loaded_model_digest": "sha256:old-model",
+  "loaded_inference_image": "123456789012.dkr.ecr.eu-central-1.amazonaws.com/fraud-inference@sha256:58da9d9ae73283ae9c6abb1a868ba9bbd25f07b4d6efb3bda694658a7cff42be",
+  "synthetic_request": {
+    "http_status": 200,
+    "release_id": "fraud-aws-2026-09-r49",
+    "model_digest": "sha256:old-model",
+    "variant": "AllTraffic",
+    "result_class": "success"
+  },
+  "actual_invocations": 1000,
+  "successful_invocations": 994,
+  "failed_invocations": 6,
+  "actual_exposure_reconciled": true
+}

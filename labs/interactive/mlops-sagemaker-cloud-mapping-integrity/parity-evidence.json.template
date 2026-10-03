@@ -1,0 +1,10 @@
+{
+  "kubernetes_release_id": "fraud-serving-2026-10-r49",
+  "kubernetes_model_digest": "sha256:5a2c01fd80cb2dcb2921abe0cfbb617958462514ff041155c0e42b73929b7c8d",
+  "kubernetes_inference_image": "123456789012.dkr.ecr.eu-central-1.amazonaws.com/fraud-inference@sha256:58da9d9ae73283ae9c6abb1a868ba9bbd25f07b4d6efb3bda694658a7cff42be",
+  "aws_release_id": "fraud-aws-2026-10-r50",
+  "aws_loaded_model_digest": "sha256:old-model",
+  "aws_loaded_inference_image": "123456789012.dkr.ecr.eu-central-1.amazonaws.com/fraud-inference@sha256:58da9d9ae73283ae9c6abb1a868ba9bbd25f07b4d6efb3bda694658a7cff42be",
+  "same_model_bytes": false,
+  "same_acceptance_subject": false
+}

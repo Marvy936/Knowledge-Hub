@@ -82,6 +82,7 @@ COPY mlops-mlflow-evaluation-tracing-deployment-integrity /opt/knowledge-hub/lab
 COPY mlops-kubeflow-pipelines-integrity /opt/knowledge-hub/labs/mlops-kubeflow-pipelines-integrity
 COPY mlops-kubeflow-trainer-distributed-integrity /opt/knowledge-hub/labs/mlops-kubeflow-trainer-distributed-integrity
 COPY mlops-kserve-serving-integrity /opt/knowledge-hub/labs/mlops-kserve-serving-integrity
+COPY mlops-sagemaker-cloud-mapping-integrity /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -335,6 +336,15 @@ RUN ln -s driver /opt/knowledge-hub/labs/mlops-kserve-serving-integrity/lab/lab-
  && ln -s driver /opt/knowledge-hub/labs/mlops-kserve-serving-integrity/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/mlops-kserve-serving-integrity/lab/assess \
  && ln -s driver /opt/knowledge-hub/labs/mlops-kserve-serving-integrity/lab/reconcile
+
+RUN ln -s driver /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity/lab/assess \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity/lab/reconcile
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

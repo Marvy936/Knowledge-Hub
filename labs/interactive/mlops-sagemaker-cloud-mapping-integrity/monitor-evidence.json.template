@@ -1,0 +1,14 @@
+{
+  "account_id": "123456789012",
+  "region": "eu-central-1",
+  "schedule_name": "fraud-prod-quality-v12",
+  "status": "Completed",
+  "endpoint_arn": "arn:aws:sagemaker:eu-central-1:123456789012:endpoint/fraud-prod",
+  "variant_name": "AllTraffic",
+  "baseline_feature_generation": "fraud-features-v15",
+  "baseline_dataset_digest": "sha256:old-baseline",
+  "capture_enabled": true,
+  "capture_coverage": 0.97,
+  "label_maturity_complete": true,
+  "monitor_interval": "2026-10-03T12:00:00Z/2026-10-03T13:00:00Z"
+}

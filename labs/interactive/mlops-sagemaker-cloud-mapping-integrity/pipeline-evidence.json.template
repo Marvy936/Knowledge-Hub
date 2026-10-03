@@ -1,0 +1,20 @@
+{
+  "account_id": "123456789012",
+  "region": "eu-central-1",
+  "pipeline_name": "fraud-training",
+  "execution_arn": "arn:aws:sagemaker:eu-central-1:123456789012:pipeline/fraud-training/execution/r50",
+  "status": "Succeeded",
+  "definition_digest": "sha256:c5fcf861dd8cf99180f6d899bf52479b15358af0de3b7952df54af0359e5bc2b",
+  "sdk_lock_digest": "sha256:810085648f336b654bc76d422953ff0f7e11db92edebc39b62813988ed083811",
+  "source_commit": "a28fb3f0457a1dafd640b047512447848759de8a",
+  "processing_input": {
+    "s3_uri": "s3://fraud-ml-prod/datasets/fraud/latest/",
+    "s3_version_id": null,
+    "dataset_digest": "sha256:mutable"
+  },
+  "processing_image": "123456789012.dkr.ecr.eu-central-1.amazonaws.com/fraud-processing:latest",
+  "training_image": "123456789012.dkr.ecr.eu-central-1.amazonaws.com/fraud-training:latest",
+  "training_job_arn": "arn:aws:sagemaker:eu-central-1:123456789012:training-job/fraud-r50",
+  "training_status": "Completed",
+  "model_artifact_digest": "sha256:5a2c01fd80cb2dcb2921abe0cfbb617958462514ff041155c0e42b73929b7c8d"
+}
