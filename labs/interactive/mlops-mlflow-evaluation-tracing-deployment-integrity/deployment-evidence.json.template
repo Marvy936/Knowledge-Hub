@@ -1,0 +1,51 @@
+{
+  "local_mlflow_serve": {
+    "executed": true,
+    "http_status": 200,
+    "model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+    "runtime_generation": "mlflow-serving-py311-v8",
+    "worker_profile": "1x-sync"
+  },
+  "production_target": {
+    "desired_image_digest": "sha256:5c77d15295aed6b93dd20db4434e569442151fb813fc0e81b03845ab9fce18ac",
+    "desired_release_id": "fraud-serving-2026-09-r46",
+    "replicas": [
+      {
+        "loaded_image_digest": "sha256:5c77d15295aed6b93dd20db4434e569442151fb813fc0e81b03845ab9fce18ac",
+        "loaded_model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+        "loaded_release_id": "fraud-serving-2026-09-r46",
+        "ready": true,
+        "replica_id": "fraud-r46-a",
+        "runtime_generation": "mlflow-serving-py311-v8"
+      },
+      {
+        "loaded_image_digest": "sha256:oldimage",
+        "loaded_model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+        "loaded_release_id": "fraud-serving-2026-09-r45",
+        "ready": true,
+        "replica_id": "fraud-r45-b",
+        "runtime_generation": "mlflow-serving-py311-v7"
+      },
+      {
+        "loaded_image_digest": "sha256:oldimage",
+        "loaded_model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+        "loaded_release_id": "fraud-serving-2026-09-r45",
+        "ready": true,
+        "replica_id": "fraud-r45-c",
+        "runtime_generation": "mlflow-serving-py311-v7"
+      }
+    ],
+    "required_replicas": 3,
+    "synthetic_request": {
+      "executed": true,
+      "http_status": 200,
+      "model_digest_verified": false,
+      "release_identity_verified": false
+    },
+    "target_generation": "kserve-fraud-prod-g52",
+    "target_id": "fraud-online-prod",
+    "worker_profile": "4x-async"
+  },
+  "release_id": "fraud-serving-2026-09-r46",
+  "subject_id": "MLOPS-PAY-MLFLOW-EVAL-2026-09-r46"
+}

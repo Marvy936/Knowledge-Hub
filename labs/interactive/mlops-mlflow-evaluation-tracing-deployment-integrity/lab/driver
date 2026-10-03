@@ -1,0 +1,59 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-mlflow-evaluation-tracing-deployment-integrity
+
+Commands:
+  status      Show MLflow evaluation/tracing/deployment evidence state
+  verify      Execute your current mlflow_eval_gate.py
+  check       Validate your mlflow_eval_gate.py
+  hint        Show the evaluation/trace/deployment authority boundary
+  assess      Alias for check
+  reset       Restore the unsafe collapsed-quality incident
+  self-test   Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'mlflow_eval_gate.py: '; [ -f mlflow_eval_gate.py ] && echo present || echo missing
+    printf 'mlflow-eval-report.json: '; [ -f mlflow-eval-report.json ] && echo present || echo missing
+    printf 'mlflow-eval-evidence-ledger.json: '; [ -f mlflow-eval-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint)
+    echo 'Do not collapse classic evaluation, trace scoring and deployment smoke into one quality flag. Enforce required segments, unbiased trace population and delivery accounting, then verify the exact production target data plane. Local mlflow serve is evidence only.'
+    ;;
+  verify) python3 ./mlflow_eval_gate.py ;;
+  check|assess) python3 ./mlflow_eval_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./mlflow_eval_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('mlflow-eval-report.json').read_text())
+assert r['mlflow_evaluation_integrity_verified'] is True
+assert r['rollout_authorized'] is True
+PY
+    cp "$ROOT/mlflow_eval_gate.py.solution.template" ./mlflow_eval_gate.py
+    chmod +x ./mlflow_eval_gate.py
+    rm -f mlflow-eval-report.json mlflow-eval-evidence-ledger.json
+    python3 ./mlflow_eval_validator.py
+    reset_lab
+    python3 ./mlflow_eval_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('mlflow-eval-report.json').read_text())
+assert r['rollout_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac

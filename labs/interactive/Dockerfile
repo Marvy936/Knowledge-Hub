@@ -78,6 +78,7 @@ COPY mlops-governance-approval-audit-integrity /opt/knowledge-hub/labs/mlops-gov
 COPY mlops-security-privacy-integrity /opt/knowledge-hub/labs/mlops-security-privacy-integrity
 COPY mlops-supply-chain-integrity /opt/knowledge-hub/labs/mlops-supply-chain-integrity
 COPY mlops-mlflow-registry-integrity /opt/knowledge-hub/labs/mlops-mlflow-registry-integrity
+COPY mlops-mlflow-evaluation-tracing-deployment-integrity /opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -294,6 +295,15 @@ RUN ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-registry-integrity/lab/lab
  && ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-registry-integrity/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-registry-integrity/lab/assess \
  && ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-registry-integrity/lab/reconcile
+
+RUN ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity/lab/assess \
+ && ln -s driver /opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity/lab/verify
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

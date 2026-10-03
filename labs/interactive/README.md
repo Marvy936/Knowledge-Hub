@@ -82,6 +82,7 @@ Current labs:
 | `mlops-security-privacy-integrity` | challenge | `shell` | Bind security/privacy acceptance to an exact release/threat subject, least-privilege inference capability, bounded output/query exposure, privacy-safe telemetry, authenticated quarantined feedback and reproducible post-containment evidence. |
 | `mlops-supply-chain-integrity` | challenge | `shell` | Bind ML chain of custody to exact source/data/dependency inputs, trusted builder provenance, model/image/SBOM attestations, composite admission, loaded remote-model fingerprint and a reproducible trusted rebuild/deploy. |
 | `mlops-mlflow-registry-integrity` | challenge | `shell` | Bind MLflow Tracking/Registry evidence to immutable dataset and model identities, exact version read-back, one-time deployment resolution, loaded fleet parity and duplicate-safe second operation. |
+| `mlops-mlflow-evaluation-tracing-deployment-integrity` | challenge | `shell` | Separate classic evaluation, trace population/coverage and production target verification while preserving rollout/promotion/retraining authority boundaries. |
 
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 

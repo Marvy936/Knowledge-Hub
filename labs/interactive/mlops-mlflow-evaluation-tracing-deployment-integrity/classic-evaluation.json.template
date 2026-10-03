@@ -1,0 +1,36 @@
+{
+  "aggregate": {
+    "f1_score": 0.89,
+    "log_loss": 0.34
+  },
+  "candidate_model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+  "dataset_digest": "sha256:3e2ee620d64b6a11e18ab00e3f144cf67bd1d2a1e6156e4b1d188c4e5db5d9a0",
+  "dataset_id": "fraud-eval-2026-09-08",
+  "evaluation_id": "fraud-classic-eval-r46",
+  "evaluator_generation": "mlflow-classic-v6",
+  "release_id": "fraud-serving-2026-09-r46",
+  "segments": [
+    {
+      "f1_score": 0.88,
+      "log_loss": 0.36,
+      "segment": "channel=web"
+    },
+    {
+      "f1_score": 0.68,
+      "log_loss": 0.49,
+      "segment": "channel=mobile"
+    },
+    {
+      "f1_score": 0.86,
+      "log_loss": 0.38,
+      "segment": "region=SK"
+    }
+  ],
+  "subject_id": "MLOPS-PAY-MLFLOW-EVAL-2026-09-r46",
+  "threshold_policy_generation": "fraud-promotion-v11",
+  "validation": {
+    "aggregate_verdict": "passed",
+    "api": "mlflow.validate_evaluation_results",
+    "missing_metrics": []
+  }
+}

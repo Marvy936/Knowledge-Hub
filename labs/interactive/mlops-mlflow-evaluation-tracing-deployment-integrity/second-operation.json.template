@@ -1,0 +1,14 @@
+{
+  "classic_replay_byte_equal": false,
+  "deployment_noop": false,
+  "manual_cache_warmup_used": true,
+  "manual_target_edit_used": true,
+  "operation_type": "evaluation_replay_and_noop_deploy",
+  "same_classic_dataset_digest_observed": true,
+  "same_evaluator_generation_observed": true,
+  "same_release_manifest_digest_observed": true,
+  "same_scorer_generation_observed": true,
+  "same_trace_query_digest_observed": true,
+  "subject_id": "MLOPS-PAY-MLFLOW-EVAL-2026-09-r46",
+  "trace_snapshot_reused": false
+}

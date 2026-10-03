@@ -1,0 +1,29 @@
+{
+  "dropped_traces": 320,
+  "eligible_requests": 1000,
+  "exported_traces": 680,
+  "judge_failures": 0,
+  "model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+  "privacy_redaction_verified": true,
+  "redaction_generation": "fraud-trace-redaction-v3",
+  "release_id": "fraud-serving-2026-09-r46",
+  "result_classes": {
+    "deadline_miss": 0,
+    "error": 0,
+    "fallback": 0,
+    "model_success": 680
+  },
+  "sampling_generation": "fraud-trace-sampling-v4",
+  "scorer_generation": "fraud-trace-scorers-v7",
+  "scores": {
+    "correctness_coverage": 0.68,
+    "groundedness_mean": 0.93
+  },
+  "selection_filter": "status = 'OK'",
+  "subject_id": "MLOPS-PAY-MLFLOW-EVAL-2026-09-r46",
+  "trace_query_id": "fraud-prod-traces-2026-09-10T09",
+  "window": {
+    "end": "2026-09-10T10:00:00Z",
+    "start": "2026-09-10T09:00:00Z"
+  }
+}

@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-mlflow-evaluation-tracing-deployment-integrity
+cp "$ROOT/evaluation-contract.json.template" ./evaluation-contract.json
+cp "$ROOT/release-manifest.json.template" ./release-manifest.json
+cp "$ROOT/trace-query-manifest.json.template" ./trace-query-manifest.json
+cp "$ROOT/classic-evaluation.json.template" ./classic-evaluation.json
+cp "$ROOT/trace-evidence.json.template" ./trace-evidence.json
+cp "$ROOT/deployment-evidence.json.template" ./deployment-evidence.json
+cp "$ROOT/second-operation.json.template" ./second-operation.json
+cp "$ROOT/mlflow_eval_gate.py.template" ./mlflow_eval_gate.py
+cp "$ROOT/mlflow_eval_validator.py" ./mlflow_eval_validator.py
+chmod +x ./mlflow_eval_gate.py ./mlflow_eval_validator.py
+rm -f ./mlflow-eval-report.json ./mlflow-eval-evidence-ledger.json
