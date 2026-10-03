@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:07f63a54aaedb8082320716aca13c316ac70061d18c42f26f55cf0cb83313297"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def text_digest(s): return "sha256:"+hashlib.sha256(s.encode()).hexdigest()
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("kfp-contract.json")
+run=load("run-evidence.json")
+cache=load("cache-evidence.json")
+art=load("artifact-evidence.json")
+mut=load("mutation-evidence.json")
+second=load("second-operation.json")
+e=[]
+
+req(digest("kfp-contract.json")==EXPECTED_CONTRACT_DIGEST,"contract digest mismatch",e)
+req(c["authority"]=={"promotion_authorized":False,"retraining_authorized":False,"rollout_authorized":False,"run_success_is_evidence_only":True},"authority contract mismatch",e)
+req(run["subject_id"]==c["subject_id"],"run subject mismatch",e)
+req(run["phase"]=="Succeeded","pipeline run did not succeed",e)
+for f in ("source_commit","sdk_lock_digest","compiled_ir_digest","pipeline_root","namespace","service_account"):
+    req(run[f]==c[f],f"run {f} mismatch",e)
+req(run["parameters"]==c["parameters"],"runtime parameters mismatch",e)
+
+expected_tasks=c["run"]["required_tasks"]
+tasks=run["tasks"]
+req([t["name"] for t in tasks]==expected_tasks,"task graph/order mismatch",e)
+req(len({t["name"] for t in tasks})==len(tasks),"duplicate logical task",e)
+for t in tasks:
+    req(t["status"]=="Succeeded",f"task {t['name']} not successful",e)
+    req(t["accepted_attempt"]==1 and t["attempts"]==[1],f"task {t['name']} has ambiguous/retried accepted attempt",e)
+
+pre=cache["preprocess"]
+req(pre["component_image"]==c["components"]["preprocess_image"],"preprocess image mismatch",e)
+req(pre["declared_data_snapshot"]==c["parameters"]["data_snapshot"],"preprocess data snapshot mismatch",e)
+req(pre["declared_feature_generation"]==c["parameters"]["feature_generation"],"preprocess feature generation mismatch",e)
+req(pre["external_lookup_generation"]==c["external"]["lookup_generation"],"mutable/wrong external lookup generation",e)
+req(pre["hidden_dependency_complete"] is True,"cache key omits hidden dependency",e)
+req(cache["register"]["cache_enabled"] is False,"external mutation task must not be cacheable",e)
+
+req(art["model"]["exists"] is True and art["model"]["fresh_worker_read"] is True,"model artifact not proven from fresh worker",e)
+req(art["model"]["digest"]==c["artifact"]["model_digest"],"model artifact digest mismatch",e)
+req(art["evaluation"]["exists"] is True and art["evaluation"]["fresh_worker_read"] is True,"evaluation artifact not proven from fresh worker",e)
+req(art["evaluation"]["digest"]==c["artifact"]["evaluation_digest"],"evaluation artifact digest mismatch",e)
+req(art["evaluation"]["verdict"]=="passed","evaluation verdict failed",e)
+
+req(mut["target"]==c["external"]["registry_target"],"registry target mismatch",e)
+if mut["api_result"]=="timeout_unknown":
+    req(mut["read_before_retry_performed"] is True,"unknown mutation outcome not reconciled before retry",e)
+req(mut["readback_model_digest"]==c["artifact"]["model_digest"],"registry read-back model mismatch",e)
+req(mut["retry_submitted"] is False,"duplicate mutation retry submitted",e)
+req(mut["duplicate_version_created"] is None,"duplicate Registry version created",e)
+
+req(second["subject_id"]==c["subject_id"],"second operation subject mismatch",e)
+req(second["same_compiled_ir"] is True and second["same_parameters"] is True,"second operation changed immutable pipeline subject",e)
+req(second["preprocess_cache_reused"] is True,"pure preprocess cache was not reusable",e)
+req(second["preprocess_artifact_digest"]==pre["artifact_digest"],"second operation cache artifact mismatch",e)
+req(second["mutation_read_before_retry"] is True and second["mutation_noop_reconciled"] is True,"second mutation was not reconciled as no-op",e)
+req(second["new_registry_version_created"] is None,"second operation created duplicate Registry version",e)
+req(second["manual_artifact_edit"] is False,"second operation required manual artifact edit",e)
+
+ok=not e
+report={
+  "subject_id":c["subject_id"],
+  "kfp_integrity_verified":ok,
+  "compiled_subject_verified":ok,
+  "cache_provenance_verified":ok,
+  "artifacts_verified":ok,
+  "external_mutation_verified":ok,
+  "second_operation_verified":ok,
+  "errors":e,
+  "rollout_authorized":False,
+  "promotion_authorized":False,
+  "retraining_authorized":False
+}
+rt=canonical(report)
+exact_write("kfp-report.json",rt)
+if not ok:
+    raise SystemExit("KFP INTEGRITY REJECTED: "+"; ".join(e))
+ledger={
+  "subject_id":c["subject_id"],
+  "contract_digest":digest("kfp-contract.json"),
+  "run_digest":digest("run-evidence.json"),
+  "cache_digest":digest("cache-evidence.json"),
+  "artifact_digest":digest("artifact-evidence.json"),
+  "mutation_digest":digest("mutation-evidence.json"),
+  "second_operation_digest":digest("second-operation.json"),
+  "report_digest":text_digest(rt)
+}
+exact_write("kfp-evidence-ledger.json",canonical(ledger))
+print("KFP INTEGRITY VERIFIED")

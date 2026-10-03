@@ -84,6 +84,8 @@ Current labs:
 | `mlops-mlflow-registry-integrity` | challenge | `shell` | Bind MLflow Tracking/Registry evidence to immutable dataset and model identities, exact version read-back, one-time deployment resolution, loaded fleet parity and duplicate-safe second operation. |
 | `mlops-mlflow-evaluation-tracing-deployment-integrity` | challenge | `shell` | Separate classic evaluation, trace population/coverage and production target verification while preserving rollout/promotion/retraining authority boundaries. |
 
+| `mlops-kubeflow-pipelines-integrity` | challenge | `shell` | Bind a KFP run to reviewed source, compiled IR, complete cache subject, accepted task attempts, immutable artifacts and duplicate-safe external mutations. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:

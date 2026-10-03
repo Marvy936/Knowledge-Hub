@@ -1,0 +1,15 @@
+{
+  "model": {
+    "uri": "s3://ml-platform/pipelines/fraud/2026-10-r47/model/model.bin",
+    "exists": true,
+    "fresh_worker_read": true,
+    "digest": "sha256:f171218b11103055790fb658e26c13a8a49415d52a04738cbe79e5ed83e6acd5"
+  },
+  "evaluation": {
+    "uri": "s3://ml-platform/pipelines/fraud/2026-10-r47/eval/report.json",
+    "exists": true,
+    "fresh_worker_read": true,
+    "digest": "sha256:98f3ce349615698c7cdd1e92ac76f6a77b14bb99e8a8af8f3b3c4d78bd46863b",
+    "verdict": "passed"
+  }
+}

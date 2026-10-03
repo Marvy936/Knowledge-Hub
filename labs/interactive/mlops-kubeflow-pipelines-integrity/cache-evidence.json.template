@@ -1,0 +1,14 @@
+{
+  "preprocess": {
+    "cache_hit": true,
+    "component_image": "registry.example/preprocess@sha256:4e53374066b247caa0da289bb889486c774776d12a2195300680d22272a32ae7",
+    "declared_data_snapshot": "fraud-events-2026-09-30",
+    "declared_feature_generation": "fraud-features-v16",
+    "external_lookup_generation": "merchant-risk-table-latest",
+    "hidden_dependency_complete": false,
+    "artifact_digest": "sha256:6ac1a36afbe5779a5878995155b64b9703eb9a6b29c2d3c2c4c71bc68ddbc18a"
+  },
+  "register": {
+    "cache_enabled": false
+  }
+}

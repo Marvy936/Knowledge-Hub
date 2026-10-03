@@ -1,0 +1,11 @@
+{
+  "subject_id": "MLOPS-PAY-KFP-2026-10-r47",
+  "same_compiled_ir": false,
+  "same_parameters": true,
+  "preprocess_cache_reused": true,
+  "preprocess_artifact_digest": "sha256:6ac1a36afbe5779a5878995155b64b9703eb9a6b29c2d3c2c4c71bc68ddbc18a",
+  "mutation_read_before_retry": false,
+  "mutation_noop_reconciled": false,
+  "new_registry_version_created": "188",
+  "manual_artifact_edit": false
+}

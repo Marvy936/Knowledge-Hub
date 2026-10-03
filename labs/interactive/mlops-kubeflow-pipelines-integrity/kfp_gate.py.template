@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+run=json.loads(Path("run-evidence.json").read_text())
+art=json.loads(Path("artifact-evidence.json").read_text())
+ok=run["phase"]=="Succeeded" and art["model"]["exists"] and art["evaluation"]["verdict"]=="passed"
+report={"subject_id":run["subject_id"],"kfp_integrity_verified":ok,"rollout_authorized":ok,"promotion_authorized":False,"retraining_authorized":False}
+Path("kfp-report.json").write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
+print("KFP ACCEPTED" if ok else "KFP BLOCKED")

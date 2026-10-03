@@ -1,0 +1,21 @@
+{
+  "subject_id": "MLOPS-PAY-KFP-2026-10-r47",
+  "run_id": "kfp-run-r47-001",
+  "phase": "Succeeded",
+  "source_commit": "7f3ad9c6f44127c93f73127d131ea76223fb983a",
+  "sdk_lock_digest": "sha256:52facba07f10a21e6bdaf2b6cf58da62c7fd5a0eb05390722b57597680f5a59a",
+  "compiled_ir_digest": "sha256:old-ir",
+  "pipeline_root": "s3://ml-platform/pipelines/fraud/2026-10-r47/",
+  "namespace": "fraud-prod",
+  "service_account": "kfp-fraud-training-v6",
+  "parameters": {
+    "data_snapshot": "fraud-events-2026-09-30",
+    "feature_generation": "fraud-features-v16"
+  },
+  "tasks": [
+    {"name":"preprocess","accepted_attempt":1,"attempts":[1],"status":"Succeeded"},
+    {"name":"train","accepted_attempt":1,"attempts":[1],"status":"Succeeded"},
+    {"name":"evaluate","accepted_attempt":1,"attempts":[1],"status":"Succeeded"},
+    {"name":"register","accepted_attempt":2,"attempts":[1,2],"status":"Succeeded"}
+  ]
+}

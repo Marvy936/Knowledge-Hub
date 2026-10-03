@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-kubeflow-pipelines-integrity
+for f in kfp-contract run-evidence cache-evidence artifact-evidence mutation-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/kfp_gate.py.template" ./kfp_gate.py
+cp "$ROOT/kfp_validator.py" ./kfp_validator.py
+chmod +x ./kfp_gate.py ./kfp_validator.py
+rm -f ./kfp-report.json ./kfp-evidence-ledger.json
