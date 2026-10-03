@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+classic=json.loads(Path("classic-evaluation.json").read_text())
+traces=json.loads(Path("trace-evidence.json").read_text())
+deploy=json.loads(Path("deployment-evidence.json").read_text())
+
+aggregate=classic["aggregate"]
+ok=(
+    aggregate["f1_score"] >= 0.82
+    and aggregate["log_loss"] <= 0.45
+    and traces["exported_traces"] > 0
+    and deploy["local_mlflow_serve"]["http_status"] == 200
+)
+report={
+    "subject_id":classic["subject_id"],
+    "mlflow_evaluation_integrity_verified":ok,
+    "classic_evaluation_verified":ok,
+    "trace_evidence_verified":ok,
+    "production_deployment_verified":ok,
+    "rollout_authorized":ok,
+    "promotion_authorized":False,
+    "retraining_authorized":False
+}
+Path("mlflow-eval-report.json").write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
+print("MLFLOW EVALUATION ACCEPTED" if ok else "MLFLOW EVALUATION BLOCKED")

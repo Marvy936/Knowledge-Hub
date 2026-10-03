@@ -1,0 +1,10 @@
+{
+  "feature_generation": "fraud-features-v18",
+  "image_digest": "sha256:5c77d15295aed6b93dd20db4434e569442151fb813fc0e81b03845ab9fce18ac",
+  "model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+  "policy_generation": "fraud-decision-v12",
+  "registry_model": "fraud-prod",
+  "registry_version": "185",
+  "release_id": "fraud-serving-2026-09-r46",
+  "runtime_generation": "mlflow-serving-py311-v8"
+}

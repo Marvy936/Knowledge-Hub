@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+import hashlib,json
+from pathlib import Path
+E="sha256:b1dd1fae6e92fd64c64a924824b7efed8fe9884ab6ad8fc3f00c431b44ae1f3c"
+L=lambda p:json.loads(Path(p).read_text())
+D=lambda p:"sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+C=lambda o:json.dumps(o,indent=2,sort_keys=True)+"\n"
+T=lambda s:"sha256:"+hashlib.sha256(s.encode()).hexdigest()
+def q(x,m,e):
+ if not x:e.append(m)
+def W(p,t):
+ x=Path(p)
+ if x.exists() and x.read_text()!=t:raise SystemExit("conflicting durable state: "+p)
+ x.write_text(t)
+c=L("evaluation-contract.json");r=L("release-manifest.json");u=L("trace-query-manifest.json");v=L("classic-evaluation.json");t=L("trace-evidence.json");d=L("deployment-evidence.json");s=L("second-operation.json");e=[]
+q(D("evaluation-contract.json")==E,"contract digest mismatch",e);q(D("release-manifest.json")==c["release_manifest_digest"],"release manifest digest mismatch",e);q(D("trace-query-manifest.json")==c["trace_query_manifest_digest"],"trace query manifest digest mismatch",e)
+a=c["authority"];q(a["classic_eval_is_evidence_only"] and a["trace_scores_are_evidence_only"] and a["local_serve_is_evidence_only"],"evidence-only authority weakened",e);q(not a["rollout_authorized"] and not a["promotion_authorized"] and not a["retraining_authorized"],"lifecycle authority weakened",e)
+x=c["classic"];q(v["subject_id"]==c["subject_id"] and v["evaluation_id"]==x["evaluation_id"],"classic subject mismatch",e);q(v["release_id"]==r["release_id"] and v["candidate_model_digest"]==r["model_digest"],"classic release/model mismatch",e);q(v["dataset_id"]==x["dataset_id"] and v["dataset_digest"]==x["dataset_digest"],"classic dataset mismatch",e);q(v["evaluator_generation"]==x["evaluator_generation"] and v["threshold_policy_generation"]==x["threshold_policy_generation"],"classic generation mismatch",e);q(v["validation"]["api"]=="mlflow.validate_evaluation_results" and v["validation"]["missing_metrics"]==[],"classic validation mismatch",e);q(v["aggregate"]["f1_score"]>=x["minimum_f1"] and v["aggregate"]["log_loss"]<=x["maximum_log_loss"],"aggregate threshold failed",e)
+seg={}
+for z in v["segments"]:
+ q(z["segment"] not in seg,"duplicate segment: "+z["segment"],e);seg[z["segment"]]=z
+for n,p in x["required_segments"].items():
+ q(n in seg,"required segment missing: "+n,e)
+ if n in seg:q(seg[n]["f1_score"]>=p["minimum_f1"] and seg[n]["log_loss"]<=p["maximum_log_loss"],"segment threshold failed: "+n,e)
+y=c["tracing"];q(u["release_id"]==r["release_id"] and u["model_digest"]==r["model_digest"],"trace query release/model mismatch",e);q(u["trace_query_id"]==y["trace_query_id"] and u["sampling_generation"]==y["sampling_generation"] and u["scorer_generation"]==y["scorer_generation"] and u["redaction_generation"]==y["redaction_generation"],"trace query generation mismatch",e);q(u["required_result_classes"]==y["required_result_classes"],"trace query classes mismatch",e)
+q(t["subject_id"]==c["subject_id"] and t["trace_query_id"]==u["trace_query_id"],"trace subject mismatch",e);q(t["release_id"]==r["release_id"] and t["model_digest"]==r["model_digest"] and t["window"]==u["window"],"trace release/window mismatch",e);q(all(t[k]==u[k] for k in ("sampling_generation","scorer_generation","redaction_generation")),"trace generation mismatch",e);q(t["selection_filter"]=="all_eligible_requests","trace population selectively filtered",e)
+N=t["eligible_requests"];X=t["exported_traces"];G=t["dropped_traces"];cov=X/N if N else 0;drop=G/N if N else 1
+q(N==u["eligible_request_count"] and X+G==N,"trace delivery accounting mismatch",e);q(cov>=y["minimum_coverage"] and drop<=y["maximum_dropped_fraction"],"trace coverage/drop threshold failed",e);cl=t["result_classes"];q(set(cl)==set(y["required_result_classes"]) and sum(cl.values())==N,"trace result-class denominator mismatch",e);q(all(cl.get(k,0)>0 for k in y["required_result_classes"]),"trace result class missing",e);q(t["privacy_redaction_verified"] is True,"trace privacy redaction not verified",e)
+p=c["deployment"];q(d["subject_id"]==c["subject_id"] and d["release_id"]==r["release_id"],"deployment subject mismatch",e);lo=d["local_mlflow_serve"];q(lo["executed"] and lo["http_status"]==200 and lo["model_digest"]==r["model_digest"],"local serve smoke mismatch",e);g=d["production_target"];q(g["target_id"]==p["target_id"] and g["target_generation"]==p["target_generation"],"target identity mismatch",e);q(g["desired_release_id"]==r["release_id"] and g["desired_image_digest"]==r["image_digest"],"target desired state mismatch",e);R=g["replicas"];q(len(R)==p["required_replicas"],"replica evidence count mismatch",e);ids=[]
+for z in R:
+ ids.append(z["replica_id"]);q(z["ready"],"replica not ready: "+z["replica_id"],e);q(z["loaded_release_id"]==r["release_id"] and z["loaded_model_digest"]==r["model_digest"] and z["loaded_image_digest"]==r["image_digest"] and z["runtime_generation"]==r["runtime_generation"],"replica loaded identity mismatch: "+z["replica_id"],e)
+q(len(ids)==len(set(ids)),"duplicate replica identity",e);h=g["synthetic_request"];q(h["executed"] and h["http_status"]==200 and h["release_identity_verified"] and h["model_digest_verified"],"production synthetic identity not verified",e)
+o=c["second_operation"];q(s["subject_id"]==c["subject_id"] and s["operation_type"]==o["operation_type"],"second operation identity mismatch",e);q(s["same_release_manifest_digest_observed"] and s["same_trace_query_digest_observed"] and s["same_classic_dataset_digest_observed"] and s["same_evaluator_generation_observed"] and s["same_scorer_generation_observed"],"second operation immutable subject changed",e);q(s["classic_replay_byte_equal"] and s["trace_snapshot_reused"] and s["deployment_noop"],"second operation not reproducible/no-op",e);q(not s["manual_cache_warmup_used"] and not s["manual_target_edit_used"],"second operation used manual intervention",e)
+ok=not e;rep={"subject_id":c["subject_id"],"mlflow_evaluation_integrity_verified":ok,"classic_evaluation_verified":ok,"trace_evidence_verified":ok,"production_deployment_verified":ok,"second_operation_verified":ok,"trace_coverage":round(cov,6),"trace_dropped_fraction":round(drop,6),"errors":e,"rollout_authorized":False,"promotion_authorized":False,"retraining_authorized":False};rt=C(rep);W("mlflow-eval-report.json",rt)
+if not ok:raise SystemExit("MLFLOW EVALUATION INTEGRITY REJECTED: "+"; ".join(e))
+led={"subject_id":c["subject_id"],"contract_digest":D("evaluation-contract.json"),"release_manifest_digest":D("release-manifest.json"),"trace_query_manifest_digest":D("trace-query-manifest.json"),"classic_evaluation_digest":D("classic-evaluation.json"),"trace_evidence_digest":D("trace-evidence.json"),"deployment_evidence_digest":D("deployment-evidence.json"),"second_operation_digest":D("second-operation.json"),"report_digest":T(rt)};W("mlflow-eval-evidence-ledger.json",C(led));print("MLFLOW EVALUATION INTEGRITY VERIFIED")

@@ -1,0 +1,19 @@
+{
+  "eligible_request_count": 1000,
+  "model_digest": "sha256:77ecf40ff1879ae0d381fd2a078ed25e6e7e4941c47e2fcc7a96b117cd3b7020",
+  "redaction_generation": "fraud-trace-redaction-v3",
+  "release_id": "fraud-serving-2026-09-r46",
+  "required_result_classes": [
+    "model_success",
+    "fallback",
+    "error",
+    "deadline_miss"
+  ],
+  "sampling_generation": "fraud-trace-sampling-v4",
+  "scorer_generation": "fraud-trace-scorers-v7",
+  "trace_query_id": "fraud-prod-traces-2026-09-10T09",
+  "window": {
+    "end": "2026-09-10T10:00:00Z",
+    "start": "2026-09-10T09:00:00Z"
+  }
+}
