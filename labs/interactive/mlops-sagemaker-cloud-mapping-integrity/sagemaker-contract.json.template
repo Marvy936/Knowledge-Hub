@@ -1,0 +1,58 @@
+{
+  "authority": {
+    "approved_is_evidence_only": true,
+    "inservice_is_evidence_only": true,
+    "promotion_authorized": false,
+    "retraining_authorized": false,
+    "rollout_authorized": false,
+    "succeeded_is_evidence_only": true
+  },
+  "aws": {
+    "account_id": "123456789012",
+    "region": "eu-central-1"
+  },
+  "data": {
+    "dataset_digest": "sha256:1bc9e1c9f6f423a882e91078389fc7505565e14f73e1aa424cbd45b123d0ba0f",
+    "feature_generation": "fraud-features-v16",
+    "s3_uri": "s3://fraud-ml-prod/datasets/fraud/train.parquet",
+    "s3_version_id": "3LgYvA-fixed-v16"
+  },
+  "images": {
+    "inference_image": "123456789012.dkr.ecr.eu-central-1.amazonaws.com/fraud-inference@sha256:58da9d9ae73283ae9c6abb1a868ba9bbd25f07b4d6efb3bda694658a7cff42be",
+    "processing_image": "123456789012.dkr.ecr.eu-central-1.amazonaws.com/fraud-processing@sha256:434f9fcb9011872e2c2bccd4810f7b13d3b22512721106434d51984dc8789b99",
+    "training_image": "123456789012.dkr.ecr.eu-central-1.amazonaws.com/fraud-training@sha256:87f277610b15243cf72a8d03e9ebd269195123348adeebf3cde9c0d41fb8d786"
+  },
+  "monitoring": {
+    "baseline_dataset_digest": "sha256:92f7d14504c9149637dedf9f4c38ebf10a2a2106e4b984f41618f557be359a78",
+    "baseline_feature_generation": "fraud-features-v16",
+    "schedule_name": "fraud-prod-quality-v12"
+  },
+  "pipeline": {
+    "definition_digest": "sha256:c5fcf861dd8cf99180f6d899bf52479b15358af0de3b7952df54af0359e5bc2b",
+    "execution_arn": "arn:aws:sagemaker:eu-central-1:123456789012:pipeline/fraud-training/execution/r50",
+    "name": "fraud-training",
+    "sdk_lock_digest": "sha256:810085648f336b654bc76d422953ff0f7e11db92edebc39b62813988ed083811"
+  },
+  "registry": {
+    "model_package_arn": "arn:aws:sagemaker:eu-central-1:123456789012:model-package/fraud-prod/184",
+    "model_package_group": "fraud-prod"
+  },
+  "release": {
+    "kubernetes_release_id": "fraud-serving-2026-10-r49",
+    "model_artifact_digest": "sha256:5a2c01fd80cb2dcb2921abe0cfbb617958462514ff041155c0e42b73929b7c8d",
+    "release_id": "fraud-aws-2026-10-r50",
+    "source_commit": "a28fb3f0457a1dafd640b047512447848759de8a"
+  },
+  "second_operation": {
+    "duplicate_endpoint_mutation_forbidden": true,
+    "duplicate_model_package_forbidden": true,
+    "read_before_retry_required": true,
+    "same_subject": true
+  },
+  "serving": {
+    "endpoint_arn": "arn:aws:sagemaker:eu-central-1:123456789012:endpoint/fraud-prod",
+    "endpoint_config_arn": "arn:aws:sagemaker:eu-central-1:123456789012:endpoint-config/fraud-prod-r50",
+    "model_arn": "arn:aws:sagemaker:eu-central-1:123456789012:model/fraud-prod-r50",
+    "variant_name": "AllTraffic"
+  }
+}

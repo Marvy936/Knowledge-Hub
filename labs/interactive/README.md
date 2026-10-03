@@ -90,6 +90,8 @@ Current labs:
 
 | `mlops-kserve-serving-integrity` | challenge | `shell` | Bind KServe InferenceService readiness to the exact ServingRuntime/model bytes, warmed loaded fleet, end-to-end protocol evidence, actual exposure and endpoint-converged rollback. |
 
+| `mlops-sagemaker-cloud-mapping-integrity` | challenge | `shell` | Preserve platform-neutral MLOps subjects across SageMaker Pipelines, Registry, Endpoint and Model Monitor using immutable S3/ECR identities and loaded AWS read-back. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:

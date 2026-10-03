@@ -1,0 +1,12 @@
+{
+  "account_id": "123456789012",
+  "region": "eu-central-1",
+  "model_package_group": "fraud-prod",
+  "model_package_arn": "arn:aws:sagemaker:eu-central-1:123456789012:model-package/fraud-prod/184",
+  "approval_status": "Approved",
+  "model_artifact_uri": "s3://fraud-ml-prod/models/fraud/184/model.tar.gz",
+  "model_artifact_version_id": "model-v184",
+  "model_artifact_digest": "sha256:5a2c01fd80cb2dcb2921abe0cfbb617958462514ff041155c0e42b73929b7c8d",
+  "inference_image": "123456789012.dkr.ecr.eu-central-1.amazonaws.com/fraud-inference:latest",
+  "evaluation_verdict": "passed"
+}

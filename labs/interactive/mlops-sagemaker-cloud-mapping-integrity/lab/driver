@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-sagemaker-cloud-mapping-integrity
+
+Commands:
+  status      Show SageMaker mapping evidence/report state
+  reconcile   Execute your current sagemaker_gate.py
+  check       Validate your sagemaker_gate.py
+  hint        Show the AWS control-plane/data-plane mapping boundary
+  assess      Alias for check
+  reset       Restore the unsafe green cloud-migration incident
+  self-test   Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'sagemaker_gate.py: '; [ -f sagemaker_gate.py ] && echo present || echo missing
+    printf 'sagemaker-report.json: '; [ -f sagemaker-report.json ] && echo present || echo missing
+    printf 'sagemaker-evidence-ledger.json: '; [ -f sagemaker-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'Succeeded, Approved and InService are control-plane evidence. Bind account/Region, immutable S3/ECR inputs, exact Model Package and EndpointConfig, loaded variant identity, Monitor baseline and cross-platform parity.' ;;
+  reconcile) python3 ./sagemaker_gate.py ;;
+  check|assess) python3 ./sagemaker_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./sagemaker_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('sagemaker-report.json').read_text())
+assert r['sagemaker_mapping_verified'] is True
+assert r['rollout_authorized'] is True
+PY
+    cp "$ROOT/sagemaker_gate.py.solution.template" ./sagemaker_gate.py
+    chmod +x ./sagemaker_gate.py
+    rm -f sagemaker-report.json sagemaker-evidence-ledger.json
+    python3 ./sagemaker_validator.py
+    reset_lab
+    python3 ./sagemaker_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('sagemaker-report.json').read_text())
+assert r['rollout_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac
