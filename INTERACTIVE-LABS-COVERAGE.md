@@ -7,9 +7,9 @@ This is the authoritative per-document practical coverage baseline for documenta
 ## Baseline summary
 
 - Total documentation topics: **377**
-- Covered: **15**
+- Covered: **17**
 - Partial: **40**
-- Planned: **322**
+- Planned: **320**
 - Not applicable: **0**
 
 | Section | Documentation topic | State | Interactive lab(s) | Supplemental | Coverage note |
@@ -23,14 +23,14 @@ This is the authoritative per-document practical coverage baseline for documenta
 | 00-foundations | [devops-anti-patterns](docs/00-foundations/devops-anti-patterns.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [devops-lifecycle](docs/00-foundations/devops-lifecycle.md) | `partial` | `foundations-delivery-flow-dora` | — | Traces one bounded source→production→recovery delivery slice; broader lifecycle ownership and operating model remain planned. |
 | 00-foundations | [dora-metrics](docs/00-foundations/dora-metrics.md) | `covered` | `foundations-delivery-flow-dora` | — | Recomputes deployment frequency, lead time for changes, change failure rate and time to restore from authoritative production events with explicit windows and denominators. |
-| 00-foundations | [feedback-loops](docs/00-foundations/feedback-loops.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [feedback-loops](docs/00-foundations/feedback-loops.md) | `covered` | `foundations-feedback-system-dynamics` | — | Closes an end-to-end feedback loop across authoritative observation, target comparison, decision authority, bounded correction, propagation delay and global outcome verification. |
 | 00-foundations | [idempotency](docs/00-foundations/idempotency.md) | `covered` | `foundations-reconciliation-idempotency` | — | Requires stable operation/resource identity, read-before-retry and duplicate-free identical replay. |
 | 00-foundations | [immutable-vs-mutable-infrastructure](docs/00-foundations/immutable-vs-mutable-infrastructure.md) | `partial` | `foundations-reconciliation-idempotency` | — | Requires a digest-pinned artifact and rejects mutable references; full replacement/traffic-cutover lifecycle remains planned. |
 | 00-foundations | [ownership-mindset](docs/00-foundations/ownership-mindset.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [sdlc](docs/00-foundations/sdlc.md) | `partial` | `foundations-delivery-flow-dora` | — | Exercises traceability from source change through production exposure and recovery; discovery, design, maintenance and retirement remain outside this lab. |
-| 00-foundations | [systems-thinking](docs/00-foundations/systems-thinking.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [systems-thinking](docs/00-foundations/systems-thinking.md) | `covered` | `foundations-feedback-system-dynamics` | — | Requires an explicit end-to-end system boundary, distinguishes local from global optimization, identifies the real downstream constraint, models queue stock and retry amplification, and verifies the global outcome. |
 | 00-foundations | [t-shaped-engineer](docs/00-foundations/t-shaped-engineer.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [three-ways](docs/00-foundations/three-ways.md) | `partial` | `foundations-delivery-flow-dora` | — | Exercises First-Way flow and production feedback measurement; Third-Way institutional learning remains planned. |
+| 00-foundations | [three-ways](docs/00-foundations/three-ways.md) | `partial` | `foundations-delivery-flow-dora`, `foundations-feedback-system-dynamics` | — | Exercises First-Way flow plus a closed Second-Way production feedback loop; Third-Way institutional learning remains planned. |
 | 00-foundations | [toil-and-technical-debt](docs/00-foundations/toil-and-technical-debt.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [value-stream-mapping](docs/00-foundations/value-stream-mapping.md) | `covered` | `foundations-delivery-flow-dora` | — | Reconstructs active vs wait time, process efficiency and the true queue bottleneck instead of optimizing the most visible active-work stage. |
 | 00-foundations | [you-build-it-you-run-it](docs/00-foundations/you-build-it-you-run-it.md) | `planned` | — | — | Interactive backfill required. |

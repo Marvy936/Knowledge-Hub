@@ -1,0 +1,40 @@
+{
+  "comparison": {
+    "global_outcome_checked": false,
+    "target_checked": false
+  },
+  "correction": {
+    "action": "scale-checkout-api",
+    "api_scale_change": true,
+    "exponential_backoff": false,
+    "load_shed": false,
+    "retry_limit": 3
+  },
+  "decision": {
+    "authority_scope": "checkout-api-only",
+    "owner": "api-team"
+  },
+  "delay": {
+    "accounted": false,
+    "propagation_delay_seconds": 120,
+    "verification_after_seconds": 30
+  },
+  "loop": {
+    "edges": [],
+    "type_claim": "balancing"
+  },
+  "observation": {
+    "complete": false,
+    "outcome_count": 9620,
+    "request_count": 10000,
+    "source": "api-dashboard"
+  },
+  "subject_id": "FOUNDATIONS-SYSTEM-2026-10-r1",
+  "verification": {
+    "boundary_id": "checkout-api-only",
+    "checkout_success_rate": 0.964,
+    "downstream_timeout_rate": 0.09,
+    "effective_downstream_demand_rps": 118,
+    "queue_age_seconds": 180
+  }
+}

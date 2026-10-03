@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:5e532c81ba5caee3209e0b60a34b97c6bdcc966b68abdf0e8f3841b3c9e32f8e"
+
+def load(p): return json.loads(Path(p).read_text())
+def file_digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("system-contract.json")
+s=load("system-evidence.json")
+f=load("feedback-evidence.json")
+second=load("second-operation.json")
+errors=[]
+
+req(file_digest("system-contract.json")==EXPECTED_CONTRACT_DIGEST,"system contract digest mismatch",errors)
+req(c["authority"]["local_component_green_is_evidence_only"] is True,"local green authority contract mismatch",errors)
+req(c["authority"]["optimization_authorized"] is False,"optimization authority must remain false",errors)
+
+for obj,name in [(s,"system evidence"),(f,"feedback evidence"),(second,"second operation")]:
+    req(obj.get("subject_id")==c["subject_id"],f"{name} subject mismatch",errors)
+
+req(s["boundary_id"]==c["system"]["boundary_id"],"system boundary mismatch",errors)
+req(s["flow"]==c["system"]["flow"],"system flow is incomplete or reordered",errors)
+req(s["constraint_claim"]==c["system"]["constraint"],"constraint claim mismatch",errors)
+
+rates=s["rates_before"]
+req(abs(rates["effective_downstream_demand_rps"]-(rates["external_demand_rps"]+rates["retry_generated_rps"]))<1e-9,"downstream demand arithmetic mismatch",errors)
+req(rates["effective_downstream_demand_rps"]>rates["payment_worker_capacity_rps"],"fixture does not prove constrained downstream capacity",errors)
+req(rates["retry_generated_rps"]>0,"retry amplification evidence missing",errors)
+req(s["queue_stock_after_local_change"]>s["queue_stock_before"],"local optimization did not preserve queue-stock evidence",errors)
+
+before=s["global_before"]
+req(before["checkout_requests"]==before["checkout_outcomes"],"global outcome denominator incomplete",errors)
+req(before["checkout_success_rate"]<c["targets"]["checkout_success_rate_min"],"success-rate deviation not represented",errors)
+req(before["queue_age_seconds"]>c["targets"]["queue_age_seconds_max"],"queue deviation not represented",errors)
+req(before["downstream_timeout_rate"]>c["targets"]["downstream_timeout_rate_max"],"timeout deviation not represented",errors)
+
+req(f["observation"]["source"]=="production-trace-and-queue","feedback observation source is not authoritative",errors)
+req(f["observation"]["complete"] is True,"feedback observation is incomplete",errors)
+req(f["observation"]["request_count"]==f["observation"]["outcome_count"],"feedback denominator mismatch",errors)
+req(f["comparison"]["target_checked"] is True and f["comparison"]["global_outcome_checked"] is True,"feedback comparison is incomplete",errors)
+req(f["loop"]["type_claim"]=="reinforcing","retry amplification must be classified as reinforcing",errors)
+req(f["loop"]["edges"]==c["system"]["reinforcing_loop"],"reinforcing-loop causal edges mismatch",errors)
+req(f["decision"]["owner"]=="checkout-oncall","feedback decision owner mismatch",errors)
+req(f["decision"]["authority_scope"]==c["system"]["boundary_id"],"feedback authority scope is too narrow",errors)
+
+corr=f["correction"]
+req(corr["action"]=="bound-retries-backoff-load-shed","unsafe correction action",errors)
+req(corr["retry_limit"]==1,"retry limit is not bounded to the accepted control",errors)
+req(corr["exponential_backoff"] is True,"backoff missing",errors)
+req(corr["load_shed"] is True,"load shedding missing",errors)
+req(corr["api_scale_change"] is False,"local API scale-out is not the accepted systemic correction",errors)
+
+delay=f["delay"]
+req(delay["accounted"] is True,"feedback delay not accounted",errors)
+req(delay["verification_after_seconds"]>=delay["propagation_delay_seconds"],"verification occurred before correction could propagate",errors)
+
+v=f["verification"]
+req(v["boundary_id"]==c["feedback"]["verification_boundary"],"verification used a local instead of global boundary",errors)
+req(v["effective_downstream_demand_rps"]<=rates["payment_worker_capacity_rps"],"corrected downstream demand still exceeds constraint",errors)
+req(v["checkout_success_rate"]>=c["targets"]["checkout_success_rate_min"],"global checkout success not recovered",errors)
+req(v["queue_age_seconds"]<=c["targets"]["queue_age_seconds_max"],"queue age not recovered",errors)
+req(v["downstream_timeout_rate"]<=c["targets"]["downstream_timeout_rate_max"],"downstream timeout rate not recovered",errors)
+
+req(second["same_subject"] is c["second_operation"]["same_subject"],"second operation subject mismatch",errors)
+req(second["evidence_mutations"]==c["second_operation"]["evidence_mutations"],"second operation mutated evidence",errors)
+req(second["report_byte_identical"] is True,"second report is not reproducible",errors)
+
+if errors:
+    print("SYSTEM REJECTED")
+    for e in errors: print("-",e)
+    raise SystemExit(1)
+
+report={
+  "subject_id":c["subject_id"],
+  "system_integrity_verified":True,
+  "optimization_authorized":False,
+  "boundary_id":s["boundary_id"],
+  "constraint":s["constraint_claim"],
+  "loop_type":f["loop"]["type_claim"],
+  "global_recovered":True,
+  "verification":v
+}
+ledger={"subject_id":c["subject_id"],"contract_digest":EXPECTED_CONTRACT_DIGEST,"accepted":True}
+exact_write("system-report.json",canonical(report))
+exact_write("system-evidence-ledger.json",canonical(ledger))
+print("SYSTEM VERIFIED")
