@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-kubeflow-pipelines-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-kubeflow-pipelines-integrity
+
+Commands:
+  status      Show KFP evidence/report state
+  reconcile   Execute your current kfp_gate.py
+  check       Validate your kfp_gate.py
+  hint        Show the source/IR/cache/side-effect boundary
+  assess      Alias for check
+  reset       Restore the unsafe green-run incident
+  self-test   Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'kfp_gate.py: '; [ -f kfp_gate.py ] && echo present || echo missing
+    printf 'kfp-report.json: '; [ -f kfp-report.json ] && echo present || echo missing
+    printf 'kfp-evidence-ledger.json: '; [ -f kfp-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'A Succeeded KFP run is metadata. Bind reviewed source to compiled IR, immutable parameters/images, complete cache dependencies, one accepted attempt, readable artifact digests and read-before-retry external mutation reconciliation.' ;;
+  reconcile) python3 ./kfp_gate.py ;;
+  check|assess) python3 ./kfp_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./kfp_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('kfp-report.json').read_text())
+assert r['kfp_integrity_verified'] is True
+assert r['rollout_authorized'] is True
+PY
+    cp "$ROOT/kfp_gate.py.solution.template" ./kfp_gate.py
+    chmod +x ./kfp_gate.py
+    rm -f kfp-report.json kfp-evidence-ledger.json
+    python3 ./kfp_validator.py
+    reset_lab
+    python3 ./kfp_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('kfp-report.json').read_text())
+assert r['rollout_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac
