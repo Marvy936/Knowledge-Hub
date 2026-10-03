@@ -1,0 +1,14 @@
+{
+  "actual_traffic_converged": false,
+  "all_loaded_parity": false,
+  "evidence_preserved": true,
+  "failover_runtime_generation_changed": false,
+  "feature_generation": "fraud-features-v15",
+  "kserve_loaded_release_id": "fraud-2026-09-r50",
+  "kserve_runtime_image_digest": "sha256:4c4f6391b5566299b8ce9c4e9536b6084ed81228e9f841a43aefbda55fbc99c0",
+  "registry_pointer_updated": true,
+  "sagemaker_loaded_release_id": "fraud-2026-10-r51",
+  "sagemaker_runtime_image_digest": "sha256:old-fallback-image",
+  "side_effects_reconciled": true,
+  "target_release_id": "fraud-2026-09-r50"
+}

@@ -92,6 +92,8 @@ Current labs:
 
 | `mlops-sagemaker-cloud-mapping-integrity` | challenge | `shell` | Preserve platform-neutral MLOps subjects across SageMaker Pipelines, Registry, Endpoint and Model Monitor using immutable S3/ECR identities and loaded AWS read-back. |
 
+| `mlops-platform-architecture-integrity` | challenge | `shell` | Bind one immutable release manifest across KFP/Trainer/Registry/features/KServe/SageMaker, authoritative stores, event deduplication, actual exposure and composite recovery. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:

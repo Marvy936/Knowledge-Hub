@@ -1,0 +1,50 @@
+{
+  "feature_store": {
+    "definition_digest": "sha256:0b4b3158ec684e46dcf5f8b7cf09ce25c6526f61f143a9c4e0b89571edab1d64",
+    "expected_generation": "fraud-features-v16",
+    "materialized_generation": "fraud-features-v15"
+  },
+  "kfp": {
+    "pipeline_ir_digest": "sha256:1c3f0a391fd7a83538ae0e5cd18a59e6bd3ec64b4598a5ecab93d8f7587a4cf8",
+    "release_id": "fraud-2026-10-r51",
+    "run_id": "kfp-fraud-r51",
+    "status": "Succeeded"
+  },
+  "kserve": {
+    "feature_generation": "fraud-features-v15",
+    "loaded_release_id": "fraud-2026-10-r51",
+    "model_artifact_digest": "sha256:5a2c01fd80cb2dcb2921abe0cfbb617958462514ff041155c0e42b73929b7c8d",
+    "ready": true,
+    "runtime_image_digest": "sha256:58da9d9ae73283ae9c6abb1a868ba9bbd25f07b4d6efb3bda694658a7cff42be",
+    "service": "fraud-classifier"
+  },
+  "observability": {
+    "actual_exposure_release_ids": [
+      "fraud-2026-10-r51",
+      "fraud-2026-09-r50"
+    ],
+    "correlation_key": "model_name",
+    "dropped_events": 0,
+    "monitoring_generation": "fraud-monitor-v13"
+  },
+  "registry": {
+    "model_artifact_digest": "sha256:5a2c01fd80cb2dcb2921abe0cfbb617958462514ff041155c0e42b73929b7c8d",
+    "release_id": "fraud-2026-10-r51",
+    "version": "fraud-prod/185"
+  },
+  "release_id": "fraud-2026-10-r51",
+  "sagemaker": {
+    "endpoint": "arn:aws:sagemaker:eu-central-1:123456789012:endpoint/fraud-fallback",
+    "feature_generation": "fraud-features-v16",
+    "in_service": true,
+    "loaded_release_id": "fraud-2026-10-r51",
+    "model_artifact_digest": "sha256:5a2c01fd80cb2dcb2921abe0cfbb617958462514ff041155c0e42b73929b7c8d",
+    "runtime_image_digest": "sha256:old-fallback-image"
+  },
+  "trainer": {
+    "job": "fraud-train-r51",
+    "model_artifact_digest": "sha256:5a2c01fd80cb2dcb2921abe0cfbb617958462514ff041155c0e42b73929b7c8d",
+    "release_id": "fraud-2026-10-r51",
+    "status": "Succeeded"
+  }
+}

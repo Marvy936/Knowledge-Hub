@@ -1,0 +1,10 @@
+{
+  "duplicate_mutations": 2,
+  "loaded_fingerprint_parity": false,
+  "manual_pointer_edit": true,
+  "mutation_noop_or_reconciled": false,
+  "pure_operation_outputs_reproducible": false,
+  "read_before_retry": false,
+  "same_subject": false,
+  "subject_id": "MLOPS-PAY-ARCH-2026-10-r51"
+}

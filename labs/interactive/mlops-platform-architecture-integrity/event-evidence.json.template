@@ -1,0 +1,12 @@
+{
+  "authenticated": true,
+  "deduplicated": false,
+  "delivery_count": 2,
+  "duplicate_mutation_submitted": true,
+  "event_id": "evt-fraud-r51-promote",
+  "idempotency_key": "promote:fraud-2026-10-r51",
+  "mutation_outcome": "timeout_unknown",
+  "read_before_retry": false,
+  "subject_digest": "sha256:16121b69b800b683a866bdc46c6e9a6b78c8239c201e1199b09e9e8f95c5fc15",
+  "target_readback_release_id": "fraud-2026-10-r51"
+}

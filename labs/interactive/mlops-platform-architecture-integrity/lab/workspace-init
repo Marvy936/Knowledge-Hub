@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-platform-architecture-integrity
+for f in architecture-contract release-manifest authority-map system-evidence event-evidence recovery-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/architecture_gate.py.template" ./architecture_gate.py
+cp "$ROOT/architecture_validator.py" ./architecture_validator.py
+chmod +x ./architecture_gate.py ./architecture_validator.py
+rm -f ./architecture-report.json ./architecture-evidence-ledger.json

@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-platform-architecture-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-platform-architecture-integrity
+
+Commands:
+  status      Show architecture evidence/report state
+  reconcile   Execute your current architecture_gate.py
+  check       Validate your architecture_gate.py
+  hint        Show the cross-system authority boundary
+  assess      Alias for check
+  reset       Restore the unsafe green-platform incident
+  self-test   Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'architecture_gate.py: '; [ -f architecture_gate.py ] && echo present || echo missing
+    printf 'architecture-report.json: '; [ -f architecture-report.json ] && echo present || echo missing
+    printf 'architecture-evidence-ledger.json: '; [ -f architecture-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'A green KFP/Trainer/Registry/KServe/SageMaker dashboard is not architecture authority. Bind one immutable release manifest across authoritative stores, loaded data planes, event identity and full composite recovery.' ;;
+  reconcile) python3 ./architecture_gate.py ;;
+  check|assess) python3 ./architecture_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./architecture_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('architecture-report.json').read_text())
+assert r['architecture_integrity_verified'] is True
+assert r['rollout_authorized'] is True
+PY
+    cp "$ROOT/architecture_gate.py.solution.template" ./architecture_gate.py
+    chmod +x ./architecture_gate.py
+    rm -f architecture-report.json architecture-evidence-ledger.json
+    python3 ./architecture_validator.py
+    reset_lab
+    python3 ./architecture_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('architecture-report.json').read_text())
+assert r['rollout_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac

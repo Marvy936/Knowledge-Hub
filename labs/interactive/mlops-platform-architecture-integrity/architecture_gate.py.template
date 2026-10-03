@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+systems=json.loads(Path("system-evidence.json").read_text())
+authority=json.loads(Path("authority-map.json").read_text())
+ok=(
+    systems["kfp"]["status"]=="Succeeded"
+    and systems["trainer"]["status"]=="Succeeded"
+    and systems["kserve"]["ready"]
+    and systems["sagemaker"]["in_service"]
+    and authority["dashboard_is_authoritative"]
+)
+report={
+    "subject_id":"MLOPS-PAY-ARCH-2026-10-r51",
+    "architecture_integrity_verified":ok,
+    "rollout_authorized":ok,
+    "promotion_authorized":False,
+    "retraining_authorized":False
+}
+Path("architecture-report.json").write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
+print("ARCHITECTURE ACCEPTED" if ok else "ARCHITECTURE BLOCKED")
