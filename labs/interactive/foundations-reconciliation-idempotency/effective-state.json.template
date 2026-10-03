@@ -1,0 +1,8 @@
+{
+  "application_health": "ready",
+  "environment_key": "team-a-pr-142",
+  "loaded_artifact_digest": "sha256:8c5b08d8d0b8cd7c2c63f7dbdb74fab3e8729031a34ee080dc92f672ce28ca34",
+  "network_profile": "isolated-v3",
+  "resource_id": "env-team-a-pr-142-retry",
+  "smoke_passed": true
+}

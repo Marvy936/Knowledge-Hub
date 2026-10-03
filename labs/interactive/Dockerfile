@@ -85,6 +85,7 @@ COPY mlops-kserve-serving-integrity /opt/knowledge-hub/labs/mlops-kserve-serving
 COPY mlops-sagemaker-cloud-mapping-integrity /opt/knowledge-hub/labs/mlops-sagemaker-cloud-mapping-integrity
 COPY mlops-platform-architecture-integrity /opt/knowledge-hub/labs/mlops-platform-architecture-integrity
 COPY mlops-troubleshooting-integrity /opt/knowledge-hub/labs/mlops-troubleshooting-integrity
+COPY foundations-reconciliation-idempotency /opt/knowledge-hub/labs/foundations-reconciliation-idempotency
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -365,6 +366,15 @@ RUN ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/lab
  && ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/assess \
  && ln -s driver /opt/knowledge-hub/labs/mlops-troubleshooting-integrity/lab/diagnose
+
+RUN ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/assess \
+ && ln -s driver /opt/knowledge-hub/labs/foundations-reconciliation-idempotency/lab/reconcile
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

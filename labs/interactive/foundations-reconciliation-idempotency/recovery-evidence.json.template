@@ -1,0 +1,10 @@
+{
+  "disposition": "blind_recreate",
+  "duplicate_resource_created": true,
+  "final_resource_id": "env-team-a-pr-142-retry",
+  "identity_preserved": false,
+  "original_resource_id": "env-team-a-pr-142",
+  "partial_state_reconciled": false,
+  "subject_id": "FOUNDATIONS-ENV-2026-10-r1",
+  "unknown_outcome_detected": true
+}

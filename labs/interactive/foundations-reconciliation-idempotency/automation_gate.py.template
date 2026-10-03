@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+op=json.loads(Path("operation-evidence.json").read_text())
+effective=json.loads(Path("effective-state.json").read_text())
+ok=op["last_call_exit_code"]==0 and effective["application_health"]=="ready" and effective["smoke_passed"]
+report={
+  "subject_id":op["subject_id"],
+  "automation_verified":ok,
+  "created_resources":op["created_resource_ids"]
+}
+Path("automation-report.json").write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
+print("AUTOMATION ACCEPTED" if ok else "AUTOMATION BLOCKED")

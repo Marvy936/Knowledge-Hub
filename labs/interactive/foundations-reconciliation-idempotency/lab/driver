@@ -1,0 +1,57 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/foundations-reconciliation-idempotency
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'HELP'
+Knowledge Hub Interactive Lab
+Lab: foundations-reconciliation-idempotency
+
+Commands:
+  status      Show automation evidence/report state
+  reconcile   Execute your current automation_gate.py
+  check       Validate your automation_gate.py
+  hint        Show the reconciliation/idempotency boundary
+  assess      Alias for check
+  reset       Restore the unsafe imperative-retry incident
+  self-test   Prove the lab fixture and reference solution
+HELP
+    ;;
+  status)
+    printf 'automation_gate.py: '; [ -f automation_gate.py ] && echo present || echo missing
+    printf 'automation-report.json: '; [ -f automation-report.json ] && echo present || echo missing
+    printf 'automation-evidence-ledger.json: '; [ -f automation-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'A timeout is an unknown outcome, not proof of failure. Read authoritative state, preserve stable identity, reconcile desired vs observed state, verify effective runtime, then prove the same subject is a no-op on replay.' ;;
+  reconcile) python3 ./automation_gate.py ;;
+  check|assess) python3 ./automation_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./automation_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('automation-report.json').read_text())
+assert r['automation_verified'] is True
+assert len(r['created_resources']) == 2
+PY
+    cp "$ROOT/automation_gate.py.solution.template" ./automation_gate.py
+    chmod +x ./automation_gate.py
+    rm -f automation-report.json automation-evidence-ledger.json
+    python3 ./automation_validator.py
+    reset_lab
+    python3 ./automation_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('automation-report.json').read_text())
+assert r['automation_verified'] is True
+assert len(r['created_resources']) == 2
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac
