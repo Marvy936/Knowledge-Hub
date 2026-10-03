@@ -7,25 +7,25 @@ This is the authoritative per-document practical coverage baseline for documenta
 ## Baseline summary
 
 - Total documentation topics: **377**
-- Covered: **9**
-- Partial: **36**
-- Planned: **332**
+- Covered: **13**
+- Partial: **37**
+- Planned: **327**
 - Not applicable: **0**
 
 | Section | Documentation topic | State | Interactive lab(s) | Supplemental | Coverage note |
 |---|---|---|---|---|---|
-| 00-foundations | [automation-mindset](docs/00-foundations/automation-mindset.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [automation-mindset](docs/00-foundations/automation-mindset.md) | `covered` | `foundations-reconciliation-idempotency` | — | Exercises typed input, bounded mutation, authoritative state, verification, recovery and replay semantics. |
 | 00-foundations | [calms](docs/00-foundations/calms.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [continuous-improvement](docs/00-foundations/continuous-improvement.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [declarative-vs-imperative](docs/00-foundations/declarative-vs-imperative.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [desired-state-and-reconciliation](docs/00-foundations/desired-state-and-reconciliation.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [declarative-vs-imperative](docs/00-foundations/declarative-vs-imperative.md) | `covered` | `foundations-reconciliation-idempotency` | — | Contrasts blind create sequencing with desired-state reconciliation over authoritative observed state. |
+| 00-foundations | [desired-state-and-reconciliation](docs/00-foundations/desired-state-and-reconciliation.md) | `covered` | `foundations-reconciliation-idempotency` | — | Recomputes desired vs observed state, reconciles partial state and verifies effective runtime convergence. |
 | 00-foundations | [devops](docs/00-foundations/devops.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [devops-anti-patterns](docs/00-foundations/devops-anti-patterns.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [devops-lifecycle](docs/00-foundations/devops-lifecycle.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [dora-metrics](docs/00-foundations/dora-metrics.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [feedback-loops](docs/00-foundations/feedback-loops.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [idempotency](docs/00-foundations/idempotency.md) | `planned` | — | — | Interactive backfill required. |
-| 00-foundations | [immutable-vs-mutable-infrastructure](docs/00-foundations/immutable-vs-mutable-infrastructure.md) | `planned` | — | — | Interactive backfill required. |
+| 00-foundations | [idempotency](docs/00-foundations/idempotency.md) | `covered` | `foundations-reconciliation-idempotency` | — | Requires stable operation/resource identity, read-before-retry and duplicate-free identical replay. |
+| 00-foundations | [immutable-vs-mutable-infrastructure](docs/00-foundations/immutable-vs-mutable-infrastructure.md) | `partial` | `foundations-reconciliation-idempotency` | — | Requires a digest-pinned artifact and rejects mutable references; full replacement/traffic-cutover lifecycle remains planned. |
 | 00-foundations | [ownership-mindset](docs/00-foundations/ownership-mindset.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [sdlc](docs/00-foundations/sdlc.md) | `planned` | — | — | Interactive backfill required. |
 | 00-foundations | [systems-thinking](docs/00-foundations/systems-thinking.md) | `planned` | — | — | Interactive backfill required. |

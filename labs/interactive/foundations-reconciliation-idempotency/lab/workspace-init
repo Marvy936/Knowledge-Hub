@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/foundations-reconciliation-idempotency
+for f in automation-contract request-evidence operation-evidence observed-state effective-state recovery-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/automation_gate.py.template" ./automation_gate.py
+cp "$ROOT/automation_validator.py" ./automation_validator.py
+chmod +x ./automation_gate.py ./automation_validator.py
+rm -f ./automation-report.json ./automation-evidence-ledger.json

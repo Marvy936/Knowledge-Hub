@@ -1,0 +1,30 @@
+{
+  "generation": 44,
+  "resources": [
+    {
+      "application_health": "starting",
+      "artifact_digest": "sha256:old-build",
+      "artifact_mutable": true,
+      "artifact_reference": "registry.example/app:latest",
+      "environment_key": "team-a-pr-142",
+      "expiry": "2026-10-10T18:00:00Z",
+      "manual_override": false,
+      "network_profile": "isolated-v3",
+      "owner": "team-a",
+      "resource_id": "env-team-a-pr-142"
+    },
+    {
+      "application_health": "ready",
+      "artifact_digest": "sha256:8c5b08d8d0b8cd7c2c63f7dbdb74fab3e8729031a34ee080dc92f672ce28ca34",
+      "artifact_mutable": false,
+      "artifact_reference": "registry.example/app@sha256:8c5b08d8d0b8cd7c2c63f7dbdb74fab3e8729031a34ee080dc92f672ce28ca34",
+      "environment_key": "team-a-pr-142",
+      "expiry": "2026-10-10T18:00:00Z",
+      "manual_override": false,
+      "network_profile": "isolated-v3",
+      "owner": "team-a",
+      "resource_id": "env-team-a-pr-142-retry"
+    }
+  ],
+  "store": "environment-registry"
+}

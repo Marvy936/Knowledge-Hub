@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:f1ed80354ac86e9399920e1814f8e7268f380cc77d7da41c655dce12c2562024"
+
+def load(path): return json.loads(Path(path).read_text())
+def file_digest(path): return "sha256:"+hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def canonical(obj): return json.dumps(obj,indent=2,sort_keys=True)+"\n"
+def text_digest(text): return "sha256:"+hashlib.sha256(text.encode()).hexdigest()
+def req(condition,message,errors):
+    if not condition: errors.append(message)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("automation-contract.json")
+request=load("request-evidence.json")
+op=load("operation-evidence.json")
+observed=load("observed-state.json")
+effective=load("effective-state.json")
+recovery=load("recovery-evidence.json")
+second=load("second-operation.json")
+errors=[]
+
+req(file_digest("automation-contract.json")==EXPECTED_CONTRACT_DIGEST,"automation contract digest mismatch",errors)
+req(request["subject_id"]==c["subject_id"] and request["validated"] is True,"request subject/validation mismatch",errors)
+for field,value in c["desired"].items():
+    req(request.get(field)==value,f"request {field} mismatch",errors)
+
+req(op["subject_id"]==c["subject_id"] and op["operation_id"]==c["operation_id"],"operation identity mismatch",errors)
+req(op["mode"]=="reconcile","imperative create mode is forbidden for retry/replay",errors)
+req(op["reconcile_plan_generated"] is True,"reconcile plan missing",errors)
+if op["mutation_outcome"]=="timeout_unknown":
+    req(op["read_before_retry"] is c["retry"]["unknown_outcome_requires_read_before_retry"],"unknown outcome not read before retry",errors)
+    req(op["authoritative_read_before_retry"] is True,"authoritative state was not read before retry",errors)
+req(op["created_resource_ids"]==[c["desired"]["resource_id"]],"operation did not preserve stable resource identity",errors)
+
+req(observed["store"]==c["authority"]["inventory_store"],"wrong authoritative inventory store",errors)
+matches=[r for r in observed["resources"] if r.get("environment_key")==c["desired"]["environment_key"]]
+req(len(matches)==1,"desired environment must resolve to exactly one resource",errors)
+if len(matches)==1:
+    r=matches[0]
+    req(r["resource_id"]==c["desired"]["resource_id"],"observed resource identity mismatch",errors)
+    for field in ("environment_key","owner","expiry","network_profile","artifact_digest","application_health"):
+        req(r.get(field)==c["desired"][field],f"observed {field} mismatch",errors)
+    req(r["artifact_mutable"] is False,"mutable artifact reference is forbidden",errors)
+    req(r["artifact_reference"].endswith("@"+c["desired"]["artifact_digest"]),"artifact reference is not digest-pinned",errors)
+    req(r["manual_override"] is False,"conflicting manual override must not be silently overwritten",errors)
+
+req(c["authority"]["effective_runtime_readback_required"] is True,"runtime read-back requirement weakened",errors)
+req(effective["resource_id"]==c["desired"]["resource_id"],"effective resource identity mismatch",errors)
+req(effective["environment_key"]==c["desired"]["environment_key"],"effective environment identity mismatch",errors)
+req(effective["loaded_artifact_digest"]==c["desired"]["artifact_digest"],"effective artifact digest mismatch",errors)
+req(effective["network_profile"]==c["desired"]["network_profile"],"effective network profile mismatch",errors)
+req(effective["application_health"]==c["desired"]["application_health"] and effective["smoke_passed"] is True,"effective application verification failed",errors)
+
+req(recovery["subject_id"]==c["subject_id"] and recovery["unknown_outcome_detected"] is True,"recovery subject mismatch",errors)
+req(recovery["disposition"]=="reconcile_existing","unknown outcome must reconcile existing state",errors)
+req(recovery["original_resource_id"]==c["desired"]["resource_id"] and recovery["final_resource_id"]==c["desired"]["resource_id"],"recovery changed resource identity",errors)
+req(recovery["identity_preserved"] is True,"recovery did not preserve stable identity",errors)
+req(recovery["duplicate_resource_created"] is False,"recovery created duplicate resource",errors)
+req(recovery["partial_state_reconciled"] is True,"partial state was not reconciled",errors)
+
+so=c["second_operation"]
+req(second["subject_id"]==c["subject_id"] and second["same_subject"] is so["same_subject"],"second operation changed subject",errors)
+req(second["read_before_retry"] is True,"second operation did not read authoritative state",errors)
+req(second["mutation_count"]==0 if so["no_mutation"] else True,"second identical operation mutated state",errors)
+req(second["inventory_generation_after"]==second["inventory_generation_before"],"second operation changed authoritative generation",errors)
+req(second["resource_count"]==1 and second["duplicate_resources"]==0,"second operation left duplicate resources",errors)
+req(second["effective_readback_repeated"] is True,"second operation did not repeat effective verification",errors)
+
+ok=not errors
+report={
+  "subject_id":c["subject_id"],
+  "automation_verified":ok,
+  "declarative_reconciliation_verified":ok,
+  "idempotency_verified":ok,
+  "effective_state_verified":ok,
+  "second_operation_verified":ok,
+  "errors":errors
+}
+report_text=canonical(report)
+exact_write("automation-report.json",report_text)
+if not ok:
+    raise SystemExit("AUTOMATION RECONCILIATION REJECTED: "+"; ".join(errors))
+ledger={
+  "subject_id":c["subject_id"],
+  "contract_digest":file_digest("automation-contract.json"),
+  "request_digest":file_digest("request-evidence.json"),
+  "operation_digest":file_digest("operation-evidence.json"),
+  "observed_digest":file_digest("observed-state.json"),
+  "effective_digest":file_digest("effective-state.json"),
+  "recovery_digest":file_digest("recovery-evidence.json"),
+  "second_operation_digest":file_digest("second-operation.json"),
+  "report_digest":text_digest(report_text)
+}
+exact_write("automation-evidence-ledger.json",canonical(ledger))
+print("AUTOMATION RECONCILIATION VERIFIED")

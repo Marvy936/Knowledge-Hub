@@ -1,0 +1,11 @@
+{
+  "duplicate_resources": 1,
+  "effective_readback_repeated": false,
+  "inventory_generation_after": 45,
+  "inventory_generation_before": 44,
+  "mutation_count": 1,
+  "read_before_retry": false,
+  "resource_count": 2,
+  "same_subject": false,
+  "subject_id": "FOUNDATIONS-ENV-2026-10-r1"
+}

@@ -1,0 +1,27 @@
+{
+  "authority": {
+    "effective_runtime_readback_required": true,
+    "inventory_store": "environment-registry",
+    "request_source": "git-reviewed-request"
+  },
+  "desired": {
+    "application_health": "ready",
+    "artifact_digest": "sha256:8c5b08d8d0b8cd7c2c63f7dbdb74fab3e8729031a34ee080dc92f672ce28ca34",
+    "environment_key": "team-a-pr-142",
+    "expiry": "2026-10-10T18:00:00Z",
+    "network_profile": "isolated-v3",
+    "owner": "team-a",
+    "resource_id": "env-team-a-pr-142"
+  },
+  "operation_id": "provision:team-a-pr-142:v3",
+  "retry": {
+    "duplicate_resources_forbidden": true,
+    "unknown_outcome_requires_read_before_retry": true
+  },
+  "second_operation": {
+    "byte_identical_report": true,
+    "no_mutation": true,
+    "same_subject": true
+  },
+  "subject_id": "FOUNDATIONS-ENV-2026-10-r1"
+}

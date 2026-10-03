@@ -96,6 +96,8 @@ Current labs:
 
 | `mlops-troubleshooting-integrity` | challenge | `shell` | Preserve incident evidence, find the first intended→configured→resolved→loaded→exercised→outcome divergence, test competing hypotheses and prove composite recovery plus a clean second operation. |
 
+| `foundations-reconciliation-idempotency` | challenge | `shell` | Replace blind imperative retry with stable-identity desired-state reconciliation, authoritative read-back, effective verification and an idempotent second operation. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:
