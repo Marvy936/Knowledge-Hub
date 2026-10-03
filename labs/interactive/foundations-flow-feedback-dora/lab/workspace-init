@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/foundations-flow-feedback-dora
+for f in flow-contract baseline-events improvement-events dashboard improvement-plan feedback-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/flow_gate.py.template" ./flow_gate.py
+cp "$ROOT/flow_validator.py" ./flow_validator.py
+chmod +x ./flow_gate.py ./flow_validator.py
+rm -f ./flow-report.json ./flow-evidence-ledger.json

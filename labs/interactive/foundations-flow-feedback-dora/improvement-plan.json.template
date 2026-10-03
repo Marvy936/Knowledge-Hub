@@ -1,0 +1,15 @@
+{
+  "bounded_experiment": true,
+  "change": "enable shared build cache",
+  "hypothesis_id": "hyp-build-cache",
+  "observed_bottleneck": "build",
+  "owner": "platform-team",
+  "population_definition": {
+    "change_class": "standard-production-change",
+    "service": "checkout-api"
+  },
+  "standard_work_updated": false,
+  "target_metrics": [
+    "build_duration_minutes"
+  ]
+}

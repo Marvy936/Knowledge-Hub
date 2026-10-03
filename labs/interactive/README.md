@@ -98,6 +98,8 @@ Current labs:
 
 | `foundations-reconciliation-idempotency` | challenge | `shell` | Replace blind imperative retry with stable-identity desired-state reconciliation, authoritative read-back, effective verification and an idempotent second operation. |
 
+| `foundations-flow-feedback-dora` | challenge | `shell` | Recompute SDLC/value-stream/DORA evidence from raw change events, reject local optimization, close feedback and verify durable continuous improvement. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:

@@ -1,0 +1,74 @@
+{
+  "changes": [
+    {
+      "artifact_digest": "sha256:bddd47646abe9f72015d8198794765e3dccf5a1026d2c9028a28993e1bc4a656",
+      "change_id": "chg-091",
+      "events": {
+        "approval_granted": "2026-09-04T11:59:00Z",
+        "approval_requested": "2026-09-02T11:59:00Z",
+        "build_end": "2026-09-02T11:59:00Z",
+        "build_start": "2026-09-02T11:45:00Z",
+        "deploy_end": "2026-09-04T12:24:00Z",
+        "deploy_start": "2026-09-04T12:14:00Z",
+        "implementation_end": "2026-09-02T11:15:00Z",
+        "implementation_start": "2026-09-02T09:15:00Z",
+        "production_verified": "2026-09-04T12:34:00Z",
+        "request_accepted": "2026-09-02T09:00:00Z",
+        "source_merged": "2026-09-02T11:45:00Z"
+      },
+      "release_id": "checkout-chg-091",
+      "result": "success",
+      "runtime_generation": "runtime-chg-091",
+      "source_revision": "84b55a8b95bfc21f02b2b10718351ad5b2eb9627"
+    },
+    {
+      "artifact_digest": "sha256:f42908a50e5f20170e8ce457cc9caa50a4277196448935f791678f31a1f68249",
+      "change_id": "chg-092",
+      "events": {
+        "approval_granted": "2026-09-10T11:45:00Z",
+        "approval_requested": "2026-09-08T11:45:00Z",
+        "build_end": "2026-09-08T11:45:00Z",
+        "build_start": "2026-09-08T11:30:00Z",
+        "capability_restored": "2026-09-10T13:15:00Z",
+        "deploy_end": "2026-09-10T12:10:00Z",
+        "deploy_start": "2026-09-10T12:00:00Z",
+        "failure_detected": "2026-09-10T12:15:00Z",
+        "implementation_end": "2026-09-08T11:00:00Z",
+        "implementation_start": "2026-09-08T09:15:00Z",
+        "production_verified": "2026-09-10T13:20:00Z",
+        "request_accepted": "2026-09-08T09:00:00Z",
+        "source_merged": "2026-09-08T11:30:00Z"
+      },
+      "release_id": "checkout-chg-092",
+      "result": "rollback",
+      "runtime_generation": "runtime-chg-092",
+      "source_revision": "79164028d97ca3932840a20bb810d0ff9e073c67"
+    },
+    {
+      "artifact_digest": "sha256:1a22af14da0983aac6514378a0d56286a57d26a08a57f933c13dc224e193327f",
+      "change_id": "chg-093",
+      "events": {
+        "approval_granted": "2026-09-17T13:49:00Z",
+        "approval_requested": "2026-09-15T11:49:00Z",
+        "build_end": "2026-09-15T11:49:00Z",
+        "build_start": "2026-09-15T11:35:00Z",
+        "deploy_end": "2026-09-17T14:14:00Z",
+        "deploy_start": "2026-09-17T14:04:00Z",
+        "implementation_end": "2026-09-15T11:05:00Z",
+        "implementation_start": "2026-09-15T09:15:00Z",
+        "production_verified": "2026-09-17T14:24:00Z",
+        "request_accepted": "2026-09-15T09:00:00Z",
+        "source_merged": "2026-09-15T11:35:00Z"
+      },
+      "release_id": "checkout-chg-093",
+      "result": "success",
+      "runtime_generation": "runtime-chg-093",
+      "source_revision": "a3e2fd7f4116ed6415ea4e7daaa1a25214308da2"
+    }
+  ],
+  "population": {
+    "change_class": "standard-production-change",
+    "service": "checkout-api",
+    "window": "2026-09-01T00:00:00Z/2026-09-30T23:59:59Z"
+  }
+}

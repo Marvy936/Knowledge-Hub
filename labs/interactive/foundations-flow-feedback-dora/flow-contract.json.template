@@ -1,0 +1,85 @@
+{
+  "acceptance": {
+    "approval_wait_must_improve": true,
+    "change_failure_rate_must_not_worsen": true,
+    "dora_claims_must_be_recomputed": true,
+    "end_to_end_lead_time_must_improve": true,
+    "feedback_loop_must_close": true,
+    "improvement_must_target_measured_bottleneck": true,
+    "learning_must_change_standard_work": true,
+    "local_build_speed_alone_is_insufficient": true,
+    "minimum_approval_wait_improvement_fraction": 0.5,
+    "minimum_changes_per_window": 3,
+    "minimum_lead_time_improvement_fraction": 0.25,
+    "same_population_required": true
+  },
+  "authority": {
+    "dashboard_is_evidence_only": true,
+    "promotion_authorized": false,
+    "rollout_authorized": false
+  },
+  "baseline_window": "2026-09-01T00:00:00Z/2026-09-30T23:59:59Z",
+  "change_class": "standard-production-change",
+  "dora": {
+    "deployment_event": "deploy_end",
+    "failed_results": [
+      "rollback",
+      "fix_forward"
+    ],
+    "lead_time_end": "production_verified",
+    "lead_time_start": "source_merged",
+    "recovery_end": "capability_restored",
+    "recovery_start": "failure_detected"
+  },
+  "improvement_window": "2026-10-01T00:00:00Z/2026-10-31T23:59:59Z",
+  "lifecycle": {
+    "identity_chain_required": [
+      "change_id",
+      "source_revision",
+      "artifact_digest",
+      "release_id",
+      "runtime_generation"
+    ],
+    "required_events": [
+      "request_accepted",
+      "implementation_start",
+      "implementation_end",
+      "source_merged",
+      "build_start",
+      "build_end",
+      "approval_requested",
+      "approval_granted",
+      "deploy_start",
+      "deploy_end",
+      "production_verified"
+    ]
+  },
+  "second_operation": {
+    "no_manual_metric_override": true,
+    "recompute_required": true,
+    "same_event_contract": true,
+    "same_population_definition": true
+  },
+  "service": "checkout-api",
+  "subject_id": "FOUNDATIONS-FLOW-2026-10-r1",
+  "value_stream": {
+    "approval_wait_end": "approval_granted",
+    "approval_wait_start": "approval_requested",
+    "lead_time_end": "production_verified",
+    "lead_time_start": "request_accepted",
+    "process_intervals": [
+      [
+        "implementation_start",
+        "implementation_end"
+      ],
+      [
+        "build_start",
+        "build_end"
+      ],
+      [
+        "deploy_start",
+        "deploy_end"
+      ]
+    ]
+  }
+}

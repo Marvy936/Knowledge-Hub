@@ -1,0 +1,160 @@
+#!/usr/bin/env python3
+import hashlib, json
+from datetime import datetime
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:4674181d763e404652a70f63e261d01475daae8540dacaa2d5e4fc90cef64c29"
+
+def load(path): return json.loads(Path(path).read_text())
+def file_digest(path): return "sha256:"+hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def canonical(obj): return json.dumps(obj,indent=2,sort_keys=True)+"\n"
+def text_digest(text): return "sha256:"+hashlib.sha256(text.encode()).hexdigest()
+def parse(ts): return datetime.fromisoformat(ts.replace("Z","+00:00"))
+def minutes(a,b): return (parse(b)-parse(a)).total_seconds()/60.0
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+def validate_population(evidence, window, contract, label, errors):
+    p=evidence["population"]
+    req(p["service"]==contract["service"],f"{label} service mismatch",errors)
+    req(p["change_class"]==contract["change_class"],f"{label} change class mismatch",errors)
+    req(p["window"]==window,f"{label} window mismatch",errors)
+    req(len(evidence["changes"])>=contract["acceptance"]["minimum_changes_per_window"],f"{label} population too small",errors)
+
+def metrics(evidence, contract, label, errors):
+    required=contract["lifecycle"]["required_events"]
+    lead=[]; e2e=[]; approval=[]; build=[]; process=[]; recoveries=[]; failures=0
+    seen=set()
+    for ch in evidence["changes"]:
+        cid=ch["change_id"]
+        req(cid not in seen,f"{label} duplicate change id {cid}",errors); seen.add(cid)
+        for k in contract["lifecycle"]["identity_chain_required"]:
+            req(bool(ch.get(k)),f"{label} {cid} missing identity {k}",errors)
+        req(ch["artifact_digest"].startswith("sha256:"),f"{label} {cid} artifact is not immutable digest identity",errors)
+        ev=ch["events"]
+        for name in required:
+            req(name in ev,f"{label} {cid} missing event {name}",errors)
+        if any(name not in ev for name in required):
+            continue
+        order=[parse(ev[name]) for name in required]
+        req(order==sorted(order),f"{label} {cid} lifecycle events out of order",errors)
+        lead.append(minutes(ev[contract["dora"]["lead_time_start"]],ev[contract["dora"]["lead_time_end"]]))
+        e2e.append(minutes(ev[contract["value_stream"]["lead_time_start"]],ev[contract["value_stream"]["lead_time_end"]]))
+        approval.append(minutes(ev[contract["value_stream"]["approval_wait_start"]],ev[contract["value_stream"]["approval_wait_end"]]))
+        build.append(minutes(ev["build_start"],ev["build_end"]))
+        proc=0.0
+        for a,b in contract["value_stream"]["process_intervals"]:
+            proc += minutes(ev[a],ev[b])
+        process.append(proc)
+        if ch["result"] in contract["dora"]["failed_results"]:
+            failures += 1
+            req("failure_detected" in ev and "capability_restored" in ev,f"{label} {cid} failed deployment lacks recovery events",errors)
+            if "failure_detected" in ev and "capability_restored" in ev:
+                recoveries.append(minutes(ev["failure_detected"],ev["capability_restored"]))
+    n=max(len(evidence["changes"]),1)
+    return {
+      "changes":len(evidence["changes"]),
+      "mean_lead_time_minutes":round(sum(lead)/len(lead),3) if lead else None,
+      "mean_end_to_end_minutes":round(sum(e2e)/len(e2e),3) if e2e else None,
+      "mean_approval_wait_minutes":round(sum(approval)/len(approval),3) if approval else None,
+      "mean_build_minutes":round(sum(build)/len(build),3) if build else None,
+      "mean_process_minutes":round(sum(process)/len(process),3) if process else None,
+      "mean_wait_minutes":round(sum((a-p) for a,p in zip(e2e,process))/len(e2e),3) if e2e else None,
+      "deployment_frequency_count":len(evidence["changes"]),
+      "change_failure_rate":round(failures/n,6),
+      "mean_recovery_minutes":round(sum(recoveries)/len(recoveries),3) if recoveries else 0.0
+    }
+
+c=load("flow-contract.json")
+baseline=load("baseline-events.json")
+improvement=load("improvement-events.json")
+dashboard=load("dashboard.json")
+plan=load("improvement-plan.json")
+feedback=load("feedback-evidence.json")
+second=load("second-operation.json")
+errors=[]
+
+req(file_digest("flow-contract.json")==EXPECTED_CONTRACT_DIGEST,"flow contract digest mismatch",errors)
+req(c["authority"]=={"dashboard_is_evidence_only":True,"promotion_authorized":False,"rollout_authorized":False},"authority boundary mismatch",errors)
+validate_population(baseline,c["baseline_window"],c,"baseline",errors)
+validate_population(improvement,c["improvement_window"],c,"improvement",errors)
+base=metrics(baseline,c,"baseline",errors)
+imp=metrics(improvement,c,"improvement",errors)
+
+same_population=(baseline["population"]["service"],baseline["population"]["change_class"])==(improvement["population"]["service"],improvement["population"]["change_class"])
+req(same_population is c["acceptance"]["same_population_required"],"baseline/improvement population mismatch",errors)
+
+if base["mean_lead_time_minutes"] and imp["mean_lead_time_minutes"]:
+    lead_fraction=(base["mean_lead_time_minutes"]-imp["mean_lead_time_minutes"])/base["mean_lead_time_minutes"]
+else:
+    lead_fraction=-1
+if base["mean_approval_wait_minutes"] and imp["mean_approval_wait_minutes"]:
+    approval_fraction=(base["mean_approval_wait_minutes"]-imp["mean_approval_wait_minutes"])/base["mean_approval_wait_minutes"]
+else:
+    approval_fraction=-1
+
+req(base["mean_approval_wait_minutes"] > base["mean_build_minutes"]*10,"baseline evidence does not identify approval queue as dominant bottleneck",errors)
+req(plan["population_definition"]=={"service":c["service"],"change_class":c["change_class"]},"improvement plan population mismatch",errors)
+req(plan["bounded_experiment"] is True,"improvement experiment is not bounded",errors)
+req(plan["observed_bottleneck"]=="approval_queue","improvement targets a local metric instead of measured bottleneck",errors)
+req(set(["lead_time_minutes","approval_wait_minutes","change_failure_rate"]).issubset(set(plan["target_metrics"])),"improvement plan lacks end-to-end/reliability target metrics",errors)
+req(lead_fraction>=c["acceptance"]["minimum_lead_time_improvement_fraction"],"end-to-end DORA lead time did not materially improve",errors)
+req(approval_fraction>=c["acceptance"]["minimum_approval_wait_improvement_fraction"],"approval queue wait did not materially improve",errors)
+req(imp["change_failure_rate"]<=base["change_failure_rate"],"change failure rate worsened",errors)
+
+req(bool(feedback.get("owner")),"feedback loop lacks accountable owner",errors)
+req(bool(feedback.get("decision")),"feedback loop lacks decision",errors)
+req(bool(feedback.get("corrective_action")) and feedback.get("corrective_action")!="none","feedback loop lacks corrective action",errors)
+req(feedback.get("re_observed") is True,"feedback loop was not re-observed after action",errors)
+req(feedback.get("outcome_changed") is True,"feedback loop did not verify changed outcome",errors)
+req(feedback.get("learning_recorded") is True,"learning was not recorded",errors)
+req(plan.get("standard_work_updated") is True,"continuous improvement was not standardized",errors)
+
+req(second["subject_id"]==c["subject_id"],"second operation subject mismatch",errors)
+req(second["same_event_contract"] is c["second_operation"]["same_event_contract"],"second operation changed event contract",errors)
+req(second["same_population_definition"] is c["second_operation"]["same_population_definition"],"second operation changed population definition",errors)
+req(second["recompute_required"] is c["second_operation"]["recompute_required"],"second operation did not recompute from evidence",errors)
+req(second["manual_metric_override"] is (not c["second_operation"]["no_manual_metric_override"]),"second operation used manual metric override",errors)
+req(second["replayed_from_raw_events"] is True,"second operation did not replay raw events",errors)
+
+ok=not errors
+report={
+  "subject_id":c["subject_id"],
+  "flow_verified":ok,
+  "sdlc_traceability_verified":ok,
+  "systems_thinking_verified":ok,
+  "feedback_loop_verified":ok,
+  "three_ways_verified":ok,
+  "continuous_improvement_verified":ok,
+  "value_stream_verified":ok,
+  "dora_recomputed":ok,
+  "baseline_metrics":base,
+  "improvement_metrics":imp,
+  "lead_time_improvement_fraction":round(lead_fraction,6),
+  "approval_wait_improvement_fraction":round(approval_fraction,6),
+  "dashboard_claim_used_as_authority":False,
+  "errors":errors,
+  "rollout_authorized":False,
+  "promotion_authorized":False
+}
+report_text=canonical(report)
+exact_write("flow-report.json",report_text)
+if not ok:
+    raise SystemExit("FOUNDATIONS FLOW REJECTED: "+"; ".join(errors))
+ledger={
+  "subject_id":c["subject_id"],
+  "contract_digest":file_digest("flow-contract.json"),
+  "baseline_digest":file_digest("baseline-events.json"),
+  "improvement_digest":file_digest("improvement-events.json"),
+  "plan_digest":file_digest("improvement-plan.json"),
+  "feedback_digest":file_digest("feedback-evidence.json"),
+  "second_operation_digest":file_digest("second-operation.json"),
+  "report_digest":text_digest(report_text)
+}
+exact_write("flow-evidence-ledger.json",canonical(ledger))
+print("FOUNDATIONS FLOW VERIFIED")

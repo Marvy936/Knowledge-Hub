@@ -1,0 +1,8 @@
+{
+  "manual_metric_override": true,
+  "recompute_required": false,
+  "replayed_from_raw_events": false,
+  "same_event_contract": false,
+  "same_population_definition": false,
+  "subject_id": "FOUNDATIONS-FLOW-2026-10-r1"
+}

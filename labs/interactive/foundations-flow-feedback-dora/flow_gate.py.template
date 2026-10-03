@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+dashboard=json.loads(Path("dashboard.json").read_text())
+ok=(dashboard["status"]=="green" and
+    dashboard["build_duration_minutes"]["improvement"] < dashboard["build_duration_minutes"]["baseline"])
+report={
+  "subject_id":"FOUNDATIONS-FLOW-2026-10-r1",
+  "flow_verified":ok,
+  "reason":"build got faster and dashboard is green",
+  "rollout_authorized":False,
+  "promotion_authorized":False
+}
+Path("flow-report.json").write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
+print("FLOW ACCEPTED" if ok else "FLOW BLOCKED")
