@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "id": "mixed-serving-runtime",
+      "prediction": "multiple loaded runtime fingerprints",
+      "result": "confirmed",
+      "test": "loaded inventory by replica"
+    },
+    {
+      "id": "stale-feature-materialization",
+      "prediction": "online feature watermark behind request event time",
+      "result": "unknown",
+      "test": "feature materialization read-back"
+    },
+    {
+      "id": "concept-drift",
+      "prediction": "quality regression persists with mature labels and correct features",
+      "result": "confirmed",
+      "test": "mature delayed evaluation"
+    },
+    {
+      "id": "feedback-join-loss",
+      "prediction": "delayed labels are missing from the eligible prediction population",
+      "result": "unknown",
+      "test": "maturity-aware prediction-to-label join coverage"
+    }
+  ],
+  "one_variable_tests": false,
+  "root_cause_hypothesis_id": "concept-drift"
+}

@@ -1,0 +1,58 @@
+{
+  "authority": {
+    "promotion_authorized": false,
+    "retraining_authorized": false,
+    "rollout_authorized": false,
+    "troubleshooting_evidence_only": true
+  },
+  "corrective_control": {
+    "generation": "fraud-feature-materialization-v17",
+    "required_second_operation": true
+  },
+  "evidence_required": [
+    "release_manifest",
+    "controller_snapshot",
+    "loaded_inventory",
+    "feature_materialization",
+    "logs_traces",
+    "monitor_query",
+    "external_side_effects"
+  ],
+  "expected_first_divergence": "loaded",
+  "incident": {
+    "affected_journey": "online-fraud-decision",
+    "expected_release": "fraud-2026-10-r50",
+    "incident_id": "MLOPS-PAY-98-r51",
+    "time_window": {
+      "end": "2026-10-03T13:30:00Z",
+      "start": "2026-10-03T10:15:00Z"
+    }
+  },
+  "incident_observed": {
+    "loaded_feature_generation": "fraud-features-v15",
+    "serving_release_ids": [
+      "fraud-2026-10-r50",
+      "fraud-2026-09-r49"
+    ]
+  },
+  "known_good": {
+    "feature_generation": "fraud-features-v16",
+    "release_id": "fraud-2026-10-r50",
+    "runtime_image": "registry.example/fraud-serving@sha256:942e85d16d6db38f0d9aa606b72369dbce5cfb3219a01f13d25fb1f1e658572c"
+  },
+  "root_cause_hypothesis_id": "stale-feature-materialization",
+  "second_operation": {
+    "corrective_control_must_hold": true,
+    "duplicate_side_effects_forbidden": true,
+    "read_before_retry_required": true,
+    "same_subject_required": true
+  },
+  "state_ladder": [
+    "intended",
+    "configured",
+    "resolved",
+    "loaded",
+    "exercised",
+    "outcome"
+  ]
+}

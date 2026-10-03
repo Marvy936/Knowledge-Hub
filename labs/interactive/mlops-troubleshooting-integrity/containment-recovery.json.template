@@ -1,0 +1,24 @@
+{
+  "containment": {
+    "change_freeze": false,
+    "operation_ids_recorded": false,
+    "traffic_increase_stopped": true,
+    "unsafe_retraining_disabled": false
+  },
+  "corrective_action": {
+    "acceptance_test_passed": false,
+    "generation": "manual-restart",
+    "mechanism_fixed": false
+  },
+  "recovery": {
+    "actual_traffic_verified": true,
+    "duplicate_model_packages": 2,
+    "false_positive_rate_recovered": false,
+    "feature_generation": "fraud-features-v15",
+    "known_good_release": "fraud-2026-10-r50",
+    "loaded_fingerprint_parity": false,
+    "p99_recovered": true,
+    "runtime_image": "registry.example/fraud-serving:latest",
+    "side_effects_reconciled": false
+  }
+}

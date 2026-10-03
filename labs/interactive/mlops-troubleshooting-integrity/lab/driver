@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/mlops-troubleshooting-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "\${1:-help}" in
+  help|lab-help)
+    cat <<'EOF'
+Knowledge Hub Interactive Lab
+Lab: mlops-troubleshooting-integrity
+
+Commands:
+  status      Show incident evidence/report state
+  diagnose    Execute your current troubleshooting_gate.py
+  check       Validate your troubleshooting_gate.py
+  hint        Show the first-divergence troubleshooting boundary
+  assess      Alias for check
+  reset       Restore the unsafe restart-is-green incident
+  self-test   Prove the lab fixture and reference solution
+EOF
+    ;;
+  status)
+    printf 'troubleshooting_gate.py: '; [ -f troubleshooting_gate.py ] && echo present || echo missing
+    printf 'troubleshooting-report.json: '; [ -f troubleshooting-report.json ] && echo present || echo missing
+    printf 'troubleshooting-evidence-ledger.json: '; [ -f troubleshooting-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'Freeze uncorrelated mutations first. Preserve exact evidence, walk intended -> configured -> resolved -> loaded -> exercised -> outcome, test competing hypotheses, recover the whole composite subject, then repeat the operation.' ;;
+  diagnose) python3 ./troubleshooting_gate.py ;;
+  check|assess) python3 ./troubleshooting_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./troubleshooting_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('troubleshooting-report.json').read_text())
+assert r['troubleshooting_verified'] is True
+assert r['rollout_authorized'] is True
+PY
+    cp "$ROOT/troubleshooting_gate.py.solution.template" ./troubleshooting_gate.py
+    chmod +x ./troubleshooting_gate.py
+    rm -f troubleshooting-report.json troubleshooting-evidence-ledger.json
+    python3 ./troubleshooting_validator.py
+    reset_lab
+    python3 ./troubleshooting_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('troubleshooting-report.json').read_text())
+assert r['rollout_authorized'] is True
+PY
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac

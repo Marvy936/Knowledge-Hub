@@ -1,0 +1,34 @@
+{
+  "clock_context_recorded": false,
+  "controller_snapshot": {
+    "digest": "sha256:ctrl-r50",
+    "present": true
+  },
+  "external_side_effects": {
+    "digest": null,
+    "present": false
+  },
+  "feature_materialization": {
+    "digest": null,
+    "present": false
+  },
+  "loaded_inventory": {
+    "digest": "sha256:inventory-mixed",
+    "present": true
+  },
+  "logs_traces": {
+    "digest": null,
+    "present": false
+  },
+  "monitor_query": {
+    "denominator_recorded": false,
+    "digest": "sha256:query-r51",
+    "present": true,
+    "sampling_recorded": false
+  },
+  "preserved_before_mutation": false,
+  "release_manifest": {
+    "digest": "sha256:rel-r50",
+    "present": true
+  }
+}

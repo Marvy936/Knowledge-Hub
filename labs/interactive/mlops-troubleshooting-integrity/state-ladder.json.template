@@ -1,0 +1,43 @@
+{
+  "declared_first_divergence": "outcome",
+  "order": [
+    "intended",
+    "configured",
+    "resolved",
+    "loaded",
+    "exercised",
+    "outcome"
+  ],
+  "stages": {
+    "configured": {
+      "feature_generation": "fraud-features-v16",
+      "matches_expected": true,
+      "release_id": "fraud-2026-10-r50"
+    },
+    "exercised": {
+      "feature_generation": "fraud-features-v15",
+      "matches_expected": false,
+      "release_id": "mixed"
+    },
+    "intended": {
+      "feature_generation": "fraud-features-v16",
+      "matches_expected": true,
+      "release_id": "fraud-2026-10-r50"
+    },
+    "loaded": {
+      "feature_generation": "fraud-features-v15",
+      "matches_expected": false,
+      "release_id": "fraud-2026-10-r50"
+    },
+    "outcome": {
+      "false_positive_rate": 0.087,
+      "matches_expected": false,
+      "p99_ms": 212
+    },
+    "resolved": {
+      "feature_generation": "fraud-features-v16",
+      "matches_expected": true,
+      "release_id": "fraud-2026-10-r50"
+    }
+  }
+}

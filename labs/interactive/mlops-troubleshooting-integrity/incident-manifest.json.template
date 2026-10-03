@@ -1,0 +1,34 @@
+{
+  "affected_journey": "online-fraud-decision",
+  "change_freeze": false,
+  "exact_ids": {
+    "feature_generation": "unknown",
+    "kfp_run_id": "kfp-4f0-r51",
+    "registry_version": "fraud-prod/184",
+    "serving_release_ids": [
+      "fraud-2026-10-r50",
+      "fraud-2026-09-r49"
+    ],
+    "train_job": "fraud-train-184"
+  },
+  "expected_release": "fraud-2026-10-r50",
+  "incident_id": "MLOPS-PAY-98-r51",
+  "mutations_after_detection": [
+    {
+      "correlated_operation": false,
+      "type": "registry_alias_rollback"
+    },
+    {
+      "correlated_operation": false,
+      "type": "kserve_restart"
+    },
+    {
+      "correlated_operation": false,
+      "type": "pipeline_rerun"
+    }
+  ],
+  "time_window": {
+    "end": "2026-10-03T13:30:00Z",
+    "start": "2026-10-03T10:15:00Z"
+  }
+}
