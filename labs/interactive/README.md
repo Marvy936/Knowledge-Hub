@@ -106,6 +106,8 @@ Current labs:
 
 | `linux-storage-service-scheduler-integrity` | challenge | `shell` | Diagnose a timer-triggered backup across the real mount, deleted-open inode, systemd service result, journal evidence and verified backup artifact. |
 
+| `linux-isolation-integrity` | challenge | `shell` | Verify effective namespace separation, cgroup resource containment and least-privilege capability boundaries instead of trusting container labels or UID 0. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:
