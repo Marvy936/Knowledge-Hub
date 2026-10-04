@@ -36,24 +36,12 @@ r=json.loads(Path('isolation-report.json').read_text())
 assert r['isolation_verified'] is True
 assert r['security_boundary_verified'] is True
 PY
+    for f in isolation-contract isolation-evidence cgroup-evidence capability-evidence operation-evidence second-operation; do
+      cp "$ROOT/$f.json.template" "./$f.json"
+    done
     cp "$ROOT/isolation_gate.py.solution.template" ./isolation_gate.py
     chmod +x ./isolation_gate.py
     rm -f isolation-report.json isolation-evidence-ledger.json
-    python3 - <<'PY'
-import json
-from pathlib import Path
-def rw(p,o): Path(p).write_text(json.dumps(o,indent=2,sort_keys=True)+'\n')
-c=json.loads(Path('isolation-contract.json').read_text())
-i=json.loads(Path('isolation-evidence.json').read_text())
-i['inside_pid']=1; i['uid_mapping']={'inside_uid':0,'host_uid':100000}
-i['namespaces']['workload']={'pid':'pid:[4026533101]','mnt':'mnt:[4026533102]','net':'net:[4026533103]','uts':'uts:[4026533104]','ipc':'ipc:[4026533105]','user':'user:[4026533106]'}; rw('isolation-evidence.json',i)
-g=json.loads(Path('cgroup-evidence.json').read_text()); g.update({'version':2,'path':c['cgroup']['path'],'cpu_max':c['cgroup']['cpu_max'],'memory_max':c['cgroup']['memory_max'],'memory_current':268435456,'pids_max':c['cgroup']['pids_max'],'pids_current':37,'memory_events':{'oom':0}}); rw('cgroup-evidence.json',g)
-x=json.loads(Path('capability-evidence.json').read_text()); x.update({'effective':['CAP_NET_BIND_SERVICE'],'permitted':['CAP_NET_BIND_SERVICE'],'bounding':['CAP_NET_BIND_SERVICE'],'ambient':[],'no_new_privs':True}); rw('capability-evidence.json',x)
-o=json.loads(Path('operation-evidence.json').read_text()); o['allowed']['bind_port_443']['result']='success'
-for k in o['forbidden']: o['forbidden'][k]['result']='denied'
-rw('operation-evidence.json',o)
-s=json.loads(Path('second-operation.json').read_text()); s.update({'same_subject':True,'evidence_mutations':0,'report_byte_identical':True}); rw('second-operation.json',s)
-PY
     python3 ./isolation_validator.py
     reset_lab
     echo 'SELF-TEST PASSED'
