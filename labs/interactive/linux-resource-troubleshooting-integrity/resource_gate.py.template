@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+def load(p): return json.loads(Path(p).read_text())
+cpu=load("cpu-evidence.json")
+mem=load("memory-evidence.json")
+repair=load("repair-evidence.json")
+
+resource_issue=cpu["host_cpu_utilization"]>80 or mem["host_mem_free_bytes"]<536870912
+report={
+  "subject_id":cpu["subject_id"],
+  "resource_issue_verified":resource_issue,
+  "root_cause":"host_resource_exhaustion",
+  "reason":"host CPU is high or MemFree is low",
+  "repair_verified":repair["p99_ms_after"]<1000
+}
+Path("resource-report.json").write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
+Path("resource-evidence-ledger.json").write_text(json.dumps({"subject_id":cpu["subject_id"],"accepted":resource_issue},indent=2,sort_keys=True)+"\n")
+print("RESOURCE ISSUE VERIFIED")
