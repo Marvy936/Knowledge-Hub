@@ -1,0 +1,50 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/linux-cron-package-exec-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'HELP'
+Knowledge Hub Interactive Lab
+Lab: linux-cron-package-exec-integrity
+
+Commands:
+  status      Show scheduled execution evidence/report state
+  assess      Execute your current execution_gate.py
+  check       Validate your execution gate
+  hint        Show the scheduler-to-kernel-to-outcome chain
+  reset       Restore the misleading interactive-shell incident
+  self-test   Prove the fixture and reference solution
+HELP
+    ;;
+  status)
+    printf 'execution_gate.py: '; [ -f execution_gate.py ] && echo present || echo missing
+    printf 'execution-report.json: '; [ -f execution-report.json ] && echo present || echo missing
+    printf 'execution-evidence-ledger.json: '; [ -f execution-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'Trace the real cron runtime, not your login shell: exact environment and shell, package transaction and loaded version, pathname to package-owned inode, process identity across execve, syscall result, pipeline exits/redirections, then the durable checkpoint.' ;;
+  assess) python3 ./execution_gate.py ;;
+  check) python3 ./execution_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./execution_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('execution-report.json').read_text())
+assert r['execution_verified'] is True
+assert r['runtime_chain_verified'] is True
+PY
+    for f in execution-contract cron-evidence package-evidence filesystem-evidence execution-evidence shell-evidence outcome-evidence second-operation; do
+      cp "$ROOT/$f.json.template" "./$f.json"
+    done
+    cp "$ROOT/execution_gate.py.solution.template" ./execution_gate.py
+    chmod +x ./execution_gate.py
+    rm -f execution-report.json execution-evidence-ledger.json
+    python3 ./execution_validator.py
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac
