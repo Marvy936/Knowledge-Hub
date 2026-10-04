@@ -1,0 +1,12 @@
+{
+  "subject_id": "nightly-report/prod-2026-10-04",
+  "name": "report-cli",
+  "installed_version": "2.4.1-1",
+  "repository": "stable-signed",
+  "metadata_fresh": true,
+  "signature_verified": true,
+  "dependency_transaction_complete": true,
+  "local_database_consistent": true,
+  "payload_path": "/usr/lib/report-cli/2.4.1/report-cli",
+  "loaded_version": "2.3.9-1"
+}
