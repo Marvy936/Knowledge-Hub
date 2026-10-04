@@ -1,0 +1,14 @@
+{
+  "subject_id": "LINUX-ACCESS-2026-10-r1",
+  "namespace": "host",
+  "resolved_name": "app-prod.internal",
+  "resolved_ip": "10.20.30.40",
+  "source_ip": "10.20.10.99",
+  "route_via": "10.20.10.254",
+  "output_interface": "eth1",
+  "destination_port": 22,
+  "listener": "127.0.0.1:22",
+  "ping_ok": true,
+  "tcp_connected": true,
+  "return_path_verified": false
+}

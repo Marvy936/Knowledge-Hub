@@ -1,0 +1,62 @@
+{
+  "authority": {
+    "ping_is_evidence_only": true,
+    "security_verified_required": true,
+    "ssh_login_is_evidence_only": true,
+    "tcp_connect_is_evidence_only": true
+  },
+  "authorization": {
+    "forbidden_sudo": "/bin/bash",
+    "pam_account_allowed": true,
+    "required_groups": [
+      "deployers"
+    ],
+    "sudo_commands": [
+      "/usr/bin/systemctl restart fraud-api.service",
+      "/usr/sbin/restorecon -Rv /srv/fraud-api"
+    ]
+  },
+  "mac": {
+    "config_path": "/srv/fraud-api/config.yaml",
+    "config_type": "fraud_api_config_t",
+    "framework": "selinux",
+    "mode": "enforcing",
+    "policy_generation": "fraud-api-policy-v4",
+    "process_domain": "fraud_api_t"
+  },
+  "network": {
+    "destination_ip": "10.20.30.40",
+    "destination_name": "app-prod.internal",
+    "destination_port": 22,
+    "listener": "0.0.0.0:22",
+    "namespace": "host",
+    "output_interface": "eth0",
+    "route_via": "10.20.10.1",
+    "source_ip": "10.20.10.25"
+  },
+  "second_operation": {
+    "mutations": 0,
+    "report_byte_identical": true,
+    "same_subject": true
+  },
+  "ssh": {
+    "agent_forwarding": false,
+    "authentication": "publickey",
+    "host": "app-prod.internal",
+    "host_key_fingerprint": "SHA256:9u4nJwV7yM5K2fD3qL8rT1sX6cP0aB4eH7iN2mQ5zYk",
+    "pty": false,
+    "strict_host_key_checking": true,
+    "tcp_forwarding": false,
+    "user": "deploy"
+  },
+  "subject_id": "LINUX-ACCESS-2026-10-r1",
+  "verification": {
+    "allowed_flow": "deploy-restart-and-read-config",
+    "forbidden_flows": [
+      "read-shadow",
+      "arbitrary-root-shell",
+      "ssh-agent-forward",
+      "tcp-forward"
+    ]
+  }
+}

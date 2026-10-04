@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:7f43bb79f9bee96241464abce8b69787b5ca6b2fafc9ea30e1ee450d0ee09868"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def req(c,m,e):
+    if not c: e.append(m)
+def exact_write(p,t):
+    q=Path(p)
+    if q.exists() and q.read_text()!=t: raise SystemExit(f"conflicting durable state: {p}")
+    q.write_text(t)
+
+c=load("access-contract.json"); n=load("network-evidence.json"); s=load("ssh-evidence.json"); a=load("authz-evidence.json"); m=load("mac-evidence.json"); v=load("verification-evidence.json"); second=load("second-operation.json"); e=[]
+req(digest("access-contract.json")==EXPECTED_CONTRACT_DIGEST,"contract digest mismatch",e)
+for x,name in [(n,"network"),(s,"ssh"),(a,"authz"),(m,"mac"),(v,"verification"),(second,"second")]: req(x.get("subject_id")==c["subject_id"],f"{name} subject mismatch",e)
+net=c["network"]
+for k,ev in [("namespace",n["namespace"]),("destination_name",n["resolved_name"]),("destination_ip",n["resolved_ip"]),("source_ip",n["source_ip"]),("route_via",n["route_via"]),("output_interface",n["output_interface"]),("destination_port",n["destination_port"]),("listener",n["listener"])]: req(ev==net[k],f"network {k} mismatch",e)
+req(n["return_path_verified"] is True,"return path not verified",e)
+ssh=c["ssh"]
+req(s["host"]==ssh["host"] and s["user"]==ssh["user"] and s["authentication"]==ssh["authentication"],"SSH identity/auth mismatch",e)
+req(s["observed_host_key_fingerprint"]==ssh["host_key_fingerprint"],"SSH host key mismatch",e)
+req(s["strict_host_key_checking"] is True,"strict host-key checking disabled",e)
+req(s["agent_forwarding"] is False and s["tcp_forwarding"] is False and s["pty"] is False and s["authorized_key_restricted"] is True,"SSH channel/key restrictions mismatch",e)
+auth=c["authorization"]
+req(all(g in a["groups"] for g in auth["required_groups"]),"required group missing",e)
+req(a["pam_account_allowed"] is auth["pam_account_allowed"],"PAM account result mismatch",e)
+req(a["sudo_commands"]==auth["sudo_commands"],"sudo command scope mismatch",e)
+req(a["forbidden_sudo_allowed"] is False,"forbidden root shell allowed",e)
+mac=c["mac"]
+for k in ["framework","mode","process_domain","config_path","config_type","policy_generation"]: req(m[k]==mac[k],f"MAC {k} mismatch",e)
+req(m["expected_type_mapping_persistent"] is True,"MAC file-context mapping not persistent",e)
+req(m["denial_preserved"] is True,"original MAC denial evidence lost",e)
+req(m["temporary_chcon_only"] is False,"temporary chcon is not accepted remediation",e)
+req(v["allowed_flow"]==c["verification"]["allowed_flow"] and v["allowed_flow_succeeded"] is True,"allowed flow failed",e)
+for f in c["verification"]["forbidden_flows"]: req(v["forbidden_results"].get(f) is False,f"forbidden flow allowed: {f}",e)
+req(second["same_subject"] is True and second["mutations"]==0 and second["report_byte_identical"] is True,"second operation mismatch",e)
+if e:
+    print("ACCESS REJECTED")
+    for x in e: print("-",x)
+    raise SystemExit(1)
+report={"subject_id":c["subject_id"],"security_verified":True,"network_path_verified":True,"ssh_trust_verified":True,"authorization_verified":True,"mac_verified":True,"forbidden_flows_denied":True}
+ledger={"subject_id":c["subject_id"],"contract_digest":EXPECTED_CONTRACT_DIGEST,"accepted":True}
+exact_write("access-report.json",canonical(report)); exact_write("access-evidence-ledger.json",canonical(ledger)); print("ACCESS VERIFIED")

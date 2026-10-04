@@ -1,0 +1,13 @@
+{
+  "subject_id": "LINUX-ACCESS-2026-10-r1",
+  "host": "app-prod.internal",
+  "user": "deploy",
+  "authentication": "publickey",
+  "login_succeeded": true,
+  "observed_host_key_fingerprint": "SHA256:UNVERIFIED",
+  "strict_host_key_checking": false,
+  "agent_forwarding": true,
+  "tcp_forwarding": true,
+  "pty": true,
+  "authorized_key_restricted": false
+}
