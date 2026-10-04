@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/linux-isolation-integrity
+for f in isolation-contract isolation-evidence cgroup-evidence capability-evidence operation-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/isolation_gate.py.template" ./isolation_gate.py
+cp "$ROOT/isolation_validator.py" ./isolation_validator.py
+chmod +x ./isolation_gate.py ./isolation_validator.py
+rm -f ./isolation-report.json ./isolation-evidence-ledger.json

@@ -1,0 +1,57 @@
+{
+  "authority": {
+    "container_label_is_evidence_only": true,
+    "isolation_verified_required": true,
+    "uid_zero_is_evidence_only": true
+  },
+  "capabilities": {
+    "allowed_effective": [
+      "CAP_NET_BIND_SERVICE"
+    ],
+    "forbidden_effective": [
+      "CAP_SYS_ADMIN",
+      "CAP_SYS_MODULE",
+      "CAP_SYS_PTRACE",
+      "CAP_NET_ADMIN",
+      "CAP_NET_RAW"
+    ],
+    "no_new_privs": true
+  },
+  "cgroup": {
+    "cpu_max": "50000 100000",
+    "memory_max": 536870912,
+    "memory_oom_events": 0,
+    "path": "/system.slice/payments-api.service",
+    "pids_max": 128,
+    "version": 2
+  },
+  "namespaces": {
+    "must_differ_from_host": [
+      "pid",
+      "mnt",
+      "net",
+      "uts",
+      "ipc",
+      "user"
+    ],
+    "pid_inside": 1,
+    "user_uid_host": 100000,
+    "user_uid_inside": 0
+  },
+  "operations": {
+    "allowed": {
+      "bind_port_443": true
+    },
+    "forbidden": {
+      "mount_tmpfs": true,
+      "ptrace_host_process": true,
+      "set_host_route": true
+    }
+  },
+  "second_operation": {
+    "evidence_mutations": 0,
+    "report_byte_identical": true,
+    "same_subject": true
+  },
+  "subject_id": "LINUX-ISOLATION-2026-10-r1"
+}

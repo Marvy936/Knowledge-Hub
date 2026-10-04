@@ -1,0 +1,13 @@
+{
+  "cpu_max": "max 100000",
+  "memory_current": 734003200,
+  "memory_events": {
+    "oom": 0
+  },
+  "memory_max": "max",
+  "path": "/",
+  "pids_current": 412,
+  "pids_max": "max",
+  "subject_id": "LINUX-ISOLATION-2026-10-r1",
+  "version": 2
+}
