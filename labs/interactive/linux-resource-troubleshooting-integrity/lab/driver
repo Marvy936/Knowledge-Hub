@@ -1,0 +1,50 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/linux-resource-troubleshooting-integrity
+reset_lab() { "$ROOT/lab/workspace-init"; }
+case "${1:-help}" in
+  help|lab-help)
+    cat <<'HELP'
+Knowledge Hub Interactive Lab
+Lab: linux-resource-troubleshooting-integrity
+
+Commands:
+  status      Show resource evidence/report state
+  assess      Execute your current resource_gate.py
+  check       Validate your diagnosis gate
+  hint        Show the evidence-driven resource boundary
+  reset       Restore the misleading host-snapshot incident
+  self-test   Prove the fixture and reference solution
+HELP
+    ;;
+  status)
+    printf 'resource_gate.py: '; [ -f resource_gate.py ] && echo present || echo missing
+    printf 'resource-report.json: '; [ -f resource-report.json ] && echo present || echo missing
+    printf 'resource-evidence-ledger.json: '; [ -f resource-evidence-ledger.json ] && echo present || echo missing
+    ;;
+  hint) echo 'Start from the exact user symptom and scope. Host CPU and MemFree are context, not a diagnosis. Correlate cgroup quota throttling, runnable/PSI pressure and memory headroom, then prove the bounded repair improves p99/errors/throughput without moving the bottleneck.' ;;
+  assess) python3 ./resource_gate.py ;;
+  check) python3 ./resource_validator.py ;;
+  reset) reset_lab; echo 'RESET COMPLETE' ;;
+  self-test)
+    reset_lab
+    python3 ./resource_gate.py >/dev/null
+    python3 - <<'PY'
+import json
+from pathlib import Path
+r=json.loads(Path('resource-report.json').read_text())
+assert r['resource_issue_verified'] is True
+assert r['root_cause']=='host_resource_exhaustion'
+PY
+    for f in resource-contract symptom-evidence scope-evidence cpu-evidence memory-evidence repair-evidence second-operation; do
+      cp "$ROOT/$f.json.template" "./$f.json"
+    done
+    cp "$ROOT/resource_gate.py.solution.template" ./resource_gate.py
+    chmod +x ./resource_gate.py
+    rm -f resource-report.json resource-evidence-ledger.json
+    python3 ./resource_validator.py
+    reset_lab
+    echo 'SELF-TEST PASSED'
+    ;;
+  *) echo "unknown command: $1" >&2; exit 2 ;;
+esac
