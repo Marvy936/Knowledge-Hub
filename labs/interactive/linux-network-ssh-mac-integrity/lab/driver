@@ -8,6 +8,14 @@ case "${1:-help}" in
  verify) python3 ./access_gate.py ;;
  check|assess) python3 ./access_validator.py ;;
  reset) "$ROOT/lab/workspace-init"; echo 'RESET COMPLETE' ;;
- self-test) "$ROOT/lab/workspace-init"; python3 ./access_gate.py >/dev/null; cp "$ROOT/access_gate.py.solution.template" ./access_gate.py; chmod +x ./access_gate.py; echo 'REFERENCE SOLUTION INSTALLED — run check after repairing evidence.' ;;
+ self-test)
+   "$ROOT/lab/workspace-init"
+   python3 ./access_gate.py >/dev/null
+   cp "$ROOT/access_gate.py.solution.template" ./access_gate.py
+   chmod +x ./access_gate.py
+   python3 ./access_validator.py
+   "$ROOT/lab/workspace-init"
+   echo 'SELF-TEST PASSED'
+   ;;
  *) echo "unknown command: $1" >&2; exit 2 ;;
 esac
