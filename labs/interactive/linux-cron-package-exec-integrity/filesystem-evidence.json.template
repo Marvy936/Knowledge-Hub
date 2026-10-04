@@ -1,0 +1,11 @@
+{
+  "subject_id": "nightly-report/prod-2026-10-04",
+  "launcher": "/usr/bin/report-cli",
+  "launcher_type": "symlink",
+  "resolved_target": "/usr/local/bin/report-cli-2.3",
+  "target_inode": 900230,
+  "target_owner": "reporter",
+  "target_mode": "0775",
+  "package_owns_target": false,
+  "mount": "/usr"
+}
