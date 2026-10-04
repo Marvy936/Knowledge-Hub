@@ -1,0 +1,28 @@
+{
+  "container_label": "payments-api",
+  "host_pid": 18452,
+  "inside_pid": 18452,
+  "namespaces": {
+    "host": {
+      "ipc": "ipc:[4026531839]",
+      "mnt": "mnt:[4026531841]",
+      "net": "net:[4026531840]",
+      "pid": "pid:[4026531836]",
+      "user": "user:[4026531837]",
+      "uts": "uts:[4026531838]"
+    },
+    "workload": {
+      "ipc": "ipc:[4026531839]",
+      "mnt": "mnt:[4026533001]",
+      "net": "net:[4026531840]",
+      "pid": "pid:[4026531836]",
+      "user": "user:[4026531837]",
+      "uts": "uts:[4026533002]"
+    }
+  },
+  "subject_id": "LINUX-ISOLATION-2026-10-r1",
+  "uid_mapping": {
+    "host_uid": 0,
+    "inside_uid": 0
+  }
+}

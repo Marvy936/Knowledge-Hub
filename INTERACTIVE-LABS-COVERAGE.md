@@ -7,9 +7,9 @@ This is the authoritative per-document practical coverage baseline for documenta
 ## Baseline summary
 
 - Total documentation topics: **377**
-- Covered: **25**
-- Partial: **41**
-- Planned: **311**
+- Covered: **28**
+- Partial: **42**
+- Planned: **307**
 - Not applicable: **0**
 
 | Section | Documentation topic | State | Interactive lab(s) | Supplemental | Coverage note |
@@ -34,16 +34,16 @@ This is the authoritative per-document practical coverage baseline for documenta
 | 00-foundations | [toil-and-technical-debt](docs/00-foundations/toil-and-technical-debt.md) | `covered` | `foundations-ownership-improvement-integrity` | — | Distinguishes recurring automatable toil from the underlying debt mechanism and requires debt owner, risk, interest metric, review date, exit condition and effectiveness-based closure. |
 | 00-foundations | [value-stream-mapping](docs/00-foundations/value-stream-mapping.md) | `covered` | `foundations-delivery-flow-dora` | — | Reconstructs active vs wait time, process efficiency and the true queue bottleneck instead of optimizing the most visible active-work stage. |
 | 00-foundations | [you-build-it-you-run-it](docs/00-foundations/you-build-it-you-run-it.md) | `covered` | `foundations-ownership-improvement-integrity` | — | Keeps primary service incident ownership with the team that builds the service while preserving a bounded platform escalation interface and shared operational capability. |
-| 01-linux-and-systems | [cgroups](docs/01-linux-and-systems/cgroups.md) | `planned` | — | — | Interactive backfill required. |
+| 01-linux-and-systems | [cgroups](docs/01-linux-and-systems/cgroups.md) | `covered` | `linux-isolation-integrity` | — | Requires exact cgroup v2 placement plus effective CPU, memory and PIDs limits, runtime usage below those limits and zero unexpected OOM events. |
 | 01-linux-and-systems | [cpu-and-memory-fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [cron-and-systemd-timers](docs/01-linux-and-systems/cron-and-systemd-timers.md) | `partial` | `linux-storage-service-scheduler-integrity` | — | Exercises systemd timer schedule, persistence, trigger/service separation and durable outcome verification; cron-specific execution/environment semantics remain planned. |
 | 01-linux-and-systems | [environment-variables](docs/01-linux-and-systems/environment-variables.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [filesystem-hierarchy-inodes-links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md) | `partial` | `linux-storage-service-scheduler-integrity` | — | Exercises pathname→mount identity, inode/link identity, dangling symlink and deleted-open inode lifetime; broader hierarchy and lookup/permission semantics remain planned. |
 | 01-linux-and-systems | [journald-and-logging](docs/01-linux-and-systems/journald-and-logging.md) | `covered` | `linux-storage-service-scheduler-integrity` | — | Requires unit/run scoped journal evidence, boot identity, preserved failure class and positive completion event instead of treating missing logs as success. |
-| 01-linux-and-systems | [kernel-and-user-space](docs/01-linux-and-systems/kernel-and-user-space.md) | `planned` | — | — | Interactive backfill required. |
-| 01-linux-and-systems | [linux-capabilities](docs/01-linux-and-systems/linux-capabilities.md) | `planned` | — | — | Interactive backfill required. |
+| 01-linux-and-systems | [kernel-and-user-space](docs/01-linux-and-systems/kernel-and-user-space.md) | `partial` | `linux-isolation-integrity` | — | Exercises the shared-kernel execution model and kernel-enforced namespace/cgroup/capability decisions; broader syscall, device, memory and module boundaries remain planned. |
+| 01-linux-and-systems | [linux-capabilities](docs/01-linux-and-systems/linux-capabilities.md) | `covered` | `linux-isolation-integrity` | — | Validates post-exec effective/permitted/bounding/ambient sets, no_new_privs, one required privileged operation and denial of adjacent broad host-affecting operations. |
 | 01-linux-and-systems | [linux-networking](docs/01-linux-and-systems/linux-networking.md) | `planned` | — | — | Interactive backfill required. |
-| 01-linux-and-systems | [namespaces](docs/01-linux-and-systems/namespaces.md) | `planned` | — | — | Interactive backfill required. |
+| 01-linux-and-systems | [namespaces](docs/01-linux-and-systems/namespaces.md) | `covered` | `linux-isolation-integrity` | — | Compares host/workload namespace object identities across PID, mount, network, UTS, IPC and user namespaces and verifies namespace-root host UID mapping. |
 | 01-linux-and-systems | [package-management](docs/01-linux-and-systems/package-management.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [performance-and-troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [processes-threads-pid-signals](docs/01-linux-and-systems/processes-threads-pid-signals.md) | `partial` | `linux-process-signals` | — | Exercises process/signal propagation, not the full thread/PID lifecycle. |

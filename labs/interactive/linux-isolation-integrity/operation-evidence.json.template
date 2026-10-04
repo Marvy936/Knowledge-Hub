@@ -1,0 +1,19 @@
+{
+  "allowed": {
+    "bind_port_443": {
+      "result": "success"
+    }
+  },
+  "forbidden": {
+    "mount_tmpfs": {
+      "result": "success"
+    },
+    "ptrace_host_process": {
+      "result": "success"
+    },
+    "set_host_route": {
+      "result": "success"
+    }
+  },
+  "subject_id": "LINUX-ISOLATION-2026-10-r1"
+}

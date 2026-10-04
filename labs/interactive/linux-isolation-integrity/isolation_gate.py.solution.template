@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:8e36e02171aed8406dc983ea6031d566cc50acefa90bd91613a691f550dac542"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("isolation-contract.json")
+i=load("isolation-evidence.json")
+g=load("cgroup-evidence.json")
+caps=load("capability-evidence.json")
+ops=load("operation-evidence.json")
+second=load("second-operation.json")
+errors=[]
+
+req(digest("isolation-contract.json")==EXPECTED_CONTRACT_DIGEST,"isolation contract digest mismatch",errors)
+req(c["authority"]["container_label_is_evidence_only"] is True,"container-label authority contract mismatch",errors)
+req(c["authority"]["uid_zero_is_evidence_only"] is True,"uid-zero authority contract mismatch",errors)
+req(c["authority"]["isolation_verified_required"] is True,"isolation verification contract mismatch",errors)
+
+for obj,name in [(i,"isolation"),(g,"cgroup"),(caps,"capability"),(ops,"operation"),(second,"second operation")]:
+    req(obj.get("subject_id")==c["subject_id"],f"{name} subject mismatch",errors)
+
+req(i["inside_pid"]==c["namespaces"]["pid_inside"],"inside PID identity mismatch",errors)
+req(i["uid_mapping"]["inside_uid"]==c["namespaces"]["user_uid_inside"],"inside UID mismatch",errors)
+req(i["uid_mapping"]["host_uid"]==c["namespaces"]["user_uid_host"],"user-namespace host UID mapping mismatch",errors)
+for ns in c["namespaces"]["must_differ_from_host"]:
+    req(i["namespaces"]["workload"].get(ns)!=i["namespaces"]["host"].get(ns),f"{ns} namespace is shared with host",errors)
+
+req(g["version"]==c["cgroup"]["version"],"cgroup version mismatch",errors)
+req(g["path"]==c["cgroup"]["path"],"cgroup placement mismatch",errors)
+req(g["cpu_max"]==c["cgroup"]["cpu_max"],"effective CPU quota mismatch",errors)
+req(g["memory_max"]==c["cgroup"]["memory_max"],"effective memory limit mismatch",errors)
+req(g["pids_max"]==c["cgroup"]["pids_max"],"effective pids limit mismatch",errors)
+req(g["memory_events"].get("oom",0)==c["cgroup"]["memory_oom_events"],"cgroup OOM event mismatch",errors)
+req(g["memory_current"]<g["memory_max"],"memory usage is not below effective limit",errors)
+req(g["pids_current"]<g["pids_max"],"pids usage is not below effective limit",errors)
+
+eff=set(caps["effective"])
+permitted=set(caps["permitted"])
+bounding=set(caps["bounding"])
+allowed=set(c["capabilities"]["allowed_effective"])
+forbidden=set(c["capabilities"]["forbidden_effective"])
+req(eff==allowed,"effective capability set is not least privilege",errors)
+req(allowed.issubset(permitted),"allowed effective capability missing from permitted set",errors)
+req(forbidden.isdisjoint(eff),"forbidden capability is effective",errors)
+req(forbidden.isdisjoint(bounding),"forbidden capability remains in bounding set",errors)
+req(caps["ambient"]==[],"ambient capability set must be empty",errors)
+req(caps["no_new_privs"] is c["capabilities"]["no_new_privs"],"no_new_privs is not enforced",errors)
+
+req(ops["allowed"]["bind_port_443"]["result"]=="success","required privileged bind did not succeed",errors)
+for name in c["operations"]["forbidden"]:
+    req(ops["forbidden"][name]["result"]=="denied",f"forbidden operation {name} was not denied",errors)
+
+req(second["same_subject"] is c["second_operation"]["same_subject"],"second operation subject changed",errors)
+req(second["evidence_mutations"]==c["second_operation"]["evidence_mutations"],"second operation mutated evidence",errors)
+req(second["report_byte_identical"] is c["second_operation"]["report_byte_identical"],"second report is not reproducible",errors)
+
+if errors:
+    print("ISOLATION REJECTED")
+    for e in errors: print("-",e)
+    raise SystemExit(1)
+
+report={
+  "subject_id":c["subject_id"],
+  "isolation_verified":True,
+  "security_boundary_verified":True,
+  "shared_kernel":True,
+  "namespace_boundary_verified":True,
+  "cgroup_boundary_verified":True,
+  "least_privilege_verified":True,
+  "container_label_is_evidence_only":True,
+  "uid_zero_is_evidence_only":True
+}
+ledger={"subject_id":c["subject_id"],"contract_digest":EXPECTED_CONTRACT_DIGEST,"accepted":True}
+exact_write("isolation-report.json",canonical(report))
+exact_write("isolation-evidence-ledger.json",canonical(ledger))
+print("ISOLATION VERIFIED")
