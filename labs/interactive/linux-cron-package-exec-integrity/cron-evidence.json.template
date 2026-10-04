@@ -1,0 +1,11 @@
+{
+  "subject_id": "nightly-report/prod-2026-10-04",
+  "source": "/etc/cron.d/nightly-report",
+  "schedule": "*/5 * * * *",
+  "user": "reporter",
+  "shell": "/bin/bash",
+  "path": "/usr/local/bin:/usr/bin:/bin",
+  "working_directory": "/home/reporter",
+  "observed_runtime": "interactive-shell",
+  "triggered": true
+}
