@@ -112,6 +112,8 @@ Current labs:
 
 | `linux-resource-troubleshooting-integrity` | challenge | `shell` | Diagnose cgroup CPU saturation from exact workload evidence, refute misleading host-memory snapshots and prove a bounded outcome-improving repair. |
 
+| `linux-cron-package-exec-integrity` | challenge | `shell` | Trace a cron job through exact environment, package-owned filesystem identity, process/execve semantics, shell exits and durable outcome. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:
