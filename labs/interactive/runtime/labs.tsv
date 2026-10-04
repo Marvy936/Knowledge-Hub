@@ -53,3 +53,4 @@ foundations-reconciliation-idempotency	shell	Repair unsafe imperative retry into
 foundations-delivery-flow-dora	shell	Recompute DORA metrics from authoritative production events and find the real value-stream bottleneck from active/wait time.
 foundations-feedback-system-dynamics	shell	Repair a too-narrow local optimization by modeling the full system boundary, retry amplification, authoritative feedback and global recovery.
 foundations-ownership-improvement-integrity	shell	Bind service outcome ownership to bounded decision rights, systemic toil/debt reduction and verified institutional learning.
+linux-storage-service-scheduler-integrity	shell	Diagnose a systemd-scheduled backup across mount identity, inode/open-file storage, journal evidence, service result and durable backup outcome.

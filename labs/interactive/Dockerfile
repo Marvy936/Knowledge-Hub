@@ -89,6 +89,7 @@ COPY foundations-reconciliation-idempotency /opt/knowledge-hub/labs/foundations-
 COPY foundations-delivery-flow-dora /opt/knowledge-hub/labs/foundations-delivery-flow-dora
 COPY foundations-feedback-system-dynamics /opt/knowledge-hub/labs/foundations-feedback-system-dynamics
 COPY foundations-ownership-improvement-integrity /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity
+COPY linux-storage-service-scheduler-integrity /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
@@ -405,6 +406,15 @@ RUN ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integ
  && ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/self-test \
  && ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/assess \
  && ln -s driver /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity/lab/review
+
+RUN ln -s driver /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity/lab/lab-help \
+ && ln -s driver /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity/lab/check \
+ && ln -s driver /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity/lab/hint \
+ && ln -s driver /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity/lab/reset \
+ && ln -s driver /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity/lab/status \
+ && ln -s driver /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity/lab/self-test \
+ && ln -s driver /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity/lab/assess \
+ && ln -s driver /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity/lab/diagnose
 
 RUN chmod +x \
       /opt/knowledge-hub/runtime/entrypoint.sh \

@@ -1,0 +1,36 @@
+{
+  "deleted_open": [
+    {
+      "bytes": 8589934592,
+      "inode": 9021,
+      "path": "/var/lib/backup/tmp/archive.partial (deleted)",
+      "pid": 4242,
+      "process": "compressor"
+    }
+  ],
+  "df_used_pct": 100,
+  "du_visible_used_pct": 62,
+  "fs_type": "ext4",
+  "hardlink": {
+    "inode": 7712,
+    "link_count": 1,
+    "path": "/var/lib/backup/latest.tar",
+    "same_inode_as_target": false
+  },
+  "mount_options": [
+    "rw"
+  ],
+  "mount_source": "/dev/mapper/vg-root",
+  "symlink": {
+    "dangling": true,
+    "path": "/var/lib/backup/current",
+    "target": "snapshot-latest.tar"
+  },
+  "subject_id": "LINUX-BACKUP-2026-10-r1",
+  "target": {
+    "exists": false,
+    "inode": null,
+    "path": "/var/lib/backup/snapshot-2026-10-03.tar"
+  },
+  "writable": false
+}

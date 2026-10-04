@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:2ca206c960549a8f38499737e60cfff389b7da7d50ea09e5cb12be42897c3962"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("linux-backup-contract.json")
+fs=load("filesystem-evidence.json")
+svc=load("service-evidence.json")
+journal=load("journal-evidence.json")
+outcome=load("backup-outcome.json")
+second=load("second-operation.json")
+errors=[]
+
+req(digest("linux-backup-contract.json")==EXPECTED_CONTRACT_DIGEST,"contract digest mismatch",errors)
+for obj,name in [(fs,"filesystem"),(svc,"service"),(journal,"journal"),(outcome,"outcome"),(second,"second operation")]:
+    req(obj.get("subject_id")==c["subject_id"],f"{name} subject mismatch",errors)
+
+req(c["authority"]["timer_active_is_evidence_only"] is True and c["authority"]["service_exit_zero_is_evidence_only"] is True and c["authority"]["backup_verified_required"] is True,"authority contract mismatch",errors)
+
+req(fs["mount_source"]==c["filesystem"]["mount_source"],"target path resolved to wrong mount source",errors)
+req(fs["fs_type"]==c["filesystem"]["fs_type"],"filesystem type mismatch",errors)
+req(all(x in fs["mount_options"] for x in c["filesystem"]["mount_options_required"]),"required mount options missing",errors)
+req(fs["writable"] is True,"target filesystem is not writable",errors)
+req(len(fs["deleted_open"])==0,"deleted-open inode still consumes storage",errors)
+req(fs["df_used_pct"]<95,"filesystem remains critically full",errors)
+req(fs["target"]["path"]==c["filesystem"]["target_path"] and fs["target"]["exists"] is True,"backup target pathname missing",errors)
+req(fs["target"]["inode"] is not None,"target inode identity missing",errors)
+req(fs["symlink"]["path"]=="/var/lib/backup/current" and fs["symlink"]["target"]=="snapshot-2026-10-03.tar" and fs["symlink"]["dangling"] is False,"current symlink is not resolved to accepted snapshot",errors)
+req(fs["hardlink"]["path"]=="/var/lib/backup/latest.tar" and fs["hardlink"]["same_inode_as_target"] is True,"hard-link identity mismatch",errors)
+req(fs["hardlink"]["inode"]==fs["target"]["inode"] and fs["hardlink"]["link_count"]>=2,"inode/link-count evidence mismatch",errors)
+
+t=svc["timer"]
+req(t["unit"]==c["timer"]["unit"] and t["active_state"]==c["timer"]["active_state"] and t["sub_state"]==c["timer"]["sub_state"],"timer state mismatch",errors)
+req(t["persistent"] is c["timer"]["persistent"] and t["schedule"]==c["timer"]["schedule"],"timer schedule/persistence mismatch",errors)
+req(svc["unit"]==c["service"]["unit"] and svc["unit_type"]==c["service"]["type"] and svc["user"]==c["service"]["user"],"service effective identity mismatch",errors)
+req(svc["result"]==c["service"]["result"] and svc["exec_main_status"]==c["service"]["exec_main_status"],"service did not complete successfully",errors)
+req(svc["cgroup_cleanup_complete"] is True,"service process tree/cgroup cleanup incomplete",errors)
+
+req(journal["query_unit"]==c["logging"]["journal_unit"],"journal query scoped to wrong unit",errors)
+req(bool(journal.get("boot_id")),"journal boot identity missing",errors)
+entries=journal["entries"]
+req(all(e.get("unit")==c["logging"]["journal_unit"] for e in entries),"journal contains wrong-unit evidence",errors)
+req(any(e.get("run_id")==c["logging"]["run_id"] and e.get("message")==c["logging"]["completion_event"] for e in entries),"positive completion event missing",errors)
+req(not any(e.get("failure_class") for e in entries),"unreconciled journal failure remains",errors)
+
+a=outcome["artifact"]
+req(outcome["run_id"]==c["logging"]["run_id"],"backup run identity mismatch",errors)
+req(a["path"]==c["filesystem"]["target_path"] and a["exists"] is True,"backup artifact absent",errors)
+req(a["sha256"]==c["outcome"]["artifact_sha256"],"backup artifact digest mismatch",errors)
+req(a["manifest_entries"]==c["outcome"]["manifest_entries"],"backup manifest count mismatch",errors)
+req(outcome["remote_verified"] is c["outcome"]["remote_verified"],"remote backup verification missing",errors)
+
+req(second["same_run_id"] is True,"second operation changed logical run id",errors)
+req(second["duplicate_artifacts"]==0,"second operation created duplicate artifact",errors)
+req(second["report_byte_identical"] is True,"second operation report differs",errors)
+
+if errors:
+    print("BACKUP REJECTED")
+    for e in errors: print("-",e)
+    raise SystemExit(1)
+
+report={
+  "subject_id":c["subject_id"],
+  "backup_verified":True,
+  "timer_active_is_evidence_only":True,
+  "service_exit_zero_is_evidence_only":True,
+  "mount_source":fs["mount_source"],
+  "target_inode":fs["target"]["inode"],
+  "service_result":svc["result"],
+  "run_id":outcome["run_id"],
+  "artifact_sha256":a["sha256"],
+  "remote_verified":outcome["remote_verified"]
+}
+ledger={"subject_id":c["subject_id"],"contract_digest":EXPECTED_CONTRACT_DIGEST,"accepted":True}
+exact_write("linux-backup-report.json",canonical(report))
+exact_write("linux-backup-evidence-ledger.json",canonical(ledger))
+print("BACKUP VERIFIED")

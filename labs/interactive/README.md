@@ -104,6 +104,8 @@ Current labs:
 
 | `foundations-ownership-improvement-integrity` | challenge | `shell` | Keep service outcome ownership with the build team, remove recurring toil at its mechanism, close technical debt deliberately and prove durable continuous improvement. |
 
+| `linux-storage-service-scheduler-integrity` | challenge | `shell` | Diagnose a timer-triggered backup across the real mount, deleted-open inode, systemd service result, journal evidence and verified backup artifact. |
+
 The authoritative runtime profile for every lab is stored in `runtime/labs.tsv` and surfaced by the `list` command. If no lab ID is supplied, `docker-network-debug` remains the default for backward compatibility.
 
 A lab assignment can be shown without starting any runtime profile:
