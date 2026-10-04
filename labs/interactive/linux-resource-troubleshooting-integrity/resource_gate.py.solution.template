@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:592ebb53af6d0d80d69c7551812371963da1674174ca3d395a2b71cf5f500ea5"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("resource-contract.json")
+sym=load("symptom-evidence.json")
+scope=load("scope-evidence.json")
+cpu=load("cpu-evidence.json")
+mem=load("memory-evidence.json")
+repair=load("repair-evidence.json")
+second=load("second-operation.json")
+errors=[]
+
+req(digest("resource-contract.json")==EXPECTED_CONTRACT_DIGEST,"resource contract digest mismatch",errors)
+for key in ("host_utilization_is_context_only","low_free_memory_is_context_only","root_cause_requires_scope_correlation","repair_requires_user_outcome_validation"):
+    req(c["authority"].get(key) is True,f"authority contract mismatch: {key}",errors)
+
+for obj,name in [(sym,"symptom"),(scope,"scope"),(cpu,"cpu"),(mem,"memory"),(repair,"repair"),(second,"second operation")]:
+    req(obj.get("subject_id")==c["subject_id"],f"{name} subject mismatch",errors)
+
+for key in ("operation","window","cohort","baseline_p99_ms","incident_p99_ms","incident_error_rate"):
+    req(sym.get(key)==c["symptom"][key],f"symptom {key} mismatch",errors)
+req(sym["incident_p99_ms"]>sym["baseline_p99_ms"],"incident does not reproduce the latency regression",errors)
+
+req(scope["host"]==c["scope"]["host"],"host scope mismatch",errors)
+req(scope["cgroup"]==c["scope"]["cgroup"],"cgroup scope mismatch",errors)
+req(scope["pid"]==c["scope"]["pid"],"process scope mismatch",errors)
+req(scope["scope_used_for_diagnosis"]=="cgroup-process","diagnosis is not bound to cgroup/process scope",errors)
+
+req(cpu["cgroup_cpu_max"]==c["scope"]["cpu_max_before"],"effective pre-repair CPU quota mismatch",errors)
+req(cpu["nr_periods_delta"]>0,"CPU period evidence is empty",errors)
+throttle_ratio=cpu["nr_throttled_delta"]/cpu["nr_periods_delta"] if cpu["nr_periods_delta"] else 0
+req(throttle_ratio>=0.5,"CPU throttling is not strong enough to explain the incident",errors)
+req(cpu["throttled_usec_delta"]>0,"CPU throttled time did not increase",errors)
+req(cpu["runnable_tasks"]>2,"runnable pressure is not demonstrated",errors)
+req(cpu["cpu_psi_some_avg10"]>5.0,"CPU pressure is not demonstrated",errors)
+req(cpu["diagnosed_root_cause"]==c["acceptance"]["root_cause"],"root-cause classification mismatch",errors)
+
+req(mem["cgroup_memory_high"]==c["scope"]["memory_high"],"memory.high mismatch",errors)
+req(mem["cgroup_memory_max"]==c["scope"]["memory_max"],"memory.max mismatch",errors)
+req(mem["cgroup_memory_current"]<mem["cgroup_memory_high"]<mem["cgroup_memory_max"],"memory headroom is not healthy",errors)
+req(mem["host_mem_available_bytes"]>mem["cgroup_memory_max"],"host MemAvailable does not refute host-memory exhaustion",errors)
+req(mem["memory_psi_some_avg10"]<=c["acceptance"]["max_memory_psi_some_avg10"],"memory pressure is elevated",errors)
+req(mem["major_faults_per_second"]<=c["acceptance"]["max_major_faults_per_second"],"major-fault rate is elevated",errors)
+req(mem["memory_events"].get("oom_kill",0)==0,"OOM kill evidence is non-zero",errors)
+req(mem["diagnosed_pressure"]=="none","low free memory was incorrectly promoted to root cause",errors)
+
+req(repair["change_scope"]=="cgroup","repair is not bounded to the workload cgroup",errors)
+req(repair["cpu_max_after"]==c["scope"]["cpu_max_after"],"effective repaired CPU quota mismatch",errors)
+req(repair["p99_ms_after"]<=c["acceptance"]["max_p99_ms"],"p99 latency did not recover",errors)
+req(repair["error_rate_after"]<=c["acceptance"]["max_error_rate"],"error rate did not recover",errors)
+req(repair["throughput_per_second_after"]>repair["throughput_per_second_before"],"throughput did not improve",errors)
+req(repair["cpu_throttle_ratio_after"]<=c["acceptance"]["max_cpu_throttle_ratio"],"CPU throttling remains excessive",errors)
+req(repair["cpu_psi_some_avg10_after"]<=c["acceptance"]["max_cpu_psi_some_avg10"],"CPU pressure remains excessive",errors)
+req(repair["memory_current_after"]<c["scope"]["memory_high"],"repair displaced the bottleneck into memory pressure",errors)
+req(repair["memory_psi_some_avg10_after"]<=c["acceptance"]["max_memory_psi_some_avg10"],"post-repair memory pressure is elevated",errors)
+req(repair["major_faults_per_second_after"]<=c["acceptance"]["max_major_faults_per_second"],"post-repair major faults are elevated",errors)
+req(repair["oom_kill_after"]==0,"post-repair OOM kill occurred",errors)
+req(repair["adjacent_mutations"]==[],"repair made forbidden adjacent mutations",errors)
+
+req(second["same_subject"] is c["second_operation"]["same_subject"],"second operation subject changed",errors)
+req(second["evidence_mutations"]==c["second_operation"]["evidence_mutations"],"second operation mutated evidence",errors)
+req(second["report_byte_identical"] is c["second_operation"]["report_byte_identical"],"second report is not byte reproducible",errors)
+
+if errors:
+    print("RESOURCE DIAGNOSIS REJECTED")
+    for e in errors: print("-",e)
+    raise SystemExit(1)
+
+report={
+  "subject_id":c["subject_id"],
+  "resource_issue_verified":True,
+  "root_cause":c["acceptance"]["root_cause"],
+  "scope_verified":True,
+  "cpu_saturation_verified":True,
+  "memory_pressure_refuted":True,
+  "repair_verified":True,
+  "user_outcome_verified":True,
+  "adjacent_safety_verified":True,
+  "host_utilization_is_context_only":True,
+  "low_free_memory_is_context_only":True
+}
+ledger={"subject_id":c["subject_id"],"contract_digest":EXPECTED_CONTRACT_DIGEST,"accepted":True}
+exact_write("resource-report.json",canonical(report))
+exact_write("resource-evidence-ledger.json",canonical(ledger))
+print("RESOURCE DIAGNOSIS VERIFIED")
