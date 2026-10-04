@@ -1,0 +1,9 @@
+{
+  "subject_id": "payments-api-prod/incident-2026-10-04",
+  "host": "node-07",
+  "cgroup": "/",
+  "pid": 1842,
+  "scope_used_for_diagnosis": "host",
+  "process_threads": 12,
+  "host_logical_cpus": 8
+}
