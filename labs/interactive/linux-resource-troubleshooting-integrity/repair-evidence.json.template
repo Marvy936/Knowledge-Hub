@@ -1,0 +1,16 @@
+{
+  "subject_id": "payments-api-prod/incident-2026-10-04",
+  "change_scope": "host",
+  "cpu_max_after": "max 100000",
+  "p99_ms_after": 980,
+  "error_rate_after": 0.016,
+  "throughput_per_second_before": 405,
+  "throughput_per_second_after": 410,
+  "cpu_throttle_ratio_after": 0.31,
+  "cpu_psi_some_avg10_after": 8.7,
+  "memory_current_after": 671088640,
+  "memory_psi_some_avg10_after": 0.2,
+  "major_faults_per_second_after": 0.1,
+  "oom_kill_after": 0,
+  "adjacent_mutations": ["disable_cgroup_limits"]
+}
