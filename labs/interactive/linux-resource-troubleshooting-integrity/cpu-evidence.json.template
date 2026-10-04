@@ -1,0 +1,12 @@
+{
+  "subject_id": "payments-api-prod/incident-2026-10-04",
+  "host_cpu_utilization": 91.0,
+  "cgroup_cpu_max": "max 100000",
+  "process_cpu_cores": 1.91,
+  "runnable_tasks": 5,
+  "cpu_psi_some_avg10": 12.4,
+  "nr_periods_delta": 1000,
+  "nr_throttled_delta": 830,
+  "throttled_usec_delta": 8400000,
+  "diagnosed_root_cause": "host_cpu_exhaustion"
+}

@@ -7,9 +7,9 @@ This is the authoritative per-document practical coverage baseline for documenta
 ## Baseline summary
 
 - Total documentation topics: **377**
-- Covered: **32**
+- Covered: **34**
 - Partial: **41**
-- Planned: **304**
+- Planned: **302**
 - Not applicable: **0**
 
 | Section | Documentation topic | State | Interactive lab(s) | Supplemental | Coverage note |
@@ -35,7 +35,7 @@ This is the authoritative per-document practical coverage baseline for documenta
 | 00-foundations | [value-stream-mapping](docs/00-foundations/value-stream-mapping.md) | `covered` | `foundations-delivery-flow-dora` | — | Reconstructs active vs wait time, process efficiency and the true queue bottleneck instead of optimizing the most visible active-work stage. |
 | 00-foundations | [you-build-it-you-run-it](docs/00-foundations/you-build-it-you-run-it.md) | `covered` | `foundations-ownership-improvement-integrity` | — | Keeps primary service incident ownership with the team that builds the service while preserving a bounded platform escalation interface and shared operational capability. |
 | 01-linux-and-systems | [cgroups](docs/01-linux-and-systems/cgroups.md) | `covered` | `linux-isolation-integrity` | — | Requires exact cgroup v2 placement plus effective CPU, memory and PIDs limits, runtime usage below those limits and zero unexpected OOM events. |
-| 01-linux-and-systems | [cpu-and-memory-fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md) | `planned` | — | — | Interactive backfill required. |
+| 01-linux-and-systems | [cpu-and-memory-fundamentals](docs/01-linux-and-systems/cpu-and-memory-fundamentals.md) | `covered` | `linux-resource-troubleshooting-integrity` | — | Binds the user-visible regression to exact cgroup/process CPU quota, throttling, runnable and PSI evidence while distinguishing reclaimable host memory from effective workload memory pressure. |
 | 01-linux-and-systems | [cron-and-systemd-timers](docs/01-linux-and-systems/cron-and-systemd-timers.md) | `partial` | `linux-storage-service-scheduler-integrity` | — | Exercises systemd timer schedule, persistence, trigger/service separation and durable outcome verification; cron-specific execution/environment semantics remain planned. |
 | 01-linux-and-systems | [environment-variables](docs/01-linux-and-systems/environment-variables.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [filesystem-hierarchy-inodes-links](docs/01-linux-and-systems/filesystem-hierarchy-inodes-links.md) | `partial` | `linux-storage-service-scheduler-integrity` | — | Exercises pathname→mount identity, inode/link identity, dangling symlink and deleted-open inode lifetime; broader hierarchy and lookup/permission semantics remain planned. |
@@ -45,7 +45,7 @@ This is the authoritative per-document practical coverage baseline for documenta
 | 01-linux-and-systems | [linux-networking](docs/01-linux-and-systems/linux-networking.md) | `covered` | `linux-network-ssh-mac-integrity` | — | Verifies the exact namespace, destination resolution, source address, route/next hop, output interface, TCP listener and return path rather than accepting ping or connect alone. |
 | 01-linux-and-systems | [namespaces](docs/01-linux-and-systems/namespaces.md) | `covered` | `linux-isolation-integrity` | — | Compares host/workload namespace object identities across PID, mount, network, UTS, IPC and user namespaces and verifies namespace-root host UID mapping. |
 | 01-linux-and-systems | [package-management](docs/01-linux-and-systems/package-management.md) | `planned` | — | — | Interactive backfill required. |
-| 01-linux-and-systems | [performance-and-troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md) | `planned` | — | — | Interactive backfill required. |
+| 01-linux-and-systems | [performance-and-troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md) | `covered` | `linux-resource-troubleshooting-integrity` | — | Requires symptom/window/cohort scoping, competing CPU-versus-memory evidence, a causal workload-scope diagnosis, bounded repair and validation of p99, errors, throughput and adjacent safety. |
 | 01-linux-and-systems | [processes-threads-pid-signals](docs/01-linux-and-systems/processes-threads-pid-signals.md) | `partial` | `linux-process-signals` | — | Exercises process/signal propagation, not the full thread/PID lifecycle. |
 | 01-linux-and-systems | [selinux-and-apparmor](docs/01-linux-and-systems/selinux-and-apparmor.md) | `covered` | `linux-network-ssh-mac-integrity` | — | Requires enforcing SELinux, exact process domain and persistent object-type mapping/policy generation while preserving denial evidence and rejecting permissive or temporary-label fixes. |
 | 01-linux-and-systems | [shell-bash-pipes-redirection-exit-codes](docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md) | `partial` | `bash-pipeline-failure` | — | Exercises pipeline exit propagation; redirection and broader shell semantics remain. |

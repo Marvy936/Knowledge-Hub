@@ -92,6 +92,7 @@ COPY foundations-ownership-improvement-integrity /opt/knowledge-hub/labs/foundat
 COPY linux-storage-service-scheduler-integrity /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity
 COPY linux-isolation-integrity /opt/knowledge-hub/labs/linux-isolation-integrity
 COPY linux-network-ssh-mac-integrity /opt/knowledge-hub/labs/linux-network-ssh-mac-integrity
+COPY linux-resource-troubleshooting-integrity /opt/knowledge-hub/labs/linux-resource-troubleshooting-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.

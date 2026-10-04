@@ -1,0 +1,10 @@
+{
+  "subject_id": "payments-api-prod/incident-2026-10-04",
+  "operation": "POST /checkout",
+  "window": "2026-10-04T08:00:00Z/2026-10-04T08:10:00Z",
+  "cohort": "prod-eu/payments-api",
+  "baseline_p99_ms": 180,
+  "incident_p99_ms": 1250,
+  "incident_error_rate": 0.018,
+  "request_rate_per_second": 420
+}

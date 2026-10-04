@@ -1,0 +1,17 @@
+{
+  "subject_id": "payments-api-prod/incident-2026-10-04",
+  "host_mem_free_bytes": 134217728,
+  "host_mem_available_bytes": 6442450944,
+  "process_rss_bytes": 618659840,
+  "cgroup_memory_current": 650117120,
+  "cgroup_memory_high": 805306368,
+  "cgroup_memory_max": 1073741824,
+  "memory_psi_some_avg10": 0.2,
+  "major_faults_per_second": 0.1,
+  "memory_events": {
+    "high": 0,
+    "oom": 0,
+    "oom_kill": 0
+  },
+  "diagnosed_pressure": "host_low_free_memory"
+}

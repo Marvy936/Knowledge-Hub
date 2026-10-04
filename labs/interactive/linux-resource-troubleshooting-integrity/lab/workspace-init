@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/linux-resource-troubleshooting-integrity
+for f in resource-contract symptom-evidence scope-evidence cpu-evidence memory-evidence repair-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/resource_gate.py.template" ./resource_gate.py
+cp "$ROOT/resource_validator.py" ./resource_validator.py
+chmod +x ./resource_gate.py ./resource_validator.py
+rm -f ./resource-report.json ./resource-evidence-ledger.json
