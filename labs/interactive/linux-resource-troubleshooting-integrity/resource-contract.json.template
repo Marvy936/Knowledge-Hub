@@ -1,0 +1,42 @@
+{
+  "authority": {
+    "host_utilization_is_context_only": true,
+    "low_free_memory_is_context_only": true,
+    "root_cause_requires_scope_correlation": true,
+    "repair_requires_user_outcome_validation": true
+  },
+  "subject_id": "payments-api-prod/incident-2026-10-04",
+  "symptom": {
+    "operation": "POST /checkout",
+    "window": "2026-10-04T08:00:00Z/2026-10-04T08:10:00Z",
+    "cohort": "prod-eu/payments-api",
+    "baseline_p99_ms": 180,
+    "incident_p99_ms": 1250,
+    "incident_error_rate": 0.018
+  },
+  "scope": {
+    "host": "node-07",
+    "cgroup": "/system.slice/payments-api.service",
+    "pid": 1842,
+    "cpu_max_before": "200000 100000",
+    "cpu_max_after": "400000 100000",
+    "memory_high": 805306368,
+    "memory_max": 1073741824
+  },
+  "acceptance": {
+    "root_cause": "cpu_quota_saturation",
+    "max_p99_ms": 400,
+    "max_error_rate": 0.01,
+    "max_cpu_throttle_ratio": 0.02,
+    "max_cpu_psi_some_avg10": 2.0,
+    "max_memory_psi_some_avg10": 1.0,
+    "max_major_faults_per_second": 1.0,
+    "require_zero_oom_kill": true,
+    "forbid_adjacent_mutations": true
+  },
+  "second_operation": {
+    "same_subject": true,
+    "evidence_mutations": 0,
+    "report_byte_identical": true
+  }
+}
