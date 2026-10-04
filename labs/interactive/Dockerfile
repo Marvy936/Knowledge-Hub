@@ -93,6 +93,7 @@ COPY linux-storage-service-scheduler-integrity /opt/knowledge-hub/labs/linux-sto
 COPY linux-isolation-integrity /opt/knowledge-hub/labs/linux-isolation-integrity
 COPY linux-network-ssh-mac-integrity /opt/knowledge-hub/labs/linux-network-ssh-mac-integrity
 COPY linux-resource-troubleshooting-integrity /opt/knowledge-hub/labs/linux-resource-troubleshooting-integrity
+COPY linux-cron-package-exec-integrity /opt/knowledge-hub/labs/linux-cron-package-exec-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.

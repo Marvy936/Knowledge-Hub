@@ -1,0 +1,12 @@
+{
+  "subject_id": "nightly-report/prod-2026-10-04",
+  "interpreter": "/bin/bash",
+  "report_exit": 1,
+  "logger_exit": 0,
+  "job_exit": 0,
+  "report_argument_count": 3,
+  "quoted_argument_count": 2,
+  "stdout_path": "/tmp/nightly-report.log",
+  "stderr_path": "/tmp/nightly-report.log",
+  "atomic_output": false
+}

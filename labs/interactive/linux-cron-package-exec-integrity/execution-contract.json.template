@@ -1,0 +1,54 @@
+{
+  "authority": {
+    "interactive_shell_success_is_context_only": true,
+    "cron_trigger_is_not_job_success": true,
+    "installed_package_is_not_loaded_binary_proof": true,
+    "pathname_is_not_object_identity": true
+  },
+  "subject_id": "nightly-report/prod-2026-10-04",
+  "cron": {
+    "source": "/etc/cron.d/nightly-report",
+    "schedule": "*/5 * * * *",
+    "user": "reporter",
+    "shell": "/bin/sh",
+    "path": "/usr/bin:/bin",
+    "working_directory": "/var/lib/nightly-report"
+  },
+  "package": {
+    "name": "report-cli",
+    "installed_version": "2.4.1-1",
+    "repository": "stable-signed",
+    "payload_path": "/usr/lib/report-cli/2.4.1/report-cli"
+  },
+  "filesystem": {
+    "launcher": "/usr/bin/report-cli",
+    "resolved_target": "/usr/lib/report-cli/2.4.1/report-cli",
+    "target_inode": 900241,
+    "target_owner": "root",
+    "target_mode": "0755"
+  },
+  "execution": {
+    "job_pid": 31240,
+    "exec_pid": 31241,
+    "exec_start_time_ticks": 8800123,
+    "app_env": "prod"
+  },
+  "shell": {
+    "report_exit": 0,
+    "logger_exit": 0,
+    "job_exit": 0,
+    "stdout_path": "/var/log/nightly-report/stdout.log",
+    "stderr_path": "/var/log/nightly-report/stderr.log"
+  },
+  "outcome": {
+    "window": "2026-10-04T08:00:00Z/2026-10-04T08:05:00Z",
+    "checkpoint": "reports/2026-10-04T08:00Z",
+    "rows": 1842
+  },
+  "second_operation": {
+    "same_subject": true,
+    "evidence_mutations": 0,
+    "duplicate_reports": 0,
+    "report_byte_identical": true
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "subject_id": "nightly-report/prod-2026-10-04",
+  "job_pid": 31240,
+  "job_parent": "cron",
+  "exec_pid_before": 31241,
+  "exec_pid_after": 31241,
+  "exec_start_time_ticks_before": 8800123,
+  "exec_start_time_ticks_after": 8800123,
+  "environment": {
+    "APP_ENV": "dev",
+    "PATH": "/usr/local/bin:/usr/bin:/bin"
+  },
+  "syscall": {
+    "name": "execve",
+    "path": "/usr/local/bin/report-cli-2.3",
+    "result": -1,
+    "errno": "ENOENT"
+  }
+}

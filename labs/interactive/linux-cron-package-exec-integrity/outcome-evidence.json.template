@@ -1,0 +1,7 @@
+{
+  "subject_id": "nightly-report/prod-2026-10-04",
+  "window": "2026-10-04T08:00:00Z/2026-10-04T08:05:00Z",
+  "checkpoint": "reports/2026-10-04T07:55Z",
+  "rows": 0,
+  "durable": false
+}

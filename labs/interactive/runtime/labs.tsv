@@ -57,3 +57,4 @@ linux-storage-service-scheduler-integrity	shell	Diagnose a systemd-scheduled bac
 linux-isolation-integrity	shell	Verify Linux isolation from effective namespace, cgroup and least-privilege capability boundaries rather than container labels or namespace-root UID.
 linux-network-ssh-mac-integrity	shell	Verify exact Linux network reachability, SSH host trust, bounded sudo/PAM authorization and enforcing MAC policy before accepting administrative access.
 linux-resource-troubleshooting-integrity	shell	Diagnose workload CPU saturation from scoped evidence and prove a bounded repair improves user outcomes.
+linux-cron-package-exec-integrity	shell	Trace cron execution through environment, package/filesystem identity, execve and durable shell outcome.
