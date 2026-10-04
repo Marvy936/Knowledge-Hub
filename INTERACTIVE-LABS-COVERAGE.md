@@ -7,9 +7,9 @@ This is the authoritative per-document practical coverage baseline for documenta
 ## Baseline summary
 
 - Total documentation topics: **377**
-- Covered: **28**
-- Partial: **42**
-- Planned: **307**
+- Covered: **32**
+- Partial: **41**
+- Planned: **304**
 - Not applicable: **0**
 
 | Section | Documentation topic | State | Interactive lab(s) | Supplemental | Coverage note |
@@ -42,17 +42,17 @@ This is the authoritative per-document practical coverage baseline for documenta
 | 01-linux-and-systems | [journald-and-logging](docs/01-linux-and-systems/journald-and-logging.md) | `covered` | `linux-storage-service-scheduler-integrity` | — | Requires unit/run scoped journal evidence, boot identity, preserved failure class and positive completion event instead of treating missing logs as success. |
 | 01-linux-and-systems | [kernel-and-user-space](docs/01-linux-and-systems/kernel-and-user-space.md) | `partial` | `linux-isolation-integrity` | — | Exercises the shared-kernel execution model and kernel-enforced namespace/cgroup/capability decisions; broader syscall, device, memory and module boundaries remain planned. |
 | 01-linux-and-systems | [linux-capabilities](docs/01-linux-and-systems/linux-capabilities.md) | `covered` | `linux-isolation-integrity` | — | Validates post-exec effective/permitted/bounding/ambient sets, no_new_privs, one required privileged operation and denial of adjacent broad host-affecting operations. |
-| 01-linux-and-systems | [linux-networking](docs/01-linux-and-systems/linux-networking.md) | `planned` | — | — | Interactive backfill required. |
+| 01-linux-and-systems | [linux-networking](docs/01-linux-and-systems/linux-networking.md) | `covered` | `linux-network-ssh-mac-integrity` | — | Verifies the exact namespace, destination resolution, source address, route/next hop, output interface, TCP listener and return path rather than accepting ping or connect alone. |
 | 01-linux-and-systems | [namespaces](docs/01-linux-and-systems/namespaces.md) | `covered` | `linux-isolation-integrity` | — | Compares host/workload namespace object identities across PID, mount, network, UTS, IPC and user namespaces and verifies namespace-root host UID mapping. |
 | 01-linux-and-systems | [package-management](docs/01-linux-and-systems/package-management.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [performance-and-troubleshooting](docs/01-linux-and-systems/performance-and-troubleshooting.md) | `planned` | — | — | Interactive backfill required. |
 | 01-linux-and-systems | [processes-threads-pid-signals](docs/01-linux-and-systems/processes-threads-pid-signals.md) | `partial` | `linux-process-signals` | — | Exercises process/signal propagation, not the full thread/PID lifecycle. |
-| 01-linux-and-systems | [selinux-and-apparmor](docs/01-linux-and-systems/selinux-and-apparmor.md) | `planned` | — | — | Interactive backfill required. |
+| 01-linux-and-systems | [selinux-and-apparmor](docs/01-linux-and-systems/selinux-and-apparmor.md) | `covered` | `linux-network-ssh-mac-integrity` | — | Requires enforcing SELinux, exact process domain and persistent object-type mapping/policy generation while preserving denial evidence and rejecting permissive or temporary-label fixes. |
 | 01-linux-and-systems | [shell-bash-pipes-redirection-exit-codes](docs/01-linux-and-systems/shell-bash-pipes-redirection-exit-codes.md) | `partial` | `bash-pipeline-failure` | — | Exercises pipeline exit propagation; redirection and broader shell semantics remain. |
-| 01-linux-and-systems | [ssh](docs/01-linux-and-systems/ssh.md) | `planned` | — | — | Interactive backfill required. |
+| 01-linux-and-systems | [ssh](docs/01-linux-and-systems/ssh.md) | `covered` | `linux-network-ssh-mac-integrity` | — | Verifies exact host fingerprint with strict host-key checking, public-key deploy identity and restricted channels/authorized-key behavior before accepting the administrative path. |
 | 01-linux-and-systems | [storage-mounts-and-filesystems](docs/01-linux-and-systems/storage-mounts-and-filesystems.md) | `covered` | `linux-storage-service-scheduler-integrity` | — | Binds the backup path to the exact mount source/type/options, distinguishes df/du and inode/open-file causes, and verifies writable recovered storage before outcome acceptance. |
 | 01-linux-and-systems | [systemd-services-daemons](docs/01-linux-and-systems/systemd-services-daemons.md) | `covered` | `linux-storage-service-scheduler-integrity` | — | Separates timer activation from oneshot service execution, verifies effective unit identity/result/cgroup cleanup and requires the service outcome rather than manager status alone. |
-| 01-linux-and-systems | [users-groups-permissions-sudo-pam](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md) | `partial` | `linux-file-permissions` | — | Exercises Unix owner/group/mode semantics; sudo/PAM remain uncovered. |
+| 01-linux-and-systems | [users-groups-permissions-sudo-pam](docs/01-linux-and-systems/users-groups-permissions-sudo-pam.md) | `covered` | `linux-file-permissions`, `linux-network-ssh-mac-integrity` | — | Combines Unix owner/group/mode access with required group membership, PAM account acceptance, command-bounded sudo and explicit rejection of arbitrary root-shell privilege. |
 | 02-networking-and-web | [dhcp](docs/02-networking-and-web/dhcp.md) | `planned` | — | — | Interactive backfill required. |
 | 02-networking-and-web | [dns](docs/02-networking-and-web/dns.md) | `partial` | `docker-network-debug` | — | Exercises DNS/service discovery in Docker, not general DNS operation. |
 | 02-networking-and-web | [ethernet-mac-arp](docs/02-networking-and-web/ethernet-mac-arp.md) | `planned` | — | — | Interactive backfill required. |
