@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/linux-cron-package-exec-integrity
+for f in execution-contract cron-evidence package-evidence filesystem-evidence execution-evidence shell-evidence outcome-evidence second-operation; do
+  cp "$ROOT/$f.json.template" "./$f.json"
+done
+cp "$ROOT/execution_gate.py.template" ./execution_gate.py
+cp "$ROOT/execution_validator.py" ./execution_validator.py
+chmod +x ./execution_gate.py ./execution_validator.py
+rm -f ./execution-report.json ./execution-evidence-ledger.json
