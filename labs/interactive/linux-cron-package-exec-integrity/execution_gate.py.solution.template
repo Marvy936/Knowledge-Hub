@@ -1,0 +1,97 @@
+#!/usr/bin/env python3
+import hashlib, json
+from pathlib import Path
+
+EXPECTED_CONTRACT_DIGEST="sha256:14411e095b795e757579ed3e4ea8b86e6db81c757d3c769da793afe1a3dead5b"
+
+def load(p): return json.loads(Path(p).read_text())
+def digest(p): return "sha256:"+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def canonical(o): return json.dumps(o,indent=2,sort_keys=True)+"\n"
+def req(cond,msg,errors):
+    if not cond: errors.append(msg)
+def exact_write(path,text):
+    p=Path(path)
+    if p.exists() and p.read_text()!=text:
+        raise SystemExit(f"conflicting durable state: {path}")
+    p.write_text(text)
+
+c=load("execution-contract.json")
+cron=load("cron-evidence.json")
+pkg=load("package-evidence.json")
+fs=load("filesystem-evidence.json")
+exe=load("execution-evidence.json")
+sh=load("shell-evidence.json")
+out=load("outcome-evidence.json")
+second=load("second-operation.json")
+errors=[]
+
+req(digest("execution-contract.json")==EXPECTED_CONTRACT_DIGEST,"execution contract digest mismatch",errors)
+for key in ("interactive_shell_success_is_context_only","cron_trigger_is_not_job_success","installed_package_is_not_loaded_binary_proof","pathname_is_not_object_identity"):
+    req(c["authority"].get(key) is True,f"authority contract mismatch: {key}",errors)
+for obj,name in [(cron,"cron"),(pkg,"package"),(fs,"filesystem"),(exe,"execution"),(sh,"shell"),(out,"outcome"),(second,"second operation")]:
+    req(obj.get("subject_id")==c["subject_id"],f"{name} subject mismatch",errors)
+
+for key in ("source","schedule","user","shell","path","working_directory"):
+    req(cron.get(key)==c["cron"][key],f"cron {key} mismatch",errors)
+req(cron["observed_runtime"]=="cron","evidence came from an interactive shell instead of cron runtime",errors)
+req(cron["triggered"] is True,"cron trigger missing",errors)
+
+for key in ("name","installed_version","repository","payload_path"):
+    req(pkg.get(key)==c["package"][key],f"package {key} mismatch",errors)
+for key in ("metadata_fresh","signature_verified","dependency_transaction_complete","local_database_consistent"):
+    req(pkg.get(key) is True,f"package transaction evidence missing: {key}",errors)
+req(pkg["loaded_version"]==c["package"]["installed_version"],"installed package version is not the loaded runtime version",errors)
+
+for key in ("launcher","resolved_target","target_inode","target_owner","target_mode"):
+    req(fs.get(key)==c["filesystem"][key],f"filesystem {key} mismatch",errors)
+req(fs["launcher_type"]=="symlink","launcher identity is not an explicit symlink",errors)
+req(fs["package_owns_target"] is True,"resolved target is not package-owned",errors)
+req(fs["mount"]=="/usr","package payload is outside expected /usr hierarchy",errors)
+
+req(exe["job_pid"]==c["execution"]["job_pid"],"job PID mismatch",errors)
+req(exe["job_parent"]=="cron","job parent is not cron",errors)
+req(exe["exec_pid_before"]==c["execution"]["exec_pid"],"pre-exec PID mismatch",errors)
+req(exe["exec_pid_after"]==exe["exec_pid_before"],"execve changed process identity",errors)
+req(exe["exec_start_time_ticks_before"]==c["execution"]["exec_start_time_ticks"],"pre-exec start time mismatch",errors)
+req(exe["exec_start_time_ticks_after"]==exe["exec_start_time_ticks_before"],"execve changed process start identity",errors)
+req(exe["environment"].get("APP_ENV")==c["execution"]["app_env"],"effective child APP_ENV mismatch",errors)
+req(exe["environment"].get("PATH")==c["cron"]["path"],"effective child PATH mismatch",errors)
+req(exe["syscall"].get("name")=="execve","kernel transition is not execve",errors)
+req(exe["syscall"].get("path")==c["package"]["payload_path"],"execve target path mismatch",errors)
+req(exe["syscall"].get("result")==0 and exe["syscall"].get("errno") is None,"execve kernel result is not successful",errors)
+
+req(sh["interpreter"]==c["cron"]["shell"],"shell interpreter mismatch",errors)
+for key in ("report_exit","logger_exit","job_exit","stdout_path","stderr_path"):
+    req(sh.get(key)==c["shell"][key],f"shell {key} mismatch",errors)
+req(sh["report_argument_count"]==3 and sh["quoted_argument_count"]==3,"shell quoting changed the argument vector",errors)
+req(sh["atomic_output"] is True,"report output replacement is not atomic",errors)
+
+for key in ("window","checkpoint","rows"):
+    req(out.get(key)==c["outcome"][key],f"outcome {key} mismatch",errors)
+req(out["durable"] is True,"scheduled job outcome is not durable",errors)
+
+for key in ("same_subject","evidence_mutations","duplicate_reports","report_byte_identical"):
+    req(second.get(key)==c["second_operation"][key],f"second operation {key} mismatch",errors)
+
+if errors:
+    print("EXECUTION REJECTED")
+    for e in errors: print("-",e)
+    raise SystemExit(1)
+
+report={
+  "subject_id":c["subject_id"],
+  "execution_verified":True,
+  "cron_runtime_verified":True,
+  "environment_verified":True,
+  "package_transaction_verified":True,
+  "filesystem_identity_verified":True,
+  "process_exec_verified":True,
+  "kernel_transition_verified":True,
+  "shell_semantics_verified":True,
+  "durable_outcome_verified":True,
+  "replay_verified":True
+}
+ledger={"subject_id":c["subject_id"],"contract_digest":EXPECTED_CONTRACT_DIGEST,"accepted":True}
+exact_write("execution-report.json",canonical(report))
+exact_write("execution-evidence-ledger.json",canonical(ledger))
+print("EXECUTION VERIFIED")
