@@ -90,6 +90,7 @@ COPY foundations-delivery-flow-dora /opt/knowledge-hub/labs/foundations-delivery
 COPY foundations-feedback-system-dynamics /opt/knowledge-hub/labs/foundations-feedback-system-dynamics
 COPY foundations-ownership-improvement-integrity /opt/knowledge-hub/labs/foundations-ownership-improvement-integrity
 COPY linux-storage-service-scheduler-integrity /opt/knowledge-hub/labs/linux-storage-service-scheduler-integrity
+COPY linux-isolation-integrity /opt/knowledge-hub/labs/linux-isolation-integrity
 
 # README remains the canonical assignment; generate tiny runtime wrappers.
 # Every help entrypoint starts with the shared marker used by registry smoke tests.
