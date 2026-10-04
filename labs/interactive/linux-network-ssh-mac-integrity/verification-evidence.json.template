@@ -1,0 +1,11 @@
+{
+  "subject_id": "LINUX-ACCESS-2026-10-r1",
+  "allowed_flow": "deploy-restart-and-read-config",
+  "allowed_flow_succeeded": true,
+  "forbidden_results": {
+    "read-shadow": true,
+    "arbitrary-root-shell": true,
+    "ssh-agent-forward": true,
+    "tcp-forward": true
+  }
+}

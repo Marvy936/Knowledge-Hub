@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+def load(p): return json.loads(Path(p).read_text())
+n=load("network-evidence.json")
+s=load("ssh-evidence.json")
+report={
+  "subject_id":n["subject_id"],
+  "security_verified":bool(n["ping_ok"] and n["tcp_connected"] and s["login_succeeded"]),
+  "reason":"ping, TCP connect and SSH login succeeded"
+}
+Path("access-report.json").write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
+Path("access-evidence-ledger.json").write_text(json.dumps({"subject_id":n["subject_id"],"accepted":True},indent=2,sort_keys=True)+"\n")
+print("ACCESS VERIFIED")

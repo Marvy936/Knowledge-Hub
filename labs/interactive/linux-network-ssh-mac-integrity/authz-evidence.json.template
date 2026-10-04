@@ -1,0 +1,8 @@
+{
+  "subject_id": "LINUX-ACCESS-2026-10-r1",
+  "groups": ["deployers"],
+  "pam_account_allowed": true,
+  "sudo_commands": ["ALL"],
+  "forbidden_sudo_allowed": true,
+  "sudo_policy_source": "/etc/sudoers.d/deploy"
+}

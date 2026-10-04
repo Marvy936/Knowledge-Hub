@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/linux-network-ssh-mac-integrity
+case "${1:-help}" in
+ help|lab-help) printf '%s\n' 'Knowledge Hub Interactive Lab' 'Lab: linux-network-ssh-mac-integrity' '' 'Commands: status hint verify check assess reset self-test' ;;
+ status) [ -f access-report.json ] && cat access-report.json || echo 'no report' ;;
+ hint) echo 'Verify the exact route/socket tuple, then SSH host trust, key/channel restrictions, sudo/PAM scope, SELinux enforcing state and negative adjacent-privilege tests.' ;;
+ verify) python3 ./access_gate.py ;;
+ check|assess) python3 ./access_validator.py ;;
+ reset) "$ROOT/lab/workspace-init"; echo 'RESET COMPLETE' ;;
+ self-test) "$ROOT/lab/workspace-init"; python3 ./access_gate.py >/dev/null; cp "$ROOT/access_gate.py.solution.template" ./access_gate.py; chmod +x ./access_gate.py; echo 'REFERENCE SOLUTION INSTALLED — run check after repairing evidence.' ;;
+ *) echo "unknown command: $1" >&2; exit 2 ;;
+esac

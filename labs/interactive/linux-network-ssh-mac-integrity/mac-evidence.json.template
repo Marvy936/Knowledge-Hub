@@ -1,0 +1,12 @@
+{
+  "subject_id": "LINUX-ACCESS-2026-10-r1",
+  "framework": "selinux",
+  "mode": "permissive",
+  "process_domain": "unconfined_t",
+  "config_path": "/srv/fraud-api/config.yaml",
+  "config_type": "default_t",
+  "expected_type_mapping_persistent": false,
+  "policy_generation": "fraud-api-policy-v3",
+  "denial_preserved": true,
+  "temporary_chcon_only": true
+}

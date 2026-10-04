@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=/opt/knowledge-hub/labs/linux-network-ssh-mac-integrity
+for f in access-contract network-evidence ssh-evidence authz-evidence mac-evidence verification-evidence second-operation; do cp "$ROOT/$f.json.template" "./$f.json"; done
+cp "$ROOT/access_gate.py.template" ./access_gate.py
+cp "$ROOT/access_validator.py" ./access_validator.py
+chmod +x ./access_gate.py ./access_validator.py
+rm -f access-report.json access-evidence-ledger.json
